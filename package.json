@@ -1,0 +1,23 @@
+{
+  "name": "at-store",
+  "version": "1.0.0",
+  "description": "At store website",
+  "type": "module",
+  "scripts": {
+    "client": "pnpm dev --prefix ../client/",
+    "server": "pnpm dev --prefix ../server/",
+    "dev": "pnpm concurrently \"cd server && pnpm develop\" \"npx wait-on http://localhost:1337 && cd client && pnpm dev\"",
+    "seed": "cd server && pnpm strapi import -f ../seed-data.tar.gz --force",
+    "export": "cd server && pnpm strapi export --no-encrypt -f ../seed-data",
+    "repo:upstream": "git fetch upstream && git merge upstream/main"
+  },
+  "dependencies": {
+    "@types/node": "^22.5.2",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.0.0",
+    "wait-on": "^8.0.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
