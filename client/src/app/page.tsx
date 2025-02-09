@@ -1,21 +1,63 @@
-import { Button } from "@/components/ui/button";
+import qs from "qs";
+import { notFound } from "next/navigation";
 
-export default function Home() {
+import { fetchAPI } from "@/lib/fetch-api";
+import { getStrapiURL } from "@/lib/utils";
+import { blockRenderer } from "@/lib/block-renderer";
+import { Block } from "@/lib/types";
+
+const homePageQuery = qs.stringify({
+  populate: {
+    blocks: {
+      on: {
+        "blocks.hero": {
+          populate: {
+            image: {
+              fields: ["url", "alternativeText"],
+            },
+            links: true,
+          },
+        },
+        "blocks.card-carousel": {
+          populate: {
+            cards: true,
+          },
+        },
+        "blocks.heading": true,
+      },
+    },
+  },
+});
+
+async function loader() {
+  // const authToken = process.env.STRAPI_API_TOKEN;
+  const BASE_URL = getStrapiURL();
+  const path = "/api/home-page";
+  const url = new URL(path, BASE_URL);
+
+  url.search = homePageQuery;
+
+  const data = await fetchAPI(url.href, {
+    method: "GET",
+  });
+
+  if (!data?.data) notFound();
+
+  const blocks = data?.data?.blocks || [];
+  return { blocks };
+}
+
+export default async function HomeRoute() {
+  // const data = await loader();
+  // const blocks = data.blocks;
   return (
     <div>
-      <h1 className="m-2 bg-red-300 text-blue-500">Hello World</h1>
-      <Button variant={"default"} className="bg-yellow-400">
-        Default
-      </Button>
-      <div className="flex gap-4">
-        <Button variant={"default"} size={"sm"}>
-          Small
-        </Button>
-        <Button variant={"default"}>Default</Button>
-        <Button variant={"default"} size={"lg"}>
-          Large
-        </Button>
-      </div>
+      <h1>Home page</h1>
     </div>
+    // <div>
+    //   {blocks.map((block: Block, index: number) => {
+    //     return blockRenderer(block, index);
+    //   })}
+    // </div>
   );
 }

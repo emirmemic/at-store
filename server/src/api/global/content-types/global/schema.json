@@ -5,31 +5,24 @@
     "singularName": "global",
     "pluralName": "globals",
     "displayName": "Global",
-    "description": "Define global settings"
+    "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "siteName": {
-      "type": "string",
-      "required": true
+    "title": {
+      "type": "string"
     },
-    "favicon": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": ["images", "files", "videos"]
+    "description": {
+      "type": "text"
     },
-    "siteDescription": {
-      "type": "text",
-      "required": true
-    },
-    "defaultSeo": {
+    "header": {
+      "displayName": "Header",
       "type": "component",
       "repeatable": false,
-      "component": "shared.seo"
+      "component": "elements.header"
     }
   }
 }
