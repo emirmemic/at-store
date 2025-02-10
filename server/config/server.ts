@@ -7,4 +7,12 @@ export default ({ env }) => ({
   app: {
     keys: env.array("APP_KEYS"),
   },
+  cors: {
+    enabled: true,
+    origin: env.array("CORS_ORIGIN", [
+      "http://localhost:3000",
+      "https://at-store-client.onrender.com",
+    ]),
+    credentials: true,
+  },
 });
