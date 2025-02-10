@@ -1,14 +1,11 @@
-import Link from "next/link";
-import { getStrapiURL } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { getStrapiURL } from "@/lib/utils";
+import Link from "next/link";
 
 export function AuthButton() {
   const backendUrl = getStrapiURL();
   const path = "/api/connect/google";
   const url = new URL(backendUrl + path);
-  console.log("URL", url);
-
-  // http://localhost:1337/api/connect/google
 
   return (
     <form>
@@ -16,7 +13,7 @@ export function AuthButton() {
         <Link
           href={url.href}
           aria-label="Sign in with Google"
-          className="border-button-border-light flex items-center rounded-md border bg-white p-0.5 pr-3"
+          className="border-button-border-light flex items-center rounded-md border p-0.5 pr-3"
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-l bg-white">
             <svg

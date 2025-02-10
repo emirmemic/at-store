@@ -1,4 +1,6 @@
-import { Header } from "@/components/custom/header";
+import { AuthButton } from "@/components/custom/auth/auth-button";
+import { AuthUserNavButton } from "@/components/custom/auth/auth-user-button";
+import { Button } from "@/components/ui/button";
 import { getUserMeLoader } from "@/lib/hooks/services/get-user-me-loader";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -35,7 +37,16 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header user={user} />
+        <div className="flex items-center justify-between p-4">
+          <h1>At Store</h1>
+          {user ? (
+            <AuthUserNavButton user={user} />
+          ) : (
+            <Button asChild>
+              <AuthButton />
+            </Button>
+          )}
+        </div>
         {children}
       </body>
     </html>
