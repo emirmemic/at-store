@@ -1,10 +1,11 @@
-import { AuthButton } from "@/components/custom/auth/auth-button";
+import { GoogleSignInButton } from "@/components/custom/auth/google-sign-in-button";
 import { AuthUserNavButton } from "@/components/custom/auth/auth-user-button";
 import { Button } from "@/components/ui/button";
 import { getUserMeLoader } from "@/lib/hooks/services/get-user-me-loader";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GithubSignInButton } from "@/components/custom/auth/github-sign-in-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +38,14 @@ export default async function RootLayout({
           {user?.data ? (
             <AuthUserNavButton user={user.data} />
           ) : (
-            <Button asChild>
-              <AuthButton />
-            </Button>
+            <>
+              <Button asChild>
+                <GoogleSignInButton />
+              </Button>
+              <Button asChild>
+                <GithubSignInButton />
+              </Button>
+            </>
           )}
         </div>
         {children}

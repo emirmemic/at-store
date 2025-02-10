@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { fetchAPI } from "@/lib/fetch-api";
 import { StrapiUserMeProps } from "@/lib/types";
 import Link from "next/link";
-import { AuthButton } from "../auth/auth-button";
+import { GoogleSignInButton } from "../auth/google-sign-in-button";
 import { AuthUserNavButton } from "../auth/auth-user-button";
 import { MobileNavbar } from "./mobile-navbar";
 import { NavLinkItem } from "./nav-link-item";
@@ -97,7 +97,7 @@ export async function Header({ user }: Readonly<StrapiUserMeProps>) {
                 <AuthUserNavButton user={user} />
               ) : (
                 <Button asChild>
-                  <AuthButton />
+                  <GoogleSignInButton />
                 </Button>
               )}
             </>
@@ -133,7 +133,7 @@ export async function Header({ user }: Readonly<StrapiUserMeProps>) {
                   <AuthUserNavButton user={user} />
                 ) : (
                   <Button asChild>
-                    <AuthButton />
+                    <GoogleSignInButton />
                   </Button>
                 )}
               </>

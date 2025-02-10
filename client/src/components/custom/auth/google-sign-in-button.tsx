@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { getStrapiURL } from "@/lib/utils";
 import Link from "next/link";
 
-export function AuthButton() {
+export function GoogleSignInButton() {
   const backendUrl = getStrapiURL();
   const path = "/api/connect/google";
   const url = new URL(backendUrl + path);
