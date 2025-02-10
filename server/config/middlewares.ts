@@ -1,32 +1,22 @@
 export default [
+  "strapi::logger",
   "strapi::errors",
   {
     name: "strapi::security",
     config: {
-      contentSecurityPolicy: {
-        useDefaults: true,
-        directives: {
-          "connect-src": ["'self'", "https:"],
-          "img-src": ["'self'", "data:", "blob:", "https:"],
-          "media-src": ["'self'", "data:", "blob:", "https:"],
-          upgradeInsecureRequests: null,
-        },
-      },
       cors: {
-        enabled: true,
         origin: [
-          "http://localhost:3000",
           "https://at-store-client.onrender.com",
+          "http://localhost:3000",
         ],
-        credentials: true,
+        headers: ["*"],
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
-        headers: ["Content-Type", "Authorization", "Origin", "Accept"],
+        credentials: true,
       },
     },
   },
   "strapi::cors",
   "strapi::poweredBy",
-  "strapi::logger",
   "strapi::query",
   "strapi::body",
   "strapi::session",
