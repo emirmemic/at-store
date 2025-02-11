@@ -4,15 +4,7 @@ export default [
   {
     name: "strapi::security",
     config: {
-      cors: {
-        origin: [
-          "https://at-store-client.onrender.com",
-          "http://localhost:3000",
-        ],
-        headers: ["*"],
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"],
-        credentials: true,
-      },
+      proxy: true, // ← Important for Render.com proxy
     },
   },
   "strapi::cors",
