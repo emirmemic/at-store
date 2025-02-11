@@ -1,5 +1,9 @@
 export default ({ env }) => ({
   "users-permissions": {
+    jwt: {
+      expiresIn: "7d",
+      secure: process.env.NODE_ENV === "production",
+    },
     config: {
       jwtSecret: env("JWT_SECRET"),
       // providers: {
