@@ -1,0 +1,22 @@
+{
+  "name": "at-store",
+  "version": "1.0.0",
+  "description": "at-store website: Strapi with Next.js 15",
+  "type": "module",
+  "scripts": {
+    "client": "npm run dev --prefix client",
+    "server": "npm run develop --prefix server",
+    "setup": "npm install --prefix client && npm install --prefix server",
+    "dev": "concurrently \"cd server && npm run develop\" \"npx wait-on http://localhost:1337 && cd client && npm run dev\"",
+    "seed": "cd server && npm run strapi import -f ../seed-data.tar.gz --force"
+  },
+  "dependencies": {
+    "@types/node": "^20",
+    "concurrently": "^8.2.2",
+    "typescript": "^5",
+    "wait-on": "^8.0.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
