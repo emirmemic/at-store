@@ -51,9 +51,7 @@ export default async function HomeRoute() {
   // const data = await loader();
   // const blocks = data.blocks;
   return (
-    <div>
-      <h1>Home page</h1>
-    </div>
+    <div>HomePage</div>
     // <div>
     //   {blocks.map((block: Block, index: number) => {
     //     return blockRenderer(block, index);

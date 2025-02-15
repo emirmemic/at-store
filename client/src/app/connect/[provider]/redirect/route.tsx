@@ -1,4 +1,4 @@
-import { getStrapiURL } from "@/lib/utils";
+import { getStrapiURL } from "@/lib/utils/utils";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 

@@ -1,10 +1,8 @@
 export default ({ env }) => ({
   "users-permissions": {
-    jwt: {
-      expiresIn: "7d",
-      secure: process.env.NODE_ENV === "production",
-    },
     config: {
+      secure: process.env.NODE_ENV === "production",
+      expiresIn: "7d",
       jwtSecret: env("JWT_SECRET"),
       // providers: {
       //   google: {

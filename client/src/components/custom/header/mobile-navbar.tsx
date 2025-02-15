@@ -1,6 +1,6 @@
 "use client";
 
-import { useLockBody } from "@/lib/hooks/use-lock-body";
+import { useLockBody } from "@/lib/hooks";
 import { Menu, X } from "lucide-react";
 import { ReactNode, useState } from "react";
 

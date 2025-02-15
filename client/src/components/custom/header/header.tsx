@@ -1,15 +1,15 @@
-import { getStrapiURL } from "@/lib/utils";
+import { getStrapiURL } from "@/lib/utils/utils";
 import qs from "qs";
 
 import { Button } from "@/components/ui/button";
 import { fetchAPI } from "@/lib/fetch-api";
-import { StrapiUserMeProps } from "@/lib/types";
+import { log } from "console";
 import Link from "next/link";
-import { GoogleSignInButton } from "../auth/google-sign-in-button";
 import { AuthUserNavButton } from "../auth/auth-user-button";
+import { GoogleSignInButton } from "../auth/google-sign-in-button";
 import { MobileNavbar } from "./mobile-navbar";
 import { NavLinkItem } from "./nav-link-item";
-import { log } from "console";
+import { UserInformationProps } from "@/lib/types/auth";
 
 const globalPageQuery = qs.stringify({
   populate: {
@@ -45,7 +45,7 @@ interface NavItem {
   isExternal: boolean;
 }
 
-export async function Header({ user }: Readonly<StrapiUserMeProps>) {
+export async function Header({ user }: Readonly<UserInformationProps>) {
   const data = await loader();
   const { logoText, navItems, cta, showSignUp } = data;
   log(data);

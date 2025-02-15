@@ -1,3 +1,4 @@
+import { getStrapiURL } from "@/lib/utils/utils";
 import Image from "next/image";
 
 interface StrapiImageProps {
@@ -10,16 +11,11 @@ interface StrapiImageProps {
   priority?: boolean;
 }
 
-const STRAPI_API_URL =
-  process.env.NODE_ENV === "production"
-    ? process.env.STRAPI_API_URL
-    : "http://localhost:1337";
-
 export function getStrapiMedia(url: string | null) {
   if (url == null) return null;
   if (url.startsWith("data:")) return url;
   if (url.startsWith("http") || url.startsWith("//")) return url;
-  return `${STRAPI_API_URL}${url}`;
+  return `${getStrapiURL}${url}`;
 }
 
 export function StrapiImage({

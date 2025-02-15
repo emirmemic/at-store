@@ -1,13 +1,16 @@
-import type { LinkProps, ImageProps } from "./base";
-import type { CardCarouselProps, HeroProps, HeadingProps, Block } from "./blocks";
-import type { StrapiUserMeProps } from "./user";
+import type { ImageProps, LinkProps } from "./base";
+import type {
+  Block,
+  CardCarouselProps,
+  HeadingProps,
+  HeroProps,
+} from "./blocks";
 
 export type {
-  LinkProps,
-  ImageProps,
-  CardCarouselProps,
-  HeroProps,
-  HeadingProps,
   Block,
-  StrapiUserMeProps
+  CardCarouselProps,
+  HeadingProps,
+  HeroProps,
+  ImageProps,
+  LinkProps,
 };

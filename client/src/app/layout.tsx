@@ -1,11 +1,11 @@
-import { GoogleSignInButton } from "@/components/custom/auth/google-sign-in-button";
 import { AuthUserNavButton } from "@/components/custom/auth/auth-user-button";
+import { GoogleSignInButton } from "@/components/custom/auth/google-sign-in-button";
 import { Button } from "@/components/ui/button";
-import { getUserMeLoader } from "@/lib/hooks/services/get-user-me-loader";
+import { getUser } from "@/lib/hooks/services";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
-import { GithubSignInButton } from "@/components/custom/auth/github-sign-in-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,24 +27,27 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getUserMeLoader();
+  const user = await getUser();
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="flex items-center justify-between p-4">
-          <h1>At Store</h1>
-          {user?.data ? (
-            <AuthUserNavButton user={user.data} />
+          <Link href={"/"}>Home page</Link>
+          {user ? (
+            <AuthUserNavButton user={user} />
           ) : (
             <>
+              <Link href={"/login"} className="">
+                login
+              </Link>
               <Button asChild>
                 <GoogleSignInButton />
               </Button>
-              <Button asChild>
+              {/* <Button asChild>
                 <GithubSignInButton />
-              </Button>
+              </Button> */}
             </>
           )}
         </div>

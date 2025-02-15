@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { getStrapiURL } from "@/lib/utils";
+import { getStrapiURL } from "@/lib/utils/utils";
 import Link from "next/link";
 
 export function GoogleSignInButton() {
