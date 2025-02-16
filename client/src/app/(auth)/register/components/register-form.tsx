@@ -2,7 +2,7 @@
 
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/lib/hooks/services";
+import { useAuth } from "@/lib/hooks";
 import { registerSchema } from "@/lib/schemas/auth";
 import Link from "next/link";
 import { useState } from "react";
