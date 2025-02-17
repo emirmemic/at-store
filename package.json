@@ -4,11 +4,17 @@
   "description": "at-store website: Strapi with Next.js 15",
   "type": "module",
   "scripts": {
-    "client": "npm run dev --prefix client",
-    "server": "npm run develop --prefix server",
     "setup": "npm install --prefix client && npm install --prefix server",
+    "seed": "cd server && npm run strapi import -f ../seed-data.tar.gz --force",
+    "client": "npm run dev --prefix client",
+    "build-client": "npm run build --prefix client",
+    "start-client": "npm run start --prefix client",
+    "server": "npm run develop --prefix server",
+    "build-server": "npm run build --prefix server",
+    "start-server": "npm run start --prefix server",
     "dev": "concurrently \"cd server && npm run develop\" \"npx wait-on http://localhost:1337 && cd client && npm run dev\"",
-    "seed": "cd server && npm run strapi import -f ../seed-data.tar.gz --force"
+    "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\""
   },
   "dependencies": {
     "@types/node": "^20",
