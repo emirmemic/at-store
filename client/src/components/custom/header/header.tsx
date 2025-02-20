@@ -3,13 +3,12 @@ import qs from "qs";
 
 import { Button } from "@/components/ui/button";
 import { fetchAPI } from "@/lib/fetch-api";
-import { log } from "console";
+import { UserInformationProps } from "@/lib/types/auth";
 import Link from "next/link";
 import { AuthUserNavButton } from "../auth/auth-user-button";
 import { GoogleSignInButton } from "../auth/google-sign-in-button";
 import { MobileNavbar } from "./mobile-navbar";
 import { NavLinkItem } from "./nav-link-item";
-import { UserInformationProps } from "@/lib/types/auth";
 
 const globalPageQuery = qs.stringify({
   populate: {
@@ -48,7 +47,6 @@ interface NavItem {
 export async function Header({ user }: Readonly<UserInformationProps>) {
   const data = await loader();
   const { logoText, navItems, cta, showSignUp } = data;
-  log(data);
 
   return (
     <header className="container flex items-center justify-between gap-10 py-4">

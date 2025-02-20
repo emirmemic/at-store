@@ -5,19 +5,20 @@ import { getAuthToken } from "./lib/hooks/services";
 type ProtectedRoutes = "/account";
 type AuthRoutes = "/login" | "/register";
 
+const AUTH_ROUTES: AuthRoutes[] = ["/login", "/register"];
+const PROTECTED_ROUTES: ProtectedRoutes[] = ["/account"];
+
 /**
  * Checks if the given pathname is an authentication route
  */
-const isAuthRoute = (pathname: string): pathname is AuthRoutes => {
-  return ["/login", "/register"].includes(pathname);
-};
+const isAuthRoute = (pathname: string): pathname is AuthRoutes =>
+  AUTH_ROUTES.includes(pathname as AuthRoutes);
 
 /**
  * Checks if the given pathname is a protected route
  */
-const isProtectedRoute = (pathname: string): pathname is ProtectedRoutes => {
-  return pathname === "/account";
-};
+const isProtectedRoute = (pathname: string): pathname is ProtectedRoutes =>
+  PROTECTED_ROUTES.includes(pathname as ProtectedRoutes);
 
 /**
  * Middleware to handle authentication-based routing

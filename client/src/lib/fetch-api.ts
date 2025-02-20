@@ -130,5 +130,7 @@ export async function fetchAPI<T = unknown>(
       };
     }
     throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
