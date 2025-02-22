@@ -3,9 +3,6 @@ export default [
   "strapi::errors",
   {
     name: "strapi::security",
-    config: {
-      proxy: true, // ← Important for Render.com proxy
-    },
   },
   "strapi::cors",
   "strapi::poweredBy",
