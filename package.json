@@ -14,7 +14,9 @@
     "setup": "npm install && npm install --prefix client && npm install --prefix server",
     "dev": "concurrently \"cd server && npm run develop\" \"npx wait-on http://localhost:1337 && cd client && npm run dev\"",
     "build": "concurrently \"npm run build-server\" \"npm run build-client\"",
-    "start": "concurrently \"npm run start-server\" \"npm run start-client\""
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+    "deploy-server": "pm2 start npm --name server -- run start",
+    "deploy-client": "pm2 start npm --name client -- run start"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
