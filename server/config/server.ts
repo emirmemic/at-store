@@ -3,7 +3,7 @@ export default ({ env }) => ({
   port: env.int("PORT", 1337),
   url: env(
     process.env.NODE_ENV === "production"
-      ? "PUBLIC_URL"
+      ? process.env.PUBLIC_URL
       : "http://localhost:1337"
   ),
   app: {
