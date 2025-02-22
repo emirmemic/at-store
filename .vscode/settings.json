@@ -1,4 +1,7 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "terminal.integrated.defaultProfile.windows": "PowerShell"
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "cSpell.words": [
+    "STRAPI"
+  ]
 }
