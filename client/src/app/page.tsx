@@ -51,7 +51,10 @@ export default async function HomeRoute() {
   // const data = await loader();
   // const blocks = data.blocks;
   return (
-    <div>HomePage</div>
+    <div className="font-sfPro text-heading3 font-black tracking-default text-blue-primary">
+      Pogledajte sve kategorije
+    </div>
+
     // <div>
     //   {blocks.map((block: Block, index: number) => {
     //     return blockRenderer(block, index);

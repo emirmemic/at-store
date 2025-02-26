@@ -3,19 +3,9 @@ import { GoogleSignInButton } from "@/components/custom/auth/google-sign-in-butt
 import { Button } from "@/components/ui/button";
 import { getUser } from "@/lib/hooks/services";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import { SF_Pro } from "./fonts/fonts";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,9 +20,7 @@ export default async function RootLayout({
   const user = await getUser();
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${SF_Pro.variable}`}>
         <div className="flex items-center justify-between p-4">
           <Link href={"/"}>Home page</Link>
           {user ? (
