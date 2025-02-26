@@ -3,5 +3,10 @@
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   "cSpell.words": [
     "STRAPI"
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
 }
