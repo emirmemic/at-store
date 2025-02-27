@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { HeroProps } from "@/lib/types";
-import Link from "next/link";
-import { StrapiImage } from "../custom/strapi-image";
+import { Button } from '@/components/ui/button';
+import { HeroProps } from '@/lib/types';
+import Link from 'next/link';
+import { StrapiImage } from '../strapi-image';
 export function Hero({
   subHeading,
   heading,
@@ -35,7 +35,7 @@ export function Hero({
               >
                 <Link
                   href={link.href}
-                  target={link.isExternal ? "_blank" : "_self"}
+                  target={link.isExternal ? '_blank' : '_self'}
                   rel="noopener noreferrer"
                   prefetch
                 >

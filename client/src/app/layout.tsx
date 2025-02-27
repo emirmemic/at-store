@@ -1,5 +1,5 @@
-import { AuthUserNavButton } from '@/components/custom/auth/auth-user-button';
-import { GoogleSignInButton } from '@/components/custom/auth/google-sign-in-button';
+import { AuthUserNavButton } from '@/components/auth/auth-user-button';
+import { GoogleSignInButton } from '@/components/auth/google-sign-in-button';
 import { Button } from '@/components/ui/button';
 import { getUser } from '@/lib/hooks/services';
 import type { Metadata } from 'next';

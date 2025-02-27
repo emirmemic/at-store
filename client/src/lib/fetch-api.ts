@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 /**
  * Next.js specific fetch request configuration
@@ -11,7 +11,7 @@ type NextFetchRequestConfig = {
 };
 
 interface FetchAPIOptions {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   authToken?: string;
   body?: Record<string, unknown>;
   /** Next.js cache configuration for the request */
@@ -42,7 +42,7 @@ type APIResponse<T = unknown> = {
  */
 const handleSuccessResponse = <T>(
   response: Response,
-  responseData: T,
+  responseData: T
 ): APIResponse<T> => ({
   status: response.status,
   statusText: response.statusText,
@@ -57,7 +57,7 @@ const handleSuccessResponse = <T>(
  */
 const handleErrorResponse = (
   response: Response,
-  responseData: { error: StrapiError },
+  responseData: { error: StrapiError }
 ): APIResponse => ({
   status: response.status,
   statusText: response.statusText,
@@ -73,7 +73,7 @@ const handleErrorResponse = (
  */
 export async function fetchAPI<T = unknown>(
   url: string,
-  options: FetchAPIOptions,
+  options: FetchAPIOptions
 ): Promise<APIResponse<T>> {
   const { method, authToken, body, next, timeout = 8000 } = options;
 
@@ -83,7 +83,7 @@ export async function fetchAPI<T = unknown>(
   const headers: RequestInit = {
     method,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...(authToken && { Authorization: `Bearer ${authToken}` }),
     },
     ...(body && { body: JSON.stringify(body) }),
@@ -95,18 +95,18 @@ export async function fetchAPI<T = unknown>(
     const response = await fetch(url, headers);
     clearTimeout(timeoutId);
 
-    const contentType = response.headers.get("content-type");
-    const isJson = contentType?.includes("application/json");
+    const contentType = response.headers.get('content-type');
+    const isJson = contentType?.includes('application/json');
 
     if (!isJson) {
-      throw new Error("Invalid response format");
+      throw new Error('Invalid response format');
     }
 
     const responseData = await response.json();
 
     // Check for unauthorized status and redirect
     if (response.status === 401 || response.status === 403) {
-      redirect("/login");
+      redirect('/login');
     }
 
     return response.ok
@@ -117,7 +117,7 @@ export async function fetchAPI<T = unknown>(
       return {
         status: 500,
         statusText: error.message,
-        type: "error",
+        type: 'error',
         error: {
           status: 500,
           name: error.name,

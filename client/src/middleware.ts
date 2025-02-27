@@ -1,12 +1,12 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { getAuthToken } from "./lib/hooks/services";
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import { getAuthToken } from './lib/hooks/services';
 
-type ProtectedRoutes = "/account";
-type AuthRoutes = "/login" | "/register";
+type ProtectedRoutes = '/account';
+type AuthRoutes = '/login' | '/register';
 
-const AUTH_ROUTES: AuthRoutes[] = ["/login", "/register"];
-const PROTECTED_ROUTES: ProtectedRoutes[] = ["/account"];
+const AUTH_ROUTES: AuthRoutes[] = ['/login', '/register'];
+const PROTECTED_ROUTES: ProtectedRoutes[] = ['/account'];
 
 /**
  * Checks if the given pathname is an authentication route
@@ -30,16 +30,16 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (authToken && isAuthRoute(pathname)) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   if (!authToken && isProtectedRoute(pathname)) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/login", "/register", "/account"],
+  matcher: ['/login', '/register', '/account'],
 };
