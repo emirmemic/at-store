@@ -1,100 +1,173 @@
-import type { Config } from "tailwindcss";
-import animate from "tailwindcss-animate";
+import type { Config } from 'tailwindcss';
+import animate from 'tailwindcss-animate';
+import { PluginAPI } from 'tailwindcss/types/config';
 
 export default {
-  darkMode: ["class"],
+  darkMode: ['class'],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sf_pro: ['var(--font-sf-pro)', 'sans-serif'],
+        sf_pro_text: ['var(--font-sf-pro-text)', 'sans-serif'],
+      },
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
         chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
+          '1': 'hsl(var(--chart-1))',
+          '2': 'hsl(var(--chart-2))',
+          '3': 'hsl(var(--chart-3))',
+          '4': 'hsl(var(--chart-4))',
+          '5': 'hsl(var(--chart-5))',
         },
         blue: {
-          primary: "#3577e5",
-          dark: "#0d3372",
-          light: "#e5edf1",
+          primary: '#3577e5',
+          dark: '#0d3372',
+          light: '#e5edf1',
         },
-        black: "#000000",
-        gray: "#968c8c",
-        white: "#ffffff",
-      },
-      fontSize: {
-        display: "64px",
-        heading1: "48px",
-        heading2: "40px",
-        heading3: "36px",
-        heading4: "24px",
-        heading5: "16px",
-        paragraph1: "24px",
-        paragraph2: "16px",
-        paragraph3: "12px",
-        paragraph4: "10px",
-        paragraph5: "13px",
-        paragraph6: "11px",
-        button1: "16px",
-        button2: "11px",
-      },
-      lineHeight: {
-        l: "50px",
-        m: "35px",
-        s: "30px",
-      },
-      letterSpacing: {
-        default: ".6px",
+        black: '#000000',
+        gray: '#968c8c',
+        white: '#ffffff',
       },
       boxShadow: {
         insetBlack:
-          "inset 0 4px 4px 0 rgba(0 0 0 / 0.35), inset 0 -4px 4px 0 rgba(255 255 255 / 0.16)",
-        largeBlack: "0 4px 4px 5px rgba(0 0 0 / 0.35)",
+          'inset 0 4px 4px 0 rgba(0 0 0 / 0.35), inset 0 -4px 4px 0 rgba(255 255 255 / 0.16)',
+        largeBlack: '0 4px 4px 5px rgba(0 0 0 / 0.35)',
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - .125rem)",
-        sm: "calc(var(--radius) - .25rem)",
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - .125rem)',
+        sm: 'calc(var(--radius) - .25rem)',
       },
     },
   },
-  plugins: [animate],
+  plugins: [
+    animate,
+    function ({ addUtilities }: PluginAPI) {
+      addUtilities({
+        '.typography-heading': {
+          letterSpacing: 'var(--letter-spacing-default)',
+          fontWeight: '700',
+          lineHeight: 'var(--line-height-xlarge)',
+        },
+        '.typography-button': {
+          fontFamily: 'var(--font-sf-pro-text)',
+          letterSpacing: 'var(--letter-spacing-default)',
+          fontWeight: '600',
+          lineHeight: 'var(--line-height-small)',
+        },
+        '.typography-paragraph': {
+          letterSpacing: 'var(--letter-spacing-default)',
+          lineHeight: 'var(--line-height-small)',
+          fontWeight: '400',
+        },
+        '.display': {
+          '@apply typography-heading': {},
+          fontSize: '64px',
+          fontFamily: 'var(--font-sf-pro-text)',
+        },
+        '.heading-1': {
+          '@apply typography-heading': {},
+          fontSize: '48px',
+        },
+        '.heading-2': {
+          '@apply typography-heading': {},
+          fontSize: '40px',
+        },
+        '.heading-3': {
+          '@apply typography-heading': {},
+          fontSize: '36px',
+        },
+        '.heading-3-regular': {
+          '@apply typography-heading': {},
+          fontWeight: '400',
+          fontSize: '36px',
+        },
+        '.heading-4': {
+          '@apply typography-heading': {},
+          fontSize: '24px',
+          lineHeight: '40px',
+        },
+        '.heading5': {
+          '@apply typography-heading': {},
+          fontSize: '16px',
+          lineHeight: '30px',
+        },
+        '.paragraph-1': {
+          '@apply typography-paragraph': {},
+          lineHeight: 'var(--line-height-large)',
+          fontSize: '24px',
+        },
+        '.paragraph-2': {
+          '@apply typography-paragraph': {},
+          lineHeight: 'var(--line-height-medium)',
+          fontWeight: '500',
+          fontSize: '16px',
+        },
+        '.paragraph-3': {
+          '@apply typography-paragraph': {},
+          fontWeight: '500',
+          fontSize: '12px',
+        },
+        '.paragraph-4': {
+          '@apply typography-paragraph': {},
+          fontWeight: '500',
+          fontSize: '10px',
+        },
+        '.paragraph-5': {
+          '@apply typography-paragraph': {},
+          fontWeight: '900',
+          fontSize: '13px',
+        },
+        '.paragraph-6': {
+          '@apply typography-paragraph': {},
+          fontSize: '11px',
+        },
+        '.button-1': {
+          '@apply typography-button': {},
+          fontSize: '16px',
+        },
+        '.button-2': {
+          '@apply typography-button': {},
+          fontSize: '11px',
+        },
+      });
+    },
+  ],
 } satisfies Config;

@@ -3,12 +3,22 @@
 @tailwind utilities;
 
 html {
-  font-family: var(--font-sf-pro);
+  font-family: var(--sf-pro);
 }
 
 
 @layer base {
   :root {
+    /* Typography variables */
+    --sf-pro: var(--font-sf-pro);
+    --sf-pro-text: var(--font-sf-pro-text);
+    --letter-spacing-default: .6px;
+    --line-height-small: 16px;
+    --line-height-medium: 20px;
+    --line-height-large: 35px;
+    --line-height-xlarge: 50px;
+
+    /* Shadcn variables */
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -33,7 +43,7 @@ html {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 8px;
   }
 
   .dark {
@@ -67,7 +77,6 @@ html {
 @layer base {
   * {
     @apply border-border;
-
   }
 
   body {

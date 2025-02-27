@@ -51,10 +51,22 @@ export default async function HomeRoute() {
   // const data = await loader();
   // const blocks = data.blocks;
   return (
-    <div className="font-sfPro text-heading3 font-black tracking-default text-blue-primary">
-      Pogledajte sve kategorije
-    </div>
-
+    <>
+      <div className="display text-blue-dark">Display</div>
+      <div className="heading-1 text-blue-dark">Heading 1</div>
+      <div className="heading-2 text-blue-dark">Heading 2</div>
+      <div className="heading-3 text-blue-dark">Heading 3</div>
+      <div className="heading-3-regular text-blue-dark">Heading 3 Regular</div>
+      <div className="heading-4 text-blue-dark">Heading 4</div>
+      <div className="paragraph-1 text-blue-dark">Paragraph 1</div>
+      <div className="paragraph-2 text-blue-dark">Paragraph 2</div>
+      <div className="paragraph-3 text-blue-dark">Paragraph 3</div>
+      <div className="paragraph-4 text-blue-dark">Paragraph 4</div>
+      <div className="paragraph-5 text-blue-dark">Paragraph 5</div>
+      <div className="paragraph-6 text-blue-dark">Paragraph 6</div>
+      <div className="button-1 text-blue-dark">Button 1</div>
+      <div className="button-2 text-blue-dark">Button 2</div>
+    </>
     // <div>
     //   {blocks.map((block: Block, index: number) => {
     //     return blockRenderer(block, index);
