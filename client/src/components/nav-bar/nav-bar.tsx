@@ -8,23 +8,23 @@ import {
   IconLogout,
   IconSearch,
   IconUser,
-} from '@/components/custom/nav-bar/icons';
+} from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 
 import Logo from './components/nav-bar-logo';
-import NavMenu from './components/nav-links';
+import NavLinks from './components/nav-links';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full bg-black px-2 py-1">
+    <nav className="md:paragraph-3 heading-4 fixed w-full bg-black px-2 py-1">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Logo />
         {/* Desktop Menu */}
         <div className="hidden md:flex">
-          <NavMenu />
+          <NavLinks />
         </div>
         {/* navbar-icons */}
         <div className="hidden items-center justify-center gap-2 md:flex">
@@ -48,9 +48,7 @@ export default function Navbar() {
       {isOpen && (
         <div className="flex flex-col bg-black md:hidden">
           <div className="flex items-center justify-between px-6 pt-4">
-            <div className="flex size-14 rounded-full bg-blue-500 text-white">
-              temp avatar
-            </div>
+            <div className="flex size-14 rounded-full bg-blue-500 text-white" />
             {/* nav-bar-icon */}
             <div className="flex gap-7">
               <IconSearch />
@@ -59,11 +57,11 @@ export default function Navbar() {
             </div>
           </div>
           <div>
-            <NavMenu />
+            <NavLinks />
           </div>
 
-          <div className="heading-4 flex justify-center gap-2 pb-8 pt-10 text-center text-2xl text-white">
-            Prijavi se <IconLogout />
+          <div className="flex items-center justify-center gap-2 pb-8 pt-10 text-white">
+            Odjavi se <IconLogout />
           </div>
         </div>
       )}

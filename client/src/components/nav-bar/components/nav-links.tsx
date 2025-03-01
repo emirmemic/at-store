@@ -1,9 +1,9 @@
 'use client';
+
+import { NavLinkItem } from '@/components/nav-bar/components/nav-link-item';
 import { LinkProps } from '@/lib/types';
 
-import { NavLinkItem } from '../../header/nav-link-item';
-
-export default function NavMenu() {
+export default function NavLinks() {
   const navLinks: Array<LinkProps> = [
     {
       id: 1,
@@ -55,7 +55,7 @@ export default function NavMenu() {
     },
   ];
   return (
-    <nav className="flex flex-col justify-center gap-4 md:flex-row">
+    <nav className="flex flex-col items-center justify-center gap-4 md:flex-row">
       {navLinks.map((link, index) => (
         <NavLinkItem key={index} href={link.href}>
           {link.label}
