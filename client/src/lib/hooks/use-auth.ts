@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { useRouter } from '@/i18n/routing';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { LoginFormData, RegisterFormData } from '@/lib/schemas/auth';

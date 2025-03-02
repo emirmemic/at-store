@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import { UserInformationProps } from '@/lib/types/auth';
 
 import { AuthLogoutButton } from './auth-logout-button';

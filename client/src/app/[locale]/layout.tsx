@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import {
@@ -12,6 +11,7 @@ import { GoogleSignInButton } from '@/components/auth/google-sign-in-button';
 import { IconHome } from '@/components/icons/home';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import { routing, type Locale } from '@/i18n/routing';
 import { getUser } from '@/lib/hooks/services';
 
