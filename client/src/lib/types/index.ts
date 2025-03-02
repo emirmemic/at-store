@@ -1,10 +1,10 @@
-import type { ImageProps, LinkProps } from "./base";
+import type { ImageProps, LinkProps } from './base';
 import type {
   Block,
   CardCarouselProps,
   HeadingProps,
   HeroProps,
-} from "./blocks";
+} from './blocks';
 
 export type {
   Block,

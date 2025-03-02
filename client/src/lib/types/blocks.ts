@@ -1,12 +1,11 @@
-import { LinkProps, ImageProps } from "./base";
+import { LinkProps, ImageProps } from './base';
 
-type ComponentType =
-  | "blocks.hero"
-  | "blocks.heading"
-  | "blocks.card-carousel"
+type ComponentType = 'blocks.hero' | 'blocks.heading' | 'blocks.card-carousel';
 
-
-interface Base<T extends ComponentType, D extends object = Record<string, unknown>> {
+interface Base<
+  T extends ComponentType,
+  D extends object = Record<string, unknown>,
+> {
   id: number;
   __component?: T;
   documentId?: string;
@@ -16,12 +15,9 @@ interface Base<T extends ComponentType, D extends object = Record<string, unknow
   data?: D;
 }
 
-export type Block =
-  | HeroProps
-  | HeadingProps
-  | CardCarouselProps
+export type Block = HeroProps | HeadingProps | CardCarouselProps;
 
-export interface HeroProps extends Base<"blocks.hero"> {
+export interface HeroProps extends Base<'blocks.hero'> {
   subHeading: string;
   heading: string;
   text: string;
@@ -37,16 +33,13 @@ export interface CardCarouselItem {
   icon: string;
 }
 
-export interface CardCarouselProps extends Base<"blocks.card-carousel"> {
+export interface CardCarouselProps extends Base<'blocks.card-carousel'> {
   cards: CardCarouselItem[];
 }
 
-export interface HeadingProps extends Base<"blocks.heading"> {
+export interface HeadingProps extends Base<'blocks.heading'> {
   heading: string;
   subHeading: string;
   text?: string;
   linkId?: string;
 }
-
-
-

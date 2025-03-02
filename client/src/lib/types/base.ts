@@ -12,4 +12,10 @@ interface ImageProps {
   alternativeText: string | null;
 }
 
-export type { ImageProps, LinkProps };
+interface IconProps extends React.SVGAttributes<SVGElement> {
+  children?: React.ReactNode;
+  size?: number;
+  className?: string;
+}
+
+export type { ImageProps, LinkProps, IconProps };

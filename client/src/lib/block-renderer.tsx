@@ -1,12 +1,13 @@
-import { CardCarousel } from "@/components/blocks/card-carousel";
-import { Heading } from "@/components/blocks/heading";
-import { Hero } from "@/components/blocks/hero";
-import { Block } from "./types";
+import { CardCarousel } from '@/components/blocks/card-carousel';
+import { Heading } from '@/components/blocks/heading';
+import { Hero } from '@/components/blocks/hero';
+
+import { Block } from './types';
 
 const BLOCK_COMPONENTS = {
-  "blocks.hero": Hero,
-  "blocks.card-carousel": CardCarousel,
-  "blocks.heading": Heading,
+  'blocks.hero': Hero,
+  'blocks.card-carousel': CardCarousel,
+  'blocks.heading': Heading,
 } as const;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

@@ -6,20 +6,20 @@ import {
   LucideIcon,
   Palette,
   Sparkles,
-} from "lucide-react";
+} from 'lucide-react';
 
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from '@/components/ui/carousel';
 import {
   CardCarouselItem as CardCarouselItemType,
   CardCarouselProps,
-} from "@/lib/types/blocks";
+} from '@/lib/types/blocks';
 
 function iconLookup(icon: string) {
   return {
@@ -80,7 +80,7 @@ export function CardCarousel({ cards }: CardCarouselProps) {
   return (
     <section className="container flex flex-col items-center gap-6 py-24 sm:gap-7">
       <Carousel
-        opts={{ loop: true, align: "start" }}
+        opts={{ loop: true, align: 'start' }}
         className="mt-6 w-full px-4 xl:px-0"
       >
         <CarouselPrevious className="-left-6 size-7 xl:-left-12 xl:size-8" />

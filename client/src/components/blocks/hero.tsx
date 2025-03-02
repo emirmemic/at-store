@@ -1,6 +1,8 @@
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import { HeroProps } from '@/lib/types';
-import Link from 'next/link';
+
 import { StrapiImage } from '../strapi-image';
 export function Hero({
   subHeading,

@@ -1,10 +1,11 @@
-import { STRAPI_BASE_URL } from "@/lib/constants";
-import { fetchAPI } from "@/lib/fetch-api";
-import { LoginFormData, RegisterFormData } from "@/lib/schemas/auth";
-import { AuthError, AuthResponse } from "@/lib/types/auth";
-import { setJwtCookie } from "@/lib/utils/auth";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+import { STRAPI_BASE_URL } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
+import { LoginFormData, RegisterFormData } from '@/lib/schemas/auth';
+import { AuthError, AuthResponse } from '@/lib/types/auth';
+import { setJwtCookie } from '@/lib/utils/auth';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -18,12 +19,12 @@ export const useAuth = () => {
     const res = await fetchAPI<AuthResponse>(
       `${STRAPI_BASE_URL}/api/auth/local`,
       {
-        method: "POST",
+        method: 'POST',
         body: {
           identifier: data.email,
           password: data.password,
         },
-      },
+      }
     );
 
     if (res.error) {
@@ -35,7 +36,7 @@ export const useAuth = () => {
     const jwt = res.data?.jwt;
     if (jwt) {
       setJwtCookie(jwt);
-      router.push("/");
+      router.push('/');
       router.refresh();
       setIsLoading(false);
       return true;
@@ -51,13 +52,13 @@ export const useAuth = () => {
     const res = await fetchAPI<AuthResponse>(
       `${STRAPI_BASE_URL}/api/auth/local/register`,
       {
-        method: "POST",
+        method: 'POST',
         body: {
           username: data.username,
           email: data.email,
           password: data.password,
         },
-      },
+      }
     );
 
     if (res.error) {
@@ -67,7 +68,7 @@ export const useAuth = () => {
     }
 
     setIsLoading(false);
-    router.push("/login");
+    router.push('/login');
     return true;
   };
 

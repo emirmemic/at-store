@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { getStrapiURL } from "@/lib/utils/utils";
-import Link from "next/link";
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { getStrapiURL } from '@/lib/utils/utils';
 
 export function GithubSignInButton() {
   const backendUrl = getStrapiURL();
-  const path = "/api/connect/github";
+  const path = '/api/connect/github';
   const url = new URL(backendUrl + path);
 
   return (

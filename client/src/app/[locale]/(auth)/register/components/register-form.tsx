@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import { FormField } from "@/components/forms/form-field";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/lib/hooks";
-import { registerSchema } from "@/lib/schemas/auth";
-import Link from "next/link";
-import { useState } from "react";
-import { ZodError } from "zod";
+import Link from 'next/link';
+import { useState } from 'react';
+import { ZodError } from 'zod';
+
+import { FormField } from '@/components/forms/form-field';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/lib/hooks';
+import { registerSchema } from '@/lib/schemas/auth';
 
 export default function RegisterForm() {
   const { register, isLoading, error } = useAuth();
@@ -27,8 +28,8 @@ export default function RegisterForm() {
       if (err instanceof ZodError) {
         setValidationErrors(
           Object.fromEntries(
-            err.errors.map(({ path, message }) => [path[0], message]),
-          ),
+            err.errors.map(({ path, message }) => [path[0], message])
+          )
         );
       }
     }
@@ -41,7 +42,7 @@ export default function RegisterForm() {
         className="w-full max-w-md space-y-6"
         noValidate
       >
-        <div className="space-y-4 rounded-md border-gray-200 bg-pink-50 p-10 shadow-md">
+        <div className="border-gray-200 space-y-4 rounded-md bg-pink-50 p-10 shadow-md">
           {error && (
             <div
               className="rounded-md bg-red-50 p-3 text-sm text-red-600"
@@ -84,11 +85,11 @@ export default function RegisterForm() {
             disabled={isLoading}
             aria-busy={isLoading}
           >
-            {isLoading ? "Registering..." : "Register"}
+            {isLoading ? 'Registering...' : 'Register'}
           </Button>
 
           <div className="text-center text-sm">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link href="/login" className="text-pink-600 hover:text-pink-500">
               Sign in
             </Link>

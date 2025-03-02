@@ -1,5 +1,6 @@
-import { getStrapiURL } from "@/lib/utils/utils";
-import Image from "next/image";
+import Image from 'next/image';
+
+import { getStrapiURL } from '@/lib/utils/utils';
 
 interface StrapiImageProps {
   src: string;
@@ -12,9 +13,9 @@ interface StrapiImageProps {
 }
 
 export function getStrapiMedia(url: string | null) {
-  if (url == null) return null;
-  if (url.startsWith("data:")) return url;
-  if (url.startsWith("http") || url.startsWith("//")) return url;
+  if (url === null) return null;
+  if (url.startsWith('data:')) return url;
+  if (url.startsWith('http') || url.startsWith('//')) return url;
   return `${getStrapiURL}${url}`;
 }
 
@@ -29,7 +30,7 @@ export function StrapiImage({
   return (
     <Image
       src={imageUrl}
-      alt={alt ?? "No alternative text provided"}
+      alt={alt ?? 'No alternative text provided'}
       className={className}
       {...rest}
     />

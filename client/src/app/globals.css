@@ -6,13 +6,12 @@ html {
   font-family: var(--sf-pro);
 }
 
-
 @layer base {
   :root {
     /* Typography variables */
     --sf-pro: var(--font-sf-pro);
     --sf-pro-text: var(--font-sf-pro-text);
-    --letter-spacing-default: .6px;
+    --letter-spacing-default: 0.6px;
     --line-height-small: 16px;
     --line-height-medium: 20px;
     --line-height-large: 35px;

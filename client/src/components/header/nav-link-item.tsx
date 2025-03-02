@@ -1,15 +1,16 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+import { cn } from '@/lib/utils/utils';
 
 function activeClassName({ isActive }: { isActive: boolean }) {
-  return isActive ? "text-foreground" : "text-muted-foreground";
+  return isActive ? 'text-foreground' : 'text-muted-foreground';
 }
 
 const linkStyle =
-  "flex cursor-pointer items-center text-lg font-medium transition-colors hover:text-foreground sm:text-sm";
+  'flex cursor-pointer items-center text-lg font-medium transition-colors hover:text-foreground sm:text-sm';
 
 interface NavLinkItemProps {
   href: string;
@@ -25,8 +26,8 @@ export function NavLinkItem(props: Readonly<NavLinkItemProps>) {
       href={href}
       className={cn(linkStyle, activeClassName({ isActive }))}
       prefetch
-      target={isExternal ? "_blank" : "_self"}
-      rel={isExternal ? "noopener noreferrer" : ""}
+      target={isExternal ? '_blank' : '_self'}
+      rel={isExternal ? 'noopener noreferrer' : ''}
     >
       {children}
     </Link>

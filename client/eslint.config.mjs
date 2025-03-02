@@ -1,14 +1,14 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-import { FlatCompat } from '@eslint/eslintrc'
+import { FlatCompat } from '@eslint/eslintrc';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
-})
+});
 
 const eslintConfig = [
   ...compat.config({
@@ -31,13 +31,12 @@ const eslintConfig = [
       '@typescript-eslint/no-non-null-assertion': 'warn',
 
       // React rules
-      'react/jsx-uses-vars': 'error',
+      'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'react/self-closing-comp': 'error',
 
       // Import Sorting
       'import/order': [
-        'error',
+        'warn',
         {
           groups: [
             'builtin',
@@ -51,9 +50,28 @@ const eslintConfig = [
           alphabetize: { order: 'asc', caseInsensitive: true },
         },
       ],
-      'import/no-duplicates': 'error',
+      'import/no-duplicates': 'warn',
+      
+      // This rule enforces the use of `next-intl`'s routing implementation (`@/i18n/routing`) instead of `next/link` and `next/navigation`. `next-intl` provides built-in locale handling, ensuring that navigation is always language-aware. Using `next/link` or `next/navigation` directly may result in incorrect locale-based navigation.
+      'no-restricted-imports': [
+        'warn',
+        {
+          name: 'next/link',
+          message: 'Please import from `@/i18n/routing` instead.',
+        },
+        {
+          name: 'next/navigation',
+          importNames: [
+            'redirect',
+            'permanentRedirect',
+            'useRouter',
+            'usePathname',
+          ],
+          message: 'Please import from `@/i18n/routing` instead.',
+        },
+      ],
     },
   }),
-]
+];
 
-export default eslintConfig
+export default eslintConfig;
