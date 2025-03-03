@@ -15,7 +15,7 @@ import { Link } from '@/i18n/routing';
 import { routing, type Locale } from '@/i18n/routing';
 import { getUser } from '@/lib/hooks/services';
 
-import { SF_Pro, SF_Pro_Text } from '../fonts/fonts';
+import { SF_Pro_Text } from '../fonts/fonts';
 
 import '@/app/globals.css';
 
@@ -50,8 +50,8 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   const user = await getUser();
   const t = await getTranslations('home');
   return (
-    <html lang="en" className={`${SF_Pro.variable} ${SF_Pro_Text.variable}`}>
-      <body className={`${SF_Pro.variable}`}>
+    <html lang="en" className={`${SF_Pro_Text.variable}`}>
+      <body>
         <NextIntlClientProvider messages={messages}>
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-4">

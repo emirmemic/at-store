@@ -13,7 +13,6 @@ export default {
     extend: {
       fontFamily: {
         sf_pro: ['var(--font-sf-pro)', 'sans-serif'],
-        sf_pro_text: ['var(--font-sf-pro-text)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -87,7 +86,6 @@ export default {
           lineHeight: 'var(--line-height-xlarge)',
         },
         '.typography-button': {
-          fontFamily: 'var(--font-sf-pro-text)',
           letterSpacing: 'var(--letter-spacing-default)',
           fontWeight: '600',
           lineHeight: 'var(--line-height-small)',
@@ -100,7 +98,6 @@ export default {
         '.display': {
           '@apply typography-heading': {},
           fontSize: '64px',
-          fontFamily: 'var(--font-sf-pro-text)',
         },
         '.heading-1': {
           '@apply typography-heading': {},
@@ -114,20 +111,20 @@ export default {
           '@apply typography-heading': {},
           fontSize: '36px',
         },
-        '.heading-3-regular': {
-          '@apply typography-heading': {},
-          fontWeight: '400',
-          fontSize: '36px',
-        },
         '.heading-4': {
           '@apply typography-heading': {},
           fontSize: '24px',
           lineHeight: '40px',
         },
-        '.heading5': {
+        '.heading-5': {
           '@apply typography-heading': {},
           fontSize: '16px',
           lineHeight: '30px',
+        },
+        '.title': {
+          '@apply typography-paragraph': {},
+          lineHeight: 'var(--line-height-large)',
+          fontSize: '36px',
         },
         '.paragraph-1': {
           '@apply typography-paragraph': {},
@@ -142,22 +139,28 @@ export default {
         },
         '.paragraph-3': {
           '@apply typography-paragraph': {},
-          fontWeight: '500',
-          fontSize: '12px',
+          fontWeight: '900',
+          fontSize: '13px',
         },
         '.paragraph-4': {
           '@apply typography-paragraph': {},
           fontWeight: '500',
-          fontSize: '10px',
+          fontSize: '12px',
         },
         '.paragraph-5': {
           '@apply typography-paragraph': {},
           fontWeight: '900',
-          fontSize: '13px',
+          fontSize: '11px',
         },
         '.paragraph-6': {
           '@apply typography-paragraph': {},
-          fontSize: '11px',
+          fontWeight: '500',
+          fontSize: '10px',
+        },
+        '.navigation': {
+          '@apply typography-paragraph': {},
+          fontWeight: '500',
+          fontSize: '14px',
         },
         '.button-1': {
           '@apply typography-button': {},

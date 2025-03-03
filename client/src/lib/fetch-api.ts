@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { redirect } from '@/i18n/routing';
 
 /**
  * Next.js specific fetch request configuration
@@ -106,7 +106,10 @@ export async function fetchAPI<T = unknown>(
 
     // Check for unauthorized status and redirect
     if (response.status === 401 || response.status === 403) {
-      redirect('/login');
+      redirect({
+        href: '/login',
+        locale: '',
+      });
     }
 
     return response.ok

@@ -10,7 +10,6 @@ html {
   :root {
     /* Typography variables */
     --sf-pro: var(--font-sf-pro);
-    --sf-pro-text: var(--font-sf-pro-text);
     --letter-spacing-default: 0.6px;
     --line-height-small: 16px;
     --line-height-medium: 20px;
