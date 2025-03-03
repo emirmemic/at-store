@@ -6,7 +6,7 @@ export default async function HomeRoute() {
   return (
     <div className="flex flex-col items-center gap-4 p-9">
       <h1 className="display">Typography</h1>
-      <div className="bg-grey h-[2px] w-full"></div>
+      <div className="h-[2px] w-full bg-grey"></div>
       <div className="display">Display</div>
       <div className="heading-1">Heading 1</div>
       <div className="heading-2">Heading 2</div>
@@ -23,7 +23,7 @@ export default async function HomeRoute() {
       <div className="navigation">Navigation Text</div>
       <div className="button-1">Button 1</div>
       <div className="button-2">Button 2</div>
-      <div className="bg-grey h-[2px] w-full"></div>
+      <div className="h-[2px] w-full bg-grey"></div>
       <h1 className="display">Buttons</h1>
       <Button variant={'filled'} size={'xlg'}>
         Filled
@@ -61,9 +61,9 @@ export default async function HomeRoute() {
           <Button
             size={'md'}
             variant={'transparent'}
-            transparentVariant="white_BlueBg"
+            transparentVariant="white_blueBg"
           >
-            white_BlueBg
+            white_blueBg
           </Button>
         </div>
       </div>

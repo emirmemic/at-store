@@ -32,7 +32,7 @@ export function Hero({
                 key={index}
                 size="lg"
                 asChild
-                variant="outline"
+                variant="filled"
                 className="h-12 cursor-pointer border-border text-base sm:h-14 sm:px-10"
               >
                 <Link
