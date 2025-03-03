@@ -94,7 +94,7 @@ const buttonVariants = cva(
         blue_blue: ['text-blue-primary hover:text-white'],
         blue_black: ['text-black'],
         white: ['border-white hover:text-black hover:bg-white'],
-        white_BlueBg: ['border-white hover:border-blue-primary'],
+        white_blueBg: ['border-white hover:border-blue-primary'],
         black: [
           'text-black border-black hover:border-blue-primary hover:text-white',
         ],
@@ -107,7 +107,7 @@ type TransparentVariant =
   | 'blue_blue' // blue border, blue text
   | 'blue_black' // blue border, black text
   | 'white' // white border, white text
-  | 'white_BlueBg' // white border, blue background on hover
+  | 'white_blueBg' // white border, blue background on hover
   | 'black'; // black border, black text
 
 export interface ButtonProps
