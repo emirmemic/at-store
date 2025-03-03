@@ -1,8 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
+import { Link, Pathname, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 function activeClassName({ isActive }: { isActive: boolean }) {
@@ -10,10 +8,10 @@ function activeClassName({ isActive }: { isActive: boolean }) {
 }
 
 const linkStyle =
-  'flex cursor-pointer items-center text-lg font-medium transition-colors hover:text-foreground sm:text-sm';
+  'flex cursor-pointer items-center text-lg font-medium transition-colors hover:text-foreground sm:text-sm navigation';
 
 interface NavLinkItemProps {
-  href: string;
+  href: Pathname;
   children: React.ReactNode;
   isExternal?: boolean;
 }

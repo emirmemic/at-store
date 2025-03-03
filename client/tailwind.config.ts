@@ -61,7 +61,7 @@ export default {
           light: '#e5edf1',
         },
         black: '#000000',
-        gray: '#968c8c',
+        grey: '#968c8c',
         white: '#ffffff',
       },
       boxShadow: {

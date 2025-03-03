@@ -8,6 +8,7 @@ import {
 
 import { AuthUserNavButton } from '@/components/auth/auth-user-button';
 import { GoogleSignInButton } from '@/components/auth/google-sign-in-button';
+import { NavLinkItem } from '@/components/header/nav-link-item';
 import { IconHome } from '@/components/icons/home';
 import { LocaleSwitcher } from '@/components/locale/LocaleSwitcher';
 import { Button } from '@/components/ui/button';
@@ -66,6 +67,9 @@ export default async function LocaleLayout({ children, params }: PropsType) {
             ) : (
               <>
                 <Link href={'/login'}>{t('login')}</Link>
+                <NavLinkItem href="/global-components">
+                  Global components playground
+                </NavLinkItem>
                 <Button asChild>
                   <GoogleSignInButton />
                 </Button>

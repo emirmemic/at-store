@@ -5,47 +5,147 @@ import * as React from 'react';
 import { cn } from '@/lib/utils/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  [
+    // Layout
+    'inline-flex',
+    'items-center',
+    'justify-center',
+    'gap-2',
+    'whitespace-nowrap',
+    'rounded-full',
+
+    // Transitions and Effects
+    'ring-offset-background',
+    'transition-colors',
+    'transition-all',
+    'duration-200',
+    'active:scale-[0.95]',
+
+    // Focus and Disabled States
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-ring',
+    'focus-visible:ring-offset-2',
+    'disabled:pointer-events-none',
+    'disabled:opacity-50',
+
+    // SVG Styles
+    '[&_svg]:pointer-events-none',
+    '[&_svg]:size-4',
+    '[&_svg]:shrink-0',
+  ],
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        filled: [
+          'bg-blue-primary',
+          'text-primary-foreground',
+          'hover:bg-blue-dark',
+        ],
+        transparent: [
+          'bg-transparent',
+          'border',
+          'border-blue-primary',
+          'text-white',
+          'hover:bg-blue-primary',
+        ],
+        /// Add to favorites button
+        addToFavorites: [
+          'border',
+          'bg-white',
+          'text-black',
+          'border-black',
+          'hover:border-grey',
+          'data-[active=true]:hover:border-black',
+          'data-[active=true]:border-grey',
+        ],
+        productVariant: [
+          'border',
+          'border-black',
+          'bg-white',
+          'text-black',
+          'hover:border-blue-primary',
+          'hover:border-[3px]',
+          'data-[active=true]:border-blue-primary',
+          'data-[active=true]:border-[3px]',
+        ],
+        color: [
+          'border',
+          'border-black',
+          'hover:border-blue-primary',
+          'hover:border-[3px]',
+          'data-[active=true]:border-blue-primary',
+          'data-[active=true]:border-[3px]',
+        ],
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        sm: ['py-2', 'px-4'],
+        md: ['px-[38px]', 'py-4'],
+        lg: ['py-4', 'px-14'],
+        xlg: ['py-4', 'px-24'],
+        textWithIcon: ['pl-14', 'pr-10', 'py-4'],
+        color: ['size-9'],
       },
-    },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+      typography: {
+        button1: ['button-1'],
+        button2: ['button-2'],
+      },
+      transparentVariant: {
+        blue_blue: ['text-blue-primary hover:text-white'],
+        blue_black: ['text-black'],
+        white: ['border-white hover:text-black hover:bg-white'],
+        white_BlueBg: ['border-white hover:border-blue-primary'],
+        black: [
+          'text-black border-black hover:border-blue-primary hover:text-white',
+        ],
+      },
     },
   }
 );
+
+type TransparentVariant =
+  | 'blue_blue' // blue border, blue text
+  | 'blue_black' // blue border, black text
+  | 'white' // white border, white text
+  | 'white_BlueBg' // white border, blue background on hover
+  | 'black'; // black border, black text
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  isSelected?: boolean;
+  transparentVariant?: TransparentVariant;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      typography,
+      transparentVariant,
+      isSelected: isSelected,
+      asChild = false,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({
+            variant,
+            size,
+            typography,
+            transparentVariant,
+            className,
+          })
+        )}
         ref={ref}
+        data-active={isSelected}
         {...props}
       />
     );

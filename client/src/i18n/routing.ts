@@ -27,6 +27,10 @@ export const routing = defineRouting({
       en: '/about',
       bs: '/o-nama',
     },
+    '/global-components': {
+      en: '/components',
+      bs: '/komponenti',
+    },
     '/': {
       en: '/',
       bs: '/',
@@ -35,6 +39,7 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+export type Pathname = keyof typeof routing.pathnames;
 
 // Lightweight wrappers around Next.js' navigation APIs that will consider the routing configuration
 export const { Link, redirect, usePathname, useRouter, getPathname } =
