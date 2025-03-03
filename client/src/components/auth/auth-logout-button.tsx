@@ -1,7 +1,7 @@
 import { LogOut } from 'lucide-react';
 import { cookies } from 'next/headers';
-
-import { redirect } from '@/i18n/routing';
+// eslint-disable-next-line no-restricted-imports
+import { redirect } from 'next/navigation';
 
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -15,10 +15,7 @@ async function logoutAction() {
   'use server';
   const cookieStore = await cookies();
   cookieStore.set('jwt', '', { ...config, maxAge: 0 });
-  redirect({
-    href: '/',
-    locale: '',
-  });
+  redirect('/');
 }
 
 export function AuthLogoutButton() {

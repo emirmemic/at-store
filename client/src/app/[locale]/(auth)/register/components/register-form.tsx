@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import { ZodError } from 'zod';
 
 import { FormField } from '@/components/forms/form-field';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import { useAuth } from '@/lib/hooks';
 import { registerSchema } from '@/lib/schemas/auth';
 
