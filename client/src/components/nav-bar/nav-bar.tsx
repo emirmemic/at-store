@@ -1,28 +1,28 @@
 'use client';
 
-import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 import {
   IconCart,
+  IconClose,
   IconLogout,
   IconSearch,
   IconUser,
 } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 
-import Logo from './components/nav-bar-logo';
-import NavLinks from './components/nav-links';
+import { IconMenu } from './icons/menu';
+import Logo from './nav-bar-logo';
+import NavLinks from './nav-links';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="md:paragraph-3 heading-4 fixed w-full bg-black px-2 py-1">
+    <nav className="fixed w-full bg-black px-3 py-2 md:px-3.5">
       <div className="flex items-center justify-between">
         {/* Logo */}
         <Logo />
-        {/* Desktop Menu */}
         <div className="hidden md:flex">
           <NavLinks />
         </div>
@@ -35,11 +35,8 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <Button
-            onClick={() => setIsOpen(!isOpen)}
-            className="bg-inherit text-white"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <Button asChild onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <IconClose /> : <IconMenu className="rounded-none" />}
           </Button>
         </div>
       </div>

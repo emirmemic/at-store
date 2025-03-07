@@ -4,11 +4,11 @@ import { Link, Pathname, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 function activeClassName({ isActive }: { isActive: boolean }) {
-  return isActive ? 'text-foreground' : 'text-white';
+  return isActive ? 'text-grey' : 'text-white';
 }
 
 const linkStyle =
-  'header-4 flex cursor-pointer items-center transition-colors hover:text-foreground md:navigation-text';
+  'heading-4 flex cursor-pointer items-center transition-colors hover:text-grey md:navigation';
 
 interface NavLinkItemProps {
   href: Pathname;
