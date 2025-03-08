@@ -1,7 +1,9 @@
+import { Pathname } from '@/i18n/routing';
+
 interface LinkProps {
   id: number;
   label: string;
-  href: string;
+  href: Pathname;
   isExternal: boolean;
 }
 
