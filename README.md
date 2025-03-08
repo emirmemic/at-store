@@ -4,8 +4,8 @@ E-commerce application built with Next.js and Strapi.
 
 ## Live Demo
 
-- Frontend: <https://atstore.rovoit.com>
-- Backend API: <https://atserver.rovoit.com>
+- Frontend: <https://at-client.rovoit.com>
+- Backend API: <https://at-server.rovoit.com>
 
 ## Installation and Setup
 
