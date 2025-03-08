@@ -126,7 +126,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       typography,
       transparentVariant,
-      isSelected: isSelected,
+      isSelected,
       asChild = false,
       ...props
     },

@@ -4,11 +4,10 @@ export default ({ env }) => {
   const connections = {
     postgres: {
       connection: {
-        connectionString: env("DATABASE_URL"),
-      },
-      pool: {
-        min: env.int("DATABASE_POOL_MIN", 2),
-        max: env.int("DATABASE_POOL_MAX", 10),
+        connectionString:
+          env.NODE_ENV === "production"
+            ? env("PROD_DATABASE_URL")
+            : env("DATABASE_URL"),
       },
     },
   };
