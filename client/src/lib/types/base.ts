@@ -18,6 +18,7 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
   children?: React.ReactNode;
   size?: number;
   className?: string;
+  filled?: boolean;
 }
 
 export type { ImageProps, LinkProps, IconProps };

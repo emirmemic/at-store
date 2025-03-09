@@ -33,5 +33,16 @@
   "localeSwitcher": {
     "label": "Promijeni jezik",
     "locale": "{locale, select, bs {Bosanski} en {Engleski} other {Nepoznat}}"
+  },
+  "navigation": {
+    "goToSlide": "Idi na slajd {slideNumber}",
+    "next": "Sljedeći",
+    "previous": "Prethodni",
+    "morePages": "Više stranica",
+    "page": "Stranica {pageNumber}",
+    "addFavorites": "Dodaj u omiljene",
+    "removeFavorites": "Ukloni iz omiljenih",
+    "play": "Pusti",
+    "pause": "Pauziraj"
   }
 }

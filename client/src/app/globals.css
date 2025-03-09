@@ -15,6 +15,10 @@ html {
     --line-height-medium: 20px;
     --line-height-large: 35px;
     --line-height-xlarge: 50px;
+    --6px: 6px;
+    --10px: 10px;
+    --14px: 14px;
+    --18px: 18px;
 
     /* Shadcn variables */
     --background: 0 0% 100%;

@@ -33,5 +33,16 @@
   "localeSwitcher": {
     "label": "Change language",
     "locale": "{locale, select, bs {Bosnian} en {English} other {Unknown}}"
+  },
+  "navigation": {
+    "goToSlide": "Go to slide {slideNumber}",
+    "next": "Next",
+    "previous": "Previous",
+    "morePages": "More pages",
+    "page": "Page {pageNumber}",
+    "addFavorites": "Add to favorites",
+    "removeFavorites": "Remove from favorites",
+    "play": "Play",
+    "pause": "Pause"
   }
 }

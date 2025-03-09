@@ -57,12 +57,25 @@ export default {
         },
         blue: {
           primary: '#3577e5',
+          deep: '#142688',  
           dark: '#0d3372',
           light: '#e5edf1',
         },
         black: '#000000',
-        grey: '#968c8c',
+        grey: {
+          DEFAULT: '#968c8c',
+          extraLight: '#F5F5F5',
+          light: '#D0D0D0',
+          mediumLight: '#CDCDCF',
+          medium: '#CAC3C3',
+          dark: '#7D7D7D',
+          darker: '#6A6A6A',
+          darkest: '#2E2E30',
+        },
         white: '#ffffff',
+        red: {
+          deep: '#C81B1B',
+        }
       },
       boxShadow: {
         insetBlack:
@@ -73,6 +86,11 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - .125rem)',
         sm: 'calc(var(--radius) - .25rem)',
+      },
+      spacing: {
+        '6px': '6px',
+        '10px': '10px',
+        '38px': '38px',
       },
     },
   },

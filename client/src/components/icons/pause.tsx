@@ -1,0 +1,22 @@
+import { IconProps } from '@/lib/types/base';
+
+const IconPause = ({ size = 24, className = '', ...props }: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      fill="none"
+      className={className}
+      {...props}
+    >
+      <path
+        d="M18.6667 25.3334V6.66675H24V25.3334H18.6667ZM8 25.3334V6.66675H13.3333V25.3334H8Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
+
+export default IconPause;
