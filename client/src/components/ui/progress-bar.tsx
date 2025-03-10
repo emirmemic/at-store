@@ -5,7 +5,6 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils/utils';
 
-// Remove the static 'duration-700' if you want the inline style to control it.
 const dotVariants = cva(
   'block flex-shrink-0 transition-all cursor-pointer rounded-full',
   {
