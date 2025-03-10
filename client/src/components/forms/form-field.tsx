@@ -12,8 +12,8 @@ export function FormField({
   return (
     <div className="form-group">
       <label
+        className="block text-sm font-medium text-gray-700"
         htmlFor={props.id}
-        className="text-gray-700 block text-sm font-medium"
       >
         {label}
       </label>

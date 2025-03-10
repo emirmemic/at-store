@@ -55,14 +55,14 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
       <PaginationContent>
         <PaginationItem className="mr-6 md:mr-12">
           <NavigationArrow
-            onClick={() => handlePageClick(currentPage - 1)}
-            disabled={currentPage === 1}
             aria-label={t('previous')}
-            title={t('previous')}
             className="flex items-center justify-center"
             direction="left"
-            variant="black"
+            disabled={currentPage === 1}
             size="lg"
+            title={t('previous')}
+            variant="black"
+            onClick={() => handlePageClick(currentPage - 1)}
           />
         </PaginationItem>
         <AnimatePresence mode="popLayout">
@@ -70,9 +70,9 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
             <motion.div
               key={typeof item === 'number' ? item : `ellipsis-${index}`}
               layout
-              initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
+              initial={{ scale: 0.8 }}
             >
               {item === 'ellipsis' ? (
                 <PaginationItem>
@@ -81,12 +81,12 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
               ) : (
                 <PaginationItem>
                   <PaginationButton
+                    aria-label={t('page', { pageNumber: item })}
                     isActive={item === currentPage}
+                    title={t('page', { pageNumber: item })}
                     onClick={() => {
                       handlePageClick(item);
                     }}
-                    title={t('page', { pageNumber: item })}
-                    aria-label={t('page', { pageNumber: item })}
                   >
                     {item}
                   </PaginationButton>
@@ -97,14 +97,14 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
         </AnimatePresence>
         <PaginationItem className="ml-6 md:ml-12">
           <NavigationArrow
-            onClick={() => handlePageClick(currentPage + 1)}
-            disabled={currentPage === total}
             aria-label={t('next')}
-            title={t('next')}
             className="flex items-center justify-center"
             direction="right"
-            variant="black"
+            disabled={currentPage === total}
             size="lg"
+            title={t('next')}
+            variant="black"
+            onClick={() => handlePageClick(currentPage + 1)}
           />
         </PaginationItem>
       </PaginationContent>

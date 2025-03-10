@@ -58,8 +58,8 @@ function CardCarouselItem({
           <CardContent className="flex flex-col items-start gap-5 p-7">
             <div className="inline-flex items-center justify-center rounded-md border border-border bg-secondary p-2">
               <CardCarouselIcon
-                icon={icon}
                 className="text-primary"
+                icon={icon}
                 size={20}
               />
             </div>
@@ -80,8 +80,8 @@ export function CardCarousel({ cards }: CardCarouselProps) {
   return (
     <section className="container flex flex-col items-center gap-6 py-24 sm:gap-7">
       <Carousel
-        opts={{ loop: true, align: 'start' }}
         className="mt-6 w-full px-4 xl:px-0"
+        opts={{ loop: true, align: 'start' }}
       >
         <CarouselPrevious className="-left-6 size-7 xl:-left-12 xl:size-8" />
         <CarouselContent className="pb-4">

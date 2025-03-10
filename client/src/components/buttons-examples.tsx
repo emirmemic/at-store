@@ -8,81 +8,81 @@ export default function ButtonsExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h2 className="display">Buttons</h2>
       <div className="h-[2px] w-full bg-grey"></div>
-      <Button variant={'filled'} size={'xlg'}>
+      <Button size={'xlg'} variant={'filled'}>
         Filled
       </Button>
 
       <div className="flex items-center gap-2">
         <Button
           size={'md'}
-          variant={'transparent'}
           transparentVariant="blue_black"
+          variant={'transparent'}
         >
           blue_black
         </Button>
-        <Button size={'md'} variant={'transparent'} transparentVariant="black">
+        <Button size={'md'} transparentVariant="black" variant={'transparent'}>
           black
         </Button>
         <div className="flex gap-4 rounded-md bg-black p-2">
-          <Button variant={'transparent'} size={'md'}>
+          <Button size={'md'} variant={'transparent'}>
             default
           </Button>
           <Button
             size={'md'}
-            variant={'transparent'}
             transparentVariant="blue_blue"
+            variant={'transparent'}
           >
             blue_blue
           </Button>
           <Button
             size={'md'}
-            variant={'transparent'}
             transparentVariant="white"
+            variant={'transparent'}
           >
             white
           </Button>
           <Button
             size={'md'}
-            variant={'transparent'}
             transparentVariant="white_blueBg"
+            variant={'transparent'}
           >
             white_blueBg
           </Button>
         </div>
       </div>
       <div className="flex gap-2">
-        <Button variant={'addToFavorites'} size={'textWithIcon'}>
+        <Button size={'textWithIcon'} variant={'addToFavorites'}>
           <HeartIcon size={30} />
           Dodaj u omiljeno
         </Button>
-        <Button variant={'addToFavorites'} size={'textWithIcon'} isSelected>
-          <HeartIcon size={30} color="red" fill="red" />
+        <Button isSelected size={'textWithIcon'} variant={'addToFavorites'}>
+          <HeartIcon color="red" fill="red" size={30} />
           Dodaj u omiljeno
         </Button>
       </div>
       <div className="flex gap-2">
         <Button
-          variant={'productVariant'}
+          isSelected
           size={'sm'}
           typography={'button2'}
-          isSelected
+          variant={'productVariant'}
         >
           256GB
         </Button>
-        <Button variant={'productVariant'} size={'sm'} typography={'button2'}>
+        <Button size={'sm'} typography={'button2'} variant={'productVariant'}>
           256GB
         </Button>
       </div>
-      <Button variant={'transparent'} transparentVariant="black" size={'md'}>
+      <Button size={'md'} transparentVariant="black" variant={'transparent'}>
         Checkout
       </Button>
       <div className="flex gap-2">
-        <Button size={'color'} className="bg-yellow-300" variant={'color'} />
+        <Button className="bg-yellow-300" size={'color'} variant={'color'} />
         <Button
-          size={'color'}
-          className="bg-yellow-300"
-          variant={'color'}
           isSelected
+          className="bg-yellow-300"
+          size={'color'}
+          variant={'color'}
         />
       </div>
     </>

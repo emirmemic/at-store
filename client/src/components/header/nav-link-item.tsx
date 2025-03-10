@@ -21,11 +21,11 @@ export function NavLinkItem(props: Readonly<NavLinkItemProps>) {
   const isActive = pathname.includes(href);
   return (
     <Link
-      href={href}
-      className={cn(linkStyle, activeClassName({ isActive }))}
       prefetch
-      target={isExternal ? '_blank' : '_self'}
+      className={cn(linkStyle, activeClassName({ isActive }))}
+      href={href}
       rel={isExternal ? 'noopener noreferrer' : ''}
+      target={isExternal ? '_blank' : '_self'}
     >
       {children}
     </Link>

@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sf_pro: ['var(--font-sf-pro)', 'sans-serif'],
+        'sf-pro': ['var(--font-sf-pro)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -55,32 +55,39 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        black: 'var(--color-black)',
+        white: 'var(--color-white)',
         blue: {
-          primary: '#3577e5',
-          deep: '#142688',  
-          dark: '#0d3372',
-          light: '#e5edf1',
+          DEFAULT: 'var(--color-blue)',
+          light: 'var(--color-blue-light)',
+          steel: 'var(--color-blue-steel)',
+          dark: 'var(--color-blue-dark)',
         },
-        black: '#000000',
+        green: {
+          DEFAULT: 'var(--color-green)',
+        },
         grey: {
-          DEFAULT: '#968c8c',
-          extraLight: '#F5F5F5',
-          light: '#D0D0D0',
-          mediumLight: '#CDCDCF',
-          medium: '#CAC3C3',
-          dark: '#7D7D7D',
-          darker: '#6A6A6A',
-          darkest: '#2E2E30',
+          DEFAULT: 'var(--color-grey)',
+          'extra-light': 'var(--color-grey-extra-light)',
+          light: 'var(--color-grey-light)',
+          medium: 'var(--color-grey-medium)',
+          dark: 'var(--color-grey-dark)',
+          darker: 'var(--color-grey-darker)',
+          darkest: 'var(--color-grey-darkest)',
         },
-        white: '#ffffff',
+        pink: {
+          soft: 'var(--color-pink-soft)',
+        },
         red: {
-          deep: '#C81B1B',
-        }
+          deep: 'var(--color-red-deep)',
+          darkest: 'var(--color-red-darkest)',
+        },
       },
       boxShadow: {
-        insetBlack:
+        'inset-black':
           'inset 0 4px 4px 0 rgba(0 0 0 / 0.35), inset 0 -4px 4px 0 rgba(255 255 255 / 0.16)',
-        largeBlack: '0 4px 4px 5px rgba(0 0 0 / 0.35)',
+        'large-black': '0 4px 4px 5px rgba(0 0 0 / 0.35)',
+        'inset-blue':'inset 0 0 0 2px var(--color-blue)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -88,9 +95,11 @@ export default {
         sm: 'calc(var(--radius) - .25rem)',
       },
       spacing: {
-        '6px': '6px',
-        '10px': '10px',
-        '38px': '38px',
+        '6px': 'var(--spacing-6px)',
+        '10px': 'var(--spacing-10px)',
+        '14px': 'var(--spacing-14px)',
+        '18px': 'var(--spacing-18px)',
+        '38px': 'var(--spacing-38px)',
       },
     },
   },

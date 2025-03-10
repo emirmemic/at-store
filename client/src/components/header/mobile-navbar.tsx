@@ -13,7 +13,7 @@ function MobileMenu({
 
   return (
     <button
-      className="fixed inset-0 top-[60px] z-50 size-full overflow-auto bg-black/40 animate-in slide-in-from-top-24 md:hidden"
+      className="bg-black/40 fixed inset-0 top-[60px] z-50 size-full overflow-auto animate-in slide-in-from-top-24 md:hidden"
       onClick={onClose}
     >
       {children}

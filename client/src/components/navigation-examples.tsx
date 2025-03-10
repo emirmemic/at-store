@@ -44,25 +44,25 @@ export default function NavigationExamples() {
       <div className="flex items-center gap-2">
         Products slider pagination dots
         <ProductsSliderPagination
-          total={totalPages}
           currentPage={activePage}
+          total={totalPages}
           onDotClick={(page) => setActivePage(page)}
         />
       </div>
       <div className="flex items-center gap-2">
         Products slider pagination dots disabled
         <ProductsSliderPagination
-          total={totalPages}
-          currentPage={activePage}
           disabled
+          currentPage={activePage}
+          total={totalPages}
           onDotClick={(page) => setActivePage(page)}
         />
       </div>
       <div className="flex items-center gap-2">
         Slider Progress Bar Light:
         <ProgressBar
-          total={totalPages}
           currentPage={activePage}
+          total={totalPages}
           variant="light"
           onDotClick={(page) => setActivePage(page)}
         />
@@ -70,8 +70,8 @@ export default function NavigationExamples() {
       <div className="flex items-center gap-2">
         Slider Progress Bar Dark:
         <ProgressBar
-          total={totalPages}
           currentPage={activePage}
+          total={totalPages}
           variant="dark"
           onDotClick={(page) => setActivePage(page)}
         />
@@ -79,10 +79,10 @@ export default function NavigationExamples() {
       <div className="flex items-center gap-2">
         Slider Progress Bar Disabled:
         <ProgressBar
-          total={totalPages}
-          currentPage={activePage}
-          variant="light"
           disabled
+          currentPage={activePage}
+          total={totalPages}
+          variant="light"
           onDotClick={(page) => setActivePage(page)}
         />
       </div>
@@ -90,32 +90,32 @@ export default function NavigationExamples() {
         Slider Navigation Arrows:
         <NavigationArrow
           aria-label={t('previous')}
+          direction={'left'}
           title={t('previous')}
           type="button"
-          direction={'left'}
         />
         <NavigationArrow
-          type="button"
-          direction={'right'}
           aria-label={t('next')}
+          direction={'right'}
           title={t('next')}
+          type="button"
         />
-        <NavigationArrow type="button" direction={'top'} />
-        <NavigationArrow type="button" direction={'bottom'} />
-        <NavigationArrow type="button" size={'lg'} />
+        <NavigationArrow direction={'top'} type="button" />
+        <NavigationArrow direction={'bottom'} type="button" />
+        <NavigationArrow size={'lg'} type="button" />
         Disabled small:
         <NavigationArrow disabled variant={'black'} />
         Disabled large:
-        <NavigationArrow disabled variant={'black'} size={'lg'} />
+        <NavigationArrow disabled size={'lg'} variant={'black'} />
       </div>
       <div className="flex items-center gap-2 rounded-md bg-black px-2 py-1 text-white">
         Slider Navigation Arrow with white color:
-        <NavigationArrow variant={'white'} size={'lg'} />
-        Disabled: <NavigationArrow disabled variant={'white'} size={'lg'} />
+        <NavigationArrow size={'lg'} variant={'white'} />
+        Disabled: <NavigationArrow disabled size={'lg'} variant={'white'} />
       </div>
       <PaginationPages
-        total={totalPages}
         currentPage={activePage}
+        total={totalPages}
         onPageChange={handlePageChange}
       />
       <div className="flex items-center gap-2">
@@ -129,19 +129,19 @@ export default function NavigationExamples() {
       <div className="flex items-center gap-2">
         <PlayPause
           isPlaying={isPlaying}
-          onClick={() => setIsPlaying(!isPlaying)}
           variant="light"
+          onClick={() => setIsPlaying(!isPlaying)}
         />
         <PlayPause
           isPlaying={isPlaying}
-          onClick={() => setIsPlaying(!isPlaying)}
           variant="dark"
+          onClick={() => setIsPlaying(!isPlaying)}
         />
         <PlayPause
-          isPlaying={isPlaying}
-          onClick={() => setIsPlaying(!isPlaying)}
-          variant="dark"
           disabled
+          isPlaying={isPlaying}
+          variant="dark"
+          onClick={() => setIsPlaying(!isPlaying)}
         />
       </div>
       <div className="flex items-center gap-2">
@@ -151,8 +151,8 @@ export default function NavigationExamples() {
       </div>
       <div className="flex items-center gap-2">
         Example Icon Usage with tailwind classes:
-        <IconHeart size={30} filled className="text-grey-dark" />
-        <IconHeart size={30} className="text-blue-primary" />
+        <IconHeart filled className="text-grey-dark" size={30} />
+        <IconHeart className="text-blue" size={30} />
       </div>
     </>
   );

@@ -15,9 +15,9 @@ const dotVariants = cva(
         dark: '',
       },
       active: {
-        true: 'w-38px h-6px bg-grey-dark md:h-4 md:w-[48px] bg-grey-extraLight ',
+        true: 'w-38px h-6px md:h-4 md:w-[48px] bg-white ',
         false:
-          'w-6px h-6px bg-grey-mediumLight md:w-4 md:h-4 group-hover:bg-grey-dark',
+          'w-6px h-6px bg-grey-light md:w-4 md:h-4 group-hover:bg-grey-dark',
       },
       disabled: {
         true: 'pointer-events-none',
@@ -28,7 +28,7 @@ const dotVariants = cva(
       {
         variant: 'dark',
         active: true,
-        className: 'w-38px h-6px md:w-[80px] md:h-4 bg-grey-extraLight',
+        className: 'w-38px h-6px md:w-[80px] md:h-4 bg-white',
       },
     ],
     defaultVariants: {
@@ -79,10 +79,15 @@ const DotProgressBar = React.forwardRef<HTMLButtonElement, DotProps>(
   ) => {
     const Comp = asChild ? Slot : 'button';
     return (
-      <Comp ref={ref} {...props} className="group p-1 md:p-2" disabled={disabled}>
+      <Comp
+        ref={ref}
+        {...props}
+        className="group p-1 md:p-2"
+        disabled={disabled}
+      >
         <span
-          style={{ transitionDuration: `${duration}ms` }}
           className={cn(dotVariants({ variant, active, className, disabled }))}
+          style={{ transitionDuration: `${duration}ms` }}
         ></span>
       </Comp>
     );
@@ -116,23 +121,20 @@ const ProgressBar = ({
   const t = useTranslations('navigation');
   const listItems = Array.from({ length: total }, (_, i) => i);
 
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLUListElement>) => {
-      if (disabled) return;
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    if (disabled) return;
 
-      let newIndex = currentPage;
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        newIndex = currentPage === 0 ? total - 1 : currentPage - 1;
-      } else if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        newIndex = currentPage === total - 1 ? 0 : currentPage + 1;
-      }
+    let newIndex = currentPage;
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      newIndex = currentPage === 0 ? total - 1 : currentPage - 1;
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      newIndex = currentPage === total - 1 ? 0 : currentPage + 1;
+    }
 
-      onDotClick(newIndex);
-    },
-    [currentPage, total, onDotClick, disabled]
-  );
+    onDotClick(newIndex);
+  };
   return (
     <ul
       className={cn(progressBarVariants({ className, variant, disabled }))}
@@ -142,15 +144,15 @@ const ProgressBar = ({
       {listItems.map((i) => (
         <li key={i} className="flex items-center">
           <DotProgressBar
-            variant={variant}
-            disabled={disabled}
             active={i + 1 === currentPage}
-            duration={duration}
-            onClick={() => onDotClick?.(i + 1)}
-            aria-label={t('goToSlide', { slideNumber: i + 1 })}
-            title={t('goToSlide', { slideNumber: i + 1 })}
             aria-current={i === currentPage ? 'true' : undefined}
+            aria-label={t('goToSlide', { slideNumber: i + 1 })}
+            disabled={disabled}
+            duration={duration}
             tabIndex={0}
+            title={t('goToSlide', { slideNumber: i + 1 })}
+            variant={variant}
+            onClick={() => onDotClick?.(i + 1)}
             {...dotProps}
           />
         </li>

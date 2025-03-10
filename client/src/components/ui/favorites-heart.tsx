@@ -17,18 +17,18 @@ const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
     const t = useTranslations('navigation');
     return (
       <Comp
+        ref={ref}
+        aria-label={isInFavorites ? t('removeFavorites') : t('addFavorites')}
         className={cn(
           'inline-flex items-center justify-center p-1 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.95]',
           className
         )}
-        ref={ref}
         title={isInFavorites ? t('removeFavorites') : t('addFavorites')}
-        aria-label={isInFavorites ? t('removeFavorites') : t('addFavorites')}
         {...props}
       >
         <IconHeart
-          filled={isInFavorites}
           className={cn(isInFavorites ? 'text-red-deep' : 'text-black')}
+          filled={isInFavorites}
         />
       </Comp>
     );

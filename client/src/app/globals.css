@@ -15,10 +15,32 @@ html {
     --line-height-medium: 20px;
     --line-height-large: 35px;
     --line-height-xlarge: 50px;
-    --6px: 6px;
-    --10px: 10px;
-    --14px: 14px;
-    --18px: 18px;
+
+    /* Spacing variables */
+    --spacing-6px: 6px;
+    --spacing-10px: 10px;
+    --spacing-14px: 14px;
+    --spacing-18px: 18px;
+    --spacing-38px: 38px;
+
+    /* Project Colors */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-blue: #3577e5;
+    --color-blue-light: #e5edf1;
+    --color-blue-steel: #252732;
+    --color-blue-dark: #0d3372;
+    --color-green: #249414;
+    --color-grey: #968c8c;
+    --color-grey-extra-light: #f5f5f5;
+    --color-grey-light: #d0d0d0;
+    --color-grey-medium: #cac3c3;
+    --color-grey-dark: #7d7d7d;
+    --color-grey-darker: #6a6a6a;
+    --color-grey-darkest: #2e2e30;
+    --color-pink-soft: #ff8997;
+    --color-red-deep: #c81b1b;
+    --color-red-darkest: #3f0008;
 
     /* Shadcn variables */
     --background: 0 0% 100%;

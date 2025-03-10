@@ -1,4 +1,4 @@
-export default function TypographyExamples () {
+export default function TypographyExamples() {
   return (
     <>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -22,4 +22,4 @@ export default function TypographyExamples () {
       <div className="button-2">Button 2</div>
     </>
   );
-};
+}

@@ -31,23 +31,23 @@ const buttonVariants = cva(
 
     // SVG Styles
     '[&_svg]:pointer-events-none',
-    '[&_svg]:size-4',
     '[&_svg]:shrink-0',
   ],
   {
     variants: {
       variant: {
         filled: [
-          'bg-blue-primary',
+          'bg-blue',
           'text-primary-foreground',
           'hover:bg-blue-dark',
+          'hover:shadow-inset-black',
         ],
         transparent: [
           'bg-transparent',
           'border',
-          'border-blue-primary',
+          'border-blue',
           'text-white',
-          'hover:bg-blue-primary',
+          'hover:bg-blue',
         ],
         /// Add to favorites button
         addToFavorites: [
@@ -64,18 +64,18 @@ const buttonVariants = cva(
           'border-black',
           'bg-white',
           'text-black',
-          'hover:border-blue-primary',
-          'hover:border-[3px]',
-          'data-[active=true]:border-blue-primary',
-          'data-[active=true]:border-[3px]',
+          'hover:border-blue',
+          'hover:shadow-inset-blue',
+          'data-[active=true]:border-blue',
+          'data-[active=true]:shadow-inset-blue',
         ],
         color: [
           'border',
           'border-black',
-          'hover:border-blue-primary',
-          'hover:border-[3px]',
-          'data-[active=true]:border-blue-primary',
-          'data-[active=true]:border-[3px]',
+          'hover:border-blue',
+          'hover:shadow-inset-blue',
+          'data-[active=true]:border-blue',
+          'data-[active=true]:shadow-inset-blue',
         ],
       },
       size: {
@@ -91,13 +91,11 @@ const buttonVariants = cva(
         button2: ['button-2'],
       },
       transparentVariant: {
-        blue_blue: ['text-blue-primary hover:text-white'],
+        blue_blue: ['text-blue hover:text-white'],
         blue_black: ['text-black'],
         white: ['border-white hover:text-black hover:bg-white'],
-        white_blueBg: ['border-white hover:border-blue-primary'],
-        black: [
-          'text-black border-black hover:border-blue-primary hover:text-white',
-        ],
+        white_blueBg: ['border-white hover:border-blue'],
+        black: ['text-black border-black hover:border-blue hover:text-white'],
       },
     },
   }
@@ -135,16 +133,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
+        ref={ref}
         className={cn(
           buttonVariants({
-            variant,
-            size,
-            typography,
-            transparentVariant,
             className,
+            size,
+            transparentVariant,
+            typography,
+            variant,
           })
         )}
-        ref={ref}
         data-active={isSelected}
         {...props}
       />

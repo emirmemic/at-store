@@ -3,12 +3,12 @@ import { IconProps } from '@/lib/types/base';
 const IconPlay = ({ size = 24, className = '', ...props }: IconProps) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
+      className={className}
+      fill="none"
       height={size}
       viewBox="0 0 32 32"
-      fill="none"
-      className={className}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path

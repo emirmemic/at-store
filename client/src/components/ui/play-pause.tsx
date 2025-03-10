@@ -29,7 +29,7 @@ const buttonVariants = cva(
     },
   }
 );
-const iconVariants = cva('shrink-0 text-grey-mediumLight', {
+const iconVariants = cva('shrink-0 text-grey-light', {
   variants: {
     variant: {
       light: 'w-4 h-4 md:w-6 md:h-6',
@@ -59,6 +59,7 @@ const PlayPause = React.forwardRef<HTMLButtonElement, PlayPauseProps>(
     return (
       <Comp
         ref={ref}
+        aria-label={isPlaying ? t('pause') : t('play')}
         className={cn(
           buttonVariants({
             variant,
@@ -67,7 +68,6 @@ const PlayPause = React.forwardRef<HTMLButtonElement, PlayPauseProps>(
           className
         )}
         title={isPlaying ? t('pause') : t('play')}
-        aria-label={isPlaying ? t('pause') : t('play')}
         {...props}
       >
         {isPlaying ? (

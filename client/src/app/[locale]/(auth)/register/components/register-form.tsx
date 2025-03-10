@@ -38,11 +38,11 @@ export default function RegisterForm() {
   return (
     <div className="flex h-screen items-center justify-center">
       <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-6"
         noValidate
+        className="w-full max-w-md space-y-6"
+        onSubmit={handleSubmit}
       >
-        <div className="border-gray-200 space-y-4 rounded-md bg-pink-50 p-10 shadow-md">
+        <div className="space-y-4 rounded-md border-gray-200 bg-pink-50 p-10 shadow-md">
           {error && (
             <div
               className="rounded-md bg-red-50 p-3 text-sm text-red-600"
@@ -53,44 +53,44 @@ export default function RegisterForm() {
           )}
 
           <FormField
-            label="Username"
-            type="text"
-            name="username"
-            id="username"
             required
             error={validationErrors.username}
+            id="username"
+            label="Username"
+            name="username"
+            type="text"
           />
 
           <FormField
-            label="Email"
-            type="email"
-            name="email"
-            id="email"
             required
             error={validationErrors.email}
+            id="email"
+            label="Email"
+            name="email"
+            type="email"
           />
 
           <FormField
-            label="Password"
-            type="password"
-            name="password"
-            id="password"
             required
             error={validationErrors.password}
+            id="password"
+            label="Password"
+            name="password"
+            type="password"
           />
 
           <Button
-            type="submit"
+            aria-busy={isLoading}
             className="w-full"
             disabled={isLoading}
-            aria-busy={isLoading}
+            type="submit"
           >
             {isLoading ? 'Registering...' : 'Register'}
           </Button>
 
           <div className="text-center text-sm">
             Already have an account?{' '}
-            <Link href="/login" className="text-pink-600 hover:text-pink-500">
+            <Link className="text-pink-600 hover:text-pink-500" href="/login">
               Sign in
             </Link>
           </div>

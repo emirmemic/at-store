@@ -21,7 +21,7 @@ async function logoutAction() {
 export function AuthLogoutButton() {
   return (
     <form action={logoutAction}>
-      <button type="submit" className="flex items-center gap-2">
+      <button className="flex items-center gap-2" type="submit">
         <LogOut className="h-6 w-6" />
       </button>
     </form>

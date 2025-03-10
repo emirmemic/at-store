@@ -34,7 +34,7 @@ export function LocaleSwitcherSelect({ children, defaultValue, label }: Props) {
   return (
     <label
       className={clsx(
-        'text-gray-400 relative',
+        'relative text-gray-400',
         isPending && 'transition-opacity [&:disabled]:opacity-30'
       )}
     >

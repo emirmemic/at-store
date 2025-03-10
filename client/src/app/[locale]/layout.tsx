@@ -51,7 +51,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   const user = await getUser();
   const t = await getTranslations('home');
   return (
-    <html lang="en" className={`${SF_Pro_Text.variable}`}>
+    <html className={`${SF_Pro_Text.variable}`} lang="en">
       <body>
         <NextIntlClientProvider messages={messages}>
           <div className="flex items-center justify-between p-4">

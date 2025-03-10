@@ -33,6 +33,14 @@ const eslintConfig = [
       // React rules
       'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
+      'react/jsx-sort-props': [
+        'warn',
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          reservedFirst: true,
+        },
+      ],
 
       // Import Sorting
       'import/order': [

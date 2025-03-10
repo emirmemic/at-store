@@ -29,16 +29,16 @@ export function Hero({
             return (
               <Button
                 key={index}
-                size="lg"
                 asChild
-                variant="filled"
                 className="h-12 cursor-pointer border-border text-base sm:h-14 sm:px-10"
+                size="lg"
+                variant="filled"
               >
                 <Link
-                  href={link.href}
-                  target={link.isExternal ? '_blank' : '_self'}
-                  rel="noopener noreferrer"
                   prefetch
+                  href={link.href}
+                  rel="noopener noreferrer"
+                  target={link.isExternal ? '_blank' : '_self'}
                 >
                   {link.label}
                 </Link>
@@ -50,10 +50,10 @@ export function Hero({
       <div className="relative flex-1">
         <StrapiImage
           alt={image.alternativeText}
-          src={image.url}
-          height={1080}
-          width={1920}
           className="rounded-xl border border-border shadow-lg"
+          height={1080}
+          src={image.url}
+          width={1920}
         />
         <div className="absolute inset-0 -z-10 bg-primary/20 [filter:blur(180px)]" />
       </div>
