@@ -1,8 +1,7 @@
 import ButtonsExamples from '@/components/buttons-examples';
+import InputExamples from '@/components/input-examples';
 import NavigationExamples from '@/components/navigation-examples';
 import TypographyExamples from '@/components/typography-examples';
-
-import InputExamples from '@/components/input-examples';
 
 export default async function HomeRoute() {
   return (

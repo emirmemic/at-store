@@ -18,7 +18,7 @@
     "deploy-server": "cd server && pm2 start npm --name server -- run start",
     "deploy-client": "cd client && pm2 start npm --name client -- run start",
     "deploy": "concurrently \"npm run deploy-server\" \"npm run deploy-client\"",
-    "fix-client": "cd client && npm run lint"
+    "lint-client": "cd client && npm run lint"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
