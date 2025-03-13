@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Pathname } from '@/i18n/routing';
 
 interface LinkProps {
@@ -5,6 +7,7 @@ interface LinkProps {
   label: string;
   href: Pathname;
   isExternal: boolean;
+  subLinks?: Array<LinkProps>;
 }
 
 interface ImageProps {

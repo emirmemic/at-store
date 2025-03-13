@@ -5,7 +5,6 @@ import { useState } from 'react';
 import {
   IconCart,
   IconClose,
-  IconLogout,
   IconSearch,
   IconUser,
 } from '@/components/nav-bar/icons';
@@ -28,15 +27,21 @@ export default function Navbar() {
         </div>
         {/* navbar-icons */}
         <div className="hidden items-center justify-center gap-2 md:flex">
-          <IconSearch />
-          <IconUser />
-          <IconCart />
+          <Button>
+            <IconSearch />
+          </Button>
+          <Button>
+            <IconUser />
+          </Button>
+          <Button>
+            <IconCart />
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Button asChild onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <IconClose /> : <IconMenu className="rounded-none" />}
+        <div className="size-6 md:hidden">
+          <Button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <IconClose /> : <IconMenu />}
           </Button>
         </div>
       </div>
@@ -48,17 +53,26 @@ export default function Navbar() {
             <div className="flex size-14 rounded-full bg-blue-500 text-white" />
             {/* nav-bar-icon */}
             <div className="flex gap-7">
-              <IconSearch />
-              <IconUser />
-              <IconCart />
+              <Button onClick={() => alert('hello')}>
+                <IconSearch />
+              </Button>
+              <Button>
+                <IconUser />
+              </Button>
+              <Button>
+                <IconCart />
+              </Button>
             </div>
           </div>
           <div>
             <NavLinks />
           </div>
 
-          <div className="flex items-center justify-center gap-2 pb-8 pt-10 text-white">
-            Odjavi se <IconLogout />
+          <div className="flex items-center justify-center gap-2 pb-8 pt-10 text-white heading-4">
+            <Button>
+              Prijavi se
+              <IconUser />
+            </Button>
           </div>
         </div>
       )}
