@@ -36,7 +36,7 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex items-center justify-center">
       <form noValidate className="w-full max-w-md" onSubmit={handleSubmit}>
         <div className="space-y-4 rounded-md border-gray-200 bg-pink-50 p-10 shadow-md">
           {error && (

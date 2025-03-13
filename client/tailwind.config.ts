@@ -64,7 +64,8 @@ export default {
           dark: '#0d3372',
         },
         green: {
-          DEFAULT: '#249414',
+          DEFAULT: '#22C55E',
+          dark: '#15803D',
         },
         grey: {
           DEFAULT: '#968c8c',
@@ -75,19 +76,24 @@ export default {
           darker: '#6a6a6a',
           darkest: '#2e2e30',
         },
+        orange: {
+          DEFAULT: '#F59E0B',
+          dark: '#B45309',
+        },
         pink: {
           soft: '#ff8997',
         },
         red: {
           deep: '#c81b1b',
           darkest: '#3f0008',
-        },        
+        },
       },
       boxShadow: {
-        'inset-black':
+        'inset-black-top':
           'inset 0 4px 4px 0 rgba(0 0 0 / 0.35), inset 0 -4px 4px 0 rgba(255 255 255 / 0.16)',
+        'inset-black-full': 'inset 0 0 0 2px rgba(0 0 0 / 0.35)',
         'large-black': '0 4px 4px 5px rgba(0 0 0 / 0.35)',
-        'inset-blue':'inset 0 0 0 2px var(--color-blue)',
+        'inset-blue': 'inset 0 0 0 2px var(--color-blue)',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -100,6 +106,8 @@ export default {
         '14px': 'var(--spacing-14px)',
         '18px': 'var(--spacing-18px)',
         '38px': 'var(--spacing-38px)',
+        'nav-height': 'var(--nav-height)',
+        'screen-h-cutoff': 'var(--screen-h-cutoff)',
       },
     },
   },

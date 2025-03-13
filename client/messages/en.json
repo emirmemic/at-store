@@ -43,6 +43,10 @@
     "addFavorites": "Add to favorites",
     "removeFavorites": "Remove from favorites",
     "play": "Play",
-    "pause": "Pause"
+    "pause": "Pause",
+    "dismissMessage": "Dismiss message"
+  },
+  "login": {
+    "errorWrongInfo": "You have entered wrong information"
   }
 }

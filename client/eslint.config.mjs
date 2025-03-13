@@ -31,6 +31,7 @@ const eslintConfig = [
       '@typescript-eslint/no-non-null-assertion': 'warn',
 
       // React rules
+      'react/no-unknown-property': 'warn',
       'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
       'react/jsx-sort-props': [

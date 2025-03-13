@@ -22,6 +22,8 @@ html {
     --spacing-14px: 14px;
     --spacing-18px: 18px;
     --spacing-38px: 38px;
+    --nav-height: 80px;
+    --screen-h-cutoff: calc(100vh - var(--nav-height));
 
     /* Shadcn variables */
     --background: 0 0% 100%;

@@ -43,6 +43,10 @@
     "addFavorites": "Dodaj u omiljene",
     "removeFavorites": "Ukloni iz omiljenih",
     "play": "Pusti",
-    "pause": "Pauziraj"
+    "pause": "Pauziraj",
+    "dismissMessage": "Odbaci poruku"
+  },
+  "login": {
+    "errorWrongInfo": "Unijeli ste pogrešne podatke"
   }
 }
