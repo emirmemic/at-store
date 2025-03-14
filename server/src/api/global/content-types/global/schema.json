@@ -17,12 +17,6 @@
     },
     "description": {
       "type": "text"
-    },
-    "header": {
-      "displayName": "Header",
-      "type": "component",
-      "repeatable": false,
-      "component": "elements.header"
     }
   }
 }

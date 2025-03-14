@@ -1,61 +1,63 @@
-// import qs from "qs";
-// import { notFound } from "next/navigation";
+import { HeartIcon } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import qs from 'qs';
 
-// import { fetchAPI } from "@/lib/fetch-api";
-// import { getStrapiURL } from "@/lib/utils";
-// import { blockRenderer } from "@/lib/block-renderer";
-// import { Block } from "@/lib/types";
+import { Button } from '@/components/ui/button';
+import { fetchAPI } from '@/lib/fetch-api';
+import { globalRenderer } from '@/lib/global-renderer';
+import { Global } from '@/lib/types/global';
+import { getStrapiURL } from '@/lib/utils/utils';
 
-// const homePageQuery = qs.stringify({
-//   populate: {
-//     blocks: {
-//       on: {
-//         "blocks.hero": {
-//           populate: {
-//             image: {
-//               fields: ["url", "alternativeText"],
-//             },
-//             links: true,
-//           },
-//         },
-//         "blocks.card-carousel": {
-//           populate: {
-//             cards: true,
-//           },
-//         },
-//         "blocks.heading": true,
-//       },
-//     },
-//   },
-// });
+import { HomepageResponse } from './types/homepage-response';
 
-// async function loader() {
-//   // const authToken = process.env.STRAPI_API_TOKEN;
-//   const BASE_URL = getStrapiURL();
-//   const path = "/api/home-page";
-//   const url = new URL(path, BASE_URL);
+const homePageQuery = qs.stringify({
+  populate: {
+    buttons: {
+      on: {
+        'global.button': true,
+      },
+    },
+    button: true,
+  },
+});
 
-//   url.search = homePageQuery;
+async function loader() {
+  const BASE_URL = getStrapiURL();
+  const path = '/api/home-page';
+  const url = new URL(path, BASE_URL);
+  url.search = homePageQuery;
 
-//   const data = await fetchAPI(url.href, {
-//     method: "GET",
-//   });
+  // Add 2 second delay
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-//   if (!data?.data) notFound();
+  const res = await fetchAPI<HomepageResponse>(url.href, {
+    method: 'GET',
+  });
 
-//   const blocks = data?.data?.blocks || [];
-//   return { blocks };
-// }
+  if (!res.data) notFound();
+  const data = res?.data?.data;
+  return data;
+}
 
 export default async function HomeRoute() {
-  // const data = await loader();
-  // const blocks = data.blocks;
+  const data = await loader();
+  const { buttons, title, button } = data;
+
   return (
-    <h1 className="display">Home page</h1>
-    // <div>
-    //   {blocks.map((block: Block, index: number) => {
-    //     return blockRenderer(block, index);
-    //   })}
-    // </div>
+    <>
+      <h1 className="p-10">{title}</h1>
+      <div className="flex gap-4">
+        {buttons.map((block: Global) => globalRenderer(block))}
+      </div>
+      <Button
+        size={button.size}
+        transparentVariant={button.transparentVariant}
+        typography={button.typography}
+        variant={button.variant}
+      >
+        <HeartIcon size={30} />
+        {button.label}
+      </Button>
+    </>
   );
 }

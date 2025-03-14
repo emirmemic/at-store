@@ -2,6 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
+import { ComponentType } from '@/lib/types/global';
 import { cn } from '@/lib/utils/utils';
 
 const buttonVariants = cva(
@@ -91,29 +92,27 @@ const buttonVariants = cva(
         button2: ['button-2'],
       },
       transparentVariant: {
-        blue_blue: ['text-blue hover:text-white'],
-        blue_black: ['text-black'],
-        white: ['border-white hover:text-black hover:bg-white'],
-        white_blueBg: ['border-white hover:border-blue'],
-        black: ['text-black border-black hover:border-blue hover:text-white'],
+        blue_blue: ['text-blue hover:text-white'], // blue border, blue text
+        blue_black: ['text-black'], // blue border, black text
+        white: ['border-white hover:text-black hover:bg-white'], // white border, white text
+        white_blueBg: ['border-white hover:border-blue'], // white border, blue background on hover
+        black: ['text-black border-black hover:border-blue hover:text-white'], // black border, black text
       },
     },
   }
 );
-
-type TransparentVariant =
-  | 'blue_blue' // blue border, blue text
-  | 'blue_black' // blue border, black text
-  | 'white' // white border, white text
-  | 'white_blueBg' // white border, blue background on hover
-  | 'black'; // black border, black text
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   isSelected?: boolean;
-  transparentVariant?: TransparentVariant;
+}
+
+export interface StrapiButtonProps extends VariantProps<typeof buttonVariants> {
+  id: number;
+  label: string;
+  __component?: ComponentType;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

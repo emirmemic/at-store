@@ -55,10 +55,10 @@ const handleSuccessResponse = <T>(
  * @param response - Fetch Response object
  * @param responseData - Parsed JSON data containing error
  */
-const handleErrorResponse = (
+const handleErrorResponse = <T>(
   response: Response,
   responseData: { error: StrapiError }
-): APIResponse => ({
+): APIResponse<T> => ({
   status: response.status,
   statusText: response.statusText,
   type: response.type,
@@ -114,7 +114,7 @@ export async function fetchAPI<T = unknown>(
 
     return response.ok
       ? handleSuccessResponse(response, responseData)
-      : handleErrorResponse(response, responseData);
+      : handleErrorResponse<T>(response, responseData);
   } catch (error) {
     if (error instanceof Error) {
       return {

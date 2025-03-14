@@ -8,8 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 
-import { Alert, AlertDescription, AlertTitle } from './ui/alert';
-import { Button } from './ui/button';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '../../../../components/ui/alert';
+import { Button } from '../../../../components/ui/button';
 
 export default function InputExamples() {
   const [checkedOne, setCheckedOne] = useState(false);

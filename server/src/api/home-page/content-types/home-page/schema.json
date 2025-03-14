@@ -18,13 +18,16 @@
     "description": {
       "type": "text"
     },
-    "blocks": {
+    "buttons": {
       "type": "dynamiczone",
       "components": [
-        "blocks.hero",
-        "blocks.card-carousel",
-        "blocks.heading"
+        "global.button"
       ]
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.button"
     }
   }
 }

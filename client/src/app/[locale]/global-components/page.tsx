@@ -1,7 +1,7 @@
-import ButtonsExamples from '@/components/buttons-examples';
-import InputExamples from '@/components/input-examples';
-import NavigationExamples from '@/components/navigation-examples';
-import TypographyExamples from '@/components/typography-examples';
+import ButtonsExamples from '@/app/[locale]/global-components/components/buttons-examples';
+import InputExamples from '@/app/[locale]/global-components/components/input-examples';
+import NavigationExamples from '@/app/[locale]/global-components/components/navigation-examples';
+import TypographyExamples from '@/app/[locale]/global-components/components/typography-examples';
 
 export default async function HomeRoute() {
   return (
