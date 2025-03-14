@@ -1,7 +1,9 @@
-import ButtonsExamples from '@/app/[locale]/global-components/components/buttons-examples';
-import InputExamples from '@/app/[locale]/global-components/components/input-examples';
-import NavigationExamples from '@/app/[locale]/global-components/components/navigation-examples';
-import TypographyExamples from '@/app/[locale]/global-components/components/typography-examples';
+import {
+  ButtonsExamples,
+  NavigationExamples,
+  TypographyExamples,
+  InputExamples,
+} from '@/app/[locale]/global-components/components';
 
 export default async function Page() {
   return (

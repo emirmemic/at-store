@@ -2,6 +2,7 @@ import { HeartIcon } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import qs from 'qs';
 
+import HomePageCard from '@/components/homepage-card';
 import { Button } from '@/components/ui/button';
 import { fetchAPI } from '@/lib/fetch-api';
 import { globalRenderer } from '@/lib/global-renderer';
@@ -57,6 +58,30 @@ export default async function Page() {
           {button.label}
         </Button>
       )}
+      <HomePageCard
+        homePageCard={{
+          title: 'title',
+          subtitle: 'subtitle',
+          image: {
+            id: 1,
+            documentId: '1',
+            url: '/assets/images/ibro.JPG',
+            alternativeText: 'alt',
+          },
+          buyNowLink: {
+            id: 2,
+            href: '/login',
+            label: 'Buy now',
+            isExternal: false,
+          },
+          readMoreLink: {
+            id: 4,
+            href: '/account',
+            label: 'Read more',
+            isExternal: false,
+          },
+        }}
+      />
     </>
   );
 }
