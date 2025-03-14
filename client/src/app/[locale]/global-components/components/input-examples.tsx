@@ -3,17 +3,12 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '../../../../components/ui/alert';
-import { Button } from '../../../../components/ui/button';
 
 export default function InputExamples() {
   const [checkedOne, setCheckedOne] = useState(false);

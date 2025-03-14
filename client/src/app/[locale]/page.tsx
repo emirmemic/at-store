@@ -27,9 +27,6 @@ async function loader() {
   const url = new URL(path, BASE_URL);
   url.search = homePageQuery;
 
-  // Add 2 second delay
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-
   const res = await fetchAPI<HomepageResponse>(url.href, {
     method: 'GET',
   });
@@ -49,15 +46,17 @@ export default async function HomeRoute() {
       <div className="flex gap-4">
         {buttons.map((block: Global) => globalRenderer(block))}
       </div>
-      <Button
-        size={button.size}
-        transparentVariant={button.transparentVariant}
-        typography={button.typography}
-        variant={button.variant}
-      >
-        <HeartIcon size={30} />
-        {button.label}
-      </Button>
+      {button && (
+        <Button
+          size={button.size}
+          transparentVariant={button.transparentVariant}
+          typography={button.typography}
+          variant={button.variant}
+        >
+          <HeartIcon size={30} />
+          {button.label}
+        </Button>
+      )}
     </>
   );
 }

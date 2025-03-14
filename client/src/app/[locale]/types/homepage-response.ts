@@ -5,6 +5,6 @@ export interface HomepageResponse {
     title: string;
     description?: string;
     buttons: StrapiButtonProps[];
-    button: StrapiButtonProps;
+    button: StrapiButtonProps | null;
   };
 }
