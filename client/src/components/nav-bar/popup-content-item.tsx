@@ -10,18 +10,18 @@ export function PopupContentItem(linkItem: Readonly<LinkProps>) {
 
   return (
     <Link
-      href={href}
-      className="curser-pointer text-black paragraph-4"
       prefetch
-      target={isExternal ? '_blank' : '_self'}
+      className="curser-pointer text-black paragraph-4"
+      href={href}
       rel={isExternal ? 'noopener noreferrer' : ''}
+      target={isExternal ? '_blank' : '_self'}
     >
       <div>
         <Image
+          alt="macbook-air"
+          height={30}
           src={'/assets/images/macbook-air.png'}
           width={37}
-          height={30}
-          alt="macbook-air"
         />
         {linkItem.label}
       </div>

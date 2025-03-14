@@ -3,17 +3,17 @@ import { IconProps } from '@/lib/types/base';
 export function IconMenu({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
+      className={className}
+      fill="none"
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      className={className}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <rect width="24" height="2" fill="white" />
-      <rect y="11" width="24" height="2" fill="white" />
-      <rect y="22" width="24" height="2" fill="white" />
+      <rect fill="white" height="2" width="24" />
+      <rect fill="white" height="2" width="24" y="11" />
+      <rect fill="white" height="2" width="24" y="22" />
     </svg>
   );
 }

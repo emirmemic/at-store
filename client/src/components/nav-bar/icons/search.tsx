@@ -3,18 +3,18 @@ import { IconProps } from '@/lib/types/base';
 export function IconSearch({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
+      className={className}
+      fill="white"
       height={size}
       viewBox="0 0 24 24"
-      fill="white"
-      className={className}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        fillRule="evenodd"
         clipRule="evenodd"
         d="M10.7261 1.07006C5.39322 1.07006 1.07006 5.39322 1.07006 10.7261C1.07006 16.059 5.39322 20.3822 10.7261 20.3822C16.059 20.3822 20.3822 16.059 20.3822 10.7261C20.3822 5.39322 16.059 1.07006 10.7261 1.07006ZM0 10.7261C0 4.80224 4.80224 0 10.7261 0C16.65 0 21.4522 4.80224 21.4522 10.7261C21.4522 13.4956 20.4026 16.0198 18.6796 17.9229L23.8433 23.0866C24.0522 23.2956 24.0522 23.6343 23.8433 23.8433C23.6343 24.0522 23.2956 24.0522 23.0866 23.8433L17.9229 18.6796C16.0198 20.4026 13.4956 21.4522 10.7261 21.4522C4.80224 21.4522 0 16.65 0 10.7261Z"
+        fillRule="evenodd"
       />
     </svg>
   );

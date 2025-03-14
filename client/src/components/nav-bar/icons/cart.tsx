@@ -3,12 +3,12 @@ import { IconProps } from '@/lib/types/base';
 export function IconCart({ size = 24, className = '', ...props }: IconProps) {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
+      className={className}
+      fill="white"
       height={size}
       viewBox="0 0 24 24"
-      fill="white"
-      className={className}
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
