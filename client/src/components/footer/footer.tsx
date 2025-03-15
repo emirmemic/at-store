@@ -5,7 +5,7 @@ import FooterPayment from '@/components/footer/components/payment';
 import SectionDesktop from '@/components/footer/components/section-desktop';
 import SectionMobile from '@/components/footer/components/section-mobile';
 import FooterSocial from '@/components/footer/components/social';
-import { PAGE_NAMES } from '@/i18n/pageNames';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname } from '@/i18n/routing';
 
 import { FooterSectionType } from './types/footer-types';
