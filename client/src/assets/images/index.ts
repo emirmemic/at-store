@@ -1,1 +1,1 @@
-export { default as monri } from './monri.webp';
+export { default as monri } from './monri.jpg';

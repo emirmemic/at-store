@@ -13,17 +13,15 @@ export default function FooterPayment() {
   return (
     <div className="flex w-full flex-col justify-between gap-4 md:flex-row-reverse md:items-center md:gap-8">
       <div className="flex shrink-0 gap-4 [&_svg]:shrink-0">
-        <Image
-          alt="Monri"
-          className="object-cover"
-          height={34}
-          quality={100}
-          sizes="(max-width: 115px) 100vw, 115px"
-          src={monri}
-          style={{ objectFit: 'contain' }}
-          width={115}
-        />
-
+        <div>
+          <Image
+            alt="Monri"
+            height={34}
+            quality={100}
+            src={monri}
+            width={115}
+          />
+        </div>
         <IconMasterCard />
         <IconVisa />
         <IconMaestro />
