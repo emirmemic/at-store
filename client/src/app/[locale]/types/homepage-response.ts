@@ -1,10 +1,9 @@
-import { StrapiButtonProps } from '@/components/ui/button';
+import { PromoCardProps } from '@/app/components/promo-card';
 
 export interface HomepageResponse {
   data: {
     title: string;
     description?: string;
-    buttons: StrapiButtonProps[];
-    button: StrapiButtonProps | null;
+    promo_cards: Array<PromoCardProps> | null;
   };
 }

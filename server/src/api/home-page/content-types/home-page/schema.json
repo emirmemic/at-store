@@ -18,16 +18,11 @@
     "description": {
       "type": "text"
     },
-    "buttons": {
-      "type": "dynamiczone",
-      "components": [
-        "global.button"
-      ]
-    },
-    "button": {
+    "promo_cards": {
       "type": "component",
-      "repeatable": false,
-      "component": "global.button"
+      "repeatable": true,
+      "component": "homepage.promo-card",
+      "required": false
     }
   }
 }

@@ -1,7 +1,12 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "cSpell.words": ["Shadcn", "STRAPI", "xlarge"],
+  "cSpell.words": [
+    "Shadcn",
+    "STRAPI",
+    "xlarge",
+    "rovoit"
+  ],
   "cSpell.language": "en,hr",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

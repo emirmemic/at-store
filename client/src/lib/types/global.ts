@@ -1,4 +1,4 @@
-import { StrapiButtonProps as StrapiButtonProps } from '@/components/ui/button';
+import { StrapiButtonProps } from '@/components/ui/button';
 
 /// This needs to match the __component value in the Strapi API
 /**

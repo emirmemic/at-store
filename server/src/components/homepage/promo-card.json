@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_homepage_promo_cards",
+  "info": {
+    "displayName": "PromoCard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "caption": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "learnMoreVariant": {
+      "type": "enumeration",
+      "enum": [
+        "blue_blue",
+        "blue_white"
+      ],
+      "required": true,
+      "default": "blue_blue"
+    }
+  }
+}

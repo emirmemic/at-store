@@ -303,5 +303,9 @@
     "atStoreEmailLink": "mailto:at@atstore.ba",
     "atStoreComplaints": "www.atstore.ba/reklamacije",
     "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije"
+  },
+  "common": {
+    "learnMore": "Saznaj više",
+    "buyNow": "Kupi sad"
   }
 }

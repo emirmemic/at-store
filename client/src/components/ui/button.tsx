@@ -97,10 +97,15 @@ const buttonVariants = cva(
         white: ['border-white hover:text-black hover:bg-white'], // white border, white text
         white_blueBg: ['border-white hover:border-blue'], // white border, blue background on hover
         black: ['text-black border-black hover:border-blue hover:text-white'], // black border, black text
+        blue_white: '', // blue border, white text (default)
       },
     },
   }
 );
+
+export type TransparentVariant = NonNullable<
+  VariantProps<typeof buttonVariants>['transparentVariant']
+>;
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
