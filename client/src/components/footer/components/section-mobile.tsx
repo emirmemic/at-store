@@ -1,0 +1,52 @@
+'use client';
+import { useState } from 'react';
+
+import { IconChevron } from '@/components/icons/chevron';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import { Link } from '@/i18n/routing';
+import { cn } from '@/lib/utils/utils';
+
+import { FooterSectionType } from '../types/footer-types';
+
+interface PropType {
+  section: FooterSectionType;
+  className?: string;
+}
+
+export default function SectionMobile({ section, className }: PropType) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className={cn('pb-2', className)}>
+      <Collapsible key={section.id} onOpenChange={setIsOpen}>
+        <CollapsibleTrigger className="flex w-full max-w-72 items-center justify-between gap-4">
+          <span className="heading-5">{section.title}</span>
+          <IconChevron
+            className={`transition-transform duration-500 ${
+              isOpen ? 'rotate-180' : 'rotate-0'
+            }`}
+            size={14}
+          />
+        </CollapsibleTrigger>
+        <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+          <ul className="flex flex-col gap-1 pl-6">
+            {section.items.map((item) => (
+              <li key={item.path}>
+                <Link
+                  className="transition-color paragraph-2 hover:text-grey"
+                  href={item.path}
+                  target={item.target ?? undefined}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  );
+}

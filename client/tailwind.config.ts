@@ -104,6 +104,26 @@ export default {
         'nav-height': '80px',
         'screen-h-cutoff': 'calc(100vh - 80px)',
       },
+      keyframes: {
+        slideDown: {
+          from: { height: '0px', opacity: '0' },
+          to: {
+            height: 'var(--radix-collapsible-content-height)',
+            opacity: '1',
+          },
+        },
+        slideUp: {
+          from: {
+            height: 'var(--radix-collapsible-content-height)',
+            opacity: '1',
+          },
+          to: { height: '0px', opacity: '0' },
+        },
+      },
+      animation: {
+        slideDown: 'slideDown 0.3s ease-out',
+        slideUp: 'slideUp 0.3s ease-out',
+      },
     },
   },
   plugins: [
@@ -179,7 +199,6 @@ export default {
         },
         '.paragraph-5': {
           '@apply typography-paragraph': {},
-          fontWeight: '900',
           fontSize: '11px',
         },
         '.paragraph-6': {
@@ -199,6 +218,17 @@ export default {
         '.button-2': {
           '@apply typography-button': {},
           fontSize: '11px',
+        },
+        '.container-max-width': {
+          width: '100%',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
+          '@screen md': {
+            paddingLeft: '3rem',
+            paddingRight: '3rem',
+          },
         },
       });
     },

@@ -1,12 +1,12 @@
 {
   "metaData": {
-    "home": {
+    "homePage": {
       "title": "AT Store I Mono Apple Authorised Reseller",
       "description": "AT Store je prva Mono Apple Authorized Reseller trgovina u BiH. U ponudi su iPhone, iPad, iMac, MacBook Pro, MacBook Air… Mogućnost plaćanja na rate!"
     },
     "about": {
-      "title": "O nama | AT Store",
-      "description": "AT Store je prvi Mono Apple Authorized Reseller."
+      "title": "O Nama | AT Store",
+      "description": "AT Store je prvi Mono Apple ovlašteni prodavač."
     },
     "login": {
       "title": "Prijava | AT Store",
@@ -14,13 +14,108 @@
     },
     "register": {
       "title": "Registracija | AT Store",
-      "description": "Registrirajte se za novi račun"
+      "description": "Registrujte novi račun"
+    },
+    "account": {
+      "title": "Moj Račun | AT Store",
+      "description": "Upravljajte svojim ličnim računom, narudžbama i postavkama."
+    },
+    "reset-password": {
+      "title": "Resetovanje Lozinke | AT Store",
+      "description": "Resetujte lozinku i ponovo pristupite svom računu."
+    },
+    "mac": {
+      "title": "Mac | AT Store",
+      "description": "Istražite našu ponudu Apple Mac računara, uključujući MacBook i iMac."
+    },
+    "ipad": {
+      "title": "iPad | AT Store",
+      "description": "Pronađite najnovije iPad uređaje sa snažnim performansama i elegantnim dizajnom."
+    },
+    "iphone": {
+      "title": "iPhone | AT Store",
+      "description": "Otkrijte najnovije modele iPhone uređaja sa inovativnom tehnologijom."
+    },
+    "watch": {
+      "title": "Apple Watch | AT Store",
+      "description": "Ostanite povezani uz najnovije modele Apple Watch i dodatke."
+    },
+    "airPods": {
+      "title": "AirPods | AT Store",
+      "description": "Iskusite vrhunski bežični zvuk uz Apple AirPods."
+    },
+    "accessories": {
+      "title": "Dodaci | AT Store",
+      "description": "Poboljšajte svoje Apple uređaje kvalitetnim dodacima."
+    },
+    "support": {
+      "title": "Podrška | AT Store",
+      "description": "Potražite pomoć i podršku za vaše Apple proizvode."
+    },
+    "b2b": {
+      "title": "B2B | AT Store",
+      "description": "Saznajte više o B2B uslugama i rješenjima za poslovne korisnike."
+    },
+    "microfin-pre-invoice": {
+      "title": "Mikrofin predračun | AT Store",
+      "description": "Informacije o Mikrofin predračunu za kupovinu na rate."
+    },
+    "claims": {
+      "title": "Reklamacije | AT Store",
+      "description": "Postupak i informacije o reklamacijama proizvoda."
+    },
+    "educational-discount": {
+      "title": "Obrazovni popust | AT Store",
+      "description": "Informacije o obrazovnom popustu za učenike i studente."
+    },
+    "find-store": {
+      "title": "Pronađi store | AT Store",
+      "description": "Pronađite najbližu AT Store lokaciju."
+    },
+    "careers": {
+      "title": "Karijera | AT Store",
+      "description": "Pridružite se našem timu i pogledajte otvorene pozicije."
+    },
+    "news": {
+      "title": "Novosti | AT Store",
+      "description": "Pročitajte najnovije vijesti i informacije o Apple proizvodima."
+    },
+    "promo": {
+      "title": "Promo | AT Store",
+      "description": "Aktuelne promocije i popusti na Apple proizvode."
+    },
+    "privacy-policy": {
+      "title": "Politika privatnosti | AT Store",
+      "description": "Pročitajte našu politiku privatnosti i saznajte kako štitimo vaše podatke."
+    },
+    "delivery": {
+      "title": "Dostava | AT Store",
+      "description": "Informacije o dostavi i preuzimanju proizvoda."
+    },
+    "newsletter": {
+      "title": "Newsletter | AT Store",
+      "description": "Prijavite se na naš newsletter i budite u toku sa novostima i ponudama."
+    },
+    "payment-methods": {
+      "title": "Načini plaćanja | AT Store",
+      "description": "Informacije o načinima plaćanja u AT Store."
+    },
+    "order-cancellation": {
+      "title": "Otkazivanje narudžbe | AT Store",
+      "description": "Postupak za otkazivanje narudžbe."
+    },
+    "contact-us": {
+      "title": "Kontaktirajte nas | AT Store",
+      "description": "Kontakt informacije i obrazac za kontakt."
+    },
+    "terms-of-purchase": {
+      "title": "Uslovi kupovine | AT Store",
+      "description": "Pročitajte uslove kupovine u AT Store."
+    },
+    "cookie-privacy": {
+      "title": "Cookie privacy | AT Store",
+      "description": "Informacije o upotrebi kolačića i politici privatnosti kolačića."
     }
-  },
-  "home": {
-    "title": "Početna stranica",
-    "login": "Prijava",
-    "googleSignIn": "Prijava putem Google-a"
   },
   "about": {
     "title": "O nama",
@@ -48,5 +143,53 @@
   },
   "login": {
     "errorWrongInfo": "Unijeli ste pogrešne podatke"
+  },
+  "footer": {
+    "homePage": "Početna stranica",
+    "description1": "AT Store je dio AT Network grupacije. AT Networks grupaciju čine AT Store, AT Soft i AT Business. AT Store je prvi sa statusom Mono Apple Authorized Reseller u Bosni i Hercegovini.",
+    "description2": "Status MAAR dodjeljuje se samo trgovinama koje ispunjavaju najvišu razinu kvalitete usluga.",
+    "description3": "AT Soft je IT kompanija koja se bavi softverskim rješenjima.",
+    "description4": "AT Business je dio AT Networks grupacije zadužen za poslovanje sa pravnim licima.",
+    "categories": {
+      "title": "Kategorija",
+      "mac": "Mac",
+      "ipad": "iPad",
+      "iphone": "iPhone",
+      "watch": "Watch",
+      "airPods": "AirPods",
+      "accessories": "Dodaci"
+    },
+    "services": {
+      "title": "Usluge",
+      "support": "Podrška",
+      "b2b": "B2B",
+      "microfinEstimate": "Mikrofin predračun",
+      "complaints": "Reklamacije",
+      "educationalDiscount": "Obrazovni popust"
+    },
+    "companies": {
+      "title": "Kompanije",
+      "aboutUs": "O nama",
+      "findStore": "Pronađi store",
+      "career": "Karijera",
+      "news": "Novosti",
+      "atSoft": "AT Soft"
+    },
+    "information": {
+      "title": "Kompanije",
+      "promo": "Promo",
+      "privacyPolicy": "Politika privatnosti",
+      "delivery": "Dostava",
+      "newsletter": "Newsletter"
+    },
+    "help": {
+      "title": "Pomoć",
+      "paymentMethods": "Načini plaćanja",
+      "orderCancellation": "Otkazivanje narudžbe",
+      "contactUs": "Kontaktirajte nas",
+      "termsOfPurchase": "Uslovi kupovine",
+      "cookiePrivacy": "Cookie privacy"
+    },
+    "copyrightNotice": "Copyrights 2025 AT Store Network. All rights Reserved. Mono Apple Authorized Reseller."
   }
 }
