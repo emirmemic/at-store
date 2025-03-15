@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { PAGE_NAMES } from '@/i18n/pageNames';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { routing, Pathname } from '@/i18n/routing';
 
 export default function sitemap(): MetadataRoute.Sitemap {
