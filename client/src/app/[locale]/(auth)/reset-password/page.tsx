@@ -10,6 +10,10 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   return {
     title: t('reset-password.title'),
     description: t('reset-password.description'),
+    openGraph: {
+      title: t('reset-password.title'),
+      description: t('reset-password.description'),
+    },
   };
 }
 export default function Page() {

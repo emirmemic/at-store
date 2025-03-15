@@ -12,6 +12,10 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   return {
     title: t('login.title'),
     description: t('login.description'),
+    openGraph: {
+      title: t('login.title'),
+      description: t('login.description'),
+    },
   };
 }
 export default function Page() {

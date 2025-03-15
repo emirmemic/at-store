@@ -22,8 +22,39 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   const t = await getTranslations({ locale, namespace: 'metaData' });
 
   return {
-    title: t('homePage.title'),
+    title: {
+      template: '%s | AT Store',
+      default: t('homePage.title'),
+    },
     description: t('homePage.description'),
+    twitter: {
+      title: t('homePage.title'),
+      description: t('homePage.description'),
+      images: [
+        {
+          url: '/open-graph.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'AT Store',
+        },
+      ],
+    },
+    openGraph: {
+      title: t('homePage.title'),
+      description: t('homePage.description'),
+      type: 'website',
+      siteName: 'AT Store',
+      locale: locale,
+      url: process.env.NEXT_PUBLIC_FRONTEND_URL,
+      images: [
+        {
+          url: '/open-graph.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'AT Store',
+        },
+      ],
+    },
   };
 }
 
