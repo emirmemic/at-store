@@ -190,40 +190,40 @@
       "termsOfPurchase": "Uslovi kupovine",
       "cookiePrivacy": "Cookie privacy"
     },
-    "copyrightNotice": "Copyrights 2025 AT Store Network. All rights Reserved. Mono Apple Authorized Reseller.",
-    "deliveryPage": {
-      "title": "Dostava",
-      "item1": {
-        "title": "Načini dostave",
-        "listItem1": "Dostavu vršimo isključivo na području Bosne i Hercegovine putem BH Pošte."
-      },
-      "item2": {
-        "title": "Rokovi isporuke",
-        "listItem1": "Vrijeme isporuke ovisi o lokaciji isporuke:",
-        "listItem2": "Standardna dostava: 2-5 radnih dana",
-        "listItem3": "Napominjemo da se rokovi isporuke mogu produžiti u slučaju praznika, vikenda ili nepredviđenih okolnosti."
-      },
-      "item3": {
-        "title": "Troškovi dostave",
-        "listItem1": "Dostava je besplatna za narudžbe iznad 399 KM.",
-        "listItem2": "Za narudžbe ispod 399 KM, troškovi dostave bit će prikazani prilikom dovršetka kupnje."
-      },
-      "item4": {
-        "title": "Praćenje pošiljke",
-        "listItem1": "Po potvrdi narudžbe dobit ćete broj za praćenje pošiljke putem e-maila, kako biste mogli pratiti status dostave."
-      },
-      "item5": {
-        "title": "Oštećena ili izgubljena pošiljka",
-        "listItem1": "Ako primijetite oštećenje pošiljke pri preuzimanju, molimo vas da to odmah prijavite dostavljaču i kontaktirate našu korisničku podršku. U slučaju izgubljene pošiljke, pokrenut ćemo istragu s BH Poštom."
-      },
-      "item6": {
-        "title": "Povrat i zamjena",
-        "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu www.atstore.ba/reklamacije."
-      },
-      "item7": {
-        "title": "Kontakt",
-        "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na at@atstore.ba"
-      }
+    "copyrightNotice": "Copyrights 2025 AT Store Network. All rights Reserved. Mono Apple Authorized Reseller."
+  },
+  "deliveryPage": {
+    "title": "Dostava",
+    "item1": {
+      "title": "Načini dostave",
+      "listItem1": "Dostavu vršimo isključivo na području Bosne i Hercegovine putem BH Pošte."
+    },
+    "item2": {
+      "title": "Rokovi isporuke",
+      "listItem1": "Vrijeme isporuke ovisi o lokaciji isporuke:",
+      "listItem2": "Standardna dostava: 2-5 radnih dana",
+      "listItem3": "Napominjemo da se rokovi isporuke mogu produžiti u slučaju praznika, vikenda ili nepredviđenih okolnosti."
+    },
+    "item3": {
+      "title": "Troškovi dostave",
+      "listItem1": "Dostava je besplatna za narudžbe iznad 399 KM.",
+      "listItem2": "Za narudžbe ispod 399 KM, troškovi dostave bit će prikazani prilikom dovršetka kupnje."
+    },
+    "item4": {
+      "title": "Praćenje pošiljke",
+      "listItem1": "Po potvrdi narudžbe dobit ćete broj za praćenje pošiljke putem e-maila, kako biste mogli pratiti status dostave."
+    },
+    "item5": {
+      "title": "Oštećena ili izgubljena pošiljka",
+      "listItem1": "Ako primijetite oštećenje pošiljke pri preuzimanju, molimo vas da to odmah prijavite dostavljaču i kontaktirate našu korisničku podršku. U slučaju izgubljene pošiljke, pokrenut ćemo istragu s BH Poštom."
+    },
+    "item6": {
+      "title": "Povrat i zamjena",
+      "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu www.atstore.ba/reklamacije."
+    },
+    "item7": {
+      "title": "Kontakt",
+      "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na at@atstore.ba"
     }
   }
 }
