@@ -12,6 +12,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     description: t('reset-password.description'),
   };
 }
-export default function page() {
+export default function Page() {
   return <div>Reset password</div>;
 }

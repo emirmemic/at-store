@@ -3,7 +3,7 @@ import InputExamples from '@/app/[locale]/global-components/components/input-exa
 import NavigationExamples from '@/app/[locale]/global-components/components/navigation-examples';
 import TypographyExamples from '@/app/[locale]/global-components/components/typography-examples';
 
-export default async function HomeRoute() {
+export default async function Page() {
   return (
     <div className="flex flex-col items-center gap-4 p-9">
       <TypographyExamples />

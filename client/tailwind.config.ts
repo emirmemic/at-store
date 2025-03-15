@@ -124,26 +124,6 @@ export default {
         slideDown: 'slideDown 0.3s ease-out',
         slideUp: 'slideUp 0.3s ease-out',
       },
-      keyframes: {
-        slideDown: {
-          from: { height: '0px', opacity: '0' },
-          to: {
-            height: 'var(--radix-collapsible-content-height)',
-            opacity: '1',
-          },
-        },
-        slideUp: {
-          from: {
-            height: 'var(--radix-collapsible-content-height)',
-            opacity: '1',
-          },
-          to: { height: '0px', opacity: '0' },
-        },
-      },
-      animation: {
-        slideDown: 'slideDown 0.3s ease-out',
-        slideUp: 'slideUp 0.3s ease-out',
-      },
     },
   },
   plugins: [

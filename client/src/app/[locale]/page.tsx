@@ -36,7 +36,7 @@ async function loader() {
   return data;
 }
 
-export default async function HomeRoute() {
+export default async function Page() {
   const data = await loader();
   const { buttons, title, button } = data;
 

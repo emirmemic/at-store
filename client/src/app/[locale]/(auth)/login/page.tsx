@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     description: t('login.description'),
   };
 }
-export default function LoginPage() {
+export default function Page() {
   return (
     <main className="flex h-screen-h-cutoff items-center justify-center">
       <LoginForm />

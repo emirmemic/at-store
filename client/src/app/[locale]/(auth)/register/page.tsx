@@ -14,6 +14,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     description: t('register.description'),
   };
 }
-export default function RegisterPage() {
+export default function Page() {
   return <RegisterForm />;
 }

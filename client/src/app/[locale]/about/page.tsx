@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     description: t('about.description'),
   };
 }
-export default async function AboutPage() {
+export default async function Page() {
   const t = await getTranslations('about');
   return (
     <div className="flex flex-col items-center justify-center">
