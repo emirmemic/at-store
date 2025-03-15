@@ -10,14 +10,7 @@ export default function NavLinks() {
       label: 'Home',
       href: '/',
       isExternal: false,
-      subLinks: [
-        {
-          id: 7,
-          label: 'Hello',
-          href: '/login',
-          isExternal: false,
-        },
-      ],
+      subLinks: [],
     },
     {
       id: 2,
@@ -89,6 +82,12 @@ export default function NavLinks() {
       href: '/global-components',
       isExternal: false,
       subLinks: [],
+    },
+    {
+      id: 6,
+      label: 'delivery',
+      href: '/delivery',
+      isExternal: false,
     },
   ];
   return (
