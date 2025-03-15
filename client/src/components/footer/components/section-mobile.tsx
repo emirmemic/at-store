@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 
+import { FooterSectionType } from '@/components/footer/types';
 import { IconChevron } from '@/components/icons/chevron';
 import {
   Collapsible,
@@ -9,8 +10,6 @@ import {
 } from '@/components/ui/collapsible';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
-
-import { FooterSectionType } from '../types/footer-types';
 
 interface PropType {
   section: FooterSectionType;

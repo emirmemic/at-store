@@ -1,7 +1,6 @@
+import { FooterSectionType } from '@/components/footer/types';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
-
-import { FooterSectionType } from '../types/footer-types';
 
 interface PropType {
   section: FooterSectionType;

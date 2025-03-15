@@ -1,14 +1,15 @@
 import { useTranslations } from 'next-intl';
 
-import Description from '@/components/footer/components/description';
-import FooterPayment from '@/components/footer/components/payment';
-import SectionDesktop from '@/components/footer/components/section-desktop';
-import SectionMobile from '@/components/footer/components/section-mobile';
-import FooterSocial from '@/components/footer/components/social';
+import {
+  Description,
+  FooterPayment,
+  SectionDesktop,
+  SectionMobile,
+  FooterSocial,
+} from '@/components/footer/components';
+import { FooterSectionType } from '@/components/footer/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname } from '@/i18n/routing';
-
-import { FooterSectionType } from './types/footer-types';
 
 export default function Footer() {
   const t = useTranslations('footer');
