@@ -1,12 +1,29 @@
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import Section, {
   SectionProps,
 } from '@/app/[locale]/(static-pages)/components/section';
 
+interface GenerateMetadataParams {
+  params: Promise<{ locale: string }>;
+}
+export async function generateMetadata({ params }: GenerateMetadataParams) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metaData' });
+  return {
+    title: t('delivery.title'),
+    description: t('delivery.description'),
+    openGraph: {
+      title: t('delivery.title'),
+      description: t('delivery.description'),
+    },
+  };
+}
+
 export default function DeliveryPage() {
   const t = useTranslations('deliveryPage');
-  const sections: Array<SectionProps> = [
+  const sections: SectionProps[] = [
     {
       title: t('item1.title'),
       listItems: [t('item1.listItem1')],
