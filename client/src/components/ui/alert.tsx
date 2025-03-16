@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { IconX } from '@/components/icons/x';
+import { IconX } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/utils';
 
@@ -113,4 +113,4 @@ const AlertDescription = React.forwardRef<
 ));
 AlertDescription.displayName = 'AlertDescription';
 
-export { Alert, AlertTitle, AlertDescription };
+export { Alert, AlertDescription, AlertTitle };

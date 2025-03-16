@@ -1,4 +1,4 @@
-import { PromoCardProps } from '@/app/components/promo-card';
+import { PromoCardProps } from '@/app/components';
 
 export interface HomepageResponse {
   data: {
