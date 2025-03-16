@@ -10,7 +10,8 @@ import PaginationPages from '@/components/ui/pagination-pages';
 import PlayPause from '@/components/ui/play-pause';
 import ProductsSliderPagination from '@/components/ui/products-slider-pagination';
 import ProgressBar from '@/components/ui/progress-bar';
-import { useRouter, usePathname } from '@/i18n/routing';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { useRouter } from '@/i18n/routing';
 
 export default function NavigationExamples() {
   const t = useTranslations('navigation');
@@ -19,11 +20,10 @@ export default function NavigationExamples() {
   const [activePage, setActivePage] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const router = useRouter();
-  const pathname = usePathname();
 
   const handlePageChange = (page: number) => {
     setActivePage(page);
-    router.push({ pathname, query: { page } });
+    router.push({ pathname: PAGE_NAMES.GLOBAL_COMPONENTS, query: { page } });
   };
 
   useEffect(() => {

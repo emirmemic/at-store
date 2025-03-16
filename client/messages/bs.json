@@ -20,7 +20,7 @@
       "title": "Moj Račun | AT Store",
       "description": "Upravljajte svojim ličnim računom, narudžbama i postavkama."
     },
-    "reset-password": {
+    "resetPassword": {
       "title": "Resetovanje Lozinke | AT Store",
       "description": "Resetujte lozinku i ponovo pristupite svom računu."
     },
@@ -56,7 +56,7 @@
       "title": "B2B | AT Store",
       "description": "Saznajte više o B2B uslugama i rješenjima za poslovne korisnike."
     },
-    "microfin-pre-invoice": {
+    "microfinPreInvoice": {
       "title": "Mikrofin predračun | AT Store",
       "description": "Informacije o Mikrofin predračunu za kupovinu na rate."
     },
@@ -64,11 +64,11 @@
       "title": "Reklamacije | AT Store",
       "description": "Postupak i informacije o reklamacijama proizvoda."
     },
-    "educational-discount": {
+    "educationalDiscount": {
       "title": "Obrazovni popust | AT Store",
       "description": "Informacije o obrazovnom popustu za učenike i studente."
     },
-    "find-store": {
+    "findStore": {
       "title": "Pronađi store | AT Store",
       "description": "Pronađite najbližu AT Store lokaciju."
     },
@@ -84,7 +84,7 @@
       "title": "Promo | AT Store",
       "description": "Aktuelne promocije i popusti na Apple proizvode."
     },
-    "privacy-policy": {
+    "privacyPolicy": {
       "title": "Politika privatnosti | AT Store",
       "description": "Pročitajte našu politiku privatnosti i saznajte kako štitimo vaše podatke."
     },
@@ -96,23 +96,23 @@
       "title": "Newsletter | AT Store",
       "description": "Prijavite se na naš newsletter i budite u toku sa novostima i ponudama."
     },
-    "payment-methods": {
+    "paymentMethods": {
       "title": "Načini plaćanja | AT Store",
       "description": "Informacije o načinima plaćanja u AT Store."
     },
-    "order-cancellation": {
+    "orderCancellation": {
       "title": "Otkazivanje narudžbe | AT Store",
       "description": "Postupak za otkazivanje narudžbe."
     },
-    "contact-us": {
+    "contactUs": {
       "title": "Kontaktirajte nas | AT Store",
       "description": "Kontakt informacije i obrazac za kontakt."
     },
-    "terms-of-purchase": {
+    "termsOfPurchase": {
       "title": "Uslovi kupovine | AT Store",
       "description": "Pročitajte uslove kupovine u AT Store."
     },
-    "cookie-privacy": {
+    "cookiePrivacy": {
       "title": "Cookie privacy | AT Store",
       "description": "Informacije o upotrebi kolačića i politici privatnosti kolačića."
     }

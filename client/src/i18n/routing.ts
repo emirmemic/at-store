@@ -12,6 +12,9 @@ export const routing = defineRouting({
     '/': {
       bs: '/',
     },
+    [PAGE_NAMES.GLOBAL_COMPONENTS]: {
+      bs: '/global-components',
+    },
     [PAGE_NAMES.LOGIN]: {
       bs: '/prijava',
     },

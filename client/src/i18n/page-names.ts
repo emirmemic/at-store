@@ -29,6 +29,7 @@ export const PAGE_NAMES = {
   CONTACT_US: '/contact-us',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
   COOKIE_PRIVACY: '/cookie-privacy',
+  GLOBAL_COMPONENTS: '/global-components',
 } as const;
 
 export type PageNameKey = keyof typeof PAGE_NAMES;
