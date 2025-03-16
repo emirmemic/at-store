@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 
-import { Global } from './types/global';
+import { Global } from '../lib/types/global';
 
-export function globalRenderer(component: Global) {
+export default function GlobalRenderer(component: Global) {
   switch (component.__component) {
     case 'global.button':
       return (

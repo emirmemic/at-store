@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import IconHeart from '@/components/icons/heart';
+import { IconHeart } from '@/components/icons';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import Loader from '@/components/ui/loader';
 import NavigationArrow from '@/components/ui/navigation-arrow';

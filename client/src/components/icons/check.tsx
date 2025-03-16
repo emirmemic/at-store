@@ -1,6 +1,10 @@
 import { IconProps } from '@/lib/types/base';
 
-export function IconCheck({ size = 16, className = '', ...props }: IconProps) {
+export default function IconCheck({
+  size = 16,
+  className = '',
+  ...props
+}: IconProps) {
   return (
     <svg
       className={className}

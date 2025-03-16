@@ -2,7 +2,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import IconHeart from '@/components/icons/heart';
+import { IconHeart } from '@/components/icons';
 import { cn } from '@/lib/utils/utils';
 
 export interface FavoritesHeartProps

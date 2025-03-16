@@ -1,5 +1,5 @@
-import IconMaestro from './icon-maestro';
-import IconMasterCard from './icon-master-card';
-import IconVisa from './icon-visa';
+import IconMaestro from './maestro';
+import IconMasterCard from './master-card';
+import IconVisa from './visa';
 
 export { IconMaestro, IconMasterCard, IconVisa };

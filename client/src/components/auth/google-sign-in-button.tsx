@@ -5,11 +5,12 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { getStrapiURL } from '@/lib/utils/utils';
 
-export function GoogleSignInButton() {
+export default function GoogleSignInButton() {
+  const t = useTranslations('home');
+
   const backendUrl = getStrapiURL();
   const path = '/api/connect/google';
   const url = new URL(backendUrl + path);
-  const t = useTranslations('home');
 
   return (
     <form>

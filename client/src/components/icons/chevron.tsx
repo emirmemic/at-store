@@ -1,6 +1,6 @@
 import { IconProps } from '@/lib/types/base';
 
-export function IconChevron({
+export default function IconChevron({
   size = 16,
   className = '',
   ...props

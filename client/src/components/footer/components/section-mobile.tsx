@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 import { FooterSectionType } from '@/components/footer/types';
-import { IconChevron } from '@/components/icons/chevron';
+import { IconChevron } from '@/components/icons';
 import {
   Collapsible,
   CollapsibleContent,
@@ -24,7 +24,7 @@ export default function SectionMobile(section: FooterSectionType) {
             size={14}
           />
         </CollapsibleTrigger>
-        <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+        <CollapsibleContent className="data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown overflow-hidden transition-all duration-500">
           <ul className="flex flex-col gap-1 pl-6">
             {section.items.map((item) => (
               <li key={item.path}>

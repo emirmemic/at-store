@@ -18,7 +18,7 @@ async function logoutAction() {
   redirect('/');
 }
 
-export function AuthLogoutButton() {
+export default function LogoutButton() {
   return (
     <form action={logoutAction}>
       <button className="flex items-center gap-2" type="submit">

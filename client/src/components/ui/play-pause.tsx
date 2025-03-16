@@ -3,8 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import IconPause from '@/components/icons/pause';
-import IconPlay from '@/components/icons/play';
+import { IconPause, IconPlay } from '@/components/icons';
 import { cn } from '@/lib/utils/utils';
 
 const buttonVariants = cva(

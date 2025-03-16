@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { UserInformationProps } from '@/lib/types/auth';
 
-import { AuthLogoutButton } from './auth-logout-button';
+import LogoutButton from './logout-button';
 
 export function AuthUserNavButton({ user }: Readonly<UserInformationProps>) {
   return (
@@ -13,7 +13,7 @@ export function AuthUserNavButton({ user }: Readonly<UserInformationProps>) {
           {user?.username ? user.username[0].toLocaleUpperCase() : 'A'}
         </Link>
       </Button>
-      <AuthLogoutButton />
+      <LogoutButton />
     </div>
   );
 }
