@@ -31,7 +31,11 @@ export default function Section({
             {item.link && (
               <a
                 className="text-blue hover:underline"
-                href={item.link}
+                href={
+                  cn(item.link) === 'at@atstore.ba'
+                    ? 'mailto:at@atstore.ba'
+                    : item.link
+                }
                 rel="noopener noreferrer"
                 target="_blank"
               >
