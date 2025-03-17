@@ -112,8 +112,8 @@
       "title": "Uslovi kupovine | AT Store",
       "description": "Pročitajte uslove kupovine u AT Store."
     },
-    "cookiePrivacy": {
-      "title": "Cookie privacy | AT Store",
+    "cookiePolicy": {
+      "title": "Cookie policy | AT Store",
       "description": "Informacije o upotrebi kolačića i politici privatnosti kolačića."
     }
   },
@@ -200,9 +200,9 @@
     },
     "item2": {
       "title": "Rokovi isporuke",
-      "listItem1": "Vrijeme isporuke ovisi o lokaciji isporuke:",
-      "listItem2": "Standardna dostava: 2-5 radnih dana",
-      "listItem3": "Napominjemo da se rokovi isporuke mogu produžiti u slučaju praznika, vikenda ili nepredviđenih okolnosti."
+      "subTitle": "Vrijeme isporuke ovisi o lokaciji isporuke:",
+      "listItem1": "Standardna dostava: 2-5 radnih dana",
+      "listItem2": "Napominjemo da se rokovi isporuke mogu produžiti u slučaju praznika, vikenda ili nepredviđenih okolnosti."
     },
     "item3": {
       "title": "Troškovi dostave",
@@ -224,6 +224,77 @@
     "item7": {
       "title": "Kontakt",
       "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na at@atstore.ba"
+    }
+  },
+  "cookiePolicyPage": {
+    "title": "Politika kolačića",
+    "paragraph": "AT Store (u daljnjem tekstu \"mi\", \"nas\" ili \"naš\") koristi kolačiće i slične tehnologije kako bi poboljšao vaše korisničko iskustvo na našoj web stranici. Ova politika kolačića objašnjava što su kolačići, kako ih koristimo i kako možete upravljati njihovim postavkama.",
+    "item1": {
+      "title": "Što su kolačići?",
+      "listItem1": "Kolačići su male datoteke koje se pohranjuju na vaš uređaj kada posjetite našu web stranicu. Oni omogućuju prepoznavanje vašeg uređaja, poboljšavaju funkcionalnost stranice i pružaju analitičke podatke."
+    },
+    "item2": {
+      "title": "Koje vrste kolačića koristimo?",
+      "listItem1": "Obavezni kolačići: Neophodni za pravilno funkcioniranje web stranice i sigurnost korisnika.",
+      "listItem2": "Funkcionalni kolačići: Poboljšavaju korisničko iskustvo pamćenjem vaših preferencija.",
+      "listItem3": "Analitički kolačići: Pomažu nam analizirati korištenje web stranice kako bismo poboljšali njenu funkcionalnost.",
+      "listItem4": "Marketinški kolačići: Koriste se za prikazivanje relevantnih oglasa i praćenje korisničkih interesa."
+    },
+    "item3": {
+      "title": "Kako koristimo kolačiće?",
+      "subTitle": "Kolačiće koristimo za:",
+      "listItem1": "Osiguravanje pravilnog rada web stranice;",
+      "listItem2": "Analizu posjećenosti i poboljšanje korisničkog iskustva;",
+      "listItem3": "Prilagođavanje sadržaja i oglasa korisnicima."
+    },
+    "item4": {
+      "title": "Upravljanje kolačićima",
+      "listItem1": "Možete upravljati ili onemogućiti kolačiće putem postavki svog internetskog preglednika. Imajte na umu da onemogućavanje određenih kolačića može utjecati na funkcionalnost web stranice."
+    },
+    "item5": {
+      "title": "Izmjene politike kolačića",
+      "listItem1": "Zadržavamo pravo izmjene ove politike kolačića. Sve promjene bit će objavljene na našoj web stranici."
+    },
+    "item6": {
+      "title": "Kontakt",
+      "listItem1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na at@atstore.ba"
+    }
+  },
+  "paymentMethodsPage": {
+    "title": "Načini plaćanja",
+    "item1": {
+      "title": "Načini plaćanja",
+      "listItems1": "U AT Store-u nudimo različite načine plaćanja kako bismo vam omogućili jednostavnu i prilagođenu kupovinu."
+    },
+    "item2": {
+      "title": "Jednokratna plaćanja",
+      "listItems1": "Kartice tekućeg računa: Prihvatamo Maestro kartice.",
+      "listItems2": "Kreditne kartice: Možete koristiti American Express, Diners, Discover, Visa i MasterCard kartice svih banaka."
+    },
+    "item3": {
+      "title": "Plaćanje na rate",
+      "listItems1": "Do 12 rata: Intesa Sanpaolo Shopping Card, NLB Shopping Card, Diners kreditna kartica, American Express kartica.",
+      "listItems2": "Do 24 rate: UniCredit Visa Classic, Raiffeisen Bank Shopping Card.",
+      "listItems3": "Do 36 rata: ProCredit Bank kreditiranje."
+    },
+
+    "item4": {
+      "title": "Dodatne opcije plaćanja",
+      "listItems1": "Virmanom/internet bankarstvom: Nakon odabira ove opcije, dobit ćete automatski e-mail s predračunom koji sadrži sve potrebne podatke za uplatu.",
+      "listItems2": "Pouzećem: Dostupno samo u internet trgovini, omogućava plaćanje gotovinom prilikom preuzimanja proizvoda."
+    },
+    "item5": {
+      "title": "Online plaćanja",
+      "listItems1": "Kreditne i debitne kartice: Prihvatamo MasterCard, Maestro i Visa kartice.",
+      "listItems2": "Plaćanje na rate: Putem kartica UniCredit banke."
+    },
+    "item6": {
+      "title": "Kreditiranje putem Mikrofina",
+      "listItems1": "U saradnji s Mikrofinom, omogućavamo brzo i jednostavno kreditiranje bez potrebe za dolaskom u poslovnice.Informišite se o našim proizvodima putem web stranice, a zatim podnesite online zahtjev za kredit."
+    },
+    "item7": {
+      "title": "Kontakt",
+      "listItems1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na at@atstore.ba ili putem telefona 080 051 055."
     }
   }
 }

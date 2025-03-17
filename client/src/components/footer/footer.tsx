@@ -157,7 +157,7 @@ export default function Footer() {
         },
         {
           name: t('help.cookiePrivacy'),
-          path: PAGE_NAMES.COOKIE_PRIVACY,
+          path: PAGE_NAMES.COOKIE_POLICY,
         },
       ],
     },

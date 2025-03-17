@@ -96,8 +96,8 @@ export const routing = defineRouting({
     [PAGE_NAMES.TERMS_OF_PURCHASE]: {
       bs: '/uslovi-kupovine',
     },
-    [PAGE_NAMES.COOKIE_PRIVACY]: {
-      bs: '/cookie-privacy',
+    [PAGE_NAMES.COOKIE_POLICY]: {
+      bs: '/Politika kolačića',
     },
   },
 });

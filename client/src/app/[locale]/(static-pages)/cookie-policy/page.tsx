@@ -12,18 +12,18 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metaData' });
   return {
-    title: t('delivery.title'),
-    description: t('delivery.description'),
+    title: t('cookiePolicy.title'),
+    description: t('cookiePolicy.description'),
     openGraph: {
-      title: t('delivery.title'),
-      description: t('delivery.description'),
+      title: t('cookiePolicy.title'),
+      description: t('cookiePolicy.description'),
     },
   };
 }
 
-export default function DeliveryPage() {
-  const t = useTranslations('deliveryPage');
-  const sections: SectionProps[] = [
+export default function CookiePolicy() {
+  const t = useTranslations('cookiePolicyPage');
+  const sections: Array<SectionProps> = [
     {
       title: t('item1.title'),
       listItems: [t('item1.listItem1')],
@@ -31,13 +31,22 @@ export default function DeliveryPage() {
     },
     {
       title: t('item2.title'),
-      listItems: [t('item2.listItem1'), t('item2.listItem2')],
-      subTitle: t('item2.subTitle'),
+      listItems: [
+        t('item2.listItem1'),
+        t('item2.listItem2'),
+        t('item2.listItem3'),
+        t('item2.listItem4'),
+      ],
       sectionNumber: 2,
     },
     {
       title: t('item3.title'),
-      listItems: [t('item3.listItem1'), t('item3.listItem2')],
+      listItems: [
+        t('item3.listItem1'),
+        t('item3.listItem2'),
+        t('item3.listItem3'),
+      ],
+      subTitle: t('item3.subTitle'),
       sectionNumber: 3,
     },
     {
@@ -55,17 +64,12 @@ export default function DeliveryPage() {
       listItems: [t('item6.listItem1')],
       sectionNumber: 6,
     },
-    {
-      title: t('item7.title'),
-      listItems: [t('item7.listItem1')],
-      sectionNumber: 7,
-    },
   ];
-
   return (
     <div>
       <div className="w-full px-6 py-10 pt-12 md:px-14 md:py-[60px]">
         <h1 className="mb-9 text-center heading-1 md:mb-16">{t('title')}</h1>
+        <p className="mb-5 paragraph-2 md:paragraph-1">{t('paragraph')}</p>
         <div className="flex flex-col gap-5">
           {sections.map((section) => (
             <Section key={section.sectionNumber} {...section} />

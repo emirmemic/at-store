@@ -28,7 +28,7 @@ export const PAGE_NAMES = {
   ORDER_CANCELLATION: '/order-cancellation',
   CONTACT_US: '/contact-us',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
-  COOKIE_PRIVACY: '/cookie-privacy',
+  COOKIE_POLICY: '/cookie-policy',
   GLOBAL_COMPONENTS: '/global-components',
 } as const;
 
