@@ -219,8 +219,7 @@
     },
     "item6": {
       "title": "Povrat i zamjena",
-      "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu.",
-      "link": "www.atstore.ba/reklamacije"
+      "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu."
     },
     "item7": {
       "title": "Kontakt",
@@ -259,8 +258,7 @@
     },
     "item6": {
       "title": "Kontakt",
-      "listItem1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na",
-      "link": "at@atstore.ba"
+      "listItem1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na"
     }
   },
   "paymentMethodsPage": {
@@ -299,5 +297,11 @@
       "title": "Kontakt",
       "listItems1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na at@atstore.ba ili putem telefona 080 051 055."
     }
+  },
+  "contact": {
+    "atStoreEmail": "at@atstore.ba",
+    "atStoreEmailLink": "mailto:at@atstore.ba",
+    "atStoreComplaints": "www.atstore.ba/reklamacije",
+    "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije"
   }
 }

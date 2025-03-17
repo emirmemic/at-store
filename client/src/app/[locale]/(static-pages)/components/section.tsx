@@ -1,9 +1,17 @@
-import { Link, Pathname } from '@/i18n/routing';
+// eslint-disable-next-line no-restricted-imports
+import Link from 'next/link';
+import React from 'react';
+
 import { cn } from '@/lib/utils/utils';
 
 export interface SectionProps {
   title: string;
-  listItems: { text: string; path?: Pathname; target?: string }[];
+  listItems: {
+    text: string;
+    link?: string;
+    path?: string;
+    target?: string;
+  }[][];
   sectionNumber: number;
   subTitle?: string;
 }
@@ -26,22 +34,19 @@ export default function Section({
           subTitle ? 'pl-12 md:pl-[74px]' : 'pl-9 md:pl-14'
         )}
       >
-        {listItems.map((item, index) => (
+        {listItems.map((listitem, index) => (
           <li key={index}>
-            {item.text}{' '}
-            {item.path && (
-              <Link
-                className="transition-color text-blue hover:text-grey"
-                href={
-                  item.path === ('at@atstore.ba' as Pathname)
-                    ? ('mailto:at@atstore.ba' as Pathname)
-                    : item.path
-                }
-                target={item.target ?? undefined}
-              >
-                {item.path}
-              </Link>
-            )}
+            {listitem.map((item, itemIndex) => (
+              <React.Fragment key={itemIndex}>
+                {item.path ? (
+                  <Link className="text-blue hover:underline" href={item.path}>
+                    {item.text}
+                  </Link>
+                ) : (
+                  <span> {item.text} </span>
+                )}
+              </React.Fragment>
+            ))}
           </li>
         ))}
       </ul>

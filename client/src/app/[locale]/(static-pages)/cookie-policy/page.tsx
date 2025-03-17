@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server';
 import Section, {
   SectionProps,
 } from '@/app/[locale]/(static-pages)/components/section';
-import { Pathname } from '@/i18n/routing';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -24,46 +23,53 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 
 export default function CookiePolicy() {
   const t = useTranslations('cookiePolicyPage');
+  const contactT = useTranslations('contact');
   const sections: SectionProps[] = [
     {
       title: t('item1.title'),
-      listItems: [{ text: t('item1.listItem1') }],
+      listItems: [[{ text: t('item1.listItem1') }]],
       sectionNumber: 1,
     },
     {
       title: t('item2.title'),
       listItems: [
-        { text: t('item2.listItem1') },
-        { text: t('item2.listItem2') },
-        { text: t('item2.listItem3') },
-        { text: t('item2.listItem4') },
+        [{ text: t('item2.listItem1') }],
+        [{ text: t('item2.listItem2') }],
+        [{ text: t('item2.listItem3') }],
+        [{ text: t('item2.listItem4') }],
       ],
       sectionNumber: 2,
     },
     {
       title: t('item3.title'),
       listItems: [
-        { text: t('item3.listItem1') },
-        { text: t('item3.listItem2') },
-        { text: t('item3.listItem3') },
+        [{ text: t('item3.listItem1') }],
+        [{ text: t('item3.listItem2') }],
+        [{ text: t('item3.listItem3') }],
       ],
       subTitle: t('item3.subTitle'),
       sectionNumber: 3,
     },
     {
       title: t('item4.title'),
-      listItems: [{ text: t('item4.listItem1') }],
+      listItems: [[{ text: t('item4.listItem1') }]],
       sectionNumber: 4,
     },
     {
       title: t('item5.title'),
-      listItems: [{ text: t('item5.listItem1') }],
+      listItems: [[{ text: t('item5.listItem1') }]],
       sectionNumber: 5,
     },
     {
       title: t('item6.title'),
       listItems: [
-        { text: t('item6.listItem1'), path: t('item6.link') as Pathname },
+        [
+          { text: t('item6.listItem1') },
+          {
+            text: contactT('atStoreEmail'),
+            path: contactT('atStoreEmailLink'),
+          },
+        ],
       ],
       sectionNumber: 6,
     },
