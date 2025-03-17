@@ -9,17 +9,11 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { Link } from '@/i18n/routing';
-import { cn } from '@/lib/utils/utils';
 
-interface PropType {
-  section: FooterSectionType;
-  className?: string;
-}
-
-export default function SectionMobile({ section, className }: PropType) {
+export default function SectionMobile(section: FooterSectionType) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className={cn('pb-2', className)}>
+    <div>
       <Collapsible key={section.id} onOpenChange={setIsOpen}>
         <CollapsibleTrigger className="flex w-full max-w-72 items-center justify-between gap-4">
           <span className="heading-5">{section.title}</span>

@@ -176,7 +176,7 @@
       "atSoft": "AT Soft"
     },
     "information": {
-      "title": "Kompanije",
+      "title": "Informacije",
       "promo": "Promo",
       "privacyPolicy": "Politika privatnosti",
       "delivery": "Dostava",
@@ -219,11 +219,13 @@
     },
     "item6": {
       "title": "Povrat i zamjena",
-      "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu www.atstore.ba/reklamacije."
+      "listItem1": "Ako želite vratiti ili zamijeniti proizvod, molimo vas da pogledate našu stranicu.",
+      "link": "www.atstore.ba/reklamacije"
     },
     "item7": {
       "title": "Kontakt",
-      "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na at@atstore.ba"
+      "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na",
+      "link": "at@atstore.ba"
     }
   },
   "cookiePolicyPage": {
@@ -257,7 +259,8 @@
     },
     "item6": {
       "title": "Kontakt",
-      "listItem1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na at@atstore.ba"
+      "listItem1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na",
+      "link": "at@atstore.ba"
     }
   },
   "paymentMethodsPage": {

@@ -1,15 +1,9 @@
 import { FooterSectionType } from '@/components/footer/types';
 import { Link } from '@/i18n/routing';
-import { cn } from '@/lib/utils/utils';
 
-interface PropType {
-  section: FooterSectionType;
-  className?: string;
-}
-
-export default function SectionDesktop({ section, className }: PropType) {
+export default function SectionDesktop(section: FooterSectionType) {
   return (
-    <div className={cn('', className)}>
+    <div>
       <p className="mb-5 paragraph-3">{section.title}</p>
       <ul className="flex flex-col gap-0.5">
         {section.items.map((item) => (

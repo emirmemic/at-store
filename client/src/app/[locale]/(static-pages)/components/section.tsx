@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { cn } from '@/lib/utils/utils';
 
 export interface SectionProps {
   title: string;
-  listItems: string[];
+  listItems: { text: string; link?: string }[];
   sectionNumber: number;
   subTitle?: string;
 }
@@ -27,8 +25,20 @@ export default function Section({
           subTitle ? 'pl-12 md:pl-[74px]' : 'pl-9 md:pl-14'
         )}
       >
-        {listItems.map((list, index) => (
-          <li key={index}>{list}</li>
+        {listItems.map((item, index) => (
+          <li key={index}>
+            {item.text}{' '}
+            {item.link && (
+              <a
+                className="text-blue hover:underline"
+                href={item.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {item.link}
+              </a>
+            )}
+          </li>
         ))}
       </ul>
     </section>

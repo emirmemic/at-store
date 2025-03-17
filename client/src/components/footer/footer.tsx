@@ -173,12 +173,12 @@ export default function Footer() {
         <div className="w-full justify-between gap-7 md:flex lg:gap-28">
           <div className="md:hidden">
             {footerSections.map((section) => (
-              <SectionMobile key={section.id} section={section} />
+              <SectionMobile key={section.id} {...section} />
             ))}
           </div>
           <div className="hidden justify-between gap-4 md:flex md:grow">
             {footerSections.map((section) => (
-              <SectionDesktop key={section.id} section={section} />
+              <SectionDesktop key={section.id} {...section} />
             ))}
           </div>
           <FooterSocial />

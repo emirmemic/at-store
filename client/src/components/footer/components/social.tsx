@@ -65,11 +65,11 @@ const socialLinks = [
   },
 ];
 
-export default function FooterSocial({ ...props }) {
+export default function FooterSocial() {
   const t = useTranslations('footer');
 
   return (
-    <div className="flex items-center gap-6 md:flex-col md:gap-2" {...props}>
+    <div className="flex items-center gap-6 md:flex-col md:gap-2">
       <Link href="/">
         <span className="sr-only">{t('homePage')}</span>
         <Image

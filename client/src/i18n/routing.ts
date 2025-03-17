@@ -97,7 +97,7 @@ export const routing = defineRouting({
       bs: '/uslovi-kupovine',
     },
     [PAGE_NAMES.COOKIE_POLICY]: {
-      bs: '/Politika kolačića',
+      bs: '/politika-kolacica',
     },
   },
 });
