@@ -29,6 +29,8 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'blue_blue'>;
     product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    textColor: Schema.Attribute.Enumeration<['white', 'black']> &
+      Schema.Attribute.DefaultTo<'white'>;
   };
 }
 

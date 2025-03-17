@@ -10,18 +10,18 @@ html {
   :root {
     /* Typography variables */
     --sf-pro: var(--font-sf-pro);
-    --letter-spacing-default: 0.6px;
-    --line-height-small: 16px;
-    --line-height-medium: 20px;
-    --line-height-large: 35px;
-    --line-height-xlarge: 50px;
+    --letter-spacing-default: .0375rem;
+    --line-height-small: 1rem;
+    --line-height-medium: 1.25rem;
+    --line-height-large: 2.1875rem;
+    --line-height-xlarge: 3.125rem;
 
     /* Spacing variables */
-    --spacing-6px: 6px;
-    --spacing-10px: 10px;
-    --spacing-14px: 14px;
-    --spacing-18px: 18px;
-    --spacing-38px: 38px;
+    --spacing-6px: .375rem;
+    --spacing-10px: .625rem;
+    --spacing-14px: .875rem;
+    --spacing-18px: 1.125rem;
+    --spacing-38px: 2.375rem;
 
     /* Shadcn variables */
     --background: 0 0% 100%;

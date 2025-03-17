@@ -24,6 +24,14 @@
       ],
       "required": true,
       "default": "blue_blue"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": [
+        "white",
+        "black"
+      ],
+      "default": "white"
     }
   }
 }

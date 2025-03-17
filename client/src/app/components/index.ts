@@ -1,4 +1,4 @@
-import PromoCard, { PromoCardProps } from './promo-card/promo-card';
+import PromoCard, { PromoCardProps } from './promo-card';
 
 export { PromoCard };
 export type { PromoCardProps };

@@ -1,85 +1,93 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
 import { StrapiImage } from '@/components/strapi-image';
 import { Button, TransparentVariant } from '@/components/ui/button';
-import { Dialog } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { ProductProps } from '@/lib/types/base';
+import { cn } from '@/lib/utils/utils';
 
+type TextColor = 'white' | 'black';
 export interface PromoCardProps {
   id: number;
   caption: string;
   product: ProductProps;
   learnMoreVariant: TransparentVariant;
+  textColor: TextColor;
 }
-
 export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
   const t = useTranslations('common');
 
-  const { caption, product, learnMoreVariant } = promoCard;
+  const { caption, product, learnMoreVariant, textColor } = promoCard;
   const { image, name } = product;
-
-  const [isLearnMoreDialog, setIsLearnMoreDialogVisible] = useState(false);
 
   return (
     <>
-      <div className="relative inline-block">
+      <div className="relative w-full">
         <StrapiImage
           alt={image.alternativeText}
-          className="h-[356px] w-[414px] rounded-2xl object-cover shadow-large-black md:h-[332px] md:w-[400px] lg:h-[474px] lg:w-[600px]"
+          className="aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-large-black"
           height={474}
-          sizes="(max-width: 768px) 414px, (max-width: 1024px) 400px, 600px"
+          sizes="(max-width: 48rem) 25.875rem, (max-width: 64rem) 25rem, 37.5rem"
           src={image.url}
           width={600}
         />
-        <div className="absolute inset-0 top-8 text-center text-white">
+        <div
+          className={cn(
+            'absolute inset-0 top-8 p-2 text-center',
+            textColor === 'black' ? 'text-black' : 'text-white'
+          )}
+        >
           <h2 className="heading-4 lg:heading-3">{name}</h2>
           <h3 className="heading-5 lg:heading-4">{caption}</h3>
-          <Button
-            className="mr-14 mt-9"
-            size={'md'}
-            transparentVariant={learnMoreVariant}
-            typography={'button2'}
-            variant={'transparent'}
-            onClick={() => setIsLearnMoreDialogVisible(true)}
-          >
-            {t('learnMore')}
-          </Button>
+          <LearnMoreDialog
+            learnMoreVariant={learnMoreVariant}
+            product={product}
+          />
           <Button size={'md'} typography={'button2'} variant={'filled'}>
             {t('buyNow')}
           </Button>
         </div>
       </div>
-      <LearnMoreDialog
-        isOpen={isLearnMoreDialog}
-        product={product}
-        onClose={() => setIsLearnMoreDialogVisible(false)}
-      />
     </>
   );
 }
 
 interface LearnMoreDialogProps {
   product: ProductProps;
-  isOpen: boolean;
-  onClose: () => void;
+  learnMoreVariant: TransparentVariant;
 }
 
-function LearnMoreDialog({ product, isOpen, onClose }: LearnMoreDialogProps) {
-  const t = useTranslations();
+function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
+  const t = useTranslations('common');
 
   return (
-    <Dialog isOpen={isOpen} onClose={onClose}>
-      <div className="px-8 py-11 md:px-6 md:py-16 lg:px-14">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          className="mr-6 mt-6 lg:mr-12 lg:mt-12"
+          size={'md'}
+          transparentVariant={learnMoreVariant}
+          typography={'button2'}
+          variant={'transparent'}
+        >
+          {t('learnMore')}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="px-8 py-16 md:px-6 md:py-16 lg:px-14">
         <div className="flex flex-col items-center justify-center gap-5 md:gap-16">
-          <h1 className="heading-1 md:display">{product.name}</h1>
+          <DialogTitle>{product.name}</DialogTitle>
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:justify-between md:gap-12">
             <StrapiImage
               alt={product.image.alternativeText}
-              className="h-[310px] w-[240px] rounded-md object-cover md:h-[500px] md:w-[336px] lg:w-[400px]"
+              className="h-[19.375rem] w-[15rem] rounded-md object-cover md:h-[31.25rem] md:w-[21rem] lg:w-[25rem]"
               height={500}
-              sizes="(max-width: 768px) 240px, (max-width: 1024px) 336px, 400px"
+              sizes="(max-width: 48rem) 15rem, (max-width: 64rem) 21rem, 25rem"
               src={product.image.url}
               width={400}
             />
@@ -88,10 +96,10 @@ function LearnMoreDialog({ product, isOpen, onClose }: LearnMoreDialogProps) {
             </p>
           </div>
           <Button size={'lg'} typography={'button1'} variant="filled">
-            {t('common.buyNow')}
+            {t('buyNow')}
           </Button>
         </div>
-      </div>
+      </DialogContent>
     </Dialog>
   );
 }

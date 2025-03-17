@@ -47,12 +47,14 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className="p-10">{title}</h1>
-      <div className="flex flex-wrap items-center justify-center gap-16">
-        {promo_cards &&
-          promo_cards.map((promoCard) => (
-            <PromoCard {...promoCard} key={promoCard.id} />
-          ))}
+      <div className="container-max-width">
+        <h1 className="p-4">{title}</h1>
+        <div className="grid gap-8 py-14 md:grid-cols-2">
+          {promo_cards &&
+            promo_cards.map((promoCard) => (
+              <PromoCard {...promoCard} key={promoCard.id} />
+            ))}
+        </div>
       </div>
     </>
   );
