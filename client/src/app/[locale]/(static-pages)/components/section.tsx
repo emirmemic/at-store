@@ -1,8 +1,9 @@
+import { Link, Pathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 export interface SectionProps {
   title: string;
-  listItems: { text: string; link?: string }[];
+  listItems: { text: string; path?: Pathname; target?: string }[];
   sectionNumber: number;
   subTitle?: string;
 }
@@ -28,19 +29,18 @@ export default function Section({
         {listItems.map((item, index) => (
           <li key={index}>
             {item.text}{' '}
-            {item.link && (
-              <a
-                className="text-blue hover:underline"
+            {item.path && (
+              <Link
+                className="transition-color text-blue hover:text-grey"
                 href={
-                  cn(item.link) === 'at@atstore.ba'
-                    ? 'mailto:at@atstore.ba'
-                    : item.link
+                  item.path === ('at@atstore.ba' as Pathname)
+                    ? ('mailto:at@atstore.ba' as Pathname)
+                    : item.path
                 }
-                rel="noopener noreferrer"
-                target="_blank"
+                target={item.target ?? undefined}
               >
-                {item.link}
-              </a>
+                {item.path}
+              </Link>
             )}
           </li>
         ))}

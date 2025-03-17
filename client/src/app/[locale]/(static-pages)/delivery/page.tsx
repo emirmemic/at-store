@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import Section, {
   SectionProps,
 } from '@/app/[locale]/(static-pages)/components/section';
+import { Pathname } from '@/i18n/routing';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -58,12 +59,16 @@ export default function DeliveryPage() {
     },
     {
       title: t('item6.title'),
-      listItems: [{ text: t('item6.listItem1'), link: t('item6.link') }],
+      listItems: [
+        { text: t('item6.listItem1'), path: t('item6.link') as Pathname },
+      ],
       sectionNumber: 6,
     },
     {
       title: t('item7.title'),
-      listItems: [{ text: t('item7.listItem1'), link: t('item7.link') }],
+      listItems: [
+        { text: t('item7.listItem1'), path: t('item7.link') as Pathname },
+      ],
       sectionNumber: 7,
     },
   ];

@@ -156,7 +156,7 @@ export default function Footer() {
           path: PAGE_NAMES.TERMS_OF_PURCHASE,
         },
         {
-          name: t('help.cookiePrivacy'),
+          name: t('help.cookiePolicy'),
           path: PAGE_NAMES.COOKIE_POLICY,
         },
       ],
