@@ -380,5 +380,51 @@
       "title": "Kontakt",
       "listItem1": "Za sva dodatna pitanja u vezi s otkazivanjem narudžbe, kontaktirajte nas na at@atstore.ba"
     }
+  },
+  "privacyPolicyPage": {
+    "title": "Politika privatnosti",
+    "paragraph": "(u daljnjem tekstu \"i\", \"nas\" ili \"naš\") posvećen je zaštiti vaše privatnosti i osobnih podataka. Ova politika privatnosti objašnjava kako prikupljamo, koristimo, dijelimo i štitimo vaše podatke kada koristite našu web stranicu i usluge.",
+    "paragraphHeading": "At Store",
+    "item1": {
+      "title": "Koje podatke prikupljamo? Prikupljamo sljedeće vrste podataka:",
+      "listItem": "Osobni podaci: Ime, prezime, adresa, e-mail adresa, telefonski broj i drugi podaci koje nam dostavite prilikom registracije, kupnje ili upita.",
+      "listItem2": "Podaci o transakcijama: Informacije o kupnjama, plaćanjima i dostavi.",
+      "listItem3": "Tehnički podaci: IP adresa, vrsta uređaja, preglednik, kolačići i podaci o korištenju web stranice."
+    },
+    "item2": {
+      "title": "Kako koristimo vaše podatke? Vaše podatke koristimo za:",
+      "listItem1": "Obradu i isporuku narudžbi;",
+      "listItem2": "Pružanje korisničke podrške;",
+      "listItem3": "Slanje obavijesti o proizvodima, ponudama i novostima (uz vašu suglasnost);",
+      "listItem4": "Poboljšanje funkcionalnosti i sigurnosti web stranice;"
+    },
+    "item3": {
+      "title": "Kako dijelimo vaše podatke? Vaše podatke ne prodajemo trećim stranama. Možemo ih podijeliti sa:",
+      "listItem1": "Poslovnim partnerima i pružateljima usluga koji nam pomažu u isporuci proizvoda i usluga;",
+      "listItem2": "Nadležnim tijelima kada je to zakonski obavezno."
+    },
+    "item4": {
+      "title": "Kako štitimo vaše podatke?",
+      "listItem1": "Koristimo tehničke i organizacijske mjere zaštite kako bismo spriječili neovlašteni pristup, gubitak ili zloupotrebu vaših podataka."
+    },
+    "item5": {
+      "title": "Vaša prava Imate pravo:",
+      "listItem1": "Zatražiti pristup svojim podacima;",
+      "listItem2": "Ispraviti ili ažurirati podatke;",
+      "listItem3": "Ograničiti ili obrisati podatke;",
+      "listItem4": "Povući privolu za obradu podataka u marketinške svrhe. Za ostvarenje svojih prava kontaktirajte nas na"
+    },
+    "item6": {
+      "title": "Kolačići Koristimo kolačiće radi poboljšanja korisničkog iskustva. ",
+      "listItem1": "Možete upravljati postavkama kolačića putem svog preglednika."
+    },
+    "item7": {
+      "title": "Izmjene politike privatnosti. ",
+      "listItem1": "Zadržavamo pravo izmjene ove politike privatnosti. Ažuriranja će biti objavljena na našoj web stranici."
+    },
+    "item8": {
+      "title": "Kontakt",
+      "listItem1": "Za sva pitanja vezana uz privatnost, kontaktirajte nas na"
+    }
   }
 }
