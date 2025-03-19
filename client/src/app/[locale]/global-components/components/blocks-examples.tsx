@@ -1,5 +1,5 @@
 'use client';
-import { InfoBlock } from '@/components';
+import { InfoBlock, MonoAppleBlock } from '@/components';
 
 export default function BlocksExamples() {
   return (
@@ -29,6 +29,7 @@ export default function BlocksExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h2 className="heading-2">Mono apple blocks</h2>
       <div className="h-[2px] w-full bg-grey"></div>
+      <MonoAppleBlock />
     </>
   );
 }
