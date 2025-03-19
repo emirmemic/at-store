@@ -1,4 +1,4 @@
-import { InfoBlock, MonoAppleBlock } from './blocks';
+import { IconsBlock, InfoBlock, MonoAppleBlock } from './blocks';
 import { Footer } from './footer';
 import { FormField } from './forms';
 import GlobalRenderer from './global-renderer';
@@ -13,4 +13,5 @@ export {
   Navbar,
   StrapiImage,
   MonoAppleBlock,
+  IconsBlock,
 };

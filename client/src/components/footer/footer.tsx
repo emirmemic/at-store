@@ -13,6 +13,7 @@ import { Pathname } from '@/i18n/routing';
 
 export default function Footer() {
   const t = useTranslations('footer');
+  const tCommon = useTranslations('common');
 
   const descriptionItems = [
     'description1',
@@ -126,7 +127,7 @@ export default function Footer() {
           path: PAGE_NAMES.PRIVACY_POLICY,
         },
         {
-          name: t('information.delivery'),
+          name: tCommon('delivery'),
           path: PAGE_NAMES.DELIVERY,
         },
         {
@@ -140,7 +141,7 @@ export default function Footer() {
       title: t('help.title'),
       items: [
         {
-          name: t('help.paymentMethods'),
+          name: tCommon('paymentMethods'),
           path: PAGE_NAMES.PAYMENT_METHODS,
         },
         {

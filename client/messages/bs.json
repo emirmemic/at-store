@@ -184,7 +184,6 @@
     },
     "help": {
       "title": "Pomoć",
-      "paymentMethods": "Načini plaćanja",
       "orderCancellation": "Otkazivanje narudžbe",
       "contactUs": "Kontaktirajte nas",
       "termsOfPurchase": "Uslovi kupovine",
@@ -425,7 +424,11 @@
     "common": {
       "learnMore": "Saznaj više",
       "buyNow": "Kupi sad",
-      "view": "Pogledaj"
+      "view": "Pogledaj",
+      "tradeIn": "Trade-in",
+      "educationDiscount": "EDU popust",
+      "paymentMethods": "Načini plaćanja",
+      "delivery": "Dostava"
     }
   }
 }
