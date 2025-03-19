@@ -1,8 +1,9 @@
 import {
   ButtonsExamples,
+  InputExamples,
   NavigationExamples,
   TypographyExamples,
-  InputExamples,
+  BlocksExamples,
 } from '@/app/[locale]/global-components/components';
 
 export default async function Page() {
@@ -12,6 +13,7 @@ export default async function Page() {
       <ButtonsExamples />
       <NavigationExamples />
       <InputExamples />
+      <BlocksExamples />
     </div>
   );
 }

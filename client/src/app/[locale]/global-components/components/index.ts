@@ -1,3 +1,4 @@
+import BlocksExamples from './blocks-examples';
 import ButtonsExamples from './buttons-examples';
 import InputExamples from './input-examples';
 import NavigationExamples from './navigation-examples';
@@ -8,4 +9,5 @@ export {
   NavigationExamples,
   TypographyExamples,
   InputExamples,
+  BlocksExamples,
 };

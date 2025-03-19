@@ -308,10 +308,6 @@
     "orderEmail": "E-maila: orders@atstore.ba",
     "orderEmailLink": "mailto:orders@atstore.ba"
   },
-  "common": {
-    "learnMore": "Saznaj više",
-    "buyNow": "Kupi sad"
-  },
   "termsOfPurchasePage": {
     "title": "Uslovi kupovine",
     "paragraph": "Dobrodošli na AT Store! Molimo vas da pažljivo pročitate ove uslove kupovine prije nego što obavite narudžbu. Kupovinom na našoj web stranici prihvaćate navedene uslove.",
@@ -425,6 +421,11 @@
     "item8": {
       "title": "Kontakt",
       "listItem1": "Za sva pitanja vezana uz privatnost, kontaktirajte nas na"
+    },
+    "common": {
+      "learnMore": "Saznaj više",
+      "buyNow": "Kupi sad",
+      "view": "Pogledaj"
     }
   }
 }
