@@ -265,44 +265,48 @@
     "title": "Načini plaćanja",
     "item1": {
       "title": "Načini plaćanja",
-      "listItems1": "U AT Store-u nudimo različite načine plaćanja kako bismo vam omogućili jednostavnu i prilagođenu kupovinu."
+      "listItem1": "U AT Store-u nudimo različite načine plaćanja kako bismo vam omogućili jednostavnu i prilagođenu kupovinu."
     },
     "item2": {
       "title": "Jednokratna plaćanja",
-      "listItems1": "Kartice tekućeg računa: Prihvatamo Maestro kartice.",
-      "listItems2": "Kreditne kartice: Možete koristiti American Express, Diners, Discover, Visa i MasterCard kartice svih banaka."
+      "listItem1": "Kartice tekućeg računa: Prihvatamo Maestro kartice.",
+      "listItem2": "Kreditne kartice: Možete koristiti American Express, Diners, Discover, Visa i MasterCard kartice svih banaka."
     },
     "item3": {
       "title": "Plaćanje na rate",
-      "listItems1": "Do 12 rata: Intesa Sanpaolo Shopping Card, NLB Shopping Card, Diners kreditna kartica, American Express kartica.",
-      "listItems2": "Do 24 rate: UniCredit Visa Classic, Raiffeisen Bank Shopping Card.",
-      "listItems3": "Do 36 rata: ProCredit Bank kreditiranje."
+      "listItem1": "Do 12 rata: Intesa Sanpaolo Shopping Card, NLB Shopping Card, Diners kreditna kartica, American Express kartica.",
+      "listItem2": "Do 24 rate: UniCredit Visa Classic, Raiffeisen Bank Shopping Card.",
+      "listItem3": "Do 36 rata: ProCredit Bank kreditiranje."
     },
 
     "item4": {
       "title": "Dodatne opcije plaćanja",
-      "listItems1": "Virmanom/internet bankarstvom: Nakon odabira ove opcije, dobit ćete automatski e-mail s predračunom koji sadrži sve potrebne podatke za uplatu.",
-      "listItems2": "Pouzećem: Dostupno samo u internet trgovini, omogućava plaćanje gotovinom prilikom preuzimanja proizvoda."
+      "listItem1": "Virmanom/internet bankarstvom: Nakon odabira ove opcije, dobit ćete automatski e-mail s predračunom koji sadrži sve potrebne podatke za uplatu.",
+      "listItem2": "Pouzećem: Dostupno samo u internet trgovini, omogućava plaćanje gotovinom prilikom preuzimanja proizvoda."
     },
     "item5": {
       "title": "Online plaćanja",
-      "listItems1": "Kreditne i debitne kartice: Prihvatamo MasterCard, Maestro i Visa kartice.",
-      "listItems2": "Plaćanje na rate: Putem kartica UniCredit banke."
+      "listItem1": "Kreditne i debitne kartice: Prihvatamo MasterCard, Maestro i Visa kartice.",
+      "listItem2": "Plaćanje na rate: Putem kartica UniCredit banke."
     },
     "item6": {
       "title": "Kreditiranje putem Mikrofina",
-      "listItems1": "U saradnji s Mikrofinom, omogućavamo brzo i jednostavno kreditiranje bez potrebe za dolaskom u poslovnice.Informišite se o našim proizvodima putem web stranice, a zatim podnesite online zahtjev za kredit."
+      "listItem1": "U saradnji s Mikrofinom, omogućavamo brzo i jednostavno kreditiranje bez potrebe za dolaskom u poslovnice.Informišite se o našim proizvodima putem web stranice, a zatim podnesite online zahtjev za kredit."
     },
     "item7": {
       "title": "Kontakt",
-      "listItems1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na at@atstore.ba ili putem telefona 080 051 055."
+      "listItem1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na at@atstore.ba ili putem telefona 080 051 055."
     }
   },
   "contact": {
     "atStoreEmail": "at@atstore.ba",
     "atStoreEmailLink": "mailto:at@atstore.ba",
     "atStoreComplaints": "www.atstore.ba/reklamacije",
-    "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije"
+    "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije",
+    "telephone": "Telefona: +387 33 956 188",
+    "telephoneLink": "tel:+387 33 956 188",
+    "orderEmail": "E-maila: orders@atstore.ba",
+    "orderEmailLink": "mailto:orders@atstore.ba"
   },
   "common": {
     "learnMore": "Saznaj više",
@@ -349,6 +353,32 @@
     "item7": {
       "title": "Kontakt",
       "listItems1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na"
+    }
+  },
+  "orderCancellationPage": {
+    "title": "Otkazivanje narudžbe",
+    "item1": {
+      "subTitle": "Narudžbu možete otkazati pod sljedećim uvjetima:",
+      "title": "Uvjeti otkazivanja",
+      "listItem1": "Ako narudžba još nije obrađena i poslana;",
+      "listItem2": "Ako narudžba nije personalizirani ili po narudžbi izrađeni proizvod;",
+      "listItem3": "Ako se radi o unaprijed plaćenoj narudžbi, povrat novca bit će izvršen prema odabranoj metodi plaćanja."
+    },
+    "item2": {
+      "title": "Kako otkazati narudžbu?",
+      "listItem1": "Za otkazivanje narudžbe kontaktirajte našu korisničku podršku što je prije moguće putem:"
+    },
+    "item3": {
+      "title": "Povrat novca",
+      "listItem1": "Ako je narudžba unaprijed plaćena, povrat novca bit će izvršen u roku od 7-14 radnih dana, ovisno o metodi plaćanja i banci. Kupac će biti obaviješten o statusu povrata."
+    },
+    "item4": {
+      "title": "Otkazivanje nakon slanja narudžbe",
+      "listItem1": "Ako je narudžba već poslana, nije moguće otkazivanje. U tom slučaju, možete se pozvati na našu politiku povrata i zamjene nakon što primite pošiljku."
+    },
+    "item5": {
+      "title": "Kontakt",
+      "listItem1": "Za sva dodatna pitanja u vezi s otkazivanjem narudžbe, kontaktirajte nas na at@atstore.ba"
     }
   }
 }
