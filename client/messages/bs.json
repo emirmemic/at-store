@@ -307,5 +307,48 @@
   "common": {
     "learnMore": "Saznaj više",
     "buyNow": "Kupi sad"
+  },
+  "termsOfPurchasePage": {
+    "title": "Uslovi kupovine",
+    "paragraph": "Dobrodošli na AT Store! Molimo vas da pažljivo pročitate ove uslove kupovine prije nego što obavite narudžbu. Kupovinom na našoj web stranici prihvaćate navedene uslove.",
+    "item1": {
+      "title": "Opće odredbe",
+      "listItems1": "AT Store posluje u skladu sa važećim zakonima Bosne i Hercegovine.",
+      "listItems2": "Kupac mora biti punoljetna osoba ili imati dopuštenje roditelja/staratelja za kupovinu.",
+      "listItems3": "Sve cijene izražene su u konvertibilnim markama (KM) i uključuju PDV."
+    },
+    "item2": {
+      "title": "Proces naručivanja",
+      "listItems1": "Kupac odabire proizvode i dodaje ih u košaricu.",
+      "listItems2": "Nakon potvrde narudžbe, kupac unosi podatke za dostavu i odabire način plaćanja.",
+      "listItems3": "Po završetku narudžbe, kupac dobiva potvrdu putem e-maila."
+    },
+    "item3": {
+      "title": "Načini plaćanja",
+      "subTitle": "Kupac može izvršiti plaćanje putem:",
+      "listItems1": "Gotovine prilikom preuzimanja (pouzećem)",
+      "listItems2": "Bankovne uplate (uplata na račun)",
+      "listItems3": "Kartičnog plaćanja (ovisno o dostupnosti ove opcije)."
+    },
+    "item4": {
+      "title": "Dostava i isporuka",
+      "listItems1": "Dostava se vrši isključivo na području Bosne i Hercegovine putem BH Pošte.",
+      "listItems2": "Rok isporuke je 2-5 radnih dana, osim u slučaju nepredviđenih okolnosti.",
+      "listItems3": "Dostava je besplatna za narudžbe iznad 399 KM."
+    },
+    "item5": {
+      "title": "Otkazivanje narudžbi i povrat proizvoda",
+      "listItems1": "Kupac može otkazati narudžbu prije nego što bude poslana.",
+      "listItems2": "Nakon preuzimanja, kupac ima pravo na povrat ili zamjenu u skladu s politikom povrata."
+    },
+    "item6": {
+      "title": "Garancija i reklamacije",
+      "listItems1": "Svi proizvodi dolaze s garancijom u skladu s važećim propisima i politikom proizvođača.",
+      "listItems2": "U slučaju kvara ili nedostatka, kupac može podnijeti reklamaciju uz predočenje računa."
+    },
+    "item7": {
+      "title": "Kontakt",
+      "listItems1": "Za sva pitanja vezana uz kupovinu, kontaktirajte nas na"
+    }
   }
 }
