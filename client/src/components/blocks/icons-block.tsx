@@ -14,7 +14,7 @@ function SingleIcon({
   return (
     <div className="flex flex-col items-center gap-3 px-2">
       {children}
-      <h2 className="text-center text-white paragraph-1">{title}</h2>
+      <p className="text-center text-white paragraph-1">{title}</p>
     </div>
   );
 }

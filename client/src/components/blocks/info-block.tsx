@@ -29,7 +29,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
           <IconHeart className="text-red-deep" filled={true} size={36} />
         )}
       </div>
-      <h3 className="flex-1 text-white paragraph-1">{description}</h3>
+      <p className="flex-1 text-white paragraph-1">{description}</p>
       {onClick && (
         <Button
           className="mt-20 self-end md:mt-6"
