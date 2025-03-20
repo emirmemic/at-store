@@ -261,6 +261,7 @@
     }
   },
   "paymentMethodsPage": {
+    "faq": "Često postavljena pitanja",
     "title": "Načini plaćanja",
     "item1": {
       "title": "Načini plaćanja",
@@ -294,7 +295,7 @@
     },
     "item7": {
       "title": "Kontakt",
-      "listItem1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na at@atstore.ba ili putem telefona 080 051 055."
+      "listItem1": "Za sva dodatna pitanja vezana uz načine plaćanja, kontaktirajte nas na"
     }
   },
   "contact": {
