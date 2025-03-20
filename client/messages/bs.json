@@ -420,15 +420,15 @@
     "item8": {
       "title": "Kontakt",
       "listItem1": "Za sva pitanja vezana uz privatnost, kontaktirajte nas na"
-    },
-    "common": {
-      "learnMore": "Saznaj više",
-      "buyNow": "Kupi sad",
-      "view": "Pogledaj",
-      "tradeIn": "Trade-in",
-      "educationDiscount": "EDU popust",
-      "paymentMethods": "Načini plaćanja",
-      "delivery": "Dostava"
     }
+  },
+  "common": {
+    "learnMore": "Saznaj više",
+    "buyNow": "Kupi sad",
+    "view": "Pogledaj",
+    "tradeIn": "Trade-in",
+    "educationDiscount": "EDU popust",
+    "paymentMethods": "Načini plaćanja",
+    "delivery": "Dostava"
   }
 }

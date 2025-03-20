@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import {
   Description,
   FooterPayment,
+  FooterSocial,
   SectionDesktop,
   SectionMobile,
-  FooterSocial,
 } from '@/components/footer/components';
 import { FooterSectionType } from '@/components/footer/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
