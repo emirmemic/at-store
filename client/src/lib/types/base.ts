@@ -32,4 +32,6 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
   filled?: boolean;
 }
 
+export type Icon = React.ComponentType<IconProps>;
+
 export type { IconProps, ImageProps, LinkProps, ProductProps };

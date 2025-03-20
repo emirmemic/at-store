@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { IconProps } from '@/lib/types/base';
+import { Icon } from '@/lib/types/base';
 
 import { IconDelivery, IconEducation, IconTradeIn, IconWallet } from '../icons';
 
@@ -21,7 +21,7 @@ function SingleIcon({
 
 type IconConfig = {
   key: string;
-  Icon: React.ComponentType<IconProps>;
+  Icon: Icon;
 };
 
 const icons: IconConfig[] = [

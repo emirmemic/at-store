@@ -1,5 +1,6 @@
 'use client';
-import { InfoBlock, MonoAppleBlock, IconsBlock } from '@/components';
+import { CardBlock, IconsBlock, InfoBlock, MonoAppleBlock } from '@/components';
+import { IconDelivery, IconEducation } from '@/components/icons';
 
 export default function BlocksExamples() {
   return (
@@ -34,6 +35,17 @@ export default function BlocksExamples() {
       <h2 className="heading-2">Icons block </h2>
       <div className="h-[2px] w-full bg-grey"></div>
       <IconsBlock />
+      <div className="h-[2px] w-full bg-grey"></div>
+      <h2 className="heading-2">Card block </h2>
+      <div className="h-[2px] w-full bg-grey"></div>
+      <CardBlock Icon={IconDelivery} title="Napravi backup" />
+      <CardBlock
+        Icon={IconEducation}
+        bgColor="bg-blue"
+        className="w-[310px]"
+        title="Education hello xd nice hello"
+        onClick={() => {}}
+      />
     </>
   );
 }
