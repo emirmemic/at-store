@@ -103,7 +103,7 @@ export default function PrivacyPolicy() {
       <h1 className="mb-9 text-center heading-1 md:mb-16">{t('title')}</h1>
       <p className="mb-5 paragraph-2 md:paragraph-1">
         <span className="heading-5 md:heading-4">{t('paragraphHeading')}</span>
-        {`${' '}${' '}${t('paragraph')}`}
+        {`${' '}${t('paragraph')}`}
       </p>
       <div className="flex flex-col gap-5">
         {sections.map((section) => (
