@@ -3,6 +3,10 @@ import localFont from 'next/font/local';
 const SF_Pro_Text = localFont({
   src: [
     {
+      path: './SF-Pro-Text-Light.otf',
+      weight: '300',
+    },
+    {
       path: './SF-Pro-Text-Regular.otf',
       weight: '400',
     },

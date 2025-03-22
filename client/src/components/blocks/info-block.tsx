@@ -29,7 +29,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
   return (
     <div
       className={cn(
-        'flex flex-col rounded-2xl bg-blue-steel p-5 md:pl-10 lg:pl-14',
+        'flex flex-col rounded-2xl bg-blue-steel p-6 md:px-8 lg:px-14',
         className,
         { 'pb-12': !hasAction }
       )}

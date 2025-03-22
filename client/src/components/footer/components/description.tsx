@@ -12,7 +12,7 @@ export default function Description({ className, items }: DescriptionProps) {
   return (
     <div className={cn('py-4', className)}>
       {items.map((key, index) => (
-        <p key={index} className="paragraph-5">
+        <p key={index} className="footer-text">
           {t(key)}
         </p>
       ))}

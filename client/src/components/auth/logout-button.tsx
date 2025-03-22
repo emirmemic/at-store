@@ -1,28 +1,52 @@
-import { LogOut } from 'lucide-react';
-import { cookies } from 'next/headers';
-// eslint-disable-next-line no-restricted-imports
-import { redirect } from 'next/navigation';
+'use client';
 
-const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 week
-  path: '/',
-  domain: process.env.HOST ?? 'localhost',
-  httpOnly: true,
-  secure: process.env.NODE_ENV === 'production',
-};
+import { ReactNode, ButtonHTMLAttributes, useState } from 'react';
 
-async function logoutAction() {
-  'use server';
-  const cookieStore = await cookies();
-  cookieStore.set('jwt', '', { ...config, maxAge: 0 });
-  redirect('/');
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { useRouter } from '@/i18n/routing';
+import { logoutUser } from '@/lib/hooks/services';
+
+interface LogoutButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
+  children: (props: { isLoading: boolean; error: string | null }) => ReactNode;
+  className?: string;
 }
 
-export default function LogoutButton() {
+export default function LogoutButton({
+  children,
+  className,
+  ...props
+}: LogoutButtonProps) {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      await logoutUser();
+      router.push(PAGE_NAMES.HOME);
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : 'An unknown error occurred'
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <form action={logoutAction}>
-      <button className="flex items-center gap-2" type="submit">
-        <LogOut className="h-6 w-6" />
+    <form onSubmit={handleSubmit}>
+      <button
+        className={className}
+        {...props}
+        disabled={isLoading}
+        type="submit"
+      >
+        {typeof children === 'function'
+          ? children({ isLoading, error })
+          : children}
       </button>
     </form>
   );

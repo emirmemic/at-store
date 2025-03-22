@@ -1,11 +1,11 @@
 import { IconProps } from '@/lib/types/base';
 
-const IconHeart = ({
+export default function IconHeart({
   size = 30,
   className = '',
   filled,
   ...props
-}: IconProps) => {
+}: IconProps) {
   const fillColor = filled ? 'currentColor' : 'none';
   const strokeColor = filled ? 'none' : 'currentColor';
 
@@ -27,6 +27,4 @@ const IconHeart = ({
       />
     </svg>
   );
-};
-
-export default IconHeart;
+}

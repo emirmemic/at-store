@@ -1,6 +1,10 @@
 import { IconProps } from '@/lib/types/base';
 
-const IconPlay = ({ size = 24, className = '', ...props }: IconProps) => {
+export default function IconPlay({
+  size = 24,
+  className = '',
+  ...props
+}: IconProps) {
   return (
     <svg
       className={className}
@@ -17,6 +21,4 @@ const IconPlay = ({ size = 24, className = '', ...props }: IconProps) => {
       />
     </svg>
   );
-};
-
-export default IconPlay;
+}

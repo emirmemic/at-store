@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import qs from 'qs';
 
 import { PromoCard } from '@/app/components';
+import { Button } from '@/components/ui/button';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { Link } from '@/i18n/routing';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -49,6 +52,11 @@ export default async function Page() {
     <>
       <div className="container-max-width">
         <h1 className="p-4">{title}</h1>
+        <Button asChild size={'lg'} variant={'filled'}>
+          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>
+            Check out amazing global components!
+          </Link>
+        </Button>
         <div className="grid gap-8 py-14 md:grid-cols-2">
           {promo_cards &&
             promo_cards.map((promoCard) => (

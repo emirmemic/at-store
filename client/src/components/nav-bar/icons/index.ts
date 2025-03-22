@@ -1,8 +1,15 @@
-import { IconCart } from './cart';
-import { IconClose } from './close';
-import { IconLogout } from './logout';
-import { IconMenu } from './menu';
-import { IconSearch } from './search';
-import { IconUser } from './user';
+import IconAccount from './account';
+import IconCart from './cart';
+import IconLogout from './logout';
+import IconMenu from './menu';
+import IconSearch from './search';
+import IconShoppingCart from './shopping-cart';
 
-export { IconCart, IconSearch, IconUser, IconLogout, IconMenu, IconClose };
+export {
+  IconAccount,
+  IconCart,
+  IconLogout,
+  IconMenu,
+  IconSearch,
+  IconShoppingCart,
+};

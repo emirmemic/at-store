@@ -1,4 +1,6 @@
+'use client';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import {
   Description,
@@ -13,7 +15,11 @@ import { Pathname } from '@/i18n/routing';
 
 export default function Footer() {
   const t = useTranslations('footer');
-  const tCommon = useTranslations('common');
+  const [activeSectionId, setActiveSection] = useState<string | null>(null);
+
+  const handleSectionToggle = (sectionId: string) => {
+    setActiveSection((prev) => (prev === sectionId ? null : sectionId));
+  };
 
   const descriptionItems = [
     'description1',
@@ -127,7 +133,7 @@ export default function Footer() {
           path: PAGE_NAMES.PRIVACY_POLICY,
         },
         {
-          name: tCommon('delivery'),
+          name: t('information.delivery'),
           path: PAGE_NAMES.DELIVERY,
         },
         {
@@ -141,7 +147,7 @@ export default function Footer() {
       title: t('help.title'),
       items: [
         {
-          name: tCommon('paymentMethods'),
+          name: t('help.paymentMethods'),
           path: PAGE_NAMES.PAYMENT_METHODS,
         },
         {
@@ -167,17 +173,19 @@ export default function Footer() {
   return (
     <footer className="bg-black py-5 md:py-9">
       <div className="flex flex-col gap-3 text-white container-max-width md:gap-6">
-        <Description
-          className="hidden max-w-screen-lg md:block"
-          items={descriptionItems}
-        />
+        <Description className="hidden md:block" items={descriptionItems} />
         <div className="w-full justify-between gap-7 md:flex lg:gap-28">
-          <div className="md:hidden">
+          <div className="mb-4 md:hidden">
             {footerSections.map((section) => (
-              <SectionMobile key={section.id} {...section} />
+              <SectionMobile
+                key={section.id}
+                isActive={activeSectionId === section.id}
+                section={section}
+                onToggle={() => handleSectionToggle(section.id)}
+              />
             ))}
           </div>
-          <div className="hidden justify-between gap-4 md:flex md:grow">
+          <div className="hidden justify-between gap-6 md:flex md:grow">
             {footerSections.map((section) => (
               <SectionDesktop key={section.id} {...section} />
             ))}

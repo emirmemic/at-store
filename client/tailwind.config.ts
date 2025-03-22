@@ -94,6 +94,7 @@ export default {
         'inset-black-full': 'inset 0 0 0 .125rem rgba(0 0 0 / 0.35)',
         'large-black': '0 .25rem .25rem .3125rem rgba(0 0 0 / 0.35)',
         'inset-blue': 'inset 0 0 0 .125rem var(--color-blue)',
+        'standard-black': '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
       },
       spacing: {
         '.375rem': 'var(--spacing-0.375rem)',
@@ -101,8 +102,8 @@ export default {
         '.875rem': 'var(--spacing-0.875rem)',
         '1.125rem': 'var(--spacing-1.125rem)',
         '2.375rem': 'var(--spacing-2.375rem)',
-        'nav-height': '5rem',
-        'screen-h-cutoff': 'calc(100vh - 5rem)',
+        'nav-height': '3.5rem',
+        'screen-h-cutoff': 'calc(100vh - 3.5rem)',
       },
       keyframes: {
         slideDown: {
@@ -164,7 +165,7 @@ export default {
         '.heading-4': {
           '@apply typography-heading': {},
           fontSize: '1.5rem',
-          lineHeight: '2.5rem',
+          lineHeight: '1.875rem',
         },
         '.heading-5': {
           '@apply typography-heading': {},
@@ -230,6 +231,15 @@ export default {
           fontWeight: '500',
           fontSize: '.875rem',
         },
+        '.footer-text': {
+          fontWeight: '300',
+          fontSize: '.875rem',
+          lineHeight: '1.125rem',
+        },
+        '.footer-navigation': {
+          '@apply footer-text': {},
+          fontWeight: '400',
+        },
         '.button-1': {
           '@apply typography-button': {},
           fontSize: '1rem',
@@ -244,9 +254,24 @@ export default {
           margin: '0 auto',
           paddingLeft: '1.5rem',
           paddingRight: '1.5rem',
-          '@screen md': {
+          '@screen lg': {
             paddingLeft: '3rem',
             paddingRight: '3rem',
+          },
+        },
+        '.blur-background': {
+          'backdrop-filter': 'blur(.125rem)',
+          'background-color': 'rgba(0, 0, 0, 0.2)',
+        },
+        '.custom-scrollbar': {
+          '&::-webkit-scrollbar': {
+            width: '0.25rem',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: '#d0d0d0',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#3577e5',
           },
         },
       });

@@ -4,7 +4,7 @@ import { UserInformation } from '@/lib/types/auth';
 
 import { getAuthToken } from './get-auth-token';
 
-export async function getUser(): Promise<UserInformation | undefined> {
+export async function getUser(): Promise<UserInformation | null> {
   const authToken = await getAuthToken();
   if (authToken) {
     const path = '/api/users/me';
@@ -13,8 +13,8 @@ export async function getUser(): Promise<UserInformation | undefined> {
       authToken,
       next: { tags: ['user-info'] },
     });
-    return res.data;
+    return res.data || null;
   } else {
-    return undefined;
+    return null;
   }
 }

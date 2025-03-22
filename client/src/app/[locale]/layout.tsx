@@ -6,8 +6,8 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 
-import Footer from '@/components/footer/footer';
-import Navbar from '@/components/nav-bar/nav-bar';
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/nav-bar';
 import { routing, type Locale } from '@/i18n/routing';
 
 import { SF_Pro_Text } from '../fonts/fonts';
@@ -20,10 +20,12 @@ interface GenerateMetadataParams {
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metaData' });
+  const metadataBase = new URL(process.env.NEXT_PUBLIC_FRONTEND_URL || '');
 
   return {
+    metadataBase,
     title: {
-      template: '%s | AT Store',
+      template: '%s',
       default: t('homePage.title'),
     },
     description: t('homePage.description'),
@@ -45,7 +47,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
       type: 'website',
       siteName: 'AT Store',
       locale: locale,
-      url: process.env.NEXT_PUBLIC_FRONTEND_URL,
+      url: metadataBase,
       images: [
         {
           url: '/open-graph.jpg',

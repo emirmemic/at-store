@@ -142,7 +142,25 @@
     "dismissMessage": "Odbaci poruku"
   },
   "login": {
-    "errorWrongInfo": "Unijeli ste pogrešne podatke"
+    "errorWrongInfo": "Unijeli ste pogrešne podatke",
+    "login": "Prijavi se",
+    "logout": "Odjavi se",
+    "loggingOut": "Odjavljujem se..."
+  },
+  "navbar": {
+    "guest": "Gost",
+    "hi": "Zdravo",
+    "favorites": "Omiljeni",
+    "cart": "Korpa",
+    "search": "Pretraži",
+    "searchPlaceholder": "Pretraži proizvode...",
+    "account": "Korisnicki racun",
+    "closeMenu": "Zatvori meni",
+    "openMenu": "Otvori meni",
+    "notLoggedIn": "Niste prijavljeni",
+    "noItems": "Nemate proizvode u korpi",
+    "seeCart": "Vidi čitavu korpu",
+    "payment": "Plaćanje"
   },
   "footer": {
     "homePage": "Početna stranica",
@@ -184,10 +202,11 @@
     },
     "help": {
       "title": "Pomoć",
+      "paymentMethods": "Načini plaćanja",
       "orderCancellation": "Otkazivanje narudžbe",
       "contactUs": "Kontaktirajte nas",
       "termsOfPurchase": "Uslovi kupovine",
-      "cookiePolicy": "politika kolačića"
+      "cookiePolicy": "Politika kolačića"
     },
     "copyrightNotice": "Copyrights 2025 AT Store Network. All rights Reserved. Mono Apple Authorized Reseller."
   },
@@ -459,6 +478,7 @@
   "common": {
     "learnMore": "Saznaj više",
     "buyNow": "Kupi sad",
+    "back": "Nazad",
     "view": "Pogledaj",
     "tradeIn": "Trade-in",
     "educationDiscount": "EDU popust",

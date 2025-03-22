@@ -147,11 +147,9 @@ export default function PaymentMethods() {
         <p className="mb-6 heading-4 md:mb-9 md:heading-2">
           {t('paymentMethodsPage.faqTitle')}
         </p>
-        <div className="flex grow flex-col justify-between md:flex">
-          {faqSection.map((faqSection) => (
-            <FaqSection key={faqSection.question} {...faqSection} />
-          ))}
-        </div>
+        {faqSection.map((faqSection) => (
+          <FaqSection key={faqSection.question} {...faqSection} />
+        ))}
       </div>
 
       <div className="flex flex-col items-center justify-center gap-8">
