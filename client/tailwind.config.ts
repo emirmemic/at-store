@@ -206,6 +206,25 @@ export default {
           fontWeight: '500',
           fontSize: '.625rem',
         },
+        '.bullet-1': {
+          '@apply typography-paragraph': {},
+          fontSize: '1.25rem',
+          lineHeight: '1.625rem',
+        },
+        '.bullet-2': {
+          '@apply typography-paragraph': {},
+          lineHeight: 'var(--line-height-medium)',
+        },
+        '.bullet-heading-1': {
+          '@apply typography-heading': {},
+          letterSpacing: '0.0625rem',
+          fontSize: '2rem',
+        },
+        '.bullet-heading-2': {
+          '@apply typography-heading': {},
+          fontSize: '1.25rem',
+          lineHeight: '1.875rem',
+        },
         '.navigation': {
           '@apply typography-paragraph': {},
           fontWeight: '500',

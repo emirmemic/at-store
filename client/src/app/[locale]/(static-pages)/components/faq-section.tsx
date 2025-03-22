@@ -22,15 +22,17 @@ export default function FaqSection(faqSection: FaqSectionType) {
         <CollapsibleTrigger className="mr-4 flex w-full items-center justify-between py-3 text-start md:mr-5 md:py-4">
           <span className="text-grey paragraph-2">{faqSection.question}</span>
           <IconChevron
-            className={`transition-transform duration-500 ${
+            className={`text-grey-darker transition-transform duration-500 ${
               isOpen ? 'rotate-180' : 'rotate-0'
             }`}
             height={7}
             width={15}
           />
         </CollapsibleTrigger>
-        <CollapsibleContent className="text overflow-hidden bg-grey-extra-light py-4 transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown md:px-3 md:py-6">
-          <p className="text-grey-darkest paragraph-2">{faqSection.answer}</p>
+        <CollapsibleContent className="text overflow-hidden rounded-b-2xl bg-grey-extra-light transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+          <p className="px-3 py-4 text-grey-darkest paragraph-2 md:py-6">
+            {faqSection.answer}
+          </p>
         </CollapsibleContent>
       </Collapsible>
     </div>

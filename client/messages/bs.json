@@ -261,7 +261,40 @@
     }
   },
   "paymentMethodsPage": {
-    "faq": "Često postavljena pitanja",
+    "infoBlock1": {
+      "title": "Mikrofin",
+      "description": "U saradnji s Mikrofinom, omogućavamo brzo i jednostavno kreditiranje ."
+    },
+    "infoBlock2": {
+      "title": "Dostava",
+      "description": "Dostava je besplatna za narudžbe preko 399 KM."
+    },
+    "infoBlock3": {
+      "title": "Reklamacije",
+      "description": "Proizvode možete vratiti u roku od 14 dana ako su nekorišteni."
+    },
+
+    "faqTitle": "Često postavljena pitanja",
+    "faqItem1": {
+      "question": "Kako mogu izvršiti kupovinu na AT Store web stranici?",
+      "answer": "Kupovinu možete izvršiti dodavanjem željenih proizvoda u korpu, unosom potrebnih podataka i odabirom načina plaćanja i dostave. Nakon potvrde narudžbe, dobit ćete e-mail s detaljima."
+    },
+    "faqItem2": {
+      "question": "Koji su dostupni načini plaćanja?",
+      "answer": "Ako želite platiti na rate preko web stranice moguće je jedino preko UniCredit kreditne kartice.Ukoliko želite platiti u jednoj od naših poslovnica možete kupovati na rate putem kreditnih kartica,a dostupno je i AT Store finansiranje putem Mikrofin kompanije."
+    },
+    "faqItem3": {
+      "question": "Koliko traje dostava?",
+      "answer": "Vrijeme dostave zavisi od lokacije i dostupnosti proizvoda. Standardno, dostava unutar Bosne i Hercegovine traje 1 do 3 radna dana. Za proizvode koji su odmah dostupni na skladištu, narudžbe zaprimljene do 14:00 sati obično se šalju istog dana.Ukoliko proizvod nije odmah dostupan, rok isporuke može biti duži, o čemu ćete biti pravovremeno obaviješteni."
+    },
+    "faqItem4": {
+      "question": "Kako mogu pratiti svoju narudžbu ?",
+      "answer": "Nakon što vaša narudžba bude poslana, poslat ćemo vam e-mail s brojem pošiljke.Pošiljku možete pratiti unosom tog broja na službenoj stranici BH Pošta Express. Za praćenje pošiljke posjetite BH Pošta Express praćenje."
+    },
+    "faqItem5": {
+      "question": "Kako mogu ostvariti garanciju na kupljeni proizvod?",
+      "answer": "Uz kupljeni proizvod dobijate 12 mjeseci garancije, dok za kupljeni iPhone dobijate 24 mjeseca garancije.Kako biste ostvarili garanciju, potrebno je sačuvati fiskalni račun, koji služi kao dokaz o kupovini."
+    },
     "title": "Načini plaćanja",
     "item1": {
       "title": "Načini plaćanja",
@@ -374,7 +407,7 @@
     },
     "item5": {
       "title": "Kontakt",
-      "listItem1": "Za sva dodatna pitanja u vezi s otkazivanjem narudžbe, kontaktirajte nas na at@atstore.ba"
+      "listItem1": "Za sva dodatna pitanja u vezi s otkazivanjem narudžbe, kontaktirajte nas na"
     }
   },
   "privacyPolicyPage": {

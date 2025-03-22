@@ -24,13 +24,15 @@ export default function Section({
 }: Readonly<SectionProps>) {
   return (
     <section>
-      <h2 className="heading-4 md:heading-3">{`${sectionNumber}. ${title}`}</h2>
+      <h2 className="md:bullet-heading-1 bullet-heading-2">{`${sectionNumber}. ${title}`}</h2>
       {subTitle && (
-        <p className="pl-9 heading-5 md:pl-14 md:heading-4"> {subTitle} </p>
+        <p className="md:bullet-heading-2 pl-9 heading-5 md:pl-14">
+          {subTitle}
+        </p>
       )}
       <ul
         className={cn(
-          'list-inside list-disc paragraph-2 md:paragraph-1',
+          'md:bullet-1 bullet-2 list-inside list-disc',
           subTitle ? 'pl-12 md:pl-[74px]' : 'pl-9 md:pl-14'
         )}
       >

@@ -22,52 +22,51 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 }
 
 export default function CookiePolicy() {
-  const t = useTranslations('cookiePolicyPage');
-  const contactT = useTranslations('contact');
+  const t = useTranslations();
   const sections: SectionProps[] = [
     {
-      title: t('item1.title'),
-      listItems: [[{ text: t('item1.listItem1') }]],
+      title: t('cookiePolicyPage.item1.title'),
+      listItems: [[{ text: t('cookiePolicyPage.item1.listItem1') }]],
       sectionNumber: 1,
     },
     {
-      title: t('item2.title'),
+      title: t('cookiePolicyPage.item2.title'),
       listItems: [
-        [{ text: t('item2.listItem1') }],
-        [{ text: t('item2.listItem2') }],
-        [{ text: t('item2.listItem3') }],
-        [{ text: t('item2.listItem4') }],
+        [{ text: t('cookiePolicyPage.item2.listItem1') }],
+        [{ text: t('cookiePolicyPage.item2.listItem2') }],
+        [{ text: t('cookiePolicyPage.item2.listItem3') }],
+        [{ text: t('cookiePolicyPage.item2.listItem4') }],
       ],
       sectionNumber: 2,
     },
     {
-      title: t('item3.title'),
+      title: t('cookiePolicyPage.item3.title'),
       listItems: [
-        [{ text: t('item3.listItem1') }],
-        [{ text: t('item3.listItem2') }],
-        [{ text: t('item3.listItem3') }],
+        [{ text: t('cookiePolicyPage.item3.listItem1') }],
+        [{ text: t('cookiePolicyPage.item3.listItem2') }],
+        [{ text: t('cookiePolicyPage.item3.listItem3') }],
       ],
-      subTitle: t('item3.subTitle'),
+      subTitle: t('cookiePolicyPage.item3.subTitle'),
       sectionNumber: 3,
     },
     {
-      title: t('item4.title'),
-      listItems: [[{ text: t('item4.listItem1') }]],
+      title: t('cookiePolicyPage.item4.title'),
+      listItems: [[{ text: t('cookiePolicyPage.item4.listItem1') }]],
       sectionNumber: 4,
     },
     {
-      title: t('item5.title'),
-      listItems: [[{ text: t('item5.listItem1') }]],
+      title: t('cookiePolicyPage.item5.title'),
+      listItems: [[{ text: t('cookiePolicyPage.item5.listItem1') }]],
       sectionNumber: 5,
     },
     {
-      title: t('item6.title'),
+      title: t('cookiePolicyPage.item6.title'),
       listItems: [
         [
-          { text: t('item6.listItem1') },
+          { text: t('cookiePolicyPage.item6.listItem1') },
           {
-            text: contactT('atStoreEmail'),
-            path: contactT('atStoreEmailLink'),
+            text: t('contact.atStoreEmail'),
+            path: t('contact.atStoreEmailLink'),
           },
         ],
       ],
@@ -77,8 +76,12 @@ export default function CookiePolicy() {
 
   return (
     <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-1 md:mb-16">{t('title')}</h1>
-      <p className="mb-5 paragraph-2 md:paragraph-1">{t('paragraph')}</p>
+      <h1 className="mb-9 text-center heading-1 md:mb-16">
+        {t('cookiePolicyPage.title')}
+      </h1>
+      <p className="mb-5 paragraph-2 md:paragraph-1">
+        {t('cookiePolicyPage.paragraph')}
+      </p>
       <div className="flex flex-col gap-5">
         {sections.map((section) => (
           <Section key={section.sectionNumber} {...section} />
