@@ -122,8 +122,8 @@
     "description": "Mi smo tvrtka koja prodaje Apple proizvode. Mi smo prva Mono Apple Authorized Reseller trgovina u Bosni i Hercegovini."
   },
   "notFound": {
-    "title": "Stranica nije pronađena",
-    "description": "Stranica koju tražite nije pronađena. Molimo vas da provjerite URL i pokušajte ponovo."
+    "title": "Rezultati pretrage:",
+    "description": "Stranica nije pronađena."
   },
   "localeSwitcher": {
     "label": "Promijeni jezik",
