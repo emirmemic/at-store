@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
 import { routing } from './i18n/routing';
-import { getAuthToken } from './lib/hooks/services';
+import { getAuthToken } from './lib/services';
 
 const AUTH_ROUTES = [
   '/en/login',

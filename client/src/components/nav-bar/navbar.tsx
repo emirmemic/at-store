@@ -1,7 +1,6 @@
 import { DesktopMenu, MobileMenu } from '@/components/nav-bar';
 import { navMenu, placeholderCart } from '@/data/dummy-data';
-import { getUser } from '@/lib/hooks/services';
-
+import { getUser } from '@/lib/services';
 
 export default async function Navbar() {
   const user = await getUser();

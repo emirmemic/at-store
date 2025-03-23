@@ -4,7 +4,7 @@ import { ReactNode, ButtonHTMLAttributes, useState } from 'react';
 
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { useRouter } from '@/i18n/routing';
-import { logoutUser } from '@/lib/hooks/services';
+import { logoutUser } from '@/lib/services';
 
 interface LogoutButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
