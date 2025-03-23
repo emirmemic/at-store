@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { Icon } from '@/lib/types/base';
+import { Icon } from '@/lib/types';
 
 import { IconDelivery, IconEducation, IconTradeIn, IconWallet } from '../icons';
 

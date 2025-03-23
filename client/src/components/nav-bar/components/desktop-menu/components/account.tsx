@@ -4,17 +4,16 @@ import { useRef, useState } from 'react';
 
 import { LogoutButton } from '@/components/auth';
 import { IconClose, IconHeart } from '@/components/icons';
-import { UserAvatar } from '@/components/nav-bar/components';
+import { AnimateHeight, UserAvatar } from '@/components/nav-bar';
 import { IconAccount, IconCart, IconLogout } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
-import AnimateHeight from './animate-height';
 const iconClasses =
   'text-white transition-colors duration-300 group-hover:text-grey-medium';
 const linkClasses =

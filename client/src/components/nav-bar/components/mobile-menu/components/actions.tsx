@@ -2,12 +2,12 @@
 import { useTranslations } from 'next-intl';
 
 import { IconHeart } from '@/components/icons';
-import { UserAvatar } from '@/components/nav-bar/components';
+import { UserAvatar } from '@/components/nav-bar';
 import { IconCart, IconSearch } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileActionsProps {

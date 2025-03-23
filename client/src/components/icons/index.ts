@@ -1,27 +1,12 @@
-import IconCheck from './check';
-import IconChevron from './chevron';
-import IconClose from './close';
-import IconDelivery from './delivery';
-import IconEducation from './education';
-import IconHeart from './heart';
-import IconPause from './pause';
-import IconPlay from './play';
-import IconTradeIn from './trade-in';
-import IconTrash from './trash';
-import IconWallet from './wallet';
-import IconX from './x';
-
-export {
-  IconChevron,
-  IconClose,
-  IconPause,
-  IconCheck,
-  IconHeart,
-  IconPlay,
-  IconX,
-  IconTradeIn,
-  IconTrash,
-  IconDelivery,
-  IconWallet,
-  IconEducation,
-};
+export { default as IconCheck } from './check';
+export { default as IconChevron } from './chevron';
+export { default as IconClose } from './close';
+export { default as IconDelivery } from './delivery';
+export { default as IconEducation } from './education';
+export { default as IconHeart } from './heart';
+export { default as IconPause } from './pause';
+export { default as IconPlay } from './play';
+export { default as IconTradeIn } from './trade-in';
+export { default as IconTrash } from './trash';
+export { default as IconWallet } from './wallet';
+export { default as IconX } from './x';

@@ -2,29 +2,29 @@
 import { useState } from 'react';
 
 import {
+  SiteLogo,
   DesktopAccount,
   DesktopCart,
   DesktopList,
   DesktopSearch,
-  SiteLogo,
-} from '@/components/nav-bar/components';
+} from '@/components/nav-bar';
 import { NavMenu, PopupType, CartItem } from '@/components/nav-bar/types';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
 interface DesktopMenuProps {
   menuItems: NavMenu[];
   className?: string;
   user: UserInformation | null;
   cart: CartItem[];
 }
-
 export default function DesktopMenu({
   menuItems,
   className,
   user,
   cart,
 }: DesktopMenuProps) {
-  const [activePopup, setActivePopup] = useState<PopupType>(PopupType.NONE);
+  const [activePopup, setActivePopup] = useState<PopupType>('none');
   return (
     <div
       className={cn(

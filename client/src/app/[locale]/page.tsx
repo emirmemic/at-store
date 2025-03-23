@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import qs from 'qs';
 
 import { PromoCard } from '@/app/components';
@@ -35,7 +34,10 @@ async function loader() {
     method: 'GET',
   });
 
-  if (!res.data) notFound();
+  if (!res.data) return {
+    title: 'Failed to fetch data',
+    promo_cards: [],
+  };
   const data = res?.data?.data;
 
   return data;
@@ -44,7 +46,17 @@ async function loader() {
 export default async function Page() {
   const data = await loader();
 
-  if (!data) return <div>Failed to fetch data</div>;
+  if (!data)
+    return (
+      <div>
+        Failed to fetch data
+        <Button asChild size={'lg'} variant={'filled'}>
+          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>
+            Check out amazing global components!
+          </Link>
+        </Button>
+      </div>
+    );
 
   const { title, promo_cards } = data;
 

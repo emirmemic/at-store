@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 
 interface UserAvatarProps {
   user: UserInformation | null;

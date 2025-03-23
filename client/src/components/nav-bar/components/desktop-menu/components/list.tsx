@@ -2,10 +2,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { DesktopPopup } from '@/components/nav-bar';
 import { NavMenu, PopupType } from '@/components/nav-bar/types';
 import { Link } from '@/i18n/routing';
 
-import DesktopPopup from './desktop-popup';
 interface DesktopListProps {
   menuItems: NavMenu[];
   className?: string;
@@ -24,13 +24,13 @@ export default function DesktopList({
   const handleMouseEnter = (menuItem: NavMenu) => {
     if (menuItem.subLinks) {
       setActiveMenu(menuItem);
-      setActivePopup(PopupType.MENU);
+      setActivePopup('menu');
     }
   };
 
   const handleMouseLeave = () => {
     setActiveMenu(null);
-    setActivePopup(PopupType.NONE);
+    setActivePopup('none');
   };
 
   return (
@@ -50,7 +50,7 @@ export default function DesktopList({
         ))}
       </ul>
 
-      <DesktopPopup isActive={activePopup === PopupType.MENU}>
+      <DesktopPopup isActive={activePopup === 'menu'}>
         <div className="w-full pb-12" onMouseLeave={handleMouseLeave}>
           <div className="mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3 shadow-large-black">
             <ul className="flex flex-wrap gap-11">

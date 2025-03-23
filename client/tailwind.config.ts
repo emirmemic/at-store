@@ -69,6 +69,7 @@ export default {
         },
         grey: {
           DEFAULT: '#968c8c',
+          'almost-white': '#f6f6f6',
           'extra-light': '#f5f5f5',
           light: '#d0d0d0',
           medium: '#cac3c3',
@@ -79,7 +80,7 @@ export default {
         orange: {
           DEFAULT: '#F59E0B',
           dark: '#B45309',
-        },
+      },
         pink: {
           soft: '#ff8997',
         },

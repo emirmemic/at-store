@@ -4,7 +4,7 @@ import { useRouter } from '@/i18n/routing';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { LoginFormData, RegisterFormData } from '@/lib/schemas/auth';
-import { AuthError, AuthResponse } from '@/lib/types/auth';
+import { AuthError, AuthResponse } from '@/lib/types';
 import { setJwtCookie } from '@/lib/utils/auth';
 
 export const useAuth = () => {

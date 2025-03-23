@@ -6,6 +6,8 @@ import { StrapiButtonProps } from '@/components/ui/button';
  *
  * @typedef {string} ComponentType
  */
-export type ComponentType = 'global.button';
+type ComponentType = 'global.button';
 
-export type Global = StrapiButtonProps;
+type Global = StrapiButtonProps;
+
+export type { ComponentType, Global };

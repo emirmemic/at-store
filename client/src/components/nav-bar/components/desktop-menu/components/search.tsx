@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
-import { DesktopPopup, SearchInput } from '@/components/nav-bar/components';
+import { DesktopPopup, SearchInput } from '@/components/nav-bar';
 import { IconSearch } from '@/components/nav-bar/icons';
 import { PopupType } from '@/components/nav-bar/types';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
@@ -18,13 +18,13 @@ export default function DesktopSearch({
   const t = useTranslations('navbar');
   const togglePopup = () => {
     setActivePopup(
-      activePopup === PopupType.SEARCH ? PopupType.NONE : PopupType.SEARCH
+      activePopup === 'search' ? 'none' : 'search'
     );
   };
 
   const searchInputRef = useRef<HTMLDivElement>(null);
   const searchButtonRef = useRef<HTMLButtonElement>(null);
-  useClickOutside(searchInputRef, () => setActivePopup(PopupType.NONE), [
+  useClickOutside(searchInputRef, () => setActivePopup('none'), [
     searchButtonRef,
   ]);
 
@@ -40,7 +40,7 @@ export default function DesktopSearch({
         <span className="sr-only">{t('search')}</span>
         <IconSearch className="transition-colors duration-300 group-hover:text-grey-medium" />
       </button>
-      <DesktopPopup isActive={activePopup === PopupType.SEARCH}>
+      <DesktopPopup isActive={activePopup === 'search'}>
         <div className="w-full pb-12">
           <div ref={searchInputRef} className="mx-auto max-w-72">
             <SearchInput placeholder={t('searchPlaceholder')} />

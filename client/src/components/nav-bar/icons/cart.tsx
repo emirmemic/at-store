@@ -1,4 +1,4 @@
-import { IconProps } from '@/lib/types/base';
+import { IconProps } from '@/lib/types';
 
 interface IconCartProps extends IconProps {
   itemsInCart?: number;

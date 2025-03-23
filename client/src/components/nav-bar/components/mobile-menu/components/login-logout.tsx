@@ -5,7 +5,7 @@ import { IconAccount, IconLogout } from '@/components/nav-bar/icons';
 import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface PropsType {

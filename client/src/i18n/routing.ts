@@ -52,7 +52,7 @@ export const routing = defineRouting({
       bs: '/obrazovni-popust',
     },
     [PAGE_NAMES.FAVORITES]: {
-      bs: '/racun/favoriti',
+      bs: '/racun/omiljeni',
     },
     [PAGE_NAMES.FIND_STORE]: {
       bs: '/pronadi-store',

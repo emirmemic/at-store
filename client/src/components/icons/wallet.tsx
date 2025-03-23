@@ -1,4 +1,4 @@
-import { IconProps } from '@/lib/types/base';
+import { IconProps } from '@/lib/types';
 
 const IconWallet = ({ size = 24, className = '', ...props }: IconProps) => {
   return (

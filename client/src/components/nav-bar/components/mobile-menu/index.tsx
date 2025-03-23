@@ -5,21 +5,20 @@ import { useRef, useState } from 'react';
 import { IconClose } from '@/components/icons';
 import {
   SiteLogo,
-  MobileList,
-  MobileActions,
   SearchInput,
-  MobileLoginLogout,
   AnimateHeight,
-} from '@/components/nav-bar/components';
+  AnimateSlots,
+  MobileActions,
+  MobileList,
+  MobileLoginLogout,
+} from '@/components/nav-bar';
 import { IconMenu } from '@/components/nav-bar/icons';
 import { NavMenu } from '@/components/nav-bar/types';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
-import AnimateSlots from './animate-slots';
 
 interface MobileMenuProps {
   menuItems: NavMenu[];

@@ -1,4 +1,4 @@
-import { Icon } from '@/lib/types/base';
+import { Icon } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 import { Button } from '../ui/button';

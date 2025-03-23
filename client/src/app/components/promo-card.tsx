@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ProductProps } from '@/lib/types/base';
+import { ProductProps } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 type TextColor = 'white' | 'black';

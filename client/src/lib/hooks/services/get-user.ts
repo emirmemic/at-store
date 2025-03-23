@@ -1,6 +1,6 @@
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { UserInformation } from '@/lib/types/auth';
+import { UserInformation } from '@/lib/types';
 
 import { getAuthToken } from './get-auth-token';
 

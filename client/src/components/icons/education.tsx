@@ -1,4 +1,4 @@
-import { IconProps } from '@/lib/types/base';
+import { IconProps } from '@/lib/types';
 
 const IconEducation = ({ size = 24, className = '', ...props }: IconProps) => {
   return (

@@ -1,15 +1,3 @@
-import React from 'react';
-
-import { Pathname } from '@/i18n/routing';
-
-interface LinkProps {
-  id: number;
-  label: string;
-  href: Pathname;
-  isExternal: boolean;
-  subLinks?: Array<LinkProps>;
-}
-
 interface ImageProps {
   id: number;
   documentId: string;
@@ -32,6 +20,6 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
   filled?: boolean;
 }
 
-export type Icon = React.ComponentType<IconProps>;
+type Icon = React.ComponentType<IconProps>;
 
-export type { IconProps, ImageProps, LinkProps, ProductProps };
+export type { Icon, IconProps, ImageProps, ProductProps };
