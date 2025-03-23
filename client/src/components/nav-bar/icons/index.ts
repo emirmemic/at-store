@@ -1,15 +1,6 @@
-import IconAccount from './account';
-import IconCart from './cart';
-import IconLogout from './logout';
-import IconMenu from './menu';
-import IconSearch from './search';
-import IconShoppingCart from './shopping-cart';
-
-export {
-  IconAccount,
-  IconCart,
-  IconLogout,
-  IconMenu,
-  IconSearch,
-  IconShoppingCart,
-};
+export { default as IconAccount } from './account';
+export { default as IconCart } from './cart';
+export { default as IconLogout } from './logout';
+export { default as IconMenu } from './menu';
+export { default as IconSearch } from './search';
+export { default as IconShoppingCart } from './shopping-cart';
