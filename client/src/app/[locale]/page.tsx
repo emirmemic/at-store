@@ -34,10 +34,11 @@ async function loader() {
     method: 'GET',
   });
 
-  if (!res.data) return {
-    title: 'Failed to fetch data',
-    promo_cards: [],
-  };
+  if (!res.data)
+    return {
+      title: 'There is no data for this page',
+      promo_cards: [],
+    };
   const data = res?.data?.data;
 
   return data;
@@ -49,7 +50,7 @@ export default async function Page() {
   if (!data)
     return (
       <div>
-        Failed to fetch data
+        Fetch is successful, but there is no data for this page
         <Button asChild size={'lg'} variant={'filled'}>
           <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>
             Check out amazing global components!

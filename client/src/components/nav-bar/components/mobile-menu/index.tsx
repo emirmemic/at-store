@@ -11,7 +11,7 @@ import {
   MobileActions,
   MobileList,
   MobileLoginLogout,
-} from '@/components/nav-bar';
+} from'@/components/nav-bar/components'
 import { IconMenu } from '@/components/nav-bar/icons';
 import { NavMenu } from '@/components/nav-bar/types';
 import { Button } from '@/components/ui/button';

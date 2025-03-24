@@ -1,4 +1,4 @@
-import { DesktopMenu, MobileMenu } from '@/components/nav-bar';
+import { DesktopMenu, MobileMenu } from '@/components/nav-bar/components';
 import { navMenu, placeholderCart } from '@/data/dummy-data';
 import { getUser } from '@/lib/services';
 

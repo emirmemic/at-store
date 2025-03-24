@@ -2,7 +2,6 @@ import { macbookAirM3, iphone13, airpodsPro2, iphone14 } from '@/assets/images';
 import { NavMenu, CartItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
-
 const placeholderImage = '/assets/images/macbook-air.png';
 const placeholderImage2 = '/assets/images/iMac.png';
 const placeholderPage = PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE;

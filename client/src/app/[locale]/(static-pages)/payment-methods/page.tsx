@@ -135,7 +135,7 @@ export default function PaymentMethods() {
 
   return (
     <div className="w-full py-12 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-1 md:mb-16">
+      <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">
         {t('paymentMethodsPage.title')}
       </h1>
       <div className="flex flex-col gap-5">
@@ -156,7 +156,7 @@ export default function PaymentMethods() {
         {infoBlock.map((infoBlock) => (
           <InfoBlock
             key={infoBlock.id}
-            className="w-96 md:w-[688] lg:w-[1058]"
+            className="w-full md:max-w-[688px] lg:max-w-[1058px]"
             description={infoBlock.description}
             path={infoBlock.path}
             title={infoBlock.title}

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { DesktopPopup } from '@/components/nav-bar';
+import { DesktopPopup } from '@/components/nav-bar/components';
 import { NavMenu, PopupType } from '@/components/nav-bar/types';
 import { Link } from '@/i18n/routing';
 
@@ -34,10 +34,10 @@ export default function DesktopList({
   };
 
   return (
-    <div>
+    <>
       <ul className="flex h-full items-center gap-1 lg:gap-4">
         {menuItems.map((menuItem) => (
-          <li key={menuItem.id}>
+          <li key={menuItem.id} className="h-full">
             <Link
               className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:text-grey-medium lg:px-4 lg:paragraph-2"
               href={menuItem.href}
@@ -53,7 +53,7 @@ export default function DesktopList({
       <DesktopPopup isActive={activePopup === 'menu'}>
         <div className="w-full pb-12" onMouseLeave={handleMouseLeave}>
           <div className="mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3 shadow-large-black">
-            <ul className="flex flex-wrap gap-11">
+            <ul className="flex flex-wrap gap-11 h-full">
               {activeMenu?.subLinks?.map((sub) => (
                 <li key={sub.id}>
                   <Link
@@ -77,6 +77,6 @@ export default function DesktopList({
           </div>
         </div>
       </DesktopPopup>
-    </div>
+    </>
   );
 }

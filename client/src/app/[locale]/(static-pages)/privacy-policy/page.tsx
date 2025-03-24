@@ -99,7 +99,7 @@ export default function PrivacyPolicy() {
 
   return (
     <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-1 md:mb-16">
+      <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">
         {t('privacyPolicyPage.title')}
       </h1>
       <p className="mb-5 paragraph-2 md:paragraph-1">

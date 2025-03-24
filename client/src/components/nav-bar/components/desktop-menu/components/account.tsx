@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 
 import { LogoutButton } from '@/components/auth';
 import { IconClose, IconHeart } from '@/components/icons';
-import { AnimateHeight, UserAvatar } from '@/components/nav-bar';
+import { AnimateHeight, UserAvatar } from '@/components/nav-bar/components';
 import { IconAccount, IconCart, IconLogout } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';

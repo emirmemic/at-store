@@ -37,15 +37,20 @@ export default function OrderCancellation() {
     },
     {
       title: t('orderCancellationPage.item2.title'),
+      subTitle: t('orderCancellationPage.item2.listItem1'),
       listItems: [
-        [{ text: t('orderCancellationPage.item2.listItem1') }],
         [
           {
             text: t('contact.telephone'),
             path: t('contact.telephoneLink'),
           },
         ],
-        [{ text: t('contact.orderEmail'), path: t('contact.orderEmailLink') }],
+        [
+          {
+            text: t('contact.orderEmail'),
+            path: t('contact.orderEmailLink'),
+          },
+        ],
       ],
       sectionNumber: 2,
     },
@@ -76,7 +81,7 @@ export default function OrderCancellation() {
 
   return (
     <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-1 md:mb-16">
+      <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">
         {t('orderCancellationPage.title')}
       </h1>
       <div className="flex flex-col gap-5">

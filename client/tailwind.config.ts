@@ -80,7 +80,7 @@ export default {
         orange: {
           DEFAULT: '#F59E0B',
           dark: '#B45309',
-      },
+        },
         pink: {
           soft: '#ff8997',
         },

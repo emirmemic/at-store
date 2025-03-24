@@ -86,7 +86,7 @@ export default function DeliveryPage() {
 
   return (
     <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-1 md:mb-16">
+      <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">
         {t('deliveryPage.title')}
       </h1>
       <div className="flex flex-col gap-5">
