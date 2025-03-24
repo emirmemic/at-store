@@ -123,7 +123,8 @@
   },
   "notFound": {
     "title": "Rezultati pretrage:",
-    "description": "Stranica nije pronađena."
+    "description": "Stranica nije pronađena.",
+    "buttonText": "Početna"
   },
   "localeSwitcher": {
     "label": "Promijeni jezik",
