@@ -4,11 +4,14 @@ import { Link } from '@/i18n/routing';
 
 export default function Logo() {
   return (
-    <Link className="flex items-center gap-2 shrink-0 w-36 lg:w-40 h-full" href="/">
+    <Link
+      className="flex h-full w-36 shrink-0 items-center gap-2 lg:w-40"
+      href="/"
+    >
       <Image
         priority
         alt="AT Store"
-        className="w-full h-full object-contain"
+        className="h-full w-full object-contain"
         height={30}
         src="/assets/images/logo.png"
         width={133}

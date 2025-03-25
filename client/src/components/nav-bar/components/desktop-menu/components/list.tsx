@@ -53,7 +53,7 @@ export default function DesktopList({
       <DesktopPopup isActive={activePopup === 'menu'}>
         <div className="w-full pb-12" onMouseLeave={handleMouseLeave}>
           <div className="mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3 shadow-large-black">
-            <ul className="flex flex-wrap gap-11 h-full">
+            <ul className="flex h-full flex-wrap gap-11">
               {activeMenu?.subLinks?.map((sub) => (
                 <li key={sub.id}>
                   <Link

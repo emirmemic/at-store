@@ -70,7 +70,7 @@ export default {
         grey: {
           DEFAULT: '#968c8c',
           'almost-white': '#f6f6f6',
-          'extra-light': '#f5f5f5',
+          'extra-light': '#ededed',
           light: '#d0d0d0',
           medium: '#cac3c3',
           dark: '#7d7d7d',

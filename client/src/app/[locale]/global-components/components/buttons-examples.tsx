@@ -23,7 +23,7 @@ export default function ButtonsExamples() {
         <Button size={'md'} transparentVariant="black" variant={'transparent'}>
           black
         </Button>
-        <div className="flex gap-4 rounded-md bg-black p-2">
+        <div className="flex flex-wrap gap-4 rounded-md bg-black p-2">
           <Button size={'md'} variant={'transparent'}>
             default
           </Button>

@@ -7,7 +7,7 @@ import {
   DesktopCart,
   DesktopList,
   DesktopSearch,
-} from '@/components/nav-bar/components'
+} from '@/components/nav-bar/components';
 import { NavMenu, PopupType, CartItem } from '@/components/nav-bar/types';
 import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';

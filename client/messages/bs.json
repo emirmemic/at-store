@@ -484,6 +484,12 @@
     "tradeIn": "Trade-in",
     "educationDiscount": "EDU popust",
     "paymentMethods": "Načini plaćanja",
-    "delivery": "Dostava"
+    "delivery": "Dostava",
+    "adapters": "Adapteri",
+    "protection": "Zaštita",
+    "keyboards": "Tastature",
+    "mice": "Miševi",
+    "macAccessories": "Mac dodaci",
+    "seeAllMacAccessories": "Pogledajte sve Mac dodatke"
   }
 }

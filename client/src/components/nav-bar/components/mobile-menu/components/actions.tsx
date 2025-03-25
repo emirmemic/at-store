@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 
 import { IconHeart } from '@/components/icons';
-import { UserAvatar } from '@/components/nav-bar/components'
+import { UserAvatar } from '@/components/nav-bar/components';
 import { IconCart, IconSearch } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
