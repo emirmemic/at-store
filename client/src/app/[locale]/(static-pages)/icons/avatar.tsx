@@ -1,7 +1,7 @@
 import { IconProps } from '@/lib/types';
 
 export default function IconAvatar({
-  size = 165,
+  size = 164,
   className = '',
   ...props
 }: IconProps) {

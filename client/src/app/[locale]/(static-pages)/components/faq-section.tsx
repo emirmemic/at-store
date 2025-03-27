@@ -1,13 +1,12 @@
 'use client';
 import { useState } from 'react';
 
+import { IconChevron } from '@/components/icons';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-
-import IconChevron from '../icons/chevron';
 
 export interface FaqSectionType {
   question: string;
@@ -29,7 +28,7 @@ export default function FaqSection(faqSection: FaqSectionType) {
             width={15}
           />
         </CollapsibleTrigger>
-        <CollapsibleContent className="text overflow-hidden rounded-b-2xl bg-grey-extra-light transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+        <CollapsibleContent className="overflow-hidden rounded-b-2xl bg-grey-extra-light transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
           <p className="px-3 py-4 text-grey-darkest paragraph-2 md:py-6">
             {faqSection.answer}
           </p>

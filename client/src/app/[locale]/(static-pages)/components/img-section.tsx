@@ -1,5 +1,5 @@
-/* eslint-disable no-restricted-imports */
 import Image, { StaticImageData } from 'next/image';
+// eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils/utils';
@@ -9,7 +9,7 @@ interface ImgSectionProps {
   content: { text: string; path?: string }[];
   name: string;
   image: StaticImageData;
-  id: number;
+  index: number;
 }
 
 export default function ImgSection({
@@ -17,9 +17,9 @@ export default function ImgSection({
   content,
   name,
   image,
-  id,
+  index,
 }: Readonly<ImgSectionProps>) {
-  const isEven = id % 2 === 0;
+  const isEven = index % 2 === 0;
   return (
     <div
       className={cn(
@@ -41,7 +41,9 @@ export default function ImgSection({
       <section
         className={cn(
           'flex flex-col items-center text-white',
-          isEven ? 'lg:mr-auto lg:items-start' : 'lg:ml-auto lg:items-end'
+          isEven
+            ? 'text-left lg:mr-auto lg:items-start'
+            : 'text-right lg:ml-auto lg:items-end'
         )}
       >
         <h2 className="pb-3 heading-2 md:pb-12 lg:pb-6">{title}</h2>

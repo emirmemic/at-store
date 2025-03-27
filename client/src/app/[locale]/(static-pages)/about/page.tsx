@@ -5,17 +5,14 @@ import { getTranslations } from 'next-intl/server';
 import {
   atBusiness,
   atSoft,
-  macbookAlta,
-  macbookDelta,
-  macbookScc,
+  atStoreAlta,
+  atStoreDelta,
+  atStoreScc,
 } from '@/assets/images';
 import { MonoAppleBlock } from '@/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
 
-import CardSection from '../components/card-section';
-import ImgSection from '../components/img-section';
-import TeamCard from '../components/team-card';
+import { CardSection, ImgSection, TeamCard } from '../components';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -51,8 +48,8 @@ export default function AboutPage() {
           path: t('contact.atStoreEmailLink'),
         },
       ],
-      name: 'MacBookAlta',
-      image: macbookAlta,
+      name: 'At Store Alta',
+      image: atStoreAlta,
       id: 1,
     },
     {
@@ -69,8 +66,8 @@ export default function AboutPage() {
           path: t('contact.atStoreEmailLink'),
         },
       ],
-      name: 'MacBookSCC',
-      image: macbookScc,
+      name: 'At Store SCC',
+      image: atStoreScc,
       id: 2,
     },
     {
@@ -87,8 +84,8 @@ export default function AboutPage() {
           path: t('contact.atStoreDeltaEmailLink'),
         },
       ],
-      name: 'MacBookDelta',
-      image: macbookDelta,
+      name: 'At Store Delta',
+      image: atStoreDelta,
       id: 3,
     },
   ];
@@ -108,41 +105,41 @@ export default function AboutPage() {
       id: 2,
     },
   ];
-  const teamCard = [
-    { id: 1, name: { firstName: 'Admir', surName: 'Tursum' }, role: 'Ceo' },
+  const teamsCard = [
+    { id: 1, name: { firstName: 'Admir', surname: 'Tursum' }, role: 'Ceo' },
     {
       id: 2,
-      name: { firstName: 'Emina', surName: 'Bećirbašić' },
+      name: { firstName: 'Emina', surname: 'Bećirbašić' },
       role: 'Deputy direction',
     },
     {
       id: 3,
-      name: { firstName: 'Bojana', surName: 'Nuci' },
+      name: { firstName: 'Bojana', surname: 'Nuci' },
       role: 'Store Manager Alta',
     },
     {
       id: 4,
-      name: { firstName: 'Gorana', surName: 'Miljanović' },
+      name: { firstName: 'Gorana', surname: 'Miljanović' },
       role: 'Store Manager Delta',
     },
     {
       id: 5,
-      name: { firstName: 'Selma', surName: 'Dorić' },
+      name: { firstName: 'Selma', surname: 'Dorić' },
       role: 'Store Manager SCC',
     },
     {
       id: 6,
-      name: { firstName: 'Emir', surName: 'Tukić' },
+      name: { firstName: 'Emir', surname: 'Tukić' },
       role: 'Marketing manager',
     },
     {
       id: 7,
-      name: { firstName: 'Haris', surName: 'Džiko' },
+      name: { firstName: 'Haris', surname: 'Džiko' },
       role: 'B2B manager',
     },
     {
       id: 8,
-      name: { firstName: 'Armin', surName: 'Kosovac' },
+      name: { firstName: 'Armin', surname: 'Kosovac' },
       role: 'account manager',
     },
   ];
@@ -161,20 +158,18 @@ export default function AboutPage() {
             {t('about.paragraph')}
           </p>
         </div>
-        <Link aria-label="Home page" href={PAGE_NAMES.HOME}>
-          <Image
-            priority
-            alt="logo"
-            height={80}
-            sizes="(max-width: 768px) 50vw, 354px"
-            src={'/assets/images/logo.png'}
-            width={354}
-          />
-        </Link>
+        <Image
+          priority
+          alt="logo"
+          height={80}
+          sizes="(max-width: 768px) 50vw, 354px"
+          src={'/assets/images/logo.png'}
+          width={354}
+        />
       </section>
       <section className="flex flex-col gap-12 rounded-2xl bg-blue-steel px-3 py-12 md:gap-20 md:px-8 md:py-14 lg:px-11 lg:py-11">
-        {info.map((imageSection) => (
-          <ImgSection key={imageSection.id} {...imageSection} />
+        {info.map((imageSection, index) => (
+          <ImgSection key={imageSection.id} {...imageSection} index={index} />
         ))}
       </section>
 
@@ -191,7 +186,7 @@ export default function AboutPage() {
           {t('about.teamCardTitle')}
         </h4>
         <div className="grid grid-cols-2 justify-items-center gap-x-6 gap-y-12 md:grid-cols-3 md:gap-y-16 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-16">
-          {teamCard.map((teamSection) => (
+          {teamsCard.map((teamSection) => (
             <TeamCard key={teamSection.id} {...teamSection}></TeamCard>
           ))}
         </div>

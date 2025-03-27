@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import IconSadFace from '@/app/[locale]/(static-pages)/icons/sad-face';
+import { IconSadFace } from '@/app/[locale]/(static-pages)/icons';
 import { MonoAppleBlock } from '@/components';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';

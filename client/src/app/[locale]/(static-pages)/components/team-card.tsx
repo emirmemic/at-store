@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { IconAvatar } from '../icons';
 
 interface teamCardProps {
-  name: { firstName: string; surName: string };
+  name: { firstName: string; surname: string };
   role: string;
   id: number;
 }
@@ -20,9 +20,9 @@ export default function TeamCard(props: teamCardProps) {
       </Avatar>
       <p className="heading-4 md:heading-3">
         {name.firstName}
-        <span className="block md:title">{name.surName}</span>
+        <span className="block md:title">{name.surname}</span>
       </p>
-      <p className="text-nowrap paragraph-2 md:paragraph-1">{role}</p>
+      <p className="paragraph-2 md:paragraph-1">{role}</p>
     </div>
   );
 }
