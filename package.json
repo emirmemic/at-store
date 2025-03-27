@@ -18,7 +18,8 @@
     "deploy-server": "cd server && pm2 start npm --name server -- run start",
     "deploy-client": "cd client && pm2 start npm --name client -- run start",
     "deploy": "concurrently \"npm run deploy-server\" \"npm run deploy-client\"",
-    "lint-client": "cd client && npm run lint"
+    "lint-client": "cd client && npm run lint",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
@@ -31,6 +32,7 @@
     "wait-on": "^8.0.1"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
     "ts-node": "^10.9.2"
   }
 }

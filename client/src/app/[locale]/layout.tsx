@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
       description: t('homePage.description'),
       images: [
         {
-          url: '/open-graph.jpg',
+          url: '/images/open-graph.jpg',
           width: 1200,
           height: 630,
           alt: 'AT Store',
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
       url: metadataBase,
       images: [
         {
-          url: '/open-graph.jpg',
+          url: '/images/open-graph.jpg',
           width: 1200,
           height: 630,
           alt: 'AT Store',

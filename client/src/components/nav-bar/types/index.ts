@@ -5,7 +5,7 @@ import { Pathname } from '@/i18n/routing';
 interface NavMenuSubLink {
   id: number;
   label: string;
-  logo: string;
+  logo: StaticImageData;
   href: Pathname;
 }
 interface NavMenu {
@@ -14,6 +14,7 @@ interface NavMenu {
   href: Pathname;
   subLinks?: NavMenuSubLink[];
 }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const POPUP_TYPES = ['none', 'menu', 'search'] as const;
 type PopupType = (typeof POPUP_TYPES)[number];
 

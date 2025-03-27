@@ -1,9 +1,16 @@
-import { macbookAirM3, iphone13, airpodsPro2, iphone14 } from '@/assets/images';
+import {
+  macbookAirM3,
+  iphone13,
+  airpodsPro2,
+  iphone14,
+  macbookAir,
+  iMac,
+} from '@/assets/placeholder-images';
 import { NavMenu, CartItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
-const placeholderImage = '/assets/images/macbook-air.png';
-const placeholderImage2 = '/assets/images/iMac.png';
+const placeholderImage = macbookAir;
+const placeholderImage2 = iMac;
 const placeholderPage = PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE;
 const navMenu: NavMenu[] = [
   {

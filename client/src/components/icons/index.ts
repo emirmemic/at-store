@@ -1,3 +1,4 @@
+export { default as IconAtStoreLogo } from './at-store-logo';
 export { default as IconCheck } from './check';
 export { default as IconChevron } from './chevron';
 export { default as IconClose } from './close';

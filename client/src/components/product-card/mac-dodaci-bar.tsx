@@ -68,7 +68,7 @@ export default function MacDodaciBar({
         </p>
         <p className="bullet-2">{finalSubtitle}</p>
       </div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-4 md:gap-x-6 lg:gap-x-36">
+      <div className="grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-4 md:gap-x-6 xl:gap-x-24">
         {icons.map(({ id, Icon, label, href }) => {
           return (
             <Link

@@ -161,7 +161,8 @@
     "notLoggedIn": "Niste prijavljeni",
     "noItems": "Nemate proizvode u korpi",
     "seeCart": "Vidi čitavu korpu",
-    "payment": "Plaćanje"
+    "payment": "Plaćanje",
+    "visitHomePage": " Posjetite početnu stranicu At Store"
   },
   "footer": {
     "homePage": "Početna stranica",
