@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 
-import IconChevron from '../payment-methods/icons/chevron';
+import IconChevron from '../icons/chevron';
 
 export interface FaqSectionType {
   question: string;

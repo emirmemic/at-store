@@ -9,11 +9,13 @@ import {
   macbookDelta,
   macbookScc,
 } from '@/assets/images';
+import { MonoAppleBlock } from '@/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 
 import CardSection from '../components/card-section';
 import ImgSection from '../components/img-section';
+import TeamCard from '../components/team-card';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -106,6 +108,44 @@ export default function AboutPage() {
       id: 2,
     },
   ];
+  const teamCard = [
+    { id: 1, name: { firstName: 'Admir', surName: 'Tursum' }, role: 'Ceo' },
+    {
+      id: 2,
+      name: { firstName: 'Emina', surName: 'Bećirbašić' },
+      role: 'Deputy direction',
+    },
+    {
+      id: 3,
+      name: { firstName: 'Bojana', surName: 'Nuci' },
+      role: 'Store Manager Alta',
+    },
+    {
+      id: 4,
+      name: { firstName: 'Gorana', surName: 'Miljanović' },
+      role: 'Store Manager Delta',
+    },
+    {
+      id: 5,
+      name: { firstName: 'Selma', surName: 'Dorić' },
+      role: 'Store Manager SCC',
+    },
+    {
+      id: 6,
+      name: { firstName: 'Emir', surName: 'Tukić' },
+      role: 'Marketing manager',
+    },
+    {
+      id: 7,
+      name: { firstName: 'Haris', surName: 'Džiko' },
+      role: 'B2B manager',
+    },
+    {
+      id: 8,
+      name: { firstName: 'Armin', surName: 'Kosovac' },
+      role: 'account manager',
+    },
+  ];
 
   return (
     <main className="flex flex-col gap-12 py-12 container-max-width md:gap-16 md:py-16">
@@ -113,7 +153,7 @@ export default function AboutPage() {
         <h1 className="pb-16 text-center display">{t('about.title')}</h1>
       </header>
       <section className="flex flex-col items-center justify-center gap-12 rounded-2xl bg-blue-steel px-3 py-12 md:gap-16 md:px-16 lg:flex-row lg:gap-12 lg:px-11 lg:py-11">
-        <div className="order-1 flex-1 text-center lg:order-none lg:text-start">
+        <div className="order-1 flex-1 text-pretty text-center lg:order-none lg:text-start">
           <h2 className="text-white bullet-heading-2 md:heading-4">
             {t('about.paragraphHeading')}
           </h2>
@@ -126,7 +166,7 @@ export default function AboutPage() {
             priority
             alt="logo"
             height={80}
-            sizes="(max-width: 768px) 50vw, 354px "
+            sizes="(max-width: 768px) 50vw, 354px"
             src={'/assets/images/logo.png'}
             width={354}
           />
@@ -140,12 +180,23 @@ export default function AboutPage() {
 
       <section className="flex flex-col gap-12 py-12 md:gap-16 md:py-16 lg:gap-16">
         <h3 className="text-center heading-1">{t('about.cardBlockTitle')}</h3>
-        <div className="flex flex-col gap-12 md:flex-row md:gap-12 lg:gap-16">
+        <div className="flex flex-col gap-12 md:flex-row md:gap-12 lg:gap-[70px]">
           {cardBlocks.map((cardSection) => (
             <CardSection key={cardSection.id} {...cardSection}></CardSection>
           ))}
         </div>
       </section>
+      <section className="flex flex-col gap-16">
+        <h4 className="text-center heading-2 md:heading-1">
+          {t('about.teamCardTitle')}
+        </h4>
+        <div className="grid grid-cols-2 justify-items-center gap-x-6 gap-y-12 md:grid-cols-3 md:gap-y-16 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-16">
+          {teamCard.map((teamSection) => (
+            <TeamCard key={teamSection.id} {...teamSection}></TeamCard>
+          ))}
+        </div>
+      </section>
+      <MonoAppleBlock />
     </main>
   );
 }

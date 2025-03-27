@@ -14,5 +14,4 @@ export { default as IconPowerPlug } from './power-plug';
 export { default as IconTradeIn } from './trade-in';
 export { default as IconTrash } from './trash';
 export { default as IconWallet } from './wallet';
-export { default as IconSadFace } from './sad-face';
 export { default as IconX } from './x';

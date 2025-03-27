@@ -2,7 +2,7 @@ import { IconProps } from '@/lib/types';
 
 export default function IconChevron({
   size = 16,
-  className = '',
+  className,
   ...props
 }: IconProps) {
   return (

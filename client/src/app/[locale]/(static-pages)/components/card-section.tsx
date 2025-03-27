@@ -19,7 +19,7 @@ export default function CardSection(props: Readonly<CardSectionProps>) {
       <div className="w-full max-w-[362px] md:max-w-[300px] lg:max-w-[490px]">
         <Image
           alt={name}
-          className="h-auto w-full rounded-2xl"
+          className="h-auto w-full"
           height={120}
           src={image}
           width={430}

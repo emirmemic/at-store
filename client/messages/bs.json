@@ -140,7 +140,8 @@
     "cardBlock": {
       "title1": "AT Soft",
       "title2": "AT Business"
-    }
+    },
+    "teamCardTitle": "Tim"
   },
   "notFound": {
     "title": "Rezultati pretrage:",
