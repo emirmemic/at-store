@@ -1,15 +1,15 @@
 import {
-  macbookAirM3,
+  macBookAirM3,
   iphone13,
-  airpodsPro2,
+  airPodsPro2,
   iphone14,
-  macbookAir,
+  macBookAir,
   iMac,
 } from '@/assets/placeholder-images';
 import { NavMenu, CartItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
-const placeholderImage = macbookAir;
+const placeholderImage = macBookAir;
 const placeholderImage2 = iMac;
 const placeholderPage = PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE;
 const navMenu: NavMenu[] = [
@@ -210,7 +210,7 @@ const placeholderCart: CartItem[] = [
     id: 2,
     name: 'MacBook Air M3',
     price: '2969 KM',
-    image: macbookAirM3,
+    image: macBookAirM3,
   },
   {
     id: 3,
@@ -222,7 +222,7 @@ const placeholderCart: CartItem[] = [
     id: 4,
     name: 'AirPods Pro 2',
     price: '589 KM',
-    image: airpodsPro2,
+    image: airPodsPro2,
   },
   {
     id: 5,
@@ -234,7 +234,7 @@ const placeholderCart: CartItem[] = [
     id: 6,
     name: 'MacBook Air M3',
     price: '2969 KM',
-    image: macbookAirM3,
+    image: macBookAirM3,
   },
   {
     id: 7,
@@ -246,7 +246,7 @@ const placeholderCart: CartItem[] = [
     id: 8,
     name: 'AirPods Pro 2',
     price: '589 KM',
-    image: airpodsPro2,
+    image: airPodsPro2,
   },
 ];
 

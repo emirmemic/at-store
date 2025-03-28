@@ -9,9 +9,9 @@ export default function IconAtStoreLogo({
     <svg
       className={className}
       fill="none"
-      height="168"
+      height={size}
       viewBox="0 0 736 168"
-      width="736"
+      width={size}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
