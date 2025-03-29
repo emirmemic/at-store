@@ -37,7 +37,10 @@ export default function AboutPage() {
     {
       title: t('about.content1.title'),
       content: [
-        { text: t('about.content1.item1') },
+        {
+          text: t('about.content1.item1'),
+          path: 'https://maps.app.goo.gl/KCmJnmbJHi1r3hXM6',
+        },
         {
           text: t('contact.atStoreAltaTelephone'),
           path: t('contact.atStoreAltaTelephoneLink'),
@@ -55,7 +58,10 @@ export default function AboutPage() {
     {
       title: t('about.content2.title'),
       content: [
-        { text: t('about.content2.item1') },
+        {
+          text: t('about.content2.item1'),
+          path: 'https://maps.app.goo.gl/or6KCk3rEAfPRXsJ6',
+        },
         {
           text: t('contact.atStoreSccTelephone'),
           path: t('contact.atStoreSccTelephoneLink'),
@@ -73,7 +79,10 @@ export default function AboutPage() {
     {
       title: t('about.content3.title'),
       content: [
-        { text: t('about.content3.item1') },
+        {
+          text: t('about.content3.item1'),
+          path: 'https://maps.app.goo.gl/ZiBYtxvfgJX4m6By7',
+        },
         {
           text: t('contact.atStoreDeltaTelephone'),
           path: t('contact.atStoreDeltaTelephoneLink'),

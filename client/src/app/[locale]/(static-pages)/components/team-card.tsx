@@ -20,7 +20,7 @@ export default function TeamCard(props: teamCardProps) {
       </Avatar>
       <p className="heading-4 md:heading-3">
         {name.firstName}
-        <span className="block md:title">{name.surname}</span>
+        <span className="block">{name.surname}</span>
       </p>
       <p className="paragraph-2 md:paragraph-1">{role}</p>
     </div>
