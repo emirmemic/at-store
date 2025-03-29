@@ -1,14 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import FaqSection, {
-  FaqSectionType,
-} from '@/app/[locale]/(static-pages)/components/faq-section';
-import Section, {
-  SectionProps,
-} from '@/app/[locale]/(static-pages)/components/section';
+import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
+import Section from '@/app/[locale]/(static-pages)/components/section';
 import { InfoBlock } from '@/components';
-import { PAGE_NAMES } from '@/i18n/page-names';
 
 import { getFaqSection, getInfoBlock, getSections } from './data';
 

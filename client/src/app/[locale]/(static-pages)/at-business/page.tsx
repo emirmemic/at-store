@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { atBusiness, macBookAirM1AtBusiness } from '@/assets/images';
+import { macBookAirM1AtBusiness } from '@/assets/images';
 import { Button } from '@/components/ui/button';
 
 import ImgSection from '../components/img-section';
+import { IconAtBusiness } from '../icons';
 
 import { getImgSectionInfo } from './data';
 interface GenerateMetadataParams {
@@ -38,15 +39,8 @@ export default function AtBusinessPage() {
           <p className="paragraph-1">{t('atBusinessPage.description')}</p>
         </div>
 
-        <div className="max-w-80 md:max-w-[380px] md:self-start">
-          <Image
-            priority
-            alt={'atStoreBusiness'}
-            height={90}
-            sizes="(max-width: 768px) 50vw, 380px"
-            src={atBusiness.src}
-            width={380}
-          ></Image>
+        <div className="max-w-80 md:max-w-[380px]">
+          <IconAtBusiness className="text-color-black"></IconAtBusiness>
         </div>
       </section>
       <section className="mt-16 flex flex-col gap-24 rounded-2xl bg-blue-steel p-11 px-6 py-14 md:gap-32 md:px-28 md:py-16 lg:gap-24 lg:px-10 lg:py-11">
@@ -56,12 +50,12 @@ export default function AtBusinessPage() {
       </section>
       <section className="py-16">
         <h3 className="pb-12 text-center heading-1 md:pb-16">
-          {t('atBusinessPage.sectionTitle')}{' '}
+          {t('atBusinessPage.sectionTitle')}
         </h3>
-        <div className="flex w-full flex-col items-center rounded-2xl bg-blue-steel px-9 py-5 md:flex-row md:px-4 md:py-[71px] lg:px-11 lg:py-12">
+        <div className="flex w-full flex-col items-center rounded-2xl bg-blue-steel px-9 py-5 md:flex-row md:px-4 md:py-[72px] lg:px-11 lg:py-12">
           <div className="max-w-72 items-center md:max-w-56 md:flex-row lg:max-w-80">
             <Image
-              alt={'MacBook Air M1'}
+              alt="MacBook Air M1"
               className="flex-shrink-0"
               height={140}
               src={macBookAirM1AtBusiness.src}
@@ -77,28 +71,28 @@ export default function AtBusinessPage() {
           </Button>
         </div>
       </section>
-      <section className="flex flex-col items-center gap-12 text-center md:flex-row md:items-start md:gap-20 lg:gap-60">
+      <section className="flex flex-col items-center justify-between gap-12 text-center md:flex-row md:items-start md:gap-20 lg:gap-60">
         <div className="order-1 flex flex-col items-start gap-8 rounded-2xl bg-blue px-20 py-16 text-white md:inline-flex">
           <p className="inline-block heading-4">Haris Dziko</p>
           <p className="inline-block paragraph-1">B2B Manager</p>
           <Link
-            className="inline-block underline paragraph-1 hover:text-black"
+            className="inline-block underline transition duration-300 paragraph-1 hover:text-black"
             href={'tel:+387 956 188'}
           >
             +387 956 188
           </Link>
         </div>
-        <div className="flex flex-col gap-12 md:order-1 md:flex-1 md:gap-5 md:text-right lg:gap-9">
+        <div className="flex flex-col gap-12 md:order-1 md:max-w-md md:flex-1 md:gap-5 md:text-right lg:gap-9">
           <h4 className="heading-4">{t('atBusinessPage.contactTitle')}</h4>
           <div className="flex flex-col">
             <Link
-              className="text-blue paragraph-1 hover:text-grey"
-              href={t('contact.atSToreBusinessTelephoneLink')}
+              className="text-blue transition duration-300 paragraph-1 hover:text-grey"
+              href={t('contact.atStoreBusinessTelephoneLink')}
             >
               {t('contact.atStoreBusinessTelephone')}
             </Link>
             <Link
-              className="block text-blue paragraph-1 hover:text-grey"
+              className="block text-blue transition duration-300 paragraph-1 hover:text-grey"
               href={t('contact.atStoreBusinessEmailLink')}
             >
               {t('contact.atStoreBusinessEmail')}

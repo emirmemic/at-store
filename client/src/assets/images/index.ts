@@ -5,7 +5,7 @@ export { default as atStoreScc } from './at-store-scc.png';
 export { default as atSoft } from './at-soft.png';
 export { default as atBusinessAbout } from './at-business-about.png';
 export { default as atBusinessMac } from './mac-at-business.png';
-export { default as iPhoneAtBusiness } from './iphone-at-business.png';
+export { default as iPhoneAtBusiness } from './iphone-at-business.jpeg';
 export { default as iPadMiniAtBusiness } from './ipad-mini-at-business.png';
 export { default as macBookAirM1AtBusiness } from './macbook-air-m1-at-business.png';
 export { default as atBusiness } from './at-business.png';

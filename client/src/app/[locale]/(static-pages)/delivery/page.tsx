@@ -1,9 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import Section, {
-  SectionProps,
-} from '@/app/[locale]/(static-pages)/components/section';
+import Section from '@/app/[locale]/(static-pages)/components/section';
 
 import { getSections } from './data';
 

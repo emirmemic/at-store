@@ -8,7 +8,7 @@ export default function IconAvatar({
   return (
     <svg
       className={className}
-      fill="none"
+      fill="currentColor"
       height={size}
       viewBox="0 0 159 165"
       width={size}
