@@ -515,7 +515,7 @@
   },
   "common": {
     "learnMore": "Saznaj više",
-    "buyNow": "Kupi sad",
+    "buyNow": "Kupi sada",
     "back": "Nazad",
     "view": "Pogledaj",
     "tradeIn": "Trade-in",
@@ -527,6 +527,7 @@
     "keyboards": "Tastature",
     "mice": "Miševi",
     "macAccessories": "Mac dodaci",
-    "seeAllMacAccessories": "Pogledajte sve Mac dodatke"
+    "seeAllMacAccessories": "Pogledajte sve Mac dodatke",
+    "view_details": "Pogledaj detalje {productName}"
   }
 }

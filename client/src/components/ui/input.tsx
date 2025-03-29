@@ -1,3 +1,5 @@
+'use client';
+
 import { Eye, EyeOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';

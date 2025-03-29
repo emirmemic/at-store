@@ -14,7 +14,7 @@ interface StrapiImageProps {
 }
 
 export function getStrapiMedia(url: string | null) {
-  if (url === null) return null;
+  if (!url) return null;
   if (url.startsWith('data:')) return url;
   if (url.startsWith('http') || url.startsWith('//')) return url;
   return `${STRAPI_BASE_URL}${url}`;

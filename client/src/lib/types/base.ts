@@ -5,14 +5,6 @@ interface ImageProps {
   alternativeText: string | null;
 }
 
-interface ProductProps {
-  id: number;
-  productId: string;
-  name: string;
-  description?: string;
-  image: ImageProps;
-}
-
 interface IconProps extends React.SVGAttributes<SVGElement> {
   children?: React.ReactNode;
   size?: number;
@@ -22,4 +14,4 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
 
 type Icon = React.ComponentType<IconProps>;
 
-export type { Icon, IconProps, ImageProps, ProductProps };
+export type { Icon, IconProps, ImageProps };

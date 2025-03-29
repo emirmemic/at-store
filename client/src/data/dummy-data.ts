@@ -5,9 +5,11 @@ import {
   iphone14,
   macBookAir,
   iMac,
+  iphone13ClearCase,
 } from '@/assets/placeholder-images';
 import { NavMenu, CartItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { ProductType } from '@/lib/types';
 
 const placeholderImage = macBookAir;
 const placeholderImage2 = iMac;
@@ -250,4 +252,69 @@ const placeholderCart: CartItem[] = [
   },
 ];
 
-export { placeholderCart, navMenu };
+const dummyProducts: ProductType[] = [
+  {
+    product_variant_id: 'macbook-air-m3-256gb-13inch',
+    product_type_id: 'laptop',
+    name: 'MacBook Air M3',
+    original_price: 3199,
+    discounted_price: 2969,
+    image: {
+      id: 1,
+      documentId: 'macbook-air-m3-256gb-13inch-image',
+      url: macBookAirM3.src,
+      alternativeText: 'MacBook Air M3 13-inch',
+    },
+    specifications: ['13-inch', '256GB', '8GB unified', '8C CPU, 8C GPU'],
+    promotional_tagline: 'Novo',
+    is_favorite: false,
+    tag: 'Akcija',
+    product_link: '/mac/macbook-air-m3',
+  },
+  {
+    product_variant_id: 'iphone-13-128gb-white',
+    product_type_id: 'smartphone',
+    name: 'iPhone 13',
+    original_price: 2699,
+    discounted_price: 1239,
+    image: {
+      id: 2,
+      documentId: 'iphone-13-128gb-white-image',
+      url: iphone13.src,
+      alternativeText: 'iPhone 13 128GB White',
+    },
+    specifications: [
+      '128GB',
+      '6.1-inch',
+      'A15 Bionic chip',
+      'Dual 12MP camera system',
+      'Face ID',
+      'Ceramic Shield',
+      '5G capable',
+    ],
+    promotional_tagline: 'Akcija - 35% popusta',
+    is_favorite: true,
+    tag: null,
+    product_link: '/mac/iphone-13',
+  },
+  {
+    product_variant_id: 'iphone13ClearCase',
+    product_type_id: 'accessory',
+    name: 'iPhone 13 Clear Case',
+    original_price: 199,
+    discounted_price: 139,
+    image: {
+      id: 3,
+      documentId: 'iphone-13-clear-case-image',
+      url: iphone13ClearCase.src,
+      alternativeText: 'iPhone 13 Clear Case',
+    },
+    specifications: ['iPhone 13', 'Futrola', 'Clear case', 'Apple'],
+    promotional_tagline: 'Zaštitite svoj iPhone 13',
+    is_favorite: false,
+    tag: 'Novo',
+    product_link: '/dodaci/iphone-13-clear-case',
+  },
+];
+
+export { placeholderCart, navMenu, dummyProducts };

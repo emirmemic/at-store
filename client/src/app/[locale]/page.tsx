@@ -52,9 +52,7 @@ export default async function Page() {
       <div>
         Fetch is successful, but there is no data for this page
         <Button asChild size={'lg'} variant={'filled'}>
-          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>
-            Check out amazing global components!
-          </Link>
+          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
         </Button>
       </div>
     );
@@ -66,9 +64,7 @@ export default async function Page() {
       <div className="container-max-width">
         <h1 className="p-4">{title}</h1>
         <Button asChild size={'lg'} variant={'filled'}>
-          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>
-            Check out amazing global components!
-          </Link>
+          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
         </Button>
         <div className="grid gap-8 py-14 md:grid-cols-2">
           {promo_cards &&

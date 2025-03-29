@@ -55,7 +55,7 @@ const progressBarVariants = cva(
   }
 );
 
-export interface DotProps
+interface DotProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof dotVariants> {
   asChild?: boolean;

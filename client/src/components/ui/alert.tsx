@@ -1,3 +1,4 @@
+'use client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';

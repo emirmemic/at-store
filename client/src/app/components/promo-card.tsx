@@ -9,14 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ProductProps } from '@/lib/types';
+import { ProductType } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 type TextColor = 'white' | 'black';
 export interface PromoCardProps {
   id: number;
   caption: string;
-  product: ProductProps;
+  product: ProductType;
   learnMoreVariant: TransparentVariant;
   textColor: TextColor;
 }
@@ -30,11 +30,11 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
     <>
       <div className="relative w-full">
         <StrapiImage
-          alt={image.alternativeText}
+          alt={image?.alternativeText || name}
           className="aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-large-black"
           height={474}
           sizes="(max-width: 48rem) 25.875rem, (max-width: 64rem) 25rem, 37.5rem"
-          src={image.url}
+          src={image?.url}
           width={600}
         />
         <div
@@ -59,7 +59,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
 }
 
 interface LearnMoreDialogProps {
-  product: ProductProps;
+  product: ProductType;
   learnMoreVariant: TransparentVariant;
 }
 
@@ -84,11 +84,11 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
           <DialogTitle>{product.name}</DialogTitle>
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:justify-between md:gap-12">
             <StrapiImage
-              alt={product.image.alternativeText}
+              alt={product.image?.alternativeText || product.name}
               className="h-[19.375rem] w-[15rem] rounded-md object-cover md:h-[31.25rem] md:w-[21rem] lg:w-[25rem]"
               height={500}
               sizes="(max-width: 48rem) 15rem, (max-width: 64rem) 21rem, 25rem"
-              src={product.image.url}
+              src={product.image?.url}
               width={400}
             />
             <p className="heading-4 md:heading-3 lg:heading-2">

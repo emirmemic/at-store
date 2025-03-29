@@ -5,14 +5,18 @@ import * as React from 'react';
 import { IconHeart } from '@/components/icons';
 import { cn } from '@/lib/utils/utils';
 
-export interface FavoritesHeartProps
+interface FavoritesHeartProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   isInFavorites: boolean;
+  size?: 'small' | 'big';
 }
 
 const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
-  ({ className, asChild = false, isInFavorites, ...props }, ref) => {
+  (
+    { className, asChild = false, isInFavorites, size = 'small', ...props },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button';
     const t = useTranslations('navigation');
     return (
@@ -29,6 +33,7 @@ const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
         <IconHeart
           className={cn(isInFavorites ? 'text-red-deep' : 'text-black')}
           filled={isInFavorites}
+          size={size === 'small' ? 28 : 36}
         />
       </Comp>
     );
