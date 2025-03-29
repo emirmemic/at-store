@@ -34,6 +34,7 @@ export const PAGE_NAMES = {
   SUPPORT: '/support',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
   WATCH: '/watch',
+  AT_BUSINESS: 'at-business',
 } as const;
 
 export type PageNameKey = keyof typeof PAGE_NAMES;

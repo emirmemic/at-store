@@ -5,6 +5,8 @@ import Section, {
   SectionProps,
 } from '@/app/[locale]/(static-pages)/components/section';
 
+import { getSections } from './data';
+
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }
@@ -24,61 +26,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 export default function OrderCancellation() {
   const t = useTranslations();
 
-  const sections: SectionProps[] = [
-    {
-      title: t('orderCancellationPage.item1.title'),
-      listItems: [
-        [{ text: t('orderCancellationPage.item1.listItem1') }],
-        [{ text: t('orderCancellationPage.item1.listItem2') }],
-        [{ text: t('orderCancellationPage.item1.listItem3') }],
-      ],
-      subTitle: t('orderCancellationPage.item1.subTitle'),
-      sectionNumber: 1,
-    },
-    {
-      title: t('orderCancellationPage.item2.title'),
-      subTitle: t('orderCancellationPage.item2.listItem1'),
-      listItems: [
-        [
-          {
-            text: t('contact.telephone'),
-            path: t('contact.telephoneLink'),
-          },
-        ],
-        [
-          {
-            text: t('contact.orderEmail'),
-            path: t('contact.orderEmailLink'),
-          },
-        ],
-      ],
-      sectionNumber: 2,
-    },
-    {
-      title: t('orderCancellationPage.item3.title'),
-      listItems: [[{ text: t('orderCancellationPage.item3.listItem1') }]],
-      sectionNumber: 3,
-    },
-    {
-      title: t('orderCancellationPage.item4.title'),
-      listItems: [[{ text: t('orderCancellationPage.item4.listItem1') }]],
-      sectionNumber: 4,
-    },
-    {
-      title: t('orderCancellationPage.item5.title'),
-      listItems: [
-        [
-          { text: t('orderCancellationPage.item5.listItem1') },
-          {
-            text: t('contact.atStoreEmail'),
-            path: t('contact.atStoreEmailLink'),
-          },
-        ],
-      ],
-      sectionNumber: 5,
-    },
-  ];
-
+  const sections = getSections(t);
   return (
     <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
       <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">

@@ -24,8 +24,8 @@ export default function FaqSection(faqSection: FaqSectionType) {
             className={`text-grey-darker transition-transform duration-500 ${
               isOpen ? 'rotate-180' : 'rotate-0'
             }`}
-            height={7}
-            width={15}
+            height={15}
+            width={7}
           />
         </CollapsibleTrigger>
         <CollapsibleContent className="overflow-hidden rounded-b-2xl bg-grey-extra-light transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">

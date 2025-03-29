@@ -1,5 +1,9 @@
 {
   "metaData": {
+    "atBusiness": {
+      "title": "Business | AT Store",
+      "description": "AT Business je dio grupacije AT Networks koji se bavi prodajom sa pravnim licima."
+    },
     "homePage": {
       "title": "AT Store I Mono Apple Authorised Reseller",
       "description": "AT Store je prva Mono Apple Authorized Reseller trgovina u BiH. U ponudi su iPhone, iPad, iMac, MacBook Pro, MacBook Air… Mogućnost plaćanja na rate!"
@@ -174,7 +178,7 @@
     "showPassword": "Prikaži lozinku",
     "hidePassword": "Sakrij lozinku",
     "selectFile": "Odaberite datoteku",
-    "fileAdded": "Datoteka je dodana" 
+    "fileAdded": "Datoteka je dodana"
   },
   "navbar": {
     "guest": "Gost",
@@ -396,7 +400,11 @@
     "atStoreSccTelephone": "Tel: +387 33 872 000",
     "atStoreSccTelephoneLink": "tel:+387 33 872 000",
     "atStoreAltaTelephone": "Tel:+387 33 956 199",
-    "atStoreAltaTelephoneLink": "tel:+387 33 956 199"
+    "atStoreAltaTelephoneLink": "tel:+387 33 956 199",
+    "atStoreBusinessEmail": "prodaja@atstore.ba",
+    "atStoreBusinessEmailLink": "mailto:prodaja@atstore.ba",
+    "atStoreBusinessTelephone": "+387 956 188",
+    "atSToreBusinessTelephoneLink": "tel:+387 956 188"
   },
   "termsOfPurchasePage": {
     "title": "Uslovi kupovine",
@@ -529,5 +537,25 @@
     "macAccessories": "Mac dodaci",
     "seeAllMacAccessories": "Pogledajte sve Mac dodatke",
     "view_details": "Pogledaj detalje {productName}"
+  },
+  "atBusinessPage": {
+    "title": "At Business",
+    "buttonText": "Kupi Sada",
+    "sectionTitle": "Odaberi svoj Mac",
+    "macBookAir": "MacBook Air M1",
+    "description": "AT Business je dio grupacije AT Networks koji se bavi prodajom sa pravnim licima.",
+    "content1": {
+      "title": "Mac",
+      "description": "Ukoliko Vam je potrebna veća količina Mac uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
+    },
+    "content2": {
+      "title": "iPhone",
+      "description": "Ukoliko Vam je potrebna veća količina iPhone uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
+    },
+    "content3": {
+      "title": "IPad",
+      "description": "Ukoliko Vam je potrebna veća količina iPad uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
+    },
+    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite."
   }
 }
