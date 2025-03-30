@@ -33,6 +33,7 @@ export default function OrderProductCard(props: OrderProductCardProps) {
   return (
     <div className="flex flex-col items-center gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">
       <StrapiImage
+        priority
         alt={image.alternativeText}
         height={166}
         sizes="(max-width: 1024px) 12.125rem, 15.625rem"

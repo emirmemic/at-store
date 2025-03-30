@@ -30,6 +30,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
     <>
       <div className="relative w-full">
         <StrapiImage
+          priority
           alt={image?.alternativeText || name}
           className="aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-large-black"
           height={474}

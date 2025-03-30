@@ -30,7 +30,6 @@ export function StrapiImage({
   if (!imageUrl) return null;
   return (
     <Image
-      priority
       alt={alt ?? 'No alternative text provided'}
       className={className}
       src={imageUrl}
