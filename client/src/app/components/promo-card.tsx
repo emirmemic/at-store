@@ -64,7 +64,7 @@ interface LearnMoreDialogProps {
 }
 
 function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
-  const t = useTranslations('common');
+  const t = useTranslations();
 
   return (
     <Dialog>
@@ -76,10 +76,13 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
           typography={'button2'}
           variant={'transparent'}
         >
-          {t('learnMore')}
+          {t('common.learnMore')}
         </Button>
       </DialogTrigger>
-      <DialogContent className="px-8 py-16 md:px-6 md:py-16 lg:px-14">
+      <DialogContent
+        aria-describedby={t('homepage.promoCard.dialogContentDescription')}
+        className="px-8 py-16 md:px-6 md:py-16 lg:px-14"
+      >
         <div className="flex flex-col items-center justify-center gap-5 md:gap-16">
           <DialogTitle>{product.name}</DialogTitle>
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:justify-between md:gap-12">
@@ -94,7 +97,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
             <p className="heading-4">{product.description}</p>
           </div>
           <Button size={'lg'} typography={'button1'} variant="filled">
-            {t('buyNow')}
+            {t('common.buyNow')}
           </Button>
         </div>
       </DialogContent>

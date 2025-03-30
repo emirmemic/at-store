@@ -519,6 +519,11 @@
       "listItem1": "Za sva pitanja vezana uz privatnost, kontaktirajte nas na"
     }
   },
+  "homepage": {
+    "promoCard": {
+      "dialogContentDescription": "Detaljan prikaz proizvoda sa slikom i opisom. Kliknite da saznate više o proizvodu."
+    }
+  },
   "accountPage": {
     "dashboard": {
       "title": "Početna"
