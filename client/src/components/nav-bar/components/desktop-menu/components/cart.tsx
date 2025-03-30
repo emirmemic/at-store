@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 
-import { IconClose, IconTrash } from '@/components/icons';
-import { IconCart, IconShoppingCart } from '@/components/nav-bar/icons';
+import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
+import { IconCart } from '@/components/nav-bar/icons';
 import { CartItem } from '@/components/nav-bar/types';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';

@@ -2,6 +2,9 @@
 
 import { cookies } from 'next/headers';
 
+export async function deleteCookie(cookieName: string) {
+  (await cookies()).delete(cookieName);
+}
 const config = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
   path: '/',
@@ -10,7 +13,6 @@ const config = {
   secure: process.env.NODE_ENV === 'production',
 };
 
-export async function logoutUser() {
-  const cookieStore = await cookies();
-  cookieStore.set('jwt', '', { ...config, maxAge: 0 });
+export async function createJwtCookie(cookieValue: string) {
+  (await cookies()).set('jwt', cookieValue, config);
 }

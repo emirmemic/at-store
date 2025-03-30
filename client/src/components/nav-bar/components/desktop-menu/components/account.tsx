@@ -1,7 +1,8 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
 import { IconClose, IconHeart } from '@/components/icons';
 import { UserAvatar } from '@/components/nav-bar/components';
@@ -12,7 +13,6 @@ import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 const iconClasses =
@@ -43,15 +43,14 @@ const DesktopAccountItem = ({
 };
 
 interface LoggedInAccountProps {
-  user: UserInformation;
   closePopup: () => void;
   t: (key: string) => string;
 }
 
-const LoggedInAccount = ({ user, closePopup, t }: LoggedInAccountProps) => (
+const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
   <>
     <div className="item flex items-start justify-between gap-2 p-4">
-      <UserAvatar user={user} />
+      <UserAvatar />
       <Button
         aria-label={t('navbar.closeMenu')}
         className="group p-1"
@@ -64,7 +63,7 @@ const LoggedInAccount = ({ user, closePopup, t }: LoggedInAccountProps) => (
     <div className="h-0.5 w-full bg-grey-darker"></div>
     <ul className="flex flex-col gap-3 px-4 pb-9 pt-6">
       <DesktopAccountItem
-        href={PAGE_NAMES.ACCOUNT}
+        href={PAGE_NAMES.ACCOUNT_DASHBOARD}
         icon={IconAccount}
         title={t('navbar.account')}
         onClick={closePopup}
@@ -133,16 +132,14 @@ const LoggedOutAccount = ({ setIsOpen, t }: LoggedOutAccountProps) => (
   </div>
 );
 
-interface DesktopAccountProps {
-  user: UserInformation | null;
-}
-export default function DesktopAccount({ user }: DesktopAccountProps) {
+export default function DesktopAccount() {
   const t = useTranslations('');
   const [isOpen, setIsOpen] = useState(false);
   const closePopup = () => setIsOpen(false);
   const togglePopup = () => setIsOpen(!isOpen);
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, closePopup);
+  const user = useContext(UserContext).user;
 
   return (
     <div ref={outsideRef} className="flex items-center gap-2 text-white">
@@ -160,7 +157,7 @@ export default function DesktopAccount({ user }: DesktopAccountProps) {
         isVisible={isOpen}
       >
         {user ? (
-          <LoggedInAccount closePopup={closePopup} t={t} user={user} />
+          <LoggedInAccount closePopup={closePopup} t={t} />
         ) : (
           <LoggedOutAccount setIsOpen={setIsOpen} t={t} />
         )}

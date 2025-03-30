@@ -29,7 +29,6 @@ export async function GET(request: Request) {
 
   const res = await fetch(url.href);
   const data = await res.json();
-
   const cookieStore = await cookies();
   cookieStore.set('jwt', data.jwt, config);
 

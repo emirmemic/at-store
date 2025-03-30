@@ -5,21 +5,21 @@ interface GenerateMetadataParams {
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metaData' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'metaData.accountPage',
+  });
 
   return {
-    title: t('account.title'),
-    description: t('account.description'),
+    title: t('title'),
+    description: t('description'),
     openGraph: {
-      title: t('account.title'),
-      description: t('account.description'),
+      title: t('title'),
+      description: t('description'),
     },
   };
 }
+
 export default async function AccountDetails() {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <h1>Account</h1>
-    </div>
-  );
+  return <div>hello</div>;
 }

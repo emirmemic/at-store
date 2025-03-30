@@ -14,7 +14,6 @@ export default function LoginForm() {
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({});
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);

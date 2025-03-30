@@ -33,6 +33,7 @@ const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
         <IconHeart
           className={cn(isInFavorites ? 'text-red-deep' : 'text-black')}
           filled={isInFavorites}
+          pathClassName="transition-colors duration-300 ease-in-out"
           size={size === 'small' ? 28 : 36}
         />
       </Comp>

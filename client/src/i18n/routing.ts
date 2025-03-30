@@ -21,6 +21,24 @@ export const routing = defineRouting({
     [PAGE_NAMES.ACCOUNT]: {
       bs: '/racun',
     },
+    [PAGE_NAMES.ACCOUNT_DASHBOARD]: {
+      bs: '/racun/pocetna',
+    },
+    [PAGE_NAMES.ACCOUNT_ORDERS]: {
+      bs: '/racun/narudzbe',
+    },
+    [PAGE_NAMES.ACCOUNT_DETAILS]: {
+      bs: '/racun/podaci',
+    },
+    [PAGE_NAMES.ACCOUNT_PAYMENT_METHODS]: {
+      bs: '/racun/nacini-placanja',
+    },
+    [PAGE_NAMES.ACCOUNT_FAVORITES]: {
+      bs: '/racun/omiljeni',
+    },
+    [PAGE_NAMES.ACCOUNT_NEWSLETTER]: {
+      bs: '/racun/newsletter',
+    },
     [PAGE_NAMES.AIRPODS]: {
       bs: '/airpods',
     },
@@ -50,9 +68,6 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.EDUCATIONAL_DISCOUNT]: {
       bs: '/obrazovni-popust',
-    },
-    [PAGE_NAMES.FAVORITES]: {
-      bs: '/racun/omiljeni',
     },
     [PAGE_NAMES.FIND_STORE]: {
       bs: '/pronadi-store',

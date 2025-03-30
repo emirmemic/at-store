@@ -1,5 +1,4 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
 import { routing } from './i18n/routing';
@@ -11,10 +10,15 @@ const AUTH_ROUTES = [
   '/prijava',
   '/registracija',
 ] as const;
-const PROTECTED_ROUTES = ['/en/account', '/racun'] as const;
+
+/**
+ * Route prefixes that require authentication.
+ * These are routes where any path starting with these prefixes will be protected.
+ * Example: '/racun' will match '/racun', '/racun/podaci', etc.
+ */
+const PROTECTED_PREFIXES = ['/racun'] as const;
 
 type AuthRoutes = (typeof AUTH_ROUTES)[number];
-type ProtectedRoutes = (typeof PROTECTED_ROUTES)[number];
 
 /**
  * Checks if the given pathname is an authentication route
@@ -25,8 +29,8 @@ const isAuthRoute = (pathname: string): pathname is AuthRoutes =>
 /**
  * Checks if the given pathname is a protected route
  */
-const isProtectedRoute = (pathname: string): pathname is ProtectedRoutes =>
-  PROTECTED_ROUTES.includes(pathname as ProtectedRoutes);
+const isProtectedRoute = (pathname: string): boolean =>
+  PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
 /**
  * Middleware to handle internationalized routing

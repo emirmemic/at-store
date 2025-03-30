@@ -1,19 +1,21 @@
+'use client';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
 import { IconAccount, IconLogout } from '@/components/nav-bar/icons';
 import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface PropsType {
-  user: UserInformation | null;
   closeMenu: () => void;
 }
-export default function MobileLoginLogout({ user, closeMenu }: PropsType) {
+export default function MobileLoginLogout({ closeMenu }: PropsType) {
   const t = useTranslations();
+  const user = useContext(UserContext).user;
 
   const buttonClasses =
     'group mx-auto flex w-fit items-center gap-4 p-4 transition-colors duration-300 heading-4 hover:text-grey-medium';

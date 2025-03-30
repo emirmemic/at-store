@@ -20,7 +20,7 @@
       "title": "Registracija | AT Store",
       "description": "Registrujte novi račun"
     },
-    "account": {
+    "accountPage": {
       "title": "Moj Račun | AT Store",
       "description": "Upravljajte svojim ličnim računom, narudžbama i postavkama."
     },
@@ -519,6 +519,28 @@
       "listItem1": "Za sva pitanja vezana uz privatnost, kontaktirajte nas na"
     }
   },
+  "accountPage": {
+    "dashboard": {
+      "title": "Početna"
+    },
+    "orders": {
+      "title": "Narudžbe",
+      "orderNumber": "Order no",
+      "orderDate": "Order date"
+    },
+    "details": {
+      "title": "Detalji korisnika"
+    },
+    "paymentMethods": {
+      "title": "Načini plaćanja"
+    },
+    "favorites": {
+      "title": "Omiljeni"
+    },
+    "newsletter": {
+      "title": "Newsletter"
+    }
+  },
   "common": {
     "adapters": "Adapteri",
     "back": "Nazad",
@@ -538,7 +560,8 @@
     "seeAllMacAccessories": "Pogledajte sve Mac dodatke",
     "tradeIn": "Trade-in",
     "view": "Pogledaj",
-    "view_details": "Pogledaj detalje {productName}"
+    "view_details": "Pogledaj detalje {productName}",
+    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite."
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -557,7 +580,6 @@
     "content3": {
       "title": "iPad",
       "description": "Ukoliko Vam je potrebna veća količina iPad uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
-    },
-    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite."
+    }
   }
 }

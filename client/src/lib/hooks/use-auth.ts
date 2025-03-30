@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
+import { createJwtCookie } from '@/app/actions';
+import { UserContext } from '@/app/providers';
 import { useRouter } from '@/i18n/routing';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { LoginFormData, RegisterFormData } from '@/lib/schemas/auth';
 import { AuthError, AuthResponse } from '@/lib/types';
-import { setJwtCookie } from '@/lib/utils/auth';
+
+import { getUser } from '../services';
 
 export const useAuth = () => {
   const router = useRouter();
+  const userProvider = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<AuthError | null>(null);
 
@@ -35,9 +39,11 @@ export const useAuth = () => {
 
     const jwt = res.data?.jwt;
     if (jwt) {
-      setJwtCookie(jwt);
+      await createJwtCookie(jwt);
+      const user = await getUser();
+      userProvider.setUser(user);
       router.push('/');
-      router.refresh();
+
       setIsLoading(false);
       return true;
     }

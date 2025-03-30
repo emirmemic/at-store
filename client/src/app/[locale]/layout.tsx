@@ -6,13 +6,14 @@ import {
   setRequestLocale,
 } from 'next-intl/server';
 
+import '@/app/globals.css';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
 import { routing, type Locale } from '@/i18n/routing';
+import { getUser } from '@/lib/services';
 
 import { SF_Pro_Text } from '../fonts/fonts';
-
-import '@/app/globals.css';
+import UserProvider from '../providers/user-provider';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -76,13 +77,19 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   // Providing all messages to the client side
   const messages = await getMessages();
 
+  const user = await getUser();
+
   return (
     <html className={`${SF_Pro_Text.variable}`} lang="en">
       <body>
         <NextIntlClientProvider messages={messages}>
-          <Navbar />
-          <div className="min-h-screen-h-cutoff pt-nav-height">{children}</div>
-          <Footer />
+          <UserProvider initialValue={user}>
+            <Navbar />
+            <div className="min-h-screen-h-cutoff pt-nav-height">
+              {children}
+            </div>
+            <Footer />
+          </UserProvider>
         </NextIntlClientProvider>
       </body>
     </html>

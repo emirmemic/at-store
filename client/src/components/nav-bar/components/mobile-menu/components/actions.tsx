@@ -7,18 +7,15 @@ import { IconCart, IconSearch } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileActionsProps {
-  user: UserInformation | null;
   className?: string;
   toggleSearch: () => void;
   closeMenu: () => void;
   cartCount: number;
 }
 export default function MobileActions({
-  user,
   className,
   toggleSearch,
   closeMenu,
@@ -32,7 +29,7 @@ export default function MobileActions({
   return (
     <div className={cn('flex flex-col gap-2', className)}>
       <div className="flex items-center justify-between">
-        <UserAvatar user={user} />
+        <UserAvatar />
         <div className="flex gap-3">
           <Link
             aria-label={t('favorites')}

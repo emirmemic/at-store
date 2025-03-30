@@ -1,6 +1,16 @@
+import { ProductProps } from './base';
+
 interface AuthError {
   message: string;
   field?: string;
+}
+
+interface Order {
+  id: number;
+  products: ProductProps[];
+  orderStatus: string;
+  orderNumber: number;
+  orderDate: string;
 }
 
 interface UserInformation {
@@ -8,10 +18,7 @@ interface UserInformation {
   documentId: string;
   username: string;
   email: string;
-}
-
-interface UserInformationProps {
-  user: UserInformation | null;
+  orders: Order[];
 }
 
 interface AuthResponse {
@@ -19,4 +26,4 @@ interface AuthResponse {
   user: UserInformation;
 }
 
-export type { AuthError, AuthResponse, UserInformation, UserInformationProps };
+export type { AuthError, AuthResponse, UserInformation };

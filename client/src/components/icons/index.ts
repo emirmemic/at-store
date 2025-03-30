@@ -16,3 +16,7 @@ export { default as IconTrash } from './trash';
 export { default as IconValidationError } from './validation-error';
 export { default as IconWallet } from './wallet';
 export { default as IconX } from './x';
+export { default as IconHome } from './home';
+export { default as IconShoppingCart } from './shopping-cart';
+export { default as IconSettings } from './settings';
+export { default as IconNews } from './news';

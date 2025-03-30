@@ -91,9 +91,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
               src={product.image?.url}
               width={400}
             />
-            <p className="heading-4 md:heading-3 lg:heading-2">
-              {product.description}
-            </p>
+            <p className="heading-4">{product.description}</p>
           </div>
           <Button size={'lg'} typography={'button1'} variant="filled">
             {t('buyNow')}

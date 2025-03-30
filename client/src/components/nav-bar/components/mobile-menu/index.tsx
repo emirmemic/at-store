@@ -16,20 +16,17 @@ import { AnimateHeight, AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
   menuItems: NavMenuItem[];
   className?: string;
-  user: UserInformation | null;
   cartCount: number;
 }
 
 export default function MobileMenu({
   menuItems,
   className,
-  user,
   cartCount,
 }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,7 +79,6 @@ export default function MobileMenu({
               className="mb-6"
               closeMenu={closeMenu}
               toggleSearch={toggleSearch}
-              user={user}
             />
             <AnimateSlots
               firstSlot={
@@ -108,7 +104,7 @@ export default function MobileMenu({
                     closeMenu={closeMenu}
                     menuItems={menuItems}
                   />
-                  <MobileLoginLogout closeMenu={closeMenu} user={user} />
+                  <MobileLoginLogout closeMenu={closeMenu} />
                 </>
               }
             />
