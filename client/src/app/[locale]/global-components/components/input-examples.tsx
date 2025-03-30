@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { InputFileUpload } from '@/components/ui/input-file';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -19,6 +20,13 @@ export default function InputExamples() {
     useState<CheckboxPrimitive.CheckedState>(true);
   const t = useTranslations('login');
   const [alertVisible, setAlertVisible] = useState(true);
+  const handleFileChange = (files: File[] | null) => {
+    if (files) {
+      console.log('Selected files:', files);
+    } else {
+      console.log('No files selected');
+    }
+  };
 
   return (
     <>
@@ -48,25 +56,50 @@ export default function InputExamples() {
         />
         <Input
           required
+          autoComplete="email"
+          errorMessage="Invalid email address"
+          id="email-with-error"
+          name="email-with-error"
+          placeholder="Email with error"
+          type="email"
+        />
+        <Input
+          required
           autoComplete="password"
           id="password"
           name="password"
           placeholder="*********"
           type="password"
         />
-        <Input
-          required
-          autoComplete="email"
-          id="email"
-          name="email"
-          placeholder="File"
-          type="file"
+        <p>
+          File input with multiple file uploads and a specified file type
+          (accepts .svg and .png):
+        </p>
+        <InputFileUpload
+          multiple
+          accept=".svg,.png"
+          name="file-upload"
+          onFileChange={handleFileChange}
+        />
+
+        <p>File input with an error message:</p>
+        <InputFileUpload
+          errorMessage="Molimo dodajte datoteku"
+          name="file-upload-2"
+          onFileChange={handleFileChange}
         />
         <Textarea
           required
           id="message"
           name="message"
           placeholder="Please enter your message here"
+        />
+        <Textarea
+          required
+          errorMessage="Please enter a valid message"
+          id="message-with-error"
+          name="message"
+          placeholder="Textarea with error"
         />
         <Textarea
           disabled
@@ -83,8 +116,15 @@ export default function InputExamples() {
             checked={checkedOne}
             onCheckedChange={setCheckedOne}
           />
+        </div>
+        <div className="flex flex-col">
           <Checkbox checked={checkedThree} onCheckedChange={setCheckedThree} />
           <Checkbox checked={checkedFour} onCheckedChange={setCheckedFour} />
+          <Checkbox
+            errorMessage="Please agree to terms and conditions!"
+            label="I agree to terms and conditions."
+            labelClassName="flex items-center gap-2 paragraph-2"
+          />
         </div>
         <Button
           size={'xlg'}

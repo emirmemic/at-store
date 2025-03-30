@@ -16,8 +16,8 @@ const alertVariants = cva(
         default: '[&>button:hover]:text-blue',
         destructive:
           'border-pink-soft bg-pink-soft text-red-darkest [&>button:hover]:text-black',
-        success: 'border-green text-green [&>button:hover]:text-green-dark',
-        warning: 'border-orange text-orange [&>button:hover]:text-orange-dark',
+        success: 'bg-green text-white [&>button:hover]:text-grey-light',
+        warning: 'bg-orange text-white [&>button:hover]:text-grey-light',
       },
     },
     defaultVariants: {
@@ -77,11 +77,10 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               <div className="flex-grow">{props.children}</div>
               {dismissible && (
                 <Button
-                  className="ml-4 border-current p-1 text-current hover:border-current"
+                  className="ml-4 border border-current p-1 text-current hover:border-current"
                   size={'sm'}
                   title={t('dismissMessage')}
                   type="button"
-                  variant={'color'}
                   onClick={handleClose}
                 >
                   <span className="sr-only">{t('dismissMessage')}</span>

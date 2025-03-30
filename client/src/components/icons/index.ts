@@ -13,5 +13,6 @@ export { default as IconPlay } from './play';
 export { default as IconPowerPlug } from './power-plug';
 export { default as IconTradeIn } from './trade-in';
 export { default as IconTrash } from './trash';
+export { default as IconValidationError } from './validation-error';
 export { default as IconWallet } from './wallet';
 export { default as IconX } from './x';

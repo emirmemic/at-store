@@ -170,6 +170,12 @@
     "logout": "Odjavi se",
     "loggingOut": "Odjavljujem se..."
   },
+  "input": {
+    "showPassword": "Prikaži lozinku",
+    "hidePassword": "Sakrij lozinku",
+    "selectFile": "Odaberite datoteku",
+    "fileAdded": "Datoteka je dodana" 
+  },
   "navbar": {
     "guest": "Gost",
     "hi": "Zdravo",
