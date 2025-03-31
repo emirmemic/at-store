@@ -41,7 +41,7 @@ export default function ProductCardExamples() {
           <p className="paragraph-2">Product Card Accessory: </p>
           <ProductCard
             product={products[2]}
-            variant="dodaci"
+            variant="accessories"
             onToggleFavorite={toggleFavorite}
           />
         </div>

@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils/utils';
 
 interface ProductCardProps {
   product: ProductBase;
-  variant?: 'standard' | 'dodaci';
+  variant?: 'standard' | 'accessories';
   className?: string;
   onToggleFavorite: (productId: string) => void;
 }
@@ -38,7 +38,7 @@ export default function ProductCard({
     <div
       className={cn(
         'relative flex w-full flex-col justify-between gap-3 rounded-2xl border border-grey-extra-light bg-white py-6 shadow-standard-black transition-all hover:shadow-standard-black-hover',
-        variant === 'dodaci' && 'max-w-[300px] px-18px',
+        variant === 'accessories' && 'max-w-[300px] px-18px',
         variant === 'standard' && 'max-w-[340px] px-6',
         className
       )}
@@ -52,7 +52,7 @@ export default function ProductCard({
       )}
       <div
         className={cn('w-full', {
-          'h-44': variant === 'dodaci',
+          'h-44': variant === 'accessories',
           'h-52': variant === 'standard',
         })}
       >
