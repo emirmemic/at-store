@@ -5,7 +5,7 @@ export default ({ env }) => {
     postgres: {
       connection: {
         connectionString:
-          env.NODE_ENV === "production"
+          env("NODE_ENV") === "production"
             ? env("PROD_DATABASE_URL")
             : env("DATABASE_URL"),
       },
