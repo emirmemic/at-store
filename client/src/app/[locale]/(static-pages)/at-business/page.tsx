@@ -60,9 +60,7 @@ export default function AtBusinessPage() {
               priority
               alt="MacBook Air M1"
               className="flex-shrink-0"
-              height={140}
               src={macBookAirM1AtBusiness}
-              width={320}
             ></Image>
           </div>
           <p className="mb-7 flex-1 text-white heading-4 md:mb-0 lg:heading-3">

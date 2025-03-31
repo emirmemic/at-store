@@ -1,5 +1,6 @@
 import { atStoreAlta, atStoreDelta, atStoreScc } from '@/assets/images';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { Pathname } from '@/i18n/routing';
 
 import { IconAtBusiness } from '../icons';
 import IconAtSoft from '../icons/at-soft';
@@ -9,14 +10,14 @@ export const getCardBlocks = (t: (key: string) => string) => [
     title: t('about.cardBlock.title1'),
     name: 'AtSoft',
     Icon: IconAtSoft,
-    path: PAGE_NAMES.HOME,
+    path: 'https://www.atsofts.com' as Pathname,
     id: 1,
   },
   {
     title: t('about.cardBlock.title2'),
     name: 'AtBusiness',
     Icon: IconAtBusiness,
-    path: PAGE_NAMES.HOME,
+    path: PAGE_NAMES.B2B,
     id: 2,
   },
 ];

@@ -25,32 +25,31 @@ export default function ImgSection({
   return (
     <div
       className={cn(
-        'flex flex-col items-center gap-9 md:gap-11 lg:flex-row',
+        'flex flex-col gap-9 md:gap-11 lg:flex-row',
         reverseRow && 'lg:flex-row-reverse'
       )}
     >
       <div
         className={cn(
-          'w-full max-w-[300px] object-cover transition-transform duration-300 hover:scale-[1.02] md:max-w-[520px]',
+          'w-full max-w-[300px] transition-transform duration-300 hover:scale-[1.02] md:max-w-[520px]',
           description && 'w-full max-w-80 md:max-w-96 lg:max-w-80'
         )}
       >
         <Image
+          priority
           alt={name}
           className={cn(
-            'h-44 w-full rounded-2xl md:h-80',
+            'h-44 w-full rounded-2xl object-cover md:h-80',
             description && 'size-80 md:size-96 lg:size-80'
           )}
-          height={303}
           sizes="(max-width: 768px) 80vw, 520px"
           src={image}
-          width={520}
         />
       </div>
 
       <div
         className={cn(
-          'flex flex-col items-center text-white',
+          'flex flex-col items-center self-center text-white',
           reverseRow
             ? 'lg:mr-auto lg:items-start lg:text-left'
             : 'lg:ml-auto lg:items-end lg:text-right',

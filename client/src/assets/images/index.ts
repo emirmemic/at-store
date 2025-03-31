@@ -2,8 +2,6 @@ export { default as monri } from './monri.jpg';
 export { default as atStoreAlta } from './at-store-alta.png';
 export { default as atStoreDelta } from './at-store-delta.png';
 export { default as atStoreScc } from './at-store-scc.png';
-export { default as atSoft } from './at-soft.png';
-export { default as atBusinessAbout } from './at-business-about.png';
 export { default as atBusinessMac } from './mac-at-business.png';
 export { default as iPhoneAtBusiness } from './iphone-at-business.jpeg';
 export { default as iPadMiniAtBusiness } from './ipad-mini-at-business.png';
