@@ -1,9 +1,9 @@
-import { NavMenu } from '@/components/nav-bar/types';
+import { NavMenuItem } from '@/components/nav-bar/types';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
-  menuItems: NavMenu[];
+  menuItems: NavMenuItem[];
   className?: string;
   closeMenu: () => void;
 }

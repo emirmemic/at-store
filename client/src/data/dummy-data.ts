@@ -7,14 +7,14 @@ import {
   iMac,
   iphone13ClearCase,
 } from '@/assets/placeholder-images';
-import { NavMenu, CartItem } from '@/components/nav-bar/types';
+import { NavMenuItem, CartItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { ProductType } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 
 const placeholderImage = macBookAir;
 const placeholderImage2 = iMac;
 const placeholderPage = PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE;
-const navMenu: NavMenu[] = [
+const navMenu: NavMenuItem[] = [
   {
     id: 1,
     label: 'Mac',
@@ -252,7 +252,7 @@ const placeholderCart: CartItem[] = [
   },
 ];
 
-const dummyProducts: ProductType[] = [
+const dummyProducts: ProductBase[] = [
   {
     product_variant_id: 'macbook-air-m3-256gb-13inch',
     product_type_id: 'laptop',

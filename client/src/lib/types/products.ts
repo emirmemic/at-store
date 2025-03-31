@@ -1,6 +1,6 @@
 import { ImageProps } from '@/lib/types/base';
 
-interface ProductType {
+interface ProductBase {
   product_variant_id: string;
   product_type_id: string;
   name: string;
@@ -15,4 +15,4 @@ interface ProductType {
   tag?: string | null;
 }
 
-export type { ProductType };
+export type { ProductBase };

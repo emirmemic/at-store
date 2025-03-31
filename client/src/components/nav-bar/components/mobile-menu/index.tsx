@@ -13,7 +13,7 @@ import {
   MobileLoginLogout,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
-import { NavMenu } from '@/components/nav-bar/types';
+import { NavMenuItem } from '@/components/nav-bar/types';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
@@ -21,7 +21,7 @@ import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
-  menuItems: NavMenu[];
+  menuItems: NavMenuItem[];
   className?: string;
   user: UserInformation | null;
   cartCount: number;

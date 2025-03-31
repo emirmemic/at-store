@@ -1,8 +1,11 @@
 'use client';
 import { useState } from 'react';
 
-import { MacDodaciBar, ProductCard } from '@/components/product-cards';
-import PovezaniDodaciCard from '@/components/product-cards/povezani-dodaci-card';
+import {
+  MacAccessoriesBar,
+  ProductCard,
+  RelatedProductAccessories,
+} from '@/components/product-cards';
 import { dummyProducts } from '@/data/dummy-data';
 export default function ProductCardExamples() {
   const [products, setProducts] = useState(dummyProducts);
@@ -22,8 +25,9 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Mac dodaci bar</h3>
       <div className="h-[2px] w-full bg-grey"></div>
-      <MacDodaciBar />
-      <h3 className="heading-2">Product Card</h3>
+      <MacAccessoriesBar />
+      <div className="h-[2px] w-full bg-grey"></div>
+      <h3 className="heading-2">Product Cards </h3>
       <div className="h-[2px] w-full bg-grey"></div>
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex h-fit flex-col gap-4">
@@ -34,7 +38,7 @@ export default function ProductCardExamples() {
           />
         </div>
         <div className="flex h-fit flex-col gap-4">
-          <p className="paragraph-2">Product Card Dodaci: </p>
+          <p className="paragraph-2">Product Card Accessory: </p>
           <ProductCard
             product={products[2]}
             variant="dodaci"
@@ -42,8 +46,11 @@ export default function ProductCardExamples() {
           />
         </div>
         <div className="flex h-fit flex-col gap-4">
-          <p className="paragraph-2">Povezani Dodaci Card: </p>
-          <PovezaniDodaciCard product={products[2]} onAddToCart={() => {}} />
+          <p className="paragraph-2">Related Product Accessories: </p>
+          <RelatedProductAccessories
+            product={products[2]}
+            onAddToCart={() => {}}
+          />
         </div>
       </div>
     </>

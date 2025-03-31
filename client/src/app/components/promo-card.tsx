@@ -9,14 +9,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ProductType } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 type TextColor = 'white' | 'black';
 export interface PromoCardProps {
   id: number;
   caption: string;
-  product: ProductType;
+  product: ProductBase;
   learnMoreVariant: TransparentVariant;
   textColor: TextColor;
 }
@@ -59,7 +59,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
 }
 
 interface LearnMoreDialogProps {
-  product: ProductType;
+  product: ProductBase;
   learnMoreVariant: TransparentVariant;
 }
 

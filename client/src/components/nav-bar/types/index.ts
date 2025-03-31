@@ -2,17 +2,17 @@ import { StaticImageData } from 'next/image';
 
 import { Pathname } from '@/i18n/routing';
 
-interface NavMenuSubLink {
+interface NavSubLinkItem {
   id: number;
   label: string;
   logo: StaticImageData;
   href: Pathname;
 }
-interface NavMenu {
+interface NavMenuItem {
   id: number;
   label: string;
   href: Pathname;
-  subLinks?: NavMenuSubLink[];
+  subLinks?: NavSubLinkItem[];
 }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const POPUP_TYPES = ['none', 'menu', 'search'] as const;
@@ -25,4 +25,4 @@ interface CartItem {
   image: StaticImageData;
 }
 
-export type { NavMenu, NavMenuSubLink, CartItem, PopupType };
+export type { NavMenuItem, NavSubLinkItem, CartItem, PopupType };

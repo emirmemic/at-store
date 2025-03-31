@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 import { DesktopPopup } from '@/components/nav-bar/components';
-import { NavMenu, PopupType } from '@/components/nav-bar/types';
+import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
 import { Link } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 
 interface DesktopListProps {
-  menuItems: NavMenu[];
+  menuItems: NavMenuItem[];
   className?: string;
   activePopup: PopupType;
   setActivePopup: (popup: PopupType) => void;
@@ -20,10 +20,10 @@ export default function DesktopList({
   setActivePopup,
   ...props
 }: DesktopListProps) {
-  const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null);
+  const [activeMenu, setActiveMenu] = useState<NavMenuItem | null>(null);
   const outsideRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseEnter = (menuItem: NavMenu) => {
+  const handleMouseEnter = (menuItem: NavMenuItem) => {
     if (menuItem.subLinks) {
       setActiveMenu(menuItem);
       setActivePopup('menu');

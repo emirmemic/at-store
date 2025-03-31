@@ -6,14 +6,14 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
-import { ProductType } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCardProps {
-  product: ProductType;
+  product: ProductBase;
   onAddToCart: (productId: string) => void;
 }
-export default function PovezaniDodaciCard({
+export default function RelatedProductAccessories({
   product,
   onAddToCart,
 }: ProductCardProps) {

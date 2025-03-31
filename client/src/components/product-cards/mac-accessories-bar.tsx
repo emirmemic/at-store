@@ -10,26 +10,26 @@ import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, Pathname } from '@/i18n/routing';
 import { Icon } from '@/lib/types';
 
-interface MacDodaciBarItem {
+interface MacAccessoriesBarItem {
   id: number;
   Icon: Icon;
   label: string;
   href: Pathname;
 }
 
-interface MacDodaciBarProps {
+interface MacAccessoriesBarProps {
   title?: string;
   subtitle?: string;
-  items?: MacDodaciBarItem[];
+  items?: MacAccessoriesBarItem[];
 }
 
-export default function MacDodaciBar({
+export default function MacAccessoriesBar({
   title,
   subtitle,
   items = [],
-}: MacDodaciBarProps) {
+}: MacAccessoriesBarProps) {
   const t = useTranslations('common');
-  const defaultIcons: MacDodaciBarItem[] = [
+  const defaultIcons: MacAccessoriesBarItem[] = [
     {
       id: 1,
       Icon: IconPowerPlug,

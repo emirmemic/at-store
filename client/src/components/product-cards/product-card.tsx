@@ -6,11 +6,11 @@ import { useTranslations } from 'next-intl';
 
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { CURRENCY } from '@/lib/constants';
-import { ProductType } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCardProps {
-  product: ProductType;
+  product: ProductBase;
   variant?: 'standard' | 'dodaci';
   onToggleFavorite: (productId: string) => void;
 }
@@ -53,6 +53,7 @@ export default function ProductCard({
           'h-52': variant === 'standard',
         })}
       >
+        {/* TODO use StrapiImage when connected with API*/}
         <Image
           alt={image?.alternativeText || name}
           className="h-full w-full object-contain"

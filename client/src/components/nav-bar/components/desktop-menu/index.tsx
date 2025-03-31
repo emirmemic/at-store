@@ -8,12 +8,12 @@ import {
   DesktopList,
   DesktopSearch,
 } from '@/components/nav-bar/components';
-import { NavMenu, PopupType, CartItem } from '@/components/nav-bar/types';
+import { NavMenuItem, PopupType, CartItem } from '@/components/nav-bar/types';
 import { UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopMenuProps {
-  menuItems: NavMenu[];
+  menuItems: NavMenuItem[];
   className?: string;
   user: UserInformation | null;
   cart: CartItem[];
