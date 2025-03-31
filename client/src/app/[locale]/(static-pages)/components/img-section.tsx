@@ -25,7 +25,7 @@ export default function ImgSection({
   return (
     <div
       className={cn(
-        'flex flex-col gap-9 md:gap-11 lg:flex-row',
+        'flex flex-col items-center gap-9 md:gap-11 lg:flex-row',
         reverseRow && 'lg:flex-row-reverse'
       )}
     >
@@ -49,7 +49,7 @@ export default function ImgSection({
 
       <div
         className={cn(
-          'flex flex-col items-center self-center text-white',
+          'flex flex-col items-center text-white',
           reverseRow
             ? 'lg:mr-auto lg:items-start lg:text-left'
             : 'lg:ml-auto lg:items-end lg:text-right',
