@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 export default function AtBusinessPage() {
   const t = useTranslations();
   const imgSectionInfo = getImgSectionInfo(t);
+  const sectionBaseStyles = 'rounded-2xl bg-blue-steel shadow-popup-black';
   return (
     <main className="flex flex-col py-16 container-max-width">
       <section className="flex flex-col-reverse items-center gap-12 md:flex-row md:gap-10">
@@ -38,12 +39,11 @@ export default function AtBusinessPage() {
           </h1>
           <p className="paragraph-1">{t('atBusinessPage.description')}</p>
         </div>
-
-        <div className="max-w-80 md:max-w-[380px]">
-          <IconAtBusiness className="text-color-black"></IconAtBusiness>
-        </div>
+        <IconAtBusiness className="w-full max-w-80 md:max-w-[380px]"></IconAtBusiness>
       </section>
-      <section className="mt-16 flex flex-col gap-24 rounded-2xl bg-blue-steel p-11 px-6 py-14 md:gap-32 md:px-28 md:py-16 lg:gap-24 lg:px-10 lg:py-11">
+      <section
+        className={`${sectionBaseStyles} mt-16 flex flex-col gap-24 p-11 px-6 py-14 md:gap-32 md:px-28 md:py-16 lg:gap-24 lg:px-10 lg:py-11`}
+      >
         {imgSectionInfo.map((img, index) => (
           <ImgSection key={img.id} index={index} {...img}></ImgSection>
         ))}
@@ -52,13 +52,16 @@ export default function AtBusinessPage() {
         <h3 className="pb-12 text-center heading-1 md:pb-16">
           {t('atBusinessPage.sectionTitle')}
         </h3>
-        <div className="flex w-full flex-col items-center rounded-2xl bg-blue-steel px-9 py-5 md:flex-row md:px-4 md:py-[72px] lg:px-11 lg:py-12">
+        <div
+          className={`${sectionBaseStyles} flex w-full flex-col items-center px-9 py-5 md:flex-row md:px-4 md:py-[72px] lg:px-11 lg:py-12`}
+        >
           <div className="max-w-72 items-center md:max-w-56 md:flex-row lg:max-w-80">
             <Image
+              priority
               alt="MacBook Air M1"
               className="flex-shrink-0"
               height={140}
-              src={macBookAirM1AtBusiness.src}
+              src={macBookAirM1AtBusiness}
               width={320}
             ></Image>
           </div>
@@ -66,17 +69,17 @@ export default function AtBusinessPage() {
             {t('atBusinessPage.macBookAir')}
           </p>
 
-          <Button size={'lg'} typography={'button1'} variant={'filled'}>
+          <Button size={'lg'} variant={'filled'}>
             {t('atBusinessPage.buttonText')}
           </Button>
         </div>
       </section>
       <section className="flex flex-col items-center justify-between gap-12 text-center md:flex-row md:items-start md:gap-20 lg:gap-60">
-        <div className="order-1 flex flex-col items-start gap-8 rounded-2xl bg-blue px-20 py-16 text-white md:inline-flex">
-          <p className="inline-block heading-4">Haris Dziko</p>
-          <p className="inline-block paragraph-1">B2B Manager</p>
+        <div className="order-1 flex flex-col gap-8 rounded-2xl bg-blue px-20 py-16 text-white shadow-popup-black">
+          <p className="heading-4">Haris Dziko</p>
+          <p className="paragraph-1">B2B Manager</p>
           <Link
-            className="inline-block underline transition duration-300 paragraph-1 hover:text-black"
+            className="underline transition duration-300 paragraph-1 hover:text-grey-medium"
             href={'tel:+387 956 188'}
           >
             +387 956 188
@@ -86,13 +89,13 @@ export default function AtBusinessPage() {
           <h4 className="heading-4">{t('atBusinessPage.contactTitle')}</h4>
           <div className="flex flex-col">
             <Link
-              className="text-blue transition duration-300 paragraph-1 hover:text-grey"
+              className="text-blue transition duration-300 paragraph-1 hover:text-grey-medium"
               href={t('contact.atStoreBusinessTelephoneLink')}
             >
               {t('contact.atStoreBusinessTelephone')}
             </Link>
             <Link
-              className="block text-blue transition duration-300 paragraph-1 hover:text-grey"
+              className="block text-blue transition duration-300 paragraph-1 hover:text-grey-medium"
               href={t('contact.atStoreBusinessEmailLink')}
             >
               {t('contact.atStoreBusinessEmail')}

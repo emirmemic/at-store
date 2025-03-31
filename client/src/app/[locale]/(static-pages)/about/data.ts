@@ -1,29 +1,26 @@
-import {
-  atStoreAlta,
-  atStoreScc,
-  atStoreDelta,
-  atBusinessAbout,
-  atSoft,
-} from '@/assets/images';
+import { atStoreAlta, atStoreDelta, atStoreScc } from '@/assets/images';
 import { PAGE_NAMES } from '@/i18n/page-names';
+
+import { IconAtBusiness } from '../icons';
+import IconAtSoft from '../icons/at-soft';
 
 export const getCardBlocks = (t: (key: string) => string) => [
   {
     title: t('about.cardBlock.title1'),
     name: 'AtSoft',
-    image: atSoft,
+    Icon: IconAtSoft,
     path: PAGE_NAMES.HOME,
     id: 1,
   },
   {
     title: t('about.cardBlock.title2'),
     name: 'AtBusiness',
-    image: atBusinessAbout,
+    Icon: IconAtBusiness,
     path: PAGE_NAMES.HOME,
     id: 2,
   },
 ];
-export const getTeamCard = (t: (key: string) => string) => [
+export const getTeamCard = () => [
   { id: 1, name: { firstName: 'Admir', surname: 'Tursum' }, role: 'Ceo' },
   {
     id: 2,

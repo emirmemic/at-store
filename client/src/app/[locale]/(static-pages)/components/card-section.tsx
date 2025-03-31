@@ -1,30 +1,31 @@
-import Image, { StaticImageData } from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 import { Link, Pathname } from '@/i18n/routing';
+import { Icon } from '@/lib/types';
+import { cn } from '@/lib/utils/utils';
 
 interface CardSectionProps {
   name: string;
-  image: StaticImageData;
   title: string;
   path: Pathname;
+  className?: string;
+  Icon: Icon;
 }
 
 export default function CardSection(props: Readonly<CardSectionProps>) {
-  const { title, path, name, image } = props;
+  const { title, path, name, Icon, className } = props;
   const t = useTranslations('common');
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-6 rounded-2xl bg-blue-steel px-9 py-5 md:gap-8 md:px-4 md:py-9 lg:gap-10 lg:px-8 lg:py-12">
-      <div className="w-full max-w-[362px] md:max-w-[300px] lg:max-w-[490px]">
-        <Image
-          alt={name}
-          className="h-auto w-full"
-          height={120}
-          src={image}
-          width={430}
-        />
-      </div>
+    <div className="flex w-full max-w-[362px] flex-col items-center justify-center gap-6 rounded-2xl bg-blue-steel px-9 py-8 md:max-w-full md:gap-8 md:px-4 md:py-9 lg:gap-10 lg:px-8 lg:py-12">
+      <Icon
+        aria-label={name}
+        className={cn(
+          'h-16 w-full max-w-72 text-white md:h-20 md:max-w-72 lg:h-24 lg:max-w-md',
+          className
+        )}
+      ></Icon>
+
       <p className="flex-1 text-white heading-3 md:heading-2 lg:heading-1">
         {title}
       </p>

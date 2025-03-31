@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { MonoAppleBlock } from '@/components';
+import { IconAtStoreLogo } from '@/components/icons';
 
 import { CardSection, ImgSection, TeamCard } from '../components';
 
@@ -29,48 +29,51 @@ export default function AboutPage() {
   const t = useTranslations();
   const info = getInfo(t);
   const cardBlocks = getCardBlocks(t);
-  const teamsCard = getTeamCard(t);
+  const teamsCard = getTeamCard();
+  const styles = {
+    mainContainer:
+      'flex flex-col gap-12 py-12 container-max-width md:gap-16 md:py-16',
+    sectionBase: 'shadow-popup-black rounded-2xl bg-blue-steel ',
+  };
   return (
-    <main className="flex flex-col gap-12 py-12 container-max-width md:gap-16 md:py-16">
+    <main className={styles.mainContainer}>
       <header>
-        <h1 className="pb-16 text-center display">{t('about.title')}</h1>
+        <h1 className="pb-16 text-center heading-2 md:heading-1">
+          {t('about.title')}
+        </h1>
       </header>
-      <section className="flex flex-col items-center justify-center gap-12 rounded-2xl bg-blue-steel px-3 py-12 md:gap-16 md:px-16 lg:flex-row lg:gap-12 lg:px-11 lg:py-11">
-        <div className="order-1 flex-1 text-pretty text-center lg:order-none lg:text-start">
-          <h2 className="text-white bullet-heading-2 md:heading-4">
+      <section
+        className={`${styles.sectionBase} flex flex-col items-center justify-center gap-12 px-3 py-12 md:gap-16 md:px-16 lg:flex-row lg:gap-12 lg:px-11 lg:py-11`}
+      >
+        <div className="order-1 flex-1 text-pretty text-center text-white lg:order-none lg:text-start">
+          <h2 className="bullet-heading-2 md:heading-4">
             {t('about.paragraphHeading')}
           </h2>
-          <p className="text-white bullet-1 md:paragraph-1">
-            {t('about.paragraph')}
-          </p>
+          <p className="bullet-1 md:paragraph-1">{t('about.paragraph')}</p>
         </div>
-        <Image
-          priority
-          alt="logo"
-          height={80}
-          sizes="(max-width: 768px) 50vw, 354px"
-          src={'/assets/images/logo.png'}
-          width={354}
-        />
+        <IconAtStoreLogo className="h-16 max-w-72 text-white md:h-20 md:max-w-[354px]"></IconAtStoreLogo>
       </section>
-      <section className="flex flex-col gap-12 rounded-2xl bg-blue-steel px-3 py-12 md:gap-20 md:px-8 md:py-14 lg:px-11 lg:py-11">
+      <section
+        className={`${styles.sectionBase} flex flex-col gap-12 px-3 py-12 md:gap-20 md:px-8 md:py-14 lg:px-11 lg:py-11`}
+      >
         {info.map((imageSection, index) => (
           <ImgSection key={imageSection.id} {...imageSection} index={index} />
         ))}
       </section>
-
       <section className="flex flex-col gap-12 py-12 md:gap-16 md:py-16 lg:gap-16">
-        <h3 className="text-center heading-1">{t('about.cardBlockTitle')}</h3>
-        <div className="flex flex-col gap-12 md:flex-row md:gap-12 lg:gap-[70px]">
+        <h3 className="text-center heading-2 md:heading-1">
+          {t('about.cardBlockTitle')}
+        </h3>
+        <div className="flex flex-col items-center gap-12 md:flex-row md:gap-12 lg:gap-[70px]">
           {cardBlocks.map((cardSection) => (
             <CardSection key={cardSection.id} {...cardSection}></CardSection>
           ))}
         </div>
       </section>
       <section className="flex flex-col gap-16">
-        <h4 className="text-center heading-2 md:heading-1">
+        <h3 className="text-center heading-2 md:heading-1">
           {t('about.teamCardTitle')}
-        </h4>
+        </h3>
         <div className="grid grid-cols-2 justify-items-center gap-x-6 gap-y-12 md:grid-cols-3 md:gap-y-16 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-16">
           {teamsCard.map((teamSection) => (
             <TeamCard key={teamSection.id} {...teamSection}></TeamCard>

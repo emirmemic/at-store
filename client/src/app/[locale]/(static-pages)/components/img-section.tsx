@@ -37,7 +37,10 @@ export default function ImgSection({
       >
         <Image
           alt={name}
-          className="h-auto w-full rounded-2xl"
+          className={cn(
+            'h-44 w-full rounded-2xl md:h-80',
+            description && 'size-80 md:size-96 lg:size-80'
+          )}
           height={303}
           sizes="(max-width: 768px) 80vw, 520px"
           src={image}

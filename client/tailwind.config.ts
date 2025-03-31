@@ -101,6 +101,7 @@ export default {
         'outline-black-hover': '0px 0.125rem 0.625rem 0px rgba(0, 0, 0, 0.35)',
         'popup-black': '0px 6px 4px 0px rgba(0, 0, 0, 0.35)',
       },
+
       spacing: {
         '6px': '0.375rem',
         '10px': '0.625rem',
