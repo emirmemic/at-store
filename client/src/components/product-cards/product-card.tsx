@@ -12,11 +12,13 @@ import { cn } from '@/lib/utils/utils';
 interface ProductCardProps {
   product: ProductBase;
   variant?: 'standard' | 'dodaci';
+  className?: string;
   onToggleFavorite: (productId: string) => void;
 }
 export default function ProductCard({
   product,
   variant = 'standard',
+  className,
   onToggleFavorite,
 }: ProductCardProps) {
   const {
@@ -37,7 +39,8 @@ export default function ProductCard({
       className={cn(
         'relative flex w-full flex-col justify-between gap-3 rounded-2xl border border-grey-extra-light bg-white py-6 shadow-standard-black transition-all hover:shadow-standard-black-hover',
         variant === 'dodaci' && 'max-w-[300px] px-18px',
-        variant === 'standard' && 'max-w-[340px] px-6'
+        variant === 'standard' && 'max-w-[340px] px-6',
+        className
       )}
     >
       {product_link && (

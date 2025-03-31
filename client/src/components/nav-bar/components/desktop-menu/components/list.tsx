@@ -68,13 +68,15 @@ export default function DesktopList({
                     onClick={() => setActivePopup('none')}
                   >
                     <span className="h-12 w-12 overflow-hidden">
-                      <Image
-                        alt={sub.label}
-                        className="h-full w-full object-contain"
-                        height={48}
-                        src={sub.logo}
-                        width={48}
-                      />
+                      {sub.logo && (
+                        <Image
+                          alt={sub.label}
+                          className="h-full w-full object-contain"
+                          height={48}
+                          src={sub.logo}
+                          width={48}
+                        />
+                      )}
                     </span>
                     {sub.label}
                   </Link>

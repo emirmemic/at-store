@@ -8,7 +8,7 @@ interface ProductBase {
   discounted_price: number | null;
   image: ImageProps;
   specifications?: string[];
-  product_link: string;
+  product_link?: string;
   description?: string;
   promotional_tagline?: string;
   is_favorite: boolean;

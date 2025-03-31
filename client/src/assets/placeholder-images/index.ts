@@ -5,3 +5,6 @@ export { default as iphone14 } from './iphone_14.png';
 export { default as macBookAirM3 } from './mac_book_air_m3.png';
 export { default as macBookAir } from './mac_book_air.png';
 export { default as iphone13ClearCase } from './iphone_13_clear_case.png';
+export { default as display } from './display.svg';
+export { default as macMini } from './mac-mini.svg';
+export { default as macBookPro } from './macbook_pro.svg';

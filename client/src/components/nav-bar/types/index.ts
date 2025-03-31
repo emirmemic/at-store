@@ -5,7 +5,7 @@ import { Pathname } from '@/i18n/routing';
 interface NavSubLinkItem {
   id: number;
   label: string;
-  logo: StaticImageData;
+  logo?: StaticImageData;
   href: Pathname;
 }
 interface NavMenuItem {
