@@ -97,9 +97,9 @@ export default {
         'inset-blue': 'inset 0 0 0 0.125rem #3577e5',
         'standard-black': '0px .25rem .25rem 0px rgba(0, 0, 0, 0.25)',
         'standard-black-hover': '0px .35rem .35rem 0px rgba(0, 0, 0, 0.35)',
-        'povezani-dodaci': ' 0px 0.125rem 0.625rem 0px rgba(0, 0, 0, 0.25)',
-        'povezani-dodaci-hover':
-          '0px 0.125rem 0.625rem 0px rgba(0, 0, 0, 0.35)',
+        'outline-black': ' 0px 0.125rem 0.625rem 0px rgba(0, 0, 0, 0.25)',
+        'outline-black-hover': '0px 0.125rem 0.625rem 0px rgba(0, 0, 0, 0.35)',
+        'popup-black': '0px 6px 4px 0px rgba(0, 0, 0, 0.35)',
       },
       spacing: {
         '6px': '0.375rem',

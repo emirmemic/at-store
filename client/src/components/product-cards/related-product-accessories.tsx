@@ -24,7 +24,7 @@ export default function RelatedProductAccessories({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-72 flex-col items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-povezani-dodaci transition-all hover:shadow-povezani-dodaci-hover'
+        'relative flex w-full max-w-72 flex-col items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-outline-black transition-all hover:shadow-outline-black-hover'
       )}
     >
       {product_link && (
