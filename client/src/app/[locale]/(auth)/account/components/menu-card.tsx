@@ -34,6 +34,7 @@ export default function MenuCard({ className }: { className?: string }) {
           >
             <item.Icon size={30} />
             <span>{item.label}</span>
+            <span className="sr-only">{item.label}</span>
           </Link>
         );
       })}

@@ -7,9 +7,10 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Link } from '@/i18n/routing';
 
 export default function UserAvatar() {
-  const t = useTranslations('common');
+  const t = useTranslations();
+
   const user = useContext(UserContext).user;
-  const initials = user ? user.username[0].toUpperCase() : t('guest');
+  const initials = user ? user.username[0].toUpperCase() : t('common.guest');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -26,11 +27,14 @@ export default function UserAvatar() {
   }, []);
 
   return (
-    <Link className="flex" href={isMobile ? '/account' : '/account/dashboard'}>
-      <p className="paragraph-5">{t('hi')},</p>
-      <Avatar>
-        <AvatarFallback>{initials}</AvatarFallback>
-      </Avatar>
-    </Link>
+    <div className="flex">
+      <p className="paragraph-5">{t('common.hi')},</p>
+      <Link href={isMobile ? '/account' : '/account/dashboard'}>
+        <span className="sr-only">{t('navbar.account')}</span>
+        <Avatar>
+          <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
+      </Link>
+    </div>
   );
 }
