@@ -181,8 +181,6 @@
     "fileAdded": "Datoteka je dodana"
   },
   "navbar": {
-    "guest": "Gost",
-    "hi": "Zdravo",
     "favorites": "Omiljeni",
     "cart": "Korpa",
     "search": "Pretraži",
@@ -528,10 +526,13 @@
     "choose": "Izaberi",
     "delivery": "Dostava",
     "educationDiscount": "EDU popust",
+    "guest": "Gost",
+    "hi": "Zdravo",
     "keyboards": "Tastature",
     "learnMore": "Saznaj više",
     "macAccessories": "Mac dodaci",
     "mice": "Miševi",
+    "newsletter": "Newsletter",
     "paymentMethods": "Načini plaćanja",
     "protection": "Zaštita",
     "seeAllMacAccessories": "Pogledajte sve Mac dodatke",

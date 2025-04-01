@@ -9,7 +9,7 @@ interface UserAvatarProps {
 }
 
 export default function UserAvatar({ user }: UserAvatarProps) {
-  const t = useTranslations('navbar');
+  const t = useTranslations('common');
   const initials = user ? user.username[0].toUpperCase() : t('guest');
   return (
     <div className="flex">
