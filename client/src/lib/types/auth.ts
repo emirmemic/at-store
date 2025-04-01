@@ -1,4 +1,4 @@
-import { ProductProps } from './base';
+import { ProductBase } from './product';
 
 interface AuthError {
   message: string;
@@ -7,7 +7,7 @@ interface AuthError {
 
 interface Order {
   id: number;
-  products: ProductProps[];
+  products: ProductBase[];
   orderStatus: string;
   orderNumber: number;
   orderDate: string;

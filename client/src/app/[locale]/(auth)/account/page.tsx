@@ -21,5 +21,5 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 }
 
 export default async function AccountDetails() {
-  return <div>hello</div>;
+  return <></>;
 }

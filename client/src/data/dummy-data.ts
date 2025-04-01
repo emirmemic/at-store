@@ -1,16 +1,16 @@
 import {
-  macBookAirM3,
-  iphone13,
   airPodsPro2,
+  display,
+  iMac,
+  iphone13,
+  iphone13ClearCase,
   iphone14,
   macBookAir,
-  iMac,
-  iphone13ClearCase,
-  display,
-  macMini,
+  macBookAirM3,
   macBookPro,
+  macMini,
 } from '@/assets/placeholder-images';
-import { NavMenuItem, CartItem } from '@/components/nav-bar/types';
+import { CartItem, NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { ProductBase } from '@/lib/types';
 
@@ -256,6 +256,7 @@ const placeholderCart: CartItem[] = [
 
 const dummyProducts: ProductBase[] = [
   {
+    id: 1,
     product_variant_id: 'macbook-air-m3-256gb-13inch',
     product_type_id: 'laptop',
     name: 'MacBook Air',
@@ -277,6 +278,7 @@ const dummyProducts: ProductBase[] = [
     },
   },
   {
+    id: 2,
     product_variant_id: 'iphone-13-128gb-white',
     product_type_id: 'smartphone',
     name: 'iPhone 13',
@@ -303,6 +305,7 @@ const dummyProducts: ProductBase[] = [
     chip: null,
   },
   {
+    id: 3,
     product_variant_id: 'iphone13ClearCase',
     product_type_id: 'accessory',
     name: 'iPhone 13 Clear Case',
@@ -323,6 +326,7 @@ const dummyProducts: ProductBase[] = [
 ];
 const dummyMacProducts: ProductBase[] = [
   {
+    id: 1,
     product_variant_id: 'macbook-air-m2-512gb-15inch',
     product_type_id: 'laptop',
     name: 'MacBook Air M2',
@@ -344,6 +348,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 2,
     product_variant_id: 'macbook-pro-m3max-1tb-16inch',
     product_type_id: 'laptop',
     name: 'MacBook Pro M3 Max',
@@ -365,6 +370,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 3,
     product_variant_id: 'mac-mini-m2-512gb',
     product_type_id: 'desktop',
     name: 'Mac Mini M2',
@@ -386,6 +392,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 4,
     product_variant_id: 'macbook-pro-m2-1tb-14inch',
     product_type_id: 'laptop',
     name: 'MacBook Pro M2',
@@ -407,6 +414,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 5,
     product_variant_id: 'imac-m2-24inch',
     product_type_id: 'desktop',
     name: 'iMac M2',
@@ -428,6 +436,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 6,
     product_variant_id: 'studio-display-27inch',
     product_type_id: 'monitor',
     name: 'Studio Display',
@@ -446,6 +455,7 @@ const dummyMacProducts: ProductBase[] = [
     chip: null,
   },
   {
+    id: 7,
     product_variant_id: 'new-product-id',
     product_type_id: 'new-type',
     name: 'New Product Name',
@@ -467,6 +477,7 @@ const dummyMacProducts: ProductBase[] = [
     },
   },
   {
+    id: 8,
     product_variant_id: 'macbook-pro-m2-1tb-16inch',
     product_type_id: 'laptop',
     name: 'MacBook Pro M2',
@@ -616,9 +627,13 @@ const dummyAccessories: ProductBase[] = [
 ];
 
 export {
-  placeholderCart,
-  navMenu,
-  dummyProducts,
-  dummyMacProducts,
   dummyAccessories,
+  dummyMacProducts,
+  dummyMacProducts,
+  dummyProducts,
+  dummyProducts,
+  navMenu,
+  navMenu,
+  placeholderCart,
+  placeholderCart,
 };

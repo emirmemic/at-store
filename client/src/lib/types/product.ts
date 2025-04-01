@@ -1,6 +1,7 @@
 import { ImageProps } from '@/lib/types/base';
 
 interface ProductBase {
+  id: number;
   product_variant_id: string;
   product_type_id: string;
   name: string;

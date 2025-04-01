@@ -4,9 +4,9 @@ import { useContext, useRef, useState } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
-import { IconClose, IconHeart } from '@/components/icons';
+import { IconClose, IconHeart, IconLogout } from '@/components/icons';
 import { UserAvatar } from '@/components/nav-bar/components';
-import { IconAccount, IconCart, IconLogout } from '@/components/nav-bar/icons';
+import { IconAccount, IconCart } from '@/components/nav-bar/icons';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';

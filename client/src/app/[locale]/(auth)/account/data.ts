@@ -14,37 +14,37 @@ import { AccountMenu } from './types';
 const getMenuItems = (t: LocalizationKey): AccountMenu[] => [
   {
     id: 1,
-    label: t('dashboard.title'),
+    label: t('accountPage.dashboard.title'),
     href: PAGE_NAMES.ACCOUNT_DASHBOARD,
     Icon: IconHome,
   },
   {
     id: 2,
-    label: t('orders.title'),
+    label: t('accountPage.orders.title'),
     href: PAGE_NAMES.ACCOUNT_ORDERS,
     Icon: IconShoppingCart,
   },
   {
     id: 3,
-    label: t('details.title'),
+    label: t('accountPage.details.title'),
     href: PAGE_NAMES.ACCOUNT_DETAILS,
     Icon: IconSettings,
   },
   {
     id: 4,
-    label: t('paymentMethods.title'),
+    label: t('accountPage.paymentMethods.title'),
     href: PAGE_NAMES.ACCOUNT_PAYMENT_METHODS,
     Icon: IconWallet,
   },
   {
     id: 5,
-    label: t('favorites.title'),
+    label: t('accountPage.favorites.title'),
     href: PAGE_NAMES.ACCOUNT_FAVORITES,
     Icon: IconHeart,
   },
   {
     id: 6,
-    label: t('newsletter.title'),
+    label: t('accountPage.newsletter.title'),
     href: PAGE_NAMES.ACCOUNT_NEWSLETTER,
     Icon: IconNews,
   },

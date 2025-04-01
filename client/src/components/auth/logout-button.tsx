@@ -2,9 +2,8 @@
 
 import { ButtonHTMLAttributes, ReactNode, useContext, useState } from 'react';
 
+import { redirectToHomePage } from '@/app/actions';
 import { UserContext } from '@/app/providers';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { useRouter } from '@/i18n/routing';
 
 interface LogoutButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -17,7 +16,6 @@ export default function LogoutButton({
   className,
   ...props
 }: LogoutButtonProps) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const userProvider = useContext(UserContext);
@@ -26,8 +24,8 @@ export default function LogoutButton({
     event.preventDefault();
     setIsLoading(true);
     try {
+      redirectToHomePage();
       userProvider.setUser(null);
-      router.push(PAGE_NAMES.HOME);
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'An unknown error occurred'

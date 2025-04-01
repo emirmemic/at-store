@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
-import { ProductProps } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 
 export interface OrderProductCardProps {
   id: number;
-  product: ProductProps;
+  product: ProductBase;
   orderStatus: string;
   orderNumber: number;
   orderDate: string;

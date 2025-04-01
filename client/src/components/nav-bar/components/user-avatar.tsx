@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 
 export default function UserAvatar() {
@@ -29,7 +30,10 @@ export default function UserAvatar() {
   return (
     <div className="flex">
       <p className="paragraph-5">{t('common.hi')},</p>
-      <Link href={isMobile ? '/account' : '/account/dashboard'}>
+      <Link
+        href={isMobile ? PAGE_NAMES.ACCOUNT : PAGE_NAMES.ACCOUNT_DASHBOARD}
+        onClick={() => {}}
+      >
         <span className="sr-only">{t('navbar.account')}</span>
         <Avatar>
           <AvatarFallback>{initials}</AvatarFallback>

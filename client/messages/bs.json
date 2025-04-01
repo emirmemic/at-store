@@ -525,6 +525,7 @@
     }
   },
   "accountPage": {
+    "title": "Korisnicki racun",
     "dashboard": {
       "title": "Početna"
     },

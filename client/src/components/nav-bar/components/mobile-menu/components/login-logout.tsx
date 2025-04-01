@@ -4,7 +4,8 @@ import { useContext } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
-import { IconAccount, IconLogout } from '@/components/nav-bar/icons';
+import { IconLogout } from '@/components/icons';
+import { IconAccount } from '@/components/nav-bar/icons';
 import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
