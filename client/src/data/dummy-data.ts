@@ -501,6 +501,7 @@ const dummyMacProducts: ProductBase[] = [
 ];
 const dummyAccessories: ProductBase[] = [
   {
+    id: 1,
     product_variant_id: 'airpods-pro-2',
     product_type_id: 'accessory',
     name: 'AirPods Pro 2',
@@ -527,6 +528,7 @@ const dummyAccessories: ProductBase[] = [
     },
   },
   {
+    id: 2,
     product_variant_id: 'iphone-14-clear-case',
     product_type_id: 'accessory',
     name: 'iPhone 14 Clear Case',
@@ -545,6 +547,7 @@ const dummyAccessories: ProductBase[] = [
     chip: null,
   },
   {
+    id: 3,
     product_variant_id: 'airpods-max',
     product_type_id: 'accessory',
     name: 'AirPods Max',
@@ -571,6 +574,7 @@ const dummyAccessories: ProductBase[] = [
     },
   },
   {
+    id: 4,
     product_variant_id: 'iphone-14-case',
     product_type_id: 'accessory',
     name: 'iPhone 14 Case',
@@ -589,6 +593,7 @@ const dummyAccessories: ProductBase[] = [
     chip: null,
   },
   {
+    id: 5,
     product_variant_id: 'macbook-air-case',
     product_type_id: 'accessory',
     name: 'MacBook Air Case',
@@ -607,6 +612,7 @@ const dummyAccessories: ProductBase[] = [
     chip: null,
   },
   {
+    id: 6,
     product_variant_id: 'macbook-pro-case',
     product_type_id: 'accessory',
     name: 'MacBook Pro Case',
@@ -629,11 +635,7 @@ const dummyAccessories: ProductBase[] = [
 export {
   dummyAccessories,
   dummyMacProducts,
-  dummyMacProducts,
-  dummyProducts,
   dummyProducts,
   navMenu,
-  navMenu,
-  placeholderCart,
   placeholderCart,
 };
