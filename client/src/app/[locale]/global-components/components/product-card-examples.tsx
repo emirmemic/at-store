@@ -5,6 +5,8 @@ import {
   MacAccessoriesBar,
   ProductCard,
   RelatedProductAccessories,
+  SubProductCard,
+  InchSelectionTab,
 } from '@/components/product-cards';
 import { dummyProducts } from '@/data/dummy-data';
 export default function ProductCardExamples() {
@@ -17,6 +19,28 @@ export default function ProductCardExamples() {
       return product;
     });
     setProducts(updatedProducts);
+  };
+  const inchOptions = [
+    {
+      id: '13',
+      name: '13-inch',
+    },
+    {
+      id: '14',
+      name: '14-inch',
+    },
+    {
+      id: '15',
+      name: '15-inch',
+    },
+    {
+      id: '16',
+      name: '16-inch',
+    },
+  ];
+  const handleSelectInch = (id: string) => {
+    // eslint-disable-next-line no-console
+    console.log('Selected inch:', id);
   };
   return (
     <>
@@ -50,6 +74,14 @@ export default function ProductCardExamples() {
           <RelatedProductAccessories
             product={products[2]}
             onAddToCart={() => {}}
+          />
+        </div>
+        {/* SubProductCard and InchSelectionTab are used together and should have the same width according to the design. That's why the max width is controlled by the parent element, rather than each component individually. */}
+        <div className="flex h-fit w-full max-w-[400px] flex-col gap-4 md:max-w-[572px] lg:max-w-[766px]">
+          <SubProductCard product={dummyProducts[0]} onClick={() => {}} />
+          <InchSelectionTab
+            options={inchOptions}
+            onSelectInch={handleSelectInch}
           />
         </div>
       </div>

@@ -27,7 +27,6 @@ export default function InputExamples() {
       console.log('No files selected');
     }
   };
-
   return (
     <>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -122,9 +121,10 @@ export default function InputExamples() {
           <Checkbox checked={checkedFour} onCheckedChange={setCheckedFour} />
           <Checkbox
             errorMessage="Please agree to terms and conditions!"
-            label="I agree to terms and conditions."
             labelClassName="flex items-center gap-2 paragraph-2"
-          />
+          >
+            <span>I agree to terms and conditions</span>
+          </Checkbox>
         </div>
         <Button
           size={'xlg'}

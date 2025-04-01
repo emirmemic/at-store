@@ -258,7 +258,7 @@ const dummyProducts: ProductBase[] = [
   {
     product_variant_id: 'macbook-air-m3-256gb-13inch',
     product_type_id: 'laptop',
-    name: 'MacBook Air M3',
+    name: 'MacBook Air',
     original_price: 3199,
     discounted_price: 2969,
     image: {

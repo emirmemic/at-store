@@ -4,6 +4,7 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import * as React from 'react';
 
 import { IconCheck } from '@/components/icons';
+import { AnimateAppearance } from '@/components/transitions';
 import { cn } from '@/lib/utils/utils';
 
 import InputErrorMessage from './input-error-message';
@@ -38,7 +39,9 @@ const Checkbox = React.forwardRef<
       </CheckboxPrimitive.Root>
       {children}
     </label>
-    {errorMessage && <InputErrorMessage errorMessage={errorMessage} />}
+    <AnimateAppearance isVisible={Boolean(errorMessage)}>
+      <InputErrorMessage errorMessage={errorMessage} />
+    </AnimateAppearance>
   </div>
 ));
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;

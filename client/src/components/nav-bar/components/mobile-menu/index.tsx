@@ -6,14 +6,13 @@ import { IconClose } from '@/components/icons';
 import {
   SiteLogo,
   SearchInput,
-  AnimateHeight,
-  AnimateSlots,
   MobileActions,
   MobileList,
   MobileLoginLogout,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
 import { NavMenuItem } from '@/components/nav-bar/types';
+import { AnimateHeight, AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';

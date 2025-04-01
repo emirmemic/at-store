@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl';
 import { useState, useRef } from 'react';
 
 import { IconClose, IconTrash } from '@/components/icons';
-import { AnimateHeight } from '@/components/nav-bar/components';
 import { IconCart, IconShoppingCart } from '@/components/nav-bar/icons';
 import { CartItem } from '@/components/nav-bar/types';
+import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';

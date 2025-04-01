@@ -4,8 +4,9 @@ import { useRef, useState } from 'react';
 
 import { LogoutButton } from '@/components/auth';
 import { IconClose, IconHeart } from '@/components/icons';
-import { AnimateHeight, UserAvatar } from '@/components/nav-bar/components';
+import { UserAvatar } from '@/components/nav-bar/components';
 import { IconAccount, IconCart, IconLogout } from '@/components/nav-bar/icons';
+import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';

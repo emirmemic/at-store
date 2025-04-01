@@ -1,7 +1,8 @@
-import Image from 'next/image';
 // eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+
+import { IconAtStoreLogo } from '@/components/icons';
 
 const socialLinks = [
   {
@@ -72,12 +73,7 @@ export default function FooterSocial() {
     <div className="flex items-center gap-6 md:flex-col md:gap-2">
       <Link href="/">
         <span className="sr-only">{t('homePage')}</span>
-        <Image
-          alt="AT Store"
-          height={30}
-          src="/assets/images/logo.png"
-          width={132}
-        />
+        <IconAtStoreLogo className="h-8 w-36" />
       </Link>
 
       <div className="flex items-center gap-2">

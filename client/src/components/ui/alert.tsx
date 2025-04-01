@@ -1,11 +1,11 @@
 'use client';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
 import { IconX } from '@/components/icons';
+import { AnimateAppearance } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/utils';
 
@@ -59,39 +59,28 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     }, [visible]);
 
     return (
-      <AnimatePresence>
-        {internalVisible && (
-          <motion.div
-            layout
-            animate={{ opacity: 1, y: 0, scale: 1, height: 'auto' }}
-            exit={{ opacity: 0, y: -10, scale: 0.95, height: 0 }}
-            initial={{ opacity: 0, y: -10, scale: 0.95, height: 'auto' }}
-            style={{ overflow: 'hidden' }}
-            transition={{ duration: 0.3 }}
-          >
-            <div
-              ref={ref}
-              className={cn(alertVariants({ variant }), className)}
-              role="alert"
-              {...props}
+      <AnimateAppearance isVisible={internalVisible}>
+        <div
+          ref={ref}
+          className={cn(alertVariants({ variant }), className)}
+          role="alert"
+          {...props}
+        >
+          <div className="flex-grow">{props.children}</div>
+          {dismissible && (
+            <Button
+              className="ml-4 border border-current p-1 text-current hover:border-current"
+              size={'sm'}
+              title={t('dismissMessage')}
+              type="button"
+              onClick={handleClose}
             >
-              <div className="flex-grow">{props.children}</div>
-              {dismissible && (
-                <Button
-                  className="ml-4 border border-current p-1 text-current hover:border-current"
-                  size={'sm'}
-                  title={t('dismissMessage')}
-                  type="button"
-                  onClick={handleClose}
-                >
-                  <span className="sr-only">{t('dismissMessage')}</span>
-                  <IconX size={12} />
-                </Button>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <span className="sr-only">{t('dismissMessage')}</span>
+              <IconX size={12} />
+            </Button>
+          )}
+        </div>
+      </AnimateAppearance>
     );
   }
 );

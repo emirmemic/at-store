@@ -61,7 +61,7 @@ export default function MacAccessoriesBar({
   const finalSubtitle = subtitle ?? t('seeAllMacAccessories');
 
   return (
-    <div className="rounded-2xl bg-blue-steel px-14 py-10 text-white md:px-24 md:py-8 lg:px-32 lg:py-12">
+    <div className="rounded-2xl bg-blue-steel px-14 py-10 text-white shadow-slider-drop-shadow md:px-24 md:py-8 lg:px-32 lg:py-12">
       <div className="mb-8 text-center">
         <p className="mb-4 heading-4 md:bullet-heading-1 lg:heading-3">
           {finalTitle}

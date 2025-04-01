@@ -1,3 +1,4 @@
+// TODO: Complete the sitemap generation logic once products are implemented
 import type { MetadataRoute } from 'next';
 
 import { PAGE_NAMES } from '@/i18n/page-names';
