@@ -35,6 +35,7 @@ export default function OrderProductCard(props: OrderProductCardProps) {
       <StrapiImage
         priority
         alt={image.alternativeText}
+        className="h-full max-h-[166px] w-full max-w-[250px] md:max-h-[130px] md:max-w-[194px] lg:max-h-[166px] lg:max-w-[250px]"
         height={166}
         sizes="(max-width: 1024px) 12.125rem, 15.625rem"
         src={image.url}

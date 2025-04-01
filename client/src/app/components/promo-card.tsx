@@ -89,7 +89,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:justify-between md:gap-12">
             <StrapiImage
               alt={product.image?.alternativeText || product.name}
-              className="h-[19.375rem] w-[15rem] rounded-md object-cover md:h-[31.25rem] md:w-[21rem] lg:w-[25rem]"
+              className="h-full max-h-[310px] w-full max-w-[240px] rounded-md object-cover md:max-h-[500px] md:max-w-[336px] lg:max-h-[500px] lg:max-w-[400px]"
               height={500}
               sizes="(max-width: 48rem) 15rem, (max-width: 64rem) 21rem, 25rem"
               src={product.image?.url}
