@@ -60,25 +60,6 @@ const eslintConfig = [
         },
       ],
       'import/no-duplicates': 'warn',
-
-      // This rule enforces the use of `next-intl`'s routing implementation (`@/i18n/routing`) instead of `next/link` and `next/navigation`. `next-intl` provides built-in locale handling, ensuring that navigation is always language-aware. Using `next/link` or `next/navigation` directly may result in incorrect locale-based navigation.
-      'no-restricted-imports': [
-        'warn',
-        {
-          name: 'next/link',
-          message: 'Please import from `@/i18n/routing` instead.',
-        },
-        {
-          name: 'next/navigation',
-          importNames: [
-            'redirect',
-            'permanentRedirect',
-            'useRouter',
-            'usePathname',
-          ],
-          message: 'Please import from `@/i18n/routing` instead.',
-        },
-      ],
     },
   }),
 ];

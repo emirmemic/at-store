@@ -1,5 +1,4 @@
 import Image from 'next/image';
-// eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use client';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import { useTranslations } from 'next-intl';

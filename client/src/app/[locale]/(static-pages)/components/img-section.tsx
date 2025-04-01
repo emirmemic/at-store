@@ -1,5 +1,4 @@
 import Image, { StaticImageData } from 'next/image';
-// eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 
 import { cn } from '@/lib/utils/utils';

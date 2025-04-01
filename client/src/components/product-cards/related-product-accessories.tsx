@@ -1,6 +1,5 @@
 import Image from 'next/image';
 // TODO - Change the Link import from next-intl while building the product details page
-// eslint-disable-next-line no-restricted-imports
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
