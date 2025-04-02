@@ -11,6 +11,7 @@ export default function Page() {
 
   return (
     <>
+      {orders && orders.length === 0 && <div>No orders found.</div>}
       {orders &&
         orders.map((order) => (
           <div key={order.id} className="flex flex-col gap-6">
