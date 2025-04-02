@@ -3,12 +3,12 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
-import { IconClose, IconTrash, IconShoppingCart } from '@/components/icons';
+import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
+import { IconCart } from '@/components/nav-bar/icons';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { CURRENCY } from '@/lib/constants';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { ShoppingCartItem } from '@/lib/types';
 
@@ -32,10 +32,13 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => (
     </div>
     <div className="flex grow flex-col gap-2">
       <p className="paragraph-1">{item.name}</p>
-      <p className="paragraph-1">{`${item.final_price} ${CURRENCY}`}</p>
+      <p className="paragraph-1">{item.final_price}</p>
     </div>
     <Button className="group absolute bottom-1 right-1 p-2" onClick={() => {}}>
-      <IconTrash className="h-6 w-6 transition-colors duration-300 group-hover:text-grey-darker" />
+      <IconTrash
+        className="transition-colors duration-300 group-hover:text-grey-darker"
+        size={24}
+      />
     </Button>
   </div>
 );
@@ -50,7 +53,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
     <div className="relative pb-40">
       <div className="flex max-h-[calc(100vh-20rem)] flex-col gap-2 overflow-y-auto custom-scrollbar">
         {cart.map((item) => (
-          <ListItem key={item.id} item={item} />
+          <ListItem key={item.product_variant_id} item={item} />
         ))}
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-between gap-4 bg-grey-extra-light pb-8 pt-5">
@@ -98,7 +101,7 @@ export default function DesktopCart({ cart }: DesktopCartProps) {
         onClick={togglePopup}
       >
         <span className="sr-only">{t('account')}</span>
-        <IconShoppingCart className="transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconCart className="transition-colors duration-300 group-hover:text-grey-medium" />
       </button>
       <AnimateHeight
         className="fixed right-0 top-nav-height w-96 rounded-l-2xl bg-white shadow-standard-black"
