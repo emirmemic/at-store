@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CounterInput } from '@/components/ui/counter-input';
 import { Input } from '@/components/ui/input';
 import { InputFileUpload } from '@/components/ui/input-file';
 import { Switch } from '@/components/ui/switch';
@@ -127,6 +128,10 @@ export default function InputExamples() {
             <span>I agree to terms and conditions</span>
           </Checkbox>
         </div>
+        <p>Counter input with max value: 10</p>
+        <CounterInput max={10} />
+        <p>Counter input with an error</p>
+        <CounterInput errorMessage="Please enter a valid number" />
         <Button
           size={'xlg'}
           variant={'filled'}

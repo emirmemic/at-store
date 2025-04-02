@@ -4,15 +4,14 @@ import {
   iMac,
   iphone13,
   iphone13ClearCase,
-  iphone14,
   macBookAir,
   macBookAirM3,
   macBookPro,
   macMini,
 } from '@/assets/placeholder-images';
-import { CartItem, NavMenuItem } from '@/components/nav-bar/types';
+import { NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { ProductBase } from '@/lib/types';
+import { ShoppingCartItem, ProductBase } from '@/lib/types';
 
 const placeholderImage = macBookAir;
 const placeholderImage2 = iMac;
@@ -200,57 +199,7 @@ const navMenu: NavMenuItem[] = [
   {
     id: 7,
     label: 'Podrška',
-    href: PAGE_NAMES.ACCESSORIES,
-  },
-];
-const placeholderCart: CartItem[] = [
-  {
-    id: 1,
-    name: 'iPhone 13',
-    price: '1239 KM',
-    image: iphone13,
-  },
-  {
-    id: 2,
-    name: 'MacBook Air M3',
-    price: '2969 KM',
-    image: macBookAirM3,
-  },
-  {
-    id: 3,
-    name: 'iPhone 14',
-    price: '1469 KM',
-    image: iphone14,
-  },
-  {
-    id: 4,
-    name: 'AirPods Pro 2',
-    price: '589 KM',
-    image: airPodsPro2,
-  },
-  {
-    id: 5,
-    name: 'iPhone 13',
-    price: '1239 KM',
-    image: iphone13,
-  },
-  {
-    id: 6,
-    name: 'MacBook Air M3',
-    price: '2969 KM',
-    image: macBookAirM3,
-  },
-  {
-    id: 7,
-    name: 'iPhone 14',
-    price: '1469 KM',
-    image: iphone14,
-  },
-  {
-    id: 8,
-    name: 'AirPods Pro 2',
-    price: '589 KM',
-    image: airPodsPro2,
+    href: PAGE_NAMES.SUPPORT,
   },
 ];
 
@@ -262,6 +211,7 @@ const dummyProducts: ProductBase[] = [
     name: 'MacBook Air',
     original_price: 3199,
     discounted_price: 2969,
+    final_price: 2969,
     image: {
       id: 1,
       documentId: 'macbook-air-m3-256gb-13inch-image',
@@ -269,12 +219,16 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M3 13-inch',
     },
     specifications: ['13-inch', '256GB', '8GB unified', '8C CPU, 8C GPU'],
-    promotional_tagline: 'Novo',
     is_favorite: false,
     tag: 'Akcija',
     chip: {
       id: 1,
       name: 'M3',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 5,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -284,6 +238,7 @@ const dummyProducts: ProductBase[] = [
     name: 'iPhone 13',
     original_price: 2699,
     discounted_price: 1239,
+    final_price: 1239,
     image: {
       id: 2,
       documentId: 'iphone-13-128gb-white-image',
@@ -299,10 +254,14 @@ const dummyProducts: ProductBase[] = [
       'Ceramic Shield',
       '5G capable',
     ],
-    promotional_tagline: 'Akcija - 35% popusta',
     is_favorite: true,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 10,
+      'Sarajevo Alta': 8,
+      'Banja Luka': 5,
+    },
   },
   {
     id: 3,
@@ -311,6 +270,7 @@ const dummyProducts: ProductBase[] = [
     name: 'iPhone 13 Clear Case',
     original_price: 199,
     discounted_price: 139,
+    final_price: 139,
     image: {
       id: 3,
       documentId: 'iphone-13-clear-case-image',
@@ -318,10 +278,14 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'iPhone 13 Clear Case',
     },
     specifications: ['iPhone 13', 'Futrola', 'Clear case', 'Apple'],
-    promotional_tagline: 'Zaštitite svoj iPhone 13',
     is_favorite: false,
     tag: 'Novo',
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
+    },
   },
 ];
 const dummyMacProducts: ProductBase[] = [
@@ -332,6 +296,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'MacBook Air M2',
     original_price: 3799,
     discounted_price: 3499,
+    final_price: 3499,
     image: {
       id: 1,
       documentId: 'macbook-air-m2-512gb-15inch-image',
@@ -339,12 +304,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M2 15-inch',
     },
     specifications: ['15-inch', '512GB', '8GB unified', '8C CPU, 10C GPU'],
-    promotional_tagline: 'Lagan i moćan',
     is_favorite: true,
     tag: 'Novo',
     chip: {
       id: 1,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 5,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -354,6 +323,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'MacBook Pro M3 Max',
     original_price: 7999,
     discounted_price: 7499,
+    final_price: 7499,
     image: {
       id: 2,
       documentId: 'macbook-pro-m3max-1tb-16inch-image',
@@ -361,12 +331,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M3 Max 16-inch',
     },
     specifications: ['16-inch', '1TB', '36GB unified', '12C CPU, 38C GPU'],
-    promotional_tagline: 'Ekstremne performanse',
     is_favorite: false,
     tag: 'Akcija',
     chip: {
       id: 2,
       name: 'M3 Max',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
     },
   },
   {
@@ -376,6 +350,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'Mac Mini M2',
     original_price: 1899,
     discounted_price: 1599,
+    final_price: 1599,
     image: {
       id: 3,
       documentId: 'mac-mini-m2-512gb-image',
@@ -383,12 +358,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Mac Mini M2',
     },
     specifications: ['512GB', '8C CPU, 10C GPU', '16GB unified'],
-    promotional_tagline: 'Kompaktan, ali moćan',
     is_favorite: false,
     tag: 'Novo',
     chip: {
       id: 1,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 3,
+      'Sarajevo Alta': 2,
+      'Banja Luka': 1,
     },
   },
   {
@@ -398,6 +377,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'MacBook Pro M2',
     original_price: 2499,
     discounted_price: 2299,
+    final_price: 2299,
     image: {
       id: 4,
       documentId: 'macbook-pro-m2-1tb-14inch-image',
@@ -405,12 +385,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 14-inch',
     },
     specifications: ['14-inch', '1TB', '16GB unified', '8C CPU, 14C GPU'],
-    promotional_tagline: 'Moć i prenosivost',
     is_favorite: true,
     tag: 'Novo',
     chip: {
       id: 2,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 2,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
     },
   },
   {
@@ -420,6 +404,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'iMac M2',
     original_price: 2499,
     discounted_price: 2299,
+    final_price: 2299,
     image: {
       id: 5,
       documentId: 'imac-m2-24inch-image',
@@ -427,12 +412,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'iMac M2 24-inch',
     },
     specifications: ['24-inch', '8C CPU, 10C GPU', '16GB unified'],
-    promotional_tagline: 'Snažan i elegantan',
     is_favorite: false,
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 4,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -442,6 +431,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'Studio Display',
     original_price: 1799,
     discounted_price: 1599,
+    final_price: 1599,
     image: {
       id: 6,
       documentId: 'studio-display-27inch-image',
@@ -449,10 +439,14 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Studio Display 27-inch',
     },
     specifications: ['27-inch', '5K Retina', 'P3 wide color'],
-    promotional_tagline: 'Savršen za kreativne radove',
     is_favorite: false,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 1,
+      'Sarajevo Alta': 0,
+      'Banja Luka': 0,
+    },
   },
   {
     id: 7,
@@ -461,6 +455,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'New Product Name',
     original_price: 999,
     discounted_price: 899,
+    final_price: 899,
     image: {
       id: 7,
       documentId: 'new-product-image',
@@ -468,12 +463,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'New Product',
     },
     specifications: ['New Spec 1', 'New Spec 2'],
-    promotional_tagline: 'New Tagline',
     is_favorite: false,
     tag: 'Novo',
     chip: {
       id: 3,
       name: 'M3',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 5,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -483,6 +482,7 @@ const dummyMacProducts: ProductBase[] = [
     name: 'MacBook Pro M2',
     original_price: 2999,
     discounted_price: 2799,
+    final_price: 2799,
     image: {
       id: 8,
       documentId: 'macbook-pro-m2-1tb-16inch-image',
@@ -490,12 +490,16 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 16-inch',
     },
     specifications: ['16-inch', '1TB', '32GB unified', '10C CPU, 16C GPU'],
-    promotional_tagline: 'Moć i prenosivost',
     is_favorite: false,
     tag: null,
     chip: {
       id: 2,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 2,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
     },
   },
 ];
@@ -507,6 +511,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'AirPods Pro 2',
     original_price: 649,
     discounted_price: 589,
+    final_price: 589,
     image: {
       id: 9,
       documentId: 'airpods-pro-2-image',
@@ -519,12 +524,16 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    promotional_tagline: 'Novo',
     is_favorite: false,
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 5,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -534,6 +543,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'iPhone 14 Clear Case',
     original_price: 199,
     discounted_price: 139,
+    final_price: 139,
     image: {
       id: 10,
       documentId: 'iphone-14-clear-case-image',
@@ -541,10 +551,14 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Clear Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Clear case', 'Apple'],
-    promotional_tagline: 'Zaštitite svoj iPhone 14',
     is_favorite: false,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
+    },
   },
   {
     id: 3,
@@ -553,6 +567,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'AirPods Max',
     original_price: 649,
     discounted_price: 589,
+    final_price: 589,
     image: {
       id: 11,
       documentId: 'airpods-max-image',
@@ -565,12 +580,16 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    promotional_tagline: 'Novo',
     is_favorite: false,
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
+    },
+    availability_by_store: {
+      'Sarajevo SCC': 5,
+      'Sarajevo Alta': 3,
+      'Banja Luka': 2,
     },
   },
   {
@@ -580,6 +599,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'iPhone 14 Case',
     original_price: 199,
     discounted_price: 139,
+    final_price: 139,
     image: {
       id: 12,
       documentId: 'iphone-14-case-image',
@@ -587,10 +607,14 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Apple'],
-    promotional_tagline: 'Zaštitite svoj iPhone 14',
     is_favorite: false,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
+    },
   },
   {
     id: 5,
@@ -599,6 +623,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'MacBook Air Case',
     original_price: 199,
     discounted_price: 139,
+    final_price: 139,
     image: {
       id: 13,
       documentId: 'macbook-air-case-image',
@@ -606,10 +631,14 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Air Case',
     },
     specifications: ['MacBook Air', 'Futrola', 'Apple'],
-    promotional_tagline: 'Zaštitite svoj MacBook Air',
     is_favorite: false,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
+    },
   },
   {
     id: 6,
@@ -618,6 +647,7 @@ const dummyAccessories: ProductBase[] = [
     name: 'MacBook Pro Case',
     original_price: 199,
     discounted_price: 139,
+    final_price: 139,
     image: {
       id: 14,
       documentId: 'macbook-pro-case-image',
@@ -625,10 +655,32 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Pro Case',
     },
     specifications: ['MacBook Pro', 'Futrola', 'Apple'],
-    promotional_tagline: 'Zaštitite svoj MacBook Pro',
     is_favorite: false,
     tag: null,
     chip: null,
+    availability_by_store: {
+      'Sarajevo SCC': 0,
+      'Sarajevo Alta': 1,
+      'Banja Luka': 0,
+    },
+  },
+];
+const placeholderCart: ShoppingCartItem[] = [
+  {
+    ...dummyProducts[0],
+    quantity_in_cart: 1,
+  },
+  {
+    ...dummyProducts[1],
+    quantity_in_cart: 2,
+  },
+  {
+    ...dummyProducts[2],
+    quantity_in_cart: 1,
+  },
+  {
+    ...dummyAccessories[0],
+    quantity_in_cart: 1,
   },
 ];
 

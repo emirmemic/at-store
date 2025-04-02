@@ -7,10 +7,13 @@ import {
   RelatedProductAccessories,
   SubProductCard,
   InchSelectionTab,
+  ProductCartTableItem,
 } from '@/components/product-cards';
-import { dummyProducts } from '@/data/dummy-data';
+import { AnimateList } from '@/components/transitions';
+import { dummyProducts, placeholderCart } from '@/data/dummy-data';
 export default function ProductCardExamples() {
   const [products, setProducts] = useState(dummyProducts);
+  const [cartItems, setCartItems] = useState(placeholderCart);
   const toggleFavorite = (id: string) => {
     const updatedProducts = products.map((product) => {
       if (product.product_variant_id === id) {
@@ -42,6 +45,21 @@ export default function ProductCardExamples() {
     // eslint-disable-next-line no-console
     console.log('Selected inch:', id);
   };
+  const removeFromCart = (productId: string) => {
+    const updatedCart = cartItems.filter(
+      (product) => product.product_variant_id !== productId
+    );
+    setCartItems(updatedCart);
+  };
+  const handleQuantityChange = (productId: string, newQuantity: number) => {
+    const updatedCart = cartItems.map((product) => {
+      if (product.product_variant_id === productId) {
+        return { ...product, quantity_in_cart: newQuantity };
+      }
+      return product;
+    });
+    setCartItems(updatedCart);
+  };
   return (
     <>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -49,7 +67,7 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Mac dodaci bar</h3>
       <div className="h-[2px] w-full bg-grey"></div>
-      <MacAccessoriesBar />
+      {/* <MacAccessoriesBar /> */}
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Product Cards </h3>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -84,6 +102,20 @@ export default function ProductCardExamples() {
             onSelectInch={handleSelectInch}
           />
         </div>
+      </div>
+      <div className="flex w-full flex-col gap-2">
+        <AnimateList
+          getKey={(item) => item.product_variant_id}
+          items={cartItems}
+          renderItem={(item) => (
+            <ProductCartTableItem
+              key={item.product_variant_id}
+              product={item}
+              onQuantityChange={handleQuantityChange}
+              onRemove={removeFromCart}
+            />
+          )}
+        />
       </div>
     </>
   );

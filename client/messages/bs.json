@@ -552,10 +552,13 @@
     "back": "Nazad",
     "buyNow": "Kupi sad",
     "choose": "Izaberi",
+    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite.",
+    "decrement": "Smanji",
     "delivery": "Dostava",
     "educationDiscount": "EDU popust",
     "guest": "Gost",
     "hi": "Zdravo",
+    "increment": "Povećaj",
     "keyboards": "Tastature",
     "learnMore": "Saznaj više",
     "macAccessories": "Mac dodaci",
@@ -563,11 +566,11 @@
     "newsletter": "Newsletter",
     "paymentMethods": "Načini plaćanja",
     "protection": "Zaštita",
+    "removeItem": "Ukloni stavku",
     "seeAllMacAccessories": "Pogledajte sve Mac dodatke",
     "tradeIn": "Trade-in",
     "view": "Pogledaj",
-    "view_details": "Pogledaj detalje {productName}",
-    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite."
+    "view_details": "Pogledaj detalje {productName}"
   },
   "atBusinessPage": {
     "title": "At Business",

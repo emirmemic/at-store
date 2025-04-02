@@ -18,11 +18,4 @@ interface NavMenuItem {
 const POPUP_TYPES = ['none', 'menu', 'search'] as const;
 type PopupType = (typeof POPUP_TYPES)[number];
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: string;
-  image: StaticImageData;
-}
-
-export type { NavMenuItem, NavSubLinkItem, CartItem, PopupType };
+export type { NavMenuItem, NavSubLinkItem, PopupType };

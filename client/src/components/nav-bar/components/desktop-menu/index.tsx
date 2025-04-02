@@ -8,13 +8,15 @@ import {
   DesktopSearch,
   SiteLogo,
 } from '@/components/nav-bar/components';
-import { CartItem, NavMenuItem, PopupType } from '@/components/nav-bar/types';
+import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
+import { ShoppingCartItem, UserInformation } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopMenuProps {
   menuItems: NavMenuItem[];
   className?: string;
-  cart: CartItem[];
+  user: UserInformation | null;
+  cart: ShoppingCartItem[];
 }
 export default function DesktopMenu({
   menuItems,

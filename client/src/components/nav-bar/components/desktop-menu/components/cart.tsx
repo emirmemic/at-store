@@ -3,14 +3,14 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
-import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
-import { IconCart } from '@/components/nav-bar/icons';
-import { CartItem } from '@/components/nav-bar/types';
+import { IconClose, IconTrash, IconShoppingCart } from '@/components/icons';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
+import { CURRENCY } from '@/lib/constants';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { ShoppingCartItem } from '@/lib/types';
 
 const NoItems = ({ text }: { text: string }) => (
   <div className="flex flex-col items-center justify-center gap-2 px-6 pb-14 pt-4">
@@ -19,32 +19,29 @@ const NoItems = ({ text }: { text: string }) => (
   </div>
 );
 
-const ListItem = ({ item }: { item: CartItem }) => (
+const ListItem = ({ item }: { item: ShoppingCartItem }) => (
   <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
     <div className="flex h-32 w-36 items-center justify-center">
       <Image
         alt={item.name}
         className="h-full w-full object-contain"
         height={100}
-        src={item.image}
+        src={item.image.url}
         width={100}
       />
     </div>
     <div className="flex grow flex-col gap-2">
       <p className="paragraph-1">{item.name}</p>
-      <p className="paragraph-1">{item.price}</p>
+      <p className="paragraph-1">{`${item.final_price} ${CURRENCY}`}</p>
     </div>
     <Button className="group absolute bottom-1 right-1 p-2" onClick={() => {}}>
-      <IconTrash
-        className="transition-colors duration-300 group-hover:text-grey-darker"
-        size={24}
-      />
+      <IconTrash className="h-6 w-6 transition-colors duration-300 group-hover:text-grey-darker" />
     </Button>
   </div>
 );
 
 interface ItemsInCartProps {
-  cart: CartItem[];
+  cart: ShoppingCartItem[];
   onClickButton: () => void;
 }
 const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
@@ -82,7 +79,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
 };
 
 interface DesktopCartProps {
-  cart: CartItem[];
+  cart: ShoppingCartItem[];
 }
 export default function DesktopCart({ cart }: DesktopCartProps) {
   const t = useTranslations('navbar');
@@ -101,7 +98,7 @@ export default function DesktopCart({ cart }: DesktopCartProps) {
         onClick={togglePopup}
       >
         <span className="sr-only">{t('account')}</span>
-        <IconCart className="transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconShoppingCart className="transition-colors duration-300 group-hover:text-grey-medium" />
       </button>
       <AnimateHeight
         className="fixed right-0 top-nav-height w-96 rounded-l-2xl bg-white shadow-standard-black"

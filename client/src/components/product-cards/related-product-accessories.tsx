@@ -17,9 +17,8 @@ export default function RelatedProductAccessories({
   onAddToCart,
 }: ProductCardProps) {
   const t = useTranslations('common');
-  const { name, original_price, image, product_link, discounted_price } =
-    product;
-  const finalPrice = discounted_price ? discounted_price : original_price;
+  const { name, image, product_link, final_price } = product;
+
   return (
     <div
       className={cn(
@@ -46,7 +45,7 @@ export default function RelatedProductAccessories({
         <p className="flex min-h-16 items-center justify-center text-center heading-4">
           {name}
         </p>
-        <p className="text-center paragraph-1">{`${finalPrice} ${CURRENCY}`}</p>
+        <p className="text-center paragraph-1">{`${final_price} ${CURRENCY}`}</p>
       </div>
       <Button
         className="relative z-10"
