@@ -57,6 +57,11 @@ const navMenu: NavMenuItem[] = [
         label: 'Zašto Mac?',
         href: PAGE_NAMES.MAC,
       },
+      {
+        id: 7,
+        label: 'Pogledaj sve Mac',
+        href: PAGE_NAMES.MAC,
+      },
     ],
   },
   {
@@ -81,6 +86,11 @@ const navMenu: NavMenuItem[] = [
         label: 'iPad Mini',
         logo: placeholderImage2,
         href: placeholderPage,
+      },
+      {
+        id: 4,
+        label: 'Pogledaj sve iPad',
+        href: PAGE_NAMES.IPAD,
       },
     ],
   },
@@ -107,6 +117,11 @@ const navMenu: NavMenuItem[] = [
         logo: placeholderImage,
         href: placeholderPage,
       },
+      {
+        id: 5,
+        label: 'Pogledaj sve iPhone',
+        href: PAGE_NAMES.IPHONE,
+      },
     ],
   },
   {
@@ -132,6 +147,11 @@ const navMenu: NavMenuItem[] = [
         logo: placeholderImage,
         href: placeholderPage,
       },
+      {
+        id: 5,
+        label: 'Pogledaj sve Apple Watch',
+        href: PAGE_NAMES.WATCH,
+      },
     ],
   },
   {
@@ -156,6 +176,11 @@ const navMenu: NavMenuItem[] = [
         label: 'AirPods Pro',
         logo: placeholderImage,
         href: placeholderPage,
+      },
+      {
+        id: 5,
+        label: 'Pogledaj sve AirPods',
+        href: PAGE_NAMES.AIRPODS,
       },
     ],
   },
@@ -192,6 +217,11 @@ const navMenu: NavMenuItem[] = [
         id: 5,
         label: 'Apple TV',
         logo: placeholderImage,
+        href: PAGE_NAMES.ACCESSORIES,
+      },
+      {
+        id: 7,
+        label: 'Pogledaj sve dodatke',
         href: PAGE_NAMES.ACCESSORIES,
       },
     ],
@@ -679,7 +709,7 @@ const placeholderCart: ShoppingCartItem[] = [
     quantity_in_cart: 1,
   },
   {
-    ...dummyAccessories[0],
+    ...dummyAccessories[2],
     quantity_in_cart: 1,
   },
 ];

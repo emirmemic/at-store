@@ -18,4 +18,8 @@ interface NavMenuItem {
 const POPUP_TYPES = ['none', 'menu', 'search'] as const;
 type PopupType = (typeof POPUP_TYPES)[number];
 
-export type { NavMenuItem, NavSubLinkItem, PopupType };
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const MOBILE_MENU_TYPES = ['list', 'sub-list', 'search'] as const;
+type MobileMenuType = (typeof MOBILE_MENU_TYPES)[number];
+
+export type { NavMenuItem, NavSubLinkItem, PopupType, MobileMenuType };

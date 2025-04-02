@@ -1,38 +1,27 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface AnimateSlotsProps {
+  currentSlotKey: string;
+  children: React.ReactNode;
+  duration?: number;
+}
 export default function AnimateSlots({
-  firstSlot,
-  secondSlot,
-  isFirstSlotVisible,
-}: {
-  firstSlot: React.ReactNode;
-  secondSlot: React.ReactNode;
-  isFirstSlotVisible: boolean;
-}) {
+  currentSlotKey,
+  children,
+  duration = 0.3,
+}: AnimateSlotsProps) {
   return (
     <AnimatePresence mode="wait">
-      {isFirstSlotVisible ? (
-        <motion.div
-          key="first-slot"
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          initial={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {firstSlot}
-        </motion.div>
-      ) : (
-        <motion.div
-          key="second-slot"
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          {secondSlot}
-        </motion.div>
-      )}
+      <motion.div
+        key={currentSlotKey}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 10 }}
+        initial={{ opacity: 0, x: 10 }}
+        transition={{ duration, ease: 'easeInOut' }}
+      >
+        {children}
+      </motion.div>
     </AnimatePresence>
   );
 }
