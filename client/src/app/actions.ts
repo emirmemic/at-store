@@ -1,6 +1,5 @@
 'use server';
 import { cookies } from 'next/headers';
-// eslint-disable-next-line no-restricted-imports
 import { redirect } from 'next/navigation';
 
 import { PAGE_NAMES } from '@/i18n/page-names';
