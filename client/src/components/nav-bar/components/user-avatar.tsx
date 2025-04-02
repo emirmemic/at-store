@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 
-export default function UserAvatar() {
+export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
   const t = useTranslations();
 
   const user = useContext(UserContext).user;
@@ -32,7 +32,7 @@ export default function UserAvatar() {
       <p className="paragraph-5">{t('common.hi')},</p>
       <Link
         href={isMobile ? PAGE_NAMES.ACCOUNT : PAGE_NAMES.ACCOUNT_DASHBOARD}
-        onClick={() => {}}
+        onClick={closeMenu}
       >
         <span className="sr-only">{t('navbar.account')}</span>
         <Avatar>

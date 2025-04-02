@@ -29,7 +29,7 @@ export default function MobileActions({
   return (
     <div className={cn('flex flex-col gap-2', className)}>
       <div className="flex items-center justify-between">
-        <UserAvatar />
+        <UserAvatar closeMenu={closeMenu} />
         <div className="flex gap-3">
           <Link
             aria-label={t('favorites')}
