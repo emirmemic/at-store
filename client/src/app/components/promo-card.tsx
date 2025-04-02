@@ -6,6 +6,7 @@ import { Button, TransparentVariant } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
@@ -95,7 +96,9 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
               src={product.image?.url}
               width={400}
             />
-            <p className="heading-4">{product.description}</p>
+            <DialogDescription className="heading-4">
+              {product.description}
+            </DialogDescription>
           </div>
           <Button size={'lg'} typography={'button1'} variant="filled">
             {t('common.buyNow')}
