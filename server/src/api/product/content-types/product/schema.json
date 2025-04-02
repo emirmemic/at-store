@@ -11,10 +11,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "productId": {
-      "type": "uid",
-      "required": true
-    },
     "name": {
       "type": "string",
       "required": true,
@@ -28,8 +24,7 @@
       "multiple": false,
       "required": false,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ]
     },
     "orders": {
@@ -37,6 +32,23 @@
       "relation": "manyToMany",
       "target": "api::order.order",
       "mappedBy": "products"
+    },
+    "original_price": {
+      "required": true,
+      "type": "decimal"
+    },
+    "discounted_price": {
+      "type": "decimal"
+    },
+    "specifications": {
+      "type": "json"
+    },
+    "tag": {
+      "type": "enumeration",
+      "enum": [
+        "akcija",
+        "novo"
+      ]
     }
   }
 }

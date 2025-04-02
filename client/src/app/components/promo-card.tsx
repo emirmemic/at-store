@@ -28,35 +28,33 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
   const { image, name } = product;
 
   return (
-    <>
-      <div className="relative w-full">
-        <StrapiImage
-          priority
-          alt={image?.alternativeText || name}
-          className="aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-large-black"
-          height={474}
-          sizes="(max-width: 48rem) 25.875rem, (max-width: 64rem) 25rem, 37.5rem"
-          src={image?.url}
-          width={600}
+    <div className="relative w-full">
+      <StrapiImage
+        priority
+        alt={image?.alternativeText || name}
+        className="shadow-large-black aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover"
+        height={474}
+        sizes="(max-width: 48rem) 25.875rem, (max-width: 64rem) 25rem, 37.5rem"
+        src={image?.url}
+        width={600}
+      />
+      <div
+        className={cn(
+          'absolute inset-0 top-8 p-2 text-center',
+          textColor === 'black' ? 'text-black' : 'text-white'
+        )}
+      >
+        <h2 className="heading-4 lg:heading-3">{name}</h2>
+        <h3 className="heading-5 lg:heading-4">{caption}</h3>
+        <LearnMoreDialog
+          learnMoreVariant={learnMoreVariant}
+          product={product}
         />
-        <div
-          className={cn(
-            'absolute inset-0 top-8 p-2 text-center',
-            textColor === 'black' ? 'text-black' : 'text-white'
-          )}
-        >
-          <h2 className="heading-4 lg:heading-3">{name}</h2>
-          <h3 className="heading-5 lg:heading-4">{caption}</h3>
-          <LearnMoreDialog
-            learnMoreVariant={learnMoreVariant}
-            product={product}
-          />
-          <Button size={'md'} typography={'button2'} variant={'filled'}>
-            {t('buyNow')}
-          </Button>
-        </div>
+        <Button size={'md'} typography={'button2'} variant={'filled'}>
+          {t('buyNow')}
+        </Button>
       </div>
-    </>
+    </div>
   );
 }
 

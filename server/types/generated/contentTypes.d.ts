@@ -669,7 +669,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     orderStatus: Schema.Attribute.Enumeration<
-      ['waiting', 'finished', 'rejected']
+      ['pending', 'delivered', 'canceled', 'shipped']
     > &
       Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
@@ -700,7 +700,8 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    image: Schema.Attribute.Media<'images' | 'files'>;
+    discounted_price: Schema.Attribute.Decimal;
+    image: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -709,8 +710,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
-    productId: Schema.Attribute.UID & Schema.Attribute.Required;
+    original_price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    specifications: Schema.Attribute.JSON;
+    tag: Schema.Attribute.Enumeration<['akcija', 'novo']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

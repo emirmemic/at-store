@@ -1,14 +1,38 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
-import { ProductBase } from '@/lib/types';
+import { LocalizationKey, OrderStatusEnum, ProductBase } from '@/lib/types';
 
 export interface OrderProductCardProps {
   id: number;
   product: ProductBase;
-  orderStatus: string;
+  orderStatus: OrderStatusEnum;
   orderNumber: number;
   orderDate: string;
+}
+
+function getTranslation(
+  orderStatus: OrderStatusEnum,
+  t: LocalizationKey
+): string {
+  let translation: string;
+  switch (orderStatus) {
+    case 'pending':
+      translation = t('pending');
+      break;
+    case 'shipped':
+      translation = t('shipped');
+      break;
+    case 'delivered':
+      translation = t('delivered');
+      break;
+    case 'canceled':
+      translation = t('canceled');
+      break;
+    default:
+      translation = 'Unknown';
+  }
+  return translation;
 }
 
 function TextItem({ text, spanText }: { text: string; spanText?: string }) {
@@ -43,7 +67,7 @@ export default function OrderProductCard(props: OrderProductCardProps) {
       />
       <div>
         <TextItem text={name} />
-        <TextItem text={orderStatus} />
+        <TextItem text={getTranslation(orderStatus, t)} />
         <TextItem
           spanText={`${t('orderNumber')}: `}
           text={orderNumber.toString()}

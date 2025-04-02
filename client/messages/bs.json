@@ -527,12 +527,20 @@
   "accountPage": {
     "title": "Korisnicki racun",
     "dashboard": {
-      "title": "Početna"
+      "title": "Početna",
+      "youHad": "Imali ste",
+      "orders": "narudžbi",
+      "totalSpent": "ukupno ste potrošili",
+      "lastOrderYouMade": "Posljednja narudžba koju ste napravili"
     },
     "orders": {
       "title": "Narudžbe",
       "orderNumber": "Order no",
-      "orderDate": "Order date"
+      "orderDate": "Order date",
+      "pending": "Na čekanju",
+      "shipped": "Poslano",
+      "delivered": "Uspješno dostavljeno",
+      "canceled": "Otkazano"
     },
     "details": {
       "title": "Detalji korisnika"

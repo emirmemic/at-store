@@ -60,19 +60,17 @@ export default async function Page() {
   const { title, promo_cards } = data;
 
   return (
-    <>
-      <div className="container-max-width">
-        <h1 className="p-4">{title}</h1>
-        <Button asChild size={'lg'} variant={'filled'}>
-          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
-        </Button>
-        <div className="grid gap-8 py-14 md:grid-cols-2">
-          {promo_cards &&
-            promo_cards.map((promoCard) => (
-              <PromoCard {...promoCard} key={promoCard.id} />
-            ))}
-        </div>
+    <div className="container-max-width">
+      <h1 className="p-4">{title}</h1>
+      <Button asChild size={'lg'} variant={'filled'}>
+        <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
+      </Button>
+      <div className="grid gap-8 py-14 md:grid-cols-2">
+        {promo_cards &&
+          promo_cards.map((promoCard) => (
+            <PromoCard {...promoCard} key={promoCard.id} />
+          ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -14,9 +14,10 @@
     "orderStatus": {
       "type": "enumeration",
       "enum": [
-        "waiting",
-        "finished",
-        "rejected"
+        "pending",
+        "delivered",
+        "canceled",
+        "shipped"
       ],
       "required": true
     },

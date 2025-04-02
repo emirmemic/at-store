@@ -8,7 +8,7 @@ interface AuthError {
 interface Order {
   id: number;
   products: ProductBase[];
-  orderStatus: string;
+  orderStatus: OrderStatusEnum;
   orderNumber: number;
   orderDate: string;
 }
@@ -26,4 +26,6 @@ interface AuthResponse {
   user: UserInformation;
 }
 
-export type { AuthError, AuthResponse, UserInformation };
+type OrderStatusEnum = 'pending' | 'delivered' | 'canceled' | 'shipped';
+
+export type { AuthError, AuthResponse, UserInformation, OrderStatusEnum };
