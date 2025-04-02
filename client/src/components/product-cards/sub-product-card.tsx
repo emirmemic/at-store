@@ -2,12 +2,12 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-import { ProductType } from '@/lib/types';
+import { ProductBase } from '@/lib/types';
 
 import { Button } from '../ui/button';
 
 interface SubProductCardProps {
-  product: ProductType;
+  product: ProductBase;
   onClick?: () => void;
 }
 export default function SubProductCard({

@@ -13,6 +13,10 @@ interface ProductBase {
   promotional_tagline?: string;
   is_favorite: boolean;
   tag?: string | null;
+  chip: {
+    id: number;
+    name: string;
+  } | null;
 }
 
 export type { ProductBase };

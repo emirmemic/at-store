@@ -271,6 +271,10 @@ const dummyProducts: ProductBase[] = [
     promotional_tagline: 'Novo',
     is_favorite: false,
     tag: 'Akcija',
+    chip: {
+      id: 1,
+      name: 'M3',
+    },
   },
   {
     product_variant_id: 'iphone-13-128gb-white',
@@ -296,6 +300,7 @@ const dummyProducts: ProductBase[] = [
     promotional_tagline: 'Akcija - 35% popusta',
     is_favorite: true,
     tag: null,
+    chip: null,
   },
   {
     product_variant_id: 'iphone13ClearCase',
@@ -313,6 +318,7 @@ const dummyProducts: ProductBase[] = [
     promotional_tagline: 'Zaštitite svoj iPhone 13',
     is_favorite: false,
     tag: 'Novo',
+    chip: null,
   },
 ];
 const dummyMacProducts: ProductBase[] = [
@@ -332,6 +338,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Lagan i moćan',
     is_favorite: true,
     tag: 'Novo',
+    chip: {
+      id: 1,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'macbook-pro-m3max-1tb-16inch',
@@ -349,6 +359,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Ekstremne performanse',
     is_favorite: false,
     tag: 'Akcija',
+    chip: {
+      id: 2,
+      name: 'M3 Max',
+    },
   },
   {
     product_variant_id: 'mac-mini-m2-512gb',
@@ -366,6 +380,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Kompaktan, ali moćan',
     is_favorite: false,
     tag: 'Novo',
+    chip: {
+      id: 1,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'macbook-pro-m2-1tb-14inch',
@@ -383,6 +401,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Moć i prenosivost',
     is_favorite: true,
     tag: 'Novo',
+    chip: {
+      id: 2,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'imac-m2-24inch',
@@ -400,6 +422,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Snažan i elegantan',
     is_favorite: false,
     tag: null,
+    chip: {
+      id: 1,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'studio-display-27inch',
@@ -417,6 +443,7 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Savršen za kreativne radove',
     is_favorite: false,
     tag: null,
+    chip: null,
   },
   {
     product_variant_id: 'new-product-id',
@@ -434,6 +461,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'New Tagline',
     is_favorite: false,
     tag: 'Novo',
+    chip: {
+      id: 3,
+      name: 'M3',
+    },
   },
   {
     product_variant_id: 'macbook-pro-m2-1tb-16inch',
@@ -451,6 +482,10 @@ const dummyMacProducts: ProductBase[] = [
     promotional_tagline: 'Moć i prenosivost',
     is_favorite: false,
     tag: null,
+    chip: {
+      id: 2,
+      name: 'M2',
+    },
   },
 ];
 const dummyAccessories: ProductBase[] = [
@@ -475,6 +510,10 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Novo',
     is_favorite: false,
     tag: null,
+    chip: {
+      id: 1,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'iphone-14-clear-case',
@@ -492,6 +531,7 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Zaštitite svoj iPhone 14',
     is_favorite: false,
     tag: null,
+    chip: null,
   },
   {
     product_variant_id: 'airpods-max',
@@ -514,6 +554,10 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Novo',
     is_favorite: false,
     tag: null,
+    chip: {
+      id: 1,
+      name: 'M2',
+    },
   },
   {
     product_variant_id: 'iphone-14-case',
@@ -531,6 +575,7 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Zaštitite svoj iPhone 14',
     is_favorite: false,
     tag: null,
+    chip: null,
   },
   {
     product_variant_id: 'macbook-air-case',
@@ -548,6 +593,7 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Zaštitite svoj MacBook Air',
     is_favorite: false,
     tag: null,
+    chip: null,
   },
   {
     product_variant_id: 'macbook-pro-case',
@@ -565,6 +611,7 @@ const dummyAccessories: ProductBase[] = [
     promotional_tagline: 'Zaštitite svoj MacBook Pro',
     is_favorite: false,
     tag: null,
+    chip: null,
   },
 ];
 
