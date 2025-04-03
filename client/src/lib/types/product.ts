@@ -31,4 +31,5 @@ interface ProductBase {
 interface ShoppingCartItem extends ProductBase {
   quantity_in_cart: number;
 }
+
 export type { ProductBase, ShoppingCartItem };

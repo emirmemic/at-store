@@ -13,24 +13,17 @@ import { Card } from './components';
 export default function Page() {
   const t = useTranslations('accountPage.dashboard');
   const { user } = useContext(UserContext);
+
   const ordersCount = user?.orders?.length ?? 0;
   const validOrders = user?.orders?.filter(
     (order) => order.orderStatus !== 'canceled'
   );
-  const totalSpent =
-    validOrders?.reduce(
-      (total, order) =>
-        total +
-        order.products.reduce(
-          (orderTotal, product) =>
-            orderTotal +
-            (Number(product.discounted_price) ||
-              Number(product.original_price) ||
-              0),
-          0
-        ),
-      0
-    ) ?? 0;
+  const allProducts = validOrders?.flatMap((order) => order.products) || [];
+  const totalSpent = allProducts.reduce((orderTotal, product) => {
+    const price =
+      Number(product.discounted_price) || Number(product.original_price) || 0;
+    return orderTotal + price;
+  }, 0);
   const lastOrder = user?.orders?.sort(
     (a, b) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime()
   )[0];
@@ -40,7 +33,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-9">
-      <div className="flex justify-center gap-11 md:justify-start lg:gap-12">
+      <div className="flex justify-center gap-4 md:justify-start md:gap-11 lg:gap-12">
         <Card
           className={cardStyling}
           count={ordersCount}
