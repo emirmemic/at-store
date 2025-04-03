@@ -1,8 +1,10 @@
 import { IconAtStoreLogo } from '../icons';
 
-export default function MonoAppleBlock() {
+export default function MonoAppleBlock({ className }: { className?: string }) {
   return (
-    <div className="flex flex-col items-center justify-between gap-14 rounded-2xl bg-blue-steel px-6 py-14 md:flex-row md:px-9 md:py-10 lg:gap-20 lg:p-14">
+    <div
+      className={`flex flex-col items-center justify-between gap-14 rounded-2xl bg-blue-steel px-6 py-14 md:flex-row md:px-9 md:py-10 lg:gap-20 lg:p-14 ${className}`}
+    >
       <IconAtStoreLogo
         className="text-white"
         height={64}

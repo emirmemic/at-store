@@ -75,9 +75,9 @@ export default function ContentPlaceholder({
   const { Icon, title } = titleCardContent;
 
   return (
-    <div className="flex-1 flex-col">
+    <div className="flex flex-1 flex-col">
       <TitleCard Icon={Icon} title={title} />
-      <div className="py-10">{children}</div>
+      <div className="flex-1 py-10">{children}</div>
     </div>
   );
 }

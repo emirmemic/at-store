@@ -535,6 +535,7 @@
     },
     "orders": {
       "title": "Narudžbe",
+      "noOrders": "Niste imali narudžbi",
       "orderNumber": "Order no",
       "orderDate": "Order date",
       "pending": "Na čekanju",
@@ -558,7 +559,7 @@
   "common": {
     "adapters": "Adapteri",
     "back": "Nazad",
-    "buyNow": "Kupi sad",
+    "buyNow": "Kupi sada",
     "choose": "Izaberi",
     "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite.",
     "decrement": "Smanji",
