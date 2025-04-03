@@ -5,6 +5,7 @@ import {
   TypographyExamples,
   BlocksExamples,
   ProductCardExamples,
+  PopupExamples,
 } from '@/app/[locale]/global-components/components';
 
 export default async function Page() {
@@ -16,6 +17,7 @@ export default async function Page() {
       <InputExamples />
       <BlocksExamples />
       <ProductCardExamples />
+      <PopupExamples />
     </div>
   );
 }

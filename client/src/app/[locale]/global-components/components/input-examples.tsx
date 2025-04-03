@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { CounterInput } from '@/components/ui/counter-input';
 import { Input } from '@/components/ui/input';
 import { InputFileUpload } from '@/components/ui/input-file';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -118,9 +119,18 @@ export default function InputExamples() {
             onCheckedChange={setCheckedOne}
           />
         </div>
-        <div className="flex flex-col">
+        <p className="border-b heading-4">Checkbox Examples</p>
+        <div className="flex flex-col gap-2">
           <Checkbox checked={checkedThree} onCheckedChange={setCheckedThree} />
-          <Checkbox checked={checkedFour} onCheckedChange={setCheckedFour} />
+          <p>Checkbox with a label:</p>
+          <Checkbox
+            checked={checkedFour}
+            labelClassName="flex items-center gap-2 paragraph-2"
+            onCheckedChange={setCheckedFour}
+          >
+            <span>I agree to terms and conditions</span>
+          </Checkbox>
+          <p>Checkbox with an error and label:</p>
           <Checkbox
             errorMessage="Please agree to terms and conditions!"
             labelClassName="flex items-center gap-2 paragraph-2"
@@ -128,10 +138,23 @@ export default function InputExamples() {
             <span>I agree to terms and conditions</span>
           </Checkbox>
         </div>
-        <p>Counter input with max value: 10</p>
-        <CounterInput max={10} />
-        <p>Counter input with an error</p>
-        <CounterInput errorMessage="Please enter a valid number" />
+        <p className="border-b heading-4">Radio Group Example</p>
+        <div className="flex flex-col">
+          <RadioGroup
+            defaultValue="comfortable"
+            errorMessage="Please select an option"
+          >
+            <RadioGroupItem id="r1" value="default">
+              <span>Default</span>
+            </RadioGroupItem>
+            <RadioGroupItem id="r2" value="comfortable">
+              <span>Comfortable</span>
+            </RadioGroupItem>
+            <RadioGroupItem id="r3" value="compact">
+              <span>Compact</span>
+            </RadioGroupItem>
+          </RadioGroup>
+        </div>
         <Button
           size={'xlg'}
           variant={'filled'}

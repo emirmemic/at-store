@@ -45,7 +45,7 @@ export default function ProductCard({
       {product_link && (
         <Link className="z-1 absolute inset-0" href={product_link}>
           <span className="sr-only">
-            {t('view_details', { productName: name })}
+            {t('viewDetailsWithName', { productName: name })}
           </span>
         </Link>
       )}

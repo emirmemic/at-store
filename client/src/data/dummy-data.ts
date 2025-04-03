@@ -126,7 +126,7 @@ const navMenu: NavMenuItem[] = [
   },
   {
     id: 4,
-    label: 'Apple Watch',
+    label: 'Watch',
     href: PAGE_NAMES.WATCH,
     subLinks: [
       {
@@ -292,6 +292,29 @@ const dummyProducts: ProductBase[] = [
       'Sarajevo Alta': 8,
       'Banja Luka': 5,
     },
+    details: `
+    <p><strong>Zaslon:</strong> Super Retina XDR</p>
+    <p><strong>Kapaciteti:</strong> 128 GB, 256 GB, 512 GB</p>
+    <p><strong>Čip:</strong> A15 Bionic</p>
+
+    <h3>Boja</h3>
+    <ul>
+      <li>(PRODUCT)RED</li>
+      <li>Zvjezdano bijela</li>
+      <li>Ponoćno crna</li>
+      <li>Plava</li>
+      <li>Ružičasta</li>
+      <li>Zelena</li>
+    </ul>
+
+    <h3>Specifikacije</h3>
+    <ol>
+      <li>6,1-inčni (dijagonalno) OLED zaslon od ruba do ruba</li>
+      <li>Sustav s dvije kamere od 12 MP</li>
+      <li>6-jezgreni procesor (2 performanse + 4 učinkovitost)</li>
+      <li>Dugi vijek trajanja baterije</li>
+      <li>iOS podrška s redovitim ažuriranjima</li>
+    </ol>`,
   },
   {
     id: 3,

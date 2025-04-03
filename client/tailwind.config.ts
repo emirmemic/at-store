@@ -1,3 +1,4 @@
+import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 import { PluginAPI } from 'tailwindcss/types/config';
 import animate from 'tailwindcss-animate';
@@ -13,6 +14,9 @@ export default {
     extend: {
       fontFamily: {
         'sf-pro': ['var(--font-sf-pro)', 'sans-serif'],
+      },
+      screens: {
+        md: '840px',
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -132,8 +136,10 @@ export default {
       },
     },
   },
+
   plugins: [
     animate,
+    typography,
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.typography-heading': {

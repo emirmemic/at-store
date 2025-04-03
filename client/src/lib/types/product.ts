@@ -1,10 +1,6 @@
+import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types/base';
 
-export const STORE_NAMES = [
-  'Sarajevo SCC',
-  'Sarajevo Alta',
-  'Banja Luka',
-] as const;
 type StoreName = (typeof STORE_NAMES)[number];
 
 interface ProductBase {
@@ -26,6 +22,7 @@ interface ProductBase {
     name: string;
   } | null;
   availability_by_store: Record<StoreName, number>;
+  details?: string;
 }
 
 interface ShoppingCartItem extends ProductBase {

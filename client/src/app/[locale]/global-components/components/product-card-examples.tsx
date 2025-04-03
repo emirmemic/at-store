@@ -67,7 +67,7 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Mac dodaci bar</h3>
       <div className="h-[2px] w-full bg-grey"></div>
-      {/* <MacAccessoriesBar /> */}
+      <MacAccessoriesBar />
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Product Cards </h3>
       <div className="h-[2px] w-full bg-grey"></div>

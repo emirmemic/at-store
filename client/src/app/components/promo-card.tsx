@@ -81,7 +81,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
       </DialogTrigger>
       <DialogContent
         aria-describedby={t('homepage.promoCard.dialogContentDescription')}
-        className="px-8 py-16 md:px-6 md:py-16 lg:px-14"
+        className="h-fit max-h-[890px] w-full max-w-[90%] overflow-auto rounded-2xl border bg-background px-8 py-16 shadow-lg md:w-[90%] md:max-w-[970px] md:px-6 md:py-16 lg:px-14"
       >
         <div className="flex flex-col items-center justify-center gap-5 md:gap-16">
           <DialogTitle>{product.name}</DialogTitle>

@@ -46,7 +46,7 @@ export default function ProductCartTableItem({
       )}
     >
       <div className="flex items-center gap-3 pr-8 md:col-span-3 md:grid md:grid-cols-3 md:gap-4 md:p-0">
-        <div className="col-span-1 h-32 w-32">
+        <div className="col-span-1 mb-2 h-32 w-32">
           <Image
             alt={product.name}
             className="h-full w-full object-contain"

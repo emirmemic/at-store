@@ -561,13 +561,15 @@
     "back": "Nazad",
     "buyNow": "Kupi sada",
     "choose": "Izaberi",
-    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite.",
     "decrement": "Smanji",
+    "chooseShop": "Izaberite poslovnicu",
+    "continue": "Nastavi",
     "delivery": "Dostava",
     "educationDiscount": "EDU popust",
     "guest": "Gost",
     "hi": "Zdravo",
     "increment": "Povećaj",
+    "home": "Početna",
     "keyboards": "Tastature",
     "learnMore": "Saznaj više",
     "macAccessories": "Mac dodaci",
@@ -579,11 +581,13 @@
     "seeAllMacAccessories": "Pogledajte sve Mac dodatke",
     "tradeIn": "Trade-in",
     "view": "Pogledaj",
-    "view_details": "Pogledaj detalje {productName}"
+    "viewDetailsWithName": "Pogledaj detalje {productName}",
+    "viewDetails": "Pogledaj detalje"
   },
   "atBusinessPage": {
     "title": "At Business",
     "buttonText": "Kupi Sada",
+    "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite.",
     "sectionTitle": "Odaberi svoj Mac",
     "macBookAir": "MacBook Air M1",
     "description": "AT Business je dio grupacije AT Networks koji se bavi prodajom sa pravnim licima.",
@@ -599,5 +603,8 @@
       "title": "iPad",
       "description": "Ukoliko Vam je potrebna veća količina iPad uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
     }
+  },
+  "errors": {
+    "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."
   }
 }
