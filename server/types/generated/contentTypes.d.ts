@@ -437,7 +437,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
   attributes: {
     author: Schema.Attribute.Relation<'manyToOne', 'api::author.author'>;
-    blocks: Schema.Attribute.DynamicZone<[]>;
     category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     cover: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     createdAt: Schema.Attribute.DateTime;
@@ -453,8 +452,10 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
+    markdownText: Schema.Attribute.RichText;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
+    textEditorWithBlocks: Schema.Attribute.Blocks;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -523,6 +524,64 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
+  collectionName: 'complaints';
+  info: {
+    description: '';
+    displayName: 'Complaint';
+    pluralName: 'complaints';
+    singularName: 'complaint';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    billImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deviceImage: Schema.Attribute.Media<'images'>;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::complaint.complaint'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+        minLength: 20;
+      }>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    phoneNumber: Schema.Attribute.BigInteger &
+      Schema.Attribute.SetMinMax<
+        {
+          max: '12';
+          min: '8';
+        },
+        string
+      >;
+    publishedAt: Schema.Attribute.DateTime;
+    surname: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    warrantyImage: Schema.Attribute.Media<'images'>;
   };
 }
 
@@ -1172,6 +1231,7 @@ declare module '@strapi/strapi' {
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
+      'api::complaint.complaint': ApiComplaintComplaint;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::order.order': ApiOrderOrder;

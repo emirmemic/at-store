@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "complaints",
+  "info": {
+    "singularName": "complaint",
+    "pluralName": "complaints",
+    "displayName": "Complaint",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "minLength": 3,
+      "unique": false
+    },
+    "surname": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "minLength": 3
+    },
+    "phoneNumber": {
+      "type": "biginteger",
+      "required": false,
+      "max": "12",
+      "min": "8"
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "message": {
+      "type": "text",
+      "required": true,
+      "maxLength": 300,
+      "minLength": 20
+    },
+    "deviceImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "warrantyImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "billImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

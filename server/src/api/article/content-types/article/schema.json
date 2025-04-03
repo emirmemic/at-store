@@ -45,9 +45,11 @@
       "target": "api::category.category",
       "inversedBy": "articles"
     },
-    "blocks": {
-      "type": "dynamiczone",
-      "components": []
+    "markdownText": {
+      "type": "richtext"
+    },
+    "textEditorWithBlocks": {
+      "type": "blocks"
     }
   }
 }
