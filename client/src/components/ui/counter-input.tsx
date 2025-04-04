@@ -62,6 +62,19 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
     };
 
     /**
+     * Handle the blur event of the input. If the value is less than the minimum, set it to the minimum. If it's greater than the maximum, set it to the maximum.
+     */
+    const handleBlur = () => {
+      if (min !== undefined && internalValue < min) {
+        setInternalValue(min);
+        onChange?.(min);
+      } else if (max !== undefined && internalValue > max) {
+        setInternalValue(max);
+        onChange?.(max);
+      }
+    };
+
+    /**
      * Update the internal value whenever the prop value changes.
      * This is useful when the component is controlled by a parent component.
      */
@@ -95,6 +108,7 @@ const CounterInput = React.forwardRef<HTMLDivElement, CounterInputProps>(
             step={step}
             type="number"
             value={internalValue}
+            onBlur={handleBlur}
             onChange={(e) => handleChange(Number(e.target.value))}
           />
 

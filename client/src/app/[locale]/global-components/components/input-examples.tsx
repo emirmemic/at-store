@@ -155,6 +155,7 @@ export default function InputExamples() {
             </RadioGroupItem>
           </RadioGroup>
         </div>
+        <CounterInput max={10} min={1} />
         <Button
           size={'xlg'}
           variant={'filled'}
