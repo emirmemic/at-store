@@ -23,9 +23,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "orders": {
       "type": "relation",
@@ -45,10 +43,13 @@
     },
     "tag": {
       "type": "enumeration",
-      "enum": [
-        "akcija",
-        "novo"
-      ]
+      "enum": ["akcija", "novo"]
+    },
+    "favorited_by": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "favorite_products"
     }
   }
 }
