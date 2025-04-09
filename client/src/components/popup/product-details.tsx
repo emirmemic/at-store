@@ -53,7 +53,7 @@ export default function ProductDetailsPopup({
                   alt={product.image?.alternativeText || product.name}
                   className="h-full w-full object-contain"
                   height={112}
-                  src={product.image?.url}
+                  src={product.image?.url ?? ''}
                   width={112}
                 />
               </div>

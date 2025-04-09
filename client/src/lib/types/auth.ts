@@ -19,6 +19,7 @@ interface UserInformation {
   username: string;
   email: string;
   orders: Order[];
+  favorite_products: ProductBase[];
 }
 
 interface AuthResponse {
@@ -28,4 +29,4 @@ interface AuthResponse {
 
 type OrderStatusEnum = 'pending' | 'delivered' | 'canceled' | 'shipped';
 
-export type { AuthError, AuthResponse, UserInformation, OrderStatusEnum };
+export type { AuthError, AuthResponse, OrderStatusEnum, UserInformation };

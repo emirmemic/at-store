@@ -51,7 +51,7 @@ export default function ProductCartTableItem({
             alt={product.name}
             className="h-full w-full object-contain"
             height={128}
-            src={product.image.url}
+            src={product.image?.url ?? ''}
             width={128}
           />
         </div>

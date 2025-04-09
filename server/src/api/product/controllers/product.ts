@@ -29,7 +29,7 @@ export default factories.createCoreController(
             },
           },
         });
-        return { success: true };
+        return { isFavorited: !isFavorited };
       } catch (error) {
         return ctx.badRequest("Failed to toggle favorite");
       }

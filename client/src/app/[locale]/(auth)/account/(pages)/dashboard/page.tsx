@@ -6,7 +6,7 @@ import { UserContext } from '@/app/providers';
 import { MonoAppleBlock } from '@/components';
 import { CURRENCY } from '@/lib/constants';
 
-import { OrderProductCard } from '../orders/components';
+import { OrderProductCard } from '../../components';
 
 import { Card } from './components';
 

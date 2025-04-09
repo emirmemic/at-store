@@ -1,3 +1,44 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
+
+import { UserContext } from '@/app/providers';
+import { IconHeart } from '@/components/icons';
+
+import { EmptyContent } from '../../components';
+
+import { FavoriteProductCard } from './components';
+
 export default function Page() {
-  return <>favorites</>;
+  const t = useTranslations('accountPage.favorites');
+  const userProvider = useContext(UserContext);
+  const favorites = userProvider.user?.favorite_products;
+
+  if (favorites?.length === 0) {
+    return (
+      <EmptyContent
+        Icon={IconHeart}
+        buttonAction={() => {
+          // TODO: Implement the button action
+        }}
+        buttonText={t('add')}
+        emptyText={t('noFavorites')}
+      />
+    );
+  }
+  return (
+    <div className="flex flex-col gap-6">
+      {favorites &&
+        favorites.map((product) => (
+          <FavoriteProductCard
+            key={product.id}
+            product={product}
+            onDelete={() => {
+              userProvider.toggleFavorite(product);
+            }}
+          />
+        ))}
+    </div>
+  );
 }

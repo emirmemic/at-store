@@ -20,14 +20,14 @@ interface FetchAPIOptions {
 }
 
 /** Strapi specific error response structure */
-type StrapiError = {
+export type StrapiError = {
   status: number;
   name: string;
   message: string;
   details: Record<string, unknown>;
 };
 
-type APIResponse<T = unknown> = {
+export type APIResponse<T = unknown> = {
   status: number;
   statusText: string;
   data?: T;

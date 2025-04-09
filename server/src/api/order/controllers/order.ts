@@ -7,7 +7,6 @@ export default factories.createCoreController(
       // Get the current user from the state
       const user = ctx.state.user;
 
-      // If there's no user, return empty results or an error
       if (!user) {
         return ctx.unauthorized("You are not authorized to access this order");
       }

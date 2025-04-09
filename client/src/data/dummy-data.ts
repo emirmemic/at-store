@@ -249,7 +249,7 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M3 13-inch',
     },
     specifications: ['13-inch', '256GB', '8GB unified', '8C CPU, 8C GPU'],
-    is_favorite: false,
+    favorited_by: [],
     tag: 'Akcija',
     chip: {
       id: 1,
@@ -284,7 +284,7 @@ const dummyProducts: ProductBase[] = [
       'Ceramic Shield',
       '5G capable',
     ],
-    is_favorite: true,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {
@@ -331,7 +331,7 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'iPhone 13 Clear Case',
     },
     specifications: ['iPhone 13', 'Futrola', 'Clear case', 'Apple'],
-    is_favorite: false,
+    favorited_by: [],
     tag: 'Novo',
     chip: null,
     availability_by_store: {
@@ -357,7 +357,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M2 15-inch',
     },
     specifications: ['15-inch', '512GB', '8GB unified', '8C CPU, 10C GPU'],
-    is_favorite: true,
+    favorited_by: [],
     tag: 'Novo',
     chip: {
       id: 1,
@@ -384,7 +384,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M3 Max 16-inch',
     },
     specifications: ['16-inch', '1TB', '36GB unified', '12C CPU, 38C GPU'],
-    is_favorite: false,
+    favorited_by: [],
     tag: 'Akcija',
     chip: {
       id: 2,
@@ -411,7 +411,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Mac Mini M2',
     },
     specifications: ['512GB', '8C CPU, 10C GPU', '16GB unified'],
-    is_favorite: false,
+    favorited_by: [],
     tag: 'Novo',
     chip: {
       id: 1,
@@ -438,7 +438,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 14-inch',
     },
     specifications: ['14-inch', '1TB', '16GB unified', '8C CPU, 14C GPU'],
-    is_favorite: true,
+    favorited_by: [],
     tag: 'Novo',
     chip: {
       id: 2,
@@ -465,7 +465,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'iMac M2 24-inch',
     },
     specifications: ['24-inch', '8C CPU, 10C GPU', '16GB unified'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: {
       id: 1,
@@ -492,7 +492,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Studio Display 27-inch',
     },
     specifications: ['27-inch', '5K Retina', 'P3 wide color'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {
@@ -516,7 +516,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'New Product',
     },
     specifications: ['New Spec 1', 'New Spec 2'],
-    is_favorite: false,
+    favorited_by: [],
     tag: 'Novo',
     chip: {
       id: 3,
@@ -543,7 +543,7 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 16-inch',
     },
     specifications: ['16-inch', '1TB', '32GB unified', '10C CPU, 16C GPU'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: {
       id: 2,
@@ -577,7 +577,7 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: {
       id: 1,
@@ -604,7 +604,7 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Clear Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Clear case', 'Apple'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {
@@ -633,7 +633,7 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: {
       id: 1,
@@ -660,7 +660,7 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Apple'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {
@@ -684,7 +684,7 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Air Case',
     },
     specifications: ['MacBook Air', 'Futrola', 'Apple'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {
@@ -708,7 +708,7 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Pro Case',
     },
     specifications: ['MacBook Pro', 'Futrola', 'Apple'],
-    is_favorite: false,
+    favorited_by: [],
     tag: null,
     chip: null,
     availability_by_store: {

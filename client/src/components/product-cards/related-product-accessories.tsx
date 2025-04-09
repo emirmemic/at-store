@@ -37,7 +37,7 @@ export default function RelatedProductAccessories({
           alt={image?.alternativeText || name}
           className="h-full w-full object-contain"
           height={168}
-          src={image.url}
+          src={image?.url ?? ''}
           width={168}
         />
       </div>

@@ -2,18 +2,30 @@
 
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
-import { UserInformation } from '@/lib/types';
+import { STRAPI_BASE_URL } from '@/lib/constants';
+import { APIResponse, fetchAPI } from '@/lib/fetch-api';
+import { getAuthToken } from '@/lib/services';
+import { ProductBase, UserInformation } from '@/lib/types';
 
 import { deleteCookie } from '../actions';
 
 type UserContextType = {
   user: UserInformation | null;
   setUser: (user: UserInformation | null) => void;
+  toggleFavorite: (
+    product: ProductBase
+  ) => Promise<APIResponse<{ isFavorited: boolean }>>;
 };
 
 export const UserContext = createContext<UserContextType>({
   user: null,
   setUser: () => {},
+  toggleFavorite: async () => ({
+    data: { isFavorited: false },
+    status: 200,
+    statusText: 'OK',
+    type: 'default',
+  }),
 });
 
 export default function UserProvider({
@@ -29,8 +41,38 @@ export default function UserProvider({
     if (!user) deleteCookie('jwt');
   }, [user]);
 
+  const setFavorites = (favorites: ProductBase[]) => {
+    if (user) {
+      setUser({ ...user, favorite_products: favorites });
+    }
+  };
+
+  const toggleFavorite = async (
+    product: ProductBase
+  ): Promise<APIResponse<{ isFavorited: boolean }>> => {
+    const authToken = await getAuthToken();
+    const path = `/api/products/${product.id}/favorite`;
+    const res = await fetchAPI<{ isFavorited: boolean }>(
+      `${STRAPI_BASE_URL}${path}`,
+      {
+        method: 'POST',
+        authToken,
+      }
+    );
+    if (res.status === 200) {
+      const isFavorited = res.data?.isFavorited;
+      const updatedFavorites = isFavorited
+        ? [...(user?.favorite_products ?? []), product]
+        : user?.favorite_products.filter(
+            (favProduct) => favProduct.id !== product.id
+          );
+      setFavorites(updatedFavorites ?? []);
+    }
+    return res;
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, toggleFavorite }}>
       {children}
     </UserContext.Provider>
   );

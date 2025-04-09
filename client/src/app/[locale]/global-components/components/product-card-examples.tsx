@@ -1,28 +1,82 @@
 'use client';
-import { useState } from 'react';
+import qs from 'qs';
+import { useEffect, useState } from 'react';
 
 import {
+  InchSelectionTab,
   MacAccessoriesBar,
   ProductCard,
+  ProductCartTableItem,
   RelatedProductAccessories,
   SubProductCard,
-  InchSelectionTab,
-  ProductCartTableItem,
 } from '@/components/product-cards';
 import { AnimateList } from '@/components/transitions';
 import { dummyProducts, placeholderCart } from '@/data/dummy-data';
+import { STRAPI_BASE_URL } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
+import { useLoader } from '@/lib/hooks';
+import { getAuthToken } from '@/lib/services';
+import { ProductBase } from '@/lib/types';
+
+const getProductsQuery = qs.stringify({
+  populate: {
+    image: {
+      fields: ['url', 'alternativeText'],
+    },
+    favorited_by: {
+      fields: ['id'],
+    },
+  },
+});
 export default function ProductCardExamples() {
-  const [products, setProducts] = useState(dummyProducts);
+  const products = dummyProducts;
+  const [productsFromApi, setProductsFromApi] = useState<ProductBase[]>([]);
   const [cartItems, setCartItems] = useState(placeholderCart);
-  const toggleFavorite = (id: string) => {
-    const updatedProducts = products.map((product) => {
-      if (product.product_variant_id === id) {
-        return { ...product, is_favorite: !product.is_favorite };
-      }
-      return product;
+
+  const fetchProducts = async () => {
+    const path = '/api/products';
+    const url = new URL(path, STRAPI_BASE_URL);
+    url.search = getProductsQuery;
+    const authToken = await getAuthToken();
+    return fetchAPI<{ data: ProductBase[] }>(url.href, {
+      method: 'GET',
+      authToken,
     });
-    setProducts(updatedProducts);
   };
+
+  const { execute, isLoading, error } = useLoader({
+    apiCall: fetchProducts,
+    onSuccess: (response) => {
+      if (response?.data) {
+        setProductsFromApi(response.data);
+      }
+    },
+  });
+
+  useEffect(() => {
+    execute();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex w-full items-center justify-center py-20">
+        <p className="text-lg font-semibold text-gray-500">Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex w-full items-center justify-center py-20">
+        <p className="text-lg font-semibold text-gray-500">
+          Error: {error.message}
+        </p>
+      </div>
+    );
+  }
+  // const [products, setProducts] = useState(dummyProducts);
+
   const inchOptions = [
     {
       id: '13',
@@ -65,6 +119,17 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h2 className="display">Product Cards</h2>
       <div className="h-[2px] w-full bg-grey"></div>
+      <h3 className="heading-2">Products from API</h3>
+      <div className="h-[2px] w-full bg-grey"></div>
+      <div className="flex gap-4">
+        {productsFromApi.map((product) => (
+          <ProductCard
+            key={product.id}
+            className="self-stretch"
+            product={product}
+          />
+        ))}
+      </div>
       <h3 className="heading-2">Mac dodaci bar</h3>
       <div className="h-[2px] w-full bg-grey"></div>
       <MacAccessoriesBar />
@@ -74,18 +139,11 @@ export default function ProductCardExamples() {
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Product Card Standard: </p>
-          <ProductCard
-            product={products[0]}
-            onToggleFavorite={toggleFavorite}
-          />
+          <ProductCard product={products[0]} />
         </div>
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Product Card Accessory: </p>
-          <ProductCard
-            product={products[2]}
-            variant="accessories"
-            onToggleFavorite={toggleFavorite}
-          />
+          <ProductCard product={products[2]} variant="accessories" />
         </div>
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Related Product Accessories: </p>

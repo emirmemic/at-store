@@ -26,7 +26,7 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => (
         alt={item.name}
         className="h-full w-full object-contain"
         height={100}
-        src={item.image.url}
+        src={item.image?.url ?? ''}
         width={100}
       />
     </div>

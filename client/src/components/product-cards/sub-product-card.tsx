@@ -25,7 +25,7 @@ export default function SubProductCard({
           className="h-full w-full object-contain"
           height={250}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          src={image.url}
+          src={image?.url ?? ''}
           width={276}
         />
       </div>

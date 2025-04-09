@@ -1,38 +1,62 @@
-import Image from 'next/image';
+'use client';
 // TODO - Change the Link import from next-intl while building the product details page
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useContext, useState } from 'react';
 
+import { UserContext } from '@/app/providers';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { CURRENCY } from '@/lib/constants';
+import { useLoader } from '@/lib/hooks';
 import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
+import { StrapiImage } from '../strapi-image';
 
 interface ProductCardProps {
   product: ProductBase;
   variant?: 'standard' | 'accessories';
   className?: string;
-  onToggleFavorite: (productId: string) => void;
 }
 export default function ProductCard({
   product,
   variant = 'standard',
   className,
-  onToggleFavorite,
 }: ProductCardProps) {
   const {
     name,
     discounted_price,
     original_price,
-    is_favorite,
     tag,
     image,
     specifications,
     product_link,
+    favorited_by,
   } = product;
-
-  const finalSpecs = specifications ? specifications.slice(0, 4) : [];
   const t = useTranslations('common');
+
+  const { toggleFavorite, user } = useContext(UserContext);
+  const [favoritedBy, setFavoritedBy] = useState<number[]>(
+    favorited_by.map((f) => f.id)
+  );
+
+  const { execute, isLoading } = useLoader({
+    apiCall: () => toggleFavorite(product),
+    onSuccess: (success) => {
+      if (success) {
+        // Update local state when favorite is toggled
+        const newFavoritedBy = user
+          ? favoritedBy.includes(user.id)
+            ? favoritedBy.filter((id) => id !== user.id)
+            : [...favoritedBy, user.id]
+          : favoritedBy;
+        setFavoritedBy(newFavoritedBy);
+      }
+    },
+  });
+  const finalSpecs = specifications ? specifications.slice(0, 4) : [];
+  const finalPrice = discounted_price ?? original_price;
+
   return (
     <div
       className={cn(
@@ -56,11 +80,11 @@ export default function ProductCard({
         })}
       >
         {/* TODO use StrapiImage when connected with API*/}
-        <Image
+        <StrapiImage
           alt={image?.alternativeText || name}
           className="h-full w-full object-contain"
           height={200}
-          src={image.url}
+          src={image?.url ?? ''}
           width={200}
         />
       </div>
@@ -69,9 +93,12 @@ export default function ProductCard({
           <p className="heading-4">{name}</p>
           <FavoritesHeart
             className="z-3 relative p-2"
-            isInFavorites={is_favorite}
+            disabled={isLoading}
+            isInFavorites={user ? favoritedBy.includes(user.id) : false}
             size="big"
-            onClick={() => onToggleFavorite(product.product_variant_id)}
+            onClick={() => {
+              if (user) execute();
+            }}
           />
         </div>
         {finalSpecs.length > 0 && (
@@ -83,10 +110,10 @@ export default function ProductCard({
             ))}
           </div>
         )}
-        {original_price && (
+        {discounted_price && (
           <p className="mb-0.5 line-through paragraph-2">{`${original_price} ${CURRENCY}`}</p>
         )}
-        <p className="heading-4">{`${discounted_price} ${CURRENCY}`}</p>
+        <p className="heading-4">{`${finalPrice} ${CURRENCY}`}</p>
       </div>
 
       {tag && (

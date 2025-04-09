@@ -550,7 +550,9 @@
       "title": "Načini plaćanja"
     },
     "favorites": {
-      "title": "Omiljeni"
+      "title": "Omiljeni",
+      "noFavorites": "Nemate niti jedan uređaj u omiljenim.",
+      "add": "Dodaj"
     },
     "newsletter": {
       "title": "Newsletter"

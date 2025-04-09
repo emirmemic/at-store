@@ -1,6 +1,8 @@
 import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types/base';
 
+import { UserInformation } from './auth';
+
 type StoreName = (typeof STORE_NAMES)[number];
 
 interface ProductBase {
@@ -10,11 +12,10 @@ interface ProductBase {
   name: string;
   original_price: number;
   discounted_price: number | null;
-  image: ImageProps;
+  image: ImageProps | null;
   specifications?: string[];
   product_link?: string;
   description?: string;
-  is_favorite: boolean;
   tag?: string | null;
   final_price: number;
   chip: {
@@ -23,6 +24,7 @@ interface ProductBase {
   } | null;
   availability_by_store: Record<StoreName, number>;
   details?: string;
+  favorited_by: UserInformation[];
 }
 
 interface ShoppingCartItem extends ProductBase {

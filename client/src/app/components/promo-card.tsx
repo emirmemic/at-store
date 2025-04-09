@@ -35,7 +35,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
         className="shadow-large-black aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover"
         height={474}
         sizes="(max-width: 48rem) 25.875rem, (max-width: 64rem) 25rem, 37.5rem"
-        src={image?.url}
+        src={image?.url ?? ''}
         width={600}
       />
       <div
@@ -91,7 +91,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
               className="h-full max-h-[310px] w-full max-w-[240px] rounded-md object-cover md:max-h-[500px] md:max-w-[336px] lg:max-h-[500px] lg:max-w-[400px]"
               height={500}
               sizes="(max-width: 48rem) 15rem, (max-width: 64rem) 21rem, 25rem"
-              src={product.image?.url}
+              src={product.image?.url ?? ''}
               width={400}
             />
             <DialogDescription className="heading-4">

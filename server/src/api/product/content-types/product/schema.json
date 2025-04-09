@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "name": {
@@ -23,7 +23,9 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "orders": {
       "type": "relation",
@@ -38,12 +40,12 @@
     "discounted_price": {
       "type": "decimal"
     },
-    "specifications": {
-      "type": "json"
-    },
     "tag": {
       "type": "enumeration",
-      "enum": ["akcija", "novo"]
+      "enum": [
+        "akcija",
+        "novo"
+      ]
     },
     "favorited_by": {
       "type": "relation",
