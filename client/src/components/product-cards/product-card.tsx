@@ -8,6 +8,7 @@ import { UserContext } from '@/app/providers';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
+import { useToast } from '@/lib/hooks/use-toast';
 import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
@@ -34,24 +35,29 @@ export default function ProductCard({
     favorited_by,
   } = product;
   const t = useTranslations('common');
-
+  const { toast } = useToast();
   const { toggleFavorite, user } = useContext(UserContext);
   const [favoritedBy, setFavoritedBy] = useState<number[]>(
-    favorited_by.map((f) => f.id)
+    favorited_by?.map((f) => f.id) ?? []
   );
 
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(product),
-    onSuccess: (success) => {
-      if (success) {
-        // Update local state when favorite is toggled
-        const newFavoritedBy = user
-          ? favoritedBy.includes(user.id)
-            ? favoritedBy.filter((id) => id !== user.id)
-            : [...favoritedBy, user.id]
-          : favoritedBy;
-        setFavoritedBy(newFavoritedBy);
+    onSuccess: () => {
+      if (user) {
+        setFavoritedBy((prev) =>
+          prev.includes(user.id)
+            ? prev.filter((id) => id !== user.id)
+            : [...prev, user.id]
+        );
       }
+    },
+    onError: (error) => {
+      toast({
+        title: 'Error updating your favorites',
+        variant: 'destructive',
+        description: error.message,
+      });
     },
   });
   const finalSpecs = specifications ? specifications.slice(0, 4) : [];
@@ -92,10 +98,10 @@ export default function ProductCard({
         <div className="mb-1 flex min-h-16 items-center justify-between gap-2">
           <p className="heading-4">{name}</p>
           <FavoritesHeart
-            className="z-3 relative p-2"
+            className="z-3 relative"
             disabled={isLoading}
             isInFavorites={user ? favoritedBy.includes(user.id) : false}
-            size="big"
+            isLoading={isLoading}
             onClick={() => {
               if (user) execute();
             }}

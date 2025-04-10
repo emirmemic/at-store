@@ -9,6 +9,7 @@ import {
 import '@/app/globals.css';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
+import { Toaster } from '@/components/ui/toaster';
 import { routing, type Locale } from '@/i18n/routing';
 import { getUser } from '@/lib/services';
 
@@ -87,6 +88,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
             <Navbar />
             <div className="min-h-screen-h-cutoff pt-nav-height">
               {children}
+              <Toaster />
             </div>
             <Footer />
           </UserProvider>

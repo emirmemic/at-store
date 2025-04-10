@@ -10,11 +10,19 @@ interface FavoritesHeartProps
   asChild?: boolean;
   isInFavorites: boolean;
   size?: 'small' | 'big';
+  isLoading?: boolean;
 }
 
 const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
   (
-    { className, asChild = false, isInFavorites, size = 'small', ...props },
+    {
+      className,
+      asChild = false,
+      isInFavorites,
+      size = 'small',
+      isLoading = false,
+      ...props
+    },
     ref
   ) => {
     const Comp = asChild ? Slot : 'button';
@@ -31,8 +39,11 @@ const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
         {...props}
       >
         <IconHeart
-          className={cn(isInFavorites ? 'text-red-deep' : 'text-black')}
-          filled={isInFavorites}
+          className={cn(
+            isInFavorites ? 'text-red-deep' : 'text-black',
+            isLoading && 'animate-pulse text-grey-dark'
+          )}
+          filled={isLoading ? isLoading : isInFavorites}
           pathClassName="transition-colors duration-300 ease-in-out"
           size={size === 'small' ? 28 : 36}
         />

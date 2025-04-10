@@ -55,9 +55,7 @@ export default function OrderProductCard(props: OrderProductCardProps) {
   const { name, image } = product;
 
   return (
-    <div
-      className={`relative flex flex-col items-center gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8`}
-    >
+    <div className="relative flex flex-col items-center gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">
       <StrapiImage
         alt={image?.alternativeText ?? null}
         className="h-full max-h-[166px] w-full max-w-[250px] object-contain md:max-h-[130px] md:max-w-[194px] lg:max-h-[166px] lg:max-w-[252px]"

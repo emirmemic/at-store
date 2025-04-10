@@ -4,7 +4,7 @@ import { APIResponse, StrapiError } from '@/lib/fetch-api';
 
 interface UseLoaderProps<TParams, TResponse> {
   apiCall: (params?: TParams) => Promise<APIResponse<TResponse> | null>;
-  onSuccess?: (data: TResponse) => void;
+  onSuccess?: (data?: TResponse) => void;
   onError?: (error: StrapiError) => void;
 }
 

@@ -1,22 +1,41 @@
 'use client';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components';
 import { IconTrash } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import Loader from '@/components/ui/loader';
 import { CURRENCY } from '@/lib/constants';
+import { useLoader } from '@/lib/hooks';
+import { useToast } from '@/lib/hooks/use-toast';
 import { ProductBase } from '@/lib/types';
-
-export interface FavoriteProductCardProps {
-  product: ProductBase;
-  onDelete: (id: number) => void;
-}
 
 export default function FavoriteProductCard({
   product,
-  onDelete,
-}: FavoriteProductCardProps) {
+}: {
+  product: ProductBase;
+}) {
+  const userProvider = useContext(UserContext);
+  const { toast } = useToast();
+  const { isLoading, execute } = useLoader({
+    apiCall: () => userProvider.toggleFavorite(product),
+    onSuccess: () => {
+      toast({
+        title: 'Successfully updated your favorites',
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Error updating your favorites',
+        variant: 'destructive',
+        description: error.message,
+      });
+    },
+  });
   const t = useTranslations();
+
   const { name, image, original_price, discounted_price, specifications } =
     product;
 
@@ -38,9 +57,15 @@ export default function FavoriteProductCard({
       <div className="flex flex-1 flex-col gap-1">
         <button
           className="absolute right-3 top-4 lg:bottom-4 lg:top-auto"
-          onClick={() => onDelete(product.id)}
+          disabled={isLoading}
+          onClick={execute}
         >
-          <IconTrash className="size-6 lg:size-9" />
+          <span className="sr-only">Remove from favorites</span>
+          {isLoading ? (
+            <Loader className="size-6 lg:size-9" />
+          ) : (
+            <IconTrash className="size-6 lg:size-9" />
+          )}
         </button>
         <p className={paragraphClassName}>{name}</p>
         <p className={paragraphClassName}>

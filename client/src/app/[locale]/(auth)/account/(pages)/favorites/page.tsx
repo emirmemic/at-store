@@ -34,9 +34,9 @@ export default function Page() {
           <FavoriteProductCard
             key={product.id}
             product={product}
-            onDelete={() => {
-              userProvider.toggleFavorite(product);
-            }}
+            // onDelete={() => {
+            //   userProvider.toggleFavorite(product);
+            // }}
           />
         ))}
     </div>

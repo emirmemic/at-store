@@ -24,7 +24,7 @@ interface ProductBase {
   } | null;
   availability_by_store: Record<StoreName, number>;
   details?: string;
-  favorited_by: UserInformation[];
+  favorited_by?: UserInformation[];
 }
 
 interface ShoppingCartItem extends ProductBase {

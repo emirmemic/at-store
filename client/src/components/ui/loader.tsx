@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Loader({ size = 80, ...props }) {
+export default function Loader({ size = 80, className = '', ...props }) {
   return (
     <svg
-      className="stroke-blue-dark text-blue-500"
+      className={`stroke-blue-dark text-blue-500 ${className}`}
       height={size}
       viewBox="0 0 24 24"
       width={size}
