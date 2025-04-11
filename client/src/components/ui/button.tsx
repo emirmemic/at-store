@@ -80,6 +80,7 @@ const buttonVariants = cva(
         ],
       },
       size: {
+        default: ['px-10', 'py-4'],
         sm: ['py-2', 'px-4'],
         md: ['px-8', 'py-2'],
         lg: ['py-4', 'px-14'],
@@ -99,6 +100,11 @@ const buttonVariants = cva(
         black: ['text-black border-black hover:border-blue hover:text-white'], // black border, black text
         blue_white: '', // blue border, white text (default)
       },
+    },
+    defaultVariants: {
+      size: 'default',
+      variant: 'filled',
+      typography: 'button1',
     },
   }
 );

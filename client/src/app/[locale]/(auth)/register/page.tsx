@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import RegisterForm from '@/app/[locale]/(auth)/register/components/register-form';
+import { UserTypeSelection } from './components';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -19,5 +19,9 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   };
 }
 export default function Page() {
-  return <RegisterForm />;
+  return (
+    <div className="flex h-screen items-center justify-center px-4 md:px-9">
+      <UserTypeSelection />
+    </div>
+  );
 }

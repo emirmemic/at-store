@@ -608,5 +608,14 @@
   },
   "errors": {
     "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."
+  },
+  "registrationPage": {
+    "title": "Registruj se",
+    "titleDescription": "Imate racun?",
+    "loginPrompt": "Prijavite se",
+    "areYouALegalEntity": "Da li ste pravno lice?",
+    "legalEntity": "pravno lice",
+    "individual": "fizičko lice",
+    "back": "Nazad"
   }
 }
