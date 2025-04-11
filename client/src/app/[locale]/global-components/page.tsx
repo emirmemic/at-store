@@ -6,6 +6,7 @@ import {
   BlocksExamples,
   ProductCardExamples,
   PopupExamples,
+  SliderExamples,
 } from '@/app/[locale]/global-components/components';
 
 export default async function Page() {
@@ -13,11 +14,12 @@ export default async function Page() {
     <div className="flex flex-col items-center gap-4 p-9 container-max-width">
       <TypographyExamples />
       <ButtonsExamples />
-      <NavigationExamples />
       <InputExamples />
       <BlocksExamples />
       <ProductCardExamples />
       <PopupExamples />
+      <NavigationExamples />
+      <SliderExamples />
     </div>
   );
 }

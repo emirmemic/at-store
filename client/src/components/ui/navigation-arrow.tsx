@@ -20,15 +20,10 @@ const svgVariants = cva('shrink-0 transition-all [&_path]:transition-colors', {
       white: 'text-white',
       black: 'text-black',
     },
-    isDisabled: {
-      true: 'opacity-20 pointer-events-not-allowed',
-      false: 'group-hover:text-grey-medium',
-    },
   },
   defaultVariants: {
     size: 'sm',
     variant: 'black',
-    isDisabled: false,
   },
 });
 
@@ -45,7 +40,7 @@ const NavigationArrow = React.forwardRef<HTMLButtonElement, SliderButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          'group inline-flex items-center justify-center p-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.95]',
+          'group inline-flex items-center justify-center p-2 transition-all hover:bg-grey-almost-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.95] disabled:cursor-not-allowed disabled:opacity-20',
           className
         )}
         {...props}
@@ -57,7 +52,6 @@ const NavigationArrow = React.forwardRef<HTMLButtonElement, SliderButtonProps>(
                 direction,
                 size,
                 variant,
-                isDisabled: props.disabled,
               })
             )}
             fill="none"

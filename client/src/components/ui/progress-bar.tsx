@@ -41,8 +41,8 @@ const progressBarVariants = cva(
   {
     variants: {
       variant: {
-        light: 'bg-grey-darker md:py-3',
-        dark: 'bg-grey-darkest md:py-5',
+        light: 'bg-grey-darker md:py-2 h-5 md:h-10',
+        dark: 'bg-grey-darkest md:py-3 h-5 md:h-14',
       },
       disabled: {
         true: 'opacity-30 pointer-events-none',
