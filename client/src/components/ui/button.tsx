@@ -101,11 +101,6 @@ const buttonVariants = cva(
         blue_white: '', // blue border, white text (default)
       },
     },
-    defaultVariants: {
-      size: 'default',
-      variant: 'filled',
-      typography: 'button1',
-    },
   }
 );
 

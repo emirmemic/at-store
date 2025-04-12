@@ -26,24 +26,29 @@ export default function UserTypeSelection() {
           {t('loginPrompt')}
         </Link>
       </p>
-      <h2 className="mb-6 heading-3">{t('areYouALegalEntity')}</h2>
-      <Button
-        className="mb-6"
-        transparentVariant={'white'}
-        typography={'button1'}
-        variant={'transparent'}
-        onClick={() => {}}
-      >
-        {t('legalEntity')}
-      </Button>
-      <Button
-        transparentVariant={'white'}
-        typography={'button1'}
-        variant={'transparent'}
-        onClick={() => {}}
-      >
-        {t('individual')}
-      </Button>
+      <h2 className="mb-6 mt-14 heading-3 md:mb-16">
+        {t('areYouALegalEntity')}
+      </h2>
+      <div className="flex flex-col gap-6 md:flex-row">
+        <Button
+          size={'default'}
+          transparentVariant={'white'}
+          typography={'button1'}
+          variant={'transparent'}
+          onClick={() => {}}
+        >
+          {t('legalEntity')}
+        </Button>
+        <Button
+          size={'default'}
+          transparentVariant={'white'}
+          typography={'button1'}
+          variant={'transparent'}
+          onClick={() => {}}
+        >
+          {t('individual')}
+        </Button>
+      </div>
       <IconAtStoreLogo className="mt-20 text-center" height={60} width={266} />
     </div>
   );

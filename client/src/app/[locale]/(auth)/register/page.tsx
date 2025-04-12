@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 }
 export default function Page() {
   return (
-    <div className="flex h-screen items-center justify-center px-4 md:px-9">
+    <div className="flex min-h-screen-h-cutoff items-center justify-center px-4 md:px-9">
       <UserTypeSelection />
     </div>
   );
