@@ -4,9 +4,8 @@ import { useContext } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components';
-import { IconTrash } from '@/components/icons';
+import { IconLoader, IconTrash } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import Loader from '@/components/ui/loader';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -18,23 +17,24 @@ export default function FavoriteProductCard({
   product: ProductBase;
 }) {
   const userProvider = useContext(UserContext);
+  const t = useTranslations();
   const { toast } = useToast();
+
   const { isLoading, execute } = useLoader({
     apiCall: () => userProvider.toggleFavorite(product),
     onSuccess: () => {
       toast({
-        title: 'Successfully updated your favorites',
+        title: t('common.success'),
       });
     },
     onError: (error) => {
       toast({
-        title: 'Error updating your favorites',
+        title: error.name,
         variant: 'destructive',
         description: error.message,
       });
     },
   });
-  const t = useTranslations();
 
   const { name, image, original_price, discounted_price, specifications } =
     product;
@@ -62,7 +62,7 @@ export default function FavoriteProductCard({
         >
           <span className="sr-only">Remove from favorites</span>
           {isLoading ? (
-            <Loader className="size-6 lg:size-9" />
+            <IconLoader className="size-6 lg:size-9" />
           ) : (
             <IconTrash className="size-6 lg:size-9" />
           )}

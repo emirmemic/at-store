@@ -44,6 +44,9 @@ export default function ProductCard({
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(product),
     onSuccess: () => {
+      toast({
+        title: t('success'),
+      });
       if (user) {
         setFavoritedBy((prev) =>
           prev.includes(user.id)
@@ -54,7 +57,7 @@ export default function ProductCard({
     },
     onError: (error) => {
       toast({
-        title: 'Error updating your favorites',
+        title: error.name,
         variant: 'destructive',
         description: error.message,
       });

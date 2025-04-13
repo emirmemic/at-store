@@ -4,6 +4,20 @@ export default ({ env }) => ({
       secure: env("NODE_ENV") === "production",
       expiresIn: "7d",
       jwtSecret: env("JWT_SECRET"),
+      register: {
+        allowedFields: [
+          "email",
+          "password",
+          "name",
+          "surname",
+          "address",
+          "phoneNumber",
+          "dateOfBirth",
+          "companyName",
+          "companyIdNumber",
+          "role",
+        ],
+      },
     },
   },
   documentation: {
@@ -14,13 +28,11 @@ export default ({ env }) => ({
         version: "1.0.0",
         title: "DOCUMENTATION",
         description: "",
-        // Other configuration options...
       },
       "x-strapi-config": {
         plugins: ["upload", "users-permissions"],
         path: "/documentation",
       },
-      // More configuration options...
     },
   },
 });

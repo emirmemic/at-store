@@ -4,12 +4,16 @@ import { useContext, useRef, useState } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
-import { IconClose, IconHeart, IconLogout } from '@/components/icons';
+import {
+  IconClose,
+  IconHeart,
+  IconLoader,
+  IconLogout,
+} from '@/components/icons';
 import { UserAvatar } from '@/components/nav-bar/components';
 import { IconAccount, IconCart } from '@/components/nav-bar/icons';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
-import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
@@ -92,7 +96,7 @@ const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
               >
                 {isLoading ? (
                   <>
-                    <Loader className={iconClasses} size={24} />
+                    <IconLoader className={iconClasses} size={24} />
                     {t('login.loggingOut')}
                   </>
                 ) : (

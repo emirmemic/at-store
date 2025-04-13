@@ -7,7 +7,7 @@ import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import { Icon } from '@/lib/types';
 
-import { CardContainer } from '.';
+import CardContainer from './card-container';
 
 export interface TitleCardProps {
   Icon: Icon;

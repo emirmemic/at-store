@@ -4,9 +4,8 @@ import { useContext } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { LogoutButton } from '@/components/auth';
-import { IconLogout } from '@/components/icons';
+import { IconLoader, IconLogout } from '@/components/icons';
 import { IconAccount } from '@/components/nav-bar/icons';
-import Loader from '@/components/ui/loader';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
@@ -36,7 +35,7 @@ export default function MobileLoginLogout({ closeMenu }: PropsType) {
                 {isLoading ? (
                   <>
                     {t('login.loggingOut')}
-                    <Loader className={iconClasses} size={28} />
+                    <IconLoader className={iconClasses} size={28} />
                   </>
                 ) : (
                   <>

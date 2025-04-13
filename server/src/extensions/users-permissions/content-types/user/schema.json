@@ -76,6 +76,41 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "favorited_by"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "maxLength": 30,
+      "minLength": 3
+    },
+    "surname": {
+      "type": "string",
+      "required": true,
+      "maxLength": 30,
+      "minLength": 3
+    },
+    "address": {
+      "type": "string",
+      "maxLength": 50,
+      "required": true,
+      "minLength": 1
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "companyIdNumber": {
+      "type": "biginteger"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "biginteger",
+      "required": true,
+      "max": "12",
+      "min": "8"
     }
   }
 }

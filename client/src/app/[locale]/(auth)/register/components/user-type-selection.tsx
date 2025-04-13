@@ -1,31 +1,30 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
-import { IconAtStoreLogo, IconChevron } from '@/components/icons';
+import { IconAtStoreLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Link, useRouter } from '@/i18n/routing';
 
-export default function UserTypeSelection() {
+import { Container } from '../../components';
+import { UserType } from '../page';
+
+import Title from './title';
+
+export default function UserTypeSelection({
+  onSelectUserType,
+  className,
+}: {
+  onSelectUserType: (userType: UserType) => void;
+  className?: string;
+}) {
   const t = useTranslations('registrationPage');
-  const router = useRouter();
-
   return (
-    <div className="relative flex w-full max-w-[842px] flex-col items-center justify-center gap-4 rounded-2xl bg-black p-9 text-white md:p-12">
-      <button
-        className="absolute left-6 top-6 flex gap-6 hover:text-grey-medium"
-        type="button"
-        onClick={router.back}
-      >
-        <IconChevron className="rotate-90" />
-        <span className="paragraph-2">{t('back')}</span>
-      </button>
-      <h1 className="mb-2.5 mt-16 heading-3">{t('title')}</h1>
-      <p className="paragraph-2">
-        {`${t('titleDescription')} `}
-        <Link className="text-blue hover:underline" href="/login">
-          {t('loginPrompt')}
-        </Link>
-      </p>
+    <Container className={`gap-4 ${className}`}>
+      <Title
+        className="mt-16"
+        linkText={t('loginPrompt')}
+        subtitle={t('subtitle')}
+        title={t('title')}
+      />
       <h2 className="mb-6 mt-14 heading-3 md:mb-16">
         {t('areYouALegalEntity')}
       </h2>
@@ -35,7 +34,7 @@ export default function UserTypeSelection() {
           transparentVariant={'white'}
           typography={'button1'}
           variant={'transparent'}
-          onClick={() => {}}
+          onClick={() => onSelectUserType('org')}
         >
           {t('legalEntity')}
         </Button>
@@ -44,12 +43,12 @@ export default function UserTypeSelection() {
           transparentVariant={'white'}
           typography={'button1'}
           variant={'transparent'}
-          onClick={() => {}}
+          onClick={() => onSelectUserType('individual')}
         >
           {t('individual')}
         </Button>
       </div>
       <IconAtStoreLogo className="mt-20 text-center" height={60} width={266} />
-    </div>
+    </Container>
   );
 }

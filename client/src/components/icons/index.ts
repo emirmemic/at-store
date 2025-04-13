@@ -24,3 +24,4 @@ export { default as IconTrash } from './trash';
 export { default as IconValidationError } from './validation-error';
 export { default as IconWallet } from './wallet';
 export { default as IconX } from './x';
+export { default as IconLoader } from './loader';

@@ -5,7 +5,7 @@ import { UserContext } from '@/app/providers';
 import { useRouter } from '@/i18n/routing';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { LoginFormData, RegisterFormData } from '@/lib/schemas/auth';
+import { LoginFormData } from '@/lib/schemas/auth';
 import { AuthError, AuthResponse } from '@/lib/types';
 
 import { getUser } from '../services';
@@ -51,32 +51,5 @@ export const useAuth = () => {
     return false;
   };
 
-  const register = async (data: RegisterFormData): Promise<boolean> => {
-    setIsLoading(true);
-    setError(null);
-
-    const res = await fetchAPI<AuthResponse>(
-      `${STRAPI_BASE_URL}/api/auth/local/register`,
-      {
-        method: 'POST',
-        body: {
-          username: data.username,
-          email: data.email,
-          password: data.password,
-        },
-      }
-    );
-
-    if (res.error) {
-      setError({ message: res.error.message });
-      setIsLoading(false);
-      return false;
-    }
-
-    setIsLoading(false);
-    router.push('/login');
-    return true;
-  };
-
-  return { login, register, isLoading, error };
+  return { login, isLoading, error };
 };

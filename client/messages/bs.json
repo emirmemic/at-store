@@ -585,7 +585,9 @@
     "tradeIn": "Trade-in",
     "view": "Pogledaj",
     "viewDetailsWithName": "Pogledaj detalje {productName}",
-    "viewDetails": "Pogledaj detalje"
+    "viewDetails": "Pogledaj detalje",
+    "successful": "Uspješno",
+    "error": "Došlo je do greške"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -625,11 +627,42 @@
   },
   "registrationPage": {
     "title": "Registruj se",
-    "titleDescription": "Imate racun?",
+    "subtitle": "Imate racun?",
     "loginPrompt": "Prijavite se",
     "areYouALegalEntity": "Da li ste pravno lice?",
     "legalEntity": "Pravno lice",
     "individual": "Fizičko lice",
-    "back": "Nazad"
+    "name": "Ime",
+    "surname": "Prezime",
+    "nameAndSurname": "Ime i prezime",
+    "email": "Email",
+    "password": "Lozinka",
+    "confirmPassword": "Potvrdi lozinku",
+    "companyName": "Naziv firme",
+    "companyIdNumber": "ID broj firme",
+    "address": "Adresa",
+    "phoneNumber": "Broj",
+    "dateOfBirth": "Datum rođenja"
+  },
+  "validation": {
+    "emailRequired": "Email je obavezan",
+    "invalidEmailFormat": "Neispravan format email adrese",
+    "passwordMinLength": "Lozinka mora imati najmanje 8 karaktera",
+    "passwordMaxLength": "Lozinka ne smije biti duža od 50 karaktera",
+    "passwordUppercase": "Lozinka mora sadržavati najmanje jedno veliko slovo",
+    "passwordLowercase": "Lozinka mora sadržavati najmanje jedno malo slovo",
+    "passwordNumber": "Lozinka mora sadržavati najmanje jedan broj",
+    "nameRequired": "Ime je obavezno",
+    "surnameRequired": "Prezime je obavezno",
+    "confirmPasswordRequired": "Potvrda lozinke je obavezna",
+    "addressRequired": "Adresa je obavezna",
+    "phoneNumberRequired": "Broj telefona mora imati najmanje 8 cifara",
+    "phoneNumberMaxLength": "Broj telefona ne smije biti duži od 12 cifara",
+    "dateMustBeInFormatDDMMYYYY": "Datum mora biti u formatu DD/MM/YYYY",
+    "dateOfBirthMustBeInThePast": "Datum rođenja mora biti u prošlosti",
+    "passwordMatch": "Lozinke se ne podudaraju",
+    "nameAndSurnameRequired": "Ime i prezime su obavezni",
+    "companyNameRequired": "Naziv firme je obavezan",
+    "companyIdNumberRequired": "ID broj firme je obavezan"
   }
 }

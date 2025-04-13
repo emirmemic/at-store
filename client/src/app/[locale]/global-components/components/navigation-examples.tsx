@@ -2,9 +2,8 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import { IconHeart } from '@/components/icons';
+import { IconHeart, IconLoader } from '@/components/icons';
 import FavoritesHeart from '@/components/ui/favorites-heart';
-import Loader from '@/components/ui/loader';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import PaginationPages from '@/components/ui/pagination-pages';
 import PlayPause from '@/components/ui/play-pause';
@@ -145,9 +144,9 @@ export default function NavigationExamples() {
         />
       </div>
       <div className="flex items-center gap-2">
-        <Loader />
-        <Loader className="stroke-grey-darkest text-grey-dark" />
-        <Loader size={24} />
+        <IconLoader />
+        <IconLoader className="stroke-grey-darkest text-grey-dark" />
+        <IconLoader size={24} />
       </div>
       <div className="flex items-center gap-2">
         Example Icon Usage with tailwind classes:

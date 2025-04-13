@@ -6,13 +6,13 @@ import { Navbar } from './nav-bar';
 import { StrapiImage } from './strapi-image';
 
 export {
-  InfoBlock,
+  CardBlock,
   Footer,
   FormField,
   GlobalRenderer,
+  IconsBlock,
+  InfoBlock,
+  MonoAppleBlock,
   Navbar,
   StrapiImage,
-  MonoAppleBlock,
-  IconsBlock,
-  CardBlock,
 };

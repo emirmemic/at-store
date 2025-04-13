@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { ZodError } from 'zod';
 
@@ -7,10 +8,11 @@ import { FormField } from '@/components/forms/form-field';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { useAuth } from '@/lib/hooks';
-import { loginSchema } from '@/lib/schemas/auth';
+import { createLoginSchema } from '@/lib/schemas/auth';
 
 export default function LoginForm() {
   const { login, isLoading, error } = useAuth();
+  const t = useTranslations('validation');
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({});
@@ -20,6 +22,7 @@ export default function LoginForm() {
     const data = Object.fromEntries(formData);
 
     try {
+      const loginSchema = createLoginSchema(t);
       const validated = loginSchema.parse(data);
       setValidationErrors({});
       await login(validated);
@@ -27,7 +30,9 @@ export default function LoginForm() {
       if (err instanceof ZodError) {
         setValidationErrors(
           Object.fromEntries(
-            err.errors.map(({ path, message }) => [path[0], message])
+            [...err.errors].reverse().map(({ path, message }) => {
+              return [path[0], message];
+            })
           )
         );
       }

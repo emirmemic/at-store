@@ -2,8 +2,7 @@
 import { useTranslations } from 'next-intl';
 
 import { LogoutButton } from '@/components/auth';
-import { IconLogout } from '@/components/icons';
-import Loader from '@/components/ui/loader';
+import { IconLoader, IconLogout } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
@@ -55,7 +54,7 @@ export default function MenuCard({ className }: { className?: string }) {
             >
               {isLoading ? (
                 <>
-                  <Loader className={iconClasses} size={30} />
+                  <IconLoader className={iconClasses} size={30} />
                   {t('login.loggingOut')}
                 </>
               ) : (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Loader({ size = 80, className = '', ...props }) {
+export default function IconLoader({ size = 80, className = '', ...props }) {
   return (
     <svg
       className={`stroke-blue-dark text-blue-500 ${className}`}
