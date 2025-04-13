@@ -6,6 +6,7 @@ import { getTranslations } from 'next-intl/server';
 import { supportLaptop } from '@/assets/images';
 import { CardBlock } from '@/components/blocks';
 import { IconBackup, IconLock, IconPhone } from '@/components/icons';
+import { PAGE_NAMES } from '@/i18n/page-names';
 
 import CalendlyEmbed from './components/calendly';
 
@@ -28,9 +29,27 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 export default function Page() {
   const t = useTranslations('');
   const cards = [
-    { id: 1, title: t('supportPage.makeBackup'), Icon: IconBackup },
-    { id: 2, title: t('supportPage.turnOffFindMyDevice'), Icon: IconLock },
-    { id: 3, title: t('supportPage.appointmentActionLabel'), Icon: IconPhone },
+    {
+      id: 1,
+      title: t('supportPage.makeBackup'),
+      Icon: IconBackup,
+      link: 'https://support.apple.com/hr-hr/108306',
+      target: '_blank',
+    },
+    {
+      id: 2,
+      title: t('supportPage.turnOffFindMyDevice'),
+      Icon: IconLock,
+      link: 'https://support.apple.com/hr-hr/guide/icloud/mmfc0eeddd/icloud',
+      target: '_blank',
+    },
+    {
+      id: 3,
+      title: t('supportPage.appointmentActionLabel'),
+      Icon: IconPhone,
+      link: PAGE_NAMES.SUPPORT + '#zakazivanje-termina',
+      target: '_self',
+    },
   ];
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || '';
   return (
@@ -55,7 +74,11 @@ export default function Page() {
           <p>{t('supportPage.appointmentInfoText')}</p>
         </div>
       </div>
-      <div className="mb-8 md:mb-24">
+      <div className="relative mb-8 md:mb-24">
+        <div
+          className="absolute -top-nav-height"
+          id="zakazivanje-termina"
+        ></div>
         <CalendlyEmbed url={calendlyUrl} />
       </div>
       <div className="mb-8 flex flex-col gap-14 md:mb-32 md:gap-20 lg:gap-24">
@@ -63,18 +86,23 @@ export default function Page() {
           {t('supportPage.requestHelp')}
         </h2>
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:flex-wrap md:items-stretch md:gap-8">
-          {cards.map(({ id, title, Icon }) => (
-            <CardBlock
+          {cards.map(({ id, title, Icon, link, target }) => (
+            <Link
               key={id}
-              asChild
-              Icon={Icon}
-              bgColor="bg-blue"
-              className="w-full max-w-80 md:w-1/3"
-              iconClasses="w-20 h-20"
-              title={title}
+              className="group flex w-full max-w-80 md:w-1/3"
+              href={link}
+              rel="noopener noreferrer"
+              target={target}
             >
-              <div />
-            </CardBlock>
+              <CardBlock
+                asChild
+                Icon={Icon}
+                bgColor="bg-blue"
+                className="h-full w-full transition-all group-hover:bg-blue-dark"
+                iconClasses="w-20 h-20"
+                title={title}
+              />
+            </Link>
           ))}
         </div>
       </div>

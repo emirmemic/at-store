@@ -4,6 +4,7 @@
 
 html {
   font-family: var(--sf-pro);
+  scroll-behavior: smooth;
 }
 
 @layer base {

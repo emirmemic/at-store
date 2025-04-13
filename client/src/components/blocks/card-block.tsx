@@ -13,7 +13,6 @@ interface CardBlockProps {
   Icon: Icon;
   onClick?: () => void;
   asChild?: boolean;
-  children?: React.ReactNode;
 }
 
 export default function CardBlock(props: Readonly<CardBlockProps>) {
