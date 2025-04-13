@@ -387,6 +387,7 @@
     "atStoreEmailLink": "mailto:at@atstore.ba",
     "atStoreComplaints": "www.atstore.ba/reklamacije",
     "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije",
+    "telephoneNumber": "+387 33 956 188",
     "telephone": "Telefona: +387 33 956 188",
     "telephoneLink": "tel:+387 33 956 188",
     "orderEmail": "E-maila: orders@atstore.ba",
@@ -606,6 +607,19 @@
       "description": "Ukoliko Vam je potrebna veća količina iPad uređaja kontaktirajte nas ili se registrujte kao pravno lice i ostvarite pogodnosti."
     }
   },
+  "supportPage": {
+    "appointmentActionLabel": "Zakaži termin",
+    "appointmentInfoText": "Zakažite termin.",
+    "callForHelp": "Pozovi i zatraži pomoć Apple stručnjaka.",
+    "chatWithExpert": "Razgovaraj sa Apple stručnjakom",
+    "makeBackup": "Napravi backup",
+    "needHelp": "Potrebna Vam je pomoć ?",
+    "phoneSupportHours": "Telefonska podrška je dostupna radnim danom od 11:00 do 17:00.",
+    "requestHelp": "Zatraži pomoć za usluge ili softver",
+    "title": "AT Store Workshop",
+    "turnOffFindMyDevice": "Isključi Find My Device"
+  },
+
   "errors": {
     "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."
   },

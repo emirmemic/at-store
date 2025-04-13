@@ -62,9 +62,14 @@ export default async function Page() {
   return (
     <div className="container-max-width">
       <h1 className="p-4">{title}</h1>
-      <Button asChild size={'lg'} variant={'filled'}>
-        <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
-      </Button>
+      <div className="flex flex-col items-start gap-2">
+        <Button asChild size={'lg'} variant={'filled'}>
+          <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
+        </Button>
+        <Button asChild size={'lg'} variant={'filled'}>
+          <Link href={PAGE_NAMES.ICONS}>Global Icons</Link>
+        </Button>
+      </div>
       <div className="grid gap-8 py-14 md:grid-cols-2">
         {promo_cards &&
           promo_cards.map((promoCard) => (

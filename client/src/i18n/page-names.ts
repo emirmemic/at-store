@@ -22,6 +22,7 @@ export const PAGE_NAMES = {
   FIND_STORE: '/find-store',
   GLOBAL_COMPONENTS: '/global-components',
   HOME: '/',
+  ICONS: '/icons-page',
   IPAD: '/ipad',
   IPHONE: '/iphone',
   LOGIN: '/login',

@@ -1,4 +1,4 @@
-export { default as monri } from './monri.jpg';
+export { default as atBusiness } from './at-business.png';
 export { default as atStoreAlta } from './at-store-alta.png';
 export { default as atStoreDelta } from './at-store-delta.png';
 export { default as atStoreScc } from './at-store-scc.png';
@@ -6,4 +6,5 @@ export { default as atBusinessMac } from './mac-at-business.png';
 export { default as iPhoneAtBusiness } from './iphone-at-business.jpeg';
 export { default as iPadMiniAtBusiness } from './ipad-mini-at-business.png';
 export { default as macBookAirM1AtBusiness } from './macbook-air-m1-at-business.png';
-export { default as atBusiness } from './at-business.png';
+export { default as monri } from './monri.jpg';
+export { default as supportLaptop } from './support-laptop.png';

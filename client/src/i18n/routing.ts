@@ -75,6 +75,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.GLOBAL_COMPONENTS]: {
       bs: '/global-components',
     },
+    [PAGE_NAMES.ICONS]: {
+      bs: '/icons-page',
+    },
     [PAGE_NAMES.IPAD]: {
       bs: '/ipad',
     },
