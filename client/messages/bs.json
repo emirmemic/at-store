@@ -73,7 +73,7 @@
       "description": "Informacije o obrazovnom popustu za učenike i studente."
     },
     "findStore": {
-      "title": "Pronađi store | AT Store",
+      "title": "Pronađi poslovnicu | AT Store",
       "description": "Pronađite najbližu AT Store lokaciju."
     },
     "careers": {
@@ -558,6 +558,15 @@
     "newsletter": {
       "title": "Newsletter"
     }
+  },
+  "findStorePage": {
+    "title": "Pronađi poslovnicu",
+    "stores": "poslovnice",
+    "open": "Otvoreno",
+    "opensAt": "Otvara se u",	
+    "closed": "Zatvoreno",
+    "closesAt": "Zatvara se u",
+    "errorOpeningHours": "Greška prilikom učitavanja radnog vremena"
   },
   "common": {
     "adapters": "Adapteri",

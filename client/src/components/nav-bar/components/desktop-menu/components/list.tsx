@@ -57,7 +57,7 @@ export default function DesktopList({
         <div className="w-full pb-12" onMouseLeave={handleMouseLeave}>
           <div
             ref={outsideRef}
-            className="mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3 shadow-large-black"
+            className="shadow-large-black mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3"
           >
             <ul className="flex h-full flex-wrap gap-11">
               {activeMenu?.subLinks?.map((sub) => (
