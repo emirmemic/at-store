@@ -24,7 +24,7 @@ export default function FavoriteProductCard({
     apiCall: () => userProvider.toggleFavorite(product),
     onSuccess: () => {
       toast({
-        title: t('common.success'),
+        title: t('common.successful'),
       });
     },
     onError: (error) => {

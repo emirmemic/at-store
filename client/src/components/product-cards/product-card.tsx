@@ -45,7 +45,7 @@ export default function ProductCard({
     apiCall: () => toggleFavorite(product),
     onSuccess: () => {
       toast({
-        title: t('success'),
+        title: t('successful'),
       });
       if (user) {
         setFavoritedBy((prev) =>
