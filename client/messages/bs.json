@@ -563,7 +563,7 @@
     "title": "Pronađi poslovnicu",
     "stores": "poslovnice",
     "open": "Otvoreno",
-    "opensAt": "Otvara se u",	
+    "opensAt": "Otvara se u",
     "closed": "Zatvoreno",
     "closesAt": "Zatvara se u",
     "errorOpeningHours": "Greška prilikom učitavanja radnog vremena"

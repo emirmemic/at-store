@@ -1,7 +1,5 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { getOpeningHours } from './actions';
 import { Content } from './components';
 import { StoreType } from './types';
 
