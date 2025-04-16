@@ -5,6 +5,7 @@ export { default as IconChevron } from './chevron';
 export { default as IconClose } from './close';
 export { default as IconDelivery } from './delivery';
 export { default as IconEducation } from './education';
+export { default as IconFlip } from './flip';
 export { default as IconHeart } from './heart';
 export { default as IconHome } from './home';
 export { default as IconKeyboard } from './keyboard';

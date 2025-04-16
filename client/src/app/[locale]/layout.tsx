@@ -13,7 +13,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { routing, type Locale } from '@/i18n/routing';
 import { getUser } from '@/lib/services';
 
-import { SF_Pro_Text } from '../fonts/fonts';
+import { SF_Pro_Text, SF_Pro_Display } from '../fonts/fonts';
 import UserProvider from '../providers/user-provider';
 
 interface GenerateMetadataParams {
@@ -81,7 +81,10 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   const user = await getUser();
 
   return (
-    <html className={`${SF_Pro_Text.variable}`} lang="en">
+    <html
+      className={`${SF_Pro_Text.variable} ${SF_Pro_Display.variable}`}
+      lang="en"
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
           <UserProvider initialValue={user}>

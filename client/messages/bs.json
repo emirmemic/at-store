@@ -595,8 +595,11 @@
     "view": "Pogledaj",
     "viewDetailsWithName": "Pogledaj detalje {productName}",
     "viewDetails": "Pogledaj detalje",
+    "viewMore": "Pogledaj više",
+
     "successful": "Uspješno",
-    "error": "Došlo je do greške"
+    "error": "Došlo je do greške",
+    "startsFrom": "Počne od"
   },
   "atBusinessPage": {
     "title": "At Business",

@@ -56,6 +56,7 @@ export default function Store({ store, isSelected, onClick }: StoreProps) {
       href={{
         pathname: PAGE_NAMES.FIND_STORE,
         query: { store: store.id },
+        hash: 'map',
       }}
       onClick={() => onClick(store)}
     >

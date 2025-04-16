@@ -1,0 +1,32 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+import { CURRENCY } from '@/lib/constants';
+import { CategoryItem } from '@/lib/types';
+
+export default function Category(category: CategoryItem) {
+  const t = useTranslations('common');
+  const { name, link, image, price } = category;
+  return (
+    <Link
+      className="flex w-44 flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50"
+      href={link}
+    >
+      <span className="h-24 w-40">
+        {image && (
+          <Image
+            alt={image.alternativeText || name}
+            className="h-full w-full object-contain"
+            height={96}
+            src={image.url}
+            width={160}
+          />
+        )}
+      </span>
+      <span className="sr-only">{t('viewMore')}</span>
+      <span className="heading-5 md:heading-4">{name}</span>
+      <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')}: ${price} ${CURRENCY}`}</span>
+    </Link>
+  );
+}

@@ -1,17 +1,35 @@
 import {
   airPodsPro2,
+  appleTvRemote,
   display,
   iMac,
+  iPad,
+  iPhone,
   iphone13,
   iphone13ClearCase,
+  keyboard,
+  mac,
   macBookAir,
   macBookAirM3,
   macBookPro,
   macMini,
+  promo1,
+  promo2,
+  promo3,
+  promo4,
+  watch,
+  watches,
 } from '@/assets/placeholder-images';
 import { NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { ShoppingCartItem, ProductBase } from '@/lib/types';
+import {
+  ShoppingCartItem,
+  ProductBase,
+  CategoryItem,
+  PromotionCardItem,
+  AccessorySliderItem,
+  BestSellerItem,
+} from '@/lib/types';
 
 const placeholderImage = macBookAir;
 const placeholderImage2 = iMac;
@@ -173,7 +191,7 @@ const navMenu: NavMenuItem[] = [
       },
       {
         id: 3,
-        label: 'AirPods Pro',
+        label: 'AirPods Pro 2',
         logo: placeholderImage,
         href: placeholderPage,
       },
@@ -737,10 +755,378 @@ const placeholderCart: ShoppingCartItem[] = [
   },
 ];
 
+const dummyCategories: CategoryItem[] = [
+  {
+    id: '1',
+    name: 'Mac',
+    link: PAGE_NAMES.MAC,
+    price: 1999,
+    image: {
+      id: 1,
+      documentId: 'mac-category-image',
+      url: mac.src,
+      alternativeText: 'Mac',
+    },
+  },
+  {
+    id: '2',
+    name: 'iPhone',
+    link: PAGE_NAMES.IPHONE,
+    price: 1239,
+    image: {
+      id: 2,
+      documentId: 'iphone-category-image',
+      url: iPhone.src,
+      alternativeText: 'iPhone',
+    },
+  },
+  {
+    id: '3',
+    name: 'iPad',
+    link: PAGE_NAMES.IPAD,
+    price: 999,
+    image: {
+      id: 3,
+      documentId: 'ipad-category-image',
+      url: iPad.src,
+      alternativeText: 'iPad Category',
+    },
+  },
+  {
+    id: '4',
+    name: 'Watch',
+    link: PAGE_NAMES.WATCH,
+    price: 399,
+    image: {
+      id: 4,
+      documentId: 'watch-category-image',
+      url: watch.src,
+      alternativeText: 'Watch Category',
+    },
+  },
+  {
+    id: '5',
+    name: 'AirPods',
+    link: PAGE_NAMES.AIRPODS,
+    price: 589,
+    image: {
+      id: 5,
+      documentId: 'airpods-category-image',
+      url: airPodsPro2.src,
+      alternativeText: 'AirPods Category',
+    },
+  },
+  {
+    id: '6',
+    name: 'Mac',
+    link: PAGE_NAMES.MAC,
+    price: 1999,
+    image: {
+      id: 1,
+      documentId: 'mac-category-image',
+      url: mac.src,
+      alternativeText: 'Mac',
+    },
+  },
+  {
+    id: '7',
+    name: 'iPhone',
+    price: 1239,
+    link: PAGE_NAMES.IPHONE,
+    image: {
+      id: 2,
+      documentId: 'iphone-category-image',
+      url: iPhone.src,
+      alternativeText: 'iPhone',
+    },
+  },
+  {
+    id: '8',
+    name: 'iPad',
+    price: 999,
+    link: PAGE_NAMES.IPAD,
+    image: {
+      id: 3,
+      documentId: 'ipad-category-image',
+      url: iPad.src,
+      alternativeText: 'iPad Category',
+    },
+  },
+];
+const dummyPromotions: PromotionCardItem[] = [
+  {
+    id: '1',
+    tagline: 'Akcija',
+    product: dummyAccessories[0],
+    priceFrom: 'Već od: 569 KM',
+    backTagline: 'Ekskluzivna ponuda',
+    category: 'AirPods',
+    description:
+      'Uživajte u vrhunskom zvuku po sniženoj cijeni. Ne propustite priliku!',
+    cta: 'Pogledajte ponudu sada.',
+    actionLink: PAGE_NAMES.AIRPODS,
+  },
+  {
+    id: '2',
+    tagline: 'Nove cijene.',
+    backTagline: 'Iskoristite priliku',
+    product: dummyProducts[1],
+    priceFrom: 'Već od: 1239 KM',
+    category: 'iPhone',
+    description:
+      'Nabavite svoj omiljeni iPhone po nevjerojatnoj cijeni. Ponuda traje ograničeno!',
+    cta: 'Kupite svoj iPhone danas.',
+    actionLink: PAGE_NAMES.IPHONE,
+  },
+  {
+    id: '3',
+    tagline: 'Akcija',
+    product: dummyProducts[0],
+    priceFrom: 'Već od: 2969 KM',
+    backTagline: 'Ugrabite sada',
+    category: 'MacBook Air',
+    description:
+      'Savršena kombinacija performansi i stila. Kupite MacBook Air po sniženoj cijeni!',
+    cta: 'Provjerite detalje odmah.',
+    actionLink: PAGE_NAMES.MAC,
+  },
+  {
+    id: '4',
+    tagline: 'Do isteka zaliha.',
+    product: dummyMacProducts[0],
+    priceFrom: 'Već od: 3499 KM',
+    backTagline: 'Ponuda ograničenog trajanja',
+    category: 'MacBook Air M2',
+    description:
+      'Iskoristite priliku za kupovinu MacBook Air M2 prije nego što nestane!',
+    cta: 'Naručite prije nego nestane.',
+    actionLink: PAGE_NAMES.MAC,
+  },
+  {
+    id: '5',
+    tagline: 'Nova promocija.',
+    product: dummyMacProducts[1],
+    priceFrom: 'Već od: 3999 KM',
+    backTagline: 'Najbolja ponuda',
+    category: 'MacBook Pro',
+    description:
+      'Doživite vrhunske performanse s MacBook Pro. Dostupan sada po posebnoj cijeni!',
+    cta: 'Kupite svoj MacBook sada.',
+    actionLink: PAGE_NAMES.MAC,
+  },
+  {
+    id: '6',
+    tagline: 'Akcija',
+    product: dummyMacProducts[2],
+    priceFrom: 'Već od: 1599 KM',
+    backTagline: 'Ne propustite ovu priliku',
+    category: 'Mac Mini',
+    description:
+      'Kompaktan i moćan Mac Mini sada dostupan po sniženoj cijeni. Kupite odmah!',
+    cta: 'Pogledajte više informacija.',
+    actionLink: PAGE_NAMES.MAC,
+  },
+  {
+    id: '7',
+    tagline: 'Nova ponuda.',
+    product: dummyMacProducts[3],
+    priceFrom: 'Već od: 2499 KM',
+    backTagline: 'Ekskluzivno za vas',
+    category: 'MacBook Pro M1',
+    description:
+      'Otkrijte snagu MacBook Pro M1 po nevjerojatnoj cijeni. Ponuda vrijedi kratko!',
+    cta: 'Iskoristite ovu ponudu sada.',
+    actionLink: PAGE_NAMES.MAC,
+  },
+];
+const dummyAccessoriesSlider: AccessorySliderItem[] = [
+  {
+    id: '1',
+    tagline: 'NOVO',
+    title: 'iPad Dodaci',
+    description: 'Ovdje możete kupiti iPad dodatke.',
+    priceText: 'Počne od: 10 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 1,
+      documentId: 'ipad-accessories-image',
+      url: iPad.src,
+      alternativeText: 'iPad Accessories',
+    },
+  },
+  {
+    id: '2',
+    title: 'TV Dodaci',
+    description: 'Ovdje możete kupiti TV dodatke.',
+    priceText: 'Počne od: 99 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 2,
+      documentId: 'tv-accessories-image',
+      url: appleTvRemote.src,
+      alternativeText: 'TV Accessories',
+    },
+  },
+  {
+    id: '3',
+    tagline: 'NOVO',
+    title: 'Watch Dodaci',
+    description: 'Ovdje możete kupiti Watch dodatke.',
+    priceText: 'Počne od: 3,999 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 3,
+      documentId: 'watch-accessories-image',
+      url: watches.src,
+      alternativeText: 'Watch Accessories',
+    },
+  },
+  {
+    id: '4',
+    title: 'Mac Dodaci',
+    description: 'Ovdje možete kupiti Mac dodatke.',
+    priceText: 'Počne od: 199 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 4,
+      documentId: 'mac-accessories-image',
+      url: keyboard.src,
+      alternativeText: 'Mac Accessories',
+    },
+  },
+  {
+    id: '5',
+    tagline: 'NOVO',
+    title: 'iPhone Dodaci',
+    description: 'Ovdje možete kupiti iPhone dodatke.',
+    priceText: 'Počne od: 199 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 5,
+      documentId: 'iphone-accessories-image',
+      url: iphone13ClearCase.src,
+      alternativeText: 'iPhone Accessories',
+    },
+  },
+  {
+    id: '6',
+    tagline: 'AKCIJA',
+    title: 'Mac Dodaci',
+    description: 'Ovdje možete kupiti Mac dodatke.',
+    priceText: 'Počne od: 199 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 4,
+      documentId: 'mac-accessories-image',
+      url: keyboard.src,
+      alternativeText: 'Mac Accessories',
+    },
+  },
+  {
+    id: '7',
+    tagline: 'NOVO',
+    title: 'iPhone Dodaci',
+    description: 'Ovdje možete kupiti iPhone dodatke.',
+    priceText: 'Počne od: 199 KM',
+    actionLink: PAGE_NAMES.ACCESSORIES,
+    image: {
+      id: 5,
+      documentId: 'iphone-accessories-image',
+      url: iphone13ClearCase.src,
+      alternativeText: 'iPhone Accessories',
+    },
+  },
+];
+const dummyBestSellers: BestSellerItem[] = [
+  {
+    ...dummyProducts[0],
+    id: 1,
+    tagline: 'Novi iPhone',
+    product_link: PAGE_NAMES.IPHONE,
+  },
+  {
+    ...dummyMacProducts[1],
+    id: 2,
+    tagline: 'Najbolje prodavaniji Mac u 2024.',
+    product_link: PAGE_NAMES.MAC,
+  },
+  {
+    ...dummyProducts[2],
+    id: 3,
+    tagline: 'No.1 iPad',
+    product_link: PAGE_NAMES.IPAD,
+  },
+  {
+    ...dummyAccessories[0],
+    id: 4,
+    tagline: 'Najbolje prodavaniji AirPods',
+    product_link: PAGE_NAMES.ACCESSORIES,
+  },
+  {
+    ...dummyAccessories[1],
+    id: 5,
+    tagline: 'Najbolje prodavaniji iPhone dodatak',
+    product_link: PAGE_NAMES.ACCESSORIES,
+  },
+  {
+    ...dummyAccessories[2],
+    id: 6,
+    tagline: 'Najbolje prodavaniji iPad dodatak',
+    product_link: PAGE_NAMES.ACCESSORIES,
+  },
+];
+
+const dummyPromoImages = [
+  {
+    id: '1',
+    image: {
+      id: 1,
+      documentId: 'promo1-image',
+      url: promo1.src,
+      alternativeText: 'Promo 1',
+    },
+    actionLink: PAGE_NAMES.MAC,
+  },
+  {
+    id: '2',
+    image: {
+      id: 2,
+      documentId: 'promo2-image',
+      url: promo2.src,
+      alternativeText: 'Promo 2',
+    },
+    actionLink: PAGE_NAMES.IPHONE,
+  },
+  {
+    id: '3',
+    image: {
+      id: 3,
+      documentId: 'promo3-image',
+      url: promo3.src,
+      alternativeText: 'Promo 3',
+    },
+    actionLink: PAGE_NAMES.WATCH,
+  },
+  {
+    id: '4',
+    image: {
+      id: 4,
+      documentId: 'promo4-image',
+      url: promo4.src,
+      alternativeText: 'Promo 4',
+    },
+    actionLink: PAGE_NAMES.AIRPODS,
+  },
+];
 export {
   dummyAccessories,
   dummyMacProducts,
   dummyProducts,
+  dummyCategories,
+  dummyPromotions,
+  dummyAccessoriesSlider,
+  dummyBestSellers,
+  dummyPromoImages,
   navMenu,
   placeholderCart,
 };

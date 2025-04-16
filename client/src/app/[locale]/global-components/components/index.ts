@@ -7,3 +7,4 @@ export { default as PopupExamples } from './popup-examples';
 export { default as ProductCardExamples } from './product-card-examples';
 export { default as TypographyExamples } from './typography-examples';
 export { default as SliderExamples } from './slider-examples';
+export { default as SliderCardsExamples } from './slider-cards-examples';

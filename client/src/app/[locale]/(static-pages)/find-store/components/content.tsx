@@ -40,7 +40,10 @@ export default function Content({ stores }: { stores: StoreType[] }) {
             ))}
           </div>
         </div>
-        <StoreMap src={selectedStore.embedLink} />
+        <div className="relative">
+          <div className="absolute -top-24" id="map"></div>
+          <StoreMap src={selectedStore.embedLink} />
+        </div>
       </div>
     </>
   );

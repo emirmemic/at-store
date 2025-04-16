@@ -1,3 +1,4 @@
+import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types/base';
 
@@ -35,4 +36,43 @@ interface InstallmentOption {
   value: number;
 }
 
-export type { ProductBase, ShoppingCartItem, InstallmentOption };
+interface CategoryItem {
+  id: string;
+  name: string;
+  link: string;
+  price: number;
+  image: ImageProps | null;
+}
+interface PromotionCardItem {
+  id: string;
+  tagline: string;
+  product: ProductBase;
+  priceFrom: string;
+  backTagline: string;
+  category: string;
+  description: string;
+  cta: string;
+  actionLink: Pathname;
+}
+interface AccessorySliderItem {
+  id: string;
+  tagline?: string;
+  title: string;
+  description: string;
+  priceText: string;
+  image: ImageProps;
+  actionLink: Pathname;
+}
+interface BestSellerItem extends ProductBase {
+  tagline: string;
+}
+
+export type {
+  ProductBase,
+  ShoppingCartItem,
+  CategoryItem,
+  PromotionCardItem,
+  AccessorySliderItem,
+  BestSellerItem,
+  InstallmentOption,
+};

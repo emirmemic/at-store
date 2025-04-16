@@ -77,16 +77,8 @@ export default function SliderExamples() {
           ))}
         </CarouselContent>
         <div className="flex justify-end gap-2 py-4">
-          <CarouselPrevious
-            className="translate-0 static"
-            size="lg"
-            variant="white"
-          />
-          <CarouselNext
-            className="translate-0 static"
-            size="lg"
-            variant="white"
-          />
+          <CarouselPrevious className="translate-0 static" size="lg" />
+          <CarouselNext className="translate-0 static" size="lg" />
         </div>
       </Carousel>
       <p className="heading-4">Carousel with pagination and autoplay:</p>

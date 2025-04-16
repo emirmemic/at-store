@@ -14,6 +14,7 @@ export default {
     extend: {
       fontFamily: {
         'sf-pro': ['var(--font-sf-pro)', 'sans-serif'],
+        'sf-pro-display': ['var(--font-sf-pro-display)', 'sans-serif'],
       },
       screens: {
         md: '840px',
