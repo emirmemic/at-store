@@ -10,8 +10,11 @@ export interface FileInputProps
   errorMessage?: string;
   onFileChange?: (files: File[] | null) => void;
 }
+export interface FileInputRef {
+  clear: () => void;
+}
 
-const InputFileUpload = React.forwardRef<HTMLInputElement, FileInputProps>(
+const InputFileUpload = React.forwardRef<FileInputRef, FileInputProps>(
   ({ className, errorMessage, onFileChange, multiple, ...props }, ref) => {
     const t = useTranslations('input');
     // States
@@ -67,6 +70,20 @@ const InputFileUpload = React.forwardRef<HTMLInputElement, FileInputProps>(
       preventDefaultHandler(e);
     };
 
+    // Expose clear method to parent component and clear input value
+    React.useImperativeHandle(ref, () => {
+      const inputElement = document.getElementById(id) as HTMLInputElement;
+      return {
+        ...inputElement,
+        clear: () => {
+          setFileNames(null);
+          if (inputElement) {
+            inputElement.value = '';
+          }
+        },
+      };
+    });
+
     return (
       <div className="flex flex-col gap-3">
         <label
@@ -92,7 +109,6 @@ const InputFileUpload = React.forwardRef<HTMLInputElement, FileInputProps>(
           </div>
         )}
         <input
-          ref={ref}
           className="hidden"
           id={id}
           multiple={multiple}

@@ -64,7 +64,7 @@
       "title": "Mikrofin predračun | AT Store",
       "description": "Informacije o Mikrofin predračunu za kupovinu na rate."
     },
-    "claims": {
+    "complaints": {
       "title": "Reklamacije | AT Store",
       "description": "Postupak i informacije o reklamacijama proizvoda."
     },
@@ -599,7 +599,9 @@
 
     "successful": "Uspješno",
     "error": "Došlo je do greške",
-    "startsFrom": "Počne od"
+    "startsFrom": "Počne od",
+    "requestFailAlert": "Poruka nije poslana",
+    "requestSuccessAlert": "Uspješno ste poslali zahtjev"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -679,5 +681,25 @@
     "nameAndSurnameRequired": "Ime i prezime su obavezni",
     "companyNameRequired": "Naziv firme je obavezan",
     "companyIdNumberRequired": "ID broj firme je obavezan"
+  },
+  "complaintsPage": {
+    "title": "Reklamacije",
+    "formTitle": "Ispunite formu i pošaljite zahtjev za reklamaciju.",
+    "formName": "ime",
+    "formSurName": "Prezime",
+    "formNumber": "Broj",
+    "formEmail": "Email",
+    "formMessage": "Detaljno objašnjenje",
+    "deviceImage": "Slika uređaja",
+    "warrantyImage": "Slika garancije",
+    "billImage": "Slika računa",
+    "buttonSubmit": "Pošalji",
+    "subTitle": "Uslovi povrata i reklamacije",
+    "contactUs": "Kontaktirajte nas",
+    "contactInfo": "Pozovite nas na broj +387 33 956 188 ili putem maila na reklamacije@atstore.ba",
+    "infoBlockTitle": "Kontaktirajte nas za više informacija.",
+    "IconDamageDescription": "Bez fizičkih oštećenja",
+    "IconPurchaseDescription": "Kupljeno u AT Store-u",
+    "IconConditionDescription": "Ispunjeni uslovi za reklamaciju"
   }
 }

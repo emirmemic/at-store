@@ -26,3 +26,6 @@ export { default as IconValidationError } from './validation-error';
 export { default as IconWallet } from './wallet';
 export { default as IconX } from './x';
 export { default as IconLoader } from './loader';
+export { default as IconDamage } from './damage';
+export { default as IconPurchased } from './purchased';
+export { default as IconCondition } from './condition';

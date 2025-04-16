@@ -539,7 +539,7 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    billImage: Schema.Attribute.Media<'images'>;
+    billImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -554,7 +554,7 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
     message: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
+        maxLength: 500;
         minLength: 20;
       }>;
     name: Schema.Attribute.String &
@@ -564,6 +564,7 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
         minLength: 3;
       }>;
     phoneNumber: Schema.Attribute.BigInteger &
+      Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
         {
           max: '12';
@@ -581,7 +582,7 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    warrantyImage: Schema.Attribute.Media<'images'>;
+    warrantyImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
   };
 }
 

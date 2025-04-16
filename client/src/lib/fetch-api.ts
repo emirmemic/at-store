@@ -13,7 +13,7 @@ type NextFetchRequestConfig = {
 interface FetchAPIOptions {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   authToken?: string;
-  body?: Record<string, unknown>;
+  body?: Record<string, unknown> | FormData;
   /** Next.js cache configuration for the request */
   next?: NextFetchRequestConfig;
   timeout?: number;
@@ -27,6 +27,10 @@ export type StrapiError = {
   details: Record<string, unknown>;
 };
 
+export interface StrapiValidationError {
+  message: string;
+  path: string[];
+}
 export type APIResponse<T = unknown> = {
   status: number;
   statusText: string;
@@ -80,19 +84,28 @@ export async function fetchAPI<T = unknown>(
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-  const headers: RequestInit = {
+  // Determine if the body is an instance of FormData
+  const isFormData = body instanceof FormData;
+
+  // Build headers: omit Content-Type for FormData so the browser sets it properly.
+  const fetchHeaders = {
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+    ...(authToken && { Authorization: `Bearer ${authToken}` }),
+  };
+
+  // Set the final body. If it's FormData leave it as-is; if not, stringify it.
+  const finalBody = isFormData ? body : JSON.stringify(body);
+
+  const requestInit: RequestInit = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(authToken && { Authorization: `Bearer ${authToken}` }),
-    },
-    ...(body && { body: JSON.stringify(body) }),
-    ...(next && { next }),
+    headers: fetchHeaders,
+    ...(body ? { body: finalBody } : {}),
+    ...(next ? { next } : {}),
     signal: controller.signal,
   };
 
   try {
-    const response = await fetch(url, headers);
+    const response = await fetch(url, requestInit);
     clearTimeout(timeoutId);
 
     const contentType = response.headers.get('content-type');
@@ -104,7 +117,6 @@ export async function fetchAPI<T = unknown>(
 
     const responseData = await response.json();
 
-    // Check for unauthorized status and redirect
     if (response.status === 401 || response.status === 403) {
       redirect({
         href: '/login',

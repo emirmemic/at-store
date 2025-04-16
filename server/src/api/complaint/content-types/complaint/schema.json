@@ -26,7 +26,7 @@
     },
     "phoneNumber": {
       "type": "biginteger",
-      "required": false,
+      "required": true,
       "max": "12",
       "min": "8"
     },
@@ -37,7 +37,7 @@
     "message": {
       "type": "text",
       "required": true,
-      "maxLength": 300,
+      "maxLength": 500,
       "minLength": 20
     },
     "deviceImage": {
@@ -51,7 +51,7 @@
     "warrantyImage": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
@@ -59,7 +59,7 @@
     "billImage": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images"
       ]
