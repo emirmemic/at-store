@@ -3,7 +3,7 @@ import { navMenu, placeholderCart } from '@/data/dummy-data';
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 z-50 flex h-nav-height w-full bg-black">
+    <nav className="fixed top-0 z-50 flex h-nav-height w-screen bg-black pr-4">
       <MobileMenu
         cartCount={placeholderCart.length}
         className="md:hidden"

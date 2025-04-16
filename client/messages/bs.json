@@ -653,6 +653,9 @@
     "phoneNumber": "Broj",
     "dateOfBirth": "Datum rođenja"
   },
+  "productPage": {
+    "installments": "Rate"
+  },
   "validation": {
     "emailRequired": "Email je obavezan",
     "invalidEmailFormat": "Neispravan format email adrese",

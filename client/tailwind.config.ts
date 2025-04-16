@@ -80,6 +80,7 @@ export default {
           dark: '#7d7d7d',
           darker: '#6a6a6a',
           darkest: '#2e2e30',
+          'almost-black': '#121212',
         },
         orange: {
           DEFAULT: '#F59E0B',

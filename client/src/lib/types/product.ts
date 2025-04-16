@@ -30,5 +30,9 @@ interface ProductBase {
 interface ShoppingCartItem extends ProductBase {
   quantity_in_cart: number;
 }
+interface InstallmentOption {
+  label: string;
+  value: number;
+}
 
-export type { ProductBase, ShoppingCartItem };
+export type { ProductBase, ShoppingCartItem, InstallmentOption };
