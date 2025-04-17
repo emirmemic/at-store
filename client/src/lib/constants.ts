@@ -7,3 +7,10 @@ export const STORE_NAMES = [
   'Sarajevo Alta',
   'Banja Luka',
 ] as const;
+export const CONTACT_NUMBERS = {
+  complaintsNumber: '+387 33 956 188',
+};
+
+export const CONTACT_EMAILS = {
+  complaintsEmail: 'reklamacije@atstore.ba',
+};

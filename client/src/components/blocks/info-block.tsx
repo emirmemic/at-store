@@ -1,13 +1,15 @@
 import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
 
 import { IconHeart } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Link, Pathname } from '@/i18n/routing';
+import { Pathname, Link as RoutingLink } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 interface InfoBlockProps {
   title: string;
-  description: string;
+  description?: string;
+  descriptionComponent?: ReactNode;
   isFavorites?: boolean;
   className?: string;
   path?: Pathname;
@@ -17,6 +19,7 @@ interface InfoBlockProps {
 export default function InfoBlock(props: Readonly<InfoBlockProps>) {
   const {
     title,
+    descriptionComponent,
     description,
     isFavorites = false,
     path,
@@ -41,7 +44,10 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
         )}
       </div>
       <div className="flex flex-col gap-6 md:gap-3 lg:flex-row lg:gap-16">
-        <p className="flex-1 text-white paragraph-1">{description}</p>
+        {descriptionComponent ?? (
+          <p className="flex-1 text-white paragraph-1">{description}</p>
+        )}
+
         {onClick && (
           <Button
             className="self-end"
@@ -61,7 +67,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
             typography={'button1'}
             variant={'filled'}
           >
-            <Link href={path}>{t('view')}</Link>
+            <RoutingLink href={path}>{t('view')}</RoutingLink>
           </Button>
         )}
       </div>

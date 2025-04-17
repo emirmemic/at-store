@@ -696,7 +696,12 @@
     "buttonSubmit": "Pošalji",
     "subTitle": "Uslovi povrata i reklamacije",
     "contactUs": "Kontaktirajte nas",
-    "contactInfo": "Pozovite nas na broj +387 33 956 188 ili putem maila na reklamacije@atstore.ba",
+    "srCallForHelp": "Broj za žalbe: pozovite ako imate primjedbu ili prijedlog.",
+    "srComplaintMail": "Pošaljite nam email ako imate neku primjedbu, prijedlog ili ako nešto ne štima.",
+    "contactsInfo": {
+      "text1": "Pozovite nas na broj ",
+      "text2": "ili putem maila na"
+    },
     "infoBlockTitle": "Kontaktirajte nas za više informacija.",
     "IconDamageDescription": "Bez fizičkih oštećenja",
     "IconPurchaseDescription": "Kupljeno u AT Store-u",

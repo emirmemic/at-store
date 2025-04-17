@@ -1,8 +1,12 @@
+//TODO ADD CONSTANTS FOR ALL PAGES THAT USE CONSTANTS
+//TODO ADD sr-only for  form inputs
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { CardBlock, InfoBlock } from '@/components';
 import { IconCondition, IconDamage, IconPurchased } from '@/components/icons';
+import { CONTACT_EMAILS, CONTACT_NUMBERS } from '@/lib/constants';
 
 import ComplaintsForm from './components/form';
 
@@ -22,7 +26,37 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     },
   };
 }
-
+function Description() {
+  const t = useTranslations('complaintsPage');
+  return (
+    <div className="text-white bullet-1 md:paragraph-1">
+      <p>
+        {t('contactsInfo.text1')}
+        <span className="transition-colors hover:text-grey-medium">
+          <Link
+            href={`tel:${CONTACT_NUMBERS.complaintsNumber}`}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <span className="sr-only">{t('srCallForHelp')}</span>
+            {CONTACT_NUMBERS.complaintsNumber}{' '}
+          </Link>
+        </span>
+        {t('contactsInfo.text2')}
+      </p>
+      <span className="transition-colors hover:text-grey-medium">
+        <Link
+          href={`mailto:${CONTACT_EMAILS.complaintsEmail}`}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <span className="sr-only">{t('srComplaintMail')}</span>
+          {CONTACT_EMAILS.complaintsEmail}
+        </Link>
+      </span>
+    </div>
+  );
+}
 export default function Page() {
   const t = useTranslations();
   const cards = [
@@ -70,7 +104,7 @@ export default function Page() {
           {t('complaintsPage.contactUs')}
         </h2>
         <InfoBlock
-          description={t('complaintsPage.contactInfo')}
+          descriptionComponent={<Description />}
           title={t('complaintsPage.infoBlockTitle')}
         />
       </section>
