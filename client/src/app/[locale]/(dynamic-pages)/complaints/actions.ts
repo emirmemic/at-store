@@ -1,4 +1,3 @@
-'use server';
 //TODO handle API Errors for files
 import { ZodError } from 'zod';
 
@@ -6,10 +5,12 @@ import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI, StrapiValidationError } from '@/lib/fetch-api';
 import complaintsSchema, { ComplaintsFormData } from '@/lib/schemas/complaints';
 import { getAuthToken } from '@/lib/services';
+import { LocalizationKey } from '@/lib/types';
 
 export async function complaintsAction(
   _prevState: unknown,
-  formData: FormData
+  formData: FormData,
+  t: LocalizationKey
 ): Promise<{
   data: ComplaintsFormData;
   errors: Record<string, string>;
@@ -26,7 +27,8 @@ export async function complaintsAction(
   }
   let validated;
   try {
-    validated = complaintsSchema.parse(formDataObject);
+    validated = complaintsSchema(t);
+    validated.parse(formDataObject);
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors = Object.fromEntries(
@@ -34,7 +36,7 @@ export async function complaintsAction(
           .reverse()
           .map(({ path, message }) => [path[0], message])
       );
-      // Early return without uploading any files if non-file data is invalid
+      // Early return without uploading any files if data is invalid
       return { data: formDataObject, errors: fieldErrors };
     }
     return {
@@ -66,9 +68,15 @@ export async function complaintsAction(
   let billImageId: number | null = null;
 
   try {
-    deviceImageId = await uploadFile(files.deviceImage);
-    warrantyImageId = await uploadFile(files.warrantyImage);
-    billImageId = await uploadFile(files.billImage);
+    if (files.deviceImage) {
+      deviceImageId = await uploadFile(files.deviceImage);
+    }
+    if (files.warrantyImage) {
+      warrantyImageId = await uploadFile(files.warrantyImage);
+    }
+    if (files.billImage) {
+      billImageId = await uploadFile(files.billImage);
+    }
   } catch (error) {
     return { data: formDataObject, errors: { msg: (error as Error).message } };
   }

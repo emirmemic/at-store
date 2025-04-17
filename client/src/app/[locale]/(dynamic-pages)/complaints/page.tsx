@@ -87,7 +87,7 @@ export default function Page() {
         </h2>
       </header>
       <ComplaintsForm />
-      <section className="md:py-16y py-12">
+      <section className="py-12 md:py-16">
         <h2 className="pb-3 pt-12 text-center bullet-heading-1 md:pb-8 md:pt-16 md:heading-2 lg:pb-12 lg:heading-1">
           {t('complaintsPage.subTitle')}
         </h2>

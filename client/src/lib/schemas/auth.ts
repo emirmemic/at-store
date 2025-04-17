@@ -2,13 +2,15 @@ import { z } from 'zod';
 
 import { LocalizationKey } from '../types';
 
+import { phoneNumberSchema } from './common';
+
 const createLoginSchema = (t: LocalizationKey) =>
   z.object({
     email: z.string().min(1, t('emailRequired')).email(t('invalidEmailFormat')),
     password: z
       .string()
-      .min(8, t('passwordMinLength'))
-      .max(50, t('passwordMaxLength'))
+      .min(8, t('passwordMinLength', { minLength: '8' }))
+      .max(50, t('passwordMaxLength', { maxLength: '50' }))
       .regex(/[A-Z]/, t('passwordUppercase'))
       .regex(/[a-z]/, t('passwordLowercase'))
       .regex(/[0-9]/, t('passwordNumber')),
@@ -22,10 +24,7 @@ const createRegisterSchema = (t: LocalizationKey) => {
       surname: z.string().min(1, t('surnameRequired')),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
       address: z.string().min(1, t('addressRequired')),
-      phoneNumber: z
-        .string()
-        .min(8, t('phoneNumberRequired'))
-        .max(12, t('phoneNumberMaxLength')),
+      phoneNumber: phoneNumberSchema(t),
       dateOfBirth: z
         .string()
         .regex(
@@ -56,10 +55,7 @@ const createRegisterOrgSchema = (t: LocalizationKey) => {
       nameAndSurname: z.string().min(1, t('nameAndSurnameRequired')),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
       address: z.string().min(1, t('addressRequired')),
-      phoneNumber: z
-        .string()
-        .min(8, t('phoneNumberRequired'))
-        .max(12, t('phoneNumberMaxLength')),
+      phoneNumber: phoneNumberSchema(t),
       companyName: z.string().min(1, t('companyNameRequired')),
       companyIdNumber: z.string().min(1, t('companyIdNumberRequired')),
       role: z.enum(['organization']),
@@ -73,5 +69,5 @@ type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 type RegisterOrgFormData = z.infer<ReturnType<typeof createRegisterOrgSchema>>;
 
-export { createLoginSchema, createRegisterSchema, createRegisterOrgSchema };
+export { createLoginSchema, createRegisterOrgSchema, createRegisterSchema };
 export type { LoginFormData, RegisterFormData, RegisterOrgFormData };

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { IconHeart } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Pathname, Link as RoutingLink } from '@/i18n/routing';
+import { Pathname, Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 interface InfoBlockProps {
@@ -67,7 +67,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
             typography={'button1'}
             variant={'filled'}
           >
-            <RoutingLink href={path}>{t('view')}</RoutingLink>
+            <Link href={path}>{t('view')}</Link>
           </Button>
         )}
       </div>

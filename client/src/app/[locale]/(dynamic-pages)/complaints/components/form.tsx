@@ -1,5 +1,4 @@
 'use client';
-//TODO Implement Files on change validation
 
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useState } from 'react';
@@ -13,15 +12,24 @@ import { Textarea } from '@/components/ui/textarea';
 
 import { complaintsAction } from '../actions';
 
-const FormLabel = ({ title, title2 }: { title?: string; title2?: string }) => (
-  <div>
-    {title && <p className="pb-3 paragraph-2">{title}</p>}
-    {title2 && <p className="heading-4">{title2}</p>}
-  </div>
+const FormLabel = ({
+  title,
+  title2,
+  htmlFor,
+}: {
+  title?: string;
+  title2?: string;
+  htmlFor?: string;
+}) => (
+  <label htmlFor={htmlFor}>
+    {title && <span className="block pb-3 paragraph-2">{title}</span>}
+    {title2 && <span className="block heading-4">{title2}</span>}
+  </label>
 );
 
 export default function ComplaintsForm() {
   const t = useTranslations();
+  const validation = useTranslations('validation');
   const [alertVisible, setAlertVisible] = useState(false);
   const deviceImageRef = useRef<{ clear: () => void } | null>(null);
   const warrantyImageRef = useRef<{ clear: () => void } | null>(null);
@@ -39,7 +47,7 @@ export default function ComplaintsForm() {
   };
   const [formState, submitAction, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
-      complaintsAction(prevState, formData),
+      complaintsAction(prevState, formData, validation),
     undefined
   );
   useEffect(() => {
@@ -48,7 +56,7 @@ export default function ComplaintsForm() {
     }
   }, [formState, isPending]);
   useEffect(() => {
-    if (formState === null && !isPending) {
+    if ((formState === null || formState?.errors) && !isPending) {
       clearFileInputs();
     }
   }, [formState, isPending]);
@@ -59,7 +67,7 @@ export default function ComplaintsForm() {
       <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-3xl">
         <div className={`md:col-span-2 md:max-w-96 ${formStyle}`}>
           <div>
-            <FormLabel title={t('complaintsPage.formName')} />
+            <FormLabel htmlFor="name" title={t('complaintsPage.formName')} />
             <Input
               required
               autoComplete="given-name"
@@ -72,7 +80,10 @@ export default function ComplaintsForm() {
             />
           </div>
           <div>
-            <FormLabel title={t('complaintsPage.formSurName')} />
+            <FormLabel
+              htmlFor="surname"
+              title={t('complaintsPage.formSurName')}
+            />
             <Input
               required
               autoComplete="family-name"
@@ -85,10 +96,13 @@ export default function ComplaintsForm() {
             />
           </div>
           <div>
-            <FormLabel title={t('complaintsPage.formNumber')} />
+            <FormLabel
+              htmlFor="phoneNumber"
+              title={t('complaintsPage.formNumber')}
+            />
             <Input
               required
-              autoComplete="tel-area-code"
+              autoComplete="tel"
               defaultValue={formState?.data.phoneNumber}
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
@@ -98,7 +112,7 @@ export default function ComplaintsForm() {
             />
           </div>
           <div>
-            <FormLabel title={t('complaintsPage.formEmail')} />
+            <FormLabel htmlFor="email" title={t('complaintsPage.formEmail')} />
             <Input
               required
               autoComplete="email"
@@ -111,7 +125,10 @@ export default function ComplaintsForm() {
             />
           </div>
           <div>
-            <FormLabel title={t('complaintsPage.formMessage')} />
+            <FormLabel
+              htmlFor="message"
+              title={t('complaintsPage.formMessage')}
+            />
             <Textarea
               required
               defaultValue={formState?.data.message}
@@ -125,7 +142,10 @@ export default function ComplaintsForm() {
         <div
           className={`w-full max-w-48 ${formStyle} self-center pt-6 md:self-start md:justify-self-end md:pt-0`}
         >
-          <FormLabel title2={t('complaintsPage.deviceImage')} />
+          <FormLabel
+            htmlFor="deviceImage"
+            title2={t('complaintsPage.deviceImage')}
+          />
           <InputFileUpload
             ref={deviceImageRef}
             accept=".svg,.png"
@@ -133,7 +153,10 @@ export default function ComplaintsForm() {
             errorMessage={formState?.errors.deviceImage}
             name="deviceImage"
           />
-          <FormLabel title2={t('complaintsPage.warrantyImage')} />
+          <FormLabel
+            htmlFor="warrantyImage"
+            title2={t('complaintsPage.warrantyImage')}
+          />
           <InputFileUpload
             ref={warrantyImageRef}
             accept=".svg,.png"
@@ -141,7 +164,10 @@ export default function ComplaintsForm() {
             errorMessage={formState?.errors.warrantyImage}
             name="warrantyImage"
           />
-          <FormLabel title2={t('complaintsPage.billImage')} />
+          <FormLabel
+            htmlFor="billImage"
+            title2={t('complaintsPage.billImage')}
+          />
           <InputFileUpload
             ref={billImageRef}
             accept=".svg,.png"

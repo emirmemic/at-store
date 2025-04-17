@@ -1,43 +1,54 @@
 import { z } from 'zod';
 
-//TODO Finish Validation Errors and add translations ot bs.json
-const complaintsSchema = z.object({
-  name: z
-    .string()
-    .min(3, 'Name is required')
-    .max(50, 'Name must at less than 50 characters '),
-  surname: z
-    .string()
-    .min(3, 'Surname is required')
-    .max(50, 'name must be less than 50 characters'),
-  phoneNumber: z
-    .string()
-    .min(8, 'Number must be at least 8 digits')
-    .max(12, 'Number must be less than 12 digits')
-    .regex(/^[0-9]+$/, 'Must be valid phone format'),
-  email: z.string().min(1, 'Email is required').email('Invalid email format'),
-  message: z.string().min(20, 'Message must be at least 20 characters'),
-  deviceImage: z.union([
-    z.instanceof(File).refine((file) => /\.(jpeg|png)$/i.test(file.name), {
-      message: 'Only .jpeg or .png files are allowed',
-    }),
-    z.null(),
-    z.undefined(),
-  ]),
-  warrantyImage: z
-    .custom<File>((file) => file instanceof File, {
-      message: 'Not a valid file',
-    })
-    .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
-      message: 'Only .svg or .png files are allowed',
-    }),
-  billImage: z
-    .custom<File>((file) => file instanceof File, {
-      message: 'Not a valid file',
-    })
-    .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
-      message: 'Only .svg or .png files are allowed',
-    }),
-});
-export type ComplaintsFormData = z.infer<typeof complaintsSchema>;
+// TODO FIX VALIDATION FOR FILES
+import { LocalizationKey } from '../types';
+
+import { phoneNumberSchema } from './common';
+
+const complaintsSchema = (t: LocalizationKey) =>
+  z.object({
+    name: z
+      .string()
+      .nonempty(t('nameRequired'))
+      .min(3, t('nameMinLength', { minLength: '3' }))
+      .max(50, t('nameMaxLength', { maxLength: '50' })),
+    surname: z
+      .string()
+      .nonempty(t('surnameRequired'))
+      .min(3, t('nameMinLength', { minLength: '3' }))
+      .max(50, t('nameMaxLength', { maxLength: '50' })),
+    phoneNumber: phoneNumberSchema(t),
+    email: z.string().min(1, t('emailRequired')).email(t('invalidEmailFormat')),
+    message: z
+      .string()
+      .nonempty(t('messageRequired'))
+      .min(20, t('messageMinLength', { minLength: '20' }))
+      .max(500, t('messageMaxLength', { maxLength: '500' })),
+    deviceImage: z
+      .instanceof(File)
+      .refine(
+        (file) => file.type === 'image/png' || file.type === 'image/jpeg',
+        { message: 'Only .png or .jpeg files are allowed.' }
+      )
+      .refine((file) => file.size >= 100 * 1024 && file.size <= 200 * 1024, {
+        message: 'File size must be between 100 KB and 200 KB.',
+      })
+      .optional(),
+    warrantyImage: z
+      .custom<File>((file) => file instanceof File, {
+        message: 'Not a valid file',
+      })
+      .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
+        message: 'Only .jpeg or .png files are allowed',
+      }),
+    billImage: z
+      .custom<File>((file) => file instanceof File, {
+        message: 'Not a valid file',
+      })
+      .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
+        message: 'Only .jpeg or .png files are allowed',
+      })
+      .optional(),
+  });
+export type ComplaintsFormData = z.infer<ReturnType<typeof complaintsSchema>>;
 export default complaintsSchema;
