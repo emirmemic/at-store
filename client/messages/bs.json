@@ -119,6 +119,10 @@
     "cookiePolicy": {
       "title": "Cookie policy | AT Store",
       "description": "Informacije o upotrebi kolačića i politici privatnosti kolačića."
+    },
+    "whyMac": {
+      "title": "Zašto Mac | AT Store",
+      "description": "Saznajte zašto je Mac najbolji izbor za vas."
     }
   },
   "about": {
@@ -727,5 +731,19 @@
     "IconDamageDescription": "Bez fizičkih oštećenja",
     "IconPurchaseDescription": "Kupljeno u AT Store-u",
     "IconConditionDescription": "Ispunjeni uslovi za reklamaciju"
+  },
+  "whyMacPage": {
+    "title": "Zašto Mac?",
+    "switchToMac": {
+      "text1": "Toliko je razloga",
+      "text2": "da pređeš na Mac."
+    },
+    "whyBuyMac": "Lako se uči. Zapanjujuće moćan. I dizajniran da vam omogući da radite, igrate se i stvarate na načine koje niste zamislili. To je računar koji dolazi prepun aplikacija koje su spremne čim otvorite kutiju. Besplatna, redovna ažuriranja softvera održavaju stvari ažuriranim i neometanim radom. A ako već imate iPhone, osjećat ćete se poznatim od trenutka kada ga uključite.",
+    "macCanDoIt": "Mac to može.",
+    "switchToMacText": "Mac je moćan, sposoban i prepun svega što vam je potrebno da svoj posao dovedete na viši nivo. Povećajte svoju produktivnost i kreativnost uz aplikacije za sve što možete zamisliti. Koristite čak i aplikacije iz Microsoft 365 i Adobe Creative Cloud bez propuštanja. Bez obzira ko ste ili šta želite da radite, Mac to može da ostvari.",
+    "deviceCompatibility": "Savršeno radi sa svim vašim Apple uređajima.",
+    "deviceCompatibilityText": "Mac je savršen pratilac vašim drugim Apple uređajima. Pročitajte poruku na svom Apple Watch-u i odgovorite sa svog Mac-a. Započnite prezentaciju na svom Macu i uvježbajte je na svom iPhone uređaju dok ste u pokretu. Otključajte svoj Mac pomoću Apple Watch-a. Ili čak podijelite cijele foto albume sa prijateljima iz cijele sobe.",
+    "chooseYourMac": "Odaberi svoj Mac",
+    "viewAll": "Pogledajte kompletnu ponudu Mac uređaja."
   }
 }

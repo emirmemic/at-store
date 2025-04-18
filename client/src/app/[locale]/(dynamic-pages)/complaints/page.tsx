@@ -94,7 +94,12 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:flex-wrap md:items-stretch">
           {cards.map((card) => (
             <div key={card.id} className="flex w-full max-w-80 md:w-1/3">
-              <CardBlock asChild iconClasses="h-20 w-24" {...card} />
+              <CardBlock
+                asChild
+                className="shadow-popup-black"
+                iconClasses="h-20 w-24"
+                {...card}
+              />
             </div>
           ))}
         </div>
@@ -104,6 +109,7 @@ export default function Page() {
           {t('complaintsPage.contactUs')}
         </h2>
         <InfoBlock
+          className="shadow-popup-black"
           descriptionComponent={<Description />}
           title={t('complaintsPage.infoBlockTitle')}
         />

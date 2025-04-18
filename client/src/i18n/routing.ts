@@ -132,6 +132,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.WATCH]: {
       bs: '/watch',
     },
+    [PAGE_NAMES.WHY_MAC]: {
+      bs: '/zasto-mac',
+    },
   },
 });
 

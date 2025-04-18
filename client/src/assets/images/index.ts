@@ -8,3 +8,6 @@ export { default as iPadMiniAtBusiness } from './ipad-mini-at-business.png';
 export { default as macBookAirM1AtBusiness } from './macbook-air-m1-at-business.png';
 export { default as monri } from './monri.jpg';
 export { default as supportLaptop } from './support-laptop.png';
+export { default as macFamilyScreen } from './mac-family-screen.png';
+export { default as macBookAirBrandAwareness } from './macbook-air-brand-awareness.png';
+export { default as whyMacDevices } from './why-mac-devices.png';
