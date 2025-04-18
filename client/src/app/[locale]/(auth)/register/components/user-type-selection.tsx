@@ -4,10 +4,8 @@ import { useTranslations } from 'next-intl';
 import { IconAtStoreLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 
-import { Container } from '../../components';
+import { Container, Title } from '../../components';
 import { UserType } from '../page';
-
-import Title from './title';
 
 export default function UserTypeSelection({
   onSelectUserType,

@@ -661,6 +661,20 @@
   "productPage": {
     "installments": "Rate"
   },
+  "loginPage": {
+    "title": "Prijavite se",
+    "subtitle": "Nemate račun?",
+    "registerPrompt": "Registruj se",
+    "email": "Email",
+    "password": "Lozinka",
+    "forgotPassword": "Zaboravio šifru",
+    "rememberMe": "Zapamti me",
+    "loginButton": "Prijavi se",
+    "loginThrough": "Prijavi se putem",
+    "facebook": "Facebook",
+    "google": "Google",
+    "apple": "Apple"
+  },
   "validation": {
     "messageRequired": "Poruka je obavezna",
     "messageMinLength": "Poruka mora imati najmanje {minLength} karaktera",

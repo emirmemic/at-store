@@ -8,14 +8,14 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   const t = await getTranslations({ locale, namespace: 'metaData' });
 
   return {
-    title: t('reset-password.title'),
-    description: t('reset-password.description'),
+    title: t('resetPassword.title'),
+    description: t('resetPassword.description'),
     openGraph: {
-      title: t('reset-password.title'),
-      description: t('reset-password.description'),
+      title: t('resetPassword.title'),
+      description: t('resetPassword.description'),
     },
   };
 }
 export default function Page() {
-  return <div>Reset password</div>;
+  return <div>Reset Password</div>;
 }

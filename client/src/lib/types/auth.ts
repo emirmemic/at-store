@@ -28,5 +28,12 @@ interface AuthResponse {
 }
 
 type OrderStatusEnum = 'pending' | 'delivered' | 'canceled' | 'shipped';
+type OAuthProvider = 'google' | 'facebook' | 'apple';
 
-export type { AuthError, AuthResponse, OrderStatusEnum, UserInformation };
+export type {
+  AuthError,
+  AuthResponse,
+  OAuthProvider,
+  OrderStatusEnum,
+  UserInformation,
+};

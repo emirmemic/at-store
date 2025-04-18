@@ -1,20 +1,76 @@
-// import type { Core } from '@strapi/strapi';
+import jwt from "jsonwebtoken";
+
+function generateClientSecret() {
+  const privateKey = process.env.APPLE_PRIVATE_KEY.replace(/\\n/g, "\n");
+
+  const now = Math.floor(Date.now() / 1000);
+
+  return jwt.sign(
+    {
+      iss: process.env.APPLE_TEAM_ID, // Your Apple Team ID
+      iat: now,
+      exp: now + 15777000, // ~6 months max
+      aud: "https://appleid.apple.com",
+      sub: process.env.APPLE_SERVICE_ID, // Your Service ID / Client ID
+    },
+    privateKey,
+    {
+      algorithm: "ES256",
+      keyid: process.env.APPLE_KEY_ID, // Key ID in header
+    }
+  );
+}
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register({ strapi }) {
+    strapi
+      .plugin("users-permissions")
+      .service("providers-registry")
+      .add("apple", {
+        icon: "apple",
+        enabled: true,
+        grantConfig: {
+          apple: {
+            authorize_url: "https://appleid.apple.com/auth/authorize",
+            access_url: "https://appleid.apple.com/auth/token",
+            oauth: 2,
+            custom_params: { response_mode: "form_post" },
+            redirect_uri: `${strapi.config.server.url}/api/connect/apple/callback`,
+            key: process.env.APPLE_KEY,
+          },
+        },
+        async authCallback({ purest, query }) {
+          const clientSecret = generateClientSecret();
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+          const { body } = await purest({
+            provider: "generic",
+            config: {
+              apple: {
+                default: {
+                  origin: "https://appleid.apple.com",
+                  path: "/auth/token",
+                  headers: {
+                    "content-type": "application/x-www-form-urlencoded",
+                  },
+                },
+              },
+            },
+          })
+            .post({
+              form: {
+                grant_type: "authorization_code",
+                code: query.code,
+                client_id: process.env.APPLE_SERVICE_ID,
+                client_secret: clientSecret,
+                redirect_uri: `${strapi.config.server.url}/api/connect/apple/callback`,
+              },
+            })
+            .request();
+
+          const decoded: any = jwt.decode(body.id_token);
+          return { email: decoded.email, username: decoded.sub };
+        },
+      });
+  },
+  bootstrap() {},
 };

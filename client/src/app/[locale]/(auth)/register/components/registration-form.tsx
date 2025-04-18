@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl';
 import { IconAtStoreLogo } from '@/components/icons';
 
 import { Container } from '../../components';
+import Title from '../../components/title';
 import { UserType } from '../page';
 
 import Form from './form';
 import OrgUserForm from './org-user-form';
-import Title from './title';
 
 export default function RegistrationForm({
   userType,
