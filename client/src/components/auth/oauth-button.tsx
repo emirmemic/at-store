@@ -49,7 +49,12 @@ export default function OAuthButton({
           )}
           href={url.href}
         >
-          <Icon />
+          {provider === 'facebook' ? (
+            <Icon className="text-blue" pathClassName="text-white" />
+          ) : (
+            <Icon />
+          )}
+
           {provider}
         </Link>
       )}
