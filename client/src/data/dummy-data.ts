@@ -73,7 +73,7 @@ const navMenu: NavMenuItem[] = [
       {
         id: 6,
         label: 'Zašto Mac?',
-        href: PAGE_NAMES.MAC,
+        href: PAGE_NAMES.WHY_MAC,
       },
       {
         id: 7,

@@ -43,16 +43,16 @@ export default function Page() {
           width={1192}
         />
       </div>
-      <section className="rounded-2xl bg-pink-soft px-3 py-12 shadow-popup-black md:px-2 md:py-16 lg:px-3 lg:py-12">
+      <section className="rounded-2xl bg-pink-soft px-3 py-12 shadow-popup-black md:px-8 md:py-16 lg:py-12">
         <h2 className="mb-8 text-center heading-3 md:heading-2 lg:mb-11">
           {t('whyMacPage.switchToMac.text1')}
           <br />
           <span>{t('whyMacPage.switchToMac.text2')}</span>
         </h2>
-        <p className="pb-4 text-center bullet-1 md:paragraph-1">
+        <p className="pb-12 text-center bullet-1 md:paragraph-1">
           {t('whyMacPage.whyBuyMac')}
         </p>
-        <div className="h-56 w-full justify-self-center overflow-hidden md:h-[420px] lg:h-[636px]">
+        <div className="h-56 w-full overflow-hidden md:h-[420px] lg:h-[636px]">
           <Image
             priority
             alt="MacBook Air Brand Awareness"
