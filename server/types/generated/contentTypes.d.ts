@@ -428,6 +428,37 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCurrentPromotionCurrentPromotion
+  extends Struct.SingleTypeSchema {
+  collectionName: 'current_promotions';
+  info: {
+    description: '';
+    displayName: 'Current Promotion';
+    pluralName: 'current-promotions';
+    singularName: 'current-promotion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    flipCards: Schema.Attribute.Component<'global.promotional-flip-card', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::current-promotion.current-promotion'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sectionTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -566,13 +597,42 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiPromoSliderItemPromoSliderItem
-  extends Struct.SingleTypeSchema {
-  collectionName: 'promo_slider_items';
+export interface ApiPromoPagePromoPage extends Struct.SingleTypeSchema {
+  collectionName: 'promo_pages';
   info: {
-    displayName: 'promo slider item';
-    pluralName: 'promo-slider-items';
-    singularName: 'promo-slider-item';
+    description: '';
+    displayName: 'Promo Page';
+    pluralName: 'promo-pages';
+    singularName: 'promo-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    infoBlock: Schema.Attribute.Component<'global.info-block', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::promo-page.promo-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPromoSliderPromoSlider extends Struct.SingleTypeSchema {
+  collectionName: 'promo_sliders';
+  info: {
+    description: '';
+    displayName: 'Promo Slider';
+    pluralName: 'promo-sliders';
+    singularName: 'promo-slider';
   };
   options: {
     draftAndPublish: true;
@@ -584,12 +644,11 @@ export interface ApiPromoSliderItemPromoSliderItem
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::promo-slider-item.promo-slider-item'
+      'api::promo-slider.promo-slider'
     > &
       Schema.Attribute.Private;
-    promoSliderImage: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    sliderItems: Schema.Attribute.Component<'global.promo-slider-item', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1140,11 +1199,13 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::complaint.complaint': ApiComplaintComplaint;
+      'api::current-promotion.current-promotion': ApiCurrentPromotionCurrentPromotion;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
-      'api::promo-slider-item.promo-slider-item': ApiPromoSliderItemPromoSliderItem;
+      'api::promo-page.promo-page': ApiPromoPagePromoPage;
+      'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

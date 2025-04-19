@@ -53,9 +53,9 @@ export default function PaymentMethods() {
         {infoBlock.map((infoBlock) => (
           <InfoBlock
             key={infoBlock.id}
+            actionLink={infoBlock.actionLink}
             className="w-full md:max-w-[688px] lg:max-w-[1058px]"
             description={infoBlock.description}
-            path={infoBlock.path}
             title={infoBlock.title}
           />
         ))}

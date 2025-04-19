@@ -645,7 +645,6 @@
     "title": "AT Store Workshop",
     "turnOffFindMyDevice": "Isključi Find My Device"
   },
-
   "errors": {
     "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."
   },
@@ -684,6 +683,9 @@
     "facebook": "Facebook",
     "google": "Google",
     "apple": "Apple"
+  },
+  "promoPage": {
+    "title": "Promo"
   },
   "validation": {
     "messageRequired": "Poruka je obavezna",

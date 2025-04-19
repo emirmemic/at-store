@@ -1,6 +1,6 @@
 import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
-import { ImageProps } from '@/lib/types/base';
+import { ImageProps } from '@/lib/types';
 
 import { UserInformation } from './auth';
 
@@ -43,17 +43,7 @@ interface CategoryItem {
   price: number;
   image: ImageProps | null;
 }
-interface PromotionCardItem {
-  id: string;
-  tagline: string;
-  product: ProductBase;
-  priceFrom: string;
-  backTagline: string;
-  category: string;
-  description: string;
-  cta: string;
-  actionLink: Pathname;
-}
+
 interface AccessorySliderItem {
   id: string;
   tagline?: string;
@@ -71,7 +61,6 @@ export type {
   ProductBase,
   ShoppingCartItem,
   CategoryItem,
-  PromotionCardItem,
   AccessorySliderItem,
   BestSellerItem,
   InstallmentOption,

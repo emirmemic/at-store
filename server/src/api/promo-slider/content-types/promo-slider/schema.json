@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "promo_sliders",
+  "info": {
+    "singularName": "promo-slider",
+    "pluralName": "promo-sliders",
+    "displayName": "Promo Slider",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sliderItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.promo-slider-item"
+    }
+  }
+}

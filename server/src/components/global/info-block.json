@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_global_info_blocks",
+  "info": {
+    "displayName": "infoBlock",
+    "icon": "information",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "isFavorites": {
+      "type": "boolean",
+      "default": false
+    },
+    "actionLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.action-link"
+    }
+  }
+}

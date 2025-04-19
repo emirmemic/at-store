@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "current_promotions",
+  "info": {
+    "singularName": "current-promotion",
+    "pluralName": "current-promotions",
+    "displayName": "Current Promotion",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sectionTitle": {
+      "type": "string"
+    },
+    "flipCards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.promotional-flip-card"
+    }
+  }
+}

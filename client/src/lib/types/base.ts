@@ -6,13 +6,7 @@ import {
 } from 'next-intl';
 import { ReactNode } from 'react';
 
-interface ImageProps {
-  id: number;
-  documentId: string;
-  url: string;
-  alternativeText: string | null;
-}
-
+// Icon
 interface IconProps extends React.SVGAttributes<SVGElement> {
   children?: React.ReactNode;
   size?: number;
@@ -20,8 +14,9 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
   pathClassName?: string;
   filled?: boolean;
 }
-
 type Icon = React.ComponentType<IconProps>;
+
+// Localization
 type LocalizationKey = {
   <TargetKey>(
     key: TargetKey,
@@ -41,4 +36,4 @@ type LocalizationKey = {
   raw<TargetKey>(key: TargetKey): unknown;
   has<TargetKey>(key: TargetKey): boolean;
 };
-export type { Icon, LocalizationKey, IconProps, ImageProps };
+export type { Icon, LocalizationKey, IconProps };

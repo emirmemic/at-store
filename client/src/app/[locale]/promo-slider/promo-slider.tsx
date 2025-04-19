@@ -1,10 +1,11 @@
 'use client';
 
 import Autoplay from 'embla-carousel-autoplay';
-import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
+import { StrapiImage } from '@/components/strapi-image';
 import {
   Carousel,
   CarouselContent,
@@ -13,19 +14,19 @@ import {
 } from '@/components/ui/carousel';
 import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
-import { dummyPromoImages } from '@/data/dummy-data';
-import { Link } from '@/i18n/routing';
+import { PromoSliderItemResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface PromoSliderProps {
   className?: string;
+  slides: PromoSliderItemResponse[];
 }
 
-export default function PromoSlider({ className }: PromoSliderProps) {
+export default function PromoSlider({ className, slides }: PromoSliderProps) {
   const t = useTranslations('common');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplayActive, setIsAutoplayActive] = useState(true);
-  const totalSlides = dummyPromoImages.length;
+  const totalSlides = slides.length;
   const [api, setApi] = useState<CarouselApi | null>(null);
 
   const handleDotClick = (index: number) => {
@@ -35,17 +36,19 @@ export default function PromoSlider({ className }: PromoSliderProps) {
       api.scrollTo(validIndex);
     }
   };
+
   useEffect(() => {
-    if (api) {
+    if (api && slides.length > 2) {
       if (isAutoplayActive) {
         api.plugins().autoplay?.play();
       } else {
         api.plugins().autoplay?.stop();
       }
     }
-  }, [isAutoplayActive, api]);
+  }, [isAutoplayActive, api, slides.length]);
+
   return (
-    <div className={cn('flex w-full flex-col gap-4', className)}>
+    <section className={cn('flex w-full flex-col gap-4', className)}>
       <Carousel
         className="w-full"
         opts={{
@@ -61,26 +64,29 @@ export default function PromoSlider({ className }: PromoSliderProps) {
         onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
       >
         <CarouselContent>
-          {dummyPromoImages.map((item) => (
+          {slides.map((slide) => (
             <CarouselItem
-              key={item.id}
-              className="basis-[416px] md:basis-[716px]"
+              key={slide.id}
+              className="aspect-video basis-[416px] md:basis-[716px]"
             >
-              <Link
-                className="aspect-video h-full w-full overflow-hidden"
-                href={item.actionLink}
-                title={item.image.alternativeText}
-              >
-                <span className="sr-only">{t('viewDetails')}</span>
-                <Image
-                  alt={item.image.alternativeText}
-                  className="h-full w-full object-cover"
-                  height={240}
-                  sizes="(min-width: 768px) 100vw, (min-width: 1200px) 50vw, 33vw"
-                  src={item.image.url}
-                  width={400}
-                />
-              </Link>
+              {slide.actionLink && (
+                <Link
+                  className="h-full w-full overflow-hidden"
+                  href={slide.actionLink.linkUrl}
+                  title={slide.actionLink.linkText || t('viewDetails')}
+                >
+                  <span className="sr-only">{t('viewDetails')}</span>
+                  <StrapiImage
+                    priority
+                    alt={slide.image?.alternativeText ?? 'Image'}
+                    className="h-full w-full object-cover"
+                    height={240}
+                    sizes="100vw"
+                    src={slide.image.url}
+                    width={400}
+                  />
+                </Link>
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -99,6 +105,6 @@ export default function PromoSlider({ className }: PromoSliderProps) {
           onDotClick={handleDotClick}
         />
       </div>
-    </div>
+    </section>
   );
 }

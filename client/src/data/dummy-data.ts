@@ -1076,48 +1076,6 @@ const dummyBestSellers: BestSellerItem[] = [
   },
 ];
 
-const dummyPromoImages = [
-  {
-    id: '1',
-    image: {
-      id: 1,
-      documentId: 'promo1-image',
-      url: promo1.src,
-      alternativeText: 'Promo 1',
-    },
-    actionLink: PAGE_NAMES.MAC,
-  },
-  {
-    id: '2',
-    image: {
-      id: 2,
-      documentId: 'promo2-image',
-      url: promo2.src,
-      alternativeText: 'Promo 2',
-    },
-    actionLink: PAGE_NAMES.IPHONE,
-  },
-  {
-    id: '3',
-    image: {
-      id: 3,
-      documentId: 'promo3-image',
-      url: promo3.src,
-      alternativeText: 'Promo 3',
-    },
-    actionLink: PAGE_NAMES.WATCH,
-  },
-  {
-    id: '4',
-    image: {
-      id: 4,
-      documentId: 'promo4-image',
-      url: promo4.src,
-      alternativeText: 'Promo 4',
-    },
-    actionLink: PAGE_NAMES.AIRPODS,
-  },
-];
 export {
   dummyAccessories,
   dummyMacProducts,
@@ -1126,7 +1084,6 @@ export {
   dummyPromotions,
   dummyAccessoriesSlider,
   dummyBestSellers,
-  dummyPromoImages,
   navMenu,
   placeholderCart,
 };

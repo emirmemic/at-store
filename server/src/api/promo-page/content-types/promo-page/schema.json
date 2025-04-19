@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "promo_pages",
+  "info": {
+    "singularName": "promo-page",
+    "pluralName": "promo-pages",
+    "displayName": "Promo Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "infoBlock": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.info-block"
+    }
+  }
+}

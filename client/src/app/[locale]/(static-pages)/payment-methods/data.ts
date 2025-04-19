@@ -29,19 +29,28 @@ export const getInfoBlock = (t: (key: string) => string) => [
   {
     id: 1,
     description: t('paymentMethodsPage.infoBlock1.description'),
-    path: PAGE_NAMES.MICROFIN_INVOICE,
+    actionLink: {
+      id: 1,
+      linkUrl: PAGE_NAMES.MICROFIN_INVOICE,
+    },
     title: t('paymentMethodsPage.infoBlock1.title'),
   },
   {
     id: 2,
     description: t('paymentMethodsPage.infoBlock2.description'),
-    path: PAGE_NAMES.DELIVERY,
+    actionLink: {
+      id: 2,
+      linkUrl: PAGE_NAMES.DELIVERY,
+    },
     title: t('paymentMethodsPage.infoBlock2.title'),
   },
   {
     id: 3,
     description: t('paymentMethodsPage.infoBlock3.description'),
-    path: PAGE_NAMES.COMPLAINTS,
+    actionLink: {
+      id: 3,
+      linkUrl: PAGE_NAMES.COMPLAINTS,
+    },
     title: t('paymentMethodsPage.infoBlock3.title'),
   },
 ];

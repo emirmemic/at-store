@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_global_promotional_flip_cards",
+  "info": {
+    "displayName": "promotionalFlipCard",
+    "icon": "rotate",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "tagline": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "priceLabel": {
+      "type": "string"
+    },
+    "productImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "backTagline": {
+      "type": "string"
+    },
+    "backTitle": {
+      "type": "string",
+      "required": true
+    },
+    "backDescription": {
+      "type": "text",
+      "required": false
+    },
+    "actionLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.action-link"
+    }
+  }
+}

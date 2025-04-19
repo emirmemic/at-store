@@ -272,6 +272,11 @@ export default {
             paddingRight: '3rem',
           },
         },
+        '.container-max-width-lg': {
+          width: '100%',
+          maxWidth: '',
+          margin: '0 auto',
+        },
         '.blur-background': {
           'backdrop-filter': 'blur(.125rem)',
           'background-color': 'rgba(0, 0, 0, 0.2)',

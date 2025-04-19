@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_global_promo_slider_items",
+  "info": {
+    "displayName": "promoSliderItem",
+    "icon": "slideshow"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["files", "images"]
+    },
+    "actionLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.action-link",
+      "required": true
+    }
+  }
+}

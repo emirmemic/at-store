@@ -1,6 +1,16 @@
 import { getStrapiURL } from './utils/utils';
 
+/* Strapi */
 export const STRAPI_BASE_URL = getStrapiURL();
+// Fields to populate from Strapi when fetching an image.
+export const STRAPI_IMAGE_FIELDS = [
+  'documentId',
+  'alternativeText',
+  'url',
+  'name',
+];
+
+/* Frontend */
 export const CURRENCY = 'KM';
 export const STORE_NAMES = [
   'Sarajevo SCC',

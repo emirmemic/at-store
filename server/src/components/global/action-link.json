@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_global_action_links",
+  "info": {
+    "displayName": "actionLink",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "linkText": {
+      "type": "string",
+      "required": false
+    },
+    "linkUrl": {
+      "type": "string",
+      "required": true,
+      "regex": "^(\\/[a-zA-Z0-9\\-\\/]*)|(https?:\\/\\/[^\\s]+)$"
+    },
+    "isExternal": {
+      "type": "boolean",
+      "default": false
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
