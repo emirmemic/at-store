@@ -87,8 +87,14 @@ export default function PromotionalFlipCard(
           <div className="flex flex-col gap-3">
             {actionLink && (
               <Button asChild size={'md'} variant="filled">
-                <Link href={actionLink?.linkUrl}>
-                  {actionLink?.linkText ?? t('buyNow')}
+                <Link
+                  href={actionLink.linkUrl}
+                  rel={
+                    actionLink?.isExternal ? 'noopener noreferrer' : undefined
+                  }
+                  target={actionLink?.openInNewTab ? '_blank' : '_self'}
+                >
+                  {actionLink.linkText ?? t('buyNow')}
                 </Link>
               </Button>
             )}

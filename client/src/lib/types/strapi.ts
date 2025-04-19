@@ -19,7 +19,7 @@ interface InfoBlockResponse {
   title: string;
   description?: string;
   isFavorites?: boolean;
-  actionLink: ActionLinkResponse | null;
+  actionLink?: ActionLinkResponse | null;
 }
 interface PromoSliderItemResponse {
   id: number;
