@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { useActionState, useContext, useEffect } from 'react';
 
 import { UserContext } from '@/app/providers';
-import { OAuthButton } from '@/components/auth';
 import { IconLoader } from '@/components/icons';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -14,6 +13,8 @@ import { Link, useRouter } from '@/i18n/routing';
 
 import { Title } from '../../components';
 import { handleSubmit } from '../actions';
+
+import OAuthButton from './oauth-button';
 
 export default function Form() {
   const t = useTranslations('loginPage');

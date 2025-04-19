@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
+import { IconApple, IconFacebook, IconGoogle } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Icon, OAuthProvider } from '@/lib/types';
 import { cn, getStrapiURL } from '@/lib/utils/utils';
-
-import { IconApple, IconFacebook, IconGoogle } from '../icons';
 
 export default function OAuthButton({
   provider,

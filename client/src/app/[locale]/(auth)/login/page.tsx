@@ -1,13 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { OAuthButton } from '@/components/auth';
 import { IconAtStoreLogo } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
 import { Container, Title } from '../components';
 
-import Form from './components/form';
+import { Form, OAuthButton } from './components';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
