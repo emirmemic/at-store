@@ -41,7 +41,6 @@ async function fetchCards() {
   const res = await fetchAPI<CurrentPromotionsResponse>(url.href, {
     method: 'GET',
   });
-
   return res;
 }
 

@@ -1,8 +1,8 @@
 import qs from 'qs';
 
-import CurrentPromotions from '@/app/[locale]/current-promotions/current-promotions';
-import PromoSliderWrapper from '@/app/[locale]/promo-slider/promo-slider-wrapper';
 import { PromoCard } from '@/app/components';
+import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
+import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';

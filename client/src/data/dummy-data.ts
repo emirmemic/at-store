@@ -13,10 +13,6 @@ import {
   macBookAirM3,
   macBookPro,
   macMini,
-  promo1,
-  promo2,
-  promo3,
-  promo4,
   watch,
   watches,
 } from '@/assets/placeholder-images';
@@ -26,9 +22,9 @@ import {
   ShoppingCartItem,
   ProductBase,
   CategoryItem,
-  PromotionCardItem,
   AccessorySliderItem,
   BestSellerItem,
+  PromotionalFlipCardResponse,
 } from '@/lib/types';
 
 const placeholderImage = macBookAir;
@@ -261,6 +257,7 @@ const dummyProducts: ProductBase[] = [
     discounted_price: 2969,
     final_price: 2969,
     image: {
+      name: 'Image',
       id: 1,
       documentId: 'macbook-air-m3-256gb-13inch-image',
       url: macBookAirM3.src,
@@ -288,6 +285,7 @@ const dummyProducts: ProductBase[] = [
     discounted_price: 1239,
     final_price: 1239,
     image: {
+      name: 'Image',
       id: 2,
       documentId: 'iphone-13-128gb-white-image',
       url: iphone13.src,
@@ -343,6 +341,7 @@ const dummyProducts: ProductBase[] = [
     discounted_price: 139,
     final_price: 139,
     image: {
+      name: 'Image',
       id: 3,
       documentId: 'iphone-13-clear-case-image',
       url: iphone13ClearCase.src,
@@ -369,6 +368,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 3499,
     final_price: 3499,
     image: {
+      name: 'Image',
       id: 1,
       documentId: 'macbook-air-m2-512gb-15inch-image',
       url: macBookAirM3.src,
@@ -396,6 +396,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 7499,
     final_price: 7499,
     image: {
+      name: 'Image',
       id: 2,
       documentId: 'macbook-pro-m3max-1tb-16inch-image',
       url: macBookAirM3.src,
@@ -423,6 +424,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 1599,
     final_price: 1599,
     image: {
+      name: 'Image',
       id: 3,
       documentId: 'mac-mini-m2-512gb-image',
       url: macBookAirM3.src,
@@ -450,6 +452,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 2299,
     final_price: 2299,
     image: {
+      name: 'Image',
       id: 4,
       documentId: 'macbook-pro-m2-1tb-14inch-image',
       url: macBookAirM3.src,
@@ -477,6 +480,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 2299,
     final_price: 2299,
     image: {
+      name: 'Image',
       id: 5,
       documentId: 'imac-m2-24inch-image',
       url: macBookAirM3.src,
@@ -504,6 +508,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 1599,
     final_price: 1599,
     image: {
+      name: 'Image',
       id: 6,
       documentId: 'studio-display-27inch-image',
       url: macBookAirM3.src,
@@ -528,6 +533,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 899,
     final_price: 899,
     image: {
+      name: 'Image',
       id: 7,
       documentId: 'new-product-image',
       url: macBookAirM3.src,
@@ -555,6 +561,7 @@ const dummyMacProducts: ProductBase[] = [
     discounted_price: 2799,
     final_price: 2799,
     image: {
+      name: 'Image',
       id: 8,
       documentId: 'macbook-pro-m2-1tb-16inch-image',
       url: macBookAirM3.src,
@@ -584,6 +591,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 589,
     final_price: 589,
     image: {
+      name: 'Image',
       id: 9,
       documentId: 'airpods-pro-2-image',
       url: airPodsPro2.src,
@@ -616,6 +624,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 139,
     final_price: 139,
     image: {
+      name: 'Image',
       id: 10,
       documentId: 'iphone-14-clear-case-image',
       url: iphone13ClearCase.src,
@@ -640,6 +649,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 589,
     final_price: 589,
     image: {
+      name: 'Image',
       id: 11,
       documentId: 'airpods-max-image',
       url: airPodsPro2.src,
@@ -672,6 +682,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 139,
     final_price: 139,
     image: {
+      name: 'Image',
       id: 12,
       documentId: 'iphone-14-case-image',
       url: iphone13ClearCase.src,
@@ -696,6 +707,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 139,
     final_price: 139,
     image: {
+      name: 'Image',
       id: 13,
       documentId: 'macbook-air-case-image',
       url: macBookAir.src,
@@ -720,6 +732,7 @@ const dummyAccessories: ProductBase[] = [
     discounted_price: 139,
     final_price: 139,
     image: {
+      name: 'Image',
       id: 14,
       documentId: 'macbook-pro-case-image',
       url: macBookPro.src,
@@ -762,6 +775,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.MAC,
     price: 1999,
     image: {
+      name: 'Image',
       id: 1,
       documentId: 'mac-category-image',
       url: mac.src,
@@ -774,6 +788,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.IPHONE,
     price: 1239,
     image: {
+      name: 'Image',
       id: 2,
       documentId: 'iphone-category-image',
       url: iPhone.src,
@@ -786,6 +801,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.IPAD,
     price: 999,
     image: {
+      name: 'Image',
       id: 3,
       documentId: 'ipad-category-image',
       url: iPad.src,
@@ -798,6 +814,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.WATCH,
     price: 399,
     image: {
+      name: 'Image',
       id: 4,
       documentId: 'watch-category-image',
       url: watch.src,
@@ -810,6 +827,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.AIRPODS,
     price: 589,
     image: {
+      name: 'Image',
       id: 5,
       documentId: 'airpods-category-image',
       url: airPodsPro2.src,
@@ -822,6 +840,7 @@ const dummyCategories: CategoryItem[] = [
     link: PAGE_NAMES.MAC,
     price: 1999,
     image: {
+      name: 'Image',
       id: 1,
       documentId: 'mac-category-image',
       url: mac.src,
@@ -834,6 +853,7 @@ const dummyCategories: CategoryItem[] = [
     price: 1239,
     link: PAGE_NAMES.IPHONE,
     image: {
+      name: 'Image',
       id: 2,
       documentId: 'iphone-category-image',
       url: iPhone.src,
@@ -846,6 +866,7 @@ const dummyCategories: CategoryItem[] = [
     price: 999,
     link: PAGE_NAMES.IPAD,
     image: {
+      name: 'Image',
       id: 3,
       documentId: 'ipad-category-image',
       url: iPad.src,
@@ -853,90 +874,121 @@ const dummyCategories: CategoryItem[] = [
     },
   },
 ];
-const dummyPromotions: PromotionCardItem[] = [
+const dummyPromotions: PromotionalFlipCardResponse[] = [
   {
-    id: '1',
-    tagline: 'Akcija',
-    product: dummyAccessories[0],
-    priceFrom: 'Već od: 569 KM',
-    backTagline: 'Ekskluzivna ponuda',
-    category: 'AirPods',
-    description:
-      'Uživajte u vrhunskom zvuku po sniženoj cijeni. Ne propustite priliku!',
-    cta: 'Pogledajte ponudu sada.',
-    actionLink: PAGE_NAMES.AIRPODS,
+    id: 1,
+    tagline: 'Akcija.',
+    title: 'AirPods Pro2',
+    priceLabel: 'Već od: 589 KM',
+    backTagline: 'Ne propustite',
+    backTitle: 'AirPods',
+    backDescription: 'Ovdje možete kupiti AirPods Pro2.',
+    productImage: {
+      id: 33,
+      documentId: 'qxx2jdwn3h3jkqcbia1bsuxi',
+      alternativeText: null,
+      url: '/uploads/air_pods_pro_2_ef5d22fa05.png',
+      name: 'air_pods_pro_2.png',
+    },
+    actionLink: {
+      id: 4,
+      linkText: 'Kupi sada',
+      linkUrl: 'https://at-client.rovoit.com/dodaci',
+      isExternal: false,
+      openInNewTab: false,
+    },
   },
   {
-    id: '2',
-    tagline: 'Nove cijene.',
-    backTagline: 'Iskoristite priliku',
-    product: dummyProducts[1],
-    priceFrom: 'Već od: 1239 KM',
-    category: 'iPhone',
-    description:
-      'Nabavite svoj omiljeni iPhone po nevjerojatnoj cijeni. Ponuda traje ograničeno!',
-    cta: 'Kupite svoj iPhone danas.',
-    actionLink: PAGE_NAMES.IPHONE,
+    id: 2,
+    tagline: 'Akcija.',
+    title: 'iPhone 13',
+    priceLabel: 'Već od: 1239 KM',
+    backTagline: 'Ne propustite',
+    backTitle: 'iPhone',
+    backDescription: 'Ovdje možete kupiti iPhone 13.',
+    productImage: {
+      id: 34,
+      documentId: 'qxx2jdwn3h3jkqcbia1bsuxi',
+      alternativeText: null,
+      url: '/uploads/iphone_13_ef5d22fa05.png',
+      name: 'iphone_13.png',
+    },
+    actionLink: {
+      id: 4,
+      linkText: 'Kupi sada',
+      linkUrl: 'https://at-client.rovoit.com/dodaci',
+      isExternal: false,
+      openInNewTab: false,
+    },
   },
   {
-    id: '3',
-    tagline: 'Akcija',
-    product: dummyProducts[0],
-    priceFrom: 'Već od: 2969 KM',
-    backTagline: 'Ugrabite sada',
-    category: 'MacBook Air',
-    description:
-      'Savršena kombinacija performansi i stila. Kupite MacBook Air po sniženoj cijeni!',
-    cta: 'Provjerite detalje odmah.',
-    actionLink: PAGE_NAMES.MAC,
+    id: 3,
+    tagline: 'Novo.',
+    title: 'MacBook Air M3',
+    priceLabel: 'Već od: 2969 KM',
+    backTagline: 'Ne propustite',
+    backTitle: 'MacBook Air',
+    backDescription: 'Ovdje možete kupiti MacBook Air M3.',
+    productImage: {
+      id: 35,
+      documentId: 'qxx2jdwn3h3jkqcbia1bsuxi',
+      alternativeText: null,
+      url: '/uploads/macbook_air_m3_ef5d22fa05.png',
+      name: 'macbook_air_m3.png',
+    },
+    actionLink: {
+      id: 5,
+      linkText: 'Kupi sada',
+      linkUrl: 'https://at-client.rovoit.com/mac',
+      isExternal: false,
+      openInNewTab: false,
+    },
   },
   {
-    id: '4',
-    tagline: 'Do isteka zaliha.',
-    product: dummyMacProducts[0],
-    priceFrom: 'Već od: 3499 KM',
-    backTagline: 'Ponuda ograničenog trajanja',
-    category: 'MacBook Air M2',
-    description:
-      'Iskoristite priliku za kupovinu MacBook Air M2 prije nego što nestane!',
-    cta: 'Naručite prije nego nestane.',
-    actionLink: PAGE_NAMES.MAC,
+    id: 4,
+    tagline: 'Akcija.',
+    title: 'Apple Watch Ultra',
+    priceLabel: 'Već od: 1999 KM',
+    backTagline: 'Ne propustite',
+    backTitle: 'Apple Watch',
+    backDescription: 'Ovdje možete kupiti Apple Watch Ultra.',
+    productImage: {
+      id: 36,
+      documentId: 'qxx2jdwn3h3jkqcbia1bsuxi',
+      alternativeText: null,
+      url: '/uploads/apple_watch_ultra_ef5d22fa05.png',
+      name: 'apple_watch_ultra.png',
+    },
+    actionLink: {
+      id: 6,
+      linkText: 'Kupi sada',
+      linkUrl: 'https://at-client.rovoit.com/watch',
+      isExternal: false,
+      openInNewTab: false,
+    },
   },
   {
-    id: '5',
-    tagline: 'Nova promocija.',
-    product: dummyMacProducts[1],
-    priceFrom: 'Već od: 3999 KM',
-    backTagline: 'Najbolja ponuda',
-    category: 'MacBook Pro',
-    description:
-      'Doživite vrhunske performanse s MacBook Pro. Dostupan sada po posebnoj cijeni!',
-    cta: 'Kupite svoj MacBook sada.',
-    actionLink: PAGE_NAMES.MAC,
-  },
-  {
-    id: '6',
-    tagline: 'Akcija',
-    product: dummyMacProducts[2],
-    priceFrom: 'Već od: 1599 KM',
-    backTagline: 'Ne propustite ovu priliku',
-    category: 'Mac Mini',
-    description:
-      'Kompaktan i moćan Mac Mini sada dostupan po sniženoj cijeni. Kupite odmah!',
-    cta: 'Pogledajte više informacija.',
-    actionLink: PAGE_NAMES.MAC,
-  },
-  {
-    id: '7',
-    tagline: 'Nova ponuda.',
-    product: dummyMacProducts[3],
-    priceFrom: 'Već od: 2499 KM',
-    backTagline: 'Ekskluzivno za vas',
-    category: 'MacBook Pro M1',
-    description:
-      'Otkrijte snagu MacBook Pro M1 po nevjerojatnoj cijeni. Ponuda vrijedi kratko!',
-    cta: 'Iskoristite ovu ponudu sada.',
-    actionLink: PAGE_NAMES.MAC,
+    id: 5,
+    tagline: 'Novo.',
+    title: 'iPad Pro',
+    priceLabel: 'Već od: 1999 KM',
+    backTagline: 'Ne propustite',
+    backTitle: 'iPad',
+    backDescription: 'Ovdje možete kupiti iPad Pro.',
+    productImage: {
+      id: 37,
+      documentId: 'qxx2jdwn3h3jkqcbia1bsuxi',
+      alternativeText: null,
+      url: '/uploads/ipad_pro_ef5d22fa05.png',
+      name: 'ipad_pro.png',
+    },
+    actionLink: {
+      id: 7,
+      linkText: 'Kupi sada',
+      linkUrl: 'https://at-client.rovoit.com/ipad',
+      isExternal: false,
+      openInNewTab: false,
+    },
   },
 ];
 const dummyAccessoriesSlider: AccessorySliderItem[] = [
@@ -948,6 +1000,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 10 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 1,
       documentId: 'ipad-accessories-image',
       url: iPad.src,
@@ -961,6 +1014,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 99 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 2,
       documentId: 'tv-accessories-image',
       url: appleTvRemote.src,
@@ -975,6 +1029,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 3,999 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 3,
       documentId: 'watch-accessories-image',
       url: watches.src,
@@ -988,6 +1043,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 199 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 4,
       documentId: 'mac-accessories-image',
       url: keyboard.src,
@@ -1002,6 +1058,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 199 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 5,
       documentId: 'iphone-accessories-image',
       url: iphone13ClearCase.src,
@@ -1016,6 +1073,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 199 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 4,
       documentId: 'mac-accessories-image',
       url: keyboard.src,
@@ -1030,6 +1088,7 @@ const dummyAccessoriesSlider: AccessorySliderItem[] = [
     priceText: 'Počne od: 199 KM',
     actionLink: PAGE_NAMES.ACCESSORIES,
     image: {
+      name: 'Image',
       id: 5,
       documentId: 'iphone-accessories-image',
       url: iphone13ClearCase.src,

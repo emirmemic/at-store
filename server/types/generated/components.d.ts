@@ -50,8 +50,7 @@ export interface GlobalPromoSliderItem extends Struct.ComponentSchema {
   attributes: {
     actionLink: Schema.Attribute.Component<'global.action-link', false> &
       Schema.Attribute.Required;
-    image: Schema.Attribute.Media<'files' | 'images'> &
-      Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
   };
 }
 
@@ -68,8 +67,7 @@ export interface GlobalPromotionalFlipCard extends Struct.ComponentSchema {
     backTagline: Schema.Attribute.String;
     backTitle: Schema.Attribute.String & Schema.Attribute.Required;
     priceLabel: Schema.Attribute.String;
-    productImage: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
+    productImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     tagline: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };

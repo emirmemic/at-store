@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
-import CurrentPromotions from '@/app/[locale]/current-promotions/current-promotions';
-import PromoSliderWrapper from '@/app/[locale]/promo-slider/promo-slider-wrapper';
 import { InfoBlock } from '@/components';
+import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
+import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
