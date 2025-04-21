@@ -237,8 +237,8 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, SliderButtonProps>(
         className={cn(
           'absolute rounded',
           orientation === 'horizontal'
-            ? 'left-0 top-1/2 -translate-y-1/2'
-            : 'left-1/2 top-0 -translate-x-1/2',
+            ? 'left-4 top-1/2 -translate-y-1/2'
+            : 'left-1/2 top-4 -translate-x-1/2',
           className
         )}
         direction={orientation === 'horizontal' ? 'left' : 'top'}
@@ -266,8 +266,8 @@ const CarouselNext = forwardRef<HTMLButtonElement, SliderButtonProps>(
         className={cn(
           'absolute rounded',
           orientation === 'horizontal'
-            ? 'right-0 top-1/2 -translate-y-1/2'
-            : 'bottom-0 left-1/2 -translate-x-1/2',
+            ? 'right-4 top-1/2 -translate-y-1/2'
+            : 'bottom-4 left-1/2 -translate-x-1/2',
           className
         )}
         direction={orientation === 'horizontal' ? 'right' : 'bottom'}

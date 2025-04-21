@@ -1,3 +1,1 @@
-import { HomepageResponse } from './homepage-response';
-
-export type { HomepageResponse };
+export * from './homepage-response';

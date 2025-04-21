@@ -1,9 +1,34 @@
 import { PromoCardProps } from '@/app/components';
+import { ActionLinkResponse } from '@/lib/types';
 
-export interface HomepageResponse {
+interface HeroSliderItem {
+  id: number;
+  media: {
+    id: number;
+    url: string;
+    alternativeText?: string;
+    mime: string;
+  };
+  placeholderImage?: {
+    id: number;
+    url: string;
+    alternativeText?: string;
+  };
+  actionLink: ActionLinkResponse;
+}
+interface HeroSectionResponse {
+  id: number;
+  enableAutoplay: boolean;
+  autoplayDelay: number;
+  sliderItems: HeroSliderItem[];
+}
+
+interface HomepageResponse {
   data: {
     title: string;
     description?: string;
-    promo_cards: Array<PromoCardProps> | null;
+    promoCards: Array<PromoCardProps> | null;
+    heroSection: HeroSectionResponse | null;
   };
 }
+export type { HomepageResponse, HeroSectionResponse, HeroSliderItem };

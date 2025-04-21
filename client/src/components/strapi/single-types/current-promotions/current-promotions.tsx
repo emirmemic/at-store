@@ -52,7 +52,7 @@ export default async function CurrentPromotions({
     return (
       <Alert
         dismissible
-        className="mx-auto max-w-72 px-4"
+        className="mx-auto my-4 max-w-72"
         variant="destructive"
       >
         <AlertDescription>{response.error.message}</AlertDescription>

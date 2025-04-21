@@ -1,0 +1,142 @@
+'use client';
+
+import Autoplay from 'embla-carousel-autoplay';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import React, { useEffect, useState } from 'react';
+
+import { StrapiImage } from '@/components';
+import { StrapiVideo } from '@/components/strapi-video';
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import PlayPause from '@/components/ui/play-pause';
+import ProgressBar from '@/components/ui/progress-bar';
+import { cn } from '@/lib/utils/utils';
+
+import { HeroSliderItem, HeroSectionResponse } from '../[locale]/types';
+
+const SliderItem: React.FC<HeroSliderItem> = ({
+  id,
+  media,
+  placeholderImage,
+  actionLink,
+}) => {
+  const isVideo = media?.mime?.startsWith('video');
+  const videoUrl = media?.url;
+  const imageUrl = media?.url;
+  const altText = media?.alternativeText || placeholderImage?.alternativeText;
+
+  const t = useTranslations('common');
+  return (
+    <div key={id} className="relative h-full w-full">
+      {isVideo ? (
+        <StrapiVideo
+          autoPlay
+          loop
+          muted
+          className="h-full w-full object-cover"
+          poster={placeholderImage?.url}
+          src={videoUrl}
+        />
+      ) : (
+        <StrapiImage
+          alt={altText ?? 'No alternative text provided'}
+          className="h-full w-full object-cover"
+          height={303}
+          sizes="100vw"
+          src={imageUrl}
+          width={834}
+        />
+      )}
+      {actionLink && (
+        <Link
+          aria-label={actionLink.linkText || t('viewDetails')}
+          className="absolute inset-0 z-10"
+          href={actionLink.linkUrl}
+          rel={actionLink.isExternal ? 'noopener noreferrer' : undefined}
+          target={actionLink.isExternal ? '_blank' : undefined}
+          title={actionLink.linkText || t('viewDetails')}
+        />
+      )}
+    </div>
+  );
+};
+interface HeroSectionProps extends HeroSectionResponse {
+  className?: string;
+}
+export default function HeroSection({
+  sliderItems,
+  className,
+  enableAutoplay,
+  autoplayDelay,
+}: HeroSectionProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoplayActive, setIsAutoplayActive] = useState(
+    enableAutoplay || false
+  );
+  const totalSlides = sliderItems.length;
+  const [api, setApi] = useState<CarouselApi | null>(null);
+  const handleDotClick = (index: number) => {
+    const validIndex = Math.max(0, Math.min(index - 1, totalSlides - 1));
+    setCurrentSlide(validIndex);
+    if (api) {
+      api.scrollTo(validIndex);
+    }
+  };
+
+  useEffect(() => {
+    if (api) {
+      if (isAutoplayActive) {
+        api.plugins().autoplay?.play();
+      } else {
+        api.plugins().autoplay?.stop();
+      }
+    }
+  }, [isAutoplayActive, api, sliderItems.length]);
+
+  const delay = Math.max(autoplayDelay || 3000, 1000);
+
+  return (
+    <header className={cn('relative w-full', className)}>
+      <Carousel
+        className="w-full"
+        opts={{
+          loop: true,
+        }}
+        plugins={enableAutoplay ? [Autoplay({ delay })] : []}
+        setApi={setApi}
+        onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
+      >
+        <CarouselContent className="m-0 aspect-[2.6] h-full w-full">
+          {sliderItems.map((slide) => (
+            <CarouselItem key={slide.id} className="h-full w-full p-0">
+              <SliderItem {...slide} />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious variant={'white'} />
+        <CarouselNext variant={'white'} />
+      </Carousel>
+      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        <PlayPause
+          isPlaying={isAutoplayActive}
+          variant="light"
+          onClick={() => setIsAutoplayActive(!isAutoplayActive)}
+        />
+        <ProgressBar
+          currentPage={currentSlide + 1}
+          duration={500}
+          total={totalSlides}
+          variant="light"
+          onDotClick={handleDotClick}
+        />
+      </div>
+    </header>
+  );
+}

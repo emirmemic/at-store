@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_homepage_hero_sliders",
+  "info": {
+    "displayName": "HeroSlider",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "enableAutoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoplayDelay": {
+      "type": "integer",
+      "default": 10000
+    },
+    "sliderItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.hero-section"
+    }
+  }
+}

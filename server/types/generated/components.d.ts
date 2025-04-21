@@ -84,6 +84,33 @@ export interface GlobalPromotionalFlipCard extends Struct.ComponentSchema {
   };
 }
 
+export interface HomepageHeroSection extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_hero_sections';
+  info: {
+    description: '';
+    displayName: ' HeroSliderItem';
+  };
+  attributes: {
+    actionLink: Schema.Attribute.Component<'global.action-link', false>;
+    media: Schema.Attribute.Media<'images' | 'videos'> &
+      Schema.Attribute.Required;
+    placeholderImage: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface HomepageHeroSlider extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_hero_sliders';
+  info: {
+    description: '';
+    displayName: 'HeroSlider';
+  };
+  attributes: {
+    autoplayDelay: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<10000>;
+    enableAutoplay: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    sliderItems: Schema.Attribute.Component<'homepage.hero-section', true>;
+  };
+}
+
 export interface HomepagePromoCard extends Struct.ComponentSchema {
   collectionName: 'components_homepage_promo_cards';
   info: {
@@ -127,6 +154,8 @@ declare module '@strapi/strapi' {
       'global.info-block': GlobalInfoBlock;
       'global.promo-slider-item': GlobalPromoSliderItem;
       'global.promotional-flip-card': GlobalPromotionalFlipCard;
+      'homepage.hero-section': HomepageHeroSection;
+      'homepage.hero-slider': HomepageHeroSlider;
       'homepage.promo-card': HomepagePromoCard;
       'product.memory': ProductMemory;
     }

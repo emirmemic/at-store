@@ -18,11 +18,16 @@
     "description": {
       "type": "text"
     },
-    "promo_cards": {
+    "promoCards": {
       "type": "component",
       "repeatable": true,
       "component": "homepage.promo-card",
       "required": false
+    },
+    "heroSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "homepage.hero-slider"
     }
   }
 }
