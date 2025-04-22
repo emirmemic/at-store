@@ -2,6 +2,15 @@
  * order router
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreRouter('api::order.order');
+export default factories.createCoreRouter("api::order.order", {
+  config: {
+    find: {
+      middlewares: ["global::is-owner"],
+    },
+    create: {
+      middlewares: ["global::is-owner"],
+    },
+  },
+});

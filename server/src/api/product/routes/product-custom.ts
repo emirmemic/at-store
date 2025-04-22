@@ -10,5 +10,10 @@ export default {
       path: "/products/:productId/favorite",
       handler: "api::product.product.toggleFavorite",
     },
+    {
+      method: "POST",
+      path: "/products/sync-web-account-products",
+      handler: "api::product.product.syncWebAccountProducts",
+    },
   ],
 };

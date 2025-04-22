@@ -2,11 +2,11 @@ import qs from 'qs';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { UserInformation } from '@/lib/types';
+import { ProductBase, UserInformation } from '@/lib/types';
 
 import { getAuthToken } from './get-auth-token';
 
-const getUserQuery = qs.stringify({
+const getUserQuery = {
   populate: {
     orders: {
       populate: {
@@ -19,27 +19,36 @@ const getUserQuery = qs.stringify({
         },
       },
     },
-    favorite_products: {
-      populate: {
-        image: {
-          fields: ['url', 'alternativeText'],
-        },
-      },
-    },
   },
-});
+} as const;
 
 export async function getUser(): Promise<UserInformation | null> {
-  const authToken = await getAuthToken();
-  if (!authToken) return null;
-  const path = '/api/users/me';
-  const url = new URL(path, STRAPI_BASE_URL);
-  url.search = getUserQuery;
-  const res = await fetchAPI<UserInformation>(url.href, {
-    method: 'GET',
-    authToken,
-    next: { tags: ['user-info'] },
-  });
+  try {
+    const authToken = await getAuthToken();
+    if (!authToken) return null;
 
-  return res.data ?? null;
+    const [userInfo, favorites] = await Promise.all([
+      fetchAPI<UserInformation>(
+        `${STRAPI_BASE_URL}/api/users/me?${qs.stringify(getUserQuery)}`,
+        {
+          method: 'GET',
+          authToken,
+          next: { tags: ['user-info'] },
+        }
+      ),
+      fetchAPI<ProductBase[]>(`${STRAPI_BASE_URL}/api/products/favorites`, {
+        method: 'GET',
+        authToken,
+      }),
+    ]);
+
+    if (!userInfo.data) return null;
+
+    return {
+      ...userInfo.data,
+      favoriteProducts: favorites.data ?? [],
+    };
+  } catch {
+    return null;
+  }
 }

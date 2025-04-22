@@ -25,19 +25,20 @@ export default function ProductCartTableItem({
   const t = useTranslations('common');
 
   const handleQuantityChange = (newValue: number) => {
-    onQuantityChange?.(product.product_variant_id, newValue);
+    onQuantityChange?.(product.productVariantId, newValue);
   };
 
   const handleRemove = () => {
-    onRemove?.(product.product_variant_id);
+    onRemove?.(product.productVariantId);
   };
 
-  const availability = product.availability_by_store;
+  const availability = product.availabilityByStore;
   const availableQuantity = Object.values(availability).reduce(
     (acc, quantity) => acc + quantity,
     0
   );
-  const totalPrice = `${product.final_price * product.quantity_in_cart} ${CURRENCY}`;
+  const finalPrice = product.discountedPrice ?? product.originalPrice;
+  const totalPrice = `${finalPrice * product.quantityInCart} ${CURRENCY}`;
   return (
     <div
       className={cn(
@@ -58,7 +59,7 @@ export default function ProductCartTableItem({
         <div className="flex flex-col gap-3 md:col-span-2 md:flex-row md:gap-4">
           <p className="md:w-1/2 md:text-end">{product.name}</p>
           <p className="md:w-1/2 md:text-end">
-            {product.final_price} {CURRENCY}
+            {finalPrice} {CURRENCY}
           </p>
         </div>
       </div>
@@ -68,7 +69,7 @@ export default function ProductCartTableItem({
           className="self-end"
           max={availableQuantity}
           min={1}
-          value={product.quantity_in_cart}
+          value={product.quantityInCart}
           onChange={handleQuantityChange}
         />
 

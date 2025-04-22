@@ -26,6 +26,17 @@ export interface GlobalButton extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalColor extends Struct.ComponentSchema {
+  collectionName: 'components_global_colors';
+  info: {
+    displayName: 'color';
+  };
+  attributes: {
+    hex: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface GlobalInfoBlock extends Struct.ComponentSchema {
   collectionName: 'components_global_info_blocks';
   info: {
@@ -96,15 +107,28 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
   };
 }
 
+export interface ProductMemory extends Struct.ComponentSchema {
+  collectionName: 'components_product_memories';
+  info: {
+    displayName: 'memory';
+  };
+  attributes: {
+    unit: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.Integer & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'global.action-link': GlobalActionLink;
       'global.button': GlobalButton;
+      'global.color': GlobalColor;
       'global.info-block': GlobalInfoBlock;
       'global.promo-slider-item': GlobalPromoSliderItem;
       'global.promotional-flip-card': GlobalPromotionalFlipCard;
       'homepage.promo-card': HomepagePromoCard;
+      'product.memory': ProductMemory;
     }
   }
 }

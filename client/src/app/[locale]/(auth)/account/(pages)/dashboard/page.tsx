@@ -21,7 +21,7 @@ export default function Page() {
   const allProducts = validOrders?.flatMap((order) => order.products) || [];
   const totalSpent = allProducts.reduce((orderTotal, product) => {
     const price =
-      Number(product.discounted_price) || Number(product.original_price) || 0;
+      Number(product.discountedPrice) || Number(product.originalPrice) || 0;
     return orderTotal + price;
   }, 0);
   const lastOrder = user?.orders?.sort(

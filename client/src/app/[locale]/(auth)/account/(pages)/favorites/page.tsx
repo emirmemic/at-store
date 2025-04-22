@@ -13,9 +13,9 @@ import { FavoriteProductCard } from './components';
 export default function Page() {
   const t = useTranslations('accountPage.favorites');
   const userProvider = useContext(UserContext);
-  const favorites = userProvider.user?.favorite_products;
+  const favorites = userProvider.user?.favoriteProducts;
 
-  if (favorites?.length === 0) {
+  if (!favorites || favorites.length === 0) {
     return (
       <EmptyContent
         Icon={IconHeart}
@@ -31,13 +31,7 @@ export default function Page() {
     <div className="flex flex-col gap-6">
       {favorites &&
         favorites.map((product) => (
-          <FavoriteProductCard
-            key={product.id}
-            product={product}
-            // onDelete={() => {
-            //   userProvider.toggleFavorite(product);
-            // }}
-          />
+          <FavoriteProductCard key={product.documentId} product={product} />
         ))}
     </div>
   );

@@ -250,12 +250,14 @@ const navMenu: NavMenuItem[] = [
 const dummyProducts: ProductBase[] = [
   {
     id: 1,
-    product_variant_id: 'macbook-air-m3-256gb-13inch',
-    product_type_id: 'laptop',
+    productVariantId: 'macbook-air-m3-256gb-13inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'laptop',
     name: 'MacBook Air',
-    original_price: 3199,
-    discounted_price: 2969,
-    final_price: 2969,
+    originalPrice: 3199,
+    discountedPrice: 2969,
     image: {
       name: 'Image',
       id: 1,
@@ -264,13 +266,13 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M3 13-inch',
     },
     specifications: ['13-inch', '256GB', '8GB unified', '8C CPU, 8C GPU'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Akcija',
     chip: {
       id: 1,
       name: 'M3',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 5,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -278,12 +280,14 @@ const dummyProducts: ProductBase[] = [
   },
   {
     id: 2,
-    product_variant_id: 'iphone-13-128gb-white',
-    product_type_id: 'smartphone',
+    productVariantId: 'iphone-13-128gb-white',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'smartphone',
     name: 'iPhone 13',
-    original_price: 2699,
-    discounted_price: 1239,
-    final_price: 1239,
+    originalPrice: 2699,
+    discountedPrice: 1239,
     image: {
       name: 'Image',
       id: 2,
@@ -300,10 +304,10 @@ const dummyProducts: ProductBase[] = [
       'Ceramic Shield',
       '5G capable',
     ],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 10,
       'Sarajevo Alta': 8,
       'Banja Luka': 5,
@@ -334,12 +338,14 @@ const dummyProducts: ProductBase[] = [
   },
   {
     id: 3,
-    product_variant_id: 'iphone13ClearCase',
-    product_type_id: 'accessory',
+    productVariantId: 'iphone13ClearCase',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'iPhone 13 Clear Case',
-    original_price: 199,
-    discounted_price: 139,
-    final_price: 139,
+    originalPrice: 199,
+    discountedPrice: 139,
     image: {
       name: 'Image',
       id: 3,
@@ -348,10 +354,10 @@ const dummyProducts: ProductBase[] = [
       alternativeText: 'iPhone 13 Clear Case',
     },
     specifications: ['iPhone 13', 'Futrola', 'Clear case', 'Apple'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Novo',
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -361,12 +367,14 @@ const dummyProducts: ProductBase[] = [
 const dummyMacProducts: ProductBase[] = [
   {
     id: 1,
-    product_variant_id: 'macbook-air-m2-512gb-15inch',
-    product_type_id: 'laptop',
+    productVariantId: 'macbook-air-m2-512gb-15inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'laptop',
     name: 'MacBook Air M2',
-    original_price: 3799,
-    discounted_price: 3499,
-    final_price: 3499,
+    originalPrice: 3799,
+    discountedPrice: 3499,
     image: {
       name: 'Image',
       id: 1,
@@ -375,13 +383,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Air M2 15-inch',
     },
     specifications: ['15-inch', '512GB', '8GB unified', '8C CPU, 10C GPU'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Novo',
     chip: {
       id: 1,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 5,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -389,12 +397,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 2,
-    product_variant_id: 'macbook-pro-m3max-1tb-16inch',
-    product_type_id: 'laptop',
+    productVariantId: 'macbook-pro-m3max-1tb-16inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'laptop',
     name: 'MacBook Pro M3 Max',
-    original_price: 7999,
-    discounted_price: 7499,
-    final_price: 7499,
+    originalPrice: 7999,
+    discountedPrice: 7499,
     image: {
       name: 'Image',
       id: 2,
@@ -403,13 +413,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M3 Max 16-inch',
     },
     specifications: ['16-inch', '1TB', '36GB unified', '12C CPU, 38C GPU'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Akcija',
     chip: {
       id: 2,
       name: 'M3 Max',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -417,12 +427,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 3,
-    product_variant_id: 'mac-mini-m2-512gb',
-    product_type_id: 'desktop',
+    productVariantId: 'mac-mini-m2-512gb',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'desktop',
     name: 'Mac Mini M2',
-    original_price: 1899,
-    discounted_price: 1599,
-    final_price: 1599,
+    originalPrice: 1899,
+    discountedPrice: 1599,
     image: {
       name: 'Image',
       id: 3,
@@ -431,13 +443,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Mac Mini M2',
     },
     specifications: ['512GB', '8C CPU, 10C GPU', '16GB unified'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Novo',
     chip: {
       id: 1,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 3,
       'Sarajevo Alta': 2,
       'Banja Luka': 1,
@@ -445,12 +457,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 4,
-    product_variant_id: 'macbook-pro-m2-1tb-14inch',
-    product_type_id: 'laptop',
+    productVariantId: 'macbook-pro-m2-1tb-14inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'laptop',
     name: 'MacBook Pro M2',
-    original_price: 2499,
-    discounted_price: 2299,
-    final_price: 2299,
+    originalPrice: 2499,
+    discountedPrice: 2299,
     image: {
       name: 'Image',
       id: 4,
@@ -459,13 +473,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 14-inch',
     },
     specifications: ['14-inch', '1TB', '16GB unified', '8C CPU, 14C GPU'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Novo',
     chip: {
       id: 2,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 2,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -473,12 +487,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 5,
-    product_variant_id: 'imac-m2-24inch',
-    product_type_id: 'desktop',
+    productVariantId: 'imac-m2-24inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'desktop',
     name: 'iMac M2',
-    original_price: 2499,
-    discounted_price: 2299,
-    final_price: 2299,
+    originalPrice: 2499,
+    discountedPrice: 2299,
     image: {
       name: 'Image',
       id: 5,
@@ -487,13 +503,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'iMac M2 24-inch',
     },
     specifications: ['24-inch', '8C CPU, 10C GPU', '16GB unified'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 4,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -501,12 +517,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 6,
-    product_variant_id: 'studio-display-27inch',
-    product_type_id: 'monitor',
+    productVariantId: 'studio-display-27inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'monitor',
     name: 'Studio Display',
-    original_price: 1799,
-    discounted_price: 1599,
-    final_price: 1599,
+    originalPrice: 1799,
+    discountedPrice: 1599,
     image: {
       name: 'Image',
       id: 6,
@@ -515,10 +533,10 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'Studio Display 27-inch',
     },
     specifications: ['27-inch', '5K Retina', 'P3 wide color'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 1,
       'Sarajevo Alta': 0,
       'Banja Luka': 0,
@@ -526,12 +544,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 7,
-    product_variant_id: 'new-product-id',
-    product_type_id: 'new-type',
+    productVariantId: 'new-product-id',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'new-type',
     name: 'New Product Name',
-    original_price: 999,
-    discounted_price: 899,
-    final_price: 899,
+    originalPrice: 999,
+    discountedPrice: 899,
     image: {
       name: 'Image',
       id: 7,
@@ -540,13 +560,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'New Product',
     },
     specifications: ['New Spec 1', 'New Spec 2'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: 'Novo',
     chip: {
       id: 3,
       name: 'M3',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 5,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -554,12 +574,14 @@ const dummyMacProducts: ProductBase[] = [
   },
   {
     id: 8,
-    product_variant_id: 'macbook-pro-m2-1tb-16inch',
-    product_type_id: 'laptop',
+    productVariantId: 'macbook-pro-m2-1tb-16inch',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'laptop',
     name: 'MacBook Pro M2',
-    original_price: 2999,
-    discounted_price: 2799,
-    final_price: 2799,
+    originalPrice: 2999,
+    discountedPrice: 2799,
     image: {
       name: 'Image',
       id: 8,
@@ -568,13 +590,13 @@ const dummyMacProducts: ProductBase[] = [
       alternativeText: 'MacBook Pro M2 16-inch',
     },
     specifications: ['16-inch', '1TB', '32GB unified', '10C CPU, 16C GPU'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: {
       id: 2,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 2,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -584,12 +606,14 @@ const dummyMacProducts: ProductBase[] = [
 const dummyAccessories: ProductBase[] = [
   {
     id: 1,
-    product_variant_id: 'airpods-pro-2',
-    product_type_id: 'accessory',
+    productVariantId: 'airpods-pro-2',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'AirPods Pro 2',
-    original_price: 649,
-    discounted_price: 589,
-    final_price: 589,
+    originalPrice: 649,
+    discountedPrice: 589,
     image: {
       name: 'Image',
       id: 9,
@@ -603,13 +627,13 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 5,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -617,12 +641,14 @@ const dummyAccessories: ProductBase[] = [
   },
   {
     id: 2,
-    product_variant_id: 'iphone-14-clear-case',
-    product_type_id: 'accessory',
+    productVariantId: 'iphone-14-clear-case',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'iPhone 14 Clear Case',
-    original_price: 199,
-    discounted_price: 139,
-    final_price: 139,
+    originalPrice: 199,
+    discountedPrice: 139,
     image: {
       name: 'Image',
       id: 10,
@@ -631,10 +657,10 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Clear Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Clear case', 'Apple'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -642,12 +668,14 @@ const dummyAccessories: ProductBase[] = [
   },
   {
     id: 3,
-    product_variant_id: 'airpods-max',
-    product_type_id: 'accessory',
+    productVariantId: 'airpods-max',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'AirPods Max',
-    original_price: 649,
-    discounted_price: 589,
-    final_price: 589,
+    originalPrice: 649,
+    discountedPrice: 589,
     image: {
       name: 'Image',
       id: 11,
@@ -661,13 +689,13 @@ const dummyAccessories: ProductBase[] = [
       'Spatial audio',
       'Apple',
     ],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: {
       id: 1,
       name: 'M2',
     },
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 5,
       'Sarajevo Alta': 3,
       'Banja Luka': 2,
@@ -675,12 +703,14 @@ const dummyAccessories: ProductBase[] = [
   },
   {
     id: 4,
-    product_variant_id: 'iphone-14-case',
-    product_type_id: 'accessory',
+    productVariantId: 'iphone-14-case',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'iPhone 14 Case',
-    original_price: 199,
-    discounted_price: 139,
-    final_price: 139,
+    originalPrice: 199,
+    discountedPrice: 139,
     image: {
       name: 'Image',
       id: 12,
@@ -689,10 +719,10 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'iPhone 14 Case',
     },
     specifications: ['iPhone 14', 'Futrola', 'Apple'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -700,12 +730,14 @@ const dummyAccessories: ProductBase[] = [
   },
   {
     id: 5,
-    product_variant_id: 'macbook-air-case',
-    product_type_id: 'accessory',
+    productVariantId: 'macbook-air-case',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'MacBook Air Case',
-    original_price: 199,
-    discounted_price: 139,
-    final_price: 139,
+    originalPrice: 199,
+    discountedPrice: 139,
     image: {
       name: 'Image',
       id: 13,
@@ -714,10 +746,10 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Air Case',
     },
     specifications: ['MacBook Air', 'Futrola', 'Apple'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -725,12 +757,14 @@ const dummyAccessories: ProductBase[] = [
   },
   {
     id: 6,
-    product_variant_id: 'macbook-pro-case',
-    product_type_id: 'accessory',
+    productVariantId: 'macbook-pro-case',
+    documentId: 'macbook-air-m3-256gb-13inch-image',
+    productLink: 'macbook-air-m3-256gb-13inch',
+    description: 'MacBook Air M3 13-inch',
+    productTypeId: 'accessory',
     name: 'MacBook Pro Case',
-    original_price: 199,
-    discounted_price: 139,
-    final_price: 139,
+    originalPrice: 199,
+    discountedPrice: 139,
     image: {
       name: 'Image',
       id: 14,
@@ -739,10 +773,10 @@ const dummyAccessories: ProductBase[] = [
       alternativeText: 'MacBook Pro Case',
     },
     specifications: ['MacBook Pro', 'Futrola', 'Apple'],
-    favorited_by: [],
+    favoritedBy: [],
     tag: null,
     chip: null,
-    availability_by_store: {
+    availabilityByStore: {
       'Sarajevo SCC': 0,
       'Sarajevo Alta': 1,
       'Banja Luka': 0,
@@ -752,19 +786,19 @@ const dummyAccessories: ProductBase[] = [
 const placeholderCart: ShoppingCartItem[] = [
   {
     ...dummyProducts[0],
-    quantity_in_cart: 1,
+    quantityInCart: 1,
   },
   {
     ...dummyProducts[1],
-    quantity_in_cart: 2,
+    quantityInCart: 2,
   },
   {
     ...dummyProducts[2],
-    quantity_in_cart: 1,
+    quantityInCart: 1,
   },
   {
     ...dummyAccessories[2],
-    quantity_in_cart: 1,
+    quantityInCart: 1,
   },
 ];
 
@@ -1101,37 +1135,37 @@ const dummyBestSellers: BestSellerItem[] = [
     ...dummyProducts[0],
     id: 1,
     tagline: 'Novi iPhone',
-    product_link: PAGE_NAMES.IPHONE,
+    productLink: PAGE_NAMES.IPHONE,
   },
   {
     ...dummyMacProducts[1],
     id: 2,
     tagline: 'Najbolje prodavaniji Mac u 2024.',
-    product_link: PAGE_NAMES.MAC,
+    productLink: PAGE_NAMES.MAC,
   },
   {
     ...dummyProducts[2],
     id: 3,
     tagline: 'No.1 iPad',
-    product_link: PAGE_NAMES.IPAD,
+    productLink: PAGE_NAMES.IPAD,
   },
   {
     ...dummyAccessories[0],
     id: 4,
     tagline: 'Najbolje prodavaniji AirPods',
-    product_link: PAGE_NAMES.ACCESSORIES,
+    productLink: PAGE_NAMES.ACCESSORIES,
   },
   {
     ...dummyAccessories[1],
     id: 5,
     tagline: 'Najbolje prodavaniji iPhone dodatak',
-    product_link: PAGE_NAMES.ACCESSORIES,
+    productLink: PAGE_NAMES.ACCESSORIES,
   },
   {
     ...dummyAccessories[2],
     id: 6,
     tagline: 'Najbolje prodavaniji iPad dodatak',
-    product_link: PAGE_NAMES.ACCESSORIES,
+    productLink: PAGE_NAMES.ACCESSORIES,
   },
 ];
 

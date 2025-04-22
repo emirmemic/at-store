@@ -8,26 +8,29 @@ export default factories.createCoreController(
       const { productId } = ctx.params;
 
       const product = await strapi.documents("api::product.product").findFirst({
-        filters: {
-          id: productId,
-        },
-        populate: ["favorited_by"],
+        documentId: productId,
+        status: "published",
+        populate: ["favoritedBy"],
       });
 
       if (!product) {
         return ctx.notFound("Product not found");
       }
 
-      const isFavorited = product.favorited_by.some((u) => u.id === user.id);
+      const isFavorited = product.favoritedBy.some((u) => u.id === user.id);
 
       try {
-        await strapi.documents("api::product.product").update({
-          documentId: product.documentId,
+        const res = await strapi.documents("api::product.product").update({
+          documentId: productId,
+          status: "published",
           data: {
-            favorited_by: {
-              [isFavorited ? "disconnect" : "connect"]: [{ id: user.id }],
+            favoritedBy: {
+              [isFavorited ? "disconnect" : "connect"]: [
+                { id: user.id, status: "published" },
+              ],
             },
           },
+          populate: ["favoritedBy"],
         });
         return { isFavorited: !isFavorited };
       } catch (error) {
@@ -46,8 +49,9 @@ export default factories.createCoreController(
         const favorites = await strapi
           .documents("api::product.product")
           .findMany({
+            status: "published",
             filters: {
-              favorited_by: {
+              favoritedBy: {
                 id: user.id,
               },
             },
@@ -61,6 +65,15 @@ export default factories.createCoreController(
         return favorites;
       } catch (error) {
         return ctx.badRequest("Failed to fetch favorites");
+      }
+    },
+    async syncWebAccountProducts(ctx) {
+      try {
+        await strapi.service("api::product.product").syncWebAccountProducts();
+        ctx.body = { success: true };
+      } catch (error) {
+        ctx.body = { error: error.message };
+        ctx.status = 500;
       }
     },
   })

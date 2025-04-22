@@ -17,7 +17,8 @@ export default function RelatedProductAccessories({
   onAddToCart,
 }: ProductCardProps) {
   const t = useTranslations('common');
-  const { name, image, product_link, final_price } = product;
+  const { name, image, productLink, discountedPrice, originalPrice } = product;
+  const finalPrice = discountedPrice ?? originalPrice;
 
   return (
     <div
@@ -25,8 +26,11 @@ export default function RelatedProductAccessories({
         'relative flex w-full max-w-72 flex-col items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-outline-black transition-all hover:shadow-outline-black-hover'
       )}
     >
-      {product_link && (
-        <Link className="z-1 absolute inset-0" href={product_link}>
+      {productLink && (
+        <Link
+          className="z-1 absolute inset-0"
+          href={`/products/${productLink}`}
+        >
           <span className="sr-only">
             {t('viewDetailsWithName', { productName: name })}
           </span>
@@ -45,13 +49,13 @@ export default function RelatedProductAccessories({
         <p className="flex min-h-16 items-center justify-center text-center heading-4">
           {name}
         </p>
-        <p className="text-center paragraph-1">{`${final_price} ${CURRENCY}`}</p>
+        <p className="text-center paragraph-1">{`${finalPrice} ${CURRENCY}`}</p>
       </div>
       <Button
         className="relative z-10"
         size={'md'}
         variant={'filled'}
-        onClick={() => onAddToCart(product.product_variant_id)}
+        onClick={() => onAddToCart(product.productVariantId)}
       >
         {t('buyNow')}
       </Button>

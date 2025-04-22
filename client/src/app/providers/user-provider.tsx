@@ -43,7 +43,7 @@ export default function UserProvider({
 
   const setFavorites = (favorites: ProductBase[]) => {
     if (user) {
-      setUser({ ...user, favorite_products: favorites });
+      setUser({ ...user, favoriteProducts: favorites });
     }
   };
 
@@ -51,7 +51,7 @@ export default function UserProvider({
     product: ProductBase
   ): Promise<APIResponse<{ isFavorited: boolean }>> => {
     const authToken = await getAuthToken();
-    const path = `/api/products/${product.id}/favorite`;
+    const path = `/api/products/${product.documentId}/favorite`;
     const res = await fetchAPI<{ isFavorited: boolean }>(
       `${STRAPI_BASE_URL}${path}`,
       {
@@ -62,8 +62,8 @@ export default function UserProvider({
     if (res.status === 200) {
       const isFavorited = res.data?.isFavorited;
       const updatedFavorites = isFavorited
-        ? [...(user?.favorite_products ?? []), product]
-        : user?.favorite_products.filter(
+        ? [...(user?.favoriteProducts ?? []), product]
+        : user?.favoriteProducts.filter(
             (favProduct) => favProduct.id !== product.id
           );
       setFavorites(updatedFavorites ?? []);

@@ -32,7 +32,9 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => (
     </div>
     <div className="flex grow flex-col gap-2">
       <p className="paragraph-1">{item.name}</p>
-      <p className="paragraph-1">{item.final_price}</p>
+      <p className="paragraph-1">
+        {item.discountedPrice ?? item.originalPrice}
+      </p>
     </div>
     <Button className="group absolute bottom-1 right-1 p-2" onClick={() => {}}>
       <IconTrash
@@ -53,7 +55,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
     <div className="relative pb-40">
       <div className="flex max-h-[calc(100vh-20rem)] flex-col gap-2 overflow-y-auto custom-scrollbar">
         {cart.map((item) => (
-          <ListItem key={item.product_variant_id} item={item} />
+          <ListItem key={item.productVariantId} item={item} />
         ))}
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-between gap-4 bg-grey-extra-light pb-8 pt-5">

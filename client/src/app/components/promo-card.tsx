@@ -25,6 +25,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardProps>) {
   const t = useTranslations('common');
 
   const { caption, product, learnMoreVariant, textColor } = promoCard;
+  if (product === null) return null;
   const { image, name } = product;
 
   return (

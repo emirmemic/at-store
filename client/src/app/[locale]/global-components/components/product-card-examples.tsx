@@ -16,14 +16,20 @@ import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { useLoader } from '@/lib/hooks';
 import { getAuthToken } from '@/lib/services';
-import { ProductBase } from '@/lib/types';
+import { ProductBase, ProductResponse } from '@/lib/types';
 
 const getProductsQuery = qs.stringify({
   populate: {
+    brand: true,
+    category: true,
+    model: true,
+    stores: true,
+    color: true,
+    memory: true,
     image: {
       fields: ['url', 'alternativeText'],
     },
-    favorited_by: {
+    favoritedBy: {
       fields: ['id'],
     },
   },
@@ -34,11 +40,12 @@ export default function ProductCardExamples() {
   const [cartItems, setCartItems] = useState(placeholderCart);
 
   const fetchProducts = async () => {
-    const path = '/api/products';
+    const path = '/api/products?';
     const url = new URL(path, STRAPI_BASE_URL);
     url.search = getProductsQuery;
+
     const authToken = await getAuthToken();
-    return fetchAPI<{ data: ProductBase[] }>(url.href, {
+    return fetchAPI<{ data: ProductResponse[] }>(url.href, {
       method: 'GET',
       authToken,
     });
@@ -48,7 +55,37 @@ export default function ProductCardExamples() {
     apiCall: fetchProducts,
     onSuccess: (response) => {
       if (response?.data) {
-        setProductsFromApi(response.data);
+        const convertedProducts = response.data.map(
+          (product) =>
+            ({
+              ...product,
+              specifications: [
+                `${product.memory?.value ?? ''} ${product.memory?.unit ?? ''}`,
+                `${product.color?.name ?? ''}`,
+                `${product.material ?? ''}`,
+                `${product.ancModel ?? ''}`,
+                `${product.keyboard ?? ''}`,
+                `${product.wifiModel ?? ''}`,
+                `${product.accessoriesType ?? ''}`,
+                `${product.braceletSize ?? ''}`,
+              ],
+              availabilityByStore: product.stores.reduce(
+                (acc, store) => ({
+                  ...acc,
+                  [store.name]: store.products,
+                }),
+                {} as Record<
+                  'Sarajevo SCC' | 'Sarajevo Alta' | 'Banja Luka',
+                  number
+                >
+              ),
+              chip: {
+                id: 12,
+                name: 'I am a chip',
+              },
+            }) as ProductBase
+        );
+        setProductsFromApi(convertedProducts);
       }
     },
   });
@@ -101,14 +138,14 @@ export default function ProductCardExamples() {
   };
   const removeFromCart = (productId: string) => {
     const updatedCart = cartItems.filter(
-      (product) => product.product_variant_id !== productId
+      (product) => product.productVariantId !== productId
     );
     setCartItems(updatedCart);
   };
   const handleQuantityChange = (productId: string, newQuantity: number) => {
     const updatedCart = cartItems.map((product) => {
-      if (product.product_variant_id === productId) {
-        return { ...product, quantity_in_cart: newQuantity };
+      if (product.productVariantId === productId) {
+        return { ...product, quantityInCart: newQuantity };
       }
       return product;
     });
@@ -121,7 +158,7 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h3 className="heading-2">Products from API</h3>
       <div className="h-[2px] w-full bg-grey"></div>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         {productsFromApi.map((product) => (
           <ProductCard
             key={product.id}
@@ -163,11 +200,11 @@ export default function ProductCardExamples() {
       </div>
       <div className="flex w-full flex-col gap-2">
         <AnimateList
-          getKey={(item) => item.product_variant_id}
+          getKey={(item) => item.productVariantId}
           items={cartItems}
           renderItem={(item) => (
             <ProductCartTableItem
-              key={item.product_variant_id}
+              key={item.productVariantId}
               product={item}
               onQuantityChange={handleQuantityChange}
               onRemove={removeFromCart}

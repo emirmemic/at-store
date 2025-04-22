@@ -36,10 +36,10 @@ export default function FavoriteProductCard({
     },
   });
 
-  const { name, image, original_price, discounted_price, specifications } =
+  const { name, image, originalPrice, discountedPrice, specifications } =
     product;
 
-  const price = discounted_price ?? original_price;
+  const price = discountedPrice ?? originalPrice;
 
   const headingClassName = 'heading-5 md:bullet-heading-2 lg:heading-4';
   const paragraphClassName = 'paragraph-2 md:bullet-1 lg:paragraph-1';

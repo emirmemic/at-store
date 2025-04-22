@@ -10,6 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link, useRouter } from '@/i18n/routing';
+import { useToast } from '@/lib/hooks/use-toast';
 
 import { Title } from '../../components';
 import { handleSubmit } from '../actions';
@@ -20,6 +21,8 @@ export default function Form() {
   const t = useTranslations('loginPage');
   const validation = useTranslations('validation');
   const router = useRouter();
+  const { toast } = useToast();
+
   const { setUser } = useContext(UserContext);
 
   const [formState, action, isPending] = useActionState(
@@ -31,8 +34,12 @@ export default function Form() {
     if (formState?.user) {
       router.replace(PAGE_NAMES.HOME);
       setUser(formState.user);
+      toast({
+        title: t('loginSuccess'),
+        variant: 'success',
+      });
     }
-  }, [formState, router, setUser]);
+  }, [formState, router, setUser, toast, t]);
 
   return (
     <form
@@ -53,13 +60,13 @@ export default function Form() {
         </Alert>
       )}
       <Input
-        defaultValue={formState?.data.email}
+        defaultValue={formState?.data.email ?? 'hasantanich@gmail.com'}
         errorMessage={formState?.errors?.email}
         name="email"
         placeholder={`${t('email')}*`}
       />
       <Input
-        defaultValue={formState?.data.password}
+        defaultValue={formState?.data.password ?? 'Hasan123'}
         errorMessage={formState?.errors?.password}
         name="password"
         placeholder={`${t('password')}*`}

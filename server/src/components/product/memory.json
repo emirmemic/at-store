@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_product_memories",
+  "info": {
+    "displayName": "memory"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "integer",
+      "required": true
+    },
+    "unit": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

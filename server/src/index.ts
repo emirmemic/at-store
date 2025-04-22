@@ -72,5 +72,7 @@ export default {
         },
       });
   },
-  bootstrap() {},
+  bootstrap: async () => {
+    await strapi.service("api::product.product").syncWebAccountProducts();
+  },
 };

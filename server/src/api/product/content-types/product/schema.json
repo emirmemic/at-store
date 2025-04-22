@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "attributes": {
     "name": {
@@ -27,17 +27,17 @@
         "images"
       ]
     },
-    "orders": {
+    "order": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "api::order.order",
-      "mappedBy": "products"
+      "inversedBy": "products"
     },
-    "original_price": {
+    "originalPrice": {
       "required": true,
       "type": "decimal"
     },
-    "discounted_price": {
+    "discountedPrice": {
       "type": "decimal"
     },
     "tag": {
@@ -47,11 +47,94 @@
         "novo"
       ]
     },
-    "favorited_by": {
+    "favoritedBy": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "favorite_products"
+      "inversedBy": "favoriteProducts"
+    },
+    "productTypeId": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "productVariantId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "webAccountArticleName": {
+      "type": "string",
+      "required": true
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
+    },
+    "model": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::model.model",
+      "inversedBy": "products"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "stores": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::store.store",
+      "inversedBy": "products"
+    },
+    "color": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.color"
+    },
+    "memory": {
+      "type": "component",
+      "repeatable": false,
+      "component": "product.memory"
+    },
+    "material": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "ancModel": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "keyboard": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "wifiModel": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "accessoriesType": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "braceletSize": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "productLink": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }

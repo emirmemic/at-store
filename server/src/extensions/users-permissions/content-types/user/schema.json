@@ -9,7 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "attributes": {
     "username": {
@@ -71,12 +71,6 @@
       "target": "api::order.order",
       "mappedBy": "user"
     },
-    "favorite_products": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::product.product",
-      "mappedBy": "favorited_by"
-    },
     "name": {
       "type": "string",
       "required": true,
@@ -111,6 +105,12 @@
       "required": true,
       "max": "12",
       "min": "8"
+    },
+    "favoriteProducts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "favoritedBy"
     }
   }
 }

@@ -26,19 +26,19 @@ export default function ProductCard({
 }: ProductCardProps) {
   const {
     name,
-    discounted_price,
-    original_price,
+    discountedPrice,
+    originalPrice,
     tag,
     image,
     specifications,
-    product_link,
-    favorited_by,
+    favoritedBy,
+    productLink,
   } = product;
   const t = useTranslations('common');
   const { toast } = useToast();
   const { toggleFavorite, user } = useContext(UserContext);
-  const [favoritedBy, setFavoritedBy] = useState<number[]>(
-    favorited_by?.map((f) => f.id) ?? []
+  const [favorites, setFavorites] = useState<number[]>(
+    favoritedBy?.map((f) => f.id) ?? []
   );
 
   const { execute, isLoading } = useLoader({
@@ -48,7 +48,7 @@ export default function ProductCard({
         title: t('successful'),
       });
       if (user) {
-        setFavoritedBy((prev) =>
+        setFavorites((prev) =>
           prev.includes(user.id)
             ? prev.filter((id) => id !== user.id)
             : [...prev, user.id]
@@ -64,7 +64,7 @@ export default function ProductCard({
     },
   });
   const finalSpecs = specifications ? specifications.slice(0, 4) : [];
-  const finalPrice = discounted_price ?? original_price;
+  const finalPrice = discountedPrice ?? originalPrice;
 
   return (
     <div
@@ -75,13 +75,11 @@ export default function ProductCard({
         className
       )}
     >
-      {product_link && (
-        <Link className="z-1 absolute inset-0" href={product_link}>
-          <span className="sr-only">
-            {t('viewDetailsWithName', { productName: name })}
-          </span>
-        </Link>
-      )}
+      <Link className="z-1 absolute inset-0" href={`/products/${productLink}`}>
+        <span className="sr-only">
+          {t('viewDetailsWithName', { productName: name })}
+        </span>
+      </Link>
       <div
         className={cn('w-full', {
           'h-44': variant === 'accessories',
@@ -103,7 +101,7 @@ export default function ProductCard({
           <FavoritesHeart
             className="z-3 relative"
             disabled={isLoading}
-            isInFavorites={user ? favoritedBy.includes(user.id) : false}
+            isInFavorites={user ? favorites.includes(user.id) : false}
             isLoading={isLoading}
             onClick={() => {
               if (user) execute();
@@ -119,8 +117,8 @@ export default function ProductCard({
             ))}
           </div>
         )}
-        {discounted_price && (
-          <p className="mb-0.5 line-through paragraph-2">{`${original_price} ${CURRENCY}`}</p>
+        {discountedPrice && (
+          <p className="mb-0.5 line-through paragraph-2">{`${originalPrice} ${CURRENCY}`}</p>
         )}
         <p className="heading-4">{`${finalPrice} ${CURRENCY}`}</p>
       </div>

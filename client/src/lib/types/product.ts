@@ -2,35 +2,87 @@ import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types';
 
-import { UserInformation } from './auth';
+import { OrderResponse, UserInformation } from './auth';
 
 type StoreName = (typeof STORE_NAMES)[number];
 
+interface ProductResponse {
+  id: number;
+  documentId: string;
+  productVariantId: string;
+  productTypeId: string;
+  name: string;
+  productLink: string;
+  webAccountArticleName: string;
+  description?: string;
+  image: ImageProps | null;
+  order: OrderResponse;
+  originalPrice: number;
+  discountedPrice: number | null;
+  tag?: string | null;
+  favoritedBy?: UserInformation[];
+  brand?: IdentificationResponse;
+  category?: CategoryItem;
+  model?: IdentificationResponse;
+  stores: StoreResponse[];
+  color?: ColorResponse;
+  memory?: MemoryResponse;
+  material?: string;
+  ancModel?: string;
+  keyboard?: string;
+  wifiModel?: string;
+  accessoriesType?: string;
+  braceletSize?: string;
+}
+
+interface StoreResponse extends IdentificationResponse {
+  products: number;
+}
+
+interface IdentificationResponse {
+  id: number;
+  name: string;
+}
+
+interface ColorResponse {
+  id: number;
+  name: string;
+  hex: string;
+}
+
+interface MemoryResponse {
+  id: number;
+  value: number;
+  unit: string;
+}
+
 interface ProductBase {
   id: number;
-  product_variant_id: string;
-  product_type_id: string;
+  documentId: string;
+  productVariantId: string;
+  productTypeId: string;
   name: string;
-  original_price: number;
-  discounted_price: number | null;
-  image: ImageProps | null;
+  originalPrice: number;
+  discountedPrice: number | null;
+  image?: ImageProps | null;
   specifications?: string[];
-  product_link?: string;
+  productLink: string;
   description?: string;
   tag?: string | null;
-  final_price: number;
+  availabilityByStore: Record<StoreName, number>;
+  favoritedBy?: UserInformation[];
+  details?: string;
+  // TODO: WebAccount needs to return this!
   chip: {
     id: number;
     name: string;
   } | null;
-  availability_by_store: Record<StoreName, number>;
-  details?: string;
-  favorited_by?: UserInformation[];
 }
 
 interface ShoppingCartItem extends ProductBase {
-  quantity_in_cart: number;
+  quantityInCart: number;
 }
+
 interface InstallmentOption {
   label: string;
   value: number;
@@ -53,6 +105,7 @@ interface AccessorySliderItem {
   image: ImageProps;
   actionLink: Pathname;
 }
+
 interface BestSellerItem extends ProductBase {
   tagline: string;
 }
@@ -64,4 +117,5 @@ export type {
   AccessorySliderItem,
   BestSellerItem,
   InstallmentOption,
+  ProductResponse,
 };

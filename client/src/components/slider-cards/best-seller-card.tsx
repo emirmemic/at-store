@@ -6,16 +6,10 @@ import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { BestSellerItem } from '@/lib/types';
 export default function BestSellerCard(product: BestSellerItem) {
-  const {
-    name,
-    original_price,
-    discounted_price,
-    image,
-    tagline,
-    product_link,
-  } = product;
+  const { name, originalPrice, discountedPrice, image, tagline, productLink } =
+    product;
   const t = useTranslations('common');
-  const finalPrice = discounted_price ?? original_price;
+  const finalPrice = discountedPrice ?? originalPrice;
   return (
     <div className="flex h-full w-full flex-col justify-between gap-6 rounded-2xl border bg-white p-4 text-grey-almost-black shadow-outline-black">
       <div>
@@ -36,9 +30,9 @@ export default function BestSellerCard(product: BestSellerItem) {
           {`${finalPrice} ${CURRENCY}`}
         </p>
       </div>
-      {product_link && (
+      {productLink && (
         <Button asChild className="mx-auto w-fit" size="md" variant="filled">
-          <Link href={product_link}>{t('buyNow')}</Link>
+          <Link href={productLink}>{t('buyNow')}</Link>
         </Button>
       )}
     </div>

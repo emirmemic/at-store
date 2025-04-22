@@ -59,7 +59,7 @@ export default function ProductDetailsPopup({
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-grey-darker paragraph-1">{product.name}</p>
-                <p className="heading-4">{`${product.final_price} ${CURRENCY}`}</p>
+                <p className="heading-4">{`${product.discountedPrice ?? product.originalPrice} ${CURRENCY}`}</p>
               </div>
             </div>
             <div

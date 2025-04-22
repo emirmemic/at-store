@@ -5,7 +5,7 @@ interface AuthError {
   field?: string;
 }
 
-interface Order {
+interface OrderResponse {
   id: number;
   products: ProductBase[];
   orderStatus: OrderStatusEnum;
@@ -18,8 +18,8 @@ interface UserInformation {
   documentId: string;
   username: string;
   email: string;
-  orders: Order[];
-  favorite_products: ProductBase[];
+  orders: OrderResponse[];
+  favoriteProducts: ProductBase[];
 }
 
 interface AuthResponse {
@@ -36,4 +36,5 @@ export type {
   OAuthProvider,
   OrderStatusEnum,
   UserInformation,
+  OrderResponse,
 };

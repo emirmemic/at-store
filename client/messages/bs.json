@@ -606,7 +606,6 @@
     "viewDetailsWithName": "Pogledaj detalje {productName}",
     "viewDetails": "Pogledaj detalje",
     "viewMore": "Pogledaj više",
-
     "successful": "Uspješno",
     "error": "Došlo je do greške",
     "startsFrom": "Počne od",
@@ -682,7 +681,8 @@
     "loginThrough": "Prijavi se putem",
     "facebook": "Facebook",
     "google": "Google",
-    "apple": "Apple"
+    "apple": "Apple",
+    "loginSuccess": "Uspješno ste se prijavili"
   },
   "promoPage": {
     "title": "Promo"
