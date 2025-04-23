@@ -15,7 +15,6 @@ import { dummyProducts, placeholderCart } from '@/data/dummy-data';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { useLoader } from '@/lib/hooks';
-import { getAuthToken } from '@/lib/services';
 import { ProductBase, ProductResponse } from '@/lib/types';
 
 const getProductsQuery = qs.stringify({
@@ -44,10 +43,8 @@ export default function ProductCardExamples() {
     const url = new URL(path, STRAPI_BASE_URL);
     url.search = getProductsQuery;
 
-    const authToken = await getAuthToken();
     return fetchAPI<{ data: ProductResponse[] }>(url.href, {
       method: 'GET',
-      authToken,
     });
   };
 
