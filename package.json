@@ -26,6 +26,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
+    "@strapi/provider-email-nodemailer": "^5.12.6",
     "@types/node": "^20",
     "concurrently": "^8.2.2",
     "typescript": "^5.8.2",

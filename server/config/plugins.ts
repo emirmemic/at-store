@@ -35,4 +35,21 @@ export default ({ env }) => ({
       },
     },
   },
+  email: {
+    config: {
+      provider: "nodemailer",
+      providerOptions: {
+        host: env("SMTP_HOST"),
+        port: env("SMTP_PORT"),
+        auth: {
+          user: env("SMTP_USERNAME", "mail.atstore.ba"),
+          pass: env("SMTP_PASSWORD"),
+        },
+      },
+      settings: {
+        defaultFrom: env("DEFAULT_FROM", "no-reply@atstore.ba"),
+        defaultReplyTo: env("DEFAULT_REPLY_TO", "no-reply@atstore.ba"),
+      },
+    },
+  },
 });

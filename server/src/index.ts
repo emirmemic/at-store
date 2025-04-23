@@ -73,6 +73,14 @@ export default {
       });
   },
   bootstrap: async () => {
-    await strapi.service("api::product.product").syncWebAccountProducts();
+    // await strapi.service("api::product.product").syncWebAccountProducts();
+    // Example of sending an email
+    // await strapi.plugin('email').service('email').send({
+    //   to: 'someone@example.com',
+    //   from: 'someone2@example.com',
+    //   subject: 'Hello world',
+    //   text: 'Hello world',
+    //   html: `<h4>Hello world</h4>`,
+    // });
   },
 };
