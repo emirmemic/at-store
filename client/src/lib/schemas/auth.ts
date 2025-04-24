@@ -2,19 +2,38 @@ import { z } from 'zod';
 
 import { LocalizationKey } from '../types';
 
-import { phoneNumberSchema } from './common';
+import { emailSchema, phoneNumberSchema } from './common';
+
+const passwordSchema = (t: LocalizationKey) =>
+  z
+    .string()
+    .min(8, t('passwordMinLength', { minLength: '8' }))
+    .max(50, t('passwordMaxLength', { maxLength: '50' }))
+    .regex(/[A-Z]/, t('passwordUppercase'))
+    .regex(/[a-z]/, t('passwordLowercase'))
+    .regex(/[0-9]/, t('passwordNumber'));
 
 const createLoginSchema = (t: LocalizationKey) =>
   z.object({
-    email: z.string().min(1, t('emailRequired')).email(t('invalidEmailFormat')),
-    password: z
-      .string()
-      .min(8, t('passwordMinLength', { minLength: '8' }))
-      .max(50, t('passwordMaxLength', { maxLength: '50' }))
-      .regex(/[A-Z]/, t('passwordUppercase'))
-      .regex(/[a-z]/, t('passwordLowercase'))
-      .regex(/[0-9]/, t('passwordNumber')),
+    email: emailSchema(t),
+    password: passwordSchema(t),
   });
+
+const createForgotPasswordSchema = (t: LocalizationKey) =>
+  z.object({
+    email: emailSchema(t),
+  });
+
+const createResetPasswordSchema = (t: LocalizationKey) =>
+  z
+    .object({
+      password: passwordSchema(t),
+      passwordConfirmation: z.string().min(1, t('confirmPasswordRequired')),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: t('passwordMatch'),
+      path: ['passwordConfirmation'],
+    });
 
 const createRegisterSchema = (t: LocalizationKey) => {
   const loginSchema = createLoginSchema(t);
@@ -65,9 +84,28 @@ const createRegisterOrgSchema = (t: LocalizationKey) => {
       path: ['confirmPassword'],
     });
 };
+
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
 type RegisterOrgFormData = z.infer<ReturnType<typeof createRegisterOrgSchema>>;
+type ForgotPasswordFormData = z.infer<
+  ReturnType<typeof createForgotPasswordSchema>
+>;
+type ResetPasswordFormData = z.infer<
+  ReturnType<typeof createResetPasswordSchema>
+>;
 
-export { createLoginSchema, createRegisterOrgSchema, createRegisterSchema };
-export type { LoginFormData, RegisterFormData, RegisterOrgFormData };
+export {
+  createLoginSchema,
+  createRegisterOrgSchema,
+  createRegisterSchema,
+  createForgotPasswordSchema,
+  createResetPasswordSchema,
+};
+export type {
+  LoginFormData,
+  RegisterFormData,
+  RegisterOrgFormData,
+  ForgotPasswordFormData,
+  ResetPasswordFormData,
+};

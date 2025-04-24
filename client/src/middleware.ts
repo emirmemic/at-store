@@ -9,7 +9,11 @@ const AUTH_ROUTES = [
   '/en/register',
   '/prijava',
   '/registracija',
+  '/forgot-password',
+  '/reset-password',
 ] as const;
+
+type AuthRoutes = (typeof AUTH_ROUTES)[number];
 
 /**
  * Route prefixes that require authentication.
@@ -17,8 +21,6 @@ const AUTH_ROUTES = [
  * Example: '/racun' will match '/racun', '/racun/podaci', etc.
  */
 const PROTECTED_PREFIXES = ['/racun'] as const;
-
-type AuthRoutes = (typeof AUTH_ROUTES)[number];
 
 /**
  * Checks if the given pathname is an authentication route

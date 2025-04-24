@@ -17,10 +17,15 @@ export default function Title({
     <div className={className}>
       <h1 className="heading-3">{title}</h1>
       <p className="paragraph-2">
-        {`${subtitle} `}
-        <Link className="text-blue hover:underline" href={linkPath || '/login'}>
-          {linkText}
-        </Link>
+        {subtitle && `${subtitle} `}
+        {linkPath && (
+          <Link
+            className="text-blue hover:underline"
+            href={linkPath || '/login'}
+          >
+            {linkText}
+          </Link>
+        )}
       </p>
     </div>
   );

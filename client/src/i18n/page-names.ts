@@ -38,6 +38,7 @@ export const PAGE_NAMES = {
   PROMO: '/promo',
   REGISTER: '/register',
   RESET_PASSWORD: '/reset-password',
+  FORGOT_PASSWORD: '/forgot-password',
   SUPPORT: '/support',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
   WATCH: '/watch',

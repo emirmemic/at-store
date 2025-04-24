@@ -28,6 +28,10 @@
       "title": "Resetovanje Lozinke | AT Store",
       "description": "Resetujte lozinku i ponovo pristupite svom računu."
     },
+    "forgotPassword": {
+      "title": "Zaboravljena Lozinka | AT Store",
+      "description": "Zaboravili ste lozinku? Unesite svoj e-mail i dobijte uputstva za resetovanje."
+    },
     "mac": {
       "title": "Mac | AT Store",
       "description": "Istražite našu ponudu Apple Mac računara, uključujući MacBook i iMac."
@@ -685,6 +689,20 @@
     "apple": "Apple",
     "loginSuccess": "Uspješno ste se prijavili"
   },
+  "forgotPasswordPage": {
+    "title": "Zaboravio šifru",
+    "description": "Unesite email adresu koju ste koristili prilikom registracije. Poslaćemo vam email sa linkom za resetovanje šifre.",
+    "email": "Email",
+    "sendPasswordResetEmail": "Pošalji email za resetovanje šifre",
+    "emailSent": "Email je poslat na vašu email adresu, molim vas provjerite svoj inbox."
+  },
+  "resetPasswordPage": {
+    "description": "Unesite novu šifru",
+    "confirmPassword": "Potvrdi šifru",
+    "newPassword": "Nova šifra",
+    "resetPassword": "Resetuj šifru",
+    "passwordChanged": "Šifra je uspješno promijenjena"
+  },
   "promoPage": {
     "title": "Promo"
   },
@@ -714,7 +732,8 @@
     "passwordMatch": "Lozinke se ne podudaraju",
     "nameAndSurnameRequired": "Ime i prezime su obavezni",
     "companyNameRequired": "Naziv firme je obavezan",
-    "companyIdNumberRequired": "ID broj firme je obavezan"
+    "companyIdNumberRequired": "ID broj firme je obavezan",
+    "codeRequired": "Kod je obavezan"
   },
   "complaintsPage": {
     "title": "Reklamacije",

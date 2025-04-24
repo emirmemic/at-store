@@ -121,7 +121,10 @@ export const routing = defineRouting({
       bs: '/registracija',
     },
     [PAGE_NAMES.RESET_PASSWORD]: {
-      bs: '/reset-lozinke',
+      bs: '/reset-sifru',
+    },
+    [PAGE_NAMES.FORGOT_PASSWORD]: {
+      bs: '/zaboravio-sifru',
     },
     [PAGE_NAMES.SUPPORT]: {
       bs: '/podrska',

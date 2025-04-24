@@ -31,6 +31,9 @@ const getProductsQuery = qs.stringify({
     favoritedBy: {
       fields: ['id'],
     },
+    filters: {
+      accessoriesType: true,
+    },
   },
 });
 export default function ProductCardExamples() {

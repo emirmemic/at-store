@@ -14,7 +14,7 @@ export default function Page() {
 
   return (
     <>
-      {orders && orders.length === 0 && (
+      {(!orders || orders.length === 0) && (
         <EmptyContent
           Icon={IconShoppingCart}
           buttonAction={() => {
