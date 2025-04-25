@@ -1264,7 +1264,15 @@ export interface PluginUsersPermissionsUser
         minLength: 1;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    companyIdNumber: Schema.Attribute.BigInteger;
+    companyIdNumber: Schema.Attribute.BigInteger &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMax<
+        {
+          max: '13';
+          min: '13';
+        },
+        string
+      >;
     companyName: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;

@@ -94,7 +94,11 @@
       "type": "string"
     },
     "companyIdNumber": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "required": false,
+      "unique": true,
+      "min": "13",
+      "max": "13"
     },
     "dateOfBirth": {
       "type": "string",

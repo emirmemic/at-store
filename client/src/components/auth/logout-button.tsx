@@ -1,9 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { ButtonHTMLAttributes, ReactNode, useContext, useState } from 'react';
 
 import { redirectToHomePage } from '@/app/actions';
 import { UserContext } from '@/app/providers';
+import { useToast } from '@/lib/hooks/use-toast';
 
 interface LogoutButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
@@ -19,12 +21,18 @@ export default function LogoutButton({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const userProvider = useContext(UserContext);
+  const { toast } = useToast();
+  const t = useTranslations();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
     try {
       redirectToHomePage();
+      toast({
+        title: t('common.successful'),
+        variant: 'success',
+      });
       userProvider.setUser(null);
     } catch (error) {
       setError(

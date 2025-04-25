@@ -7,6 +7,7 @@ import { emailSchema, phoneNumberSchema } from './common';
 const passwordSchema = (t: LocalizationKey) =>
   z
     .string()
+    .trim()
     .min(8, t('passwordMinLength', { minLength: '8' }))
     .max(50, t('passwordMaxLength', { maxLength: '50' }))
     .regex(/[A-Z]/, t('passwordUppercase'))
@@ -39,10 +40,10 @@ const createRegisterSchema = (t: LocalizationKey) => {
   const loginSchema = createLoginSchema(t);
   return loginSchema
     .extend({
-      name: z.string().min(1, t('nameRequired')),
-      surname: z.string().min(1, t('surnameRequired')),
+      name: z.string().trim().min(1, t('nameRequired')),
+      surname: z.string().trim().min(1, t('surnameRequired')),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
-      address: z.string().min(1, t('addressRequired')),
+      address: z.string().trim().min(1, t('addressRequired')),
       phoneNumber: phoneNumberSchema(t),
       dateOfBirth: z
         .string()
@@ -71,12 +72,16 @@ const createRegisterOrgSchema = (t: LocalizationKey) => {
   const loginSchema = createLoginSchema(t);
   return loginSchema
     .extend({
-      nameAndSurname: z.string().min(1, t('nameAndSurnameRequired')),
+      nameAndSurname: z.string().trim().min(1, t('nameAndSurnameRequired')),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
       address: z.string().min(1, t('addressRequired')),
       phoneNumber: phoneNumberSchema(t),
-      companyName: z.string().min(1, t('companyNameRequired')),
-      companyIdNumber: z.string().min(1, t('companyIdNumberRequired')),
+      companyName: z.string().trim().min(1, t('companyNameRequired')),
+      companyIdNumber: z
+        .string()
+        .trim()
+        .nonempty(t('companyIdNumberRequired'))
+        .length(13, t('companyIdNumberLength', { length: 13 })),
       role: z.enum(['organization']),
     })
     .refine((data) => data.password === data.confirmPassword, {

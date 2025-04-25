@@ -733,6 +733,7 @@
     "nameAndSurnameRequired": "Ime i prezime su obavezni",
     "companyNameRequired": "Naziv firme je obavezan",
     "companyIdNumberRequired": "ID broj firme je obavezan",
+    "companyIdNumberLength": "ID broj firme mora imati {length} cifara",
     "codeRequired": "Kod je obavezan"
   },
   "complaintsPage": {
