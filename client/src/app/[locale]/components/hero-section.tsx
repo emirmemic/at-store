@@ -81,11 +81,11 @@ export default function HeroSection({
   const [isAutoplayActive, setIsAutoplayActive] = useState(
     enableAutoplay || false
   );
+  const [api, setApi] = useState<CarouselApi | null>(null);
 
   // Computed values
   const totalSlides = sliderItems.length;
-  const [api, setApi] = useState<CarouselApi | null>(null);
-  const delay = Math.max(autoplayDelay || 3000, 1000);
+  const delay = Math.max(autoplayDelay || 8000, 1000);
 
   // Handlers
   const handleDotClick = (index: number) => {
