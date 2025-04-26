@@ -25,7 +25,7 @@ const getProductsQuery = qs.stringify({
     stores: true,
     color: true,
     memory: true,
-    image: {
+    images: {
       fields: ['url', 'alternativeText'],
     },
     favoritedBy: {

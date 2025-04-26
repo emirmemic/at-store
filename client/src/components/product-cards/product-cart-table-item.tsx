@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { IconTrash } from '@/components/icons';
@@ -8,6 +7,8 @@ import { CounterInput } from '@/components/ui/counter-input';
 import { CURRENCY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
+import { StrapiImage } from '../strapi-image';
 
 interface ProductCartTableItemProps {
   product: ShoppingCartItem;
@@ -39,6 +40,7 @@ export default function ProductCartTableItem({
   );
   const finalPrice = product.discountedPrice ?? product.originalPrice;
   const totalPrice = `${finalPrice * product.quantityInCart} ${CURRENCY}`;
+  const image = product.images?.[0] ?? null;
   return (
     <div
       className={cn(
@@ -48,13 +50,16 @@ export default function ProductCartTableItem({
     >
       <div className="flex items-center gap-3 pr-8 md:col-span-3 md:grid md:grid-cols-3 md:gap-4 md:p-0">
         <div className="col-span-1 mb-2 h-32 w-32">
-          <Image
-            alt={product.name}
-            className="h-full w-full object-contain"
-            height={128}
-            src={product.image?.url ?? ''}
-            width={128}
-          />
+          {image && (
+            <StrapiImage
+              alt={image?.alternativeText || product.name}
+              className="h-full w-full object-contain"
+              height={128}
+              sizes="(max-width: 1024px) 8rem, 10rem"
+              src={image?.url ?? ''}
+              width={128}
+            />
+          )}
         </div>
         <div className="flex flex-col gap-3 md:col-span-2 md:flex-row md:gap-4">
           <p className="md:w-1/2 md:text-end">{product.name}</p>

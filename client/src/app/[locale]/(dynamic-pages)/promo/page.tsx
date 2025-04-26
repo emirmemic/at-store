@@ -62,7 +62,7 @@ export default async function Page() {
       <h1 className="text-center heading-1 container-max-width">
         {t('title')}
       </h1>
-      <PromoSliderWrapper className="container-max-width-lg" />
+      <PromoSliderWrapper className="container-max-width-xl" />
       {response.error && (
         <Alert
           dismissible

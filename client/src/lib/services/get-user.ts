@@ -12,7 +12,7 @@ const getUserQuery = {
       populate: {
         products: {
           populate: {
-            image: {
+            images: {
               fields: ['url', 'alternativeText'],
             },
           },

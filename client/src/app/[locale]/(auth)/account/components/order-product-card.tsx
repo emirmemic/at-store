@@ -52,7 +52,8 @@ export default function OrderProductCard(props: OrderProductCardProps) {
   const t = useTranslations();
 
   const { orderStatus, orderNumber, orderDate, product } = props;
-  const { name, image } = product;
+  const { name, images } = product;
+  const image = images?.[0];
 
   return (
     <div className="relative flex flex-col items-center gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">

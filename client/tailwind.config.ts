@@ -162,6 +162,7 @@ export default {
         '.display': {
           '@apply typography-heading': {},
           fontSize: '4rem',
+          lineHeight: 'normal',
         },
         '.heading-1': {
           '@apply typography-heading': {},
@@ -274,7 +275,12 @@ export default {
         },
         '.container-max-width-lg': {
           width: '100%',
-          maxWidth: '',
+          maxWidth: '1800px',
+          margin: '0 auto',
+        },
+        '.container-max-width-xl': {
+          width: '100%',
+          maxWidth: '2200px',
           margin: '0 auto',
         },
         '.blur-background': {

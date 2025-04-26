@@ -36,8 +36,9 @@ export default function FavoriteProductCard({
     },
   });
 
-  const { name, image, originalPrice, discountedPrice, specifications } =
+  const { name, images, originalPrice, discountedPrice, specifications } =
     product;
+  const image = images?.[0];
 
   const price = discountedPrice ?? originalPrice;
 

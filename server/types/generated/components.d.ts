@@ -123,6 +123,7 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 50;
       }>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     learnMoreVariant: Schema.Attribute.Enumeration<
       ['blue_blue', 'blue_white']
     > &

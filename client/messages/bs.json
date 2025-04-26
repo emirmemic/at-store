@@ -536,6 +536,7 @@
   },
   "homepage": {
     "title": "AT Store",
+    "seeAllCategories": "Pogledajte sve kategorije:",
     "promoCard": {
       "dialogContentDescription": "Detaljan prikaz proizvoda sa slikom i opisom. Kliknite da saznate više o proizvodu."
     }

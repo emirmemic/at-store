@@ -24,6 +24,7 @@ export default function ProductDetailsPopup({
   className,
 }: ProductDetailsPopupProps) {
   const t = useTranslations('');
+  const image = product.images?.[0] || null;
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -49,13 +50,15 @@ export default function ProductDetailsPopup({
           <div className="flex max-h-screen-h-cutoff w-full flex-col items-center gap-8 overflow-y-auto p-6 custom-scrollbar">
             <div className="flex w-full items-center gap-9 pr-16">
               <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-grey-almost-white">
-                <Image
-                  alt={product.image?.alternativeText || product.name}
-                  className="h-full w-full object-contain"
-                  height={112}
-                  src={product.image?.url ?? ''}
-                  width={112}
-                />
+                {image && (
+                  <Image
+                    alt={image?.alternativeText || product.name}
+                    className="h-full w-full object-contain"
+                    height={112}
+                    src={image?.url ?? ''}
+                    width={112}
+                  />
+                )}
               </div>
               <div className="flex flex-col gap-2">
                 <p className="text-grey-darker paragraph-1">{product.name}</p>

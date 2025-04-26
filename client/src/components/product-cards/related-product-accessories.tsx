@@ -1,5 +1,3 @@
-import Image from 'next/image';
-// TODO - Change the Link import from next-intl while building the product details page
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
@@ -7,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
+import { StrapiImage } from '../strapi-image';
 
 interface ProductCardProps {
   product: ProductBase;
@@ -17,7 +17,8 @@ export default function RelatedProductAccessories({
   onAddToCart,
 }: ProductCardProps) {
   const t = useTranslations('common');
-  const { name, image, productLink, discountedPrice, originalPrice } = product;
+  const { name, images, productLink, discountedPrice, originalPrice } = product;
+  const image = images?.[0] ?? null;
   const finalPrice = discountedPrice ?? originalPrice;
 
   return (
@@ -37,13 +38,15 @@ export default function RelatedProductAccessories({
         </Link>
       )}
       <div className="h-40 w-full">
-        <Image
-          alt={image?.alternativeText || name}
-          className="h-full w-full object-contain"
-          height={168}
-          src={image?.url ?? ''}
-          width={168}
-        />
+        {image && (
+          <StrapiImage
+            alt={image?.alternativeText || name}
+            className="h-full w-full object-contain"
+            height={168}
+            src={image?.url ?? ''}
+            width={168}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-1">
         <p className="flex min-h-16 items-center justify-center text-center heading-4">

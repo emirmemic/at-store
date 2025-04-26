@@ -32,6 +32,14 @@
         "black"
       ],
       "default": "white"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }

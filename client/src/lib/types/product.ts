@@ -15,7 +15,7 @@ interface ProductResponse {
   productLink: string;
   webAccountArticleName: string;
   description?: string;
-  image: ImageProps | null;
+  images: ImageProps[] | null;
   order: OrderResponse;
   originalPrice: number;
   discountedPrice: number | null;
@@ -64,7 +64,7 @@ interface ProductBase {
   name: string;
   originalPrice: number;
   discountedPrice: number | null;
-  image?: ImageProps | null;
+  images?: ImageProps[];
   specifications?: string[];
   productLink: string;
   description?: string;
@@ -90,9 +90,10 @@ interface InstallmentOption {
 
 interface CategoryItem {
   id: string;
+  documentId: string;
   name: string;
   link: string;
-  price: number;
+  startingPrice: number;
   image: ImageProps | null;
 }
 

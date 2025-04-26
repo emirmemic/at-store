@@ -1,9 +1,7 @@
 'use client';
 import Autoscroll from 'embla-carousel-auto-scroll';
-import Autoplay from 'embla-carousel-autoplay';
 
 import {
-  Category,
   PromotionalFlipCard,
   InfiniteSliderCard,
   BestSellerCard,
@@ -16,7 +14,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import {
-  dummyCategories,
   dummyPromotions,
   dummyAccessoriesSlider,
   dummyBestSellers,
@@ -28,25 +25,6 @@ export default function SliderCardsExamples() {
         <div className="h-0.5 w-full bg-grey"></div>
         <h2 className="display">Slider Cards</h2>
         <div className="h-0.5 w-full bg-grey"></div>
-        <Carousel
-          className="border-b border-grey-darker"
-          opts={{
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 3000,
-            }),
-          ]}
-        >
-          <CarouselContent className="-ml-12 pb-3">
-            {dummyCategories.map((category) => (
-              <CarouselItem key={category.id} className="w-fit basis-52 pl-12">
-                <Category {...category} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
         <Carousel
           opts={{
             loop: true,

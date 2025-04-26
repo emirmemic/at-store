@@ -1,4 +1,4 @@
-import { PromoCardProps } from '@/app/[locale]/components';
+import { PromoCardItem } from '@/app/[locale]/components/promo-cards/types';
 import { ActionLinkResponse } from '@/lib/types';
 
 interface HeroSliderItem {
@@ -27,7 +27,7 @@ interface HomepageResponse {
   data: {
     title: string;
     description?: string;
-    promoCards: Array<PromoCardProps> | null;
+    promoCards: Array<PromoCardItem> | null;
     heroSection: HeroSectionResponse | null;
   };
 }

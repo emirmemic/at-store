@@ -19,31 +19,39 @@ const NoItems = ({ text }: { text: string }) => (
   </div>
 );
 
-const ListItem = ({ item }: { item: ShoppingCartItem }) => (
-  <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
-    <div className="flex h-32 w-36 items-center justify-center">
-      <Image
-        alt={item.name}
-        className="h-full w-full object-contain"
-        height={100}
-        src={item.image?.url ?? ''}
-        width={100}
-      />
+const ListItem = ({ item }: { item: ShoppingCartItem }) => {
+  const image = item.images?.[0] ?? null;
+  return (
+    <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
+      <div className="flex h-32 w-36 items-center justify-center">
+        {image && (
+          <Image
+            alt={item.name}
+            className="h-full w-full object-contain"
+            height={100}
+            src={image?.url ?? ''}
+            width={100}
+          />
+        )}
+      </div>
+      <div className="flex grow flex-col gap-2">
+        <p className="paragraph-1">{item.name}</p>
+        <p className="paragraph-1">
+          {item.discountedPrice ?? item.originalPrice}
+        </p>
+      </div>
+      <Button
+        className="group absolute bottom-1 right-1 p-2"
+        onClick={() => {}}
+      >
+        <IconTrash
+          className="transition-colors duration-300 group-hover:text-grey-darker"
+          size={24}
+        />
+      </Button>
     </div>
-    <div className="flex grow flex-col gap-2">
-      <p className="paragraph-1">{item.name}</p>
-      <p className="paragraph-1">
-        {item.discountedPrice ?? item.originalPrice}
-      </p>
-    </div>
-    <Button className="group absolute bottom-1 right-1 p-2" onClick={() => {}}>
-      <IconTrash
-        className="transition-colors duration-300 group-hover:text-grey-darker"
-        size={24}
-      />
-    </Button>
-  </div>
-);
+  );
+};
 
 interface ItemsInCartProps {
   cart: ShoppingCartItem[];

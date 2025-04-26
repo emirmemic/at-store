@@ -681,7 +681,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
-    image: Schema.Attribute.Media<'images'>;
+    images: Schema.Attribute.Media<'images', true>;
     keyboard: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<

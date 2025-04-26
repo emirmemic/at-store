@@ -29,7 +29,7 @@ export default function ProductCard({
     discountedPrice,
     originalPrice,
     tag,
-    image,
+    images,
     specifications,
     favoritedBy,
     productLink,
@@ -65,6 +65,7 @@ export default function ProductCard({
   });
   const finalSpecs = specifications ? specifications.slice(0, 4) : [];
   const finalPrice = discountedPrice ?? originalPrice;
+  const image = images?.[0] || null;
 
   return (
     <div
@@ -86,14 +87,15 @@ export default function ProductCard({
           'h-52': variant === 'standard',
         })}
       >
-        {/* TODO use StrapiImage when connected with API*/}
-        <StrapiImage
-          alt={image?.alternativeText || name}
-          className="h-full w-full object-contain"
-          height={200}
-          src={image?.url ?? ''}
-          width={200}
-        />
+        {image && (
+          <StrapiImage
+            alt={image?.alternativeText || name}
+            className="h-full w-full object-contain"
+            height={200}
+            src={image?.url ?? ''}
+            width={200}
+          />
+        )}
       </div>
       <div>
         <div className="mb-1 flex min-h-16 items-center justify-between gap-2">

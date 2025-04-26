@@ -38,14 +38,13 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
   };
 
   useEffect(() => {
-    if (api && slides.length > 2) {
-      if (isAutoplayActive) {
-        api.plugins().autoplay?.play();
-      } else {
-        api.plugins().autoplay?.stop();
-      }
+    if (!api || !slides || slides.length <= 1) return;
+    if (isAutoplayActive && api.plugins().autoplay) {
+      api.plugins().autoplay?.play();
+    } else {
+      api.plugins().autoplay?.stop();
     }
-  }, [isAutoplayActive, api, slides.length]);
+  }, [api, isAutoplayActive, slides]);
 
   return (
     <section className={cn('flex w-full flex-col gap-4', className)}>
