@@ -1,4 +1,4 @@
-import { PromoCardProps } from '@/app/components';
+import { PromoCardProps } from '@/app/[locale]/components';
 import { ActionLinkResponse } from '@/lib/types';
 
 interface HeroSliderItem {

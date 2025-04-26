@@ -19,7 +19,7 @@ import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
 import { cn } from '@/lib/utils/utils';
 
-import { HeroSliderItem, HeroSectionResponse } from '../[locale]/types';
+import { HeroSliderItem, HeroSectionResponse } from '../types';
 
 const SliderItem: React.FC<HeroSliderItem> = ({
   id,
@@ -76,12 +76,18 @@ export default function HeroSection({
   enableAutoplay,
   autoplayDelay,
 }: HeroSectionProps) {
+  // States
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplayActive, setIsAutoplayActive] = useState(
     enableAutoplay || false
   );
+
+  // Computed values
   const totalSlides = sliderItems.length;
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const delay = Math.max(autoplayDelay || 3000, 1000);
+
+  // Handlers
   const handleDotClick = (index: number) => {
     const validIndex = Math.max(0, Math.min(index - 1, totalSlides - 1));
     setCurrentSlide(validIndex);
@@ -89,18 +95,19 @@ export default function HeroSection({
       api.scrollTo(validIndex);
     }
   };
+  const handleSlideChange = (currentIndex: number) => {
+    setCurrentSlide(currentIndex ?? 0);
+  };
 
+  // Lifecycle hooks
   useEffect(() => {
-    if (api) {
-      if (isAutoplayActive) {
-        api.plugins().autoplay?.play();
-      } else {
-        api.plugins().autoplay?.stop();
-      }
+    if (!api || !sliderItems || sliderItems.length <= 1) return;
+    if (isAutoplayActive && api.plugins().autoplay) {
+      api.plugins().autoplay?.play();
+    } else {
+      api.plugins().autoplay?.stop();
     }
-  }, [isAutoplayActive, api, sliderItems.length]);
-
-  const delay = Math.max(autoplayDelay || 3000, 1000);
+  }, [api, isAutoplayActive, sliderItems]);
 
   return (
     <header className={cn('relative w-full', className)}>
@@ -111,7 +118,7 @@ export default function HeroSection({
         }}
         plugins={enableAutoplay ? [Autoplay({ delay })] : []}
         setApi={setApi}
-        onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
+        onSlideChange={handleSlideChange}
       >
         <CarouselContent className="m-0 aspect-[2.6] h-full w-full">
           {sliderItems.map((slide) => (

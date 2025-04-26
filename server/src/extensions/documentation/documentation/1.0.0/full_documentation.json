@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-22T22:08:42.311Z"
+    "x-generation-date": "2025-04-26T07:15:24.801Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -12735,14 +12735,14 @@
               "description": {
                 "type": "string"
               },
+              "heroSection": {
+                "$ref": "#/components/schemas/HomepageHeroSliderComponent"
+              },
               "promoCards": {
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/HomepagePromoCardComponent"
                 }
-              },
-              "heroSection": {
-                "$ref": "#/components/schemas/HomepageHeroSliderComponent"
               },
               "locale": {
                 "type": "string"
@@ -12815,14 +12815,14 @@
           "description": {
             "type": "string"
           },
+          "heroSection": {
+            "$ref": "#/components/schemas/HomepageHeroSliderComponent"
+          },
           "promoCards": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/HomepagePromoCardComponent"
             }
-          },
-          "heroSection": {
-            "$ref": "#/components/schemas/HomepageHeroSliderComponent"
           },
           "createdAt": {
             "type": "string",
@@ -12878,14 +12878,14 @@
                 "description": {
                   "type": "string"
                 },
+                "heroSection": {
+                  "$ref": "#/components/schemas/HomepageHeroSliderComponent"
+                },
                 "promoCards": {
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/HomepagePromoCardComponent"
                   }
-                },
-                "heroSection": {
-                  "$ref": "#/components/schemas/HomepageHeroSliderComponent"
                 },
                 "createdAt": {
                   "type": "string",
@@ -12951,42 +12951,6 @@
           },
           "meta": {
             "type": "object"
-          }
-        }
-      },
-      "HomepagePromoCardComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "caption": {
-            "type": "string"
-          },
-          "product": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "documentId": {
-                "type": "string"
-              }
-            }
-          },
-          "learnMoreVariant": {
-            "type": "string",
-            "enum": [
-              "blue_blue",
-              "blue_white"
-            ]
-          },
-          "textColor": {
-            "type": "string",
-            "enum": [
-              "white",
-              "black"
-            ]
           }
         }
       },
@@ -13276,6 +13240,42 @@
             "items": {
               "$ref": "#/components/schemas/HomepageHeroSectionComponent"
             }
+          }
+        }
+      },
+      "HomepagePromoCardComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "product": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "documentId": {
+                "type": "string"
+              }
+            }
+          },
+          "learnMoreVariant": {
+            "type": "string",
+            "enum": [
+              "blue_blue",
+              "blue_white"
+            ]
+          },
+          "textColor": {
+            "type": "string",
+            "enum": [
+              "white",
+              "black"
+            ]
           }
         }
       },

@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
-import { HeroSection, PromoCard } from '@/app/components';
+import { HeroSection, PromoCard } from '@/app/[locale]/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { Button } from '@/components/ui/button';
