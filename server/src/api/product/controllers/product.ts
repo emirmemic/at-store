@@ -62,13 +62,7 @@ export default factories.createCoreController(
             },
           });
 
-        return favorites.map((favorite) => ({
-          ...favorite,
-          images: favorite.images.map((image) => ({
-            url: image.url,
-            alternativeText: image.alternativeText,
-          })),
-        }));
+        return favorites;
       } catch (error) {
         return ctx.badRequest("Failed to fetch favorites");
       }
