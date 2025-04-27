@@ -1,4 +1,4 @@
-import { PromoCardItem } from '@/app/[locale]/components/promo-cards/types';
+import { PromoCardItem } from '@/app/[locale]/(home-page)/components/promo-cards/types';
 import { ActionLinkResponse } from '@/lib/types';
 
 interface HeroSliderItem {

@@ -1,16 +1,18 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
-import { HeroSection } from '@/app/[locale]/components';
+import {
+  HeroSection,
+  PromoCards,
+  CategoriesSection,
+} from '@/app/[locale]/(home-page)/components';
 import { IconsBlock, MonoAppleBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
-import CategoriesSection from './components/categories/section';
-import PromoCards from './components/promo-cards/promo-cards';
-import { HomepageResponse } from './types/homepage-response';
+import { HomepageResponse } from './types';
 
 const homePageQuery = qs.stringify(
   {
