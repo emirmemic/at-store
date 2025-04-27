@@ -2,7 +2,11 @@ import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
 import { MonoAppleBlock } from '@/components';
-import { CURRENCY, STRAPI_BASE_URL } from '@/lib/constants';
+import {
+  CURRENCY,
+  STRAPI_BASE_URL,
+  STRAPI_IMAGE_FIELDS,
+} from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { OrderProductCard } from '../../components';
@@ -14,8 +18,8 @@ const ordersQuery = {
   populate: {
     products: {
       populate: {
-        image: {
-          fields: ['url', 'alternativeText'],
+        images: {
+          fields: STRAPI_IMAGE_FIELDS,
         },
       },
     },

@@ -3,7 +3,7 @@ import qs from 'qs';
 
 import { redirectToPromoPage } from '@/app/actions';
 import { IconShoppingCart } from '@/components/icons';
-import { STRAPI_BASE_URL } from '@/lib/constants';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { EmptyContent, OrderProductCard } from '../../components';
@@ -13,8 +13,8 @@ const ordersQuery = {
   populate: {
     products: {
       populate: {
-        image: {
-          fields: ['url', 'alternativeText'],
+        images: {
+          fields: STRAPI_IMAGE_FIELDS,
         },
       },
     },

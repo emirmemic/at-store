@@ -128,7 +128,6 @@ export default async function Page({
           <MonoAppleBlock />
         </section>
       </div>
-      <PromoSliderWrapper className="py-10 container-max-width-lg" />
       {/* TODO Following buttons should be removed */}
       <div className="flex flex-col gap-2 py-4 container-max-width">
         Additional Links
