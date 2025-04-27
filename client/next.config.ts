@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'at-server.rovoit.com',
+        hostname: process.env.NEXT_PUBLIC_STRAPI_HOSTNAME ?? 'admin.atstore.ba',
       },
     ],
   },
