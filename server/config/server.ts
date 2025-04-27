@@ -6,7 +6,9 @@ export default ({ env }) => ({
       ? env("PUBLIC_URL")
       : "http://localhost:1337"
   ),
-  proxy: true,
+  proxy: {
+    koa: true
+  },
   app: {
     keys: env.array("APP_KEYS"),
   },
