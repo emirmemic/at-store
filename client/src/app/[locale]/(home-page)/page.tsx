@@ -9,6 +9,10 @@ import {
 import { IconsBlock, MonoAppleBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
+import { Alert } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { Link } from '@/i18n/routing';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -73,9 +77,16 @@ async function loader() {
   return data;
 }
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    error?: string;
+  }>;
+}) {
   const data = await loader();
   const t = await getTranslations('homepage');
+  const { error } = await searchParams;
 
   if (!data)
     return <div>Fetch is successful, but there is no data for this page</div>;
@@ -83,6 +94,16 @@ export default async function Page() {
   const { title, promoCards, heroSection } = data;
   return (
     <main>
+      {/* For OAuth errors */}
+      {error && (
+        <Alert
+          dismissible
+          className="fixed left-1/2 top-12 z-50 w-full max-w-[400px] -translate-x-1/2"
+          variant={'destructive'}
+        >
+          {error}
+        </Alert>
+      )}
       <h1 className="sr-only">{title ?? t('title')}</h1>
       {heroSection && (
         <HeroSection {...heroSection} className="container-max-width-xl" />
@@ -106,6 +127,20 @@ export default async function Page() {
         <section className="px-6 py-8 container-max-width-lg md:px-12">
           <MonoAppleBlock />
         </section>
+      </div>
+      <PromoSliderWrapper className="py-10 container-max-width-lg" />
+      {/* TODO Following buttons should be removed */}
+      <div className="flex flex-col gap-2 py-4 container-max-width">
+        Additional Links
+        <h1 className="p-4">{title}</h1>
+        <div className="flex flex-col items-start gap-2">
+          <Button asChild size={'lg'} variant={'filled'}>
+            <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
+          </Button>
+          <Button asChild size={'lg'} variant={'filled'}>
+            <Link href={PAGE_NAMES.ICONS}>Global Icons</Link>
+          </Button>
+        </div>
       </div>
     </main>
   );

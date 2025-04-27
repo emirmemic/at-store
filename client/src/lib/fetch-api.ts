@@ -1,5 +1,7 @@
 import { redirect } from '@/i18n/routing';
 
+import { getAuthToken } from './services';
+
 /**
  * Next.js specific fetch request configuration
  * @property revalidate - Time in seconds for cache revalidation, false for no revalidation
@@ -12,7 +14,6 @@ type NextFetchRequestConfig = {
 
 interface FetchAPIOptions {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  authToken?: string;
   body?: Record<string, unknown> | FormData;
   /** Next.js cache configuration for the request */
   next?: NextFetchRequestConfig;
@@ -24,10 +25,13 @@ export type StrapiError = {
   status: number;
   name: string;
   message: string;
-  details: Record<string, unknown>;
+  details?: { errors?: StrapiValidationError[] } | null;
 };
 
 export interface StrapiValidationError {
+  code?: string;
+  expected?: string;
+  received?: string;
   message: string;
   path: string[];
 }
@@ -79,10 +83,11 @@ export async function fetchAPI<T = unknown>(
   url: string,
   options: FetchAPIOptions
 ): Promise<APIResponse<T>> {
-  const { method, authToken, body, next, timeout = 8000 } = options;
+  const { method, body, next, timeout = 8000 } = options;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
+  const authToken = await getAuthToken();
 
   // Determine if the body is an instance of FormData
   const isFormData = body instanceof FormData;
@@ -137,10 +142,6 @@ export async function fetchAPI<T = unknown>(
           status: 500,
           name: error.name,
           message: error.message,
-          details: {
-            stack: error.stack,
-            cause: error.cause,
-          },
         },
       };
     }

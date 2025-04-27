@@ -4,6 +4,7 @@ import { createJwtCookie } from '@/app/actions';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { createLoginSchema, LoginFormData } from '@/lib/schemas/auth';
+import { getUser } from '@/lib/services';
 import { AuthResponse, LocalizationKey, UserInformation } from '@/lib/types';
 
 export async function handleSubmit(
@@ -49,7 +50,8 @@ const login = async ({
   if (res.error) throw new Error(res.error.message);
   if (res.data) {
     await createJwtCookie(res.data.jwt);
-    return res.data.user;
+    const user = await getUser();
+    return user;
   }
   return null;
 };

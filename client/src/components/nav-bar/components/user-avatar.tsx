@@ -11,7 +11,8 @@ export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
   const t = useTranslations();
 
   const user = useContext(UserContext).user;
-  const initials = user ? user.username[0].toUpperCase() : t('common.guest');
+
+  const initials = user?.accountDetails?.initials || t('common.guest');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

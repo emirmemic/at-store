@@ -8,7 +8,9 @@ export default factories.createCoreController(
       const { productId } = ctx.params;
 
       const product = await strapi.documents("api::product.product").findFirst({
-        documentId: productId,
+        filters: {
+          documentId: productId,
+        },
         status: "published",
         populate: ["favoritedBy"],
       });
@@ -20,7 +22,7 @@ export default factories.createCoreController(
       const isFavorited = product.favoritedBy.some((u) => u.id === user.id);
 
       try {
-        const res = await strapi.documents("api::product.product").update({
+        await strapi.documents("api::product.product").update({
           documentId: productId,
           status: "published",
           data: {
@@ -32,6 +34,7 @@ export default factories.createCoreController(
           },
           populate: ["favoritedBy"],
         });
+
         return { isFavorited: !isFavorited };
       } catch (error) {
         return ctx.badRequest("Failed to toggle favorite");
@@ -56,6 +59,12 @@ export default factories.createCoreController(
               },
             },
             populate: {
+              brand: true,
+              category: true,
+              model: true,
+              stores: true,
+              color: true,
+              memory: true,
               images: {
                 fields: ["url", "alternativeText"],
               },

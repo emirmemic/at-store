@@ -17,7 +17,7 @@ export async function handleSubmit<T>(
   formData: FormData,
   userType: UserType,
   t: LocalizationKey
-): Promise<{ data: T; errors?: T }> {
+): Promise<{ data: T; errors?: T; apiError?: string }> {
   const data = Object.fromEntries(formData) as T;
   const isOrg = userType === 'org';
   try {
@@ -48,8 +48,17 @@ export async function handleSubmit<T>(
       };
     }
 
+    if (err instanceof Error) {
+      return {
+        data: data,
+        apiError: err.message,
+      };
+    }
+
+    const errors = (err as { errors: T }).errors;
     return {
       data: data,
+      errors: errors,
     };
   }
 
@@ -62,12 +71,19 @@ const register = async <T extends Record<string, unknown>>(data: T) => {
     method: 'POST',
     body: {
       ...data,
-      username:
-        typeof data.email === 'string' ? data.email.split('@')[0] : 'USERNAME', // TEMP
+      username: data.email,
     },
   });
 
   if (res.error) {
-    throw new Error(res.error.message);
+    const errors = res.error.details?.errors?.reverse() || [];
+
+    const fieldErrors = Object.fromEntries(
+      errors.map(({ path, message }) => [path[0], message])
+    );
+
+    throw errors.length === 0
+      ? new Error(res.error.message)
+      : new Object({ errors: fieldErrors });
   }
 };

@@ -1,8 +1,9 @@
+import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types';
 
-import { OrderResponse, UserInformation } from './auth';
+import { UserInformation } from './auth';
 
 type StoreName = (typeof STORE_NAMES)[number];
 

@@ -60,13 +60,13 @@ export default function Form() {
         </Alert>
       )}
       <Input
-        defaultValue={formState?.data.email ?? 'hasantanich@gmail.com'}
+        defaultValue={formState?.data.email}
         errorMessage={formState?.errors?.email}
         name="email"
         placeholder={`${t('email')}*`}
       />
       <Input
-        defaultValue={formState?.data.password ?? 'Hasan123'}
+        defaultValue={formState?.data.password}
         errorMessage={formState?.errors?.password}
         name="password"
         placeholder={`${t('password')}*`}

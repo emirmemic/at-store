@@ -1,7 +1,9 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
-import { LocalizationKey, OrderStatusEnum, ProductBase } from '@/lib/types';
+import { LocalizationKey, ProductBase } from '@/lib/types';
+
+import { OrderStatusEnum } from '../types';
 
 function getTranslation(
   orderStatus: OrderStatusEnum,

@@ -18,6 +18,10 @@ import { useLoader } from '@/lib/hooks';
 import { ProductBase, ProductResponse } from '@/lib/types';
 
 const getProductsQuery = qs.stringify({
+  pagination: {
+    page: 5,
+    pageSize: 20,
+  },
   populate: {
     brand: true,
     category: true,
@@ -39,7 +43,7 @@ export default function ProductCardExamples() {
   const [cartItems, setCartItems] = useState(placeholderCart);
 
   const fetchProducts = async () => {
-    const path = '/api/products?';
+    const path = '/api/products';
     const url = new URL(path, STRAPI_BASE_URL);
     url.search = getProductsQuery;
 

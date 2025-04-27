@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useActionState } from 'react';
 
 import { IconLoader } from '@/components/icons';
+import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { RegisterOrgFormData } from '@/lib/schemas/auth';
@@ -24,6 +25,11 @@ export default function OrgUserForm() {
       action={action}
       className="flex w-full max-w-[336px] flex-col gap-3"
     >
+      {formState?.apiError && (
+        <Alert dismissible variant={'destructive'}>
+          {formState.apiError}
+        </Alert>
+      )}
       <Input
         defaultValue={formState?.data.nameAndSurname}
         errorMessage={formState?.errors?.nameAndSurname}

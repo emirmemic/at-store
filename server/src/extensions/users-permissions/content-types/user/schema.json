@@ -9,7 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -49,6 +49,11 @@
       "searchable": false
     },
     "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "confirmedByAdmin": {
       "type": "boolean",
       "default": false,
       "configurable": false

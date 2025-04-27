@@ -564,12 +564,12 @@
       "title": "Detalji korisnika"
     },
     "paymentMethods": {
-      "title": "Načini plaćanja"
+      "title": "Načini plaćanja",
+      "noPaymentMethods": "Nemate način plaćanja."
     },
     "favorites": {
       "title": "Omiljeni",
-      "noFavorites": "Nemate niti jedan uređaj u omiljenim.",
-      "add": "Dodaj"
+      "noFavorites": "Nemate niti jedan uređaj u omiljenim."
     },
     "newsletter": {
       "title": "Newsletter"
@@ -616,7 +616,8 @@
     "error": "Došlo je do greške",
     "startsFrom": "Počne od",
     "requestFailAlert": "Poruka nije poslana",
-    "requestSuccessAlert": "Uspješno ste poslali zahtjev"
+    "requestSuccessAlert": "Uspješno ste poslali zahtjev",
+    "add": "Dodaj"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -732,6 +733,7 @@
     "dateOfBirthMustBeInThePast": "Datum rođenja mora biti u prošlosti",
     "passwordMatch": "Lozinke se ne podudaraju",
     "nameAndSurnameRequired": "Ime i prezime su obavezni",
+    "nameAndSurnameFormat": "Ime i prezime mora sadržavati samo dva dijela odvojena jednim razmakom",
     "companyNameRequired": "Naziv firme je obavezan",
     "companyIdNumberRequired": "ID broj firme je obavezan",
     "companyIdNumberLength": "ID broj firme mora imati {length} cifara",

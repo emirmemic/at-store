@@ -24,7 +24,7 @@ export default factories.createCoreService("api::product.product", () => ({
       const { token } = responseData as LoginResponse;
 
       if (token) {
-        for (let index = 2; index < 6; index++) {
+        for (let index = 1; index < 3; index++) {
           const response = await fetch(
             `https://web.webaccount.ba/api/products/unique?page=${index}`,
             {
@@ -156,14 +156,13 @@ export default factories.createCoreService("api::product.product", () => ({
             };
 
             // 6. Create the product with all relations
+            const articleName = webAccountProduct.naziv_artikla_webaccount;
             const productData = {
-              name:
-                webAccountProduct.product_name ??
-                webAccountProduct.naziv_artikla_webaccount,
+              name: articleName,
               productTypeId: webAccountProduct.product_type_id,
               productVariantId: webAccountProduct.product_variant_id,
-              webAccountArticleName: webAccountProduct.naziv_artikla_webaccount,
-              productLink: `${sanitizeForUrl(webAccountProduct.naziv_artikla_webaccount)}-${webAccountProduct.product_variant_id}`,
+              webAccountArticleName: articleName,
+              productLink: `${sanitizeForUrl(articleName)}-${webAccountProduct.product_variant_id}`,
               originalPrice: parseFloat(webAccountProduct.original_price),
               // Set relations
               brand: brand?.id,

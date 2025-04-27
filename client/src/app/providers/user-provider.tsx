@@ -4,7 +4,6 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { APIResponse, fetchAPI } from '@/lib/fetch-api';
-import { getAuthToken } from '@/lib/services';
 import { ProductBase, UserInformation } from '@/lib/types';
 
 import { deleteCookie } from '../actions';
@@ -50,13 +49,11 @@ export default function UserProvider({
   const toggleFavorite = async (
     product: ProductBase
   ): Promise<APIResponse<{ isFavorited: boolean }>> => {
-    const authToken = await getAuthToken();
     const path = `/api/products/${product.documentId}/favorite`;
     const res = await fetchAPI<{ isFavorited: boolean }>(
       `${STRAPI_BASE_URL}${path}`,
       {
         method: 'POST',
-        authToken,
       }
     );
     if (res.status === 200) {

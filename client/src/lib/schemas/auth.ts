@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { LocalizationKey } from '../types';
 
-import { emailSchema, phoneNumberSchema } from './common';
+import { emailSchema, nameAndSurnameSchema, phoneNumberSchema } from './common';
 
 const passwordSchema = (t: LocalizationKey) =>
   z
@@ -72,7 +72,7 @@ const createRegisterOrgSchema = (t: LocalizationKey) => {
   const loginSchema = createLoginSchema(t);
   return loginSchema
     .extend({
-      nameAndSurname: z.string().trim().min(1, t('nameAndSurnameRequired')),
+      nameAndSurname: nameAndSurnameSchema(t),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
       address: z.string().min(1, t('addressRequired')),
       phoneNumber: phoneNumberSchema(t),

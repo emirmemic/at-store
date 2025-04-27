@@ -2,9 +2,8 @@
 import { ZodError } from 'zod';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI, StrapiValidationError } from '@/lib/fetch-api';
+import { fetchAPI } from '@/lib/fetch-api';
 import complaintsSchema, { ComplaintsFormData } from '@/lib/schemas/complaints';
-import { getAuthToken } from '@/lib/services';
 import { LocalizationKey } from '@/lib/types';
 
 export async function complaintsAction(
@@ -15,8 +14,6 @@ export async function complaintsAction(
   data: ComplaintsFormData;
   errors: Record<string, string>;
 } | null> {
-  const authToken = await getAuthToken();
-
   const formDataObject = Object.fromEntries(formData) as ComplaintsFormData;
   const files: Record<string, File> = {};
 
@@ -53,7 +50,6 @@ export async function complaintsAction(
       `${STRAPI_BASE_URL}/api/upload`,
       {
         method: 'POST',
-        authToken,
         body: uploadFormData,
       }
     );
@@ -90,11 +86,10 @@ export async function complaintsAction(
 
   const res = await fetchAPI(`${STRAPI_BASE_URL}/api/complaints`, {
     method: 'POST',
-    authToken,
     body: { data: complaintData },
   });
   if (res.error) {
-    const detailsErrors = res.error.details.errors as StrapiValidationError[];
+    const detailsErrors = res.error.details?.errors || [];
     const fieldErrors = Object.fromEntries(
       detailsErrors.map(({ path, message }) => [path[0], message])
     );

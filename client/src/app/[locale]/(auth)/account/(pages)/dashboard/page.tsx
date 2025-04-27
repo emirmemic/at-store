@@ -1,21 +1,40 @@
-'use client';
-import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
+import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
-import { UserContext } from '@/app/providers';
 import { MonoAppleBlock } from '@/components';
-import { CURRENCY } from '@/lib/constants';
+import { CURRENCY, STRAPI_BASE_URL } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
 
 import { OrderProductCard } from '../../components';
+import { OrderResponse } from '../../types';
 
 import { Card } from './components';
 
-export default function Page() {
-  const t = useTranslations('accountPage.dashboard');
-  const { user } = useContext(UserContext);
+const ordersQuery = {
+  populate: {
+    products: {
+      populate: {
+        image: {
+          fields: ['url', 'alternativeText'],
+        },
+      },
+    },
+  },
+} as const;
 
-  const ordersCount = user?.orders?.length ?? 0;
-  const validOrders = user?.orders?.filter(
+export default async function Page() {
+  const res = await fetchAPI<{ data: OrderResponse[] }>(
+    `${STRAPI_BASE_URL}/api/orders?${qs.stringify(ordersQuery)}`,
+    {
+      method: 'GET',
+    }
+  );
+
+  const orders = res?.data?.data;
+  const t = await getTranslations('accountPage.dashboard');
+
+  const ordersCount = orders?.length ?? 0;
+  const validOrders = orders?.filter(
     (order) => order.orderStatus !== 'canceled'
   );
   const allProducts = validOrders?.flatMap((order) => order.products) || [];
@@ -24,7 +43,7 @@ export default function Page() {
       Number(product.discountedPrice) || Number(product.originalPrice) || 0;
     return orderTotal + price;
   }, 0);
-  const lastOrder = user?.orders?.sort(
+  const lastOrder = orders?.sort(
     (a, b) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime()
   )[0];
 

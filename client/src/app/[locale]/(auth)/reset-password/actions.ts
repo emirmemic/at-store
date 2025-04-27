@@ -7,6 +7,7 @@ import {
   createResetPasswordSchema,
   ResetPasswordFormData,
 } from '@/lib/schemas/auth';
+import { getUser } from '@/lib/services';
 import { AuthResponse, LocalizationKey, UserInformation } from '@/lib/types';
 
 export async function handleSubmit(
@@ -61,7 +62,8 @@ const resetPassword = async ({
 
   if (res.data) {
     await createJwtCookie(res.data.jwt);
-    return res.data.user;
+    const user = await getUser();
+    return user;
   }
 
   return null;

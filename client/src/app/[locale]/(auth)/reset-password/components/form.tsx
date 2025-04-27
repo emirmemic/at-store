@@ -31,6 +31,12 @@ export default function Form() {
   );
 
   useEffect(() => {
+    if (!searchParams.get('code')) {
+      router.replace(PAGE_NAMES.LOGIN);
+    }
+  }, [searchParams, router]);
+
+  useEffect(() => {
     if (formState?.user) {
       router.replace(PAGE_NAMES.HOME);
       setUser(formState.user);

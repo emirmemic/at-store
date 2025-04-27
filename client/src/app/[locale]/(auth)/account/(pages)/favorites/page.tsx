@@ -11,7 +11,7 @@ import { EmptyContent } from '../../components';
 import { FavoriteProductCard } from './components';
 
 export default function Page() {
-  const t = useTranslations('accountPage.favorites');
+  const t = useTranslations();
   const userProvider = useContext(UserContext);
   const favorites = userProvider.user?.favoriteProducts;
 
@@ -22,11 +22,12 @@ export default function Page() {
         buttonAction={() => {
           // TODO: Implement the button action
         }}
-        buttonText={t('add')}
-        emptyText={t('noFavorites')}
+        buttonText={t('common.add')}
+        emptyText={t('accountPage.favorites.noFavorites')}
       />
     );
   }
+
   return (
     <div className="flex flex-col gap-6">
       {favorites &&

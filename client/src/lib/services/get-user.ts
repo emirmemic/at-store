@@ -1,26 +1,12 @@
-import qs from 'qs';
-
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { ProductBase, UserInformation } from '@/lib/types';
+import {
+  ProductBase,
+  UserInformation,
+  UserInformationResponse,
+} from '@/lib/types';
 
 import { getAuthToken } from './get-auth-token';
-
-const getUserQuery = {
-  populate: {
-    orders: {
-      populate: {
-        products: {
-          populate: {
-            images: {
-              fields: ['url', 'alternativeText'],
-            },
-          },
-        },
-      },
-    },
-  },
-} as const;
 
 export async function getUser(): Promise<UserInformation | null> {
   try {
@@ -28,26 +14,33 @@ export async function getUser(): Promise<UserInformation | null> {
     if (!authToken) return null;
 
     const [userInfo, favorites] = await Promise.all([
-      fetchAPI<UserInformation>(
-        `${STRAPI_BASE_URL}/api/users/me?${qs.stringify(getUserQuery)}`,
-        {
-          method: 'GET',
-          authToken,
-          next: { tags: ['user-info'] },
-        }
-      ),
+      fetchAPI<UserInformationResponse>(`${STRAPI_BASE_URL}/api/users/me`, {
+        method: 'GET',
+        next: { tags: ['user-info'] },
+      }),
       fetchAPI<ProductBase[]>(`${STRAPI_BASE_URL}/api/products/favorites`, {
         method: 'GET',
-        authToken,
       }),
     ]);
 
     if (!userInfo.data) return null;
-
-    return {
+    const { name, email } = userInfo.data;
+    const initials =
+      name?.charAt(0)?.toUpperCase() ?? email.charAt(0).toUpperCase();
+    const formattedUser: UserInformation = {
       ...userInfo.data,
+      accountDetails: {
+        name: name,
+        surname: userInfo.data.surname,
+        email: email,
+        address: userInfo.data.address,
+        phoneNumber: userInfo.data.phoneNumber,
+        dateOfBirth: userInfo.data.dateOfBirth,
+        initials: initials,
+      },
       favoriteProducts: favorites.data ?? [],
     };
+    return formattedUser;
   } catch {
     return null;
   }

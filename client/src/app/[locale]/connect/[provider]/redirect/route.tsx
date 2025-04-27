@@ -12,25 +12,50 @@ const config = {
 };
 
 export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
-  const { searchParams, pathname } = new URL(request.url);
-  const token = searchParams.get('access_token');
+  try {
+    const { searchParams, pathname } = new URL(request.url);
+    const token = searchParams.get('access_token');
 
-  const pathParts = pathname.split('/').filter(Boolean);
-  const provider = pathParts.length === 3 ? pathParts[1] : pathParts[2];
+    const pathParts = pathname.split('/').filter(Boolean);
+    const provider = pathParts.length === 3 ? pathParts[1] : pathParts[2];
 
-  if (!token) return NextResponse.redirect(new URL('/', request.url));
+    if (!token) {
+      return NextResponse.redirect(
+        new URL('/?error=No access token provided', request.url)
+      );
+    }
 
-  const backendUrl = getStrapiURL();
-  const path = `/api/auth/${provider}/callback`;
+    const backendUrl = getStrapiURL();
+    const path = `/api/auth/${provider}/callback`;
 
-  const url = new URL(backendUrl + path);
-  url.searchParams.append('access_token', token);
+    const url = new URL(backendUrl + path);
+    url.searchParams.append('access_token', token);
 
-  const res = await fetch(url.href);
-  const data = await res.json();
-  const cookieStore = await cookies();
-  cookieStore.set('jwt', data.jwt, config);
+    const res = await fetch(url.href);
 
-  return NextResponse.redirect(new URL('/', request.url));
+    const data = await res.json();
+
+    if (data.error) {
+      throw new Error(`Authentication failed: ${data.error.message}`);
+    }
+
+    if (!res.ok) {
+      throw new Error(`Authentication failed: ${res.statusText}`);
+    }
+
+    const cookieStore = await cookies();
+    cookieStore.set('jwt', data.jwt, config);
+
+    return NextResponse.redirect(new URL('/', request.url));
+  } catch (error) {
+    const errorMessage = encodeURIComponent(
+      error instanceof Error ? error.message : 'Authentication failed'
+    );
+
+    return NextResponse.redirect(
+      new URL(`/?error=${errorMessage}`, request.url)
+    );
+  }
 }

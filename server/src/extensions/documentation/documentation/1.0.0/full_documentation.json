@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-27T09:21:31.191Z"
+    "x-generation-date": "2025-04-27T10:08:43.440Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7421,6 +7421,9 @@
                         "confirmed": {
                           "type": "boolean"
                         },
+                        "confirmedByAdmin": {
+                          "type": "boolean"
+                        },
                         "blocked": {
                           "type": "boolean"
                         },
@@ -9220,6 +9223,9 @@
                           "type": "string"
                         },
                         "confirmed": {
+                          "type": "boolean"
+                        },
+                        "confirmedByAdmin": {
                           "type": "boolean"
                         },
                         "blocked": {
@@ -14187,6 +14193,9 @@
                         "confirmed": {
                           "type": "boolean"
                         },
+                        "confirmedByAdmin": {
+                          "type": "boolean"
+                        },
                         "blocked": {
                           "type": "boolean"
                         },
@@ -15336,6 +15345,9 @@
                 "type": "string"
               },
               "confirmed": {
+                "type": "boolean"
+              },
+              "confirmedByAdmin": {
                 "type": "boolean"
               },
               "blocked": {
@@ -17865,6 +17877,9 @@
                     "type": "string"
                   },
                   "confirmed": {
+                    "type": "boolean"
+                  },
+                  "confirmedByAdmin": {
                     "type": "boolean"
                   },
                   "blocked": {
@@ -20691,6 +20706,9 @@
                           "type": "string"
                         },
                         "confirmed": {
+                          "type": "boolean"
+                        },
+                        "confirmedByAdmin": {
                           "type": "boolean"
                         },
                         "blocked": {

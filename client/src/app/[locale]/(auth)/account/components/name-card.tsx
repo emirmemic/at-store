@@ -10,8 +10,8 @@ import CardContainer from './card-container';
 export default function NameCard({ className }: { className?: string }) {
   const t = useTranslations('common');
 
-  const user = useContext(UserContext).user;
-  const initials = user?.username[0].toUpperCase();
+  const { initials, name, surname, email } =
+    useContext(UserContext).user?.accountDetails || {};
 
   return (
     <CardContainer
@@ -23,7 +23,7 @@ export default function NameCard({ className }: { className?: string }) {
       <div className="flex w-full flex-col items-center justify-center text-center md:max-w-[200px]">
         <p className="bullet-1 md:paragraph-1">{`${t('hi')},`}</p>
         <p className="break-all bullet-heading-1 md:heading-4">
-          {user?.username} Tanich
+          {name ? name + ` ${surname}` : email}
         </p>
       </div>
     </CardContainer>

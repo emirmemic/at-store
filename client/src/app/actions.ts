@@ -21,3 +21,7 @@ export async function createJwtCookie(cookieValue: string) {
 export async function redirectToHomePage() {
   redirect(PAGE_NAMES.HOME);
 }
+
+export async function redirectToPromoPage() {
+  redirect(PAGE_NAMES.PROMO);
+}
