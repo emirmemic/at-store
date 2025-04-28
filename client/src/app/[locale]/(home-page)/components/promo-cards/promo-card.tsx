@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { StrapiImage } from '@/components/strapi-image';
+import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { Button, TransparentVariant } from '@/components/ui/button';
 import {
   Dialog,

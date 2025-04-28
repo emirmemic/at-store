@@ -32,7 +32,6 @@ export default function Installments({
 
   return (
     <div className="flex w-32 flex-col gap-2">
-      <p>{t('installments')}</p>
       <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
         <DropdownMenuTrigger
           className={cn(

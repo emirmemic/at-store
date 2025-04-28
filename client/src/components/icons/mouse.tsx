@@ -1,6 +1,6 @@
 import { IconProps } from '@/lib/types';
 
-export default function IconKeyboard({
+export default function IconMouse({
   size = 85,
   className = '',
   ...props

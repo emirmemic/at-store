@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { BestSellerItem } from '@/lib/types';
 
-import { StrapiImage } from '../strapi-image';
+import { StrapiImage } from '../strapi/components/strapi-image';
 export default function BestSellerCard(product: BestSellerItem) {
   const { name, originalPrice, discountedPrice, images, tagline, productLink } =
     product;

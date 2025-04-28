@@ -85,5 +85,36 @@ export default factories.createCoreController(
         ctx.status = 500;
       }
     },
+    async getProductByLink(ctx) {
+      const { productLink } = ctx.params;
+    
+      try {
+        const product = await strapi.documents("api::product.product").findFirst({
+          filters: {
+            productLink: productLink,
+          },
+          status: "published",
+          populate: {
+            brand: true,
+            category: true,
+            model: true,
+            stores: true,
+            color: true,
+            memory: true,
+            images: {
+              fields: ["url", "alternativeText"],
+            },
+          },
+        });
+    
+        if (!product) {
+          return ctx.notFound("Product not found");
+        }
+    
+        return product;
+      } catch (error) {
+        return ctx.badRequest("Failed to fetch product details");
+      }
+    },
   })
 );

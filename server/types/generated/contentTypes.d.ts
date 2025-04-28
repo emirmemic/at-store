@@ -676,6 +676,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    details: Schema.Attribute.Blocks;
     discountedPrice: Schema.Attribute.Decimal;
     favoritedBy: Schema.Attribute.Relation<
       'manyToMany',

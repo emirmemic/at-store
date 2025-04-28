@@ -1,6 +1,5 @@
 import qs from 'qs';
 
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -45,15 +44,7 @@ export default async function PromoSliderWrapper({
 }: PromoSliderProps) {
   const response = await fetchSlides();
   if (response.error) {
-    return (
-      <Alert
-        dismissible
-        className="mx-auto my-4 max-w-72"
-        variant="destructive"
-      >
-        <AlertDescription>{response.error.message}</AlertDescription>
-      </Alert>
-    );
+    return null;
   }
   const slides = response?.data?.data.sliderItems || [];
   return <PromoSlider className={className} slides={slides} />;

@@ -15,5 +15,15 @@ export default {
       path: "/products/sync-web-account-products",
       handler: "api::product.product.syncWebAccountProducts",
     },
+    {
+      method: "GET",
+      path: "/products/link/:productLink",
+      handler: "product.getProductByLink",
+      config: {
+        policies: [],
+        middlewares: [],
+        auth: false,
+      },
+    },
   ],
 };

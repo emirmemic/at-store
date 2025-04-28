@@ -617,7 +617,8 @@
     "startsFrom": "Počne od",
     "requestFailAlert": "Poruka nije poslana",
     "requestSuccessAlert": "Uspješno ste poslali zahtjev",
-    "add": "Dodaj"
+    "add": "Dodaj",
+    "addToFavorites": "Dodaj u omiljeno"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -674,7 +675,9 @@
     "dateOfBirth": "Datum rođenja"
   },
   "productPage": {
-    "installments": "Rate"
+    "installments": "Rate",
+    "installmentPrice": "Cijena na rate",
+    "noImagesAvailable": "Nema dostupnih slika"
   },
   "loginPage": {
     "title": "Prijavite se",

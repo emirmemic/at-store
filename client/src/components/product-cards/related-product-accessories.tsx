@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
+import { StrapiImage } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
-import { StrapiImage } from '../strapi-image';
 
 interface ProductCardProps {
   product: ProductBase;

@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 
-import { StrapiImage } from '@/components';
-import { StrapiVideo } from '@/components/strapi-video';
+import { StrapiImage, StrapiVideo } from '@/components';
 import {
   Carousel,
   CarouselApi,

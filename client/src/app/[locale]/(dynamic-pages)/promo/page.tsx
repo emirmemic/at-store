@@ -15,14 +15,14 @@ interface GenerateMetadataParams {
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metaData' });
+  const t = await getTranslations({ locale, namespace: 'metaData.promo' });
 
   return {
-    title: t('promo.title'),
-    description: t('promo.description'),
+    title: t('title'),
+    description: t('description'),
     openGraph: {
-      title: t('promo.title'),
-      description: t('promo.description'),
+      title: t('title'),
+      description: t('description'),
     },
   };
 }

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
 import { UserContext } from '@/app/providers';
+import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
@@ -12,7 +13,7 @@ import { useToast } from '@/lib/hooks/use-toast';
 import { ProductBase } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
-import { StrapiImage } from '../strapi-image';
+import ProductTag from './product-tag';
 
 interface ProductCardProps {
   product: ProductBase;
@@ -124,11 +125,11 @@ export default function ProductCard({
         )}
         <p className="heading-4">{`${finalPrice} ${CURRENCY}`}</p>
       </div>
-
       {tag && (
-        <div className="absolute right-0 top-0 flex min-w-28 -translate-y-1/2 justify-center rounded-2xl bg-red-deep px-2">
-          <p className="text-white heading-5">{tag}</p>
-        </div>
+        <ProductTag
+          className="absolute right-0 top-0 -translate-y-1/2"
+          tag={tag}
+        />
       )}
     </div>
   );

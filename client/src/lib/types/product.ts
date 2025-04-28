@@ -1,3 +1,5 @@
+import { BlocksContent } from '@strapi/blocks-react-renderer';
+
 import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
@@ -34,6 +36,7 @@ interface ProductResponse {
   wifiModel?: string;
   accessoriesType?: string;
   braceletSize?: string;
+  details?: BlocksContent;
 }
 
 interface StoreResponse extends IdentificationResponse {

@@ -1,4 +1,5 @@
 'use client';
+import { BlocksContent } from '@strapi/blocks-react-renderer';
 import { useState } from 'react';
 
 import {
@@ -23,6 +24,18 @@ export default function PopupExamples() {
   const selectStore = (store: string) => {
     setSelectedStore(store);
   };
+  const details: BlocksContent = [
+    {
+      type: 'heading',
+      level: 1,
+      children: [
+        {
+          text: 'Lorem ipsum dolor sit amet',
+          type: 'text',
+        },
+      ],
+    },
+  ];
   return (
     <>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -42,8 +55,11 @@ export default function PopupExamples() {
           <ErrorPopup />
         </DialogContent>
       </Dialog>
-
-      <ProductDetailsPopup product={dummyProducts[1]} />
+      <ProductDetailsPopup
+        details={details}
+        finalPrice={1289}
+        name={dummyProducts[0].name}
+      />
       <p>Selected Store: {selectedStore}</p>
       <StoreSelectPopup
         selectedStore={selectedStore}

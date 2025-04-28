@@ -8284,6 +8284,7 @@
                 "productLink": {
                   "type": "string"
                 },
+                "details": {},
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"
@@ -10088,6 +10089,7 @@
                 "productLink": {
                   "type": "string"
                 },
+                "details": {},
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"
@@ -15056,6 +15058,7 @@
                 "productLink": {
                   "type": "string"
                 },
+                "details": {},
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"
@@ -16706,6 +16709,7 @@
                           "productLink": {
                             "type": "string"
                           },
+                          "details": {},
                           "createdAt": {
                             "type": "string",
                             "format": "date-time"
@@ -17144,6 +17148,7 @@
               "productLink": {
                 "type": "string"
               },
+              "details": {},
               "locale": {
                 "type": "string"
               },
@@ -18768,6 +18773,7 @@
                         "productLink": {
                           "type": "string"
                         },
+                        "details": {},
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -19054,6 +19060,7 @@
           "productLink": {
             "type": "string"
           },
+          "details": {},
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -21571,6 +21578,7 @@
                 "productLink": {
                   "type": "string"
                 },
+                "details": {},
                 "createdAt": {
                   "type": "string",
                   "format": "date-time"

@@ -14,12 +14,12 @@ export function getStrapiMedia(url: string | null) {
   return `${STRAPI_BASE_URL}${url}`;
 }
 
-export const StrapiVideo: React.FC<StrapiVideoProps> = ({
+export function StrapiVideo({
   src,
   poster,
   className,
   ...props
-}) => {
+}: Readonly<StrapiVideoProps>) {
   const videoUrl = getStrapiMedia(src);
   const posterUrl = poster ? getStrapiMedia(poster) : undefined;
   if (!videoUrl) return null;
@@ -35,4 +35,4 @@ export const StrapiVideo: React.FC<StrapiVideoProps> = ({
       Your browser does not support the video tag.
     </video>
   );
-};
+}

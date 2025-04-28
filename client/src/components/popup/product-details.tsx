@@ -1,4 +1,5 @@
-import Image from 'next/image';
+'use client';
+import { BlocksContent } from '@strapi/blocks-react-renderer';
 import { useTranslations } from 'next-intl';
 
 import { IconChevron } from '@/components/icons';
@@ -10,21 +11,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { CURRENCY } from '@/lib/constants';
-import { ProductBase } from '@/lib/types';
+import Price from '@/components/ui/price';
+import { ImageProps } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
+import { StrapiBlocks, StrapiImage } from '../strapi/components';
+
 interface ProductDetailsPopupProps {
-  product: ProductBase;
+  name: string;
+  details: BlocksContent;
+  finalPrice: number;
+  image?: ImageProps | null;
   className?: string;
 }
 
 export default function ProductDetailsPopup({
-  product,
   className,
+  details,
+  finalPrice,
+  name,
+  image,
 }: ProductDetailsPopupProps) {
   const t = useTranslations('');
-  const image = product.images?.[0] || null;
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,10 +44,10 @@ export default function ProductDetailsPopup({
 
       <DialogContent className="w-[90%] max-w-[1000px]">
         <DialogTitle className="sr-only">
-          {t('common.viewDetailsWithName', { productName: product.name })}
+          {t('common.viewDetailsWithName', { productName: name })}
         </DialogTitle>
         <DialogDescription className="sr-only">
-          {t('common.viewDetailsWithName', { productName: product.name })}
+          {t('common.viewDetailsWithName', { productName: name })}
         </DialogDescription>
         <div
           className={cn(
@@ -51,8 +59,8 @@ export default function ProductDetailsPopup({
             <div className="flex w-full items-center gap-9 pr-16">
               <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-grey-almost-white">
                 {image && (
-                  <Image
-                    alt={image?.alternativeText || product.name}
+                  <StrapiImage
+                    alt={image?.alternativeText || name}
                     className="h-full w-full object-contain"
                     height={112}
                     src={image?.url ?? ''}
@@ -61,14 +69,11 @@ export default function ProductDetailsPopup({
                 )}
               </div>
               <div className="flex flex-col gap-2">
-                <p className="text-grey-darker paragraph-1">{product.name}</p>
-                <p className="heading-4">{`${product.discountedPrice ?? product.originalPrice} ${CURRENCY}`}</p>
+                <p className="text-grey-darker paragraph-1">{name}</p>
+                <Price className="heading-4" value={finalPrice} />
               </div>
             </div>
-            <div
-              dangerouslySetInnerHTML={{ __html: product.details || '' }}
-              className="prose-h6:heading-6 prose w-full max-w-full prose-h3:heading-3 prose-h4:heading-4 prose-h5:heading-5 prose-p:paragraph-2 prose-a:text-blue"
-            />
+            {details && <StrapiBlocks content={details} />}
           </div>
         </div>
       </DialogContent>

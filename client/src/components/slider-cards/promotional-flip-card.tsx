@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState, useRef } from 'react';
 
 import { IconFlip } from '@/components/icons';
-import { StrapiImage } from '@/components/strapi-image';
+import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { Button } from '@/components/ui/button';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { PromotionalFlipCardResponse } from '@/lib/types';

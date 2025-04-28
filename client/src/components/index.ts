@@ -3,7 +3,7 @@ import { Footer } from './footer';
 import { FormField } from './forms';
 import GlobalRenderer from './global-renderer';
 import { Navbar } from './nav-bar';
-import { StrapiImage } from './strapi-image';
+import { StrapiImage, StrapiVideo } from './strapi/components';
 
 export {
   CardBlock,
@@ -15,4 +15,5 @@ export {
   MonoAppleBlock,
   Navbar,
   StrapiImage,
+  StrapiVideo,
 };

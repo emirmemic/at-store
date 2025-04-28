@@ -35,6 +35,8 @@ export const PAGE_NAMES = {
   PAYMENT_METHODS: '/payment-methods',
   PLACEHOLDER_CATEGORY_PAGE: '/placeholder-category-page',
   PRIVACY_POLICY: '/privacy-policy',
+  PRODUCTS: '/products',
+  PRODUCT_DETAILS: '/products/[slug]',
   PROMO: '/promo',
   REGISTER: '/register',
   RESET_PASSWORD: '/reset-password',

@@ -3,12 +3,11 @@
 import { useTranslations } from 'next-intl';
 
 import { IconTrash } from '@/components/icons';
+import { StrapiImage } from '@/components/strapi/components';
 import { CounterInput } from '@/components/ui/counter-input';
 import { CURRENCY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
-import { StrapiImage } from '../strapi-image';
 
 interface ProductCartTableItemProps {
   product: ShoppingCartItem;

@@ -55,7 +55,7 @@ DotSliderPagination.displayName = 'DotSliderPagination';
 
 interface SliderPaginationProps {
   total: number;
-  currentPage: number;
+  current: number;
   onDotClick?: (index: number) => void;
   className?: string;
   disabled?: boolean;
@@ -65,7 +65,7 @@ interface SliderPaginationProps {
 
 const ProductsSliderPagination = ({
   total,
-  currentPage,
+  current,
   onDotClick = () => {},
   className,
   disabled = false,
@@ -78,10 +78,10 @@ const ProductsSliderPagination = ({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      onDotClick(currentPage > 1 ? currentPage : 1);
+      onDotClick(current > 0 ? current - 1 : 0);
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
-      onDotClick(currentPage < total - 1 ? currentPage + 1 : total - 1);
+      onDotClick(current < total - 1 ? current + 1 : total - 1);
     }
   };
 
@@ -93,14 +93,14 @@ const ProductsSliderPagination = ({
       {listItems.map((i) => (
         <li key={i} className="flex items-center">
           <DotSliderPagination
-            active={i + 1 === currentPage}
-            aria-current={i === currentPage ? 'true' : undefined}
+            active={i === current}
+            aria-current={i === current ? 'true' : undefined}
             aria-label={t('goToSlide', { slideNumber: i + 1 })}
             disabled={disabled}
             duration={duration}
             tabIndex={0}
             title={t('goToSlide', { slideNumber: i + 1 })}
-            onClick={() => onDotClick?.(i + 1)}
+            onClick={() => onDotClick?.(i)}
             {...dotProps}
           />
         </li>

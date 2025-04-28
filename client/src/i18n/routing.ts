@@ -117,6 +117,12 @@ export const routing = defineRouting({
     [PAGE_NAMES.PROMO]: {
       bs: '/promo',
     },
+    [PAGE_NAMES.PRODUCTS]: {
+      bs: '/proizvodi',
+    },
+    [PAGE_NAMES.PRODUCT_DETAILS]: {
+      bs: '/proizvodi/[slug]',
+    },
     [PAGE_NAMES.REGISTER]: {
       bs: '/registracija',
     },

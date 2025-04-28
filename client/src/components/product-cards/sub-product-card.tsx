@@ -1,9 +1,9 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
+import { StrapiImage } from '@/components/strapi/components';
 import { ProductBase } from '@/lib/types';
 
-import { StrapiImage } from '../strapi-image';
 import { Button } from '../ui/button';
 
 interface SubProductCardProps {
