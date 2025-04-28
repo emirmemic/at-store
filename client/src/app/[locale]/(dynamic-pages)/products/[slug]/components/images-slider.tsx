@@ -47,24 +47,23 @@ export default function ImagesSlider({
     }
     return 'vertical';
   };
+
   useEffect(() => {
-    const newOrientation = decideCarouselOrientation();
-    setOrientation(newOrientation);
-    window.addEventListener('resize', () => {
+    const handleResize = () => {
       const newOrientation = decideCarouselOrientation();
       setOrientation(newOrientation);
       if (api) {
         api.scrollTo(activeIndex);
       }
-    });
-    return () => {
-      window.removeEventListener('resize', () => {
-        if (api) {
-          api.scrollTo(activeIndex);
-        }
-      });
     };
-  }, [api, activeIndex]);
+    const newOrientation = decideCarouselOrientation();
+    setOrientation(newOrientation);
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [activeIndex, api]);
 
   if (!images || images?.length === 0) return <NoImages />;
   const hasMoreImages = images?.length > 1;
