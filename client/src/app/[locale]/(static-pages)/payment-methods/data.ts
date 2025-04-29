@@ -31,7 +31,7 @@ export const getInfoBlock = (t: (key: string) => string) => [
     description: t('paymentMethodsPage.infoBlock1.description'),
     actionLink: {
       id: 1,
-      linkUrl: PAGE_NAMES.MICROFIN_INVOICE,
+      linkUrl: PAGE_NAMES.MIKROFIN_INVOICE,
     },
     title: t('paymentMethodsPage.infoBlock1.title'),
   },

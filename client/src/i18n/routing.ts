@@ -90,7 +90,7 @@ export const routing = defineRouting({
     [PAGE_NAMES.MAC]: {
       bs: '/mac',
     },
-    [PAGE_NAMES.MICROFIN_INVOICE]: {
+    [PAGE_NAMES.MIKROFIN_INVOICE]: {
       bs: '/mikrofin-predracun',
     },
     [PAGE_NAMES.NEWSLETTER]: {

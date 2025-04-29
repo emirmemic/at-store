@@ -64,7 +64,7 @@
       "title": "B2B | AT Store",
       "description": "Saznajte više o B2B uslugama i rješenjima za poslovne korisnike."
     },
-    "microfinPreInvoice": {
+    "mikrofinInvoice": {
       "title": "Mikrofin predračun | AT Store",
       "description": "Informacije o Mikrofin predračunu za kupovinu na rate."
     },
@@ -227,7 +227,7 @@
       "title": "Usluge",
       "support": "Podrška",
       "b2b": "B2B",
-      "microfinEstimate": "Mikrofin predračun",
+      "mikrofinEstimate": "Mikrofin predračun",
       "complaints": "Reklamacije",
       "educationalDiscount": "Obrazovni popust"
     },
@@ -618,7 +618,8 @@
     "requestFailAlert": "Poruka nije poslana",
     "requestSuccessAlert": "Uspješno ste poslali zahtjev",
     "add": "Dodaj",
-    "addToFavorites": "Dodaj u omiljeno"
+    "addToFavorites": "Dodaj u omiljeno",
+    "submit": "Pošalji"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -756,7 +757,8 @@
     "companyNameRequired": "Naziv firme je obavezan",
     "companyIdNumberRequired": "ID broj firme je obavezan",
     "companyIdNumberLength": "ID broj firme mora imati {length} cifara",
-    "codeRequired": "Kod je obavezan"
+    "codeRequired": "Kod je obavezan",
+    "linkRequired": "Link je obavezan"
   },
   "complaintsPage": {
     "title": "Reklamacije",
@@ -796,5 +798,22 @@
     "deviceCompatibilityText": "Mac je savršen pratilac vašim drugim Apple uređajima. Pročitajte poruku na svom Apple Watch-u i odgovorite sa svog Mac-a. Započnite prezentaciju na svom Macu i uvježbajte je na svom iPhone uređaju dok ste u pokretu. Otključajte svoj Mac pomoću Apple Watch-a. Ili čak podijelite cijele foto albume sa prijateljima iz cijele sobe.",
     "chooseYourMac": "Odaberi svoj Mac",
     "viewAll": "Pogledajte kompletnu ponudu Mac uređaja."
+  },
+  "mikrofinInvoicePage": {
+    "title": "Želite predračun za Mikrofin ?",
+    "formTitle": "Ispunite formu i zatražite predračun.",
+    "formName": "Ime i prezime",
+    "whyMikrofin": "Zašto Mikrofin ?",
+    "paymentMethods": "Načini plaćanja",
+    "IconRepayments": "Do 36 mjeseci otplate",
+    "IconRequest": "Online zahtjev",
+    "IconInterest": "Bez kamata",
+    "browseMore": "Pogledajte sve načine plaćanja.",
+    "microCredit": "Mikrokreditna organizacija",
+    "formEmail": "Email",
+    "formNumber": "Broj",
+    "productLink": "Link uređaja",
+    "formNote": "Napomena",
+    "notePlaceHolder": "Unesite napomenu"
   }
 }

@@ -27,7 +27,7 @@ export const PAGE_NAMES = {
   IPHONE: '/iphone',
   LOGIN: '/login',
   MAC: '/mac',
-  MICROFIN_INVOICE: '/microfin-invoice',
+  MIKROFIN_INVOICE: '/mikrofin-invoice',
   NEWSLETTER: '/newsletter',
   NEWS: '/news',
   ORDER_CANCELLATION: '/order-cancellation',

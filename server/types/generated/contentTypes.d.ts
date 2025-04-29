@@ -783,6 +783,57 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPreInvoicePreInvoice extends Struct.CollectionTypeSchema {
+  collectionName: 'pre_invoices';
+  info: {
+    displayName: 'pre-invoice';
+    pluralName: 'pre-invoices';
+    singularName: 'pre-invoice';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pre-invoice.pre-invoice'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    note: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    phoneNumber: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 12;
+        minLength: 8;
+      }>;
+    productLink: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    surname: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
@@ -1539,6 +1590,7 @@ declare module '@strapi/strapi' {
       'api::memory.memory': ApiMemoryMemory;
       'api::model.model': ApiModelModel;
       'api::order.order': ApiOrderOrder;
+      'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;
       'api::product.product': ApiProductProduct;
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;

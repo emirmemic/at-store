@@ -78,8 +78,8 @@ export default function Footer() {
           path: PAGE_NAMES.B2B,
         },
         {
-          name: t('services.microfinEstimate'),
-          path: PAGE_NAMES.MICROFIN_INVOICE,
+          name: t('services.mikrofinEstimate'),
+          path: PAGE_NAMES.MIKROFIN_INVOICE,
         },
         {
           name: t('services.complaints'),

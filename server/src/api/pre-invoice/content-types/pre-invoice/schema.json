@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pre_invoices",
+  "info": {
+    "singularName": "pre-invoice",
+    "pluralName": "pre-invoices",
+    "displayName": "pre-invoice"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "minLength": 3
+    },
+    "surname": {
+      "type": "string",
+      "required": true,
+      "unique": false,
+      "maxLength": 50,
+      "minLength": 3
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": false
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": true,
+      "minLength": 8,
+      "maxLength": 12
+    },
+    "productLink": {
+      "type": "string",
+      "required": true
+    },
+    "note": {
+      "type": "text",
+      "maxLength": 300
+    }
+  }
+}
