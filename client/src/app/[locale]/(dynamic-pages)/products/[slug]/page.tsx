@@ -9,7 +9,6 @@ import { Content } from './components';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; slug: string }>;
-  productData: ProductResponse | null;
 }
 
 async function fetchPageData(slug: string) {

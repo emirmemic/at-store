@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -7,7 +8,7 @@ import {
   IconPowerPlug,
 } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link, Pathname } from '@/i18n/routing';
+import { Pathname } from '@/i18n/routing';
 import { Icon } from '@/lib/types';
 
 interface MacAccessoriesBarItem {

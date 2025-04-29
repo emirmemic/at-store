@@ -1,7 +1,7 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { Link } from '@/i18n/routing';
 import { AccessorySliderItem } from '@/lib/types';
 export default function InfiniteSliderCard(item: AccessorySliderItem) {
   const { title, description, priceText, image, tagline, actionLink } = item;

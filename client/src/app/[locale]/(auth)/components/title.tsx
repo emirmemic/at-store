@@ -1,4 +1,6 @@
-import { Link, Pathname } from '@/i18n/routing';
+import Link from 'next/link';
+
+import { Pathname } from '@/i18n/routing';
 
 export default function Title({
   className,

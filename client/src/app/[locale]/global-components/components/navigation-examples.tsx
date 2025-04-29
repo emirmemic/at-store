@@ -43,7 +43,7 @@ export default function NavigationExamples() {
       <div className="flex items-center gap-2">
         Products slider pagination dots
         <ProductsSliderPagination
-          currentPage={activePage}
+          current={activePage}
           total={totalPages}
           onDotClick={(page) => setActivePage(page)}
         />
@@ -52,7 +52,7 @@ export default function NavigationExamples() {
         Products slider pagination dots disabled
         <ProductsSliderPagination
           disabled
-          currentPage={activePage}
+          current={activePage}
           total={totalPages}
           onDotClick={(page) => setActivePage(page)}
         />

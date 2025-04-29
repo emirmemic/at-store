@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { DesktopPopup } from '@/components/nav-bar/components';
 import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
-import { Link } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 
 interface DesktopListProps {

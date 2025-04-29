@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useContext, useRef, useState } from 'react';
 
@@ -15,7 +16,7 @@ import { IconAccount, IconCart } from '@/components/nav-bar/icons';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link, Pathname } from '@/i18n/routing';
+import { Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { cn } from '@/lib/utils/utils';
 

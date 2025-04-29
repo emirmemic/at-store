@@ -1,5 +1,4 @@
 'use client';
-// TODO - Change the Link import from next-intl while building the product details page
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';

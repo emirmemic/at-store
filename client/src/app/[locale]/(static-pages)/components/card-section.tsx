@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
-import { Link, Pathname } from '@/i18n/routing';
+import { Pathname } from '@/i18n/routing';
 import { Icon } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
