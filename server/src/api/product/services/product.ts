@@ -334,7 +334,7 @@ async function findEntity(
   customWhere?: Record<string, any>,
   populate: string[] = []
 ) {
-  if (!entityName) {
+  if (!entityName && !customWhere) {
     return null;
   }
 
