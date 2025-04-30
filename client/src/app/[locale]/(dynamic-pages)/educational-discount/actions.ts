@@ -1,4 +1,3 @@
-// TODO  Fix FetchAPI for Uploading files
 import { ZodError } from 'zod';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
@@ -40,13 +39,18 @@ export async function formAction(
   const uploadFile = async (file: File): Promise<number | null> => {
     const fd = new FormData();
     fd.append('files', file);
-    const res = await fetchAPI<{ id: number }>(
+    const res = await fetchAPI<{ id: number }[]>(
       `${STRAPI_BASE_URL}/api/upload`,
-      { method: 'POST', body: fd }
+      {
+        method: 'POST',
+        body: fd,
+      }
     );
 
-    if (res.error) throw new Error(res.error.message);
-    return res.data?.id ?? null;
+    if (!res || !res.data || res.data.length === 0) {
+      throw new Error('Upload failed or returned no data');
+    }
+    return res.data[0].id;
   };
 
   let indexPhotoId: number | null = null;

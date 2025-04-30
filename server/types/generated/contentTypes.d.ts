@@ -609,7 +609,7 @@ export interface ApiEducationalDiscountEducationalDiscount
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     email: Schema.Attribute.Email & Schema.Attribute.Required;
-    indexPhoto: Schema.Attribute.Media<'images', true>;
+    indexPhoto: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

@@ -133,6 +133,7 @@ export default function EducationalDiscountForm() {
               id="indexPhoto"
               name="indexPhoto"
             />
+            <p className="pt-3 text-red-deep">{formState?.errors.msg}</p>
           </div>
         </div>
         <div className="lg:justify-self-end">
@@ -144,7 +145,6 @@ export default function EducationalDiscountForm() {
           </p>
         </div>
         <div className="self-center pt-6 md:pt-8">
-          {formState?.errors.msg}
           {isPending ? (
             <IconLoader size={46} />
           ) : (

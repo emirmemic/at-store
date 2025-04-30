@@ -633,7 +633,8 @@
     "submit": "Pošalji",
     "seeAll": "Pogledajte sve",
     "changesSuccessfullySaved": "Uspješno ste spasili promjene",
-    "save": "Spremi"
+    "save": "Spremi",
+    "messagePlaceholder": "Unesite poruku..."
   },
   "atBusinessPage": {
     "title": "At Business",

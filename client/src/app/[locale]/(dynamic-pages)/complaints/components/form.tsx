@@ -75,7 +75,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.name}
               id="name"
               name="name"
-              placeholder="Name"
+              placeholder={t('complaintsPage.formName')}
               type="text"
             />
           </div>
@@ -91,7 +91,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.surname}
               id="surname"
               name="surname"
-              placeholder="Surname"
+              placeholder={t('complaintsPage.formSurName')}
               type="text"
             />
           </div>
@@ -107,7 +107,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder="Number"
+              placeholder={t('complaintsPage.formNumber')}
               type="number"
             />
           </div>
@@ -120,7 +120,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder="Email"
+              placeholder={t('complaintsPage.formEmail')}
               type="email"
             />
           </div>
@@ -135,7 +135,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.message}
               id="message"
               name="message"
-              placeholder="Please enter your message here"
+              placeholder={t('common.messagePlaceholder')}
             />
           </div>
         </div>
@@ -151,6 +151,7 @@ export default function ComplaintsForm() {
             accept=".svg,.png"
             disabled={isPending}
             errorMessage={formState?.errors.deviceImage}
+            id="deviceImage"
             name="deviceImage"
           />
           <FormLabel
@@ -162,6 +163,7 @@ export default function ComplaintsForm() {
             accept=".svg,.png"
             disabled={isPending}
             errorMessage={formState?.errors.warrantyImage}
+            id="warrantyImage"
             name="warrantyImage"
           />
           <FormLabel
@@ -173,6 +175,7 @@ export default function ComplaintsForm() {
             accept=".svg,.png"
             disabled={isPending}
             errorMessage={formState?.errors.billImage}
+            id="billImage"
             name="billImage"
           />
           <div className="text-red-deep paragraph-2">

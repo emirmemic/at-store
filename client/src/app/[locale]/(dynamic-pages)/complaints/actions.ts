@@ -22,10 +22,9 @@ export async function complaintsAction(
       files[key] = value as File;
     }
   }
-  let validated;
+  let validated: ComplaintsFormData;
   try {
-    validated = complaintsSchema(t);
-    validated.parse(formDataObject);
+    validated = complaintsSchema(t).parse(formDataObject);
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors = Object.fromEntries(
@@ -46,17 +45,17 @@ export async function complaintsAction(
   const uploadFile = async (file: File): Promise<number | null> => {
     const uploadFormData = new FormData();
     uploadFormData.append('files', file);
-    const res = await fetchAPI<{ id: number }>(
+    const res = await fetchAPI<{ id: number }[]>(
       `${STRAPI_BASE_URL}/api/upload`,
       {
         method: 'POST',
         body: uploadFormData,
       }
     );
-    if (res.error) {
-      throw new Error(res.error.message);
+    if (!res || !res.data || res.data.length === 0) {
+      throw new Error('Upload failed or returned no data');
     }
-    return res.data?.id || null;
+    return res.data[0].id;
   };
 
   let deviceImageId: number | null = null;

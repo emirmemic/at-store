@@ -25,15 +25,12 @@ const complaintsSchema = (t: LocalizationKey) =>
       .min(20, t('messageMinLength', { minLength: '20' }))
       .max(500, t('messageMaxLength', { maxLength: '500' })),
     deviceImage: z
-      .instanceof(File)
-      .refine(
-        (file) => file.type === 'image/png' || file.type === 'image/jpeg',
-        { message: 'Only .png or .jpeg files are allowed.' }
-      )
-      .refine((file) => file.size >= 100 * 1024 && file.size <= 200 * 1024, {
-        message: 'File size must be between 100 KB and 200 KB.',
+      .custom<File>((file) => file instanceof File, {
+        message: 'Not a valid file',
       })
-      .optional(),
+      .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
+        message: 'Only .jpeg or .png files are allowed',
+      }),
     warrantyImage: z
       .custom<File>((file) => file instanceof File, {
         message: 'Not a valid file',
@@ -47,8 +44,7 @@ const complaintsSchema = (t: LocalizationKey) =>
       })
       .refine((file) => /\.(jpeg|png)$/i.test(file.name), {
         message: 'Only .jpeg or .png files are allowed',
-      })
-      .optional(),
+      }),
   });
 export type ComplaintsFormData = z.infer<ReturnType<typeof complaintsSchema>>;
 export default complaintsSchema;

@@ -35,11 +35,9 @@
     },
     "indexPhoto": {
       "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
     }
   }
 }
