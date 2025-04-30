@@ -68,6 +68,7 @@ export default function EducationalDiscountForm() {
                 autoComplete="name"
                 defaultValue={formState?.data.name}
                 errorMessage={formState?.errors.name}
+                id="name"
                 name="name"
                 placeholder={t('educationalDiscountPage.formName')}
                 type="text"
@@ -82,6 +83,7 @@ export default function EducationalDiscountForm() {
                 autoComplete="surname"
                 defaultValue={formState?.data.surname}
                 errorMessage={formState?.errors.surname}
+                id="surname"
                 name="surname"
                 placeholder={t('educationalDiscountPage.formSurName')}
                 type="text"
@@ -96,6 +98,7 @@ export default function EducationalDiscountForm() {
                 autoComplete="tel"
                 defaultValue={formState?.data.phoneNumber}
                 errorMessage={formState?.errors.phoneNumber}
+                id="phoneNumber"
                 name="phoneNumber"
                 placeholder={t('educationalDiscountPage.formNumber')}
                 type="number"
@@ -110,6 +113,7 @@ export default function EducationalDiscountForm() {
                 autoComplete="email"
                 defaultValue={formState?.data.email}
                 errorMessage={formState?.errors.email}
+                id="email"
                 name="email"
                 placeholder={t('educationalDiscountPage.formEmail')}
                 type="email"
@@ -126,6 +130,7 @@ export default function EducationalDiscountForm() {
               accept=".svg,.png"
               disabled={isPending}
               errorMessage={formState?.errors.indexPhoto}
+              id="indexPhoto"
               name="indexPhoto"
             />
           </div>
