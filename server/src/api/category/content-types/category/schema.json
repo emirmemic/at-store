@@ -16,6 +16,10 @@
       "required": true,
       "unique": true
     },
+    "displayName": {
+      "type": "string",
+      "required": true
+    },
     "products": {
       "type": "relation",
       "relation": "oneToMany",
@@ -25,7 +29,8 @@
     "link": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^(?!\\/)[a-zA-Z0-9\\-\\/_]+$"
     },
     "startingPrice": {
       "type": "decimal",

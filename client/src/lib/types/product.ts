@@ -96,6 +96,7 @@ interface CategoryItem {
   id: string;
   documentId: string;
   name: string;
+  displayName: string;
   link: string;
   startingPrice: number;
   image: ImageProps | null;
@@ -123,4 +124,6 @@ export type {
   BestSellerItem,
   InstallmentOption,
   ProductResponse,
+  ColorResponse,
+  IdentificationResponse,
 };

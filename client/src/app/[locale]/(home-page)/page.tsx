@@ -10,9 +10,6 @@ import { IconsBlock, MonoAppleBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { Alert } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -127,19 +124,6 @@ export default async function Page({
         <section className="px-6 py-8 container-max-width-lg md:px-12">
           <MonoAppleBlock />
         </section>
-      </div>
-      {/* TODO Following buttons should be removed */}
-      <div className="flex flex-col gap-2 py-4 container-max-width">
-        Additional Links
-        <h1 className="p-4">{title}</h1>
-        <div className="flex flex-col items-start gap-2">
-          <Button asChild size={'lg'} variant={'filled'}>
-            <Link href={PAGE_NAMES.GLOBAL_COMPONENTS}>Global components</Link>
-          </Button>
-          <Button asChild size={'lg'} variant={'filled'}>
-            <Link href={PAGE_NAMES.ICONS}>Global Icons</Link>
-          </Button>
-        </div>
       </div>
     </main>
   );

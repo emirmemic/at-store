@@ -83,17 +83,18 @@ export default factories.createCoreService("api::product.product", () => ({
               });
             }
 
-            const memoryUnit = webAccountProduct.memory?.unit || null;
+            const memoryValue = webAccountProduct.memory?.value ?? null;
+            const memoryUnit = webAccountProduct.memory?.unit ?? null;
             let memory = await findEntity(
               "memory",
-              memoryUnit,
-              { unit: memoryUnit } // custom where clause for memory
+              null,
+              { unit: memoryUnit, value: memoryValue }
             );
 
-            if (!memory && memoryUnit) {
+            if (!memory && memoryUnit && memoryValue !== null) {
               memory = await strapi.documents("api::memory.memory").create({
                 data: {
-                  value: webAccountProduct.memory?.value,
+                  value: memoryValue,
                   unit: memoryUnit,
                 },
               });
@@ -203,6 +204,7 @@ export default factories.createCoreService("api::product.product", () => ({
                     startingPrice,
                     models: model ? [model.id] : [],
                     chips: chip ? [chip.id] : [],
+                    displayName: categoryName,
                   },
                 });
             }
@@ -220,6 +222,7 @@ export default factories.createCoreService("api::product.product", () => ({
                       startingPrice: 0,
                       models: model ? [model.id] : [],
                       category: category?.id,
+                      displayName: subCategoryName,
                     },
                   });
               }
@@ -278,7 +281,7 @@ export default factories.createCoreService("api::product.product", () => ({
               category: category?.id,
               subCategory: subCategory?.id,
               stores: storeIds,
-              // color: color?.id,
+              color: color?.id,
               memory: memory?.id,
               material: material?.id,
               chip: chip?.id,

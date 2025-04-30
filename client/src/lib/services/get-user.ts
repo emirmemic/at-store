@@ -1,7 +1,7 @@
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import {
-  ProductBase,
+  ProductResponse,
   UserInformation,
   UserInformationResponse,
 } from '@/lib/types';
@@ -18,7 +18,7 @@ export async function getUser(): Promise<UserInformation | null> {
         method: 'GET',
         next: { tags: ['user-info'] },
       }),
-      fetchAPI<ProductBase[]>(`${STRAPI_BASE_URL}/api/products/favorites`, {
+      fetchAPI<ProductResponse[]>(`${STRAPI_BASE_URL}/api/products/favorites`, {
         method: 'GET',
       }),
     ]);

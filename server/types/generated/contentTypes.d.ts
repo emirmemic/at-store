@@ -414,6 +414,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    displayName: Schema.Attribute.String & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'>;
     link: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -949,6 +950,7 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    displayName: Schema.Attribute.String & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'>;
     link: Schema.Attribute.String &
       Schema.Attribute.Required &

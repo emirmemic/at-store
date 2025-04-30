@@ -1,21 +1,23 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
 import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
-import { ProductBase } from '@/lib/types';
+import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 import ProductTag from './product-tag';
 
 interface ProductCardProps {
-  product: ProductBase;
+  product: ProductResponse;
   variant?: 'standard' | 'accessories';
   className?: string;
 }
@@ -30,11 +32,11 @@ export default function ProductCard({
     originalPrice,
     tag,
     images,
-    specifications,
+    // specifications,
     favoritedBy,
     productLink,
   } = product;
-  const t = useTranslations('common');
+  const t = useTranslations('');
   const { toast } = useToast();
   const { toggleFavorite, user } = useContext(UserContext);
   const [favorites, setFavorites] = useState<number[]>(
@@ -45,7 +47,7 @@ export default function ProductCard({
     apiCall: () => toggleFavorite(product),
     onSuccess: () => {
       toast({
-        title: t('successful'),
+        title: t('common.successful'),
       });
       if (user) {
         setFavorites((prev) =>
@@ -63,7 +65,20 @@ export default function ProductCard({
       });
     },
   });
-  const finalSpecs = specifications ? specifications.slice(0, 4) : [];
+  const router = useRouter();
+
+  const handleFavoriteClick = () => {
+    if (user) {
+      execute();
+    } else {
+      toast({
+        title: t('productPage.pleaseLogin'),
+        variant: 'default',
+      });
+      router.push(PAGE_NAMES.LOGIN);
+    }
+  };
+  // const finalSpecs = specifications ? specifications.slice(0, 4) : [];
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
 
@@ -78,7 +93,7 @@ export default function ProductCard({
     >
       <Link className="z-1 absolute inset-0" href={`/products/${productLink}`}>
         <span className="sr-only">
-          {t('viewDetailsWithName', { productName: name })}
+          {t('common.viewDetailsWithName', { productName: name })}
         </span>
       </Link>
       <div
@@ -87,7 +102,7 @@ export default function ProductCard({
           'h-52': variant === 'standard',
         })}
       >
-        {image && (
+        {image ? (
           <StrapiImage
             alt={image?.alternativeText || name}
             className="h-full w-full object-contain"
@@ -95,6 +110,10 @@ export default function ProductCard({
             src={image?.url ?? ''}
             width={200}
           />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-1">
+            {t('productPage.noImagesAvailable')}
+          </div>
         )}
       </div>
       <div>
@@ -105,12 +124,11 @@ export default function ProductCard({
             disabled={isLoading}
             isInFavorites={user ? favorites.includes(user.id) : false}
             isLoading={isLoading}
-            onClick={() => {
-              if (user) execute();
-            }}
+            onClick={handleFavoriteClick}
           />
         </div>
-        {finalSpecs.length > 0 && (
+        {/* TODO Do the specs once webaccount api is adjusted and we have the specs in the database */}
+        {/* {finalSpecs.length > 0 && (
           <div className="mb-2 flex flex-col">
             {finalSpecs.map((spec, i) => (
               <p key={`${spec}-${i}`} className="text-grey-darker paragraph-4">
@@ -118,7 +136,7 @@ export default function ProductCard({
               </p>
             ))}
           </div>
-        )}
+        )} */}
         {discountedPrice && (
           <p className="mb-0.5 line-through paragraph-2">{`${originalPrice} ${CURRENCY}`}</p>
         )}

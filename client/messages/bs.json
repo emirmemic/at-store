@@ -677,7 +677,8 @@
   "productPage": {
     "installments": "Rate",
     "installmentPrice": "Cijena na rate",
-    "noImagesAvailable": "Nema dostupnih slika"
+    "noImagesAvailable": "Nema dostupnih slika",
+    "pleaseLogin": "Molimo vas da se prijavite kako biste dodali proizvod u omiljene."
   },
   "loginPage": {
     "title": "Prijavite se",
@@ -710,6 +711,21 @@
   },
   "promoPage": {
     "title": "Promo"
+  },
+  "accessoriesPage": {
+    "title": "Dodaci",
+    "sort": "Sortiraj",
+    "latest": "Najnoviji",
+    "priceAsc": "Cijena: Od najniže do najviše",
+    "priceDesc": "Cijena: Od najviše do najniže",
+    "nameAZ": "Naziv: A-Z",
+    "nameZA": "Naziv: Z-A",
+    "color": "Boja",
+    "brand": "Brend",
+    "material": "Materijal",
+    "noItemsAvailable": "Nema dostupnih stavki",
+    "resetFilters": "Resetuj filtere",
+    "noProductsAvailable": "Nema dostupnih proizvoda"
   },
   "validation": {
     "messageRequired": "Poruka je obavezna",

@@ -9,12 +9,12 @@ import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
-import { ProductBase } from '@/lib/types';
+import { ProductResponse } from '@/lib/types';
 
 export default function FavoriteProductCard({
   product,
 }: {
-  product: ProductBase;
+  product: ProductResponse;
 }) {
   const userProvider = useContext(UserContext);
   const t = useTranslations();
@@ -36,8 +36,7 @@ export default function FavoriteProductCard({
     },
   });
 
-  const { name, images, originalPrice, discountedPrice, specifications } =
-    product;
+  const { name, images, originalPrice, discountedPrice } = product;
   const image = images?.[0];
 
   const price = discountedPrice ?? originalPrice;
@@ -71,7 +70,7 @@ export default function FavoriteProductCard({
         <p className={paragraphClassName}>{name}</p>
         <p className={paragraphClassName}>
           {/* TODO: Remove hardcoded value */}
-          {specifications?.join(', ') ?? 'M3 8 CPU 10 GPU 8GB 256GB'}
+          {/* {specifications?.join(', ') ?? 'M3 8 CPU 10 GPU 8GB 256GB'} */}
         </p>
         <p className={headingClassName}>{`${price} ${CURRENCY}`}</p>
         <Button

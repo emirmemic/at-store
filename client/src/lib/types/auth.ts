@@ -1,4 +1,4 @@
-import { ProductBase } from './product';
+import { ProductResponse } from './product';
 
 interface AuthError {
   message: string;
@@ -19,7 +19,7 @@ interface UserInformation {
   id: number;
   documentId: string;
   accountDetails: AccountDetails;
-  favoriteProducts: ProductBase[];
+  favoriteProducts: ProductResponse[];
 }
 
 interface UserInformationResponse extends AccountDetails {

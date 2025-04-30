@@ -23,7 +23,9 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "order": {
       "type": "relation",
@@ -40,7 +42,10 @@
     },
     "tag": {
       "type": "enumeration",
-      "enum": ["akcija", "novo"]
+      "enum": [
+        "akcija",
+        "novo"
+      ]
     },
     "favoritedBy": {
       "type": "relation",
@@ -132,7 +137,8 @@
     "productLink": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^(?!\\/)[a-zA-Z0-9\\-\\/_]+$"
     },
     "details": {
       "type": "blocks"

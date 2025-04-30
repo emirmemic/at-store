@@ -4,7 +4,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { APIResponse, fetchAPI } from '@/lib/fetch-api';
-import { ProductBase, UserInformation } from '@/lib/types';
+import { ProductResponse, UserInformation } from '@/lib/types';
 
 import { deleteCookie } from '../actions';
 
@@ -12,7 +12,7 @@ type UserContextType = {
   user: UserInformation | null;
   setUser: (user: UserInformation | null) => void;
   toggleFavorite: (
-    product: ProductBase
+    product: ProductResponse
   ) => Promise<APIResponse<{ isFavorited: boolean }>>;
 };
 
@@ -40,14 +40,14 @@ export default function UserProvider({
     if (!user) deleteCookie('jwt');
   }, [user]);
 
-  const setFavorites = (favorites: ProductBase[]) => {
+  const setFavorites = (favorites: ProductResponse[]) => {
     if (user) {
       setUser({ ...user, favoriteProducts: favorites });
     }
   };
 
   const toggleFavorite = async (
-    product: ProductBase
+    product: ProductResponse
   ): Promise<APIResponse<{ isFavorited: boolean }>> => {
     const path = `/api/products/${product.documentId}/favorite`;
     const res = await fetchAPI<{ isFavorited: boolean }>(

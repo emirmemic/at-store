@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import {
   InchSelectionTab,
   MacAccessoriesBar,
-  ProductCard,
+  // ProductCard,
   ProductCartTableItem,
   RelatedProductAccessories,
   SubProductCard,
@@ -160,13 +160,13 @@ export default function ProductCardExamples() {
       <h3 className="heading-2">Products from API</h3>
       <div className="h-[2px] w-full bg-grey"></div>
       <div className="flex flex-wrap gap-4">
-        {productsFromApi.map((product) => (
+        {/* {productsFromApi.map((product) => (
           <ProductCard
             key={product.id}
             className="self-stretch"
             product={product}
           />
-        ))}
+        ))} */}
       </div>
       <h3 className="heading-2">Mac dodaci bar</h3>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -177,11 +177,11 @@ export default function ProductCardExamples() {
       <div className="flex w-full flex-wrap gap-4">
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Product Card Standard: </p>
-          <ProductCard product={products[0]} />
+          {/* <ProductCard product={products[0]} /> */}
         </div>
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Product Card Accessory: </p>
-          <ProductCard product={products[2]} variant="accessories" />
+          {/* <ProductCard product={products[2]} variant="accessories" /> */}
         </div>
         <div className="flex h-fit flex-col gap-4">
           <p className="paragraph-2">Related Product Accessories: </p>

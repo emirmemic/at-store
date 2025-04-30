@@ -4,7 +4,6 @@ import qs from 'qs';
 import { InfoBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -63,15 +62,6 @@ export default async function Page() {
         {t('title')}
       </h1>
       <PromoSliderWrapper className="container-max-width-xl" />
-      {response.error && (
-        <Alert
-          dismissible
-          className="mx-auto max-w-72 px-4"
-          variant="destructive"
-        >
-          <AlertDescription>{response.error.message}</AlertDescription>
-        </Alert>
-      )}
       <div className="flex flex-col gap-16 container-max-width">
         <CurrentPromotions />
         {info && (
