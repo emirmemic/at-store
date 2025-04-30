@@ -13,6 +13,7 @@ const config = {
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
+  const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
   try {
     const { searchParams, pathname } = new URL(request.url);
     const token = searchParams.get('access_token');
@@ -22,7 +23,7 @@ export async function GET(request: Request) {
 
     if (!token) {
       return NextResponse.redirect(
-        new URL('/?error=No access token provided', request.url)
+        new URL('/?error=No access token provided', frontendUrl)
       );
     }
 
@@ -47,14 +48,14 @@ export async function GET(request: Request) {
     const cookieStore = await cookies();
     cookieStore.set('jwt', data.jwt, config);
 
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/', frontendUrl));
   } catch (error) {
     const errorMessage = encodeURIComponent(
       error instanceof Error ? error.message : 'Authentication failed'
     );
 
     return NextResponse.redirect(
-      new URL(`/?error=${errorMessage}`, request.url)
+      new URL(`/?error=${errorMessage}`, frontendUrl)
     );
   }
 }
