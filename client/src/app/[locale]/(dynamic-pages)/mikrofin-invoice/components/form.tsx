@@ -56,6 +56,7 @@ export default function MikrofinForm() {
               autoComplete="name and surname"
               defaultValue={formState?.data.nameAndSurname}
               errorMessage={formState?.errors.nameAndSurname}
+              id="nameAndSurname"
               name="nameAndSurname"
               placeholder={t('mikrofinInvoicePage.formName')}
               type="text"
@@ -70,6 +71,7 @@ export default function MikrofinForm() {
               autoComplete="email"
               defaultValue={formState?.data.email}
               errorMessage={formState?.errors.email}
+              id="email"
               name="email"
               placeholder={t('mikrofinInvoicePage.formEmail')}
               type="email"
@@ -84,6 +86,7 @@ export default function MikrofinForm() {
               autoComplete="tel"
               defaultValue={formState?.data.phoneNumber}
               errorMessage={formState?.errors.phoneNumber}
+              id="phoneNumber"
               name="phoneNumber"
               placeholder={t('mikrofinInvoicePage.formNumber')}
               type="number"
@@ -97,6 +100,7 @@ export default function MikrofinForm() {
             <Input
               defaultValue={formState?.data.productLink}
               errorMessage={formState?.errors.productLink}
+              id="productLink"
               name="productLink"
               placeholder={t('mikrofinInvoicePage.productLink')}
               type="url"
@@ -110,6 +114,7 @@ export default function MikrofinForm() {
             <Textarea
               defaultValue={formState?.data.note}
               errorMessage={formState?.errors.note}
+              id="note"
               name="note"
               placeholder={t('mikrofinInvoicePage.notePlaceHolder')}
             />
