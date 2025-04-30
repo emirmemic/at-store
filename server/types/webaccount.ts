@@ -17,6 +17,18 @@ export interface WebAccountProduct {
     name: string | null;
   };
   product_name: string;
+  specifications: {
+    ram: {
+      value: number | null;
+      unit: string | null;
+    };
+    chip: {
+      name: string | null;
+    };
+    screen_size: string | null;
+    release_date: string | null;
+    number_of_cores: number | null;
+  };
   product_type_id: string;
   product_variant_id: string;
   naziv_artikla_webaccount: string;

@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chips",
+  "info": {
+    "singularName": "chip",
+    "pluralName": "chips",
+    "displayName": "Chip",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "chips"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "chip"
+    }
+  }
+}

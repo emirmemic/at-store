@@ -3,7 +3,7 @@
 import {
   authenticatedUserSchema,
   organizationUserSchema,
-} from "../../../types/schemas/auth";
+} from "../../api/schemas/auth";
 
 export default (plugin) => {
   const rawAuth = plugin.controllers.auth({ strapi });

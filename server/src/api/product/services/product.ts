@@ -24,7 +24,8 @@ export default factories.createCoreService("api::product.product", () => ({
       const { token } = responseData as LoginResponse;
 
       if (token) {
-        for (let index = 1; index < 3; index++) {
+        // 1-10 is fine
+        for (let index = 11; index <= 40; index++) {
           const response = await fetch(
             `https://web.webaccount.ba/api/products/unique?page=${index}`,
             {
@@ -39,121 +40,202 @@ export default factories.createCoreService("api::product.product", () => ({
           const { unique_products: webAccountProducts } = responseData;
 
           for (const webAccountProduct of webAccountProducts) {
-            // 1. Handle Brand relation
-            let brand;
-            if (webAccountProduct.brand && webAccountProduct.brand.name) {
-              // Find or create the brand
-              brand = await strapi.db.query("api::brand.brand").findOne({
-                where: { name: webAccountProduct.brand.name },
+            const brandName = webAccountProduct.brand?.name ?? null;
+            let brand = await findEntity("brand", brandName);
+            if (!brand && brandName) {
+              brand = await strapi.documents("api::brand.brand").create({
+                data: {
+                  name: brandName,
+                },
               });
-              if (!brand) {
-                brand = await strapi.documents("api::brand.brand").create({
-                  data: { name: webAccountProduct.brand.name },
-                });
-              }
             }
 
-            // 2. Handle Model relation
-            let model;
-            if (webAccountProduct.model && webAccountProduct.model.name) {
-              // Find or create the model
-              model = await strapi.db.query("api::model.model").findOne({
-                where: { name: webAccountProduct.model.name },
+            const modelName = webAccountProduct.model?.name ?? null;
+            let model = await findEntity("model", modelName);
+            if (!model && modelName) {
+              model = await strapi.documents("api::model.model").create({
+                data: {
+                  name: modelName,
+                },
               });
-
-              if (!model) {
-                model = await strapi.documents("api::model.model").create({
-                  data: { name: webAccountProduct.model.name },
-                });
-              }
             }
 
-            // 3. Handle Category relation
-            let category;
-            if (webAccountProduct.category && webAccountProduct.category.name) {
-              // Find or create the category
-              category = await strapi.db
-                .query("api::category.category")
-                .findOne({
-                  where: { name: webAccountProduct.category.name },
-                });
+            const chipName =
+              webAccountProduct.specifications.chip?.name ?? null;
+            let chip = await findEntity("chip", chipName);
+            if (!chip && chipName) {
+              chip = await strapi.documents("api::chip.chip").create({
+                data: {
+                  name: chipName,
+                },
+              });
+            }
 
-              if (category) {
-                let startingPrice = 0;
-                if (
-                  parseFloat(webAccountProduct.original_price) <
-                  parseFloat(category.startingPrice)
-                ) {
-                  startingPrice = parseFloat(webAccountProduct.original_price);
-                } else {
-                  startingPrice = parseFloat(category.startingPrice);
-                }
-                category = await strapi
-                  .documents("api::category.category")
-                  .update({
-                    documentId: category.documentId,
-                    data: {
-                      ...category,
-                      startingPrice: startingPrice,
-                    },
-                  });
+            const colorName = webAccountProduct.color?.name || null;
+            let color = await findEntity("color", colorName);
+
+            if (!color && colorName) {
+              color = await strapi.documents("api::color.color").create({
+                data: {
+                  name: colorName,
+                  hex: webAccountProduct.color?.hex,
+                },
+              });
+            }
+
+            const memoryUnit = webAccountProduct.memory?.unit || null;
+            let memory = await findEntity(
+              "memory",
+              memoryUnit,
+              { unit: memoryUnit } // custom where clause for memory
+            );
+
+            if (!memory && memoryUnit) {
+              memory = await strapi.documents("api::memory.memory").create({
+                data: {
+                  value: webAccountProduct.memory?.value,
+                  unit: memoryUnit,
+                },
+              });
+            }
+
+            const materialName = webAccountProduct.material ?? null;
+            let material = await findEntity("material", materialName);
+            if (!material && materialName) {
+              material = await strapi
+                .documents("api::material.material")
+                .create({
+                  data: {
+                    name: materialName,
+                  },
+                });
+            }
+
+            const accessoriesType = webAccountProduct.dodaci_type
+              ? "Accessories"
+              : null;
+            let categoryName =
+              webAccountProduct.category.name || accessoriesType;
+
+            if (categoryName?.toLowerCase() === "ipad pro") {
+              categoryName = "iPad Pro";
+            } else if (categoryName?.toLowerCase() === "ipad") {
+              categoryName = "iPad";
+            }
+
+            let category = await findEntity("category", categoryName, null, [
+              "subCategories",
+              "models",
+              "chips",
+            ]);
+
+            // if category is "accessories" then we set the subcategory to whatever `dodaci_type` is
+            // otherwise we set it to the first two words of the model name
+            const subCategoryName =
+              categoryName === "Accessories"
+                ? webAccountProduct.dodaci_type
+                : (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
+                  null;
+
+            // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
+            const isSubCategoryMatch = categoryName === subCategoryName;
+
+            // Find or create the category
+            if (category) {
+              let startingPrice = 0;
+              if (
+                parseFloat(webAccountProduct.original_price) <
+                parseFloat(category.startingPrice)
+              ) {
+                startingPrice = parseFloat(webAccountProduct.original_price);
               } else {
-                const startingPrice = calculateCategoryStartingPrice(
-                  webAccountProducts,
-                  webAccountProduct.category.name
-                );
-                category = await strapi
-                  .documents("api::category.category")
+                startingPrice = parseFloat(category.startingPrice);
+              }
+              const modelIds = category.models.map((model) => model.id) || [];
+              if (model) {
+                if (!modelIds.includes(model.id)) {
+                  modelIds.push(model.id);
+                }
+              }
+              // same logic for chips as the subcategory
+              let chipIds = category.chips.map((chip) => chip.id) || [];
+              if (chipName) {
+                if (!chipIds.includes(chip?.id)) {
+                  const existingChip = await findEntity("chip", chipName);
+                  if (existingChip) {
+                    chipIds.push(existingChip.id);
+                  } else {
+                    const newChip = await strapi
+                      .documents("api::chip.chip")
+                      .create({
+                        data: {
+                          name: chipName,
+                        },
+                      });
+                    chipIds.push(newChip.id);
+                  }
+                }
+              }
+              category = await strapi
+                .documents("api::category.category")
+                .update({
+                  documentId: category.documentId,
+                  data: {
+                    ...category,
+                    startingPrice: startingPrice,
+                    models: modelIds,
+                    chips: chipIds,
+                  },
+                });
+            } else if (!category && categoryName) {
+              const startingPrice = calculateCategoryStartingPrice(
+                webAccountProducts,
+                categoryName
+              );
+
+              // Create a new category
+              category = await strapi
+                .documents("api::category.category")
+                .create({
+                  data: {
+                    name: categoryName,
+                    link: categoryName.toLowerCase().replace(/\s+/g, "-"),
+                    startingPrice,
+                    models: model ? [model.id] : [],
+                    chips: chip ? [chip.id] : [],
+                  },
+                });
+            }
+
+            let subCategory;
+            if (!isSubCategoryMatch) {
+              subCategory = await findEntity("sub-category", subCategoryName);
+              if (!subCategory && subCategoryName) {
+                subCategory = await strapi
+                  .documents("api::sub-category.sub-category")
                   .create({
                     data: {
-                      name: webAccountProduct.category.name,
-                      link: webAccountProduct.category.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-"),
-                      startingPrice,
+                      name: subCategoryName,
+                      link: subCategoryName.toLowerCase().replace(/\s+/g, "-"),
+                      startingPrice: 0,
+                      models: model ? [model.id] : [],
+                      category: category?.id,
                     },
                   });
               }
             }
 
             // 4. Handle Stores relation (many-to-many)
-            const storeIds = [];
-            if (webAccountProduct.availability_by_store) {
-              try {
-                const storePromises = Object.entries(
-                  webAccountProduct.availability_by_store
-                )
-                  .filter(([_, quantity]) => quantity > 0)
-                  .map(async ([storeName]) => {
-                    let store = await strapi.db
-                      .query("api::store.store")
-                      .findOne({
-                        where: { name: storeName },
-                      });
+            const storeIds = await handleStoreRelations(
+              webAccountProduct.availability_by_store
+            );
 
-                    if (!store) {
-                      store = await strapi
-                        .documents("api::store.store")
-                        .create({
-                          data: { name: storeName },
-                        });
-                    }
-                    return store.id;
-                  });
-
-                storeIds.push(...(await Promise.all(storePromises)));
-              } catch (error) {
-                console.error("Error processing stores:", error);
-              }
-            }
-
-            const sanitizeForUrl = (str: string) => {
-              return str
+            const sanitizeForUrl = (str: string) =>
+              str
                 .toLowerCase()
                 .replace(/[^a-z0-9-]/g, "-") // Replace any non-alphanumeric chars with hyphen
                 .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-                .replace(/^-|-$/g, ""); // Remove leading/trailing hyphens
-            };
+                .replace(/^-|-$/g, ""); /* Remove leading/trailing hyphens*/
 
             // 6. Create the product with all relations
             const articleName = webAccountProduct.naziv_artikla_webaccount;
@@ -168,18 +250,23 @@ export default factories.createCoreService("api::product.product", () => ({
               brand: brand?.id,
               model: model?.id,
               category: category?.id,
+              subCategory: subCategory?.id,
               stores: storeIds,
-              // Set components
-              color: webAccountProduct.color,
-              memory: webAccountProduct.memory,
+              // color: color?.id,
+              memory: memory?.id,
+              material: material?.id,
+              chip: chip?.id,
               // Set publish state
               publishedAt: new Date(),
-              material: webAccountProduct.material,
               ancModel: webAccountProduct.anc_model,
               keyboard: webAccountProduct.tipkovnica,
               wifiModel: webAccountProduct.wifi_model,
               accessoriesType: webAccountProduct.dodaci_type,
               braceletSize: webAccountProduct.narukvica_size.join(", "),
+              screenSize: webAccountProduct.specifications.screen_size,
+              ram: webAccountProduct.specifications.ram,
+              cores: webAccountProduct.specifications.number_of_cores,
+              releaseDate: webAccountProduct.specifications.release_date,
             };
 
             // Check if product already exists
@@ -207,17 +294,70 @@ export default factories.createCoreService("api::product.product", () => ({
         }
       }
     } catch (error) {
-      console.error("Error syncing external products:", error);
+      console.log("Error:", error);
     }
   },
 }));
+
+async function findEntity(
+  entityType: string,
+  entityName: string | null | undefined,
+  customWhere?: Record<string, any>,
+  populate: string[] = []
+) {
+  if (!entityName) {
+    return null;
+  }
+
+  let entity = await strapi.db
+    .query(`api::${entityType}.${entityType}`)
+    .findOne({
+      where: customWhere || {
+        name: entityName,
+      },
+      populate: populate,
+    });
+
+  return entity;
+}
 
 const calculateCategoryStartingPrice = (
   products: any[],
   categoryName: string
 ): number => {
-  const categoryPrices = products
-    .filter((product) => product.category.name === categoryName)
-    .map((product) => parseFloat(product.original_price));
-  return Math.min(...categoryPrices);
+  if (categoryName === "Accessories") {
+    const categoryPrices = products
+      .filter((product) => product.dodaci_type !== null)
+      .map((product) => parseFloat(product.original_price));
+    return Math.min(...categoryPrices);
+  } else {
+    const categoryPrices = products
+      .filter((product) => product.category?.name === categoryName)
+      .map((product) => parseFloat(product.original_price));
+    return Math.min(...categoryPrices);
+  }
 };
+
+interface AvailabilityByStore {
+  [key: string]: number;
+}
+
+async function handleStoreRelations(
+  availabilityByStore: AvailabilityByStore | null
+): Promise<number[]> {
+  if (!availabilityByStore) {
+    return [];
+  }
+  const storePromises = Object.entries(availabilityByStore)
+    .filter(([_, quantity]) => quantity > 0)
+    .map(async ([storeName]) => {
+      const store = await findEntity("store", storeName);
+      return store?.id;
+    });
+
+  const storeIds = (await Promise.all(storePromises)).filter(
+    (id): id is number => id !== null && id !== undefined
+  );
+
+  return storeIds;
+}

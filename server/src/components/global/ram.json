@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_global_rams",
+  "info": {
+    "displayName": "Ram"
+  },
+  "options": {},
+  "attributes": {
+    "unit": {
+      "type": "string"
+    },
+    "value": {
+      "type": "integer"
+    }
+  }
+}

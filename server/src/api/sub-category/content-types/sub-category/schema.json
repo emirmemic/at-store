@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "sub_categories",
   "info": {
-    "singularName": "category",
-    "pluralName": "categories",
-    "displayName": "Category",
-    "description": ""
+    "singularName": "sub-category",
+    "pluralName": "sub-categories",
+    "displayName": "SubCategory"
   },
   "options": {
     "draftAndPublish": false
@@ -20,7 +19,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
-      "mappedBy": "category"
+      "mappedBy": "sub-category"
     },
     "link": {
       "type": "string",
@@ -43,19 +42,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::model.model",
-      "mappedBy": "category"
+      "mappedBy": "sub-category"
     },
-    "chips": {
+    "category": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::chip.chip",
-      "mappedBy": "category"
-    },
-    "subCategories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::sub-category.sub-category",
-      "mappedBy": "category"
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "subCategories"
     }
   }
 }

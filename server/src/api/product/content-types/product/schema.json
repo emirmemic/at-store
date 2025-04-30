@@ -23,9 +23,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "order": {
       "type": "relation",
@@ -42,10 +40,7 @@
     },
     "tag": {
       "type": "enumeration",
-      "enum": [
-        "akcija",
-        "novo"
-      ]
+      "enum": ["akcija", "novo"]
     },
     "favoritedBy": {
       "type": "relation",
@@ -85,26 +80,29 @@
       "target": "api::category.category",
       "inversedBy": "products"
     },
+    "color": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::color.color",
+      "inversedBy": "products"
+    },
+    "material": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::material.material",
+      "inversedBy": "products"
+    },
+    "memory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::memory.memory",
+      "inversedBy": "products"
+    },
     "stores": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::store.store",
       "inversedBy": "products"
-    },
-    "color": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.color"
-    },
-    "memory": {
-      "type": "component",
-      "repeatable": false,
-      "component": "product.memory"
-    },
-    "material": {
-      "type": "string",
-      "required": false,
-      "unique": false
     },
     "ancModel": {
       "type": "string",
@@ -138,6 +136,27 @@
     },
     "details": {
       "type": "blocks"
+    },
+    "chip": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::chip.chip",
+      "inversedBy": "products"
+    },
+    "screenSize": {
+      "type": "string"
+    },
+    "release_date": {
+      "type": "string"
+    },
+    "numberOfCores": {
+      "type": "integer"
+    },
+    "ram": {
+      "displayName": "Ram",
+      "type": "component",
+      "repeatable": false,
+      "component": "global.ram"
     }
   }
 }
