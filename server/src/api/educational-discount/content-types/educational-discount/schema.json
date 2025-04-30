@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "educational_discounts",
+  "info": {
+    "singularName": "educational-discount",
+    "pluralName": "educational-discounts",
+    "displayName": "educational-discount",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 40
+    },
+    "surname": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50,
+      "minLength": 3
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": true,
+      "maxLength": 12,
+      "minLength": 8
+    },
+    "indexPhoto": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

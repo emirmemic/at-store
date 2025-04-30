@@ -592,6 +592,55 @@ export interface ApiCurrentPromotionCurrentPromotion
   };
 }
 
+export interface ApiEducationalDiscountEducationalDiscount
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'educational_discounts';
+  info: {
+    description: '';
+    displayName: 'educational-discount';
+    pluralName: 'educational-discounts';
+    singularName: 'educational-discount';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    indexPhoto: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::educational-discount.educational-discount'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+        minLength: 3;
+      }>;
+    phoneNumber: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 12;
+        minLength: 8;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    surname: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -1589,6 +1638,7 @@ declare module '@strapi/strapi' {
       'api::color.color': ApiColorColor;
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::current-promotion.current-promotion': ApiCurrentPromotionCurrentPromotion;
+      'api::educational-discount.educational-discount': ApiEducationalDiscountEducationalDiscount;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::material.material': ApiMaterialMaterial;

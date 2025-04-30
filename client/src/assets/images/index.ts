@@ -12,3 +12,4 @@ export { default as macFamilyScreen } from './mac-family-screen.png';
 export { default as macBookAirBrandAwareness } from './macbook-air-brand-awareness.png';
 export { default as whyMacDevices } from './why-mac-devices.png';
 export { default as mikrofin } from './mikrofin.png';
+export { default as macBookAirEducationalDiscount } from './macbook-air-educational-discount.png';

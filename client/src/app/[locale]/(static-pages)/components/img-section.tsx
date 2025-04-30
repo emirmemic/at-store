@@ -58,7 +58,7 @@ export default function ImgSection({
         <h2
           className={cn(
             'pb-3 heading-2 md:pb-12 lg:pb-6',
-            description && 'pb-7 heading-2 lg:p-0'
+            description && 'pb-7 heading-2 lg:pb-5'
           )}
         >
           {title}
