@@ -25,7 +25,7 @@ export default factories.createCoreService("api::product.product", () => ({
 
       if (token) {
         // 1-10 is fine
-        for (let index = 11; index <= 40; index++) {
+        for (let index = 1; index <= 40; index++) {
           const response = await fetch(
             `https://web.webaccount.ba/api/products/unique?page=${index}`,
             {
@@ -226,9 +226,35 @@ export default factories.createCoreService("api::product.product", () => ({
             }
 
             // 4. Handle Stores relation (many-to-many)
-            const storeIds = await handleStoreRelations(
-              webAccountProduct.availability_by_store
-            );
+            const storeIds = [];
+            if (webAccountProduct.availability_by_store) {
+              try {
+                const storePromises = Object.entries(
+                  webAccountProduct.availability_by_store
+                )
+                  .filter(([_, quantity]) => quantity > 0)
+                  .map(async ([storeName]) => {
+                    let store = await strapi.db
+                      .query("api::store.store")
+                      .findOne({
+                        where: { name: storeName },
+                      });
+
+                    if (!store) {
+                      store = await strapi
+                        .documents("api::store.store")
+                        .create({
+                          data: { name: storeName },
+                        });
+                    }
+                    return store.id;
+                  });
+
+                storeIds.push(...(await Promise.all(storePromises)));
+              } catch (error) {
+                console.error("Error processing stores:", error);
+              }
+            }
 
             const sanitizeForUrl = (str: string) =>
               str
@@ -340,24 +366,4 @@ const calculateCategoryStartingPrice = (
 
 interface AvailabilityByStore {
   [key: string]: number;
-}
-
-async function handleStoreRelations(
-  availabilityByStore: AvailabilityByStore | null
-): Promise<number[]> {
-  if (!availabilityByStore) {
-    return [];
-  }
-  const storePromises = Object.entries(availabilityByStore)
-    .filter(([_, quantity]) => quantity > 0)
-    .map(async ([storeName]) => {
-      const store = await findEntity("store", storeName);
-      return store?.id;
-    });
-
-  const storeIds = (await Promise.all(storePromises)).filter(
-    (id): id is number => id !== null && id !== undefined
-  );
-
-  return storeIds;
 }
