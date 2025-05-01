@@ -43,7 +43,7 @@ export default function MikrofinForm() {
   }, [formState, isPending]);
   return (
     <form noValidate action={submitAction}>
-      <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-5xl">
+      <div className="flex w-full flex-col px-6 md:grid md:grid-cols-3 md:justify-self-center md:px-0">
         <div
           className={'order-1 flex flex-col gap-y-4 md:-order-none md:max-w-96'}
         >
@@ -108,7 +108,7 @@ export default function MikrofinForm() {
           </div>
           <div>
             <FormLabel
-              htmlFor="Note"
+              htmlFor="note"
               title={t('mikrofinInvoicePage.formNote')}
             />
             <Textarea
@@ -148,6 +148,7 @@ export default function MikrofinForm() {
               {t('common.submit')}
             </Button>
           )}
+          <p className="text-red-deep"> {formState?.errors.msg}</p>
         </div>
         <div className="order-1 w-full max-w-[336] self-center pt-2 md:col-span-2 md:justify-self-center md:pt-8">
           <Alert

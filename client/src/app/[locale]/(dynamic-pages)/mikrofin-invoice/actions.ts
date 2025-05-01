@@ -24,7 +24,7 @@ export async function mikrofinAction(
       name,
       surname,
     };
-    createPreInvoice(dataToSend);
+    await createPreInvoice(dataToSend);
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldErrors = Object.fromEntries(
