@@ -279,7 +279,7 @@ export default factories.createCoreService("api::product.product", () => ({
               brand: brand?.id,
               model: model?.id,
               category: category?.id,
-              // subCategory: subCategory?.id,
+              subCategory: subCategory?.id,
               stores: storeIds,
               color: color?.id,
               memory: memory?.id,

@@ -23,9 +23,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     },
     "order": {
       "type": "relation",
@@ -42,10 +40,7 @@
     },
     "tag": {
       "type": "enumeration",
-      "enum": [
-        "akcija",
-        "novo"
-      ]
+      "enum": ["akcija", "novo"]
     },
     "favoritedBy": {
       "type": "relation",
@@ -164,7 +159,7 @@
       "repeatable": false,
       "component": "global.ram"
     },
-    "sub_category": {
+    "subCategory": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::sub-category.sub-category",

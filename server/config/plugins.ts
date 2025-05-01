@@ -41,14 +41,18 @@ export default ({ env }) => ({
       providerOptions: {
         host: env("SMTP_HOST"),
         port: env("SMTP_PORT"),
+        secure: env.bool("SMTP_SECURE"),
         auth: {
-          user: env("SMTP_USERNAME", "mail.atstore.ba"),
+          user: env("SMTP_USERNAME"),
           pass: env("SMTP_PASSWORD"),
+        },
+        tls: {
+          rejectUnauthorized: false,
         },
       },
       settings: {
-        defaultFrom: env("DEFAULT_FROM", "no-reply@atstore.ba"),
-        defaultReplyTo: env("DEFAULT_REPLY_TO", "no-reply@atstore.ba"),
+        defaultFrom: env("DEFAULT_FROM"),
+        defaultReplyTo: env("DEFAULT_REPLY_TO"),
       },
     },
   },
