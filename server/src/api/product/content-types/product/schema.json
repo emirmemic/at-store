@@ -23,7 +23,9 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "order": {
       "type": "relation",
@@ -40,7 +42,10 @@
     },
     "tag": {
       "type": "enumeration",
-      "enum": ["akcija", "novo"]
+      "enum": [
+        "akcija",
+        "novo"
+      ]
     },
     "favoritedBy": {
       "type": "relation",
@@ -78,12 +83,6 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "products"
-    },
-    "subCategory": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::sub-category.sub-category",
       "inversedBy": "products"
     },
     "color": {
@@ -164,6 +163,12 @@
       "type": "component",
       "repeatable": false,
       "component": "global.ram"
+    },
+    "sub_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sub-category.sub-category",
+      "inversedBy": "products"
     }
   }
 }

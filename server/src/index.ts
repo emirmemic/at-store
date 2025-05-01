@@ -35,7 +35,10 @@ export default {
             access_url: "https://appleid.apple.com/auth/token",
             oauth: 2,
             scope: "name email",
-            custom_params: { response_mode: "form_post" },
+            custom_params: {
+              response_mode: "form_post",
+              response_type: "code",
+            },
             redirect_uri: `${strapi.config.server.url}/api/connect/apple/callback`,
             key: process.env.APPLE_KEY,
           },

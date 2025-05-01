@@ -739,6 +739,10 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    sub_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::sub-category.sub-category'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -890,7 +894,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     release_date: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
-    subCategory: Schema.Attribute.Relation<
+    sub_category: Schema.Attribute.Relation<
       'manyToOne',
       'api::sub-category.sub-category'
     >;
@@ -993,6 +997,7 @@ export interface ApiStoreStore extends Struct.CollectionTypeSchema {
 export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
   collectionName: 'sub_categories';
   info: {
+    description: '';
     displayName: 'SubCategory';
     pluralName: 'sub-categories';
     singularName: 'sub-category';

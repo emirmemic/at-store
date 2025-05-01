@@ -17,13 +17,13 @@ export async function GET(request: Request) {
   try {
     const { searchParams, pathname } = new URL(request.url);
     const token = searchParams.get('access_token');
-    const code = searchParams.get('code');
-    console.log(code, 'code');
+    console.log(searchParams, 'searchParams');
+    console.log(pathname, 'pathname');
 
     const pathParts = pathname.split('/').filter(Boolean);
     const provider = pathParts.length === 3 ? pathParts[1] : pathParts[2];
 
-    if (!token || !code) {
+    if (!token) {
       return NextResponse.redirect(
         new URL('/?error=No access token provided', frontendUrl)
       );
@@ -33,8 +33,8 @@ export async function GET(request: Request) {
     const path = `/api/auth/${provider}/callback`;
 
     const url = new URL(backendUrl + path);
-    if (code) {
-      url.searchParams.append('code', code);
+    if (provider === 'apple') {
+      url.searchParams.append('code', token);
     } else {
       url.searchParams.append('access_token', token);
     }
