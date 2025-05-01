@@ -37,7 +37,7 @@ export default ({ env }) => {
       acquireConnectionTimeout: env.int("DATABASE_CONNECTION_TIMEOUT", 60000),
     },
     // When runMigrations is true, Strapi will apply any pending migrations on startup.
-    runMigrations: env.bool("RUN_MIGRATIONS", true),
+    runMigrations: env.bool("RUN_MIGRATIONS", false),
     // When forceMigration is true, Strapi will forcefully update the schema to match your models,
     // even if that means making destructive changes.
     forceMigration: env.bool("FORCE_MIGRATION", false),

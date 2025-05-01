@@ -22,10 +22,10 @@ export default factories.createCoreService("api::product.product", () => ({
         throw new Error("Failed to login to Web Account API, Error: " + error);
       }
       const { token } = responseData as LoginResponse;
+      let totalPages = 1;
 
       if (token) {
-        // 1-10 is fine
-        for (let index = 1; index <= 40; index++) {
+        for (let index = 1; index <= totalPages; index++) {
           const response = await fetch(
             `https://web.webaccount.ba/api/products/unique?page=${index}`,
             {
@@ -37,6 +37,7 @@ export default factories.createCoreService("api::product.product", () => ({
             }
           );
           const responseData = (await response.json()) as ProductsResponse;
+          totalPages = responseData.pagination.total_pages;
           const { unique_products: webAccountProducts } = responseData;
 
           for (const webAccountProduct of webAccountProducts) {
@@ -85,11 +86,10 @@ export default factories.createCoreService("api::product.product", () => ({
 
             const memoryValue = webAccountProduct.memory?.value ?? null;
             const memoryUnit = webAccountProduct.memory?.unit ?? null;
-            let memory = await findEntity(
-              "memory",
-              null,
-              { unit: memoryUnit, value: memoryValue }
-            );
+            let memory = await findEntity("memory", null, {
+              unit: memoryUnit,
+              value: memoryValue,
+            });
 
             if (!memory && memoryUnit && memoryValue !== null) {
               memory = await strapi.documents("api::memory.memory").create({
@@ -307,13 +307,7 @@ export default factories.createCoreService("api::product.product", () => ({
                 },
               });
 
-            if (existingProduct) {
-              // Update existing product
-              await strapi.documents("api::product.product").update({
-                documentId: existingProduct.documentId,
-                data: productData,
-              });
-            } else {
+            if (!existingProduct) {
               // Create new product
               await strapi.documents("api::product.product").create({
                 data: productData,
@@ -366,7 +360,3 @@ const calculateCategoryStartingPrice = (
     return Math.min(...categoryPrices);
   }
 };
-
-interface AvailabilityByStore {
-  [key: string]: number;
-}

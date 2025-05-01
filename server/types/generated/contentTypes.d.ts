@@ -890,6 +890,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     release_date: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
+    subCategory: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::sub-category.sub-category'
+    >;
     tag: Schema.Attribute.Enumeration<['akcija', 'novo']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

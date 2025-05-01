@@ -34,12 +34,14 @@ export default {
             authorize_url: "https://appleid.apple.com/auth/authorize",
             access_url: "https://appleid.apple.com/auth/token",
             oauth: 2,
+            scope: "name email",
             custom_params: { response_mode: "form_post" },
             redirect_uri: `${strapi.config.server.url}/api/connect/apple/callback`,
             key: process.env.APPLE_KEY,
           },
         },
         async authCallback({ purest, query }) {
+          console.log(query, "query");
           const clientSecret = generateClientSecret();
 
           const { body } = await purest({
@@ -67,12 +69,16 @@ export default {
             })
             .request();
 
+          console.log(body, "body");
+
           const decoded: any = jwt.decode(body.id_token);
+
+          console.log(decoded, "decoded id_token");
           return { email: decoded.email, username: decoded.sub };
         },
       });
   },
   bootstrap: async () => {
-    await strapi.service("api::product.product").syncWebAccountProducts();
+    // await strapi.service("api::product.product").syncWebAccountProducts();
   },
 };

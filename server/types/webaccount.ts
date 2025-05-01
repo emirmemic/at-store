@@ -4,6 +4,10 @@ export interface LoginResponse {
 
 export interface ProductsResponse {
   unique_products: WebAccountProduct[];
+  pagination: {
+    total_pages: number;
+    total_unique_products: number;
+  };
 }
 
 export interface WebAccountProduct {
