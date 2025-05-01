@@ -5,6 +5,7 @@ import {
   HeroSection,
   PromoCards,
   CategoriesSection,
+  SubCategorySection,
 } from '@/app/[locale]/(home-page)/components';
 import { IconsBlock, MonoAppleBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
@@ -120,7 +121,9 @@ export default async function Page({
           </section>
         </div>
         <PromoSliderWrapper className="py-4 container-max-width-xl" />
-        {/* TODO Implement the section with sub categories of accessories */}
+        <section className="py-4 container-max-width-xl">
+          <SubCategorySection />
+        </section>
         <section className="px-6 py-8 container-max-width-lg md:px-12">
           <MonoAppleBlock />
         </section>

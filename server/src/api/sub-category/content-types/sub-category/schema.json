@@ -20,10 +20,19 @@
       "type": "string",
       "required": true
     },
+    "shortDescription": {
+      "type": "string",
+      "required": false
+    },
+    "tag": {
+      "type": "string",
+      "required": false
+    },
     "link": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": true,
+      "regex": "^(?!\\/)[a-zA-Z0-9\\-\\/_]+$"
     },
     "startingPrice": {
       "type": "decimal",
@@ -33,9 +42,13 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
+    },
+    "navbarIcon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     },
     "category": {
       "type": "relation",

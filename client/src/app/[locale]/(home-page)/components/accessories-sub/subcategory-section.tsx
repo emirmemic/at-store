@@ -1,0 +1,58 @@
+import qs from 'qs';
+
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
+import { SubCategoryItem } from '@/lib/types';
+
+import SubCategoriesCarousel from './carousel';
+
+const query = qs.stringify(
+  {
+    populate: {
+      image: {
+        fields: STRAPI_IMAGE_FIELDS,
+      },
+    },
+  },
+  { encodeValuesOnly: true }
+);
+
+interface SubCategoriesResponse {
+  data: SubCategoryItem[];
+}
+
+async function fetchSubCategories() {
+  const path = '/api/sub-categories';
+  const url = new URL(path, STRAPI_BASE_URL);
+  url.search = query;
+  const res = await fetchAPI<SubCategoriesResponse>(url.href, {
+    method: 'GET',
+  });
+  return res;
+}
+
+function extendItemsToMinLength(
+  items: SubCategoryItem[],
+  minLength = 8
+): SubCategoryItem[] {
+  const result: SubCategoryItem[] = [...items];
+  let cloneRound = 1;
+
+  while (result.length < minLength) {
+    const clones = items.map((item) => ({
+      ...item,
+      id: `${item.id}-clone-${cloneRound}`,
+    }));
+    result.push(...clones);
+    cloneRound++;
+  }
+
+  return result;
+}
+
+export default async function SubCategorySection() {
+  const response = await fetchSubCategories();
+  const items = response?.data?.data || [];
+  const preparedItems = extendItemsToMinLength(items);
+  return <SubCategoriesCarousel items={preparedItems} />;
+}

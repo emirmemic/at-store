@@ -1,6 +1,5 @@
 'use client';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
@@ -8,6 +7,7 @@ import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -91,7 +91,13 @@ export default function ProductCard({
         className
       )}
     >
-      <Link className="z-1 absolute inset-0" href={`/products/${productLink}`}>
+      <Link
+        className="z-1 absolute inset-0"
+        href={{
+          pathname: PAGE_NAMES.PRODUCT_DETAILS,
+          params: { slug: productLink },
+        }}
+      >
         <span className="sr-only">
           {t('common.viewDetailsWithName', { productName: name })}
         </span>

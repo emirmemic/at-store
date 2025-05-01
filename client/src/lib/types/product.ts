@@ -97,9 +97,14 @@ interface CategoryItem {
   documentId: string;
   name: string;
   displayName: string;
-  link: string;
+  link: Pathname;
   startingPrice: number;
   image: ImageProps | null;
+}
+interface SubCategoryItem extends CategoryItem {
+  shortDescription: string | null;
+  tag: string | null;
+  navbarIcon: ImageProps | null;
 }
 
 interface AccessorySliderItem {
@@ -120,6 +125,7 @@ export type {
   ProductBase,
   ShoppingCartItem,
   CategoryItem,
+  SubCategoryItem,
   AccessorySliderItem,
   BestSellerItem,
   InstallmentOption,
