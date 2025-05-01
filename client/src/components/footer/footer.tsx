@@ -40,26 +40,32 @@ export default function Footer() {
       title: t('categories.title'),
       items: [
         {
+          id: 'mac',
           name: t('categories.mac'),
           path: PAGE_NAMES.MAC,
         },
         {
+          id: 'ipad',
           name: t('categories.ipad'),
           path: PAGE_NAMES.IPAD,
         },
         {
+          id: 'iphone',
           name: t('categories.iphone'),
           path: PAGE_NAMES.IPHONE,
         },
         {
+          id: 'watch',
           name: t('categories.watch'),
           path: PAGE_NAMES.WATCH,
         },
         {
+          id: 'tv',
           name: t('categories.airPods'),
           path: PAGE_NAMES.AIRPODS,
         },
         {
+          id: 'accessories',
           name: t('categories.accessories'),
           path: PAGE_NAMES.ACCESSORIES,
         },
@@ -70,22 +76,27 @@ export default function Footer() {
       title: t('services.title'),
       items: [
         {
+          id: 'support',
           name: t('services.support'),
           path: PAGE_NAMES.SUPPORT,
         },
         {
+          id: 'b2b',
           name: t('services.b2b'),
           path: PAGE_NAMES.B2B,
         },
         {
+          id: 'mikrofinEstimate',
           name: t('services.mikrofinEstimate'),
           path: PAGE_NAMES.MIKROFIN_INVOICE,
         },
         {
+          id: 'complaints',
           name: t('services.complaints'),
           path: PAGE_NAMES.COMPLAINTS,
         },
         {
+          id: 'payment',
           name: t('services.educationalDiscount'),
           path: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
         },
@@ -96,22 +107,22 @@ export default function Footer() {
       title: t('companies.title'),
       items: [
         {
+          id: 'aboutUs',
           name: t('companies.aboutUs'),
           path: PAGE_NAMES.ABOUT,
         },
         {
+          id: 'findStore',
           name: t('companies.findStore'),
           path: PAGE_NAMES.FIND_STORE,
         },
         {
+          id: 'globalComponents',
           name: t('companies.career'),
           path: PAGE_NAMES.CAREERS,
         },
         {
-          name: t('companies.news'),
-          path: PAGE_NAMES.NEWS,
-        },
-        {
+          id: 'atSoft',
           name: t('companies.atSoft'),
           path: 'https://www.atsofts.com' as Pathname,
           target: '_blank',
@@ -123,18 +134,22 @@ export default function Footer() {
       title: t('information.title'),
       items: [
         {
+          id: 'promo',
           name: t('information.promo'),
           path: PAGE_NAMES.PROMO,
         },
         {
+          id: 'privacyPolicy',
           name: t('information.privacyPolicy'),
           path: PAGE_NAMES.PRIVACY_POLICY,
         },
         {
+          id: 'delivery',
           name: t('information.delivery'),
           path: PAGE_NAMES.DELIVERY,
         },
         {
+          id: 'newsletter',
           name: t('information.newsletter'),
           path: PAGE_NAMES.NEWSLETTER,
         },
@@ -145,22 +160,22 @@ export default function Footer() {
       title: t('help.title'),
       items: [
         {
+          id: 'paymentMethods',
           name: t('help.paymentMethods'),
           path: PAGE_NAMES.PAYMENT_METHODS,
         },
         {
+          id: 'orderCancellation',
           name: t('help.orderCancellation'),
           path: PAGE_NAMES.ORDER_CANCELLATION,
         },
         {
-          name: t('help.contactUs'),
-          path: PAGE_NAMES.CONTACT_US,
-        },
-        {
+          id: 'termsOfPurchase',
           name: t('help.termsOfPurchase'),
           path: PAGE_NAMES.TERMS_OF_PURCHASE,
         },
         {
+          id: 'cookiePolicy',
           name: t('help.cookiePolicy'),
           path: PAGE_NAMES.COOKIE_POLICY,
         },

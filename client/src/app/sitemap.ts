@@ -16,8 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     PAGE_NAMES
   ).flatMap((path) => {
     return locales.map((locale) => {
-      const localizedPath =
-        routing.pathnames[path as Pathname]?.[locale] || path;
+      const localizedPath = routing.pathnames[path as Pathname][locale] || path;
 
       return {
         url: `${siteUrl}${localizedPath}`,

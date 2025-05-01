@@ -96,7 +96,7 @@ export default function Page() {
           </div>
         )}
         <Sort sortOption={sortOption} onSortChange={handleSortChange} />
-        <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-[164px_1fr] md:gap-8">
+        <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-[200px_1fr] md:gap-8">
           <Filters className="w-full" isLoading={isLoading} />
           {products.length === 0 && !isLoading ? (
             <p className="text-grey paragraph-2">{t('noProductsAvailable')}</p>

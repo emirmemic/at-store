@@ -1,6 +1,5 @@
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
-import type { ComponentProps } from 'react';
 
 import { PAGE_NAMES } from './page-names';
 
@@ -54,6 +53,12 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.CAREERS]: {
       bs: '/karijera',
+    },
+    [PAGE_NAMES.CATEGORY]: {
+      bs: '/kategorija',
+    },
+    [PAGE_NAMES.CATEGORY_PAGE]: {
+      bs: '/kategorija/[slug]',
     },
     [PAGE_NAMES.COMPLAINTS]: {
       bs: '/reklamacije',
@@ -136,6 +141,12 @@ export const routing = defineRouting({
     [PAGE_NAMES.SUPPORT]: {
       bs: '/podrska',
     },
+    [PAGE_NAMES.SUBCATEGORY]: {
+      bs: '/podkategorija',
+    },
+    [PAGE_NAMES.SUBCATEGORY_PAGE]: {
+      bs: '/podkategorija/[slug]',
+    },
     [PAGE_NAMES.TERMS_OF_PURCHASE]: {
       bs: '/uslovi-kupovine',
     },
@@ -149,7 +160,7 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
-export type Pathname = ComponentProps<typeof Link>['href'];
+export type Pathname = keyof typeof routing.pathnames;
 
 // Lightweight wrappers around Next.js' navigation APIs that will consider the routing configuration
 export const { Link, redirect, usePathname, useRouter, getPathname } =

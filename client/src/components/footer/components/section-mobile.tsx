@@ -33,7 +33,7 @@ export default function SectionMobile({
         <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
           <ul className="flex flex-col gap-1 pl-6">
             {section.items.map((item) => (
-              <li key={item.path}>
+              <li key={item.id}>
                 <Link
                   className="transition-color paragraph-2 hover:text-grey"
                   href={item.path}

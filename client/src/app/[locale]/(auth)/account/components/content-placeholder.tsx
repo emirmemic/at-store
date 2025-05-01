@@ -11,6 +11,7 @@ import {
   IconShoppingCart,
   IconWallet,
 } from '@/components/icons';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname, usePathname } from '@/i18n/routing';
 import { LocalizationKey } from '@/lib/types';
 
@@ -21,32 +22,32 @@ function getTitleCardContent(
   t: LocalizationKey
 ): TitleCardProps | null {
   switch (pathName) {
-    case '/account/dashboard':
+    case PAGE_NAMES.ACCOUNT_DASHBOARD:
       return {
         Icon: IconHome,
         title: t('dashboard.title'),
       };
-    case '/account/orders':
+    case PAGE_NAMES.ACCOUNT_ORDERS:
       return {
         Icon: IconShoppingCart,
         title: t('orders.title'),
       };
-    case '/account/details':
+    case PAGE_NAMES.ACCOUNT_DETAILS:
       return {
         Icon: IconSettings,
         title: t('details.title'),
       };
-    case '/account/payment-methods':
+    case PAGE_NAMES.ACCOUNT_PAYMENT_METHODS:
       return {
         Icon: IconWallet,
         title: t('paymentMethods.title'),
       };
-    case '/account/favorites':
+    case PAGE_NAMES.ACCOUNT_FAVORITES:
       return {
         Icon: IconHeart,
         title: t('favorites.title'),
       };
-    case '/account/newsletter':
+    case PAGE_NAMES.ACCOUNT_NEWSLETTER:
       return {
         Icon: IconNews,
         title: t('newsletter.title'),
@@ -60,7 +61,7 @@ export default function ContentPlaceholder({
 }: {
   children: React.ReactNode;
 }) {
-  const pathName = usePathname();
+  const pathName = usePathname() as Pathname;
   const t = useTranslations('accountPage');
   const titleCardContent = getTitleCardContent(pathName, t);
 

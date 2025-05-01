@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { SubCategoryItem } from '@/lib/types';
@@ -19,7 +20,10 @@ export default function SubCategoryCard(item: SubCategoryItem) {
     <div className="relative flex w-full flex-col rounded-2xl border bg-white p-4 shadow-outline-black transition-all hover:bg-grey-almost-white">
       <Link
         className="z-1 absolute inset-0"
-        href={link}
+        href={{
+          pathname: PAGE_NAMES.PRODUCT_DETAILS,
+          params: { slug: link },
+        }}
         title={t('common.viewDetailsWithName', { productName: displayName })}
       >
         <span className="sr-only">

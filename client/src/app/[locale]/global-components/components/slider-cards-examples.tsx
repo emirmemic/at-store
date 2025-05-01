@@ -1,7 +1,4 @@
 'use client';
-import Autoscroll from 'embla-carousel-auto-scroll';
-
-import SubCategoryCard from '@/app/[locale]/(home-page)/components/accessories-sub/subcategory-card';
 import { PromotionalFlipCard, BestSellerCard } from '@/components/slider-cards';
 import {
   Carousel,
@@ -10,11 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import {
-  dummyPromotions,
-  dummyAccessoriesSlider,
-  dummyBestSellers,
-} from '@/data/dummy-data';
+import { dummyPromotions, dummyBestSellers } from '@/data/dummy-data';
 
 export default function SliderCardsExamples() {
   return (
@@ -39,25 +32,6 @@ export default function SliderCardsExamples() {
             <CarouselPrevious className="translate-0 static" size="lg" />
             <CarouselNext className="translate-0 static" size="lg" />
           </div>
-        </Carousel>
-        <Carousel
-          className="w-full"
-          opts={{
-            loop: true,
-          }}
-          plugins={[
-            Autoscroll({
-              speed: 0.7,
-            }),
-          ]}
-        >
-          <CarouselContent className="py-4">
-            {dummyAccessoriesSlider.map((item) => (
-              <CarouselItem key={item.id} className="flex basis-72">
-                <SubCategoryCard {...item} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
         </Carousel>
         <Carousel
           className="px-4"

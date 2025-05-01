@@ -113,7 +113,6 @@ export default function ProductCardExamples() {
       </div>
     );
   }
-  // const [products, setProducts] = useState(dummyProducts);
 
   const inchOptions = [
     {

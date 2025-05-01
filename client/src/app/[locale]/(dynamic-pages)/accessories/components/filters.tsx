@@ -165,9 +165,10 @@ export default function Filters({ className, isLoading }: FiltersProps) {
         </Button>
       </AnimateAppearance>
 
-      <div className="flex w-full flex-wrap justify-between gap-2">
+      <div className="flex w-full flex-wrap justify-between gap-2 md:flex-col">
         {/* Colors */}
         <FilterItem
+          className="w-36 md:w-full"
           isLoading={isLoading}
           items={colors}
           selectedItems={selectedColors}
@@ -177,6 +178,7 @@ export default function Filters({ className, isLoading }: FiltersProps) {
 
         {/* Brands */}
         <FilterItem
+          className="w-36 md:w-full"
           isLoading={isLoading}
           items={brands}
           selectedItems={selectedBrands}
@@ -186,6 +188,7 @@ export default function Filters({ className, isLoading }: FiltersProps) {
 
         {/* Materials */}
         <FilterItem
+          className="w-36 md:w-full"
           isLoading={isLoading}
           items={materials}
           selectedItems={selectedMaterials}

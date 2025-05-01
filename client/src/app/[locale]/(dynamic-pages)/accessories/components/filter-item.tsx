@@ -19,6 +19,7 @@ interface FilterItemProps {
   selectedItems: string[];
   onFilterChange: (name: string) => void;
   isLoading: boolean;
+  className?: string;
 }
 
 export default function FilterItem({
@@ -27,6 +28,7 @@ export default function FilterItem({
   selectedItems,
   onFilterChange,
   isLoading,
+  className,
 }: FilterItemProps & { isLoading: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations('accessoriesPage');
@@ -39,7 +41,7 @@ export default function FilterItem({
   }, [isLoading, items, selectedItems]);
 
   return (
-    <Collapsible className="w-36" open={isOpen} onOpenChange={setIsOpen}>
+    <Collapsible className={className} open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger className="flex w-full items-center gap-3 py-1 text-start paragraph-2">
         {title}
         <IconChevron

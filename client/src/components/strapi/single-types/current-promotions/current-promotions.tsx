@@ -43,10 +43,13 @@ export default async function CurrentPromotions({
   const cards = response?.data?.data.flipCards || [];
   const title = response?.data?.data.sectionTitle || '';
 
+  if (!cards || cards.length === 0) {
+    return null;
+  }
   return (
     <section className={cn('flex w-full flex-col gap-4', className)}>
       {title && <h2 className="mb-8 heading-2">{title}</h2>}
-      {cards.length > 0 && <CurrentPromotionsCarousel cards={cards} />}
+      <CurrentPromotionsCarousel cards={cards} />
     </section>
   );
 }
