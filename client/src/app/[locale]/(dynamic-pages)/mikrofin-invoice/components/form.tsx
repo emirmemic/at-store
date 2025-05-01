@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useEffect, useState, useRef } from 'react';
 
 import { mikrofin } from '@/assets/images';
 import { IconLoader } from '@/components/icons';
@@ -36,14 +36,24 @@ export default function MikrofinForm() {
   const t = useTranslations();
   const validation = useTranslations('validation');
   const [alertVisible, setAlertVisible] = useState(false);
+  const submittedRef = useRef(false);
+
   useEffect(() => {
-    if ((formState === null && !isPending) || formState?.errors) {
+    if (!submittedRef.current && (formState || formState === null)) {
       setAlertVisible(true);
+      submittedRef.current = true;
     }
-  }, [formState, isPending]);
+  }, [formState]);
+
   return (
-    <form noValidate action={submitAction}>
-      <div className="flex w-full flex-col px-6 md:grid md:grid-cols-3 md:justify-self-center md:px-0">
+    <form
+      noValidate
+      action={(formData) => {
+        submittedRef.current = false;
+        return submitAction(formData);
+      }}
+    >
+      <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-5xl">
         <div
           className={'order-1 flex flex-col gap-y-4 md:-order-none md:max-w-96'}
         >
@@ -89,7 +99,7 @@ export default function MikrofinForm() {
               id="phoneNumber"
               name="phoneNumber"
               placeholder={t('mikrofinInvoicePage.formNumber')}
-              type="number"
+              type="tel"
             />
           </div>
           <div>
@@ -120,15 +130,17 @@ export default function MikrofinForm() {
             />
           </div>
         </div>
-        <div className="order-0 items-center justify-end md:col-span-2 md:grid">
-          <div className="max-w-72 justify-self-center pb-12 md:h-72 md:pb-0 lg:h-[382px] lg:max-w-96">
-            <Image
-              alt="mikrofin"
-              className="h-full w-full object-contain"
-              height={406}
-              src={mikrofin}
-              width={1192}
-            />
+        <div className="order-0 flex flex-col items-center justify-end md:col-span-2 md:items-end md:justify-center">
+          <div className="max-w-72 pb-12 md:pb-0 lg:max-w-96">
+            <div className="md:h-72 lg:h-[382px]">
+              <Image
+                alt="mikrofin"
+                className="h-full w-full object-contain"
+                height={406}
+                src={mikrofin}
+                width={1192}
+              />
+            </div>
             <p className="pt-5 text-center heading-4 md:bullet-heading-1 lg:pt-9 lg:heading-3">
               {t('mikrofinInvoicePage.microCredit')}
             </p>
@@ -148,7 +160,6 @@ export default function MikrofinForm() {
               {t('common.submit')}
             </Button>
           )}
-          <p className="text-red-deep"> {formState?.errors.msg}</p>
         </div>
         <div className="order-1 w-full max-w-[336] self-center pt-2 md:col-span-2 md:justify-self-center md:pt-8">
           <Alert
@@ -158,9 +169,11 @@ export default function MikrofinForm() {
             onClose={() => setAlertVisible(false)}
           >
             <AlertDescription>
-              {formState === null
-                ? t('common.requestSuccessAlert')
-                : t('common.requestFailAlert')}
+              {formState?.errors?.msg
+                ? formState.errors.msg
+                : formState === null
+                  ? t('common.requestSuccessAlert')
+                  : t('common.requestFailAlert')}
             </AlertDescription>
           </Alert>
         </div>
