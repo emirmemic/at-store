@@ -1,6 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import { IconClose } from '@/components/icons';
 import {
@@ -12,16 +12,13 @@ import {
   MobileSubList,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
-import {
-  NavMenuItem,
-  MobileMenuType,
-  NavSubLinkItem,
-} from '@/components/nav-bar/types';
+import { MobileMenuType } from '@/components/nav-bar/types';
 import { AnimateHeight, AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
-import { navMenu } from '@/data/dummy-data';
+import { Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { NavMenuItem, SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
@@ -35,14 +32,43 @@ export default function MobileMenu({
   className,
   cartCount,
 }: MobileMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations();
+  const finalMenuItems: NavMenuItem[] = menuItems.map((item) => {
+    if (item.subCategories && item.subCategories.length > 0) {
+      const categoryPath = item.link;
+      return {
+        ...item,
+        subCategories: [
+          ...(item.subCategories || []),
+          seeAllSubCategory(categoryPath),
+        ],
+      };
+    }
+    return item;
+  });
+  const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MobileMenuType>('list');
-  const [activeSubmenu, setActiveSubmenu] = useState<NavSubLinkItem[]>(
-    navMenu[0].subLinks || []
+  const [activeSubmenu, setActiveSubmenu] = useState<SubCategoryItem[]>(
+    finalMenuItems[0].subCategories || []
   );
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, () => setIsOpen(false));
+
+  function seeAllSubCategory(categoryPath: Pathname) {
+    return {
+      id: 'see-all',
+      documentId: 'see-all',
+      name: t('common.seeAll'),
+      displayName: t('common.seeAll'),
+      link: categoryPath,
+      startingPrice: 0,
+      image: null,
+      navbarIcon: null,
+      shortDescription: null,
+      tag: null,
+    };
+  }
+
   const toggleSearch = () => {
     setActiveMenu((prev) => (prev === 'search' ? 'list' : 'search'));
   };
@@ -62,10 +88,21 @@ export default function MobileMenu({
       setActiveMenu('list');
     }
   };
-  const selectActiveSubmenu = (submenu: NavSubLinkItem[]) => {
+  const selectActiveSubmenu = (submenu: SubCategoryItem[]) => {
     setActiveMenu('sub-list');
     setActiveSubmenu(submenu);
   };
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
   return (
     <div
       className={cn(
@@ -92,7 +129,7 @@ export default function MobileMenu({
           className="fixed left-0 top-nav-height z-50 w-full overflow-hidden bg-black text-white"
           isVisible={isOpen}
         >
-          <div className="px-8 pb-6 pt-8">
+          <div className="max-h-screen-h-cutoff overflow-y-auto px-8 pb-6 pt-8 custom-scrollbar">
             <MobileActions
               cartCount={cartCount}
               className="mb-6"
@@ -120,7 +157,7 @@ export default function MobileMenu({
                   <MobileList
                     className="mb-6"
                     closeMenu={closeMenu}
-                    menuItems={menuItems}
+                    menuItems={finalMenuItems}
                     onClickMenuItem={selectActiveSubmenu}
                   />
                   <MobileLoginLogout closeMenu={closeMenu} />

@@ -9,7 +9,7 @@ export const PAGE_NAMES = {
   ACCOUNT_FAVORITES: '/account/favorites',
   ACCOUNT_NEWSLETTER: '/account/newsletter',
   AIRPODS: '/airpods',
-  AT_SOFT: '/at-soft',
+  AT_SOFT: 'https://www.atsofts.com',
   B2B: '/at-business',
   CART: '/cart',
   CAREERS: '/careers',

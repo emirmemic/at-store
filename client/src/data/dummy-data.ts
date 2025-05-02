@@ -1,8 +1,6 @@
 import {
   airPodsPro2,
   appleTvRemote,
-  display,
-  iMac,
   iPad,
   iphone13,
   iphone13ClearCase,
@@ -10,10 +8,8 @@ import {
   macBookAir,
   macBookAirM3,
   macBookPro,
-  macMini,
   watches,
 } from '@/assets/placeholder-images';
-import { NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import {
   ShoppingCartItem,
@@ -22,226 +18,6 @@ import {
   BestSellerItem,
   PromotionalFlipCardResponse,
 } from '@/lib/types';
-
-const placeholderImage = macBookAir;
-const placeholderImage2 = iMac;
-const placeholderPage = PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE;
-const navMenu: NavMenuItem[] = [
-  {
-    id: 1,
-    label: 'Mac',
-    href: PAGE_NAMES.MAC,
-    subLinks: [
-      {
-        id: 1,
-        label: 'MacBook Air',
-        logo: macBookAir,
-        href: PAGE_NAMES.MAC,
-      },
-      {
-        id: 2,
-        label: 'MacBook Pro',
-        logo: macBookPro,
-        href: PAGE_NAMES.MAC,
-      },
-      {
-        id: 3,
-        label: 'Mac Mini',
-        logo: macMini,
-        href: PAGE_NAMES.MAC,
-      },
-      {
-        id: 4,
-        label: 'iMac',
-        logo: iMac,
-        href: PAGE_NAMES.MAC,
-      },
-      {
-        id: 5,
-        label: 'Studio Display',
-        logo: display,
-        href: PAGE_NAMES.MAC,
-      },
-      {
-        id: 6,
-        label: 'Zašto Mac?',
-        href: PAGE_NAMES.WHY_MAC,
-      },
-      {
-        id: 7,
-        label: 'Pogledaj sve Mac',
-        href: PAGE_NAMES.MAC,
-      },
-    ],
-  },
-  {
-    id: 2,
-    label: 'iPad',
-    href: PAGE_NAMES.IPAD,
-    subLinks: [
-      {
-        id: 1,
-        label: 'iPad Pro',
-        logo: placeholderImage2,
-        href: placeholderPage,
-      },
-      {
-        id: 2,
-        label: 'iPad Air',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 3,
-        label: 'iPad Mini',
-        logo: placeholderImage2,
-        href: placeholderPage,
-      },
-      {
-        id: 4,
-        label: 'Pogledaj sve iPad',
-        href: PAGE_NAMES.IPAD,
-      },
-    ],
-  },
-  {
-    id: 3,
-    label: 'iPhone',
-    href: PAGE_NAMES.IPHONE,
-    subLinks: [
-      {
-        id: 1,
-        label: 'iPhone 15 Pro',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 2,
-        label: 'iPhone 15',
-        logo: placeholderImage2,
-        href: placeholderPage,
-      },
-      {
-        id: 3,
-        label: 'iPhone 14',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 5,
-        label: 'Pogledaj sve iPhone',
-        href: PAGE_NAMES.IPHONE,
-      },
-    ],
-  },
-  {
-    id: 4,
-    label: 'Watch',
-    href: PAGE_NAMES.WATCH,
-    subLinks: [
-      {
-        id: 1,
-        label: 'Apple Watch Series 8',
-        logo: placeholderImage2,
-        href: placeholderPage,
-      },
-      {
-        id: 2,
-        label: 'Apple Watch Ultra',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 3,
-        label: 'Apple Watch SE',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 5,
-        label: 'Pogledaj sve Apple Watch',
-        href: PAGE_NAMES.WATCH,
-      },
-    ],
-  },
-  {
-    id: 5,
-    label: 'AirPods',
-    href: PAGE_NAMES.AIRPODS,
-    subLinks: [
-      {
-        id: 1,
-        label: 'AirPods Pro',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 2,
-        label: 'AirPods Max',
-        logo: placeholderImage2,
-        href: placeholderPage,
-      },
-      {
-        id: 3,
-        label: 'AirPods Pro 2',
-        logo: placeholderImage,
-        href: placeholderPage,
-      },
-      {
-        id: 5,
-        label: 'Pogledaj sve AirPods',
-        href: PAGE_NAMES.AIRPODS,
-      },
-    ],
-  },
-  {
-    id: 6,
-    label: 'Dodaci',
-    href: PAGE_NAMES.ACCESSORIES,
-    subLinks: [
-      {
-        id: 1,
-        label: 'Iphone dodaci',
-        logo: placeholderImage,
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-      {
-        id: 2,
-        label: 'Futrole',
-        logo: placeholderImage2,
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-      {
-        id: 3,
-        label: 'iPad dodaci',
-        logo: placeholderImage,
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-      {
-        id: 4,
-        label: 'Apple Watch dodaci',
-        logo: placeholderImage2,
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-      {
-        id: 5,
-        label: 'Apple TV',
-        logo: placeholderImage,
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-      {
-        id: 7,
-        label: 'Pogledaj sve dodatke',
-        href: PAGE_NAMES.ACCESSORIES,
-      },
-    ],
-  },
-  {
-    id: 7,
-    label: 'Podrška',
-    href: PAGE_NAMES.SUPPORT,
-  },
-];
 
 const dummyProducts: ProductBase[] = [
   {
@@ -1100,6 +876,5 @@ export {
   dummyPromotions,
   dummyAccessoriesSlider,
   dummyBestSellers,
-  navMenu,
   placeholderCart,
 };

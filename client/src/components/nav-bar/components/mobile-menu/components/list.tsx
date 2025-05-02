@@ -2,14 +2,14 @@ import Link from 'next/link';
 import React from 'react';
 
 import { IconChevron } from '@/components/icons';
-import { NavMenuItem, NavSubLinkItem } from '@/components/nav-bar/types';
 import { Button } from '@/components/ui/button';
+import { NavMenuItem, SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
   menuItems: NavMenuItem[];
   className?: string;
-  onClickMenuItem: (item: NavSubLinkItem[]) => void;
+  onClickMenuItem: (item: SubCategoryItem[]) => void;
   closeMenu: () => void;
 }
 
@@ -25,12 +25,12 @@ export default function MobileList({
     <div className={cn('flex flex-col items-center gap-1', className)}>
       {menuItems.map((item) => (
         <React.Fragment key={item.id}>
-          {item.subLinks ? (
+          {item.subCategories && item.subCategories.length > 0 ? (
             <Button
               className={buttonClasses}
-              onClick={() => onClickMenuItem(item.subLinks || [])}
+              onClick={() => onClickMenuItem(item.subCategories || [])}
             >
-              <span className="grow text-center">{item.label}</span>
+              <span className="grow text-center">{item.displayName}</span>
               <IconChevron
                 className="-rotate-90 opacity-0 transition-all group-hover:text-grey-medium group-hover:opacity-100"
                 size={20}
@@ -39,10 +39,10 @@ export default function MobileList({
           ) : (
             <Link
               className={buttonClasses}
-              href={item.href}
+              href={item.link}
               onClick={closeMenu}
             >
-              <span className="grow text-center">{item.label}</span>
+              <span className="grow text-center">{item.displayName}</span>
               <span className="w-5"></span>
             </Link>
           )}

@@ -91,7 +91,6 @@ interface InstallmentOption {
   label: string;
   value: number;
 }
-
 interface CategoryItem {
   id: string;
   documentId: string;

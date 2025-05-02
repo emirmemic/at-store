@@ -11,7 +11,7 @@ import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
 import { Toaster } from '@/components/ui/toaster';
 import { routing, type Locale } from '@/i18n/routing';
-import { getUser } from '@/lib/services';
+import { getNavbarData, getUser } from '@/lib/services';
 
 import { SF_Pro_Text, SF_Pro_Display } from '../fonts/fonts';
 import UserProvider from '../providers/user-provider';
@@ -77,6 +77,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   setRequestLocale(locale);
   // Providing all messages to the client side
   const messages = await getMessages();
+  const navbarData = (await getNavbarData()) || [];
 
   const user = await getUser();
 
@@ -88,12 +89,12 @@ export default async function LocaleLayout({ children, params }: PropsType) {
       <body>
         <NextIntlClientProvider messages={messages}>
           <UserProvider initialValue={user}>
-            <Navbar />
+            <Navbar navbarData={navbarData} />
             <div className="min-h-screen-h-cutoff pt-nav-height">
               {children}
               <Toaster />
             </div>
-            <Footer />
+            <Footer categoryItems={navbarData} />
           </UserProvider>
         </NextIntlClientProvider>
       </body>

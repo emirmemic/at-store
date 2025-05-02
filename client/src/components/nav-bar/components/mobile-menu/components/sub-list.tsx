@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { NavSubLinkItem } from '@/components/nav-bar/types';
 import NavigationArrow from '@/components/ui/navigation-arrow';
+import { SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
-  subMenuItems: NavSubLinkItem[];
+  subMenuItems: SubCategoryItem[];
   className?: string;
   closeMenu?: () => void;
   onBack: () => void;
@@ -37,10 +37,10 @@ export default function MobileSubList({
         <Link
           key={item.id}
           className="py-1 transition-all paragraph-1 hover:text-grey-medium active:scale-95"
-          href={item.href}
+          href={item.link}
           onClick={closeMenu}
         >
-          {item.label}
+          {item.displayName || item.name}
         </Link>
       ))}
     </div>

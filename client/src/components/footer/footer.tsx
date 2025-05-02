@@ -9,11 +9,14 @@ import {
   SectionDesktop,
   SectionMobile,
 } from '@/components/footer/components';
-import { FooterSectionType } from '@/components/footer/types';
+import { FooterSectionType, LinkHref } from '@/components/footer/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Pathname } from '@/i18n/routing';
+import { NavMenuItem } from '@/lib/types';
 
-export default function Footer() {
+interface FooterProps {
+  categoryItems: NavMenuItem[];
+}
+export default function Footer({ categoryItems }: FooterProps) {
   const t = useTranslations('footer');
   const [activeSectionId, setActiveSection] = useState<string | null>(null);
 
@@ -38,38 +41,7 @@ export default function Footer() {
     {
       id: 'categories',
       title: t('categories.title'),
-      items: [
-        {
-          id: 'mac',
-          name: t('categories.mac'),
-          path: PAGE_NAMES.MAC,
-        },
-        {
-          id: 'ipad',
-          name: t('categories.ipad'),
-          path: PAGE_NAMES.IPAD,
-        },
-        {
-          id: 'iphone',
-          name: t('categories.iphone'),
-          path: PAGE_NAMES.IPHONE,
-        },
-        {
-          id: 'watch',
-          name: t('categories.watch'),
-          path: PAGE_NAMES.WATCH,
-        },
-        {
-          id: 'tv',
-          name: t('categories.airPods'),
-          path: PAGE_NAMES.AIRPODS,
-        },
-        {
-          id: 'accessories',
-          name: t('categories.accessories'),
-          path: PAGE_NAMES.ACCESSORIES,
-        },
-      ],
+      items: [],
     },
     {
       id: 'services',
@@ -96,7 +68,7 @@ export default function Footer() {
           path: PAGE_NAMES.COMPLAINTS,
         },
         {
-          id: 'payment',
+          id: 'educationalDiscount',
           name: t('services.educationalDiscount'),
           path: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
         },
@@ -117,14 +89,9 @@ export default function Footer() {
           path: PAGE_NAMES.FIND_STORE,
         },
         {
-          id: 'globalComponents',
-          name: t('companies.career'),
-          path: PAGE_NAMES.CAREERS,
-        },
-        {
           id: 'atSoft',
           name: t('companies.atSoft'),
-          path: 'https://www.atsofts.com' as Pathname,
+          path: PAGE_NAMES.AT_SOFT,
           target: '_blank',
         },
       ],
@@ -183,13 +150,26 @@ export default function Footer() {
     },
   ];
 
+  const updatedFooterSections = footerSections.map((section, index) =>
+    index === 0
+      ? {
+          ...section,
+          items: categoryItems.map((item) => ({
+            id: item.id,
+            name: item.displayName || item.name,
+            path: item.link as LinkHref,
+          })),
+        }
+      : section
+  );
+
   return (
     <footer className="bg-black py-5 md:py-9">
       <div className="flex flex-col gap-3 text-white container-max-width md:gap-6">
         <Description className="hidden md:block" items={descriptionItems} />
         <div className="w-full justify-between gap-7 md:flex lg:gap-28">
           <div className="mb-4 md:hidden">
-            {footerSections.map((section) => (
+            {updatedFooterSections.map((section) => (
               <SectionMobile
                 key={section.id}
                 isActive={activeSectionId === section.id}
@@ -199,7 +179,7 @@ export default function Footer() {
             ))}
           </div>
           <div className="hidden justify-between gap-6 md:flex md:grow">
-            {footerSections.map((section) => (
+            {updatedFooterSections.map((section) => (
               <SectionDesktop key={section.id} {...section} />
             ))}
           </div>

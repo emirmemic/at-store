@@ -14,7 +14,7 @@ export default function Category({ category, className }: CategoryProps) {
   const { name, link, image, startingPrice, displayName } = category;
   return (
     <Link
-      className={`flex flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50 ${className}`}
+      className={`flex h-full flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50 ${className}`}
       href={link}
     >
       <span className="h-24 w-40">
@@ -29,9 +29,13 @@ export default function Category({ category, className }: CategoryProps) {
           />
         )}
       </span>
-      <span className="sr-only">{t('viewMore')}</span>
-      <span className="heading-5 md:heading-4">{displayName || name}</span>
-      <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')}: ${startingPrice} ${CURRENCY}`}</span>
+      <span className="flex grow flex-col items-center justify-center gap-1">
+        <span className="sr-only">{t('viewMore')}</span>
+        <span className="text-center heading-5 md:heading-4">
+          {displayName || name}
+        </span>
+        <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')}: ${startingPrice} ${CURRENCY}`}</span>
+      </span>
     </Link>
   );
 }

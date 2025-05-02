@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { FooterSectionType } from '@/components/footer/types';
 import { IconChevron } from '@/components/icons';
 import {
@@ -7,6 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import { Link } from '@/i18n/routing';
 
 interface SectionMobileProps {
   section: FooterSectionType;

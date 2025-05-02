@@ -18,7 +18,7 @@ export default function FooterPayment() {
         <IconVisa />
         <IconMaestro />
       </div>
-      <div className="shrink paragraph-5">{t('copyrightNotice')}</div>
+      <div className="shrink footer-text">{t('copyrightNotice')}</div>
     </div>
   );
 }

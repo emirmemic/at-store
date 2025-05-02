@@ -19,6 +19,7 @@ function SingleIcon({ children, title, link }: SingleIconProps) {
     ? {
         href: link,
         title: t('viewDetails'),
+        'aria-label': title,
       }
     : {};
 

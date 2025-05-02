@@ -1,11 +1,12 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
 import { DesktopPopup } from '@/components/nav-bar/components';
-import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
+import { PopupType } from '@/components/nav-bar/types';
+import { StrapiImage } from '@/components/strapi/components';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { NavMenuItem } from '@/lib/types';
 
 interface DesktopListProps {
   menuItems: NavMenuItem[];
@@ -24,9 +25,12 @@ export default function DesktopList({
   const outsideRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = (menuItem: NavMenuItem) => {
-    if (menuItem.subLinks) {
+    if (menuItem.subCategories && menuItem.subCategories.length > 0) {
       setActiveMenu(menuItem);
       setActivePopup('menu');
+    } else {
+      setActiveMenu(null);
+      setActivePopup('none');
     }
   };
 
@@ -43,11 +47,11 @@ export default function DesktopList({
           <li key={menuItem.id} className="h-full">
             <Link
               className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:text-grey-medium lg:px-4 lg:paragraph-2"
-              href={menuItem.href}
+              href={menuItem.link}
               onMouseEnter={() => handleMouseEnter(menuItem)}
               {...props}
             >
-              {menuItem.label}
+              {menuItem.displayName || menuItem.name}
             </Link>
           </li>
         ))}
@@ -60,25 +64,27 @@ export default function DesktopList({
             className="shadow-large-black mx-auto flex w-fit gap-2 rounded-2xl bg-white px-6 py-3"
           >
             <ul className="flex h-full flex-wrap gap-11">
-              {activeMenu?.subLinks?.map((sub) => (
+              {activeMenu?.subCategories?.map((sub) => (
                 <li key={sub.id}>
                   <Link
                     className="flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 hover:text-grey-medium active:scale-95"
-                    href={sub.href}
+                    href={sub.link}
                     onClick={() => setActivePopup('none')}
                   >
                     <span className="h-12 w-12 overflow-hidden">
-                      {sub.logo && (
-                        <Image
-                          alt={sub.label}
+                      {sub.navbarIcon && (
+                        <StrapiImage
+                          alt={
+                            sub.navbarIcon.alternativeText || sub.displayName
+                          }
                           className="h-full w-full object-contain"
                           height={48}
-                          src={sub.logo}
+                          src={sub.navbarIcon.url}
                           width={48}
                         />
                       )}
                     </span>
-                    {sub.label}
+                    {sub.displayName || sub.name}
                   </Link>
                 </li>
               ))}

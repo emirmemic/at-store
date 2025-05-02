@@ -158,7 +158,7 @@ export default function DesktopAccount() {
         <IconAccount className="transition-colors duration-300 group-hover:text-grey-medium" />
       </button>
       <AnimateHeight
-        className="fixed right-0 top-nav-height w-72 rounded-l-2xl bg-black"
+        className="fixed right-0 top-nav-height w-72 rounded-l-2xl border-b border-l border-t border-grey-light bg-black shadow-standard-black-hover"
         isVisible={isOpen}
       >
         {user ? (

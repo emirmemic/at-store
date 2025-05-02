@@ -619,7 +619,8 @@
     "requestSuccessAlert": "Uspješno ste poslali zahtjev",
     "add": "Dodaj",
     "addToFavorites": "Dodaj u omiljeno",
-    "submit": "Pošalji"
+    "submit": "Pošalji",
+    "seeAll": "Pogledajte sve"
   },
   "atBusinessPage": {
     "title": "At Business",

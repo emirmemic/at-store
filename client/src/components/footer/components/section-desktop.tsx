@@ -1,6 +1,5 @@
-import Link from 'next/link';
-
 import { FooterSectionType } from '@/components/footer/types';
+import { Link } from '@/i18n/routing';
 
 export default function SectionDesktop(section: FooterSectionType) {
   return (

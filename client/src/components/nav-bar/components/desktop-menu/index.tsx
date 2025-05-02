@@ -8,8 +8,8 @@ import {
   DesktopSearch,
   SiteLogo,
 } from '@/components/nav-bar/components';
-import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
-import { ShoppingCartItem } from '@/lib/types';
+import { PopupType } from '@/components/nav-bar/types';
+import { NavMenuItem, ShoppingCartItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopMenuProps {
