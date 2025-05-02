@@ -200,7 +200,7 @@ export default factories.createCoreService("api::product.product", () => ({
                 .create({
                   data: {
                     name: categoryName,
-                    link: categoryName.toLowerCase().replace(/\s+/g, "-"),
+                    link: makeLink(categoryName),
                     startingPrice,
                     models: model ? [model.id] : [],
                     chips: chip ? [chip.id] : [],
@@ -218,7 +218,7 @@ export default factories.createCoreService("api::product.product", () => ({
                   .create({
                     data: {
                       name: subCategoryName,
-                      link: subCategoryName.toLowerCase().replace(/\s+/g, "-"),
+                      link: makeLink(subCategoryName),
                       startingPrice: 0,
                       models: model ? [model.id] : [],
                       category: category?.id,
@@ -259,13 +259,6 @@ export default factories.createCoreService("api::product.product", () => ({
               }
             }
 
-            const sanitizeForUrl = (str: string) =>
-              str
-                .toLowerCase()
-                .replace(/[^a-z0-9-]/g, "-") // Replace any non-alphanumeric chars with hyphen
-                .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
-                .replace(/^-|-$/g, ""); /* Remove leading/trailing hyphens*/
-
             // 6. Create the product with all relations
             const articleName = webAccountProduct.naziv_artikla_webaccount;
             const productData = {
@@ -273,7 +266,7 @@ export default factories.createCoreService("api::product.product", () => ({
               productTypeId: webAccountProduct.product_type_id,
               productVariantId: webAccountProduct.product_variant_id,
               webAccountArticleName: articleName,
-              productLink: `${sanitizeForUrl(articleName)}-${webAccountProduct.product_variant_id}`,
+              productLink: `${makeLink(articleName)}-${webAccountProduct.product_variant_id}`,
               originalPrice: parseFloat(webAccountProduct.original_price),
               // Set relations
               brand: brand?.id,
@@ -360,3 +353,27 @@ const calculateCategoryStartingPrice = (
     return Math.min(...categoryPrices);
   }
 };
+
+/**
+ * Convert an arbitrary label into a value that matches
+ *  /^(?!\/)[a-zA-Z0-9\-\/_]+$/
+ *
+ * 1.  Lower‑case
+ * 2.  Strip accents (é → e)
+ * 3.  Replace whitespace with “‑”
+ * 4.  Remove every char that isn’t 0‑9 a‑z - _ /
+ * 5.  Collapse multiple dashes
+ * 6.  No leading dash/slash
+ * 7.  No trailing dash
+ */
+const makeLink = (raw: string): string =>
+  raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-/_]+/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^[-\/]+/, "")
+    .replace(/-+$/, "")
