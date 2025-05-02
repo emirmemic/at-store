@@ -1,118 +1,19 @@
 'use client';
-import qs from 'qs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   InchSelectionTab,
   MacAccessoriesBar,
-  // ProductCard,
   ProductCartTableItem,
   RelatedProductAccessories,
   SubProductCard,
 } from '@/components/product-cards';
 import { AnimateList } from '@/components/transitions';
 import { dummyProducts, placeholderCart } from '@/data/dummy-data';
-import { STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { useLoader } from '@/lib/hooks';
-import { ProductBase, ProductResponse } from '@/lib/types';
 
-const getProductsQuery = qs.stringify({
-  pagination: {
-    page: 5,
-    pageSize: 20,
-  },
-  populate: {
-    brand: true,
-    category: true,
-    model: true,
-    stores: true,
-    color: true,
-    memory: true,
-    images: {
-      fields: ['url', 'alternativeText'],
-    },
-    favoritedBy: {
-      fields: ['id'],
-    },
-  },
-});
 export default function ProductCardExamples() {
   const products = dummyProducts;
-  const [productsFromApi, setProductsFromApi] = useState<ProductBase[]>([]);
   const [cartItems, setCartItems] = useState(placeholderCart);
-
-  const fetchProducts = async () => {
-    const path = '/api/products';
-    const url = new URL(path, STRAPI_BASE_URL);
-    url.search = getProductsQuery;
-
-    return fetchAPI<{ data: ProductResponse[] }>(url.href, {
-      method: 'GET',
-    });
-  };
-
-  const { execute, isLoading, error } = useLoader({
-    apiCall: fetchProducts,
-    onSuccess: (response) => {
-      if (response?.data) {
-        const convertedProducts = response.data.map(
-          (product) =>
-            ({
-              ...product,
-              specifications: [
-                `${product.memory?.value ?? ''} ${product.memory?.unit ?? ''}`,
-                `${product.color?.name ?? ''}`,
-                `${product.material ?? ''}`,
-                `${product.ancModel ?? ''}`,
-                `${product.keyboard ?? ''}`,
-                `${product.wifiModel ?? ''}`,
-                `${product.accessoriesType ?? ''}`,
-                `${product.braceletSize ?? ''}`,
-              ],
-              availabilityByStore: product.stores.reduce(
-                (acc, store) => ({
-                  ...acc,
-                  [store.name]: store.products,
-                }),
-                {} as Record<
-                  'Sarajevo SCC' | 'Sarajevo Alta' | 'Banja Luka',
-                  number
-                >
-              ),
-              chip: {
-                id: 12,
-                name: 'I am a chip',
-              },
-            }) as ProductBase
-        );
-        setProductsFromApi(convertedProducts);
-      }
-    },
-  });
-
-  useEffect(() => {
-    execute();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="flex w-full items-center justify-center py-20">
-        <p className="text-lg font-semibold text-gray-500">Loading...</p>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex w-full items-center justify-center py-20">
-        <p className="text-lg font-semibold text-gray-500">
-          Error: {error.message}
-        </p>
-      </div>
-    );
-  }
 
   const inchOptions = [
     {

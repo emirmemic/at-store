@@ -36,4 +36,25 @@ type LocalizationKey = {
   raw<TargetKey>(key: TargetKey): unknown;
   has<TargetKey>(key: TargetKey): boolean;
 };
-export type { Icon, LocalizationKey, IconProps };
+
+type ServerLocalizationKey = {
+  <TargetKey>(
+    key: [TargetKey] extends [never] ? string : TargetKey,
+    values?: TranslationValues,
+    formats?: Formats
+  ): string;
+  rich<TargetKey>(
+    key: TargetKey,
+    values?: RichTranslationValues,
+    formats?: Formats
+  ): ReactNode;
+  markup<TargetKey>(
+    key: TargetKey,
+    values?: MarkupTranslationValues,
+    formats?: Formats
+  ): string;
+  raw<TargetKey>(key: TargetKey): unknown;
+  has<TargetKey>(key: TargetKey): boolean;
+};
+
+export type { Icon, LocalizationKey, IconProps, ServerLocalizationKey };

@@ -1,10 +1,13 @@
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 
 import { IconLoader } from '@/components/icons';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { toast } from '@/lib/hooks';
 import { RegisterOrgFormData } from '@/lib/schemas/auth';
 
 import { handleSubmit } from '../actions';
@@ -12,12 +15,28 @@ import { handleSubmit } from '../actions';
 export default function OrgUserForm() {
   const t = useTranslations('registrationPage');
   const validation = useTranslations('validation');
+  const router = useRouter();
 
   const [formState, action, isPending] = useActionState(
     (_: unknown, formData: FormData) =>
-      handleSubmit<RegisterOrgFormData>(_, formData, 'org', validation),
+      handleSubmit<RegisterOrgFormData>(
+        _,
+        formData,
+        'organization',
+        validation
+      ),
     undefined
   );
+
+  useEffect(() => {
+    if (formState?.success === true) {
+      router.replace(PAGE_NAMES.LOGIN);
+      toast({
+        title: t('successfulRegistration'),
+        variant: 'success',
+      });
+    }
+  }, [formState, router, t]);
 
   return (
     <form

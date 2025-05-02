@@ -29,7 +29,7 @@
       "description": "Resetujte lozinku i ponovo pristupite svom računu."
     },
     "forgotPassword": {
-      "title": "Zaboravljena Lozinka | AT Store",
+      "title": "Zaboravljena Password | AT Store",
       "description": "Zaboravili ste lozinku? Unesite svoj e-mail i dobijte uputstva za resetovanje."
     },
     "mac": {
@@ -561,7 +561,17 @@
       "canceled": "Otkazano"
     },
     "details": {
-      "title": "Detalji korisnika"
+      "title": "Detalji korisnika",
+      "subtitle": "Promijeni podatke",
+      "name": "Ime",
+      "surname": "Prezime",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Potvrdi Password",
+      "companyName": "Naziv firme",
+      "companyIdNumber": "ID broj firme",
+      "address": "Adresa",
+      "phoneNumber": "Broj"
     },
     "paymentMethods": {
       "title": "Načini plaćanja",
@@ -620,7 +630,9 @@
     "add": "Dodaj",
     "addToFavorites": "Dodaj u omiljeno",
     "submit": "Pošalji",
-    "seeAll": "Pogledajte sve"
+    "seeAll": "Pogledajte sve",
+    "changesSuccessfullySaved": "Uspješno ste spasili promjene",
+    "save": "Spremi"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -668,13 +680,13 @@
     "surname": "Prezime",
     "nameAndSurname": "Ime i prezime",
     "email": "Email",
-    "password": "Lozinka",
+    "password": "Password",
     "confirmPassword": "Potvrdi lozinku",
     "companyName": "Naziv firme",
     "companyIdNumber": "ID broj firme",
     "address": "Adresa",
     "phoneNumber": "Broj",
-    "dateOfBirth": "Datum rođenja"
+    "successfulRegistration": "Uspješno ste se registrovali"
   },
   "productPage": {
     "installments": "Rate",
@@ -687,7 +699,7 @@
     "subtitle": "Nemate račun?",
     "registerPrompt": "Registruj se",
     "email": "Email",
-    "password": "Lozinka",
+    "password": "Password",
     "forgotPassword": "Zaboravio šifru",
     "rememberMe": "Zapamti me",
     "loginButton": "Prijavi se",
@@ -735,11 +747,11 @@
     "messageMaxLength": "Poruka ne smije biti duža od {maxLength} karaktera",
     "emailRequired": "Email je obavezan",
     "invalidEmailFormat": "Neispravan format email adrese",
-    "passwordMinLength": "Lozinka mora imati najmanje {minLength} karaktera",
-    "passwordMaxLength": "Lozinka ne smije biti duža od {maxLength} karaktera",
-    "passwordUppercase": "Lozinka mora sadržavati najmanje jedno veliko slovo",
-    "passwordLowercase": "Lozinka mora sadržavati najmanje jedno malo slovo",
-    "passwordNumber": "Lozinka mora sadržavati najmanje jedan broj",
+    "passwordMinLength": "Password mora imati najmanje {minLength} karaktera",
+    "passwordMaxLength": "Password ne smije biti duža od {maxLength} karaktera",
+    "passwordUppercase": "Password mora sadržavati najmanje jedno veliko slovo",
+    "passwordLowercase": "Password mora sadržavati najmanje jedno malo slovo",
+    "passwordNumber": "Password mora sadržavati najmanje jedan broj",
     "nameRequired": "Ime je obavezno",
     "nameMinLength": "mora imati najmanje {minLength} slova",
     "nameMaxLength": "mora imati manje od {maxLength} slova",
@@ -750,8 +762,6 @@
     "phoneNumberMinLength": "Broj telefona mora imati najmanje {minLength} cifara",
     "phoneNumberInvalidFormat": "Broj mora biti u važećem formatu",
     "phoneNumberMaxLength": "Broj telefona ne smije biti duži od {maxLength} cifara",
-    "dateMustBeInFormatDDMMYYYY": "Datum mora biti u formatu DD/MM/YYYY",
-    "dateOfBirthMustBeInThePast": "Datum rođenja mora biti u prošlosti",
     "passwordMatch": "Lozinke se ne podudaraju",
     "nameAndSurnameRequired": "Ime i prezime su obavezni",
     "nameAndSurnameFormat": "Ime i prezime mora sadržavati samo dva dijela odvojena jednim razmakom",

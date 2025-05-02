@@ -1495,10 +1495,8 @@ export interface PluginUsersPermissionsUser
   };
   attributes: {
     address: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 50;
-        minLength: 1;
       }>;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     companyIdNumber: Schema.Attribute.BigInteger &
@@ -1518,7 +1516,6 @@ export interface PluginUsersPermissionsUser
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dateOfBirth: Schema.Attribute.String & Schema.Attribute.Required;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
@@ -1541,11 +1538,7 @@ export interface PluginUsersPermissionsUser
         minLength: 3;
       }>;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
-    password: Schema.Attribute.Password &
-      Schema.Attribute.Private &
-      Schema.Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
+    password: Schema.Attribute.Password & Schema.Attribute.Private;
     phoneNumber: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<

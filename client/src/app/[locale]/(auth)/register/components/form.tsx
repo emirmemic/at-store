@@ -1,10 +1,13 @@
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 
 import { IconLoader } from '@/components/icons';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { toast } from '@/lib/hooks';
 import { RegisterFormData } from '@/lib/schemas/auth';
 
 import { handleSubmit } from '../actions';
@@ -12,16 +15,28 @@ import { handleSubmit } from '../actions';
 export default function Form() {
   const t = useTranslations('registrationPage');
   const validation = useTranslations('validation');
+  const router = useRouter();
+
   const [formState, action, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
       handleSubmit<RegisterFormData>(
         prevState,
         formData,
-        'individual',
+        'authenticated',
         validation
       ),
     undefined
   );
+
+  useEffect(() => {
+    if (formState?.success === true) {
+      router.replace(PAGE_NAMES.LOGIN);
+      toast({
+        title: t('successfulRegistration'),
+        variant: 'success',
+      });
+    }
+  }, [formState, router, t]);
 
   return (
     <form
@@ -78,12 +93,6 @@ export default function Form() {
         name="phoneNumber"
         placeholder={`${t('phoneNumber')}*`}
         type="number"
-      />
-      <Input
-        defaultValue={formState?.data.dateOfBirth}
-        errorMessage={formState?.errors?.dateOfBirth}
-        name="dateOfBirth"
-        placeholder={`${t('dateOfBirth')}*`}
       />
       {isPending ? (
         <IconLoader className="mt-3 self-center" size={46} />

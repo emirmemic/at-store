@@ -136,7 +136,7 @@ export default factories.createCoreService("api::product.product", () => ({
               categoryName === "Accessories"
                 ? webAccountProduct.dodaci_type
                 : (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
-                  null;
+                null;
 
             // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
             const isSubCategoryMatch = categoryName === subCategoryName;
@@ -311,6 +311,7 @@ export default factories.createCoreService("api::product.product", () => ({
       }
     } catch (error) {
       console.log("Error:", error);
+      throw error;
     }
   },
 }));

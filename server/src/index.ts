@@ -44,7 +44,6 @@ export default {
           },
         },
         async authCallback({ purest, query }) {
-          console.log(query, "query");
           const clientSecret = generateClientSecret();
 
           const { body } = await purest({

@@ -1,10 +1,10 @@
 import { useTranslations } from 'next-intl';
 
 import { IconAtStoreLogo } from '@/components/icons';
+import { UserType } from '@/lib/types';
 
 import { Container } from '../../components';
 import Title from '../../components/title';
-import { UserType } from '../page';
 
 import Form from './form';
 import OrgUserForm from './org-user-form';
@@ -26,7 +26,7 @@ export default function RegistrationForm({
         subtitle={t('subtitle')}
         title={t('title')}
       />
-      {userType === 'individual' ? <Form /> : <OrgUserForm />}
+      {userType === 'authenticated' ? <Form /> : <OrgUserForm />}
     </Container>
   );
 }

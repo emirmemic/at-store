@@ -9,10 +9,13 @@ interface AccountDetails {
   name?: string;
   surname?: string;
   email: string;
-  dateOfBirth?: string;
   phoneNumber?: string;
   address?: string;
   initials?: string;
+  companyName?: string;
+  companyIdNumber?: string;
+  role?: RoleResponse;
+  provider: OAuthProvider;
 }
 
 interface UserInformation {
@@ -32,7 +35,15 @@ interface AuthResponse {
   user: UserInformationResponse;
 }
 
-type OAuthProvider = 'google' | 'facebook' | 'apple';
+interface RoleResponse {
+  id: string;
+  documentId: string;
+  name: string;
+  type: UserType;
+}
+
+type OAuthProvider = 'google' | 'facebook' | 'apple' | 'local';
+type UserType = 'organization' | 'authenticated';
 
 export type {
   AuthError,
@@ -40,4 +51,6 @@ export type {
   OAuthProvider,
   UserInformation,
   UserInformationResponse,
+  UserType,
+  AccountDetails,
 };

@@ -1,19 +1,19 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
-import {
-  HeroSection,
-  PromoCards,
-  CategoriesSection,
-  SubCategorySection,
-} from '@/app/[locale]/(home-page)/components';
 import { IconsBlock, MonoAppleBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { Alert } from '@/components/ui/alert';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
+import {
+  CategoriesSection,
+  HeroSection,
+  OAuthRedirectMessage,
+  PromoCards,
+  SubCategorySection,
+} from './components';
 import { HomepageResponse } from './types';
 
 const homePageQuery = qs.stringify(
@@ -80,11 +80,12 @@ export default async function Page({
 }: {
   searchParams: Promise<{
     error?: string;
+    success?: string;
   }>;
 }) {
   const data = await loader();
-  const t = await getTranslations('homepage');
-  const { error } = await searchParams;
+  const t = await getTranslations();
+  const { error, success } = await searchParams;
 
   if (!data)
     return <div>Fetch is successful, but there is no data for this page</div>;
@@ -92,17 +93,10 @@ export default async function Page({
   const { title, promoCards, heroSection } = data;
   return (
     <main>
-      {/* For OAuth errors */}
-      {error && (
-        <Alert
-          dismissible
-          className="fixed left-1/2 top-12 z-50 w-full max-w-[400px] -translate-x-1/2"
-          variant={'destructive'}
-        >
-          {error}
-        </Alert>
+      {(error || success) && (
+        <OAuthRedirectMessage error={error} success={success} />
       )}
-      <h1 className="sr-only">{title ?? t('title')}</h1>
+      <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
       {heroSection && (
         <HeroSection {...heroSection} className="container-max-width-xl" />
       )}

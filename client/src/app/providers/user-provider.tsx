@@ -8,7 +8,7 @@ import { ProductResponse, UserInformation } from '@/lib/types';
 
 import { deleteCookie } from '../actions';
 
-type UserContextType = {
+export type UserContextType = {
   user: UserInformation | null;
   setUser: (user: UserInformation | null) => void;
   toggleFavorite: (

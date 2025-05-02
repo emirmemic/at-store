@@ -1,25 +1,21 @@
-import { redirect } from 'next/navigation';
 import { ZodError } from 'zod';
 
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import {
   createRegisterOrgSchema,
   createRegisterSchema,
 } from '@/lib/schemas/auth';
-import { LocalizationKey } from '@/lib/types';
-
-import { UserType } from './page';
+import { LocalizationKey, UserType } from '@/lib/types';
 
 export async function handleSubmit<T>(
   _prevState: unknown,
   formData: FormData,
   userType: UserType,
   t: LocalizationKey
-): Promise<{ data: T; errors?: T; apiError?: string }> {
+): Promise<{ data: T; errors?: T; apiError?: string; success?: boolean }> {
   const data = Object.fromEntries(formData) as T;
-  const isOrg = userType === 'org';
+  const isOrg = userType === 'organization';
   try {
     if (isOrg) {
       const registerOrgSchema = createRegisterOrgSchema(t);
@@ -62,8 +58,7 @@ export async function handleSubmit<T>(
     };
   }
 
-  // onSuccess
-  redirect(PAGE_NAMES.LOGIN);
+  return { data: data, success: true };
 }
 
 const register = async <T extends Record<string, unknown>>(data: T) => {

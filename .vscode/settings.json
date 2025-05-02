@@ -43,6 +43,7 @@
     "Prihvatamo",
     "pronadi",
     "Raiffeisen",
+    "registrovali",
     "Registruj",
     "Registrujte",
     "Resetovanje",
@@ -67,5 +68,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
   },
-  "svg.preview.background": "editor"
+  "svg.preview.background": "editor",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

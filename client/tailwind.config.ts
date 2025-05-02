@@ -76,6 +76,7 @@ export default {
           DEFAULT: '#968c8c',
           'almost-white': '#f6f6f6',
           'extra-light': '#ededed',
+          silver: '#E1E1E1',
           light: '#d0d0d0',
           medium: '#cac3c3',
           dark: '#7d7d7d',

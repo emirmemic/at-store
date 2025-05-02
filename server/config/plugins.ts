@@ -12,7 +12,6 @@ export default ({ env }) => ({
           "surname",
           "address",
           "phoneNumber",
-          "dateOfBirth",
           "companyName",
           "companyIdNumber",
           "role",

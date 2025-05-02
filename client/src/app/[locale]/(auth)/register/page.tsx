@@ -3,10 +3,9 @@
 import { useState } from 'react';
 
 import { AnimateSlots } from '@/components/transitions';
+import { UserType } from '@/lib/types';
 
 import { RegistrationForm, UserTypeSelection } from './components';
-
-export type UserType = 'org' | 'individual';
 
 export default function Page() {
   const [userType, setUserType] = useState<UserType>();

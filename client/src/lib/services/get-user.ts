@@ -14,10 +14,13 @@ export async function getUser(): Promise<UserInformation | null> {
     if (!authToken) return null;
 
     const [userInfo, favorites] = await Promise.all([
-      fetchAPI<UserInformationResponse>(`${STRAPI_BASE_URL}/api/users/me`, {
-        method: 'GET',
-        next: { tags: ['user-info'] },
-      }),
+      fetchAPI<UserInformationResponse>(
+        `${STRAPI_BASE_URL}/api/users/me?populate=role`,
+        {
+          method: 'GET',
+          next: { tags: ['user-info'] },
+        }
+      ),
       fetchAPI<ProductResponse[]>(`${STRAPI_BASE_URL}/api/products/favorites`, {
         method: 'GET',
       }),
@@ -35,8 +38,11 @@ export async function getUser(): Promise<UserInformation | null> {
         email: email,
         address: userInfo.data.address,
         phoneNumber: userInfo.data.phoneNumber,
-        dateOfBirth: userInfo.data.dateOfBirth,
         initials: initials,
+        companyIdNumber: userInfo.data.companyIdNumber,
+        companyName: userInfo.data.companyName,
+        role: userInfo.data.role,
+        provider: userInfo.data.provider,
       },
       favoriteProducts: favorites.data ?? [],
     };

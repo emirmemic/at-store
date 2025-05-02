@@ -31,7 +31,6 @@
     },
     "password": {
       "type": "password",
-      "minLength": 6,
       "configurable": false,
       "private": true,
       "searchable": false
@@ -92,8 +91,7 @@
     "address": {
       "type": "string",
       "maxLength": 50,
-      "required": true,
-      "minLength": 1
+      "required": false
     },
     "companyName": {
       "type": "string"
@@ -104,10 +102,6 @@
       "unique": true,
       "min": "13",
       "max": "13"
-    },
-    "dateOfBirth": {
-      "type": "string",
-      "required": true
     },
     "phoneNumber": {
       "type": "biginteger",

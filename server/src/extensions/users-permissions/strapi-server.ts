@@ -1,12 +1,15 @@
 "use strict";
+import { ZodError } from "zod";
 
 import {
+  accountDetailsSchema,
   authenticatedUserSchema,
   organizationUserSchema,
-} from "../../api/schemas/auth";
+} from "../../../types/schemas/auth";
 
 export default (plugin) => {
   const rawAuth = plugin.controllers.auth({ strapi });
+  const rawUser = plugin.controllers.user;
 
   const extendedAuth = ({ strapi }) => ({
     ...rawAuth,
@@ -65,10 +68,13 @@ export default (plugin) => {
             populate: ["role"],
           });
 
+        // If the user is an organization and not confirmed by admin, return a custom error
+        // Otherwise, proceed with the original callback
         if (
           user &&
           user.role?.type === "organization" &&
-          !user.confirmedByAdmin
+          !user.confirmedByAdmin &&
+          user.confirmed
         ) {
           return ctx.badRequest("Vaš račun čeka odobrenje administratora");
         }
@@ -120,7 +126,60 @@ export default (plugin) => {
       }
     },
   });
+  const extendedUser = ({ strapi }) => ({
+    ...rawUser,
+    find: async (ctx) => {
+      const { user } = ctx.state;
 
+      if (!user) {
+        return ctx.unauthorized("Niste autorizirani za ovu akciju");
+      }
+
+      return user;
+    },
+    update: async (ctx) => {
+      const { user } = ctx.state;
+      const { id } = ctx.params;
+      const data = ctx.request.body;
+
+      if (!user || Number(user.id) !== Number(id)) {
+        return ctx.unauthorized("Niste autorizirani za ovu akciju");
+      }
+
+      try {
+        accountDetailsSchema(user.role.type).parse(data);
+
+        const updatedUser = await strapi
+          .documents("plugin::users-permissions.user")
+          .update({
+            documentId: user.documentId,
+            data: {
+              ...user,
+              ...data,
+            },
+          });
+
+        return updatedUser;
+      } catch (error) {
+        if (error instanceof ZodError) {
+          return ctx.badRequest("Greška pri validaciji", {
+            errors: error.errors,
+          });
+        } else if (error.details?.errors) {
+          // Handle Strapi validation errors
+          return ctx.badRequest("Greška pri validaciji", {
+            errors: error.details.errors,
+          });
+        } else {
+          return ctx.badRequest("Greška pri ažuriranju korisnika", {
+            message: error.message,
+          });
+        }
+      }
+    },
+  });
+
+  plugin.controllers.user = extendedUser;
   plugin.controllers.auth = extendedAuth;
   return plugin;
 };

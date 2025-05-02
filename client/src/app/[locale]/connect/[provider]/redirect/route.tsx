@@ -17,8 +17,6 @@ export async function GET(request: Request) {
   try {
     const { searchParams, pathname } = new URL(request.url);
     const token = searchParams.get('access_token');
-    console.log(searchParams, 'searchParams');
-    console.log(pathname, 'pathname');
 
     const pathParts = pathname.split('/').filter(Boolean);
     const provider = pathParts.length === 3 ? pathParts[1] : pathParts[2];
@@ -54,7 +52,7 @@ export async function GET(request: Request) {
     const cookieStore = await cookies();
     cookieStore.set('jwt', data.jwt, config);
 
-    return NextResponse.redirect(new URL('/', frontendUrl));
+    return NextResponse.redirect(new URL('/?success=true', frontendUrl));
   } catch (error) {
     const errorMessage = encodeURIComponent(
       error instanceof Error ? error.message : 'Authentication failed'

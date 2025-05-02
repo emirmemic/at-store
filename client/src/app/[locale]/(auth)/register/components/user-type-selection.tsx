@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 
 import { IconAtStoreLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { UserType } from '@/lib/types';
 
 import { Container, Title } from '../../components';
-import { UserType } from '../page';
 
 export default function UserTypeSelection({
   onSelectUserType,
@@ -32,7 +32,7 @@ export default function UserTypeSelection({
           transparentVariant={'white'}
           typography={'button1'}
           variant={'transparent'}
-          onClick={() => onSelectUserType('org')}
+          onClick={() => onSelectUserType('organization')}
         >
           {t('legalEntity')}
         </Button>
@@ -41,7 +41,7 @@ export default function UserTypeSelection({
           transparentVariant={'white'}
           typography={'button1'}
           variant={'transparent'}
-          onClick={() => onSelectUserType('individual')}
+          onClick={() => onSelectUserType('authenticated')}
         >
           {t('individual')}
         </Button>

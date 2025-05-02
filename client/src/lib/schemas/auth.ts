@@ -1,9 +1,10 @@
 import { z } from 'zod';
 
-import { LocalizationKey } from '../types';
+import { LocalizationKey, UserType } from '../types';
 
 import { emailSchema, nameAndSurnameSchema, phoneNumberSchema } from './common';
 
+// Base schemas
 const passwordSchema = (t: LocalizationKey) =>
   z
     .string()
@@ -14,6 +15,30 @@ const passwordSchema = (t: LocalizationKey) =>
     .regex(/[a-z]/, t('passwordLowercase'))
     .regex(/[0-9]/, t('passwordNumber'));
 
+// Reusable schema parts
+const createPersonalInfoSchema = (t: LocalizationKey) =>
+  z.object({
+    name: z.string().trim().min(1, t('nameRequired')),
+    surname: z.string().trim().min(1, t('surnameRequired')),
+  });
+
+const createContactInfoSchema = (t: LocalizationKey) =>
+  z.object({
+    address: z.string().trim().optional(),
+    phoneNumber: phoneNumberSchema(t),
+  });
+
+const createCompanyInfoSchema = (t: LocalizationKey) =>
+  z.object({
+    companyName: z.string().trim().min(1, t('companyNameRequired')),
+    companyIdNumber: z
+      .string()
+      .trim()
+      .nonempty(t('companyIdNumberRequired'))
+      .length(13, t('companyIdNumberLength', { length: 13 })),
+  });
+
+// Main schemas using composition
 const createLoginSchema = (t: LocalizationKey) =>
   z.object({
     email: emailSchema(t),
@@ -36,59 +61,81 @@ const createResetPasswordSchema = (t: LocalizationKey) =>
       path: ['passwordConfirmation'],
     });
 
-const createRegisterSchema = (t: LocalizationKey) => {
-  const loginSchema = createLoginSchema(t);
-  return loginSchema
+const createRegisterSchema = (t: LocalizationKey) =>
+  createLoginSchema(t)
+    .merge(createPersonalInfoSchema(t))
+    .merge(createContactInfoSchema(t))
     .extend({
-      name: z.string().trim().min(1, t('nameRequired')),
-      surname: z.string().trim().min(1, t('surnameRequired')),
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
-      address: z.string().trim().min(1, t('addressRequired')),
-      phoneNumber: phoneNumberSchema(t),
-      dateOfBirth: z
-        .string()
-        .regex(
-          /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/,
-          t('dateMustBeInFormatDDMMYYYY')
-        )
-        .refine(
-          (date) => {
-            const [day, month, year] = date.split('/');
-            const formattedDate = new Date(`${year}-${month}-${day}`);
-            return formattedDate <= new Date();
-          },
-          {
-            message: t('dateOfBirthMustBeInThePast'),
-          }
-        ),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t('passwordMatch'),
       path: ['confirmPassword'],
     });
-};
 
-const createRegisterOrgSchema = (t: LocalizationKey) => {
-  const loginSchema = createLoginSchema(t);
-  return loginSchema
+const createRegisterOrgSchema = (t: LocalizationKey) =>
+  createLoginSchema(t)
+    .merge(createCompanyInfoSchema(t))
+    .merge(createContactInfoSchema(t))
     .extend({
       nameAndSurname: nameAndSurnameSchema(t),
-      confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
-      address: z.string().min(1, t('addressRequired')),
-      phoneNumber: phoneNumberSchema(t),
-      companyName: z.string().trim().min(1, t('companyNameRequired')),
-      companyIdNumber: z
-        .string()
-        .trim()
-        .nonempty(t('companyIdNumberRequired'))
-        .length(13, t('companyIdNumberLength', { length: 13 })),
       role: z.enum(['organization']),
+      confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: t('passwordMatch'),
       path: ['confirmPassword'],
     });
-};
+
+const createAccountDetailsSchema = (t: LocalizationKey, userType: UserType) =>
+  z
+    .object({
+      password: z
+        .string()
+        .trim()
+        .optional()
+        .refine(
+          (password) => {
+            if (!password) return true;
+            return (
+              password.length >= 8 &&
+              password.length <= 50 &&
+              /[A-Z]/.test(password) &&
+              /[a-z]/.test(password) &&
+              /[0-9]/.test(password)
+            );
+          },
+          (password) => ({
+            message:
+              password && password.length < 8
+                ? t('passwordMinLength', { minLength: '8' })
+                : password && password.length > 50
+                  ? t('passwordMaxLength', { maxLength: '50' })
+                  : !password?.match(/[A-Z]/)
+                    ? t('passwordUppercase')
+                    : !password?.match(/[a-z]/)
+                      ? t('passwordLowercase')
+                      : t('passwordNumber'),
+          })
+        ),
+      confirmPassword: z.string().trim().optional(),
+    })
+    .merge(
+      userType === 'organization'
+        ? createCompanyInfoSchema(t)
+        : createPersonalInfoSchema(t)
+    )
+    .merge(createContactInfoSchema(t))
+    .refine(
+      (data) => {
+        if (!data.password && !data.confirmPassword) return true;
+        return data.password === data.confirmPassword;
+      },
+      {
+        message: t('passwordMatch'),
+        path: ['confirmPassword'],
+      }
+    );
 
 type LoginFormData = z.infer<ReturnType<typeof createLoginSchema>>;
 type RegisterFormData = z.infer<ReturnType<typeof createRegisterSchema>>;
@@ -99,18 +146,23 @@ type ForgotPasswordFormData = z.infer<
 type ResetPasswordFormData = z.infer<
   ReturnType<typeof createResetPasswordSchema>
 >;
+type AccountDetailsFormData = z.infer<
+  ReturnType<typeof createAccountDetailsSchema>
+>;
 
 export {
+  createAccountDetailsSchema,
+  createForgotPasswordSchema,
   createLoginSchema,
   createRegisterOrgSchema,
   createRegisterSchema,
-  createForgotPasswordSchema,
   createResetPasswordSchema,
 };
 export type {
+  AccountDetailsFormData,
+  ForgotPasswordFormData,
   LoginFormData,
   RegisterFormData,
   RegisterOrgFormData,
-  ForgotPasswordFormData,
   ResetPasswordFormData,
 };
