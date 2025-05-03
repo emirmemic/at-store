@@ -22,6 +22,7 @@ interface PaymentMethodResponse {
   nameAndSurname: string;
   cardNumber: string;
   expirationDate: string;
+  isDefault: boolean;
 }
 
 export type { AccountMenu, OrderResponse, PaymentMethodResponse };

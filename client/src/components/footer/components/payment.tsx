@@ -2,11 +2,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { monri } from '@/assets/images';
-import {
-  IconMaestro,
-  IconMasterCard,
-  IconVisa,
-} from '@/components/footer/icons';
+import { IconMaestro, IconMasterCard, IconVisa } from '@/components/icons';
 
 export default function FooterPayment() {
   const t = useTranslations('footer');

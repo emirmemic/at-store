@@ -836,6 +836,45 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPaymentMethodPaymentMethod
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'payment_methods';
+  info: {
+    description: '';
+    displayName: 'Payment Method';
+    pluralName: 'payment-methods';
+    singularName: 'payment-method';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cardNumber: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    expirationDate: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'date'>;
+    isDefault: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment-method.payment-method'
+    > &
+      Schema.Attribute.Private;
+    nameAndSurname: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiPreInvoicePreInvoice extends Struct.CollectionTypeSchema {
   collectionName: 'pre_invoices';
   info: {
@@ -1588,6 +1627,10 @@ export interface PluginUsersPermissionsUser
       }>;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password & Schema.Attribute.Private;
+    payment_methods: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment-method.payment-method'
+    >;
     phoneNumber: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<
@@ -1645,6 +1688,7 @@ declare module '@strapi/strapi' {
       'api::memory.memory': ApiMemoryMemory;
       'api::model.model': ApiModelModel;
       'api::order.order': ApiOrderOrder;
+      'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;
       'api::product.product': ApiProductProduct;
       'api::promo-page.promo-page': ApiPromoPagePromoPage;

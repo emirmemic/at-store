@@ -18,7 +18,7 @@ export const nameAndSurnameSchema = (t: LocalizationKey) =>
     .string()
     .trim()
     .min(1, t('nameAndSurnameRequired'))
-    .regex(/^[A-Za-z]+\s+[A-Za-z]+$/, t('nameAndSurnameFormat'))
+    .regex(/^[A-Z][a-z]+(?:\s[A-Z][a-z]+)+$/, t('nameAndSurnameFormat'))
     .refine(
       (val) => {
         const parts = val.split(' ');

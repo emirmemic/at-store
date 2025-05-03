@@ -32,3 +32,7 @@ export { default as IconTrash } from './trash';
 export { default as IconValidationError } from './validation-error';
 export { default as IconWallet } from './wallet';
 export { default as IconX } from './x';
+export { default as IconMaestro } from './maestro';
+export { default as IconMasterCard } from './master-card';
+export { default as IconVisa } from './visa';
+export { default as IconMasterCardWithText } from './mastercard-with-text';

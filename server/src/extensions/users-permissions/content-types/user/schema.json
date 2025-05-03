@@ -114,6 +114,12 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "favoritedBy"
+    },
+    "payment_methods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment-method.payment-method",
+      "mappedBy": "user"
     }
   }
 }
