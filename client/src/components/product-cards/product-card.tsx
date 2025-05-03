@@ -37,6 +37,7 @@ export default function ProductCard({
     productLink,
   } = product;
   const t = useTranslations('');
+  const router = useRouter();
   const { toast } = useToast();
   const { toggleFavorite, user } = useContext(UserContext);
   const [favorites, setFavorites] = useState<number[]>(
@@ -65,7 +66,6 @@ export default function ProductCard({
       });
     },
   });
-  const router = useRouter();
 
   const handleFavoriteClick = () => {
     if (user) {

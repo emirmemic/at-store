@@ -29,7 +29,7 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: '[&>button:hover]:text-blue',
+        default: 'bg-white [&>button:hover]:text-blue',
         destructive:
           'border-pink-soft bg-pink-soft text-red-darkest [&>button:hover]:text-black',
         success: 'bg-green text-white [&>button:hover]:text-grey-light',

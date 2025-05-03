@@ -47,7 +47,6 @@ export default function Navbar({ navbarData }: NavbarProps) {
       subCategories: [],
     },
   ];
-
   return (
     <nav className="fixed top-0 z-50 flex h-nav-height w-screen bg-black pr-4">
       <MobileMenu

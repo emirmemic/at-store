@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useState, useRef } from 'react';
 
@@ -28,6 +29,8 @@ const FormLabel = ({
 );
 
 export default function MikrofinForm() {
+  const searchParams = useSearchParams();
+  const productLinkQuery = searchParams.get('productLink') || '';
   const [formState, submitAction, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
       mikrofinAction(prevState, formData, validation),
@@ -108,7 +111,7 @@ export default function MikrofinForm() {
               title={t('mikrofinInvoicePage.productLink')}
             />
             <Input
-              defaultValue={formState?.data.productLink}
+              defaultValue={formState?.data.productLink || productLinkQuery}
               errorMessage={formState?.errors.productLink}
               id="productLink"
               name="productLink"

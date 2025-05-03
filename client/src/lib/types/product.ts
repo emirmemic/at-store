@@ -1,7 +1,6 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
 
 import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
-import { Pathname } from '@/i18n/routing';
 import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types';
 
@@ -34,6 +33,7 @@ interface ProductResponse {
   ancModel?: string;
   keyboard?: string;
   wifiModel?: string;
+  screenSize?: string;
   accessoriesType?: string;
   braceletSize?: string;
   details?: BlocksContent;
@@ -91,12 +91,13 @@ interface InstallmentOption {
   label: string;
   value: number;
 }
+
 interface CategoryItem {
   id: string;
   documentId: string;
   name: string;
   displayName: string;
-  link: Pathname;
+  link: string;
   startingPrice: number;
   image: ImageProps | null;
 }
@@ -104,16 +105,6 @@ interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
   tag: string | null;
   navbarIcon: ImageProps | null;
-}
-
-interface AccessorySliderItem {
-  id: string;
-  tagline?: string;
-  title: string;
-  description: string;
-  priceText: string;
-  image: ImageProps;
-  actionLink: Pathname;
 }
 
 interface BestSellerItem extends ProductBase {
@@ -125,7 +116,6 @@ export type {
   ShoppingCartItem,
   CategoryItem,
   SubCategoryItem,
-  AccessorySliderItem,
   BestSellerItem,
   InstallmentOption,
   ProductResponse,

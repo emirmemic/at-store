@@ -8,7 +8,7 @@ interface PriceProps {
 export default function Price({ value, className }: PriceProps) {
   const formatter = new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   });
 
   return (

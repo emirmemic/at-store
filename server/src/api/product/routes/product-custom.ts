@@ -24,6 +24,16 @@ export default {
         middlewares: [],
         auth: false,
       },
+    }, 
+    {
+      method: 'GET',
+      path:  '/products/:productTypeId/options',
+      handler: 'product.getOptionsByProductType',
+      config: {
+        auth: false,
+        middlewares: [],
+        policies: []
+      },
     },
   ],
 };

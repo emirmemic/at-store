@@ -377,4 +377,4 @@ const makeLink = (raw: string): string =>
     .replace(/[^a-z0-9\-/_]+/g, "")
     .replace(/-+/g, "-")
     .replace(/^[-\/]+/, "")
-    .replace(/-+$/, "")
+    .replace(/-+$/, "");

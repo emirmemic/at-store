@@ -1,5 +1,4 @@
 import { factories } from "@strapi/strapi";
-
 export default factories.createCoreController(
   "api::product.product",
   ({ strapi }) => ({
@@ -87,7 +86,9 @@ export default factories.createCoreController(
     },
     async getProductByLink(ctx) {
       const { productLink } = ctx.params;
-    
+      if (!productLink) {
+        return ctx.badRequest("Product link is missing");
+      }
       try {
         const product = await strapi.documents("api::product.product").findFirst({
           filters: {
@@ -106,14 +107,29 @@ export default factories.createCoreController(
             },
           },
         });
-    
+
         if (!product) {
           return ctx.notFound("Product not found");
         }
-    
+
         return product;
       } catch (error) {
         return ctx.badRequest("Failed to fetch product details");
+      }
+    },
+
+    async getOptionsByProductType(ctx) {
+      const { productTypeId } = ctx.params;
+      if (!productTypeId) return ctx.badRequest('productTypeId is missing');
+
+      try {
+        ctx.body = await strapi
+          .service('api::product.product-options')
+          .buildOptions(productTypeId);
+
+      } catch (error) {
+        ctx.body = { error: error.message };
+        ctx.throw(500, 'Could not build product-type options');
       }
     },
   })

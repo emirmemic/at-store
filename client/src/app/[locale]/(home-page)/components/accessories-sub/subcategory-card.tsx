@@ -21,7 +21,7 @@ export default function SubCategoryCard(item: SubCategoryItem) {
       <Link
         className="z-1 absolute inset-0"
         href={{
-          pathname: PAGE_NAMES.PRODUCT_DETAILS,
+          pathname: PAGE_NAMES.SUBCATEGORY_PAGE,
           params: { slug: link },
         }}
         title={t('common.viewDetailsWithName', { productName: displayName })}

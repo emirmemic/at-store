@@ -1,23 +1,33 @@
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
+import { InfoBlock } from '@/components';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { ProductResponse } from '@/lib/types';
+import { ProductResponse, ProductTypeResponse } from '@/lib/types';
 
-import { Content } from './components';
-
+import { ProductDetails } from './components';
+import { getInfoBlocksData } from './data';
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; slug: string }>;
 }
-
-async function fetchPageData(slug: string) {
+async function fetchUniqueProduct(slug: string) {
   const path = `/api/products/link/${slug}`;
   const url = new URL(path, STRAPI_BASE_URL);
 
   const res = await fetchAPI<ProductResponse>(url.href, {
     method: 'GET',
   });
+  return res;
+}
+async function fetchProductOptions(productTypeId: string) {
+  const path = `/api/products/${productTypeId}/options`;
+  const url = new URL(path, STRAPI_BASE_URL);
+
+  const res = await fetchAPI<ProductTypeResponse>(url.href, {
+    method: 'GET',
+  });
+
   return res;
 }
 
@@ -27,7 +37,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     locale,
     namespace: 'metaData.mac',
   });
-  const response = await fetchPageData(slug);
+  const response = await fetchUniqueProduct(slug);
   const productData = response.data;
   const title = productData ? `${productData.name} | AT Store` : t('title');
   const description = productData ? productData.description : t('description');
@@ -64,18 +74,51 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const t = await getTranslations();
 
   if (!slug) {
-    redirect('/');
+    notFound();
   }
-  const response = await fetchPageData(slug);
+  const response = await fetchUniqueProduct(slug);
   if (!response?.data) {
-    redirect('/');
+    notFound();
   }
   const productData = response.data;
+  let productTypeResponse: ProductTypeResponse = {
+    productTypeId: '',
+  };
+
+  if (productData.productTypeId) {
+    const response = await fetchProductOptions(productData.productTypeId);
+    productTypeResponse = response.data || {
+      productTypeId: productData.productTypeId,
+    };
+  }
 
   if (!productData) {
     redirect('/');
   }
-  return <Content {...productData} />;
+
+  const infoBlocks = getInfoBlocksData(t);
+  return (
+    <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
+      <ProductDetails
+        productData={productData}
+        productOptions={productTypeResponse}
+      />
+      {/* TODO Make related products once we see the device compatibility response */}
+      <div className="flex flex-col items-center justify-center gap-8">
+        {infoBlocks.map((infoBlock) => (
+          <InfoBlock
+            key={infoBlock.id}
+            actionLink={infoBlock.actionLink}
+            className="w-full md:max-w-[688px] lg:max-w-[1058px]"
+            description={infoBlock.description}
+            isFavorites={infoBlock.isFavorites}
+            title={infoBlock.title}
+          />
+        ))}
+      </div>
+    </main>
+  );
 }

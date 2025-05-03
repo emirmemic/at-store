@@ -692,7 +692,19 @@
     "installments": "Rate",
     "installmentPrice": "Cijena na rate",
     "noImagesAvailable": "Nema dostupnih slika",
-    "pleaseLogin": "Molimo vas da se prijavite kako biste dodali proizvod u omiljene."
+    "pleaseLogin": "Molimo vas da se prijavite kako biste dodali proizvod u omiljene.",
+    "memory": "Memorija",
+    "keyboardType": "Tipkovnica",
+    "screenSize": "Veličina",
+    "braceletSize": "Narukvica",
+    "model": "Model",
+    "buyOnInstallments": "Kupi na rate",
+    "favoritesTitle": "Omiljeni",
+    "favoritesDescription": "Pogledajte omiljene i dodajte nešto u korpu.",
+    "paymentTitle": "Načini plaćanja",
+    "paymentDescription": "Prilikom kupovine putem Web stranice možete platiti samo Unicredit Shopping karticom na rate.",
+    "deliveryTitle": "Dostava",
+    "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}."
   },
   "loginPage": {
     "title": "Prijavite se",

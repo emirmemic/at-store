@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 import { APIResponse, StrapiError } from '@/lib/fetch-api';

@@ -1,12 +1,13 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 
 import { IconHeart } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 import { InfoBlockResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
+type LinkHref = ComponentProps<typeof Link>['href'];
 interface InfoBlockProps extends Omit<InfoBlockResponse, 'id'> {
   descriptionComponent?: ReactNode;
   className?: string;
@@ -65,7 +66,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
             variant={'filled'}
           >
             <Link
-              href={actionLink.linkUrl}
+              href={actionLink.linkUrl as LinkHref}
               rel={actionLink?.isExternal ? 'noopener noreferrer' : undefined}
               target={actionLink?.openInNewTab ? '_blank' : '_self'}
             >

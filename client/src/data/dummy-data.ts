@@ -1,20 +1,15 @@
 import {
   airPodsPro2,
-  appleTvRemote,
-  iPad,
   iphone13,
   iphone13ClearCase,
-  keyboard,
   macBookAir,
   macBookAirM3,
   macBookPro,
-  watches,
 } from '@/assets/placeholder-images';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import {
   ShoppingCartItem,
   ProductBase,
-  AccessorySliderItem,
   BestSellerItem,
   PromotionalFlipCardResponse,
 } from '@/lib/types';
@@ -725,111 +720,7 @@ const dummyPromotions: PromotionalFlipCardResponse[] = [
     },
   },
 ];
-const dummyAccessoriesSlider: AccessorySliderItem[] = [
-  {
-    id: '1',
-    tagline: 'NOVO',
-    title: 'iPad Dodaci',
-    description: 'Ovdje możete kupiti iPad dodatke.',
-    priceText: 'Počne od: 10 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 1,
-      documentId: 'ipad-accessories-image',
-      url: iPad.src,
-      alternativeText: 'iPad Accessories',
-    },
-  },
-  {
-    id: '2',
-    title: 'TV Dodaci',
-    description: 'Ovdje możete kupiti TV dodatke.',
-    priceText: 'Počne od: 99 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 2,
-      documentId: 'tv-accessories-image',
-      url: appleTvRemote.src,
-      alternativeText: 'TV Accessories',
-    },
-  },
-  {
-    id: '3',
-    tagline: 'NOVO',
-    title: 'Watch Dodaci',
-    description: 'Ovdje możete kupiti Watch dodatke.',
-    priceText: 'Počne od: 3,999 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 3,
-      documentId: 'watch-accessories-image',
-      url: watches.src,
-      alternativeText: 'Watch Accessories',
-    },
-  },
-  {
-    id: '4',
-    title: 'Mac Dodaci',
-    description: 'Ovdje možete kupiti Mac dodatke.',
-    priceText: 'Počne od: 199 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 4,
-      documentId: 'mac-accessories-image',
-      url: keyboard.src,
-      alternativeText: 'Mac Accessories',
-    },
-  },
-  {
-    id: '5',
-    tagline: 'NOVO',
-    title: 'iPhone Dodaci',
-    description: 'Ovdje možete kupiti iPhone dodatke.',
-    priceText: 'Počne od: 199 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 5,
-      documentId: 'iphone-accessories-image',
-      url: iphone13ClearCase.src,
-      alternativeText: 'iPhone Accessories',
-    },
-  },
-  {
-    id: '6',
-    tagline: 'AKCIJA',
-    title: 'Mac Dodaci',
-    description: 'Ovdje možete kupiti Mac dodatke.',
-    priceText: 'Počne od: 199 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 4,
-      documentId: 'mac-accessories-image',
-      url: keyboard.src,
-      alternativeText: 'Mac Accessories',
-    },
-  },
-  {
-    id: '7',
-    tagline: 'NOVO',
-    title: 'iPhone Dodaci',
-    description: 'Ovdje možete kupiti iPhone dodatke.',
-    priceText: 'Počne od: 199 KM',
-    actionLink: PAGE_NAMES.ACCESSORIES,
-    image: {
-      name: 'Image',
-      id: 5,
-      documentId: 'iphone-accessories-image',
-      url: iphone13ClearCase.src,
-      alternativeText: 'iPhone Accessories',
-    },
-  },
-];
+
 const dummyBestSellers: BestSellerItem[] = [
   {
     ...dummyProducts[0],
@@ -874,7 +765,6 @@ export {
   dummyMacProducts,
   dummyProducts,
   dummyPromotions,
-  dummyAccessoriesSlider,
   dummyBestSellers,
   placeholderCart,
 };
