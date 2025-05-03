@@ -1,5 +1,5 @@
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { CURRENCY, DELIVERY_FREE_MINIMUM } from '@/lib/constants';
+import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 export const getInfoBlocksData = (
   t: (
@@ -30,7 +30,7 @@ export const getInfoBlocksData = (
     id: 3,
     title: t('productPage.deliveryTitle'),
     description: t('productPage.deliveryDescription', {
-      price: `${DELIVERY_FREE_MINIMUM} ${CURRENCY}`,
+      price: `${MINIMUM_AMOUNT_FREE_DELIVERY} ${CURRENCY}`,
     }),
   },
 ];

@@ -12,7 +12,7 @@ export const STRAPI_IMAGE_FIELDS = [
 
 /* Frontend */
 export const CURRENCY = 'KM';
-export const DELIVERY_FREE_MINIMUM = 399;
+export const MINIMUM_AMOUNT_FREE_DELIVERY = 399;
 export const STORE_NAMES = [
   'Sarajevo SCC',
   'Sarajevo Alta',
