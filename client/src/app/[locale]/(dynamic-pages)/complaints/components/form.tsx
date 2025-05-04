@@ -75,14 +75,14 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.name}
               id="name"
               name="name"
-              placeholder={t('complaintsPage.formName')}
+              placeholder={`${t('complaintsPage.formName')}*`}
               type="text"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="surname"
-              title={t('complaintsPage.formSurName')}
+              title={`${t('complaintsPage.formSurName')}*`}
             />
             <Input
               required
@@ -91,7 +91,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.surname}
               id="surname"
               name="surname"
-              placeholder={t('complaintsPage.formSurName')}
+              placeholder={`${t('complaintsPage.formSurName')}*`}
               type="text"
             />
           </div>
@@ -107,7 +107,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={t('complaintsPage.formNumber')}
+              placeholder={`${t('complaintsPage.formNumber')}*`}
               type="number"
             />
           </div>
@@ -120,7 +120,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={t('complaintsPage.formEmail')}
+              placeholder={`${t('complaintsPage.formEmail')}*`}
               type="email"
             />
           </div>
@@ -135,7 +135,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.message}
               id="message"
               name="message"
-              placeholder={t('common.messagePlaceholder')}
+              placeholder={`${t('common.messagePlaceholder')}*`}
             />
           </div>
         </div>

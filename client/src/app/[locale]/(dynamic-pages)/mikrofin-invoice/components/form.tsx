@@ -71,7 +71,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.nameAndSurname}
               id="nameAndSurname"
               name="nameAndSurname"
-              placeholder={t('mikrofinInvoicePage.formName')}
+              placeholder={`${t('mikrofinInvoicePage.formName')}*`}
               type="text"
             />
           </div>
@@ -86,7 +86,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={t('mikrofinInvoicePage.formEmail')}
+              placeholder={`${t('mikrofinInvoicePage.formEmail')}*`}
               type="email"
             />
           </div>
@@ -101,7 +101,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={t('mikrofinInvoicePage.formNumber')}
+              placeholder={`${t('mikrofinInvoicePage.formNumber')}*`}
               type="tel"
             />
           </div>
@@ -115,7 +115,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.productLink}
               id="productLink"
               name="productLink"
-              placeholder={t('mikrofinInvoicePage.productLink')}
+              placeholder={`${t('mikrofinInvoicePage.productLink')}*`}
               type="url"
             />
           </div>
@@ -129,7 +129,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.note}
               id="note"
               name="note"
-              placeholder={t('mikrofinInvoicePage.notePlaceHolder')}
+              placeholder={`${t('mikrofinInvoicePage.notePlaceHolder')}*`}
             />
           </div>
         </div>

@@ -839,34 +839,34 @@
     "formNumber": "Broj",
     "productLink": "Link uređaja",
     "formNote": "Napomena",
-    "notePlaceHolder": "Unesite napomenu",
-    "educationalDiscountPage": {
-      "title": "Obrazovni popust",
-      "item1": {
-        "title": "Student si ?",
-        "description": "Iskoristite posebne cijene za Mac. Odaberite popust za učenike i nastavnike. Možete se educirati bilo gdje, a Apple ekosistem bit će vam najbolji pomoćnik. Studentski popust važi za studente, profesore i zaposlene pri obrazovnim institucijama"
-      },
-      "item2": {
-        "title": "Škola? Sjajno.",
-        "description": "Mac vijekovima podržava vodeće svjetske inženjere, naučnike, dizajnere i muzičare."
-      },
-      "item3": {
-        "title": "Studiranje? Završeno.",
-        "description": "Šta god da vam koledž baci na put, Mac i iPad vam čuvaju leđa. Slomite bilo koje polje studija ili sporedni projekat uz izuzetnu snagu, trajanje baterije i izdržljivost na koju možete računati."
-      },
-      "macBookAir": "MacBook Air M1",
-      "sectionTitle": "Odaberi svoj Mac",
-      "formName": "Ime",
-      "formSurName": "Prezime",
-      "formEmail": "Email",
-      "formNumber": "Broj",
-      "formTitle": "Ispunite formu za obrazovni popust",
-      "howToDiscount": "Kako mogu da iskoristim obrazovni popust?",
-      "addPhoto": "Dodaj fotografiju svog indeksa i ovjerenog tekućeg semestra.",
-      "fillForm": "Ukoliko ste student ili profesor ispunite formu i dodjite do obrazovnog popusta.",
-      "chooseMac": "Odaberi svoj Mac",
-      "learnFromApple": "Uči uz Apple",
-      "learnFromAppleText": "Pogledajte kompletnu ponudu Mac uređaja na koje možete iskoristiti obrazovni popust."
-    }
+    "notePlaceHolder": "Unesite napomenu"
+  },
+  "educationalDiscountPage": {
+    "title": "Obrazovni popust",
+    "item1": {
+      "title": "Student si ?",
+      "description": "Iskoristite posebne cijene za Mac. Odaberite popust za učenike i nastavnike. Možete se educirati bilo gdje, a Apple ekosistem bit će vam najbolji pomoćnik. Studentski popust važi za studente, profesore i zaposlene pri obrazovnim institucijama"
+    },
+    "item2": {
+      "title": "Škola? Sjajno.",
+      "description": "Mac vijekovima podržava vodeće svjetske inženjere, naučnike, dizajnere i muzičare."
+    },
+    "item3": {
+      "title": "Studiranje? Završeno.",
+      "description": "Šta god da vam koledž baci na put, Mac i iPad vam čuvaju leđa. Slomite bilo koje polje studija ili sporedni projekat uz izuzetnu snagu, trajanje baterije i izdržljivost na koju možete računati."
+    },
+    "macBookAir": "MacBook Air M1",
+    "sectionTitle": "Odaberi svoj Mac",
+    "formName": "Ime",
+    "formSurName": "Prezime",
+    "formEmail": "Email",
+    "formNumber": "Broj",
+    "formTitle": "Ispunite formu za obrazovni popust",
+    "howToDiscount": "Kako mogu da iskoristim obrazovni popust?",
+    "addPhoto": "Dodaj fotografiju svog indeksa i ovjerenog tekućeg semestra.",
+    "fillForm": "Ukoliko ste student ili profesor ispunite formu i dodjite do obrazovnog popusta.",
+    "chooseMac": "Odaberi svoj Mac",
+    "learnFromApple": "Uči uz Apple",
+    "learnFromAppleText": "Pogledajte kompletnu ponudu Mac uređaja na koje možete iskoristiti obrazovni popust."
   }
 }

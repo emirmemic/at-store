@@ -70,7 +70,7 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.name}
                 id="name"
                 name="name"
-                placeholder={t('educationalDiscountPage.formName')}
+                placeholder={`${t('educationalDiscountPage.formName')}*`}
                 type="text"
               />
             </div>
@@ -85,7 +85,7 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.surname}
                 id="surname"
                 name="surname"
-                placeholder={t('educationalDiscountPage.formSurName')}
+                placeholder={`${t('educationalDiscountPage.formSurName')}*`}
                 type="text"
               />
             </div>
@@ -100,7 +100,7 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.phoneNumber}
                 id="phoneNumber"
                 name="phoneNumber"
-                placeholder={t('educationalDiscountPage.formNumber')}
+                placeholder={`${t('educationalDiscountPage.formNumber')}*`}
                 type="number"
               />
             </div>
@@ -115,7 +115,7 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.email}
                 id="email"
                 name="email"
-                placeholder={t('educationalDiscountPage.formEmail')}
+                placeholder={`${t('educationalDiscountPage.formEmail')}*`}
                 type="email"
               />
             </div>
@@ -133,7 +133,6 @@ export default function EducationalDiscountForm() {
               id="indexPhoto"
               name="indexPhoto"
             />
-            <p className="pt-3 text-red-deep">{formState?.errors.msg}</p>
           </div>
         </div>
         <div className="lg:justify-self-end">
@@ -144,7 +143,7 @@ export default function EducationalDiscountForm() {
             {t('educationalDiscountPage.fillForm')}
           </p>
         </div>
-        <div className="self-center pt-6 md:pt-8">
+        <div className="self-center pt-6 md:justify-self-center md:pt-8">
           {isPending ? (
             <IconLoader size={46} />
           ) : (
@@ -169,7 +168,9 @@ export default function EducationalDiscountForm() {
             <AlertDescription>
               {formState === null
                 ? t('common.requestSuccessAlert')
-                : t('common.requestFailAlert')}
+                : formState?.errors?.msg
+                  ? formState.errors.msg
+                  : t('common.requestFailAlert')}
             </AlertDescription>
           </Alert>
         </div>
