@@ -147,7 +147,7 @@
     "screenSize": {
       "type": "string"
     },
-    "release_date": {
+    "releaseDate": {
       "type": "string"
     },
     "numberOfCores": {

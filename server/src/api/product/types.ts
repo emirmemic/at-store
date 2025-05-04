@@ -62,3 +62,65 @@ export interface WebAccountProduct {
     name: string;
   }[];
 }
+
+export interface StrapiProduct {
+  id: number;
+  documentId: string;
+  name: string;
+  productTypeId: string;
+  productVariantId: string;
+  webAccountArticleName: string;
+  productLink: string;
+  originalPrice: number;
+  brand?: {
+    id: number;
+    name: string;
+  } | null;
+  model?: {
+    id: number;
+    name: string;
+  };
+  category?: {
+    id: number;
+    name: string;
+  };
+  subCategory?: {
+    id: number;
+    name: string;
+  };
+  stores?: {
+    id: number;
+    name: string;
+  }[];
+  color?: {
+    id: number;
+    name: string;
+    hex: string;
+  };
+  memory?: {
+    id: number;
+    value: number;
+    unit: string;
+  };
+  material?: {
+    id: number;
+    name: string;
+  };
+  chip?: {
+    id: number;
+    name: string;
+  };
+  ancModel?: string | null;
+  keyboard?: string | null;
+  wifiModel?: string | null;
+  accessoriesType?: string | null;
+  braceletSize?: string | null;
+  screenSize?: string | null;
+  ram?: {
+    value: number | null;
+    unit: string | null;
+  };
+  cores?: number | null;
+  releaseDate?: string | null;
+  publishedAt?: Date | null;
+}

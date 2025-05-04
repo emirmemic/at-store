@@ -1027,7 +1027,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     ram: Schema.Attribute.Component<'global.ram', false>;
-    release_date: Schema.Attribute.String;
+    releaseDate: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
     subCategory: Schema.Attribute.Relation<

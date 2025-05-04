@@ -1,0 +1,192 @@
+import { StrapiProduct, WebAccountProduct } from "./types";
+
+export async function findEntity(
+  entityType: string,
+  entityName: string | null | undefined,
+  customWhere?: Record<string, any>,
+  populate: string[] = []
+) {
+  if (!entityName && !customWhere) {
+    return null;
+  }
+
+  let entity = await strapi.db
+    .query(`api::${entityType}.${entityType}`)
+    .findOne({
+      where: customWhere || {
+        name: entityName,
+      },
+      populate: populate,
+    });
+
+  return entity;
+}
+
+/**
+ * Convert an arbitrary label into a value that matches
+ *  /^(?!\/)[a-zA-Z0-9\-\/_]+$/
+ *
+ * 1.  Lower‑case
+ * 2.  Strip accents (é → e)
+ * 3.  Replace whitespace with “‑”
+ * 4.  Remove every char that isn’t 0‑9 a‑z - _ /
+ * 5.  Collapse multiple dashes
+ * 6.  No leading dash/slash
+ * 7.  No trailing dash
+ */
+export const makeLink = (raw: string): string =>
+  raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // Strip accents
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-") // Replace whitespace with -
+    .replace(/\//g, "-") // Replace slashes with -
+    .replace(/[^a-z0-9\-_]+/g, "") // Remove anything not 0-9, a-z, -, _
+    .replace(/-+/g, "-") // Collapse multiple dashes
+    .replace(/^[-]+/, "")
+    .replace(/-+$/, "");
+
+/**
+ * Compare two products and log their differences
+ * @param webAccountProduct - The product from Web Account
+ * @param existingProduct - The product from Strapi
+ * @returns boolean indicating if products are identical
+ */
+export function isSameProduct(
+  webAccountProduct: WebAccountProduct,
+  existingProduct: StrapiProduct
+): boolean {
+  const comparisons = [
+    {
+      field: "Brand",
+      web: webAccountProduct?.brand?.name ?? null,
+      strapi: existingProduct?.brand?.name ?? null,
+    },
+    {
+      field: "Model",
+      web: webAccountProduct?.model?.name ?? null,
+      strapi: existingProduct?.model?.name ?? null,
+    },
+    {
+      field: "Category",
+      web: webAccountProduct?.category?.name ?? null,
+      strapi:
+        existingProduct?.category?.name === "Accessories"
+          ? null
+          : (existingProduct?.category?.name ?? null),
+    },
+    {
+      field: "Article Name",
+      web: webAccountProduct?.naziv_artikla_webaccount ?? null,
+      strapi: existingProduct?.webAccountArticleName ?? null,
+    },
+    {
+      field: "RAM Unit",
+      web: webAccountProduct?.specifications?.ram?.unit ?? null,
+      strapi: existingProduct?.ram?.unit ?? null,
+    },
+    {
+      field: "RAM Value",
+      web: webAccountProduct?.specifications?.ram?.value ?? null,
+      strapi: existingProduct?.ram?.value ?? null,
+    },
+    {
+      field: "Chip",
+      web: webAccountProduct?.specifications?.chip?.name ?? null,
+      strapi: existingProduct?.chip?.name ?? null,
+    },
+    {
+      field: "Screen Size",
+      web: webAccountProduct?.specifications?.screen_size ?? null,
+      strapi: existingProduct?.screenSize ?? null,
+    },
+    {
+      field: "Release Date",
+      web: webAccountProduct?.specifications?.release_date ?? null,
+      strapi: existingProduct?.releaseDate ?? null,
+    },
+    {
+      field: "Cores",
+      web: webAccountProduct?.specifications?.number_of_cores ?? null,
+      strapi: existingProduct?.cores ?? null,
+    },
+    {
+      field: "Product Type ID",
+      web: webAccountProduct?.product_type_id,
+      strapi: existingProduct?.productTypeId,
+    },
+    {
+      field: "Product Variant ID",
+      web: webAccountProduct?.product_variant_id,
+      strapi: existingProduct?.productVariantId,
+    },
+    {
+      field: "Original Price",
+      web: parseFloat(webAccountProduct?.original_price).toString(),
+      strapi: existingProduct?.originalPrice.toString(),
+    },
+    {
+      field: "Color Name",
+      web: webAccountProduct?.color?.name ?? null,
+      strapi: existingProduct?.color?.name ?? null,
+    },
+    {
+      field: "Memory Value",
+      web: Number(webAccountProduct?.memory?.value) || null,
+      strapi: existingProduct?.memory?.value ?? null,
+    },
+    {
+      field: "Memory Unit",
+      web: webAccountProduct?.memory?.unit ?? null,
+      strapi: existingProduct?.memory?.unit ?? null,
+    },
+    {
+      field: "Material",
+      web: webAccountProduct?.material ?? null,
+      strapi: existingProduct?.material?.name ?? null,
+    },
+    {
+      field: "Bracelet Size",
+      web: webAccountProduct?.narukvica_size?.join(", "),
+      strapi: existingProduct?.braceletSize ?? null,
+    },
+    {
+      field: "Keyboard",
+      web: webAccountProduct?.tipkovnica ?? null,
+      strapi: existingProduct?.keyboard ?? null,
+    },
+    {
+      field: "ANC Model",
+      web: webAccountProduct?.anc_model ?? null,
+      strapi: existingProduct?.ancModel ?? null,
+    },
+    {
+      field: "WiFi Model",
+      web: webAccountProduct?.wifi_model ?? null,
+      strapi: existingProduct?.wifiModel ?? null,
+    },
+    {
+      field: "Accessories Type",
+      web: webAccountProduct?.dodaci_type ?? null,
+      strapi: existingProduct?.accessoriesType ?? null,
+    },
+  ];
+
+  let isIdentical = true;
+  comparisons.forEach(({ field, web, strapi }) => {
+    /// Sometimes webAccount returns "iPad Pro" as "ipad pro" or "iPad" as "ipad"
+    if (typeof web === "string" && web.toLowerCase() === "ipad pro") {
+      web = "iPad Pro";
+    } else if (typeof web === "string" && web.toLowerCase() === "ipad") {
+      web = "iPad";
+    }
+    if (web !== strapi) {
+      isIdentical = false;
+      console.log(`\n${field} differs:`);
+      console.log(`  Web Account: ${web}`);
+      console.log(`  Strapi: ${strapi}`);
+    }
+  });
+  return isIdentical;
+}
