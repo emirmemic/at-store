@@ -575,7 +575,12 @@
     },
     "paymentMethods": {
       "title": "Načini plaćanja",
-      "noPaymentMethods": "Nemate način plaćanja."
+      "addNewPaymentMethod": "Dodaj novu metodu plaćanja",
+      "noPaymentMethods": "Nemate način plaćanja.",
+      "nameAndSurname": "Ime i prezime",
+      "cardNumber": "Broj kartice",
+      "expirationDate": "Datum isteka",
+      "dialogTitle": "Dodaj karticu"
     },
     "favorites": {
       "title": "Omiljeni",
@@ -783,7 +788,11 @@
     "companyIdNumberRequired": "ID broj firme je obavezan",
     "companyIdNumberLength": "ID broj firme mora imati {length} cifara",
     "codeRequired": "Kod je obavezan",
-    "linkRequired": "Link je obavezan"
+    "linkRequired": "Link je obavezan",
+    "cardNumberRequired": "Broj kartice je obavezan",
+    "invalidCardNumber": "Neispravan broj kartice",
+    "expirationDateRequired": "Datum isteka je obavezan",
+    "invalidExpirationDate": "Neispravan datum isteka"
   },
   "complaintsPage": {
     "title": "Reklamacije",

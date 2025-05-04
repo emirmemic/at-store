@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
+import { redirectToPromoPage } from '@/app/actions';
 import { UserContext } from '@/app/providers';
 import { IconHeart } from '@/components/icons';
 
@@ -19,9 +20,7 @@ export default function Page() {
     return (
       <EmptyContent
         Icon={IconHeart}
-        buttonAction={() => {
-          // TODO: Implement the button action
-        }}
+        buttonAction={redirectToPromoPage}
         buttonText={t('common.add')}
         emptyText={t('accountPage.favorites.noFavorites')}
       />
