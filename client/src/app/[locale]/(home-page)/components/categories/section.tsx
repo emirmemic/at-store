@@ -12,6 +12,9 @@ export default async function CategoriesSection({
 }: CategoriesSectionProps) {
   const t = await getTranslations('homepage');
   const categories = (await getNavbarData()) || [];
+  if (!categories || categories.length === 0) {
+    return null;
+  }
   return (
     <section className={`flex w-full flex-col gap-6 ${className}`}>
       <h2 className="heading-4 md:heading-2">{t('seeAllCategories')}</h2>

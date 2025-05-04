@@ -9,6 +9,9 @@ const categoryQuery = qs.stringify(
     populate: {
       categories: {
         populate: {
+          image: {
+            fields: STRAPI_IMAGE_FIELDS,
+          },
           subCategories: {
             populate: {
               navbarIcon: {
