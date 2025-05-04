@@ -29,7 +29,7 @@ function SingleIcon({ children, title, link }: SingleIconProps) {
       className="flex flex-col items-center gap-3 rounded-2xl p-2 px-2 transition-all hover:bg-black/10"
     >
       {children}
-      <span className="flex grow items-center text-center text-white paragraph-1">
+      <span className="flex grow items-center text-center text-white paragraph-2 md:paragraph-1">
         {title}
       </span>
     </Wrapper>

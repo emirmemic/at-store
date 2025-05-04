@@ -17,7 +17,7 @@ export default function Category({ category, className }: CategoryProps) {
       className={`flex flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50 ${className}`}
       href={link}
     >
-      <span className="h-24 w-40">
+      <span className="h-24 w-32 md:w-40">
         {image && (
           <StrapiImage
             alt={image.alternativeText || name}

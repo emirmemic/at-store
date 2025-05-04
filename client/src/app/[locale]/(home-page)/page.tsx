@@ -102,8 +102,8 @@ export default async function Page({
       )}
       <div className="pb-24 pt-8">
         <div className="pl-6 container-max-width-lg md:pl-12">
-          <CategoriesSection className="pb-8 pt-4" />
-          <CurrentPromotions className="pb-8 pt-11" />
+          <CategoriesSection className="pb-8" />
+          <CurrentPromotions className="pb-8" />
           {promoCards && promoCards.length > 0 && (
             <PromoCards
               className="pb-8 pr-6 pt-11 md:pr-12"

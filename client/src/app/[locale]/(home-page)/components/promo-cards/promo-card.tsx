@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
@@ -25,7 +26,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
 
   return (
     <div className="relative w-full">
-      <div className="shadow-large-black aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover">
+      <div className="shadow-large-black aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-slider-drop-shadow">
         <StrapiImage
           priority
           alt={image?.alternativeText || name}
@@ -44,13 +45,23 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
       >
         <h3 className="heading-4 lg:heading-3">{name}</h3>
         <p className="heading-5 lg:heading-4">{caption}</p>
-        <LearnMoreDialog
-          learnMoreVariant={learnMoreVariant}
-          product={product}
-        />
-        <Button asChild size={'md'} typography={'button2'} variant={'filled'}>
-          <Link href={product.productLink}>{t('buyNow')}</Link>
-        </Button>
+        <div className="flex flex-col items-center justify-center gap-2 py-8 sm:flex-row sm:gap-14">
+          <LearnMoreDialog
+            learnMoreVariant={learnMoreVariant}
+            product={product}
+          />
+          <Button
+            asChild
+            className="min-w-40"
+            size={'md'}
+            typography={'button2'}
+            variant={'filled'}
+          >
+            <Link href={`${PAGE_NAMES.PRODUCTS}/${product.productLink}`}>
+              {t('buyNow')}
+            </Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -68,7 +79,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className="mr-6 mt-6 lg:mr-12 lg:mt-12"
+          className="min-w-40"
           size={'md'}
           transparentVariant={learnMoreVariant}
           typography={'button2'}
@@ -92,12 +103,14 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
               src={image?.url ?? ''}
               width={400}
             />
-            <DialogDescription className="heading-4">
+            <DialogDescription className="bullet-2 md:bullet-1">
               {product.description}
             </DialogDescription>
           </div>
           <Button asChild size={'lg'} typography={'button1'} variant="filled">
-            <Link href={product.productLink}>{t('common.buyNow')}</Link>
+            <Link href={`${PAGE_NAMES.PRODUCTS}/${product.productLink}`}>
+              {t('common.buyNow')}
+            </Link>
           </Button>
         </div>
       </DialogContent>

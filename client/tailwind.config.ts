@@ -171,20 +171,24 @@ export default {
         },
         '.heading-2': {
           '@apply typography-heading': {},
+          fontWeight: '400',
           fontSize: '2.5rem',
         },
         '.heading-3': {
           '@apply typography-heading': {},
+          fontWeight: '400',
           fontSize: '2.25rem',
         },
         '.heading-4': {
           '@apply typography-heading': {},
+          fontWeight: '400',
           fontSize: '1.5rem',
           lineHeight: '1.875rem',
         },
         '.heading-5': {
           '@apply typography-heading': {},
           fontSize: '1rem',
+          fontWeight: '300',
           lineHeight: '1.875rem',
         },
         '.title': {
@@ -201,7 +205,7 @@ export default {
           'font-family': 'var(--font-sf-pro-display)',
           '@apply typography-paragraph': {},
           lineHeight: 'var(--line-height-medium)',
-          fontWeight: '500',
+          fontWeight: '300',
           fontSize: '1rem',
         },
         '.paragraph-3': {
@@ -211,7 +215,7 @@ export default {
         },
         '.paragraph-4': {
           '@apply typography-paragraph': {},
-          fontWeight: '500',
+          fontWeight: '400',
           fontSize: '.75rem',
         },
         '.paragraph-5': {
@@ -244,7 +248,7 @@ export default {
         },
         '.navigation': {
           '@apply typography-paragraph': {},
-          fontWeight: '500',
+          fontWeight: '300',
           fontSize: '.875rem',
         },
         '.footer-text': {
@@ -262,7 +266,8 @@ export default {
         },
         '.button-2': {
           '@apply typography-button': {},
-          fontSize: '.6875rem',
+          fontWeight: '400',
+          fontSize: '1rem',
         },
         '.container-max-width': {
           width: '100%',

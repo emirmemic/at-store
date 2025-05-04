@@ -4,6 +4,8 @@ import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { SubCategoryItem } from '@/lib/types';
 
+import { extendItemsToMinLength } from '../../utils/extendItems';
+
 import SubCategoriesCarousel from './carousel';
 
 const query = qs.stringify(
@@ -38,28 +40,9 @@ async function fetchSubCategories() {
   return res;
 }
 
-function extendItemsToMinLength(
-  items: SubCategoryItem[],
-  minLength = 8
-): SubCategoryItem[] {
-  const result: SubCategoryItem[] = [...items];
-  let cloneRound = 1;
-
-  while (result.length < minLength) {
-    const clones = items.map((item) => ({
-      ...item,
-      id: `${item.id}-clone-${cloneRound}`,
-    }));
-    result.push(...clones);
-    cloneRound++;
-  }
-
-  return result;
-}
-
 export default async function SubCategorySection() {
   const response = await fetchSubCategories();
   const items = response?.data?.data || [];
-  const preparedItems = extendItemsToMinLength(items);
+  const preparedItems = extendItemsToMinLength<SubCategoryItem>(items);
   return <SubCategoriesCarousel items={preparedItems} />;
 }

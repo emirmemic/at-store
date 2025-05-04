@@ -60,7 +60,7 @@ export default function PromotionalFlipCard(
             <h3 className="mb-2 line-clamp-2 heading-4">{title}</h3>
             <p className="mb-6 paragraph-2">{priceLabel}</p>
           </div>
-          <div className="mb-8 h-64 w-full">
+          <div className="mb-8 h-56 max-h-56 w-full">
             <StrapiImage
               priority
               alt={productImage?.alternativeText ?? 'Image'}

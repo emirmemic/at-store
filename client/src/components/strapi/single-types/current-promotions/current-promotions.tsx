@@ -47,8 +47,8 @@ export default async function CurrentPromotions({
     return null;
   }
   return (
-    <section className={cn('flex w-full flex-col gap-4', className)}>
-      {title && <h2 className="heading:4 mb-8 md:heading-2">{title}</h2>}
+    <section className={cn('flex w-full flex-col gap-6', className)}>
+      {title && <h2 className="heading-4 md:heading-2">{title}</h2>}
       <CurrentPromotionsCarousel cards={cards} />
     </section>
   );

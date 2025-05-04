@@ -41,7 +41,8 @@ const buttonVariants = cva(
           'bg-blue',
           'text-primary-foreground',
           'hover:bg-blue-dark',
-          'hover:shadow-inset-black-top',
+          'border',
+          'border-blue',
         ],
         transparent: [
           'bg-transparent',
