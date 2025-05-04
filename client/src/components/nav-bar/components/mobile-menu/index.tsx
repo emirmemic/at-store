@@ -40,7 +40,7 @@ export default function MobileMenu({
         ...item,
         subCategories: [
           ...(item.subCategories || []),
-          seeAllSubCategory(categoryPath),
+          seeAllSubCategory(categoryPath as Pathname),
         ],
       };
     }

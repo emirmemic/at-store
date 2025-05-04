@@ -11,6 +11,7 @@ import {
   SelectedOptionKey,
   SelectedOptions,
 } from '@/app/[locale]/(dynamic-pages)/products/[slug]/types';
+import { PAGE_NAMES } from '@/i18n/page-names';
 
 // Dynamically initialize selected options from a variant
 function initializeSelectedOptions(variant: ProductVariant): SelectedOptions {
@@ -63,6 +64,11 @@ function deriveAvailableOptions(
     wifiModels: Array.from(wifiModels.values()),
   };
 }
+
+// Make a route link based on the selected option
+const makeRouteLink = (link: string, type: SelectedOptionKey) => {
+  return `${PAGE_NAMES.PRODUCTS}/${link}?key=${type}`;
+};
 export type ProductVariantContextType = {
   variants: ProductVariant[];
   productOptions: ProductTypeAttributes;
@@ -128,7 +134,7 @@ export default function ProductVariantsProvider({
       setAvailableOptions(
         deriveAvailableOptions(variants, { key: type, value })
       );
-      router.push(`/products/${exactMatch.productLink}?key=${type}`);
+      router.push(makeRouteLink(exactMatch.productLink, type));
       return;
     }
 
@@ -155,12 +161,13 @@ export default function ProductVariantsProvider({
       );
       const newSelectedOptions = initializeSelectedOptions(closestMatch);
       setSelectedOptions(newSelectedOptions);
-      router.push(`/products/${closestMatch.productLink}?key=${type}`);
+      router.push(makeRouteLink(closestMatch.productLink, type));
     } else {
       setAvailableOptions(
         deriveAvailableOptions(variants, { key: type, value })
       );
       setSelectedOptions(initializeSelectedOptions(selectedVariant));
+      router.push(makeRouteLink(selectedVariant.productLink, type));
     }
   };
 

@@ -1,12 +1,7 @@
 import { useProductVariants } from '@/app/providers';
 import { Button } from '@/components/ui/button';
 
-import {
-  AvailableOption,
-  ProductVariant,
-  SelectedOptionKey,
-  SelectedOptions,
-} from '../types';
+import { AvailableOption, SelectedOptionKey } from '../types';
 
 interface OptionsItemProps {
   options: AvailableOption[];
