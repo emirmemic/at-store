@@ -11,10 +11,6 @@ import { CategoryItem, SubCategoryItem } from '@/lib/types';
 interface CategoryResponse extends CategoryItem {
   subCategories: SubCategoryItem[];
 }
-
-interface CategoryResponse extends CategoryItem {
-  subCategories: SubCategoryItem[];
-}
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; slug: string }>;
 }
