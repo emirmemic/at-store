@@ -7,10 +7,14 @@ import { NavbarResponseData } from '@/lib/types';
 const categoryQuery = qs.stringify(
   {
     populate: {
-      subCategories: {
+      categories: {
         populate: {
-          navbarIcon: {
-            fields: STRAPI_IMAGE_FIELDS,
+          subCategories: {
+            populate: {
+              navbarIcon: {
+                fields: STRAPI_IMAGE_FIELDS,
+              },
+            },
           },
         },
       },
@@ -22,7 +26,7 @@ const categoryQuery = qs.stringify(
 );
 
 export async function getNavbarData() {
-  const path = '/api/categories';
+  const path = '/api/navbar';
   const url = new URL(path, STRAPI_BASE_URL);
   url.search = categoryQuery;
 
@@ -30,7 +34,7 @@ export async function getNavbarData() {
     const response = await fetchAPI<NavbarResponseData>(url.href, {
       method: 'GET',
     });
-    const finalData = response.data?.data || [];
+    const finalData = response.data?.data?.categories || [];
     return finalData;
   } catch {
     return null;

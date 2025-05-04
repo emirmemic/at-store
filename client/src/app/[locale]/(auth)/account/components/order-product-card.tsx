@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
-import { LocalizationKey, ProductBase } from '@/lib/types';
+import { LocalizationKey, ProductResponse } from '@/lib/types';
 
 import { OrderStatusEnum } from '../types';
 
@@ -44,7 +44,7 @@ function TextItem({ text, spanText }: { text?: string; spanText?: string }) {
 
 export interface OrderProductCardProps {
   id: number;
-  product: ProductBase;
+  product: ProductResponse;
   orderStatus?: OrderStatusEnum;
   orderNumber?: number;
   orderDate?: string;

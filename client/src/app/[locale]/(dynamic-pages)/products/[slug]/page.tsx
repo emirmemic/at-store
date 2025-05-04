@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale, slug } = await params;
   const t = await getTranslations({
     locale,
-    namespace: 'metaData.mac',
+    namespace: 'metaData.productDetails',
   });
   const response = await fetchMetadata(slug);
   const productData = response.data;

@@ -1,8 +1,4 @@
-import {
-  ColorResponse,
-  IdentificationResponse,
-  ProductResponse,
-} from '@/lib/types';
+import { ProductResponse } from '@/lib/types';
 
 export interface AccessoriesResponse {
   data: ProductResponse[];
@@ -14,11 +10,4 @@ export interface AccessoriesResponse {
       total: number;
     };
   };
-}
-
-export interface ColorsResponse {
-  data: ColorResponse[];
-}
-export interface IdentificationsResponse {
-  data: IdentificationResponse[];
 }

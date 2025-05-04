@@ -9,6 +9,7 @@ import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
+import { formatScreenSize } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
@@ -32,9 +33,19 @@ export default function ProductCard({
     originalPrice,
     tag,
     images,
-    // specifications,
     favoritedBy,
     productLink,
+    ancModel,
+    keyboard,
+    material,
+    braceletSize,
+    color,
+    memory,
+    brand,
+    ram,
+    chip,
+    numberOfCores,
+    screenSize,
   } = product;
   const t = useTranslations('');
   const router = useRouter();
@@ -78,14 +89,27 @@ export default function ProductCard({
       router.push(PAGE_NAMES.LOGIN);
     }
   };
-  // const finalSpecs = specifications ? specifications.slice(0, 4) : [];
+
+  const specs: string[] = [];
+  if (screenSize) specs.push(formatScreenSize(screenSize));
+  if (memory) specs.push(`${memory.value}${memory.unit}`);
+  if (ram) specs.push(`${ram.value}${ram.unit}`);
+  if (chip) specs.push(chip.name);
+  if (numberOfCores) specs.push(`${numberOfCores} cores`);
+  if (ancModel) specs.push(ancModel);
+  if (keyboard) specs.push(keyboard);
+  if (material) specs.push(material);
+  if (braceletSize) specs.push(braceletSize);
+  if (color) specs.push(color.name);
+  if (brand) specs.push(brand.name);
+  const finalSpecs = specs.slice(0, 4);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
 
   return (
     <div
       className={cn(
-        'relative flex w-full flex-col justify-between gap-3 rounded-2xl border border-grey-extra-light bg-white py-6 shadow-standard-black transition-all hover:shadow-standard-black-hover',
+        'relative flex w-full flex-col gap-3 rounded-2xl border border-grey-extra-light bg-white py-6 shadow-standard-black transition-all hover:shadow-standard-black-hover',
         variant === 'accessories' && 'max-w-[300px] px-18px',
         variant === 'standard' && 'max-w-[340px] px-6',
         className
@@ -122,7 +146,7 @@ export default function ProductCard({
           </div>
         )}
       </div>
-      <div>
+      <div className="flex grow flex-col justify-center">
         <div className="mb-1 flex min-h-16 items-center justify-between gap-2">
           <p className="heading-4">{name}</p>
           <FavoritesHeart
@@ -133,8 +157,7 @@ export default function ProductCard({
             onClick={handleFavoriteClick}
           />
         </div>
-        {/* TODO Do the specs once webaccount api is adjusted and we have the specs in the database */}
-        {/* {finalSpecs.length > 0 && (
+        {finalSpecs.length > 0 && (
           <div className="mb-2 flex flex-col">
             {finalSpecs.map((spec, i) => (
               <p key={`${spec}-${i}`} className="text-grey-darker paragraph-4">
@@ -142,7 +165,7 @@ export default function ProductCard({
               </p>
             ))}
           </div>
-        )} */}
+        )}
         {discountedPrice && (
           <p className="mb-0.5 line-through paragraph-2">{`${originalPrice} ${CURRENCY}`}</p>
         )}

@@ -8,7 +8,6 @@ import {
   PopupExamples,
   SliderExamples,
   InstallmentExample,
-  SliderCardsExamples,
 } from '@/app/[locale]/global-components/components';
 
 export default async function Page() {
@@ -23,7 +22,6 @@ export default async function Page() {
       <PopupExamples />
       <NavigationExamples />
       <SliderExamples />
-      <SliderCardsExamples />
     </div>
   );
 }

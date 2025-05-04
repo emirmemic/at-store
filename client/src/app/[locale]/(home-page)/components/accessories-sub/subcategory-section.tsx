@@ -13,6 +13,13 @@ const query = qs.stringify(
         fields: STRAPI_IMAGE_FIELDS,
       },
     },
+    filters: {
+      category: {
+        name: {
+          $eq: 'Accessories',
+        },
+      },
+    },
   },
   { encodeValuesOnly: true }
 );

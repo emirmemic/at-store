@@ -32,25 +32,13 @@
       "title": "Zaboravljena Password | AT Store",
       "description": "Zaboravili ste lozinku? Unesite svoj e-mail i dobijte uputstva za resetovanje."
     },
-    "mac": {
-      "title": "Mac | AT Store",
-      "description": "Istražite našu ponudu Apple Mac računara, uključujući MacBook i iMac."
+    "category": {
+      "title": "Kategorija | AT Store",
+      "description": "Istražite našu široku ponudu Apple proizvoda."
     },
-    "ipad": {
-      "title": "iPad | AT Store",
-      "description": "Pronađite najnovije iPad uređaje sa snažnim performansama i elegantnim dizajnom."
-    },
-    "iphone": {
-      "title": "iPhone | AT Store",
-      "description": "Otkrijte najnovije modele iPhone uređaja sa inovativnom tehnologijom."
-    },
-    "watch": {
-      "title": "Apple Watch | AT Store",
-      "description": "Ostanite povezani uz najnovije modele Apple Watch i dodatke."
-    },
-    "airPods": {
-      "title": "AirPods | AT Store",
-      "description": "Iskusite vrhunski bežični zvuk uz Apple AirPods."
+    "productDetails": {
+      "title": "Detalji proizvoda | AT Store",
+      "description": "Saznajte više o proizvodu i njegovim karakteristikama."
     },
     "accessories": {
       "title": "Dodaci | AT Store",
@@ -639,7 +627,9 @@
     "seeAll": "Pogledajte sve",
     "changesSuccessfullySaved": "Uspješno ste spasili promjene",
     "save": "Spremi",
-    "messagePlaceholder": "Unesite poruku..."
+    "messagePlaceholder": "Unesite poruku...",
+    "see": "Pogledaj",
+    "noProductsAvailable": "Nema dostupnih proizvoda"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -713,6 +703,10 @@
     "deliveryTitle": "Dostava",
     "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}."
   },
+  "categoryPage": {
+    "edTitle": "Obrazovni popust",
+    "edDescription": "Obrazovni popus za studente i zaposlene pri obrazovnim institucijama."
+  },
   "loginPage": {
     "title": "Prijavite se",
     "subtitle": "Nemate račun?",
@@ -757,8 +751,7 @@
     "brand": "Brend",
     "material": "Materijal",
     "noItemsAvailable": "Nema dostupnih stavki",
-    "resetFilters": "Resetuj filtere",
-    "noProductsAvailable": "Nema dostupnih proizvoda"
+    "resetFilters": "Resetuj filtere"
   },
   "validation": {
     "messageRequired": "Poruka je obavezna",

@@ -16,7 +16,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { dummyProducts } from '@/data/dummy-data';
 import { STORE_NAMES } from '@/lib/constants';
 
 export default function PopupExamples() {
@@ -58,7 +57,7 @@ export default function PopupExamples() {
       <ProductDetailsPopup
         details={details}
         finalPrice={1289}
-        name={dummyProducts[0].name}
+        name={'Product Name'}
       />
       <p>Selected Store: {selectedStore}</p>
       <StoreSelectPopup

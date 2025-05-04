@@ -6,3 +6,5 @@ export { default as ProductTag } from './product-tag';
 
 export { default as RelatedProductAccessories } from './related-product-accessories';
 export { default as SubProductCard } from './sub-product-card';
+export { default as ProductListTitle } from './product-list-title';
+export { default as ProductsList } from './product-list';

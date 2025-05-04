@@ -1,20 +1,10 @@
 'use client';
-import { useState } from 'react';
-
 import {
   InchSelectionTab,
   MacAccessoriesBar,
-  ProductCartTableItem,
-  RelatedProductAccessories,
-  SubProductCard,
 } from '@/components/product-cards';
-import { AnimateList } from '@/components/transitions';
-import { dummyProducts, placeholderCart } from '@/data/dummy-data';
 
 export default function ProductCardExamples() {
-  const products = dummyProducts;
-  const [cartItems, setCartItems] = useState(placeholderCart);
-
   const inchOptions = [
     {
       id: '13',
@@ -37,21 +27,6 @@ export default function ProductCardExamples() {
     // eslint-disable-next-line no-console
     console.log('Selected inch:', id);
   };
-  const removeFromCart = (productId: string) => {
-    const updatedCart = cartItems.filter(
-      (product) => product.productVariantId !== productId
-    );
-    setCartItems(updatedCart);
-  };
-  const handleQuantityChange = (productId: string, newQuantity: number) => {
-    const updatedCart = cartItems.map((product) => {
-      if (product.productVariantId === productId) {
-        return { ...product, quantityInCart: newQuantity };
-      }
-      return product;
-    });
-    setCartItems(updatedCart);
-  };
   return (
     <>
       <div className="h-[2px] w-full bg-grey"></div>
@@ -62,23 +37,15 @@ export default function ProductCardExamples() {
       <MacAccessoriesBar />
       <div className="h-[2px] w-full bg-grey"></div>
       <div className="flex w-full flex-wrap gap-4">
-        <div className="flex h-fit flex-col gap-4">
-          <p className="paragraph-2">Related Product Accessories: </p>
-          <RelatedProductAccessories
-            product={products[2]}
-            onAddToCart={() => {}}
-          />
-        </div>
         {/* SubProductCard and InchSelectionTab are used together and should have the same width according to the design. That's why the max width is controlled by the parent element, rather than each component individually. */}
         <div className="flex h-fit w-full max-w-[400px] flex-col gap-4 md:max-w-[572px] lg:max-w-[766px]">
-          <SubProductCard product={dummyProducts[0]} onClick={() => {}} />
           <InchSelectionTab
             options={inchOptions}
             onSelectInch={handleSelectInch}
           />
         </div>
       </div>
-      <div className="flex w-full flex-col gap-2">
+      {/* <div className="flex w-full flex-col gap-2">
         <AnimateList
           getKey={(item) => item.productVariantId}
           items={cartItems}
@@ -91,7 +58,7 @@ export default function ProductCardExamples() {
             />
           )}
         />
-      </div>
+      </div> */}
     </>
   );
 }

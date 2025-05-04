@@ -10,8 +10,10 @@ import '@/app/globals.css';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
 import { Toaster } from '@/components/ui/toaster';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { routing, type Locale } from '@/i18n/routing';
 import { getNavbarData, getUser } from '@/lib/services';
+import { NavMenuItem } from '@/lib/types';
 
 import { SF_Pro_Text, SF_Pro_Display } from '../fonts/fonts';
 import UserProvider from '../providers/user-provider';
@@ -79,6 +81,32 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   const messages = await getMessages();
   const navbarData = (await getNavbarData()) || [];
 
+  const processSubcategories = (item: NavMenuItem) => {
+    return (
+      item.subCategories?.map((sub) => ({
+        ...sub,
+        link: `${PAGE_NAMES.SUBCATEGORY}/${sub.link}`,
+      })) || []
+    );
+  };
+  const buildNavItem = (item: NavMenuItem): NavMenuItem => {
+    const lowerName = item.name.toLowerCase();
+    const isAccessory =
+      lowerName.includes('accessory') || lowerName.includes('accessories');
+    let link;
+    if (isAccessory) {
+      link = PAGE_NAMES.ACCESSORIES;
+    } else {
+      link = `${PAGE_NAMES.CATEGORY}/${item.link}`;
+    }
+    return {
+      ...item,
+      link,
+      subCategories: processSubcategories(item),
+    };
+  };
+  const processedNavbarData = navbarData.map((item) => buildNavItem(item));
+
   const user = await getUser();
 
   return (
@@ -89,12 +117,12 @@ export default async function LocaleLayout({ children, params }: PropsType) {
       <body>
         <NextIntlClientProvider messages={messages}>
           <UserProvider initialValue={user}>
-            <Navbar navbarData={navbarData} />
+            <Navbar navbarData={processedNavbarData} />
             <div className="min-h-screen-h-cutoff pt-nav-height">
               {children}
               <Toaster />
             </div>
-            <Footer categoryItems={navbarData} />
+            <Footer categoryItems={processedNavbarData} />
           </UserProvider>
         </NextIntlClientProvider>
       </body>

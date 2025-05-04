@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pre-invoice",
     "pluralName": "pre-invoices",
-    "displayName": "pre-invoice"
+    "displayName": "PreInvoice",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

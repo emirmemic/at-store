@@ -425,6 +425,14 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       'api::category.category'
     > &
       Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     models: Schema.Attribute.Relation<'oneToMany', 'api::model.model'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -597,7 +605,7 @@ export interface ApiEducationalDiscountEducationalDiscount
   collectionName: 'educational_discounts';
   info: {
     description: '';
-    displayName: 'educational-discount';
+    displayName: 'Educational Discount';
     pluralName: 'educational-discounts';
     singularName: 'educational-discount';
   };
@@ -798,6 +806,37 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
+  collectionName: 'navbars';
+  info: {
+    displayName: 'Navbar';
+    pluralName: 'navbars';
+    singularName: 'navbar';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::navbar.navbar'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
@@ -878,7 +917,8 @@ export interface ApiPaymentMethodPaymentMethod
 export interface ApiPreInvoicePreInvoice extends Struct.CollectionTypeSchema {
   collectionName: 'pre_invoices';
   info: {
-    displayName: 'pre-invoice';
+    description: '';
+    displayName: 'PreInvoice';
     pluralName: 'pre-invoices';
     singularName: 'pre-invoice';
   };
@@ -982,6 +1022,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     release_date: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
+    sub_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::sub-category.sub-category'
+    >;
     subCategory: Schema.Attribute.Relation<
       'manyToOne',
       'api::sub-category.sub-category'
@@ -1109,6 +1153,14 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
       'api::sub-category.sub-category'
     > &
       Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     models: Schema.Attribute.Relation<'oneToMany', 'api::model.model'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1687,6 +1739,7 @@ declare module '@strapi/strapi' {
       'api::material.material': ApiMaterialMaterial;
       'api::memory.memory': ApiMemoryMemory;
       'api::model.model': ApiModelModel;
+      'api::navbar.navbar': ApiNavbarNavbar;
       'api::order.order': ApiOrderOrder;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;

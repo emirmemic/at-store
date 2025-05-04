@@ -1,5 +1,5 @@
 import { Pathname } from '@/i18n/routing';
-import { Icon, ProductBase } from '@/lib/types';
+import { Icon, ProductResponse } from '@/lib/types';
 
 interface AccountMenu {
   id: number;
@@ -11,7 +11,7 @@ interface AccountMenu {
 export type OrderStatusEnum = 'pending' | 'delivered' | 'canceled' | 'shipped';
 interface OrderResponse {
   id: number;
-  products: ProductBase[];
+  products: ProductResponse[];
   orderStatus: OrderStatusEnum;
   orderNumber: number;
   orderDate: string;

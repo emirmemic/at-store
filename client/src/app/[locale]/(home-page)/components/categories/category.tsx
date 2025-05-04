@@ -30,7 +30,9 @@ export default function Category({ category, className }: CategoryProps) {
         )}
       </span>
       <span className="sr-only">{t('viewMore')}</span>
-      <span className="heading-5 md:heading-4">{displayName || name}</span>
+      <span className="text-center heading-5 md:heading-4">
+        {displayName || name}
+      </span>
       <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')}: ${startingPrice} ${CURRENCY}`}</span>
     </Link>
   );

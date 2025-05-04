@@ -38,7 +38,7 @@ export default function OptionsItem({
               variant={option.hex ? 'color' : 'productVariant'}
               onClick={() => selectOption(itemKey, option.value)}
             >
-              {!option.hex && <span>{option.value}</span>}
+              {!option.hex && <span>{option.name}</span>}
             </Button>
           </div>
         ))}

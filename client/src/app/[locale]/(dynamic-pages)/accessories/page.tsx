@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { IconLoader } from '@/components/icons';
+import { ProductsList } from '@/components/product-cards';
 import PaginationPages from '@/components/ui/pagination-pages';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { useRouter } from '@/i18n/routing';
@@ -13,7 +14,7 @@ import { ProductResponse } from '@/lib/types';
 
 import { fetchProducts } from './actions/actions';
 import { parseFiltersFromSearchParams } from './actions/parse-filters';
-import { Filters, ProductList, Sort } from './components';
+import { Filters, Sort } from './components';
 
 export default function Page() {
   // React hooks and initialization
@@ -22,6 +23,7 @@ export default function Page() {
   const searchParams = useSearchParams();
   const initialPage = +(searchParams.get('page') ?? 1);
   const initialSort = searchParams.get('sort') || 'latest';
+  const t = useTranslations();
 
   // State variables
   const [products, setProducts] = useState<ProductResponse[]>([]);
@@ -29,7 +31,6 @@ export default function Page() {
   const [total, setTotal] = useState<number>(0);
   const [sortOption, setSortOption] = useState<string>(initialSort);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const t = useTranslations('accessoriesPage');
 
   // Handlers for sorting and pagination
   const handleSortChange = (newSort: string) => {
@@ -84,7 +85,7 @@ export default function Page() {
   return (
     <div className="relative flex flex-col gap-8 py-6 container-max-width md:py-12">
       <div className="border-b border-grey-dark pb-4">
-        <h1 className="heading-3">{t('title')}</h1>
+        <h1 className="heading-3">{t('accessoriesPage.title')}</h1>
       </div>
       <div className="relative flex min-h-[400px] flex-col gap-4">
         {isLoading && (
@@ -99,9 +100,14 @@ export default function Page() {
         <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-[200px_1fr] md:gap-8">
           <Filters className="w-full" isLoading={isLoading} />
           {products.length === 0 && !isLoading ? (
-            <p className="text-grey paragraph-2">{t('noProductsAvailable')}</p>
+            <p className="text-grey paragraph-2">
+              {t('common.noProductsAvailable')}
+            </p>
           ) : (
-            <ProductList products={products} />
+            <ProductsList
+              productCardVariant="accessories"
+              products={products}
+            />
           )}
         </div>
       </div>

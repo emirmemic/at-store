@@ -32,11 +32,13 @@ export default function ProductCartTableItem({
     onRemove?.(product.productVariantId);
   };
 
-  const availability = product.availabilityByStore;
-  const availableQuantity = Object.values(availability).reduce(
-    (acc, quantity) => acc + quantity,
-    0
-  );
+  const availability = product.stores.length > 0;
+  const availableQuantity = availability
+    ? Object.values(product.stores).reduce(
+        (acc, store) => acc + store.products,
+        0
+      )
+    : 0;
   const finalPrice = product.discountedPrice ?? product.originalPrice;
   const totalPrice = `${finalPrice * product.quantityInCart} ${CURRENCY}`;
   const image = product.images?.[0] ?? null;

@@ -32,7 +32,7 @@ export default ({ strapi }) => ({
           fields: ["url", "alternativeText"],
         },
       },
-      fields: ['*'],  
+      fields: ["*"],
     });
 
     // Create maps to store unique values
@@ -88,11 +88,15 @@ export default ({ strapi }) => ({
         keyboards: formatScalarOptions(scalarMaps.keyboard),
         braceletSizes: formatScalarOptions(scalarMaps.braceletSize),
         ancModels: formatScalarOptions(scalarMaps.ancModel),
-        screenSizes: formatScalarOptions(scalarMaps.screenSize),
+        screenSizes: formatScalarOptions(scalarMaps.screenSize).map((size) => ({
+          ...size,
+          name: formatScreenSize(size.value),
+          value: size.value,
+        })),
         wifiModels: formatScalarOptions(scalarMaps.wifiModel),
       },
       variants: variants.map((variant) => ({
-       ...variant,
+        ...variant,
         color: variant.color
           ? {
               name: variant.color.name,
@@ -129,6 +133,9 @@ type ScalarAttribute = (typeof scalarAttributes)[number];
 
 const formatScalarOptions = (map: Map<string, { value: string }>) =>
   [...map.values()].map(({ value }) => ({ name: value, value }));
+const formatScreenSize = (value: string) => {
+  return `${parseFloat(value.replace(/[^0-9.]/g, ""))} inch`;
+};
 
 const formatColorOptions = (
   colorMap: Map<number, { name: string; hex: string }>

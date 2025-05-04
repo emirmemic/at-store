@@ -44,7 +44,9 @@ interface NavMenuItem extends CategoryItem {
   subCategories?: SubCategoryItem[];
 }
 interface NavbarResponseData {
-  data: NavMenuItem[];
+  data: {
+    categories: NavMenuItem[];
+  };
 }
 
 export type {

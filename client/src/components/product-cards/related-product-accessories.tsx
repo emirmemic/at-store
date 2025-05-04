@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 import { StrapiImage } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
-import { ProductBase } from '@/lib/types';
+import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCardProps {
-  product: ProductBase;
+  product: ProductResponse;
   onAddToCart: (productId: string) => void;
 }
 export default function RelatedProductAccessories({

@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ProductBase } from '@/lib/types';
+import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 import { PromoCardItem } from './types';
@@ -57,7 +57,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
 }
 
 interface LearnMoreDialogProps {
-  product: ProductBase;
+  product: ProductResponse;
   learnMoreVariant: TransparentVariant;
 }
 

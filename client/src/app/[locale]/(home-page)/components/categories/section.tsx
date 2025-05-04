@@ -42,7 +42,7 @@ export default async function CategoriesSection({
   const categories = response?.data?.data || [];
   return (
     <section className={`flex w-full flex-col gap-4 ${className}`}>
-      <h2 className="mb-6 heading-2">{t('seeAllCategories')}</h2>
+      <h2 className="mb-6 heading-4 md:heading-2">{t('seeAllCategories')}</h2>
       <CategoriesCarousel categories={categories} />
     </section>
   );

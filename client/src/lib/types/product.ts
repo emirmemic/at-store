@@ -1,12 +1,9 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
 
 import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
-import { STORE_NAMES } from '@/lib/constants';
 import { ImageProps } from '@/lib/types';
 
 import { UserInformation } from './auth';
-
-type StoreName = (typeof STORE_NAMES)[number];
 
 interface ProductResponse {
   id: number;
@@ -16,7 +13,7 @@ interface ProductResponse {
   name: string;
   productLink: string;
   webAccountArticleName: string;
-  description?: string;
+  description?: string | null;
   images: ImageProps[] | null;
   order: OrderResponse;
   originalPrice: number;
@@ -37,6 +34,9 @@ interface ProductResponse {
   accessoriesType?: string;
   braceletSize?: string;
   details?: BlocksContent;
+  ram?: MemoryResponse | null;
+  chip?: IdentificationResponse | null;
+  numberOfCores?: number | null;
 }
 
 interface StoreResponse extends IdentificationResponse {
@@ -60,30 +60,7 @@ interface MemoryResponse {
   unit: string;
 }
 
-interface ProductBase {
-  id: number;
-  documentId: string;
-  productVariantId: string;
-  productTypeId: string;
-  name: string;
-  originalPrice: number;
-  discountedPrice: number | null;
-  images?: ImageProps[];
-  specifications?: string[];
-  productLink: string;
-  description?: string;
-  tag?: string | null;
-  availabilityByStore: Record<StoreName, number>;
-  favoritedBy?: UserInformation[];
-  details?: string;
-  // TODO: WebAccount needs to return this!
-  chip: {
-    id: number;
-    name: string;
-  } | null;
-}
-
-interface ShoppingCartItem extends ProductBase {
+interface ShoppingCartItem extends ProductResponse {
   quantityInCart: number;
 }
 
@@ -100,6 +77,8 @@ interface CategoryItem {
   link: string;
   startingPrice: number;
   image: ImageProps | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
 }
 interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
@@ -107,12 +86,11 @@ interface SubCategoryItem extends CategoryItem {
   navbarIcon: ImageProps | null;
 }
 
-interface BestSellerItem extends ProductBase {
+interface BestSellerItem extends ProductResponse {
   tagline: string;
 }
 
 export type {
-  ProductBase,
   ShoppingCartItem,
   CategoryItem,
   SubCategoryItem,

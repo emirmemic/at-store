@@ -4,7 +4,7 @@
   "info": {
     "singularName": "educational-discount",
     "pluralName": "educational-discounts",
-    "displayName": "educational-discount",
+    "displayName": "Educational Discount",
     "description": ""
   },
   "options": {
@@ -37,7 +37,9 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

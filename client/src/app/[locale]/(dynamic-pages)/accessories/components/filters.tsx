@@ -13,8 +13,6 @@ import { fetchAPI } from '@/lib/fetch-api';
 import { ColorResponse, IdentificationResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
-import { IdentificationsResponse, ColorsResponse } from '../types';
-
 import FilterItem from './filter-item';
 
 interface FiltersProps {
@@ -47,21 +45,22 @@ export default function Filters({ className, isLoading }: FiltersProps) {
   }, [searchParams]);
 
   useEffect(() => {
-    const makePath = (endpoint: string) => `${STRAPI_BASE_URL}/api/${endpoint}`;
+    const makePath = (endpoint: string) =>
+      `${STRAPI_BASE_URL}/api/${endpoint}/by-category-name/Accessories`;
     async function fetchFilters() {
       const colorsPath = makePath('colors');
       const brandsPath = makePath('brands');
       const materialsPath = makePath('materials');
 
       const [colorsRes, brandsRes, materialsRes] = await Promise.all([
-        fetchAPI<ColorsResponse>(colorsPath, { method: 'GET' }),
-        fetchAPI<IdentificationsResponse>(brandsPath, { method: 'GET' }),
-        fetchAPI<IdentificationsResponse>(materialsPath, { method: 'GET' }),
+        fetchAPI<ColorResponse[]>(colorsPath, { method: 'GET' }),
+        fetchAPI<IdentificationResponse[]>(brandsPath, { method: 'GET' }),
+        fetchAPI<IdentificationResponse[]>(materialsPath, { method: 'GET' }),
       ]);
 
-      setColors(colorsRes?.data?.data || []);
-      setBrands(brandsRes?.data?.data || []);
-      setMaterials(materialsRes?.data?.data || []);
+      setColors(colorsRes?.data || []);
+      setBrands(brandsRes?.data || []);
+      setMaterials(materialsRes?.data || []);
     }
 
     fetchFilters();

@@ -61,6 +61,14 @@
       "relation": "oneToMany",
       "target": "api::sub-category.sub-category",
       "mappedBy": "category"
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 255
     }
   }
 }

@@ -1,5 +1,5 @@
 import { TransparentVariant } from '@/components/ui/button';
-import { ImageProps, ProductBase } from '@/lib/types';
+import { ImageProps, ProductResponse } from '@/lib/types';
 type TextColor = 'white' | 'black';
 
 export interface PromoCardItem {
@@ -8,5 +8,5 @@ export interface PromoCardItem {
   learnMoreVariant: TransparentVariant;
   textColor: TextColor;
   image: ImageProps | null;
-  product: ProductBase | null;
+  product: ProductResponse | null;
 }

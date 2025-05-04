@@ -42,13 +42,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "navbarIcon": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "category": {
       "type": "relation",
@@ -67,6 +71,14 @@
       "relation": "oneToMany",
       "target": "api::model.model",
       "mappedBy": "sub_category"
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "metaDescription": {
+      "type": "string",
+      "maxLength": 255
     }
   }
 }
