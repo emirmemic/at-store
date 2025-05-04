@@ -1,21 +1,21 @@
 export default () => {
   return async (ctx, next) => {
-    // Fetch the categories
-    const categories = await strapi
-      .documents("api::category.category")
+    // Fetch the subCategories
+    const subCategories = await strapi
+      .documents("api::sub-category.sub-category")
       .findMany({
         populate: { products: true },
       });
 
     // Fetch products in each category and calculate startingPrice
     await Promise.all(
-      categories.map(async (category) => {
+      subCategories.map(async (subCategory) => {
         const products = await strapi
           .documents("api::product.product")
           .findMany({
             filters: {
-              category: {
-                id: category.id,
+              subCategory: {
+                id: subCategory.id,
               },
             },
             status: "published",
@@ -30,9 +30,9 @@ export default () => {
             )
           : null;
 
-        // Set the startingPrice of the category
-        await strapi.documents("api::category.category").update({
-          documentId: category.documentId,
+        // Set the startingPrice of the subCategory
+        await strapi.documents("api::sub-category.sub-category").update({
+          documentId: subCategory.documentId,
           data: {
             startingPrice,
           },
