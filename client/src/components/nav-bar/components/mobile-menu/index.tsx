@@ -5,11 +5,11 @@ import { useRef, useState, useEffect } from 'react';
 import { IconClose } from '@/components/icons';
 import {
   SiteLogo,
-  SearchInput,
   MobileActions,
   MobileList,
   MobileLoginLogout,
   MobileSubList,
+  SearchInput,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
 import { MobileMenuType } from '@/components/nav-bar/types';
@@ -149,7 +149,7 @@ export default function MobileMenu({
                     variant={'white'}
                     onClick={backToList}
                   />
-                  <SearchInput placeholder={t('navbar.search')} />
+                  <SearchInput onClick={closeMenu} />
                 </div>
               )}
               {activeMenu === 'list' && (

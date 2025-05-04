@@ -188,7 +188,8 @@
     "noItems": "Nemate proizvode u korpi",
     "seeCart": "Vidi čitavu korpu",
     "payment": "Plaćanje",
-    "visitHomePage": "Posjetite početnu stranicu At Store"
+    "visitHomePage": "Posjetite početnu stranicu At Store",
+    "noResults": "Nema rezultata pretrage"
   },
   "footer": {
     "homePage": "Početna stranica",

@@ -40,8 +40,12 @@ export default function DesktopSearch({
       </button>
       <DesktopPopup isActive={activePopup === 'search'}>
         <div className="w-full pb-12">
-          <div ref={searchInputRef} className="mx-auto max-w-72">
-            <SearchInput placeholder={t('searchPlaceholder')} />
+          <div ref={searchInputRef} className="mx-auto max-w-[600px]">
+            <SearchInput
+              onClick={() => {
+                setActivePopup('none');
+              }}
+            />
           </div>
         </div>
       </DesktopPopup>

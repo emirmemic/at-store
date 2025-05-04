@@ -43,6 +43,7 @@ export const PAGE_NAMES = {
   REGISTER: '/register',
   RESET_PASSWORD: '/reset-password',
   FORGOT_PASSWORD: '/forgot-password',
+  SEARCH: '/search',
   SUPPORT: '/support',
   SUBCATEGORY: '/sub-category',
   SUBCATEGORY_PAGE: '/sub-category/[slug]',

@@ -138,6 +138,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.FORGOT_PASSWORD]: {
       bs: '/zaboravio-sifru',
     },
+    [PAGE_NAMES.SEARCH]: {
+      bs: '/pretraga',
+    },
     [PAGE_NAMES.SUPPORT]: {
       bs: '/podrska',
     },
