@@ -1,6 +1,7 @@
-export default function IconMaestro() {
+export default function IconMaestro({ className }: { className?: string }) {
   return (
     <svg
+      className={className}
       fill="none"
       height="34"
       viewBox="0 0 55 34"

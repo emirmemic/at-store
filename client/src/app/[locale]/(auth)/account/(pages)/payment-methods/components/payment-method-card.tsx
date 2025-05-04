@@ -3,15 +3,54 @@ import { useTranslations } from 'next-intl';
 
 import {
   IconLoader,
+  IconMaestro,
   IconMasterCardWithText,
   IconTrash,
+  IconVisa,
 } from '@/components/icons';
+import IconVisaElectron from '@/components/icons/visa-electron';
 import { Checkbox } from '@/components/ui/checkbox';
 import { toast, useLoader } from '@/lib/hooks';
 
 import { CardContainer } from '../../../components';
 import { PaymentMethodResponse } from '../../../types';
 import { deletePaymentMethod, toggleDefault } from '../actions';
+
+type CardType = 'visa' | 'visaElectron' | 'mastercard' | 'maestro' | 'unknown';
+
+// Get the card type based on the card number
+function getCardType(cardNumber: string): CardType {
+  const cardTypes = {
+    visaElectron: /^(4026|417500|4508|4844|4913|4917)[0-9]{12}$/,
+    visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+    mastercard: /^5[1-5][0-9]{14}$/,
+    maestro: /^(5018|5020|5038|6304|6390|6759)[0-9]{12,15}$/,
+  };
+
+  for (const [type, regex] of Object.entries(cardTypes)) {
+    if (regex.test(cardNumber)) {
+      return type as CardType;
+    }
+  }
+  return 'unknown';
+}
+
+function getCardIcon(cardType: CardType) {
+  const iconStyles =
+    'self-center w-[200px] h-[150px] md:h-28 md:w-36 lg:h-40 lg:w-52';
+  switch (cardType) {
+    case 'visa':
+      return <IconVisa className={iconStyles} />;
+    case 'visaElectron':
+      return <IconVisaElectron className={iconStyles} />;
+    case 'mastercard':
+      return <IconMasterCardWithText className={iconStyles} />;
+    case 'maestro':
+      return <IconMaestro className={iconStyles} />;
+    default:
+      return <></>;
+  }
+}
 
 interface PaymentMethodCardProps {
   className?: string;
@@ -57,6 +96,8 @@ export default function PaymentMethodCard(props: PaymentMethodCardProps) {
         }),
     });
 
+  const cardType = getCardType(cardNumber);
+  const cardIcon = getCardIcon(cardType);
   return (
     <CardContainer
       className={`${className} relative flex flex-col gap-7 border-grey-silver bg-white p-8 md:flex-row md:items-center md:justify-center md:gap-10 md:px-4 md:py-6`}
@@ -73,7 +114,7 @@ export default function PaymentMethodCard(props: PaymentMethodCardProps) {
           <IconTrash className="size-6 lg:size-9" />
         )}
       </button>
-      <IconMasterCardWithText className="self-center object-contain md:h-28 md:w-36 lg:h-40 lg:w-52" />
+      {cardIcon}
       <div className="flex flex-col gap-4 paragraph-2 md:flex-1">
         <p>**** **** **** {last4Digits}</p>
         <p>{expirationDate}</p>
