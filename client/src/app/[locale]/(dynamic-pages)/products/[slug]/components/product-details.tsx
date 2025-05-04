@@ -1,19 +1,19 @@
+'use client';
+import { useProductVariants } from '@/app/providers/product-variants-provider';
 import { ProductDetailsPopup } from '@/components/popup';
-import { ProductResponse, ProductTypeResponse } from '@/lib/types';
 
 import Buttons from './buttons';
 import ImagesSlider from './images-slider';
 import NamePrice from './name-price';
 import Options from './options';
 
-interface ContentProps {
-  productData: ProductResponse;
-  productOptions: ProductTypeResponse;
-}
-export default function Content({ productData, productOptions }: ContentProps) {
-  const { details, name, originalPrice, discountedPrice } = productData;
+export default function ProductDetails() {
+  const { productOptions, selectedVariant } = useProductVariants();
+
+  const { details, name, originalPrice, discountedPrice } = selectedVariant;
   const finalPrice = discountedPrice ?? originalPrice;
-  const image = productData.images?.[0] || null;
+  const image = selectedVariant.images?.[0] || null;
+
   return (
     <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-[1.5fr_1fr]">
       <div className="order-1 flex flex-col gap-5 md:order-2">
@@ -23,19 +23,15 @@ export default function Content({ productData, productOptions }: ContentProps) {
           originalPrice={originalPrice}
         />
         <div className="hidden w-full gap-14 md:flex md:flex-col">
-          <Options
-            finalPrice={finalPrice}
-            options={productOptions}
-            productData={productData}
-          />
-          <Buttons product={productData} />
+          <Options finalPrice={finalPrice} options={productOptions} />
+          <Buttons product={selectedVariant} />
         </div>
       </div>
       <div className="order-2 flex flex-col items-start gap-5 md:order-1">
         <ImagesSlider
           className="mb-5"
-          images={productData.images}
-          tag={productData.tag}
+          images={selectedVariant.images}
+          tag={selectedVariant.tag}
         />
         {details && (
           <ProductDetailsPopup
@@ -47,12 +43,8 @@ export default function Content({ productData, productOptions }: ContentProps) {
           />
         )}
         <div className="flex w-full flex-col gap-14 md:hidden">
-          <Options
-            finalPrice={finalPrice}
-            options={productOptions}
-            productData={productData}
-          />
-          <Buttons product={productData} />
+          <Options finalPrice={finalPrice} options={productOptions} />
+          <Buttons product={selectedVariant} />
         </div>
       </div>
     </div>

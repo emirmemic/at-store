@@ -84,52 +84,51 @@ export default factories.createCoreController(
         ctx.status = 500;
       }
     },
-    async getProductByLink(ctx) {
-      const { productLink } = ctx.params;
-      if (!productLink) {
-        return ctx.badRequest("Product link is missing");
+    async getMetadataBySlug(ctx) {
+      const { slug } = ctx.params;
+      if (!slug) {
+        return ctx.badRequest("Product slug is missing");
       }
       try {
-        const product = await strapi.documents("api::product.product").findFirst({
-          filters: {
-            productLink: productLink,
-          },
-          status: "published",
-          populate: {
-            brand: true,
-            category: true,
-            model: true,
-            stores: true,
-            color: true,
-            memory: true,
-            images: {
-              fields: ["url", "alternativeText"],
+        const product = await strapi
+          .documents("api::product.product")
+          .findFirst({
+            filters: {
+              productLink: slug,
             },
-          },
-        });
+            status: "published",
+            populate: {
+              images: {
+                fields: ["url", "alternativeText", "name"],
+              },
+            },
+          });
 
         if (!product) {
           return ctx.notFound("Product not found");
         }
 
-        return product;
+        return {
+          title: product.name,
+          description: product.description,
+          images: product.images,
+        };
       } catch (error) {
         return ctx.badRequest("Failed to fetch product details");
       }
     },
 
-    async getOptionsByProductType(ctx) {
-      const { productTypeId } = ctx.params;
-      if (!productTypeId) return ctx.badRequest('productTypeId is missing');
+    async getProductOptions(ctx) {
+      const { slug } = ctx.params;
+      if (!slug) return ctx.badRequest("slug is missing");
 
       try {
         ctx.body = await strapi
-          .service('api::product.product-options')
-          .buildOptions(productTypeId);
-
+          .service("api::product.product-options")
+          .getProductVariantsBySlug(slug);
       } catch (error) {
         ctx.body = { error: error.message };
-        ctx.throw(500, 'Could not build product-type options');
+        ctx.throw(500, "Could not build product-type options");
       }
     },
   })

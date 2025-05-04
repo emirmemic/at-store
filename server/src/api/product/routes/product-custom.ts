@@ -17,8 +17,8 @@ export default {
     },
     {
       method: "GET",
-      path: "/products/link/:productLink",
-      handler: "product.getProductByLink",
+      path: "/products/:slug/metadata",
+      handler: "api::product.product.getMetadataBySlug",
       config: {
         policies: [],
         middlewares: [],
@@ -27,8 +27,8 @@ export default {
     }, 
     {
       method: 'GET',
-      path:  '/products/:productTypeId/options',
-      handler: 'product.getOptionsByProductType',
+      path:  '/products/:slug/options',
+      handler: 'api::product.product.getProductOptions',
       config: {
         auth: false,
         middlewares: [],

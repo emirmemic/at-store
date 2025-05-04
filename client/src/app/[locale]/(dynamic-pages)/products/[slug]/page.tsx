@@ -1,45 +1,36 @@
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
+import ProductVariantsProvider from '@/app/providers/product-variants-provider';
 import { InfoBlock } from '@/components';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { ProductResponse, ProductTypeResponse } from '@/lib/types';
 
 import { ProductDetails } from './components';
 import { getInfoBlocksData } from './data';
+import { MetadataResponse, ProductTypeResponse } from './types';
+
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; slug: string }>;
 }
-async function fetchUniqueProduct(slug: string) {
-  const path = `/api/products/link/${slug}`;
+async function fetchMetadata(slug: string) {
+  const path = `/api/products/${slug}/metadata`;
   const url = new URL(path, STRAPI_BASE_URL);
 
-  const res = await fetchAPI<ProductResponse>(url.href, {
+  const res = await fetchAPI<MetadataResponse>(url.href, {
     method: 'GET',
   });
   return res;
 }
-async function fetchProductOptions(productTypeId: string) {
-  const path = `/api/products/${productTypeId}/options`;
-  const url = new URL(path, STRAPI_BASE_URL);
-
-  const res = await fetchAPI<ProductTypeResponse>(url.href, {
-    method: 'GET',
-  });
-
-  return res;
-}
-
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale, slug } = await params;
   const t = await getTranslations({
     locale,
     namespace: 'metaData.mac',
   });
-  const response = await fetchUniqueProduct(slug);
+  const response = await fetchMetadata(slug);
   const productData = response.data;
-  const title = productData ? `${productData.name} | AT Store` : t('title');
+  const title = productData ? `${productData.title} | AT Store` : t('title');
   const description = productData ? productData.description : t('description');
   const productImages = productData?.images || [];
   const productImagesOP = productImages.map((image) => ({
@@ -71,54 +62,55 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
   const { slug } = await params;
-  const t = await getTranslations();
 
   if (!slug) {
     notFound();
   }
-  const response = await fetchUniqueProduct(slug);
-  if (!response?.data) {
+  const path = `/api/products/${slug}/options`;
+  const url = new URL(path, STRAPI_BASE_URL);
+
+  const response = await fetchAPI<ProductTypeResponse>(url.href, {
+    method: 'GET',
+  });
+  if (!response.data) {
     notFound();
   }
-  const productData = response.data;
-  let productTypeResponse: ProductTypeResponse = {
-    productTypeId: '',
-  };
 
-  if (productData.productTypeId) {
-    const response = await fetchProductOptions(productData.productTypeId);
-    productTypeResponse = response.data || {
-      productTypeId: productData.productTypeId,
-    };
-  }
+  const variants = response.data.variants ?? [];
+  const attributes = response.data.attributes ?? {};
+  const product = variants.find((v) => v.productLink === slug);
 
-  if (!productData) {
-    redirect('/');
-  }
+  if (!product) notFound();
 
+  const t = await getTranslations();
   const infoBlocks = getInfoBlocksData(t);
   return (
-    <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
-      <ProductDetails
-        productData={productData}
-        productOptions={productTypeResponse}
-      />
-      {/* TODO Make related products once we see the device compatibility response */}
-      <div className="flex flex-col items-center justify-center gap-8">
-        {infoBlocks.map((infoBlock) => (
-          <InfoBlock
-            key={infoBlock.id}
-            actionLink={infoBlock.actionLink}
-            className="w-full md:max-w-[688px] lg:max-w-[1058px]"
-            description={infoBlock.description}
-            isFavorites={infoBlock.isFavorites}
-            title={infoBlock.title}
-          />
-        ))}
-      </div>
-    </main>
+    <ProductVariantsProvider
+      initialVariant={product}
+      productOptions={attributes}
+      variants={variants}
+    >
+      <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
+        <ProductDetails />
+        {/* TODO Make related products once we see the device compatibility response */}
+        <div className="flex flex-col items-center justify-center gap-8">
+          {infoBlocks.map((infoBlock) => (
+            <InfoBlock
+              key={infoBlock.id}
+              actionLink={infoBlock.actionLink}
+              className="w-full md:max-w-[688px] lg:max-w-[1058px]"
+              description={infoBlock.description}
+              isFavorites={infoBlock.isFavorites}
+              title={infoBlock.title}
+            />
+          ))}
+        </div>
+      </main>
+    </ProductVariantsProvider>
   );
 }

@@ -87,8 +87,8 @@ export default factories.createCoreService("api::product.product", () => ({
             const memoryValue = webAccountProduct.memory?.value ?? null;
             const memoryUnit = webAccountProduct.memory?.unit ?? null;
             let memory = await findEntity("memory", null, {
-              unit: memoryUnit,
               value: memoryValue,
+              unit: memoryUnit,
             });
 
             if (!memory && memoryUnit && memoryValue !== null) {
@@ -136,7 +136,7 @@ export default factories.createCoreService("api::product.product", () => ({
               categoryName === "Accessories"
                 ? webAccountProduct.dodaci_type
                 : (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
-                null;
+                  null;
 
             // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
             const isSubCategoryMatch = categoryName === subCategoryName;

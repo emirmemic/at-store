@@ -112,14 +112,14 @@ export default function ImagesSlider({
       </div>
 
       {hasMoreImages && (
-        <div className="h-full w-full lg:w-fit">
+        <div className="w-full lg:w-fit">
           <Carousel
-            className="h-[422px] w-full"
+            className="w-full md:h-[422px]"
             opts={{ align: 'start' }}
             orientation={orientation}
             setApi={setApi}
           >
-            <CarouselContent className="flex h-full gap-4 pb-8">
+            <CarouselContent className="flex gap-4 pb-8">
               {images.map((image, index) => (
                 <CarouselItem
                   key={index}

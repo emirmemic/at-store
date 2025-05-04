@@ -13,8 +13,10 @@ import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
+import { ProductVariant } from '../types';
+
 interface ButtonsProps {
-  product: ProductResponse;
+  product: ProductVariant;
 }
 
 export default function Buttons({ product }: ButtonsProps) {
@@ -24,12 +26,40 @@ export default function Buttons({ product }: ButtonsProps) {
 
   const { toggleFavorite, user } = useContext(UserContext);
 
-  /** Is this product in the current user's favourites? */
+  /** Is this product in the current user's favorites? */
   const isFavorited =
     user?.favoriteProducts?.some((p) => p.id === product.id) ?? false;
 
+  /* ProductVariant and ProductResponse have different structure for options, toggleFavorite expects a ProductResponse,
+   * so we need to adjust the product object before passing it to toggleFavorite.
+   * It can be refactored in the future to use a common type for both.
+   */
+  const adjustedProduct: ProductResponse = {
+    ...product,
+    color: product.color
+      ? {
+          id: 1,
+          name: product.color.name,
+          hex: product.color.hex || '',
+        }
+      : undefined,
+    memory: product.memory
+      ? {
+          id: 1,
+          value: parseInt(product.memory.value, 10),
+          unit: product.memory.value
+            .replace(parseInt(product.memory.value, 10).toString(), '')
+            .trim(),
+        }
+      : undefined,
+    keyboard: product.keyboard ? product.keyboard.name : undefined,
+    screenSize: product.screenSize ? product.screenSize.name : undefined,
+    wifiModel: product.wifiModel ? product.wifiModel.name : undefined,
+    ancModel: product.ancModel ? product.ancModel.name : undefined,
+    braceletSize: product.braceletSize ? product.braceletSize.name : undefined,
+  };
   const { execute, isLoading } = useLoader({
-    apiCall: () => toggleFavorite(product),
+    apiCall: () => toggleFavorite(adjustedProduct),
     onSuccess: () => {
       toast({ title: t('common.successful') });
     },

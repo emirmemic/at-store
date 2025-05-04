@@ -629,6 +629,7 @@
     "requestSuccessAlert": "Uspješno ste poslali zahtjev",
     "add": "Dodaj",
     "addToFavorites": "Dodaj u omiljeno",
+    "removeFromFavorites": "Ukloni iz omiljenog",
     "submit": "Pošalji",
     "seeAll": "Pogledajte sve",
     "changesSuccessfullySaved": "Uspješno ste spasili promjene",

@@ -2,30 +2,29 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { useProductVariants } from '@/app/providers';
 import Installments from '@/components/ui/installments';
 import Price from '@/components/ui/price';
-import {
-  InstallmentOption,
-  ProductResponse,
-  ProductTypeResponse,
-} from '@/lib/types';
+import { InstallmentOption } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
-import ColorOptions from './color-options';
-import GeneralOptions from './general-options';
-import MemoryOptions from './memory-options';
+import {
+  AvailableOption,
+  ProductTypeAttributes,
+  SelectedOptionKey,
+} from '../types';
+
+import OptionsItem from './options-item';
 
 interface SpecsProps {
   className?: string;
   finalPrice: number;
-  options: ProductTypeResponse;
-  productData: ProductResponse;
+  options: ProductTypeAttributes;
 }
 export default function Options({
   className,
   finalPrice,
   options,
-  productData,
 }: SpecsProps) {
   // Installment Logic
   const [selectedOption, setSelectedOption] =
@@ -47,14 +46,15 @@ export default function Options({
   };
 
   // Options Logic
+  const { availableOptions } = useProductVariants();
   const {
-    availableColors,
-    availableMemories,
-    availableKeyboards,
-    availableScreenSizes,
-    availableAncModels,
-    availableBraceletSizes,
-    availableWifiModels,
+    colors,
+    memories,
+    keyboards,
+    screenSizes,
+    ancModels,
+    braceletSizes,
+    wifiModels,
   } = options;
   const price =
     finalPrice /
@@ -62,6 +62,56 @@ export default function Options({
       ? selectedOption.value
       : installmentOptions[installmentOptions.length - 1].value);
 
+  interface Item {
+    key: SelectedOptionKey;
+    title: string;
+    options: AvailableOption[] | undefined;
+    availableOnes?: AvailableOption[];
+  }
+  const organizedOptions: Item[] = [
+    {
+      key: 'color',
+      title: t('accessoriesPage.color'),
+      options: colors,
+      availableOnes: availableOptions.colors,
+    },
+    {
+      key: 'memory',
+      title: t('productPage.memory'),
+      options: memories,
+      availableOnes: availableOptions.memories,
+    },
+    {
+      key: 'keyboard',
+      title: t('productPage.keyboardType'),
+      options: keyboards,
+      availableOnes: availableOptions.keyboards,
+    },
+    {
+      key: 'braceletSize',
+      title: t('productPage.braceletSize'),
+      options: braceletSizes,
+      availableOnes: availableOptions.braceletSizes,
+    },
+    {
+      key: 'screenSize',
+      title: t('productPage.screenSize'),
+      options: screenSizes,
+      availableOnes: availableOptions.screenSizes,
+    },
+    {
+      key: 'ancModel',
+      title: t('productPage.model'),
+      options: ancModels,
+      availableOnes: availableOptions.ancModels,
+    },
+    {
+      key: 'wifiModel',
+      title: t('productPage.model'),
+      options: wifiModels,
+      availableOnes: availableOptions.wifiModels,
+    },
+  ];
   return (
     <div className={cn('flex flex-col gap-4', className)}>
       <div className="flex flex-col gap-4">
@@ -78,52 +128,18 @@ export default function Options({
             />
           </div>
         </div>
-        {availableColors && availableColors.length > 0 && (
-          <ColorOptions
-            availableColors={availableColors}
-            productColorId={productData?.color?.id ?? 0}
-          />
-        )}
-        {availableMemories && availableMemories.length > 0 && (
-          <MemoryOptions
-            availableMemories={availableMemories}
-            productMemoryId={productData?.memory?.id ?? 0}
-          />
-        )}
-        {availableKeyboards && availableKeyboards.length > 0 && (
-          <GeneralOptions
-            options={availableKeyboards}
-            productOptionValue={productData?.keyboard ?? ''}
-            title={t('productPage.keyboardType')}
-          />
-        )}
-        {availableBraceletSizes && availableBraceletSizes.length > 0 && (
-          <GeneralOptions
-            options={availableBraceletSizes}
-            productOptionValue={productData?.braceletSize ?? ''}
-            title={t('productPage.braceletSize')}
-          />
-        )}
-        {availableScreenSizes && availableScreenSizes.length > 0 && (
-          <GeneralOptions
-            options={availableScreenSizes}
-            productOptionValue={productData?.screenSize ?? ''}
-            title={t('productPage.screenSize')}
-          />
-        )}
-        {availableAncModels && availableAncModels.length > 0 && (
-          <GeneralOptions
-            options={availableAncModels}
-            productOptionValue={productData?.ancModel ?? ''}
-            title={t('productPage.model')}
-          />
-        )}
-        {availableWifiModels && availableWifiModels.length > 0 && (
-          <GeneralOptions
-            options={availableWifiModels}
-            productOptionValue={productData?.wifiModel ?? ''}
-            title={t('productPage.model')}
-          />
+        {organizedOptions.map(
+          (option) =>
+            option.options &&
+            option.options.length > 0 && (
+              <OptionsItem
+                key={option.key}
+                availableOnes={option.availableOnes ?? []}
+                itemKey={option.key}
+                options={option.options}
+                title={option.title}
+              />
+            )
         )}
       </div>
     </div>

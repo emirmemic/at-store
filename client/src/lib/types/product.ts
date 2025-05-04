@@ -120,5 +120,6 @@ export type {
   InstallmentOption,
   ProductResponse,
   ColorResponse,
+  MemoryResponse,
   IdentificationResponse,
 };
