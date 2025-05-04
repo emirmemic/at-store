@@ -109,8 +109,8 @@ export default factories.createCoreController(
         }
 
         return {
-          title: product.name,
-          description: product.description,
+          title: product.metaTitle || product.name,
+          description: product.metaDescription || product.description,
           images: product.images,
         };
       } catch (error) {

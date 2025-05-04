@@ -1005,6 +1005,14 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     material: Schema.Attribute.Relation<'manyToOne', 'api::material.material'>;
     memory: Schema.Attribute.Relation<'manyToOne', 'api::memory.memory'>;
+    metaDescription: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
     model: Schema.Attribute.Relation<'manyToOne', 'api::model.model'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     numberOfCores: Schema.Attribute.Integer;
@@ -1022,10 +1030,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     release_date: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
-    sub_category: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::sub-category.sub-category'
-    >;
     subCategory: Schema.Attribute.Relation<
       'manyToOne',
       'api::sub-category.sub-category'
