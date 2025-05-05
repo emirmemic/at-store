@@ -8,8 +8,6 @@ import {
 } from '@/components/ui/carousel';
 import { CategoryItem } from '@/lib/types';
 
-import { extendItemsToMinLength } from '../../utils/extendItems';
-
 import Category from './category';
 
 export default function CategoriesCarousel({
@@ -20,7 +18,6 @@ export default function CategoriesCarousel({
   if (!categories || categories.length === 0) {
     return null;
   }
-  const extendedCategories = extendItemsToMinLength(categories, 10);
 
   return (
     <div className="border-b border-grey-darker pb-3">
@@ -37,7 +34,7 @@ export default function CategoriesCarousel({
         ]}
       >
         <CarouselContent className="-ml-12">
-          {extendedCategories.map((category) => (
+          {categories.map((category) => (
             <CarouselItem
               key={category.id}
               className="w-fit basis-44 pl-4 md:basis-52 md:pl-8"
