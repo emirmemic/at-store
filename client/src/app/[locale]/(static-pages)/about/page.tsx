@@ -1,35 +1,127 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
 import { MonoAppleBlock } from '@/components';
 import { IconAtStoreLogo } from '@/components/icons';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
 
 import { CardSection, ImgSection, TeamCard } from '../components';
+import { getPlaceDetails } from '../find-store/actions';
+import { OpeningHours } from '../find-store/types';
 
-import { getCardBlocks, getInfo, getTeamCard } from './data';
+import { getCardBlocks, getInfo } from './data';
+import { AboutPageResponse } from './types';
+import { formatWorkingHours } from './utils';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metaData' });
+  const t = await getTranslations({ locale, namespace: 'metaData.about' });
 
   return {
-    title: t('about.title'),
-    description: t('about.description'),
+    title: t('title'),
+    description: t('description'),
     openGraph: {
-      title: t('about.title'),
-      description: t('about.description'),
+      title: t('title'),
+      description: t('description'),
     },
   };
 }
 
-export default function AboutPage() {
-  const t = useTranslations();
-  const info = getInfo(t);
+const query = qs.stringify(
+  {
+    populate: {
+      teamMembers: {
+        populate: {
+          image: {
+            fields: [...STRAPI_IMAGE_FIELDS],
+          },
+        },
+      },
+    },
+  },
+  {
+    encodeValuesOnly: true,
+  }
+);
+
+async function fetchPageData() {
+  const path = '/api/about-page';
+  const url = new URL(path, STRAPI_BASE_URL);
+  url.search = query;
+
+  const res = await fetchAPI<AboutPageResponse>(url.href, {
+    method: 'GET',
+  });
+  return res;
+}
+
+export default async function AboutPage() {
+  const t = await getTranslations();
+  const response = await fetchPageData();
   const cardBlocks = getCardBlocks(t);
-  const teamsCard = getTeamCard();
+  const info = getInfo(t);
+  const pageData = response?.data?.data || null;
+  const teamsMembers = pageData?.teamMembers || [];
+  const teamSectionTitle = pageData?.teamSectionTitle || '';
+  let errorMessage: string = '';
+
+  // Function to fetch place details and handle errors
+  const handlePlaceDetails = async (placeId: string) => {
+    const data = await getPlaceDetails(placeId);
+    if (data && 'error' in data) {
+      errorMessage = data.error || t('findStorePage.errorOpeningHours');
+      return null;
+    }
+    if (data && 'opening_hours' in data.result) {
+      const openingHours = data.result.opening_hours as OpeningHours;
+      const mapUrl = data.result.url;
+      return {
+        openingHours,
+        mapUrl,
+      };
+    }
+    return null;
+  };
+  // Fetch place details for each block
+  // and update the content with the opening hours and map URL
+  const infoWithMapsData = await Promise.all(
+    info.map(async (block) => {
+      const placeId = block.placeId;
+      if (!placeId) {
+        return block;
+      }
+      const data = await handlePlaceDetails(placeId);
+      if (data) {
+        const { openingHours, mapUrl } = data;
+        const newContent = block.content.map((content) => {
+          if (content.id === 'working_hours' && openingHours) {
+            return {
+              ...content,
+              text: formatWorkingHours(openingHours),
+            };
+          }
+          if (content.id === 'map_link') {
+            return {
+              ...content,
+              path: mapUrl,
+            };
+          }
+          return content;
+        });
+        return {
+          ...block,
+          content: newContent,
+        };
+      }
+      return block;
+    })
+  );
+
   const styles = {
     mainContainer:
       'flex flex-col gap-12 py-12 container-max-width md:gap-16 md:py-16',
@@ -56,9 +148,14 @@ export default function AboutPage() {
       <section
         className={`${styles.sectionBase} flex flex-col gap-12 px-3 py-12 md:gap-20 md:px-8 md:py-14 lg:px-11 lg:py-11`}
       >
-        {info.map((imageSection, index) => (
+        {infoWithMapsData.map((imageSection, index) => (
           <ImgSection key={imageSection.id} {...imageSection} index={index} />
         ))}
+        {errorMessage && (
+          <Alert dismissible className="mb-4" variant="destructive">
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        )}
       </section>
       <section className="flex flex-col gap-12 py-12 md:gap-16 md:py-16 lg:gap-16">
         <h3 className="text-center heading-2 md:heading-1">
@@ -70,16 +167,20 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      <section className="flex flex-col gap-16">
-        <h3 className="text-center heading-2 md:heading-1">
-          {t('about.teamCardTitle')}
-        </h3>
-        <div className="grid grid-cols-2 justify-items-center gap-x-6 gap-y-12 md:grid-cols-3 md:gap-y-16 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-16">
-          {teamsCard.map((teamSection) => (
-            <TeamCard key={teamSection.id} {...teamSection}></TeamCard>
-          ))}
-        </div>
-      </section>
+      {teamsMembers && teamsMembers.length > 0 && (
+        <section className="flex flex-col gap-16">
+          {teamSectionTitle && (
+            <h3 className="text-center heading-2 md:heading-1">
+              {teamSectionTitle}
+            </h3>
+          )}
+          <div className="grid grid-cols-2 justify-items-center gap-x-6 gap-y-12 md:grid-cols-3 md:gap-y-16 lg:grid-cols-4 lg:gap-x-12 lg:gap-y-16">
+            {teamsMembers.map((member) => (
+              <TeamCard key={member.id} {...member} />
+            ))}
+          </div>
+        </section>
+      )}
       <MonoAppleBlock />
     </main>
   );

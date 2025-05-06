@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_pages",
+  "info": {
+    "singularName": "about-page",
+    "pluralName": "about-pages",
+    "displayName": "AboutPage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "teamSectionTitle": {
+      "type": "string",
+      "default": "Tim"
+    },
+    "teamMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.team-member"
+    }
+  }
+}

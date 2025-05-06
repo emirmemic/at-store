@@ -68,7 +68,10 @@ export default function ImgSection({
           content.map((item, index) => (
             <p key={index} className="bullet-1 md:paragraph-1">
               {item.path ? (
-                <Link className="text-grey underline" href={item.path}>
+                <Link
+                  className="text-grey underline transition-colors hover:text-grey-light"
+                  href={item.path}
+                >
                   {item.text}
                 </Link>
               ) : (

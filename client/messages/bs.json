@@ -121,27 +121,11 @@
     "title": "O nama",
     "paragraphHeading": "AT Store je prvi Mono Apple Authorized Reseller.",
     "paragraph": "Posjetite našu trgovinu i sa našim certificiranim osobljem možete saznati kako vam Apple proizvodi i rješenja mogu olakšati svakodnevne obaveze. Naše osoblje vam je uvijek na usluzi i mi vam možemo pomoći koji Apple proizvod odabrati. Ako ste ljubitelj Apple uređaja, onda je AT Store mjesto koje ćete definitivno željeti posjetiti.",
-    "content1": {
-      "title": "AT Store Alta",
-      "item1": "Franca Lehara 2, Sarajevo",
-      "item2": "Pon - Sub: 09:00 - 22:00"
-    },
-    "content2": {
-      "title": "AT Store SCC",
-      "item1": "Vrbanja 1, Sarajevo",
-      "item2": "Pon - Sub: 10:00 - 22:00"
-    },
-    "content3": {
-      "title": "AT Store Delta",
-      "item1": "Bulevar srpske vojske 8, Banja Luka",
-      "item2": "Pon - Ned: 09:00 - 21:00"
-    },
     "cardBlockTitle": "Pridružnice",
     "cardBlock": {
       "title1": "AT Soft",
       "title2": "AT Business"
-    },
-    "teamCardTitle": "Tim"
+    }
   },
   "notFound": {
     "title": "Rezultati pretrage:",

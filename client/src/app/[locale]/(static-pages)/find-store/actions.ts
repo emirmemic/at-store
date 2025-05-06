@@ -1,12 +1,12 @@
 'use server';
 import { fetchAPI } from '@/lib/fetch-api';
 
-import { SuccessResponse, ErrorResponse } from './types';
+import { PlaceDetailsSuccessResponse, ErrorResponse } from './types';
 
 const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
-const fields = 'name,opening_hours,rating,formatted_phone_number';
+const fields = 'name,opening_hours,rating,formatted_phone_number,url';
 
-type ResponseType = SuccessResponse | ErrorResponse;
+type ResponseType = PlaceDetailsSuccessResponse | ErrorResponse;
 /**
  * Fetches opening hours from Google Places API
  * @param placeId - Google Place ID

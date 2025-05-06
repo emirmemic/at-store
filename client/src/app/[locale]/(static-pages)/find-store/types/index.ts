@@ -20,13 +20,15 @@ interface OpeningHours {
   }[];
   weekday_text: string[];
 }
-interface SuccessResponse {
+interface PlaceDetailsSuccessResponse {
   html_attributions: string[];
   result: {
     formatted_phone_number: string;
     name: string;
     opening_hours: OpeningHours;
     rating: number;
+    formatted_address: string;
+    url: string;
   };
   status: string;
 }
@@ -35,4 +37,9 @@ interface ErrorResponse {
   status: string;
 }
 
-export type { StoreType, OpeningHours, SuccessResponse, ErrorResponse };
+export type {
+  StoreType,
+  OpeningHours,
+  PlaceDetailsSuccessResponse,
+  ErrorResponse,
+};

@@ -1,5 +1,20 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AboutUsTeamMember extends Struct.ComponentSchema {
+  collectionName: 'components_about_us_team_members';
+  info: {
+    description: '';
+    displayName: 'TeamMember';
+    icon: 'user';
+  };
+  attributes: {
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    position: Schema.Attribute.String;
+    surname: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface GlobalActionLink extends Struct.ComponentSchema {
   collectionName: 'components_global_action_links';
   info: {
@@ -138,6 +153,7 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'about-us.team-member': AboutUsTeamMember;
       'global.action-link': GlobalActionLink;
       'global.button': GlobalButton;
       'global.info-block': GlobalInfoBlock;

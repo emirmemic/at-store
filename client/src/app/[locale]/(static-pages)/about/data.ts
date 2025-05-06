@@ -1,6 +1,7 @@
 import { atStoreAlta, atStoreDelta, atStoreScc } from '@/assets/images';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname } from '@/i18n/routing';
+import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
 
 import { IconAtBusiness } from '../icons';
 import IconAtSoft from '../icons/at-soft';
@@ -21,107 +22,90 @@ export const getCardBlocks = (t: (key: string) => string) => [
     id: 2,
   },
 ];
-export const getTeamCard = () => [
-  { id: 1, name: { firstName: 'Admir', surname: 'Tursum' }, role: 'Ceo' },
-  {
-    id: 2,
-    name: { firstName: 'Emina', surname: 'Bećirbašić' },
-    role: 'Deputy direction',
-  },
-  {
-    id: 3,
-    name: { firstName: 'Bojana', surname: 'Nuci' },
-    role: 'Store Manager Alta',
-  },
-  {
-    id: 4,
-    name: { firstName: 'Gorana', surname: 'Miljanović' },
-    role: 'Store Manager Delta',
-  },
-  {
-    id: 5,
-    name: { firstName: 'Selma', surname: 'Dorić' },
-    role: 'Store Manager SCC',
-  },
-  {
-    id: 6,
-    name: { firstName: 'Emir', surname: 'Tukić' },
-    role: 'Marketing manager',
-  },
-  {
-    id: 7,
-    name: { firstName: 'Haris', surname: 'Džiko' },
-    role: 'B2B manager',
-  },
-  {
-    id: 8,
-    name: { firstName: 'Armin', surname: 'Kosovac' },
-    role: 'account manager',
-  },
-];
 
 export const getInfo = (t: (key: string) => string) => [
   {
-    title: t('about.content1.title'),
+    id: 1,
+    placeId: GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA.placeId,
+    title: GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA.storeName,
     content: [
       {
-        text: t('about.content1.item1'),
-        path: 'https://maps.app.goo.gl/KCmJnmbJHi1r3hXM6',
+        id: 'map_link',
+        text: GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA.storeAddress,
+        path: '',
       },
       {
+        id: 'telephone',
         text: t('contact.atStoreAltaTelephone'),
         path: t('contact.atStoreAltaTelephoneLink'),
       },
-      { text: t('about.content1.item2') },
       {
+        id: 'working_hours',
+        text: '',
+      },
+      {
+        id: 'email',
         text: t('contact.atStoreEmail'),
         path: t('contact.atStoreEmailLink'),
       },
     ],
     name: 'At Store Alta',
     image: atStoreAlta,
-    id: 1,
   },
   {
-    title: t('about.content2.title'),
+    id: 2,
+    placeId: GOOGLE_MAPS_LOCATIONS.SARAJEVO_SCC.placeId,
+    title: GOOGLE_MAPS_LOCATIONS.SARAJEVO_SCC.storeName,
     content: [
       {
-        text: t('about.content2.item1'),
-        path: 'https://maps.app.goo.gl/or6KCk3rEAfPRXsJ6',
+        id: 'map_link',
+        text: GOOGLE_MAPS_LOCATIONS.SARAJEVO_SCC.storeAddress,
+        path: '',
       },
       {
+        id: 'telephone',
         text: t('contact.atStoreSccTelephone'),
         path: t('contact.atStoreSccTelephoneLink'),
       },
-      { text: t('about.content2.item2') },
       {
+        id: 'working_hours',
+        text: '',
+      },
+      {
+        id: 'email',
         text: t('contact.atStoreEmail'),
         path: t('contact.atStoreEmailLink'),
       },
     ],
     name: 'At Store SCC',
     image: atStoreScc,
-    id: 2,
   },
   {
-    title: t('about.content3.title'),
+    id: 3,
+    placeId: GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA.placeId,
+    title: GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA.storeName,
     content: [
       {
-        text: t('about.content3.item1'),
-        path: 'https://maps.app.goo.gl/ZiBYtxvfgJX4m6By7',
+        id: 'map_link',
+        text: GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA.storeAddress,
+        path: '',
       },
       {
+        id: 'telephone',
         text: t('contact.atStoreDeltaTelephone'),
         path: t('contact.atStoreDeltaTelephoneLink'),
       },
-      { text: t('about.content3.item2') },
       {
+        id: 'working_hours',
+        text: '',
+      },
+      {
+        id: 'email',
         text: t('contact.atStoreDeltaEmail'),
         path: t('contact.atStoreDeltaEmailLink'),
       },
     ],
     name: 'At Store Delta',
     image: atStoreDelta,
-    id: 3,
   },
 ];
