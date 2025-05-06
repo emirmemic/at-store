@@ -48,6 +48,9 @@ export const makeLink = (raw: string): string =>
     .replace(/-+$/, "");
 
 /**
+ * TODO: Not comparing the following fields:
+ * - Stores
+ * - Device Compatibility
  * Compare two products and log their differences
  * @param webAccountProduct - The product from Web Account
  * @param existingProduct - The product from Strapi
@@ -57,6 +60,12 @@ export function isSameProduct(
   webAccountProduct: WebAccountProduct,
   existingProduct: StrapiProduct
 ): boolean {
+  const modelName = webAccountProduct?.model?.name || null;
+
+  const subCategory =
+    (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
+    webAccountProduct?.dodaci_type ||
+    null;
   const comparisons = [
     {
       field: "Brand",
@@ -75,6 +84,11 @@ export function isSameProduct(
         existingProduct?.category?.name === "Accessories"
           ? null
           : (existingProduct?.category?.name ?? null),
+    },
+    {
+      field: "Sub Category",
+      web: subCategory,
+      strapi: existingProduct?.subCategory?.name || null,
     },
     {
       field: "Article Name",

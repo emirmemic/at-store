@@ -141,11 +141,7 @@ export default factories.createCoreService("api::product.product", () => ({
                     },
                   });
               }
-              const accessoriesType = webAccountProduct.dodaci_type
-                ? "Accessories"
-                : null;
-              let categoryName =
-                webAccountProduct.category.name || accessoriesType;
+              let categoryName = webAccountProduct.category?.name || null;
 
               /// Sometimes webAccount returns "iPad Pro" as "ipad pro" or "iPad" as "ipad"
               if (categoryName?.toLowerCase() === "ipad pro") {
@@ -160,43 +156,35 @@ export default factories.createCoreService("api::product.product", () => ({
                 "chips",
               ]);
 
-              // if category is "accessories" then we set the subcategory to whatever `dodaci_type` is
+              // if category is "dodaci" then we set the subcategory to whatever `dodaci_type` is
               // otherwise we set it to the first two words of the model name
               const subCategoryName =
-                categoryName === "Accessories"
+                categoryName.toLowerCase() === "dodaci"
                   ? webAccountProduct.dodaci_type
                   : (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
                     null;
 
               // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
-              const isSubCategoryMatch = categoryName === subCategoryName;
+              const isSubCategoryMatch =
+                categoryName.toLowerCase() === subCategoryName?.toLowerCase();
 
-              // Find or create the category
+              // Find  the category
               if (category) {
                 const modelIds = category.models.map((model) => model.id) || [];
+                // Check if the model already exists in the category
+                // If the model is not in the category, add it
                 if (model) {
                   if (!modelIds.includes(model.id)) {
                     modelIds.push(model.id);
                   }
                 }
 
-                // same logic for chips as the subcategory
-                let chipIds = category.chips.map((chip) => chip.id) || [];
-                if (chipName) {
-                  if (!chipIds.includes(chip?.id)) {
-                    const existingChip = await findEntity("chip", chipName);
-                    if (existingChip) {
-                      chipIds.push(existingChip.id);
-                    } else {
-                      const newChip = await strapi
-                        .documents("api::chip.chip")
-                        .create({
-                          data: {
-                            name: chipName,
-                          },
-                        });
-                      chipIds.push(newChip.id);
-                    }
+                // Check if the chip already exists in the category
+                // If the chip is not in the category, add it
+                const chipIds = category.chips.map((chip) => chip.id) || [];
+                if (chip) {
+                  if (!chipIds.includes(chip.id)) {
+                    chipIds.push(chip.id);
                   }
                 }
                 category = await strapi
@@ -235,7 +223,7 @@ export default factories.createCoreService("api::product.product", () => ({
                   null,
                   ["products", "models"]
                 );
-                if (!subCategory && subCategoryName) {
+                if (!subCategory && subCategoryName && !isSubCategoryMatch) {
                   subCategory = await strapi
                     .documents("api::sub-category.sub-category")
                     .create({
@@ -282,7 +270,7 @@ export default factories.createCoreService("api::product.product", () => ({
                 }
               }
 
-              // 6. Create the product with all relations
+              // Create the product with all relations
               const articleName = webAccountProduct.naziv_artikla_webaccount;
               const productData = {
                 name: articleName,
@@ -301,8 +289,6 @@ export default factories.createCoreService("api::product.product", () => ({
                 memory: memory?.id,
                 material: material?.id,
                 chip: chip?.id,
-                // Set publish state
-                publishedAt: new Date(),
                 ancModel: webAccountProduct.anc_model,
                 keyboard: webAccountProduct.tipkovnica,
                 wifiModel: webAccountProduct.wifi_model,
@@ -315,7 +301,7 @@ export default factories.createCoreService("api::product.product", () => ({
               };
 
               if (existingProduct) {
-                // Update existing product
+                // Remove undefined values from productData
                 const sanitizedProductData = Object.fromEntries(
                   Object.entries(productData).filter(
                     ([_, value]) => value !== undefined
@@ -326,7 +312,7 @@ export default factories.createCoreService("api::product.product", () => ({
                   documentId: existingProduct.documentId,
                   data: sanitizedProductData,
                 });
-              } else if (!existingProduct) {
+              } else {
                 // Create new product
                 await strapi.documents("api::product.product").create({
                   data: productData,
