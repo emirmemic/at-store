@@ -1,42 +1,42 @@
-import { factories } from "@strapi/strapi";
+import { factories } from '@strapi/strapi';
 export default factories.createCoreController(
-  "api::product.product",
+  'api::product.product',
   ({ strapi }) => ({
     async toggleFavorite(ctx) {
       const { user } = ctx.state;
       const { productId } = ctx.params;
 
-      const product = await strapi.documents("api::product.product").findFirst({
+      const product = await strapi.documents('api::product.product').findFirst({
         filters: {
           documentId: productId,
         },
-        status: "published",
-        populate: ["favoritedBy"],
+        status: 'published',
+        populate: ['favoritedBy'],
       });
 
       if (!product) {
-        return ctx.notFound("Product not found");
+        return ctx.notFound('Product not found');
       }
 
       const isFavorited = product.favoritedBy.some((u) => u.id === user.id);
 
       try {
-        await strapi.documents("api::product.product").update({
+        await strapi.documents('api::product.product').update({
           documentId: productId,
-          status: "published",
+          status: 'published',
           data: {
             favoritedBy: {
-              [isFavorited ? "disconnect" : "connect"]: [
-                { id: user.id, status: "published" },
+              [isFavorited ? 'disconnect' : 'connect']: [
+                { id: user.id, status: 'published' },
               ],
             },
           },
-          populate: ["favoritedBy"],
+          populate: ['favoritedBy'],
         });
 
         return { isFavorited: !isFavorited };
       } catch (error) {
-        return ctx.badRequest("Failed to toggle favorite");
+        return ctx.badRequest('Failed to toggle favorite');
       }
     },
 
@@ -44,14 +44,14 @@ export default factories.createCoreController(
       const { user } = ctx.state;
       if (!user) {
         return ctx.unauthorized(
-          "You are not authorized to access this resource"
+          'You are not authorized to access this resource'
         );
       }
       try {
         const favorites = await strapi
-          .documents("api::product.product")
+          .documents('api::product.product')
           .findMany({
-            status: "published",
+            status: 'published',
             filters: {
               favoritedBy: {
                 id: user.id,
@@ -65,19 +65,19 @@ export default factories.createCoreController(
               color: true,
               memory: true,
               images: {
-                fields: ["url", "alternativeText"],
+                fields: ['url', 'alternativeText'],
               },
             },
           });
 
         return favorites;
       } catch (error) {
-        return ctx.badRequest("Failed to fetch favorites");
+        return ctx.badRequest('Failed to fetch favorites');
       }
     },
     async syncWebAccountProducts(ctx) {
       try {
-        await strapi.service("api::product.product").syncWebAccountProducts();
+        await strapi.service('api::product.product').syncWebAccountProducts();
         ctx.body = { success: true };
       } catch (error) {
         ctx.body = { error: error.message };
@@ -87,25 +87,25 @@ export default factories.createCoreController(
     async getMetadataBySlug(ctx) {
       const { slug } = ctx.params;
       if (!slug) {
-        return ctx.badRequest("Product slug is missing");
+        return ctx.badRequest('Product slug is missing');
       }
       try {
         const product = await strapi
-          .documents("api::product.product")
+          .documents('api::product.product')
           .findFirst({
             filters: {
               productLink: slug,
             },
-            status: "published",
+            status: 'published',
             populate: {
               images: {
-                fields: ["url", "alternativeText", "name"],
+                fields: ['url', 'alternativeText', 'name'],
               },
             },
           });
 
         if (!product) {
-          return ctx.notFound("Product not found");
+          return ctx.notFound('Product not found');
         }
 
         return {
@@ -114,21 +114,21 @@ export default factories.createCoreController(
           images: product.images,
         };
       } catch (error) {
-        return ctx.badRequest("Failed to fetch product details");
+        return ctx.badRequest('Failed to fetch product details');
       }
     },
 
     async getProductOptions(ctx) {
       const { slug } = ctx.params;
-      if (!slug) return ctx.badRequest("slug is missing");
+      if (!slug) return ctx.badRequest('slug is missing');
 
       try {
         ctx.body = await strapi
-          .service("api::product.product-options")
+          .service('api::product.product-options')
           .getProductVariantsBySlug(slug);
       } catch (error) {
         ctx.body = { error: error.message };
-        ctx.throw(500, "Could not build product-type options");
+        ctx.throw(500, 'Could not build product-type options');
       }
     },
   })

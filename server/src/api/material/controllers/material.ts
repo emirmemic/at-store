@@ -2,21 +2,21 @@
  * material controller
  */
 
-import { factories } from "@strapi/strapi";
+import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController(
-  "api::material.material",
+  'api::material.material',
   ({ strapi }) => ({
     async getAvailableMaterials(ctx) {
       const { categoryName } = ctx.params;
 
       if (!categoryName) {
-        return ctx.badRequest("Category name is required");
+        return ctx.badRequest('Category name is required');
       }
 
       try {
         const materials = await strapi.db
-          .query("api::material.material")
+          .query('api::material.material')
           .findMany({
             where: {
               products: {
@@ -53,7 +53,7 @@ export default factories.createCoreController(
       } catch (error) {
         console.error(error);
         return ctx.internalServerError(
-          "Failed to fetch materials with published products in the specified category"
+          'Failed to fetch materials with published products in the specified category'
         );
       }
     },

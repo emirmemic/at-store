@@ -18,25 +18,17 @@
     },
     "learnMoreVariant": {
       "type": "enumeration",
-      "enum": [
-        "blue_blue",
-        "blue_white"
-      ],
+      "enum": ["blue_blue", "blue_white"],
       "required": true,
       "default": "blue_blue"
     },
     "textColor": {
       "type": "enumeration",
-      "enum": [
-        "white",
-        "black"
-      ],
+      "enum": ["white", "black"],
       "default": "white"
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
       "required": true

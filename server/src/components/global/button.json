@@ -8,9 +8,7 @@
   "attributes": {
     "transparentVariant": {
       "type": "enumeration",
-      "enum": [
-        "blue_blue"
-      ],
+      "enum": ["blue_blue"],
       "required": false
     }
   }

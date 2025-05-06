@@ -38,9 +38,9 @@ export interface WebAccountProduct {
   naziv_artikla_webaccount: string;
   original_price: string;
   availability_by_store: {
-    "AT Store (DELTA)": number;
-    "AT Store (SCC)": number;
-    "AT Store (ALTA)": number;
+    'AT Store (DELTA)': number;
+    'AT Store (SCC)': number;
+    'AT Store (ALTA)': number;
   };
   amount_in_stock: number;
   color: {

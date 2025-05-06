@@ -8,19 +8,19 @@ export default ({ strapi }) => ({
    */
   async getProductVariantsBySlug(slug: string) {
     // Fetch the product by slug and get its productTypeId
-    const product = await strapi.documents("api::product.product").findFirst({
+    const product = await strapi.documents('api::product.product').findFirst({
       filters: { productLink: slug },
-      status: "published",
-      fields: ["productTypeId"],
+      status: 'published',
+      fields: ['productTypeId'],
     });
 
     if (!product?.productTypeId) return null;
     const productTypeId = product.productTypeId;
 
     // Fetch all products of the same type and organize them by their attributes and populate available options
-    const products = await strapi.documents("api::product.product").findMany({
+    const products = await strapi.documents('api::product.product').findMany({
       filters: { productTypeId },
-      status: "published",
+      status: 'published',
       populate: {
         brand: true,
         category: true,
@@ -29,10 +29,10 @@ export default ({ strapi }) => ({
         color: true,
         memory: true,
         images: {
-          fields: ["url", "alternativeText"],
+          fields: ['url', 'alternativeText'],
         },
       },
-      fields: ["*"],
+      fields: ['*'],
     });
 
     // Create maps to store unique values
@@ -123,18 +123,18 @@ export default ({ strapi }) => ({
 
 // HELPERS
 const scalarAttributes = [
-  "keyboard",
-  "braceletSize",
-  "ancModel",
-  "screenSize",
-  "wifiModel",
+  'keyboard',
+  'braceletSize',
+  'ancModel',
+  'screenSize',
+  'wifiModel',
 ] as const;
 type ScalarAttribute = (typeof scalarAttributes)[number];
 
 const formatScalarOptions = (map: Map<string, { value: string }>) =>
   [...map.values()].map(({ value }) => ({ name: value, value }));
 const formatScreenSize = (value: string) => {
-  return `${parseFloat(value.replace(/[^0-9.]/g, ""))} inch`;
+  return `${parseFloat(value.replace(/[^0-9.]/g, ''))} inch`;
 };
 
 const formatColorOptions = (

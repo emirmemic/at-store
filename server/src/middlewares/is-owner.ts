@@ -3,7 +3,7 @@ export default () => {
     const { user } = ctx.state;
 
     if (!user) {
-      return ctx.unauthorized("You are not authorized to access this resource");
+      return ctx.unauthorized('You are not authorized to access this resource');
     }
 
     // Add a filter to only show the current user's resources

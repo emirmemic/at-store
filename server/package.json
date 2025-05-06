@@ -9,7 +9,8 @@
     "develop": "strapi develop",
     "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "lint": "prettier --write ."
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.12.5",
@@ -29,6 +30,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "prettier": "^3.5.1",
     "typescript": "^5.8.2"
   },
   "engines": {

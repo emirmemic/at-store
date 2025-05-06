@@ -1,9 +1,9 @@
 export default {
   routes: [
     {
-      method: "GET",
-      path: "/colors/by-category-name/:categoryName",
-      handler: "api::color.color.getAvailableColors",
+      method: 'GET',
+      path: '/colors/by-category-name/:categoryName',
+      handler: 'api::color.color.getAvailableColors',
       config: {
         policies: [],
         middlewares: [],

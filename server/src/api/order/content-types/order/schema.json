@@ -13,12 +13,7 @@
   "attributes": {
     "orderStatus": {
       "type": "enumeration",
-      "enum": [
-        "pending",
-        "delivered",
-        "canceled",
-        "shipped"
-      ],
+      "enum": ["pending", "delivered", "canceled", "shipped"],
       "required": true
     },
     "orderNumber": {

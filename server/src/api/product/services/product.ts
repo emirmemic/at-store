@@ -1,8 +1,8 @@
-import { factories } from "@strapi/strapi";
-import { LoginResponse, ProductsResponse, StrapiProduct } from "../types";
-import { findEntity, isSameProduct, makeLink } from "../utils";
+import { factories } from '@strapi/strapi';
+import { LoginResponse, ProductsResponse, StrapiProduct } from '../types';
+import { findEntity, isSameProduct, makeLink } from '../utils';
 
-export default factories.createCoreService("api::product.product", () => ({
+export default factories.createCoreService('api::product.product', () => ({
   syncWebAccountProducts: async () => {
     try {
       // Fetch products from Web Account API
@@ -12,9 +12,9 @@ export default factories.createCoreService("api::product.product", () => ({
       };
 
       const res = await fetch(`${process.env.WEB_ACCOUNT_API_URL}/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(loginCredentials),
       });
@@ -22,7 +22,7 @@ export default factories.createCoreService("api::product.product", () => ({
       const responseData = await res.json();
       if (!res.ok) {
         const { error } = responseData as { error: string };
-        throw new Error("Failed to login to Web Account API, Error: " + error);
+        throw new Error('Failed to login to Web Account API, Error: ' + error);
       }
       const { token } = responseData as LoginResponse;
       let totalPages = 1;
@@ -32,9 +32,9 @@ export default factories.createCoreService("api::product.product", () => ({
           const response = await fetch(
             `${process.env.WEB_ACCOUNT_API_URL}/products/unique?page=${index}`,
             {
-              method: "GET",
+              method: 'GET',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
               },
             }
@@ -47,21 +47,21 @@ export default factories.createCoreService("api::product.product", () => ({
             // Check if product already exists
             try {
               const existingProduct: StrapiProduct = await strapi.db
-                .query("api::product.product")
+                .query('api::product.product')
                 .findOne({
                   where: {
                     productVariantId: webAccountProduct.product_variant_id,
                   },
                   populate: [
-                    "brand",
-                    "model",
-                    "category",
-                    "subCategory",
-                    "stores",
-                    "color",
-                    "memory",
-                    "material",
-                    "chip",
+                    'brand',
+                    'model',
+                    'category',
+                    'subCategory',
+                    'stores',
+                    'color',
+                    'memory',
+                    'material',
+                    'chip',
                   ],
                 });
 
@@ -72,9 +72,9 @@ export default factories.createCoreService("api::product.product", () => ({
                 continue;
               }
               const brandName = webAccountProduct.brand?.name ?? null;
-              let brand = await findEntity("brand", brandName);
+              let brand = await findEntity('brand', brandName);
               if (!brand && brandName) {
-                brand = await strapi.documents("api::brand.brand").create({
+                brand = await strapi.documents('api::brand.brand').create({
                   data: {
                     name: brandName,
                   },
@@ -82,9 +82,9 @@ export default factories.createCoreService("api::product.product", () => ({
               }
 
               const modelName = webAccountProduct.model?.name ?? null;
-              let model = await findEntity("model", modelName);
+              let model = await findEntity('model', modelName);
               if (!model && modelName) {
-                model = await strapi.documents("api::model.model").create({
+                model = await strapi.documents('api::model.model').create({
                   data: {
                     name: modelName,
                   },
@@ -93,9 +93,9 @@ export default factories.createCoreService("api::product.product", () => ({
 
               const chipName =
                 webAccountProduct.specifications.chip?.name ?? null;
-              let chip = await findEntity("chip", chipName);
+              let chip = await findEntity('chip', chipName);
               if (!chip && chipName) {
-                chip = await strapi.documents("api::chip.chip").create({
+                chip = await strapi.documents('api::chip.chip').create({
                   data: {
                     name: chipName,
                   },
@@ -103,10 +103,10 @@ export default factories.createCoreService("api::product.product", () => ({
               }
 
               const colorName = webAccountProduct.color?.name || null;
-              let color = await findEntity("color", colorName);
+              let color = await findEntity('color', colorName);
 
               if (!color && colorName) {
-                color = await strapi.documents("api::color.color").create({
+                color = await strapi.documents('api::color.color').create({
                   data: {
                     name: colorName,
                     hex: webAccountProduct.color?.hex,
@@ -116,13 +116,13 @@ export default factories.createCoreService("api::product.product", () => ({
 
               const memoryValue = webAccountProduct.memory?.value ?? null;
               const memoryUnit = webAccountProduct.memory?.unit ?? null;
-              let memory = await findEntity("memory", null, {
+              let memory = await findEntity('memory', null, {
                 value: memoryValue,
                 unit: memoryUnit,
               });
 
               if (!memory && memoryUnit && memoryValue !== null) {
-                memory = await strapi.documents("api::memory.memory").create({
+                memory = await strapi.documents('api::memory.memory').create({
                   data: {
                     value: memoryValue,
                     unit: memoryUnit,
@@ -131,10 +131,10 @@ export default factories.createCoreService("api::product.product", () => ({
               }
 
               const materialName = webAccountProduct.material ?? null;
-              let material = await findEntity("material", materialName);
+              let material = await findEntity('material', materialName);
               if (!material && materialName) {
                 material = await strapi
-                  .documents("api::material.material")
+                  .documents('api::material.material')
                   .create({
                     data: {
                       name: materialName,
@@ -144,24 +144,24 @@ export default factories.createCoreService("api::product.product", () => ({
               let categoryName = webAccountProduct.category?.name || null;
 
               /// Sometimes webAccount returns "iPad Pro" as "ipad pro" or "iPad" as "ipad"
-              if (categoryName?.toLowerCase() === "ipad pro") {
-                categoryName = "iPad Pro";
-              } else if (categoryName?.toLowerCase() === "ipad") {
-                categoryName = "iPad";
+              if (categoryName?.toLowerCase() === 'ipad pro') {
+                categoryName = 'iPad Pro';
+              } else if (categoryName?.toLowerCase() === 'ipad') {
+                categoryName = 'iPad';
               }
 
-              let category = await findEntity("category", categoryName, null, [
-                "subCategories",
-                "models",
-                "chips",
+              let category = await findEntity('category', categoryName, null, [
+                'subCategories',
+                'models',
+                'chips',
               ]);
 
               // if category is "dodaci" then we set the subcategory to whatever `dodaci_type` is
               // otherwise we set it to the first two words of the model name
               const subCategoryName =
-                categoryName.toLowerCase() === "dodaci"
+                categoryName.toLowerCase() === 'dodaci'
                   ? webAccountProduct.dodaci_type
-                  : (modelName && modelName.split(" ").slice(0, 2).join(" ")) ||
+                  : (modelName && modelName.split(' ').slice(0, 2).join(' ')) ||
                     null;
 
               // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
@@ -188,7 +188,7 @@ export default factories.createCoreService("api::product.product", () => ({
                   }
                 }
                 category = await strapi
-                  .documents("api::category.category")
+                  .documents('api::category.category')
                   .update({
                     documentId: category.documentId,
                     data: {
@@ -201,7 +201,7 @@ export default factories.createCoreService("api::product.product", () => ({
               } else if (!category && categoryName) {
                 // Create a new category
                 category = await strapi
-                  .documents("api::category.category")
+                  .documents('api::category.category')
                   .create({
                     data: {
                       name: categoryName,
@@ -218,14 +218,14 @@ export default factories.createCoreService("api::product.product", () => ({
 
               if (!isSubCategoryMatch && category) {
                 subCategory = await findEntity(
-                  "sub-category",
+                  'sub-category',
                   subCategoryName,
                   null,
-                  ["products", "models"]
+                  ['products', 'models']
                 );
                 if (!subCategory && subCategoryName && !isSubCategoryMatch) {
                   subCategory = await strapi
-                    .documents("api::sub-category.sub-category")
+                    .documents('api::sub-category.sub-category')
                     .create({
                       data: {
                         name: subCategoryName,
@@ -249,14 +249,14 @@ export default factories.createCoreService("api::product.product", () => ({
                     .filter(([_, quantity]) => quantity > 0)
                     .map(async ([storeName]) => {
                       let store = await strapi.db
-                        .query("api::store.store")
+                        .query('api::store.store')
                         .findOne({
                           where: { name: storeName },
                         });
 
                       if (!store) {
                         store = await strapi
-                          .documents("api::store.store")
+                          .documents('api::store.store')
                           .create({
                             data: { name: storeName },
                           });
@@ -266,7 +266,7 @@ export default factories.createCoreService("api::product.product", () => ({
 
                   storeIds.push(...(await Promise.all(storePromises)));
                 } catch (error) {
-                  console.error("Error processing stores:", error);
+                  console.error('Error processing stores:', error);
                 }
               }
 
@@ -293,7 +293,7 @@ export default factories.createCoreService("api::product.product", () => ({
                 keyboard: webAccountProduct.tipkovnica,
                 wifiModel: webAccountProduct.wifi_model,
                 accessoriesType: webAccountProduct.dodaci_type,
-                braceletSize: webAccountProduct.narukvica_size.join(", "),
+                braceletSize: webAccountProduct.narukvica_size.join(', '),
                 screenSize: webAccountProduct.specifications.screen_size,
                 ram: webAccountProduct.specifications.ram,
                 cores: webAccountProduct.specifications.number_of_cores,
@@ -308,13 +308,13 @@ export default factories.createCoreService("api::product.product", () => ({
                   )
                 );
 
-                await strapi.documents("api::product.product").update({
+                await strapi.documents('api::product.product').update({
                   documentId: existingProduct.documentId,
                   data: sanitizedProductData,
                 });
               } else {
                 // Create new product
-                await strapi.documents("api::product.product").create({
+                await strapi.documents('api::product.product').create({
                   data: productData,
                 });
               }
@@ -328,7 +328,7 @@ export default factories.createCoreService("api::product.product", () => ({
         }
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log('Error:', error);
     }
   },
 }));

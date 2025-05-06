@@ -2,20 +2,20 @@
  * brand controller
  */
 
-import { factories } from "@strapi/strapi";
+import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController(
-  "api::brand.brand",
+  'api::brand.brand',
   ({ strapi }) => ({
     async getAvailableBrands(ctx) {
       const { categoryName } = ctx.params;
 
       if (!categoryName) {
-        return ctx.badRequest("Category name is required");
+        return ctx.badRequest('Category name is required');
       }
 
       try {
-        const brands = await strapi.db.query("api::brand.brand").findMany({
+        const brands = await strapi.db.query('api::brand.brand').findMany({
           where: {
             products: {
               publishedAt: { $notNull: true },
@@ -51,7 +51,7 @@ export default factories.createCoreController(
       } catch (error) {
         console.error(error);
         return ctx.internalServerError(
-          "Failed to fetch brands with published products in the specified category"
+          'Failed to fetch brands with published products in the specified category'
         );
       }
     },

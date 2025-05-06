@@ -4,4 +4,6 @@
 
 import { factories } from '@strapi/strapi';
 
-export default factories.createCoreService('api::current-promotion.current-promotion');
+export default factories.createCoreService(
+  'api::current-promotion.current-promotion'
+);
