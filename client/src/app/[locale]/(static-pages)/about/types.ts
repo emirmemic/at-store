@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 import { ImageProps } from '@/lib/types';
 
 interface AboutPageResponse {
@@ -23,4 +25,13 @@ interface ImageSectionItem {
   name: string;
 }
 
-export type { AboutPageResponse, TeamMember, ImageSectionItem };
+interface InfoItem {
+  id: number;
+  placeId: string;
+  title: string;
+  content: { id: string; text: string; path?: string }[];
+  name: string;
+  image: StaticImageData;
+  errorMessage?: string;
+}
+export type { AboutPageResponse, TeamMember, ImageSectionItem, InfoItem };

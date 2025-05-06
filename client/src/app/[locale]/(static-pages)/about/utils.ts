@@ -2,7 +2,7 @@ import { OpeningHours } from '@/app/[locale]/(static-pages)/find-store/types';
 
 export const formatWorkingHours = (data: OpeningHours) => {
   const dayLabels = ['Pon', 'Uto', 'Sri', 'Čet', 'Pet', 'Sub', 'Ned'];
-  const hoursMap = new Map();
+  const hoursMap = new Map<number, string | null>();
   const weekdayText = data.weekday_text || [];
 
   // Initialize the map with null values for closed days

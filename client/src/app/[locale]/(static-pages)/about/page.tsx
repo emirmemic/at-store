@@ -3,7 +3,6 @@ import qs from 'qs';
 
 import { MonoAppleBlock } from '@/components';
 import { IconAtStoreLogo } from '@/components/icons';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -12,7 +11,7 @@ import { getPlaceDetails } from '../find-store/actions';
 import { OpeningHours } from '../find-store/types';
 
 import { getCardBlocks, getInfo } from './data';
-import { AboutPageResponse } from './types';
+import { AboutPageResponse, InfoItem } from './types';
 import { formatWorkingHours } from './utils';
 
 interface GenerateMetadataParams {
@@ -64,18 +63,19 @@ export default async function AboutPage() {
   const t = await getTranslations();
   const response = await fetchPageData();
   const cardBlocks = getCardBlocks(t);
-  const info = getInfo(t);
+  // Extend the type of info blocks to include errorMessage
+  const info: InfoItem[] = getInfo(t).map((block) => ({
+    ...block,
+  }));
   const pageData = response?.data?.data || null;
   const teamsMembers = pageData?.teamMembers || [];
   const teamSectionTitle = pageData?.teamSectionTitle || '';
-  let errorMessage: string = '';
 
   // Function to fetch place details and handle errors
   const handlePlaceDetails = async (placeId: string) => {
     const data = await getPlaceDetails(placeId);
     if (data && 'error' in data) {
-      errorMessage = data.error || t('findStorePage.errorOpeningHours');
-      return null;
+      throw new Error(data.error || t('findStorePage.errorOpeningHours'));
     }
     if (data && 'opening_hours' in data.result) {
       const openingHours = data.result.opening_hours as OpeningHours;
@@ -95,28 +95,35 @@ export default async function AboutPage() {
       if (!placeId) {
         return block;
       }
-      const data = await handlePlaceDetails(placeId);
-      if (data) {
-        const { openingHours, mapUrl } = data;
-        const newContent = block.content.map((content) => {
-          if (content.id === 'working_hours' && openingHours) {
-            return {
-              ...content,
-              text: formatWorkingHours(openingHours),
-            };
-          }
-          if (content.id === 'map_link') {
-            return {
-              ...content,
-              path: mapUrl,
-            };
-          }
-          return content;
-        });
-        return {
-          ...block,
-          content: newContent,
-        };
+      try {
+        const data = await handlePlaceDetails(placeId);
+        if (data) {
+          const { openingHours, mapUrl } = data;
+          const newContent = block.content.map((content) => {
+            if (content.id === 'working_hours' && openingHours) {
+              return {
+                ...content,
+                text: formatWorkingHours(openingHours),
+              };
+            }
+            if (content.id === 'map_link') {
+              return {
+                ...content,
+                path: mapUrl,
+              };
+            }
+            return content;
+          });
+          return {
+            ...block,
+            content: newContent,
+          };
+        }
+      } catch (error) {
+        block.errorMessage =
+          error instanceof Error
+            ? error.message
+            : t('findStorePage.errorOpeningHours');
       }
       return block;
     })
@@ -151,11 +158,6 @@ export default async function AboutPage() {
         {infoWithMapsData.map((imageSection, index) => (
           <ImgSection key={imageSection.id} {...imageSection} index={index} />
         ))}
-        {errorMessage && (
-          <Alert dismissible className="mb-4" variant="destructive">
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-        )}
       </section>
       <section className="flex flex-col gap-12 py-12 md:gap-16 md:py-16 lg:gap-16">
         <h3 className="text-center heading-2 md:heading-1">

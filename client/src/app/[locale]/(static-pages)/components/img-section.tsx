@@ -10,6 +10,7 @@ interface ImgSectionProps {
   image: StaticImageData;
   index: number;
   description?: string;
+  errorMessage?: string;
 }
 
 export default function ImgSection({
@@ -19,6 +20,7 @@ export default function ImgSection({
   description,
   image,
   index,
+  errorMessage,
 }: Readonly<ImgSectionProps>) {
   const reverseRow = index % 2 !== 0;
   return (
@@ -79,6 +81,9 @@ export default function ImgSection({
               )}
             </p>
           ))}
+        {errorMessage && (
+          <p className="py-2 text-pink-soft paragraph-5">{errorMessage}</p>
+        )}
       </div>
     </div>
   );
