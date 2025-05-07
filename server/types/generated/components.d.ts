@@ -56,6 +56,24 @@ export interface GlobalInfoBlock extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalProductStoreItem extends Struct.ComponentSchema {
+  collectionName: 'components_global_product_store_items';
+  info: {
+    displayName: 'Product Store Item';
+  };
+  attributes: {
+    quantity: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    store: Schema.Attribute.Relation<'oneToOne', 'api::store.store'>;
+  };
+}
+
 export interface GlobalPromoSliderItem extends Struct.ComponentSchema {
   collectionName: 'components_global_promo_slider_items';
   info: {
@@ -157,6 +175,7 @@ declare module '@strapi/strapi' {
       'global.action-link': GlobalActionLink;
       'global.button': GlobalButton;
       'global.info-block': GlobalInfoBlock;
+      'global.product-store-item': GlobalProductStoreItem;
       'global.promo-slider-item': GlobalPromoSliderItem;
       'global.promotional-flip-card': GlobalPromotionalFlipCard;
       'global.ram': GlobalRam;

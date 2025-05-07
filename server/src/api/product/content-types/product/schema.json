@@ -98,12 +98,6 @@
       "target": "api::memory.memory",
       "inversedBy": "products"
     },
-    "stores": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::store.store",
-      "inversedBy": "products"
-    },
     "ancModel": {
       "type": "string",
       "required": false,
@@ -172,6 +166,20 @@
     "metaDescription": {
       "type": "string",
       "maxLength": 255
+    },
+    "deviceCompatibility": {
+      "type": "json"
+    },
+    "amountInStock": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "stores": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.product-store-item",
+      "required": false
     }
   }
 }

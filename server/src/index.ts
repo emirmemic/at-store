@@ -81,9 +81,9 @@ export default {
       });
   },
   bootstrap: async () => {
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const cronRule = isDevelopment ? "*/0 * * * *" : "0 * * * *"; // every 1 hour in dev, every 1 hour in prod
-    const environment = isDevelopment ? "development" : "production";
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const cronRule = isDevelopment ? '*/0 * * * *' : '0 * * * *'; // every 1 hour in dev, every 1 hour in prod
+    const environment = isDevelopment ? 'development' : 'production';
 
     strapi.cron.add({
       syncProducts: {

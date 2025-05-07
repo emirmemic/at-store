@@ -60,12 +60,12 @@ export function isSameProduct(
   webAccountProduct: WebAccountProduct,
   existingProduct: StrapiProduct
 ): boolean {
-  const modelName = webAccountProduct?.model?.name || null;
+  let categoryName = webAccountProduct.category?.name || null;
+  const subCategoryName =
+    categoryName.toLowerCase() === 'dodaci'
+      ? webAccountProduct.dodaci_type
+      : webAccountProduct.product_type_id || null;
 
-  const subCategory =
-    (modelName && modelName.split(' ').slice(0, 2).join(' ')) ||
-    webAccountProduct?.dodaci_type ||
-    null;
   const comparisons = [
     {
       field: 'Brand',
@@ -87,7 +87,7 @@ export function isSameProduct(
     },
     {
       field: 'Sub Category',
-      web: subCategory,
+      web: subCategoryName,
       strapi: existingProduct?.subCategory?.name || null,
     },
     {
@@ -185,6 +185,15 @@ export function isSameProduct(
       web: webAccountProduct?.dodaci_type ?? null,
       strapi: existingProduct?.accessoriesType ?? null,
     },
+    {
+      field: 'Device Compatibility',
+      web: webAccountProduct?.device_compatibility?.length
+        ? webAccountProduct.device_compatibility
+        : null,
+      strapi: existingProduct?.deviceCompatibility?.length
+        ? existingProduct.deviceCompatibility
+        : null,
+    },
   ];
 
   let isIdentical = true;
@@ -195,6 +204,7 @@ export function isSameProduct(
     } else if (typeof web === 'string' && web.toLowerCase() === 'ipad') {
       web = 'iPad';
     }
+
     if (web !== strapi) {
       isIdentical = false;
       console.log(`\n${field} differs:`);
@@ -203,4 +213,55 @@ export function isSameProduct(
     }
   });
   return isIdentical;
+}
+
+export async function getStores(webAccountProduct: WebAccountProduct) {
+  const stores: { store: number; quantity: number }[] = [];
+  if (webAccountProduct.availability_by_store) {
+    try {
+      // Get all available store names with quantity > 0
+      const activeStores = Object.entries(
+        webAccountProduct.availability_by_store
+      ).filter(([_, quantity]) => quantity > 0);
+
+      if (activeStores.length === 0) {
+        return [];
+      }
+
+      // Fetch all stores in one query
+      const storeNames = activeStores.map(([name]) => name);
+      const existingStores = await strapi.db
+        .query('api::store.store')
+        .findMany({
+          where: { name: { $in: storeNames } },
+        });
+
+      // Create map for quick lookups
+      const storeMap = new Map(
+        existingStores.map((store) => [store.name, store])
+      );
+
+      // Process stores
+      for (const [storeName, quantity] of activeStores) {
+        let store = storeMap.get(storeName);
+
+        if (!store) {
+          store = await strapi.documents('api::store.store').create({
+            data: { name: storeName },
+          });
+        }
+
+        stores.push({
+          store: store.id,
+          quantity,
+        });
+      }
+    } catch (error) {
+      strapi.log.error(
+        `Error processing stores for product ${webAccountProduct.product_variant_id}:`,
+        error
+      );
+    }
+  }
+  return stores;
 }

@@ -1,6 +1,6 @@
 import { factories } from '@strapi/strapi';
 import { LoginResponse, ProductsResponse, StrapiProduct } from '../types';
-import { findEntity, isSameProduct, makeLink } from '../utils';
+import { findEntity, getStores, isSameProduct, makeLink } from '../utils';
 
 export default factories.createCoreService('api::product.product', () => ({
   syncWebAccountProducts: async () => {
@@ -161,12 +161,7 @@ export default factories.createCoreService('api::product.product', () => ({
               const subCategoryName =
                 categoryName.toLowerCase() === 'dodaci'
                   ? webAccountProduct.dodaci_type
-                  : (modelName && modelName.split(' ').slice(0, 2).join(' ')) ||
-                    null;
-
-              // if the value of subCategoryName equal to the categoryName then we don't create a new subcategory
-              const isSubCategoryMatch =
-                categoryName.toLowerCase() === subCategoryName?.toLowerCase();
+                  : webAccountProduct.product_type_id || null;
 
               // Find  the category
               if (category) {
@@ -215,15 +210,14 @@ export default factories.createCoreService('api::product.product', () => ({
               }
 
               let subCategory;
-
-              if (!isSubCategoryMatch && category) {
+              if (category) {
                 subCategory = await findEntity(
                   'sub-category',
                   subCategoryName,
                   null,
                   ['products', 'models']
                 );
-                if (!subCategory && subCategoryName && !isSubCategoryMatch) {
+                if (!subCategory && subCategoryName) {
                   subCategory = await strapi
                     .documents('api::sub-category.sub-category')
                     .create({
@@ -239,36 +233,8 @@ export default factories.createCoreService('api::product.product', () => ({
                 }
               }
 
-              // 4. Handle Stores relation (many-to-many)
-              const storeIds = [];
-              if (webAccountProduct.availability_by_store) {
-                try {
-                  const storePromises = Object.entries(
-                    webAccountProduct.availability_by_store
-                  )
-                    .filter(([_, quantity]) => quantity > 0)
-                    .map(async ([storeName]) => {
-                      let store = await strapi.db
-                        .query('api::store.store')
-                        .findOne({
-                          where: { name: storeName },
-                        });
-
-                      if (!store) {
-                        store = await strapi
-                          .documents('api::store.store')
-                          .create({
-                            data: { name: storeName },
-                          });
-                      }
-                      return store.id;
-                    });
-
-                  storeIds.push(...(await Promise.all(storePromises)));
-                } catch (error) {
-                  console.error('Error processing stores:', error);
-                }
-              }
+              // Handle Stores relation (many-to-many)
+              const stores = await getStores(webAccountProduct);
 
               // Create the product with all relations
               const articleName = webAccountProduct.naziv_artikla_webaccount;
@@ -284,7 +250,7 @@ export default factories.createCoreService('api::product.product', () => ({
                 model: model?.id,
                 category: category?.id,
                 subCategory: subCategory?.id,
-                stores: storeIds,
+                stores: stores,
                 color: color?.id,
                 memory: memory?.id,
                 material: material?.id,
@@ -298,6 +264,8 @@ export default factories.createCoreService('api::product.product', () => ({
                 ram: webAccountProduct.specifications.ram,
                 cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
+                deviceCompatibility: webAccountProduct.device_compatibility,
+                amountInStock: webAccountProduct.amount_in_stock,
               };
 
               if (existingProduct) {
@@ -319,7 +287,7 @@ export default factories.createCoreService('api::product.product', () => ({
                 });
               }
             } catch (error) {
-              console.error(
+              strapi.log.error(
                 `Error processing product ${webAccountProduct.product_variant_id}:`,
                 error
               );
@@ -328,7 +296,7 @@ export default factories.createCoreService('api::product.product', () => ({
         }
       }
     } catch (error) {
-      console.log('Error:', error);
+      strapi.log.error('Error syncing products from Web Account API:', error);
     }
   },
 }));

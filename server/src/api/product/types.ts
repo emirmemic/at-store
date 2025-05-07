@@ -57,10 +57,7 @@ export interface WebAccountProduct {
   wifi_model?: string | null;
   dodaci_type?: string | null;
   narukvica_size: string[];
-  // TODO: Currently Web Account is always returning this as null, so need to check this when we are able to see how the object looks like
-  device_compatibility: {
-    name: string;
-  }[];
+  device_compatibility: string[];
 }
 
 export interface StrapiProduct {
@@ -123,4 +120,5 @@ export interface StrapiProduct {
   cores?: number | null;
   releaseDate?: string | null;
   publishedAt?: Date | null;
+  deviceCompatibility: string[];
 }

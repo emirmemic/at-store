@@ -1010,6 +1010,14 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   attributes: {
     accessoriesType: Schema.Attribute.String;
+    amountInStock: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
     ancModel: Schema.Attribute.String;
     braceletSize: Schema.Attribute.String;
     brand: Schema.Attribute.Relation<'manyToOne', 'api::brand.brand'>;
@@ -1021,6 +1029,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     details: Schema.Attribute.Blocks;
+    deviceCompatibility: Schema.Attribute.JSON;
     discountedPrice: Schema.Attribute.Decimal;
     favoritedBy: Schema.Attribute.Relation<
       'manyToMany',
@@ -1060,7 +1069,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     ram: Schema.Attribute.Component<'global.ram', false>;
     releaseDate: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
-    stores: Schema.Attribute.Relation<'manyToMany', 'api::store.store'>;
+    stores: Schema.Attribute.Component<'global.product-store-item', true>;
     subCategory: Schema.Attribute.Relation<
       'manyToOne',
       'api::sub-category.sub-category'
@@ -1153,7 +1162,6 @@ export interface ApiStoreStore extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
