@@ -1031,6 +1031,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     details: Schema.Attribute.Blocks;
     deviceCompatibility: Schema.Attribute.JSON;
     discountedPrice: Schema.Attribute.Decimal;
+    displayName: Schema.Attribute.String;
     favoritedBy: Schema.Attribute.Relation<
       'manyToMany',
       'plugin::users-permissions.user'

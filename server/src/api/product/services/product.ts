@@ -240,6 +240,7 @@ export default factories.createCoreService('api::product.product', () => ({
               const articleName = webAccountProduct.naziv_artikla_webaccount;
               const productData = {
                 name: articleName,
+                displayName: articleName,
                 productTypeId: webAccountProduct.product_type_id,
                 productVariantId: webAccountProduct.product_variant_id,
                 webAccountArticleName: articleName,

@@ -180,6 +180,9 @@
       "repeatable": true,
       "component": "global.product-store-item",
       "required": false
+    },
+    "displayName": {
+      "type": "string"
     }
   }
 }
