@@ -1,6 +1,7 @@
 'use client';
 import Autoplay from 'embla-carousel-autoplay';
 
+import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
 import {
   Carousel,
   CarouselContent,
@@ -18,7 +19,7 @@ export default function CategoriesCarousel({
   if (!categories || categories.length === 0) {
     return null;
   }
-
+  const extendedCategories = extendItemsToMinLength(categories);
   return (
     <div className="border-b border-grey-darker pb-3">
       <Carousel
@@ -33,8 +34,8 @@ export default function CategoriesCarousel({
           }),
         ]}
       >
-        <CarouselContent className="-ml-12">
-          {categories.map((category) => (
+        <CarouselContent className="-ml-4 md:-ml-8">
+          {extendedCategories.map((category) => (
             <CarouselItem
               key={category.id}
               className="w-fit basis-44 pl-4 md:basis-52 md:pl-8"

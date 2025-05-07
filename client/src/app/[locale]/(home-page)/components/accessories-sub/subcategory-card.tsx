@@ -17,7 +17,7 @@ export default function SubCategoryCard(item: SubCategoryItem) {
   } = item;
   const t = useTranslations();
   return (
-    <div className="relative flex w-full flex-col rounded-2xl border bg-white p-4 shadow-outline-black transition-all hover:bg-grey-almost-white">
+    <div className="relative flex w-full flex-col rounded-2xl border bg-white p-4 shadow-outline-black transition-all hover:shadow-outline-black-hover">
       <Link
         className="z-1 absolute inset-0"
         href={{

@@ -1,6 +1,11 @@
 import qs from 'qs';
 
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
+import {
+  ACCESSORY_CATEGORY_NAME,
+  STRAPI_BASE_URL,
+  STRAPI_IMAGE_FIELDS,
+} from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { SubCategoryItem } from '@/lib/types';
 
@@ -16,7 +21,12 @@ const query = qs.stringify(
     filters: {
       category: {
         name: {
-          $eq: 'Accessories',
+          $eqi: ACCESSORY_CATEGORY_NAME,
+        },
+      },
+      products: {
+        publishedAt: {
+          $notNull: true,
         },
       },
     },
@@ -41,5 +51,6 @@ async function fetchSubCategories() {
 export default async function SubCategorySection() {
   const response = await fetchSubCategories();
   const items = response?.data?.data || [];
-  return <SubCategoriesCarousel items={items} />;
+  const extendedItems = extendItemsToMinLength(items);
+  return <SubCategoriesCarousel items={extendedItems} />;
 }

@@ -15,7 +15,7 @@ interface BuildFiltersOptions {
  *
  * @example
  * const filters = buildFilters({
- *   categoryName: 'Accessories',
+ *   categoryName: 'Dodaci',
  *   filters: {
  *     color: ['red', 'blue'],
  *     brand: ['Apple', 'Beats'],
@@ -24,9 +24,9 @@ interface BuildFiltersOptions {
  * console.log(filters);
  * // Output:
  * // {
- * //   category: { name: { $eq: 'Accessories' } },
- * //   color: { name: { $in: ['red', 'blue'] } },
- * //   brand: { name: { $in: ['Apple', 'Beats'] } },
+ * //   category: { name: { $eqi: 'Dodaci' } },
+ * //   color: { name: { $ini: ['red', 'blue'] } },
+ * //   brand: { name: { $ini: ['Apple', 'Beats'] } },
  * // }
  */
 export function buildFilters({
@@ -38,7 +38,7 @@ export function buildFilters({
   if (categoryName) {
     finalFilters.category = {
       name: {
-        $eq: categoryName,
+        $eqi: categoryName,
       },
     };
   }
@@ -47,7 +47,7 @@ export function buildFilters({
     if (values.length > 0) {
       finalFilters[field] = {
         name: {
-          $in: values,
+          $ini: values,
         },
       };
     }

@@ -28,7 +28,7 @@ const buttonVariants = cva(
     'focus-visible:ring-ring',
     'focus-visible:ring-offset-2',
     'disabled:pointer-events-none',
-    'disabled:opacity-50',
+    'disabled:opacity-30',
 
     // SVG Styles
     '[&_svg]:pointer-events-none',

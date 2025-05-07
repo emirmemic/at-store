@@ -1,9 +1,5 @@
-/**
- * material controller
- */
-
 import { factories } from '@strapi/strapi';
-
+import { getAvailableItems } from '../../../utils/get-available-items';
 export default factories.createCoreController(
   'api::material.material',
   ({ strapi }) => ({
@@ -15,41 +11,12 @@ export default factories.createCoreController(
       }
 
       try {
-        const materials = await strapi.db
-          .query('api::material.material')
-          .findMany({
-            where: {
-              products: {
-                publishedAt: { $notNull: true },
-                category: {
-                  name: categoryName,
-                },
-              },
-            },
-            populate: {
-              products: {
-                where: {
-                  category: {
-                    name: categoryName,
-                  },
-                },
-                populate: {
-                  category: true,
-                },
-              },
-            },
-          });
-
-        // Filter out materials with no matching products
-        const filteredMaterials = materials.filter(
-          (material) => material.products.length > 0
+        const materials = await getAvailableItems(
+          strapi,
+          'api::material.material',
+          categoryName
         );
-
-        ctx.body = filteredMaterials.map((material) => ({
-          id: material.id,
-          documentId: material.documentId,
-          name: material.name,
-        }));
+        ctx.body = materials;
       } catch (error) {
         console.error(error);
         return ctx.internalServerError(

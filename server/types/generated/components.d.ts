@@ -96,11 +96,17 @@ export interface GlobalPromotionalFlipCard extends Struct.ComponentSchema {
   };
   attributes: {
     actionLink: Schema.Attribute.Component<'global.action-link', false>;
+    backBackgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#000000'>;
     backDescription: Schema.Attribute.Text;
     backTagline: Schema.Attribute.String;
+    backTextColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#ffffff'>;
     backTitle: Schema.Attribute.String & Schema.Attribute.Required;
+    frontTextColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#ffffff'>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     priceLabel: Schema.Attribute.String;
-    productImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     tagline: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };

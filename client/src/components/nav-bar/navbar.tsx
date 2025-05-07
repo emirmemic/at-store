@@ -1,7 +1,10 @@
 import { useTranslations } from 'next-intl';
 
+import { matchesCategory } from '@/app/[locale]/(home-page)/utils/helpers';
 import { DesktopMenu, MobileMenu } from '@/components/nav-bar/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { Pathname } from '@/i18n/routing';
+import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 import { NavMenuItem } from '@/lib/types';
 
 interface NavbarProps {
@@ -24,30 +27,53 @@ export default function Navbar({ navbarData }: NavbarProps) {
   };
 
   // Helper functions
-  const isMacItem = (item: NavMenuItem): boolean => {
-    const checkString = (str?: string) =>
-      (str || '').toLowerCase().includes('mac');
-    return checkString(item.name) || checkString(item.displayName);
-  };
 
-  const processSubcategories = (item: NavMenuItem) => {
-    return (
-      item?.subCategories?.map((subItem) => {
-        if (isMacItem(subItem)) {
-          return {
-            ...subItem,
-            subCategories: [whyMacSubCategory],
-          };
-        }
-        return subItem;
-      }) || []
-    );
-  };
+  function seeAllSubCategory(categoryPath: Pathname) {
+    return {
+      id: 'see-all',
+      documentId: 'see-all',
+      name: t('common.seeAll'),
+      displayName: t('common.seeAll'),
+      link: categoryPath,
+      startingPrice: 0,
+      image: null,
+      navbarIcon: null,
+      shortDescription: null,
+      tag: null,
+    };
+  }
 
+  // Builds a navigation item with custom logic based on its category:
+  // - For accessories: link to the main accessories page and clear subcategories.
+  // - For Mac: retain existing subcategories and add the "Why Mac" subcategory.
+  // - For all others: retain existing subcategories and append a "See All"  subcategory if subcategories exist.
   const buildNavItem = (item: NavMenuItem): NavMenuItem => {
+    const baseSubCategories =
+      item.subCategories && item.subCategories.length > 0
+        ? [
+            ...(item.subCategories ?? []),
+            seeAllSubCategory(item.link as Pathname),
+          ]
+        : [];
+
+    if (matchesCategory(item, ACCESSORY_CATEGORY_NAME)) {
+      return {
+        ...item,
+        link: PAGE_NAMES.ACCESSORIES,
+        subCategories: [],
+      };
+    }
+
+    if (matchesCategory(item, 'mac')) {
+      return {
+        ...item,
+        subCategories: [...baseSubCategories, whyMacSubCategory],
+      };
+    }
+
     return {
       ...item,
-      subCategories: processSubcategories(item),
+      subCategories: baseSubCategories,
     };
   };
 

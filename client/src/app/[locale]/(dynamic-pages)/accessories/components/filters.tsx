@@ -8,7 +8,7 @@ import { AnimateAppearance } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { useRouter } from '@/i18n/routing';
-import { STRAPI_BASE_URL } from '@/lib/constants';
+import { ACCESSORY_CATEGORY_NAME, STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ColorResponse, IdentificationResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
@@ -46,7 +46,7 @@ export default function Filters({ className, isLoading }: FiltersProps) {
 
   useEffect(() => {
     const makePath = (endpoint: string) =>
-      `${STRAPI_BASE_URL}/api/${endpoint}/by-category-name/Accessories`;
+      `${STRAPI_BASE_URL}/api/${endpoint}/by-category-name/${ACCESSORY_CATEGORY_NAME}`;
     async function fetchFilters() {
       const colorsPath = makePath('colors');
       const brandsPath = makePath('brands');

@@ -1,5 +1,5 @@
 import { factories } from '@strapi/strapi';
-
+import { getAvailableItems } from '../../../utils/get-available-items';
 export default factories.createCoreController(
   'api::color.color',
   ({ strapi }) => ({
@@ -11,40 +11,13 @@ export default factories.createCoreController(
       }
 
       try {
-        const colors = await strapi.db.query('api::color.color').findMany({
-          where: {
-            products: {
-              publishedAt: { $notNull: true },
-              category: {
-                name: categoryName,
-              },
-            },
-          },
-          populate: {
-            products: {
-              where: {
-                category: {
-                  name: categoryName,
-                },
-              },
-              populate: {
-                category: true,
-              },
-            },
-          },
-        });
-
-        // Filter out colors with no matching products
-        const filteredColors = colors.filter(
-          (color) => color.products.length > 0
+        const colors = await getAvailableItems(
+          strapi,
+          'api::color.color',
+          categoryName,
+          ['id', 'documentId', 'name', 'hex']
         );
-
-        ctx.body = filteredColors.map((color) => ({
-          id: color.id,
-          documentId: color.documentId,
-          name: color.name,
-          hex: color.hex,
-        }));
+        ctx.body = colors;
       } catch (error) {
         console.error(error);
         return ctx.internalServerError(

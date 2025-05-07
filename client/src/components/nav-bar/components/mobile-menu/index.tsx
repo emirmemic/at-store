@@ -16,7 +16,6 @@ import { MobileMenuType } from '@/components/nav-bar/types';
 import { AnimateHeight, AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
-import { Pathname } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { NavMenuItem, SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
@@ -33,41 +32,15 @@ export default function MobileMenu({
   cartCount,
 }: MobileMenuProps) {
   const t = useTranslations();
-  const finalMenuItems: NavMenuItem[] = menuItems.map((item) => {
-    if (item.subCategories && item.subCategories.length > 0) {
-      const categoryPath = item.link;
-      return {
-        ...item,
-        subCategories: [
-          ...(item.subCategories || []),
-          seeAllSubCategory(categoryPath as Pathname),
-        ],
-      };
-    }
-    return item;
-  });
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MobileMenuType>('list');
   const [activeSubmenu, setActiveSubmenu] = useState<SubCategoryItem[]>(
-    finalMenuItems[0].subCategories || []
+    menuItems.length > 0 && menuItems[0].subCategories
+      ? menuItems[0].subCategories
+      : []
   );
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, () => setIsOpen(false));
-
-  function seeAllSubCategory(categoryPath: Pathname) {
-    return {
-      id: 'see-all',
-      documentId: 'see-all',
-      name: t('common.seeAll'),
-      displayName: t('common.seeAll'),
-      link: categoryPath,
-      startingPrice: 0,
-      image: null,
-      navbarIcon: null,
-      shortDescription: null,
-      tag: null,
-    };
-  }
 
   const toggleSearch = () => {
     setActiveMenu((prev) => (prev === 'search' ? 'list' : 'search'));
@@ -157,7 +130,7 @@ export default function MobileMenu({
                   <MobileList
                     className="mb-6"
                     closeMenu={closeMenu}
-                    menuItems={finalMenuItems}
+                    menuItems={menuItems}
                     onClickMenuItem={selectActiveSubmenu}
                   />
                   <MobileLoginLogout closeMenu={closeMenu} />

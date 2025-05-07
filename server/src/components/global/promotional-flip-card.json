@@ -17,11 +17,15 @@
     "priceLabel": {
       "type": "string"
     },
-    "productImage": {
+    "image": {
       "type": "media",
       "multiple": false,
       "required": true,
       "allowedTypes": ["images"]
+    },
+    "frontTextColor": {
+      "type": "string",
+      "default": "#ffffff"
     },
     "backTagline": {
       "type": "string"
@@ -38,6 +42,14 @@
       "type": "component",
       "repeatable": false,
       "component": "global.action-link"
+    },
+    "backBackgroundColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "backTextColor": {
+      "type": "string",
+      "default": "#ffffff"
     }
   }
 }

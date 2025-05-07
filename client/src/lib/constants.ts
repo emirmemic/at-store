@@ -55,3 +55,7 @@ export const GOOGLE_MAPS_LOCATIONS = {
     storePostCode: '78000',
   },
 } as const;
+
+// Product Related
+// The name of the category in the Strapi database, used for fetching products.It is the unique identifier for the category.
+export const ACCESSORY_CATEGORY_NAME = 'dodaci';

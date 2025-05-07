@@ -19,11 +19,14 @@ export default function PromotionalFlipCard(
     tagline,
     title,
     priceLabel,
-    productImage,
+    image,
+    frontTextColor,
     backTitle,
     backTagline,
     backDescription,
     actionLink,
+    backBackgroundColor,
+    backTextColor,
   } = promotion;
   const [flipped, setFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -50,31 +53,42 @@ export default function PromotionalFlipCard(
     >
       <div
         className={cn(
-          'relative h-full w-full text-white transition-transform duration-1000 [transform-style:preserve-3d]',
+          'relative h-full w-full transition-transform duration-1000 [transform-style:preserve-3d]',
           flipped && '[transform:rotateY(180deg)]'
         )}
       >
-        <div className="absolute inset-0 flex flex-col justify-between rounded-2xl bg-black px-4 py-3 [backface-visibility:hidden]">
-          <div>
-            <p className="mb-2 paragraph-2">{tagline}</p>
-            <h3 className="mb-2 line-clamp-2 heading-4">{title}</h3>
-            <p className="mb-6 paragraph-2">{priceLabel}</p>
+        <div className="absolute inset-0 flex [backface-visibility:hidden]">
+          <div
+            className="relative flex grow flex-col justify-between overflow-hidden rounded-2xl px-4 py-3"
+            style={{ color: frontTextColor ? frontTextColor : 'inherit' }}
+          >
+            <div>
+              <p className="mb-2 paragraph-2">{tagline}</p>
+              <h3 className="mb-2 line-clamp-2 heading-4">{title}</h3>
+              <p className="mb-6 paragraph-2">{priceLabel}</p>
+            </div>
+            {image && (
+              <StrapiImage
+                priority
+                alt={image?.alternativeText ?? 'Image'}
+                className="absolute inset-0 -z-[1] h-full w-full rounded-2xl object-cover"
+                height={240}
+                sizes="100vw"
+                src={image.url}
+                width={400}
+              />
+            )}
+            <IconFlip className="ml-auto shrink-0" />
           </div>
-          <div className="mb-8 h-56 max-h-56 w-full">
-            <StrapiImage
-              priority
-              alt={productImage?.alternativeText ?? 'Image'}
-              className="h-full w-full object-contain"
-              height={240}
-              sizes="100vw"
-              src={productImage.url}
-              width={400}
-            />
-          </div>
-          <IconFlip className="ml-auto shrink-0" />
         </div>
 
-        <div className="absolute inset-0 flex flex-col justify-between gap-6 rounded-2xl bg-black px-5 pb-3 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+        <div
+          className="absolute inset-0 flex flex-col justify-between gap-6 rounded-2xl px-5 pb-3 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          style={{
+            backgroundColor: backBackgroundColor ? backBackgroundColor : '#000',
+            color: backTextColor ? backTextColor : '#fff',
+          }}
+        >
           <div>
             <p className="paragraph-2">{backTagline}</p>
             <p className="heading-3">{backTitle}</p>

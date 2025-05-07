@@ -2,7 +2,11 @@
 
 import qs from 'qs';
 
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import {
+  ACCESSORY_CATEGORY_NAME,
+  STRAPI_BASE_URL,
+  STRAPI_IMAGE_FIELDS,
+} from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { AccessoriesResponse } from '../types';
@@ -52,7 +56,7 @@ export async function fetchProducts({
   const query = qs.stringify(
     {
       filters: buildFilters({
-        categoryName: 'Accessories',
+        categoryName: ACCESSORY_CATEGORY_NAME,
         filters: {
           color: colorFilters,
           brand: brandFilters,

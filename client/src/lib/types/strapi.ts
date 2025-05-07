@@ -34,10 +34,13 @@ interface PromotionalFlipCardResponse {
   tagline?: string;
   title: string;
   priceLabel?: string;
-  productImage: ImageProps;
+  image: ImageProps;
+  frontTextColor?: string;
   backTagline?: string;
   backTitle: string;
   backDescription?: string;
+  backBackgroundColor?: string;
+  backTextColor?: string;
   actionLink: ActionLinkResponse | null;
 }
 interface NavMenuItem extends CategoryItem {

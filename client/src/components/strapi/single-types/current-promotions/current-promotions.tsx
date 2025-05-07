@@ -15,7 +15,7 @@ const query = qs.stringify(
     populate: {
       flipCards: {
         populate: {
-          productImage: {
+          image: {
             fields: STRAPI_IMAGE_FIELDS,
           },
           actionLink: true,
@@ -42,7 +42,6 @@ export default async function CurrentPromotions({
   const response = await fetchCards();
   const cards = response?.data?.data.flipCards || [];
   const title = response?.data?.data.sectionTitle || '';
-
   if (!cards || cards.length === 0) {
     return null;
   }
