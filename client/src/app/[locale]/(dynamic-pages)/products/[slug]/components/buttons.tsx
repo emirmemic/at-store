@@ -1,4 +1,5 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
@@ -34,6 +35,7 @@ export default function Buttons({ product }: ButtonsProps) {
    * so we need to adjust the product object before passing it to toggleFavorite.
    * It can be refactored in the future to use a common type for both.
    */
+
   const adjustedProduct: ProductResponse = {
     ...product,
     color: product.color

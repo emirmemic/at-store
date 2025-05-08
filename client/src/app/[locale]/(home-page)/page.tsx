@@ -90,6 +90,8 @@ export default async function Page({
   if (!data)
     return <div>Fetch is successful, but there is no data for this page</div>;
 
+  // I've commented a few lines below because we still didn't decide if we are surely going to remove it. For now let them be commented.
+
   const { title, promoCards, heroSection } = data;
   return (
     <main>
@@ -110,17 +112,17 @@ export default async function Page({
               promoCards={promoCards}
             />
           )}
-          <section className="py-8 pr-6 md:pr-12">
+          {/* <section className="py-8 pr-6 md:pr-12">
             <IconsBlock />
-          </section>
+          </section> */}
         </div>
         <PromoSliderWrapper className="py-4 container-max-width-xl" />
         <section className="py-4 container-max-width-xl">
           <SubCategorySection />
         </section>
-        <section className="px-6 py-8 container-max-width-lg md:px-12">
+        {/* <section className="px-6 py-8 container-max-width-lg md:px-12">
           <MonoAppleBlock />
-        </section>
+        </section> */}
       </div>
     </main>
   );

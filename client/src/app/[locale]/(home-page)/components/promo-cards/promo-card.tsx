@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
@@ -26,7 +27,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
 
   return (
     <div className="relative w-full">
-      <div className="shadow-large-black aspect-[4/3] min-h-[13.75rem] w-full min-w-[18.75rem] rounded-2xl object-cover shadow-slider-drop-shadow">
+      <div className="aspect-[4/3] min-h-[7.75rem] w-full min-w-[12.75rem] rounded-lg border-[2px] object-cover">
         <StrapiImage
           priority
           alt={image?.alternativeText || name}

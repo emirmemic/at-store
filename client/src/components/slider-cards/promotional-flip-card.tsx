@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { IconFlip } from '@/components/icons';
 import { StrapiImage } from '@/components/strapi/components/strapi-image';
@@ -44,7 +44,7 @@ export default function PromotionalFlipCard(
     <div
       ref={cardRef}
       aria-label={flipped ? t('back') : t('viewMore')}
-      className="perspective-distant h-[442px] cursor-pointer"
+      className="perspective-distant h-[460px] cursor-pointer"
       role="button"
       tabIndex={0}
       title={flipped ? t('back') : t('viewMore')}

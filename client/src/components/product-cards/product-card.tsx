@@ -1,10 +1,12 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { Buttons } from '@/app/[locale]/(dynamic-pages)/products/[slug]/components';
 import { StrapiImage } from '@/components/strapi/components';
+import { UserContext } from '@/app/providers';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
@@ -14,6 +16,8 @@ import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
+import { Button } from '../ui/button';
 
 import ProductTag from './product-tag';
 
@@ -54,7 +58,6 @@ export default function ProductCard({
   const [favorites, setFavorites] = useState<number[]>(
     favoritedBy?.map((f) => f.id) ?? []
   );
-
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(product),
     onSuccess: () => {
@@ -77,7 +80,6 @@ export default function ProductCard({
       });
     },
   });
-
   const handleFavoriteClick = () => {
     if (user) {
       execute();
@@ -89,7 +91,6 @@ export default function ProductCard({
       router.push(PAGE_NAMES.LOGIN);
     }
   };
-
   const specs: string[] = [];
   if (screenSize) specs.push(formatScreenSize(screenSize));
   if (memory) specs.push(`${memory.value}${memory.unit}`);
@@ -105,16 +106,11 @@ export default function ProductCard({
   const finalSpecs = specs.slice(0, 4);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
-
+  const discountPercentage = discountedPrice
+    ? Math.round(((originalPrice - discountedPrice) / originalPrice) * 100)
+    : 0;
   return (
-    <div
-      className={cn(
-        'relative flex w-full flex-col gap-3 rounded-2xl border border-grey-extra-light bg-white py-6 shadow-standard-black transition-all hover:shadow-standard-black-hover',
-        variant === 'accessories' && 'max-w-[300px] px-18px',
-        variant === 'standard' && 'max-w-[340px] px-6',
-        className
-      )}
-    >
+    <div className={cn('flex w-full flex-col bg-white', className)}>
       <Link
         className="z-1 absolute inset-0"
         href={{
@@ -126,12 +122,7 @@ export default function ProductCard({
           {t('common.viewDetailsWithName', { productName: name })}
         </span>
       </Link>
-      <div
-        className={cn('w-full', {
-          'h-44': variant === 'accessories',
-          'h-52': variant === 'standard',
-        })}
-      >
+      <div className="aspect-[4/3] w-full bg-grey-almost-white">
         {image ? (
           <StrapiImage
             alt={image?.alternativeText || name}
@@ -146,9 +137,9 @@ export default function ProductCard({
           </div>
         )}
       </div>
-      <div className="flex grow flex-col justify-center">
-        <div className="mb-1 flex min-h-16 items-center justify-between gap-2">
-          <p className="heading-4">{name}</p>
+      <div className="mt-4 space-y-1 px-2 pb-4 text-left">
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-md font-semibold">{name}</p>
           <FavoritesHeart
             className="z-3 relative"
             disabled={isLoading}
@@ -166,10 +157,14 @@ export default function ProductCard({
             ))}
           </div>
         )}
+
         {discountedPrice && (
-          <p className="mb-0.5 line-through paragraph-2">{`${originalPrice} ${CURRENCY}`}</p>
+          <div className="flex items-center gap-2 text-sm">
+            <p className="text-muted-foreground line-through">{`${originalPrice} ${CURRENCY}`}</p>
+            <p className="text-green-600">{`${discountPercentage}% off`}</p>
+          </div>
         )}
-        <p className="heading-4">{`${finalPrice} ${CURRENCY}`}</p>
+        <p className="text-sm font-semibold">{`${finalPrice} ${CURRENCY}`}</p>
       </div>
       {tag && (
         <ProductTag

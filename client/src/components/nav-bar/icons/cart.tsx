@@ -5,7 +5,7 @@ interface IconCartProps extends IconProps {
 }
 
 export default function IconCart({
-  size = 24,
+  size = 18,
   className = '',
   itemsInCart = 0,
   ...props

@@ -2,7 +2,7 @@ import { IconProps } from '@/lib/types';
 
 export default function IconAccount({
   className = '',
-  size = 24,
+  size = 18,
   ...props
 }: IconProps) {
   return (

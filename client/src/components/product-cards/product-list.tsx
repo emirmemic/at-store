@@ -13,7 +13,9 @@ export default function ProductsList({
   className = '',
 }: ProductListProps) {
   return (
-    <div className={`flex flex-wrap items-center gap-8 ${className}`}>
+    <div
+      className={`grid grid-cols-2 items-center gap-4 md:grid-cols-3 ${className}`}
+    >
       {products.map((product) => (
         <ProductCard
           key={product.id}
