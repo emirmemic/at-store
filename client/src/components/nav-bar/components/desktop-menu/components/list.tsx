@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
+import { InfoCard } from '@/components/info-cards';
 import { DesktopPopup } from '@/components/nav-bar/components';
 import { PopupType } from '@/components/nav-bar/types';
 import { StrapiImage } from '@/components/strapi/components';
@@ -109,47 +110,28 @@ export default function DesktopList({
           <div className="mt-10 w-full rounded-xl bg-gray-100 px-6 py-4 text-black">
             <div className="flex flex-row items-center justify-center gap-2">
               <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">💳</span>
-                  <div>
-                    <p className="font-bold">Plaćanje na rate</p>
-                    <p className="text-sm text-grey-dark">
-                      U AT Storeu možete kupovati uz mogućnost plaćanja
-                      kreditnom ili shopping karticom do 36 rata.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">🎓</span>
-                  <div>
-                    <p className="font-bold">Obrazovni popust</p>
-                    <p className="text-sm text-grey-dark">
-                      Izaberi popust za studente i profesore kako bi mogao da
-                      učiš bilo kad, bilo gdje.
-                    </p>
-                  </div>
-                </div>
+                <InfoCard
+                  description={'infoCards.payInInstallmentsDescription'}
+                  icon={'💳'}
+                  title={'infoCards.payInInstallmentsTitle'}
+                />
+                <InfoCard
+                  description={'infoCards.eduDiscountDescription'}
+                  icon={'🎓'}
+                  title={'infoCards.eduDiscountTitle'}
+                />
               </div>
               <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">🏦</span>
-                  <div>
-                    <p className="font-bold">Mikrofin kreditiranje</p>
-                    <p className="text-sm text-grey-dark">
-                      AT Store i Mikrofin kreditna organizacija Vam nude
-                      mogućnost kupovine omiljenog Apple proizvoda na rate.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">📦</span>
-                  <div>
-                    <p className="font-bold">Dostava</p>
-                    <p className="text-sm text-grey-dark">
-                      Dostava besplatna za narudžbe preko 400 KM.
-                    </p>
-                  </div>
-                </div>
+                <InfoCard
+                  description={'infoCards.mikrofinDescription'}
+                  icon={'🏦'}
+                  title={'infoCards.mikrofinTitle'}
+                />
+                <InfoCard
+                  description={'infoCards.deliveryDescription'}
+                  icon={'📦'}
+                  title={'infoCards.deliveryTitle'}
+                />
               </div>
             </div>
           </div>

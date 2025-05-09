@@ -311,7 +311,6 @@
       "title": "Reklamacije",
       "description": "Proizvode možete vratiti u roku od 14 dana ako su nekorišteni."
     },
-
     "faqTitle": "Često postavljena pitanja",
     "faqItem1": {
       "question": "Kako mogu izvršiti kupovinu na AT Store web stranici?",
@@ -349,7 +348,6 @@
       "listItem2": "Do 24 rate: UniCredit Visa Classic, Raiffeisen Bank Shopping Card.",
       "listItem3": "Do 36 rata: ProCredit Bank kreditiranje."
     },
-
     "item4": {
       "title": "Dodatne opcije plaćanja",
       "listItem1": "Virmanom/internet bankarstvom: Nakon odabira ove opcije, dobit ćete automatski e-mail s predračunom koji sadrži sve potrebne podatke za uplatu.",
@@ -827,6 +825,16 @@
     "productLink": "Link uređaja",
     "formNote": "Napomena",
     "notePlaceHolder": "Unesite napomenu"
+  },
+  "infoCards": {
+    "payInInstallmentsTitle": "Plaćanje na rate",
+    "eduDiscountTitle": "Obrazovni popust",
+    "mikrofinTitle": "Mikrofin kreditiranje",
+    "deliveryTitle": "Dostava",
+    "payInInstallmentsDescription": "U AT Storeu možete kupovati uz mogućnost plaćanja kreditnom ili shopping karticom do 36 rata.",
+    "eduDiscountDescription": "Izaberi popust za studente i profesore kako bi mogao da učiš bilo kad, bilo gdje.",
+    "mikrofinDescription": "AT Store i Mikrofin kreditna organizacija Vam nude mogućnost kupovine omiljenog Apple proizvoda na rate.",
+    "deliveryDescription": "Dostava je besplatna za narudžbe preko 400 KM."
   },
   "educationalDiscountPage": {
     "title": "Obrazovni popust",
