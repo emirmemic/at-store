@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
 import { Buttons } from '@/app/[locale]/(dynamic-pages)/products/[slug]/components';
-import { StrapiImage } from '@/components/strapi/components';
 import { UserContext } from '@/app/providers';
+import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
