@@ -86,8 +86,11 @@ export interface StrapiProduct {
     name: string;
   };
   stores?: {
-    id: number;
-    name: string;
+    quantity: number;
+    store: {
+      id: number;
+      name: string;
+    };
   }[];
   color?: {
     id: number;
@@ -120,5 +123,6 @@ export interface StrapiProduct {
   cores?: number | null;
   releaseDate?: string | null;
   publishedAt?: Date | null;
+  amountInStock: number;
   deviceCompatibility: string[];
 }

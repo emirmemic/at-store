@@ -41,6 +41,26 @@ export interface GlobalButton extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalCartItem extends Struct.ComponentSchema {
+  collectionName: 'components_global_cart_items';
+  info: {
+    displayName: 'CartItem';
+    icon: 'shoppingCart';
+  };
+  attributes: {
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    quantity: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+  };
+}
+
 export interface GlobalInfoBlock extends Struct.ComponentSchema {
   collectionName: 'components_global_info_blocks';
   info: {
@@ -180,6 +200,7 @@ declare module '@strapi/strapi' {
       'about-us.team-member': AboutUsTeamMember;
       'global.action-link': GlobalActionLink;
       'global.button': GlobalButton;
+      'global.cart-item': GlobalCartItem;
       'global.info-block': GlobalInfoBlock;
       'global.product-store-item': GlobalProductStoreItem;
       'global.promo-slider-item': GlobalPromoSliderItem;

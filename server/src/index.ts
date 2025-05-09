@@ -1,4 +1,8 @@
 import jwt from 'jsonwebtoken';
+import {
+  developmentSyncingInterval,
+  productionSyncingInterval,
+} from './utils/constants';
 
 function generateClientSecret() {
   const privateKey = process.env.APPLE_PRIVATE_KEY.replace(/\\n/g, '\n');
@@ -82,7 +86,10 @@ export default {
   },
   bootstrap: async () => {
     const isDevelopment = process.env.NODE_ENV === 'development';
-    const cronRule = isDevelopment ? '*/0 * * * *' : '0 * * * *'; // every 1 hour in dev, every 1 hour in prod
+    const cronRule = isDevelopment
+      ? `*/${developmentSyncingInterval} * * * *`
+      : `${productionSyncingInterval} * * * *`;
+
     const environment = isDevelopment ? 'development' : 'production';
 
     strapi.cron.add({

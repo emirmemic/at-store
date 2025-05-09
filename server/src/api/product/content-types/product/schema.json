@@ -175,14 +175,13 @@
       "default": 0,
       "min": 0
     },
+    "displayName": {
+      "type": "string"
+    },
     "stores": {
       "type": "component",
       "repeatable": true,
-      "component": "global.product-store-item",
-      "required": false
-    },
-    "displayName": {
-      "type": "string"
+      "component": "global.product-store-item"
     }
   }
 }

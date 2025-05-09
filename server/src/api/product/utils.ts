@@ -49,8 +49,6 @@ export const makeLink = (raw: string): string =>
 
 /**
  * TODO: Not comparing the following fields:
- * - Stores
- * - Device Compatibility
  * Compare two products and log their differences
  * @param webAccountProduct - The product from Web Account
  * @param existingProduct - The product from Strapi
@@ -79,11 +77,8 @@ export function isSameProduct(
     },
     {
       field: 'Category',
-      web: webAccountProduct?.category?.name ?? null,
-      strapi:
-        existingProduct?.category?.name === 'Accessories'
-          ? null
-          : (existingProduct?.category?.name ?? null),
+      web: webAccountProduct?.category?.name || null,
+      strapi: existingProduct?.category?.name || null,
     },
     {
       field: 'Sub Category',
@@ -186,17 +181,42 @@ export function isSameProduct(
       strapi: existingProduct?.accessoriesType ?? null,
     },
     {
-      field: 'Device Compatibility',
-      web: webAccountProduct?.device_compatibility?.length
-        ? webAccountProduct.device_compatibility
-        : null,
-      strapi: existingProduct?.deviceCompatibility?.length
-        ? existingProduct.deviceCompatibility
-        : null,
+      field: 'Amount In Stock',
+      web: webAccountProduct?.amount_in_stock || 0,
+      strapi: existingProduct?.amountInStock || 0,
     },
   ];
+  let isIdentical: boolean = true;
 
-  let isIdentical = true;
+  const webStores = webAccountProduct.availability_by_store || null;
+  const strapiStores = existingProduct.stores || null;
+  isIdentical = compareStoresValues(
+    webStores,
+    strapiStores,
+    existingProduct.productVariantId
+  );
+
+  if (!isIdentical) {
+    return isIdentical;
+  }
+
+  const strapiDeviceCompatibility = existingProduct.deviceCompatibility?.length
+    ? existingProduct.deviceCompatibility
+    : null;
+  const webDeviceCompatibility = webAccountProduct.device_compatibility?.length
+    ? webAccountProduct.device_compatibility
+    : null;
+
+  isIdentical = compareDeviceCompatibility(
+    webDeviceCompatibility,
+    strapiDeviceCompatibility,
+    webAccountProduct.product_variant_id
+  );
+
+  if (!isIdentical) {
+    return isIdentical;
+  }
+
   comparisons.forEach(({ field, web, strapi }) => {
     /// Sometimes webAccount returns "iPad Pro" as "ipad pro" or "iPad" as "ipad"
     if (typeof web === 'string' && web.toLowerCase() === 'ipad pro') {
@@ -205,16 +225,127 @@ export function isSameProduct(
       web = 'iPad';
     }
 
+    if (typeof web === 'number' || typeof strapi === 'number') {
+      if (Number(web) !== Number(strapi)) {
+        isIdentical = false;
+        logDifferences(
+          field,
+          web,
+          strapi,
+          webAccountProduct.product_variant_id
+        );
+        // go to the next comparison
+        return;
+      }
+    }
+
     if (web !== strapi) {
       isIdentical = false;
-      console.log(`\n${field} differs:`);
-      console.log(`  Web Account: ${web}`);
-      console.log(`  Strapi: ${strapi}`);
+      logDifferences(field, web, strapi, webAccountProduct.product_variant_id);
     }
   });
+
   return isIdentical;
 }
 
+/**
+ * Compare device compatibility arrays and log differences if any.
+ * @returns boolean indicating if device compatibility is identical
+ */
+function compareDeviceCompatibility(
+  webDeviceCompatibility: string[] | null,
+  strapiDeviceCompatibility: string[] | null,
+  productVariantId: string
+): boolean {
+  if (!strapiDeviceCompatibility && !webDeviceCompatibility) {
+    return true;
+  } else if (webDeviceCompatibility && strapiDeviceCompatibility) {
+    const webSet = new Set(webDeviceCompatibility);
+    const strapiSet = new Set(strapiDeviceCompatibility);
+    if (
+      webSet.size === strapiSet.size &&
+      [...webSet].every((item) => strapiSet.has(item))
+    ) {
+      return true;
+    } else {
+      logDifferences(
+        'Device Compatibility',
+        webDeviceCompatibility,
+        strapiDeviceCompatibility,
+        productVariantId
+      );
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Compare stores values and log differences if any.
+ * @returns boolean indicating if stores values are identical
+ */
+function compareStoresValues(
+  web: {
+    [key: string]: number;
+  },
+  strapi: {
+    quantity: number;
+    store: {
+      id: number;
+      name: string;
+    };
+  }[],
+  productVariantId: string
+): boolean {
+  if (!web && !strapi) {
+    return true;
+  } else if (web && strapi) {
+    const webStoreNames = Object.keys(web);
+    const strapiStoreNames = strapi.map((store) => store.store.name);
+
+    const sameStores =
+      webStoreNames.length === strapiStoreNames.length &&
+      webStoreNames.every(
+        (name) =>
+          strapiStoreNames.includes(name) &&
+          web[name] == strapi.find((s) => s.store.name === name)?.quantity
+      );
+
+    if (!sameStores) {
+      logDifferences('Stores', web, strapi, productVariantId);
+      return false;
+    }
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Log differences between web and Strapi values
+ * @param field - The field name that differs
+ * @param webValue - The value from Web Account
+ * @param strapiValue - The value from Strapi
+ * @param productVariantId - The product variant ID
+ */
+function logDifferences(
+  field: string,
+  webValue: any,
+  strapiValue: any,
+  productVariantId: string
+) {
+  console.log(`\n${field} differs`);
+  console.log(`  Product Variant : ${productVariantId}`);
+  console.log(`  Web Account: ${webValue}`);
+  console.log(`  Strapi: ${strapiValue}`);
+}
+
+/**
+ * Get stores from webAccountProduct and create them in Strapi if they don't exist
+ * @param webAccountProduct - The product from Web Account
+ * @returns array of stores with their IDs and quantities
+ */
 export async function getStores(webAccountProduct: WebAccountProduct) {
   const stores: { store: number; quantity: number }[] = [];
   if (webAccountProduct.availability_by_store) {
@@ -222,7 +353,7 @@ export async function getStores(webAccountProduct: WebAccountProduct) {
       // Get all available store names with quantity > 0
       const activeStores = Object.entries(
         webAccountProduct.availability_by_store
-      ).filter(([_, quantity]) => quantity > 0);
+      );
 
       if (activeStores.length === 0) {
         return [];

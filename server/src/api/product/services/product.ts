@@ -57,7 +57,7 @@ export default factories.createCoreService('api::product.product', () => ({
                     'model',
                     'category',
                     'subCategory',
-                    'stores',
+                    'stores.store',
                     'color',
                     'memory',
                     'material',
@@ -238,6 +238,7 @@ export default factories.createCoreService('api::product.product', () => ({
 
               // Create the product with all relations
               const articleName = webAccountProduct.naziv_artikla_webaccount;
+
               const productData = {
                 name: articleName,
                 displayName: articleName,
@@ -246,16 +247,6 @@ export default factories.createCoreService('api::product.product', () => ({
                 webAccountArticleName: articleName,
                 productLink: `${makeLink(articleName)}-${webAccountProduct.product_variant_id}`,
                 originalPrice: parseFloat(webAccountProduct.original_price),
-                // Set relations
-                brand: brand?.id,
-                model: model?.id,
-                category: category?.id,
-                subCategory: subCategory?.id,
-                stores: stores,
-                color: color?.id,
-                memory: memory?.id,
-                material: material?.id,
-                chip: chip?.id,
                 ancModel: webAccountProduct.anc_model,
                 keyboard: webAccountProduct.tipkovnica,
                 wifiModel: webAccountProduct.wifi_model,
@@ -265,12 +256,23 @@ export default factories.createCoreService('api::product.product', () => ({
                 ram: webAccountProduct.specifications.ram,
                 cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
-                deviceCompatibility: webAccountProduct.device_compatibility,
+                deviceCompatibility:
+                  webAccountProduct.device_compatibility || [],
                 amountInStock: webAccountProduct.amount_in_stock,
+                // Set relations
+                brand: brand ? brand?.id : null,
+                model: model ? model?.id : null,
+                category: category ? category?.id : null,
+                subCategory: subCategory ? subCategory?.id : null,
+                stores: stores,
+                color: color ? color?.id : null,
+                memory: memory ? memory?.id : null,
+                material: material ? material?.id : null,
+                chip: chip ? chip.id : null,
               };
 
               if (existingProduct) {
-                // Remove undefined values from productData
+                // Remove only undefined values from productData, keep nulls to allow disconnecting relations
                 const sanitizedProductData = Object.fromEntries(
                   Object.entries(productData).filter(
                     ([_, value]) => value !== undefined

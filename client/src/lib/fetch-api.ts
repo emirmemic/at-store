@@ -13,7 +13,7 @@ type NextFetchRequestConfig = {
 };
 
 interface FetchAPIOptions {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: Record<string, unknown> | FormData;
   /** Next.js cache configuration for the request */
   next?: NextFetchRequestConfig;
