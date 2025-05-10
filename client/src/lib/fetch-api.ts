@@ -15,6 +15,8 @@ type NextFetchRequestConfig = {
 interface FetchAPIOptions {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: Record<string, unknown> | FormData;
+  /** Whether the request requires authentication */
+  isAuth?: boolean;
   /** Next.js cache configuration for the request */
   next?: NextFetchRequestConfig;
   timeout?: number;
@@ -83,11 +85,12 @@ export async function fetchAPI<T = unknown>(
   url: string,
   options: FetchAPIOptions
 ): Promise<APIResponse<T>> {
-  const { method, body, next, timeout = 8000 } = options;
+  const { method, body, next, timeout = 8000, isAuth = true } = options;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
-  const authToken = await getAuthToken();
+
+  const authToken = isAuth ? await getAuthToken() : null;
 
   // Determine if the body is an instance of FormData
   const isFormData = body instanceof FormData;

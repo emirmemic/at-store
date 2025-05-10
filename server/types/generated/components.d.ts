@@ -30,6 +30,17 @@ export interface GlobalActionLink extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalBestSellerItem extends Struct.ComponentSchema {
+  collectionName: 'components_global_best_seller_items';
+  info: {
+    displayName: 'Best Seller Item';
+  };
+  attributes: {
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    tagline: Schema.Attribute.String;
+  };
+}
+
 export interface GlobalButton extends Struct.ComponentSchema {
   collectionName: 'components_global_buttons';
   info: {
@@ -199,6 +210,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'about-us.team-member': AboutUsTeamMember;
       'global.action-link': GlobalActionLink;
+      'global.best-seller-item': GlobalBestSellerItem;
       'global.button': GlobalButton;
       'global.cart-item': GlobalCartItem;
       'global.info-block': GlobalInfoBlock;

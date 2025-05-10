@@ -867,6 +867,36 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMostSoldMostSold extends Struct.SingleTypeSchema {
+  collectionName: 'most_solds';
+  info: {
+    description: '';
+    displayName: 'Most Sold';
+    pluralName: 'most-solds';
+    singularName: 'most-sold';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    items: Schema.Attribute.Component<'global.best-seller-item', true> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::most-sold.most-sold'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
   collectionName: 'navbars';
   info: {
@@ -1816,6 +1846,7 @@ declare module '@strapi/strapi' {
       'api::material.material': ApiMaterialMaterial;
       'api::memory.memory': ApiMemoryMemory;
       'api::model.model': ApiModelModel;
+      'api::most-sold.most-sold': ApiMostSoldMostSold;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::order.order': ApiOrderOrder;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;

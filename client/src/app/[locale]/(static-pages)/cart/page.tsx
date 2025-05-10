@@ -5,7 +5,12 @@ import { useCartProvider } from '@/app/providers';
 import { InfoBlock } from '@/components';
 import { getInfoBlocksData } from '@/lib/data';
 
-import { CartItemsList, EmptyCart, TotalPriceSection } from './components';
+import {
+  CartItemsList,
+  EmptyCart,
+  MostSoldSection,
+  TotalPriceSection,
+} from './components';
 
 export default function CartPage() {
   const t = useTranslations();
@@ -28,9 +33,8 @@ export default function CartPage() {
       ) : (
         <EmptyCart />
       )}
-      {/* TODO: Most sold section */}
-      <p className="pb-4 pt-12 heading-2">{t('cartPage.mostSold')}</p>
-      <div className="flex flex-col items-center justify-center gap-8">
+      <MostSoldSection />
+      <div className="mt-20 flex flex-col items-center justify-center gap-8">
         {infoBlocks.map((infoBlock) => (
           <InfoBlock
             key={infoBlock.id}

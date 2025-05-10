@@ -98,8 +98,10 @@ interface SubCategoryItem extends CategoryItem {
   navbarIcon: ImageProps | null;
 }
 
-interface BestSellerItem extends ProductResponse {
+interface BestSellerItem {
+  id: number;
   tagline: string;
+  product: ProductResponse;
 }
 
 export type {

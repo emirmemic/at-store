@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_global_best_seller_items",
+  "info": {
+    "displayName": "Best Seller Item"
+  },
+  "options": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "tagline": {
+      "type": "string"
+    }
+  }
+}

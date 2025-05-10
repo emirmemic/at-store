@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "most_solds",
+  "info": {
+    "singularName": "most-sold",
+    "pluralName": "most-solds",
+    "displayName": "Most Sold",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.best-seller-item",
+      "required": true
+    }
+  }
+}

@@ -1,15 +1,18 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { BestSellerItem } from '@/lib/types';
 
 import { StrapiImage } from '../strapi/components/strapi-image';
-export default function BestSellerCard(product: BestSellerItem) {
-  const { name, originalPrice, discountedPrice, images, tagline, productLink } =
-    product;
+export default function BestSellerCard(bestSeller: BestSellerItem) {
+  const { name, originalPrice, discountedPrice, images, productLink } =
+    bestSeller.product;
+  const { tagline } = bestSeller;
   const t = useTranslations('common');
+
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] ?? null;
   return (
@@ -27,14 +30,21 @@ export default function BestSellerCard(product: BestSellerItem) {
           )}
         </div>
         <p className="mb-3 paragraph-4">{tagline}</p>
-        <p className="mb-3 heading-4">{name}</p>
+        <p className="mb-3 text-ellipsis heading-4">{name}</p>
         <p className="font-sf-pro-display paragraph-2">
           {`${finalPrice} ${CURRENCY}`}
         </p>
       </div>
       {productLink && (
         <Button asChild className="mx-auto w-fit" size="md" variant="filled">
-          <Link href={productLink}>{t('buyNow')}</Link>
+          <Link
+            href={{
+              pathname: PAGE_NAMES.PRODUCT_DETAILS,
+              params: { slug: productLink },
+            }}
+          >
+            {t('buyNow')}
+          </Link>
         </Button>
       )}
     </div>
