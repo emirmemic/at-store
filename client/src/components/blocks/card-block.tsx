@@ -10,6 +10,7 @@ interface CardBlockProps {
   bgColor?: string;
   className?: string;
   iconClasses?: string;
+  textClasses?: string;
   Icon: Icon;
   onClick?: () => void;
   asChild?: boolean;
@@ -17,6 +18,7 @@ interface CardBlockProps {
 
 export default function CardBlock(props: Readonly<CardBlockProps>) {
   const {
+    textClasses,
     title,
     bgColor = 'bg-blue-steel',
     onClick,
@@ -37,7 +39,12 @@ export default function CardBlock(props: Readonly<CardBlockProps>) {
         )}
       >
         <Icon className={iconClasses} color="white" />
-        <span className="flex grow items-center whitespace-normal text-center text-white heading-4">
+        <span
+          className={cn(
+            'flex grow items-center whitespace-normal text-center text-white heading-4',
+            textClasses
+          )}
+        >
           {title}
         </span>
       </span>

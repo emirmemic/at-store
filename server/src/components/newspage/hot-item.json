@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_newspage_hot_items",
+  "info": {
+    "displayName": "HotItem",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string"
+    },
+    "productImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "actionLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.action-link",
+      "required": false
+    }
+  }
+}

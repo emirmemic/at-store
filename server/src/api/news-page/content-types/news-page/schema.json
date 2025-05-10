@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "news_pages",
+  "info": {
+    "singularName": "news-page",
+    "pluralName": "news-pages",
+    "displayName": "News Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "latestProducts": {
+      "displayName": "LatestProdcuts",
+      "type": "component",
+      "repeatable": true,
+      "component": "newspage.latest-prodcuts",
+      "required": true
+    },
+    "hotItem": {
+      "type": "component",
+      "repeatable": false,
+      "component": "newspage.hot-item"
+    }
+  }
+}

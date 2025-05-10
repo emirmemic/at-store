@@ -928,6 +928,40 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNewsPageNewsPage extends Struct.SingleTypeSchema {
+  collectionName: 'news_pages';
+  info: {
+    description: '';
+    displayName: 'News Page';
+    pluralName: 'news-pages';
+    singularName: 'news-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hotItem: Schema.Attribute.Component<'newspage.hot-item', false>;
+    latestProducts: Schema.Attribute.Component<
+      'newspage.latest-prodcuts',
+      true
+    > &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::news-page.news-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
@@ -1848,6 +1882,7 @@ declare module '@strapi/strapi' {
       'api::model.model': ApiModelModel;
       'api::most-sold.most-sold': ApiMostSoldMostSold;
       'api::navbar.navbar': ApiNavbarNavbar;
+      'api::news-page.news-page': ApiNewsPageNewsPage;
       'api::order.order': ApiOrderOrder;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;

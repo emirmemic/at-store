@@ -205,6 +205,33 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
   };
 }
 
+export interface NewspageHotItem extends Struct.ComponentSchema {
+  collectionName: 'components_newspage_hot_items';
+  info: {
+    description: '';
+    displayName: 'HotItem';
+  };
+  attributes: {
+    actionLink: Schema.Attribute.Component<'global.action-link', false>;
+    caption: Schema.Attribute.String;
+    productImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface NewspageLatestProdcuts extends Struct.ComponentSchema {
+  collectionName: 'components_newspage_latest_prodcuts';
+  info: {
+    description: '';
+    displayName: 'LatestProdcuts';
+  };
+  attributes: {
+    description: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -221,6 +248,8 @@ declare module '@strapi/strapi' {
       'homepage.hero-section': HomepageHeroSection;
       'homepage.hero-slider': HomepageHeroSlider;
       'homepage.promo-card': HomepagePromoCard;
+      'newspage.hot-item': NewspageHotItem;
+      'newspage.latest-prodcuts': NewspageLatestProdcuts;
     }
   }
 }

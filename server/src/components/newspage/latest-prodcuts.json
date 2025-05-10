@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_newspage_latest_prodcuts",
+  "info": {
+    "displayName": "LatestProdcuts",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

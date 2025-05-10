@@ -184,8 +184,8 @@
     "homePage": "Početna stranica",
     "description1": "AT Store je prvi Mono Apple Authorized Reseller u Bosni i Hercegovini. Naš tim čine Apple stručnjaci posvećeni pružanju personalizirane podrške, bilo da kupujete uređaj za sebe, porodicu ili svoju kompaniju.Kroz fizičke prodavnice u Sarajevu (SCC i Alta) i Banjoj Luci (Delta Planet), kao i online platformu, nudimo širok asortiman Apple proizvoda, dodatne opreme, te ekskluzivne pogodnosti poput obrazovnih popusta i korporativnih ponuda.",
     "description2": "Pored prodaje Apple uređaja, kroz naše povezane kompanije nudimo širi spektar digitalnih rješenja:",
-    "description3": "AT Soft – IT kompanija specijalizirana za razvoj softverskih rješenja po mjeri, aplikacija i digitalnih alata koji unapređuju poslovanje.",
-    "description4": "AT Business – Poslovni odjel koji nudi Apple rješenja i tehničku podršku za pravna lica, uz mogućnost opremanja firmi, edukativnih ustanova i državnih institucija.",
+    "description3": "AT Soft - IT kompanija specijalizirana za razvoj softverskih rješenja po mjeri, aplikacija i digitalnih alata koji unapređuju poslovanje.",
+    "description4": "AT Business - Poslovni odjel koji nudi Apple rješenja i tehničku podršku za pravna lica, uz mogućnost opremanja firmi, edukativnih ustanova i državnih institucija.",
     "description5": "Zajedno, omogućavamo potpun Apple ekosistem, od kupovine uređaja do implementacije naprednih rješenja u poslovanju.",
     "description6": "AT Store nudi jedinstveno korisničko iskustvo uz brojne pogodnosti koje nas izdvajaju na tržištu:",
     "description7": "Mono Apple Authorized Reseller status garantuje originalne proizvode, sigurnu kupovinu i vrhunsku korisničku podršku.",
@@ -890,5 +890,12 @@
     "couponCode": "Kod kupona",
     "invoice": "Predračun",
     "invoiceDescription": "Klikom na predračun dobijate predračun po kojem možete uplatiti vašu narudžbu."
+  },
+  "newsPage": {
+    "title": "Novosti",
+    "description": "Dobrodošli na stranicu novosti AT Store-a! Ovdje možete pronaći najnovije informacije o Apple proizvodima, ekskluzivnim ponudama, događanjima i savjetima za bolje korisničko iskustvo",
+    "newIphone": "Stigao je novi iPhone 16e",
+    "appleBrand": "Apple je zadržao prvo mjesto najvrijednijeg brenda na svijetu.",
+    "appleStreak": "Najvrijedna kompanija u svijetu je Apple, već treću godinu zaredom."
   }
 }
