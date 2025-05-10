@@ -17,7 +17,7 @@
     "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
     "deploy-server": "cd server && pm2 start npm --name server -- run start",
     "deploy-client": "cd client && pm2 start npm --name client -- run start",
-    "deploy": "concurrently \"npm run deploy-server\" \"npm run deploy-client\"",
+    "deploy": "pm2 start ecosystem.config.cjs",
     "lint-client": "cd client && npm run lint",
     "lint-server": "cd server && npm run lint",
     "lint": "concurrently \"npm run lint-client\" \"npm run lint-server\"",
