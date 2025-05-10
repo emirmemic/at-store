@@ -20,13 +20,14 @@ const NoItems = ({ text }: { text: string }) => (
 );
 
 const ListItem = ({ item }: { item: ShoppingCartItem }) => {
-  const image = item.images?.[0] ?? null;
+  const { product } = item;
+  const image = product.images?.[0] ?? null;
   return (
     <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
       <div className="flex h-32 w-36 items-center justify-center">
         {image && (
           <Image
-            alt={item.name}
+            alt={product.name}
             className="h-full w-full object-contain"
             height={100}
             src={image?.url ?? ''}
@@ -35,9 +36,9 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
         )}
       </div>
       <div className="flex grow flex-col gap-2">
-        <p className="paragraph-1">{item.name}</p>
+        <p className="paragraph-1">{product.name}</p>
         <p className="paragraph-1">
-          {item.discountedPrice ?? item.originalPrice}
+          {product.discountedPrice ?? product.originalPrice}
         </p>
       </div>
       <Button
@@ -63,7 +64,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
     <div className="relative pb-40">
       <div className="flex max-h-[calc(100vh-20rem)] flex-col gap-2 overflow-y-auto custom-scrollbar">
         {cart.map((item) => (
-          <ListItem key={item.productVariantId} item={item} />
+          <ListItem key={item.product.id} item={item} />
         ))}
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-between gap-4 bg-grey-extra-light pb-8 pt-5">

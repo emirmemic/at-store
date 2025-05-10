@@ -13,9 +13,11 @@ import { Toaster } from '@/components/ui/toaster';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { routing, type Locale } from '@/i18n/routing';
 import { getNavbarData, getUser } from '@/lib/services';
+import { getCart } from '@/lib/services/get-cart';
 import { NavMenuItem } from '@/lib/types';
 
-import { SF_Pro_Text, SF_Pro_Display } from '../fonts/fonts';
+import { SF_Pro_Display, SF_Pro_Text } from '../fonts/fonts';
+import CartProvider from '../providers/cart-provider';
 import UserProvider from '../providers/user-provider';
 
 interface GenerateMetadataParams {
@@ -108,6 +110,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   const processedNavbarData = navbarData.map((item) => buildNavItem(item));
 
   const user = await getUser();
+  const cart = await getCart();
 
   return (
     <html
@@ -117,12 +120,14 @@ export default async function LocaleLayout({ children, params }: PropsType) {
       <body>
         <NextIntlClientProvider messages={messages}>
           <UserProvider initialValue={user}>
-            <Navbar navbarData={processedNavbarData} />
-            <div className="min-h-screen-h-cutoff pt-nav-height">
-              {children}
-              <Toaster />
-            </div>
-            <Footer categoryItems={processedNavbarData} />
+            <CartProvider initialValue={cart}>
+              <Navbar navbarData={processedNavbarData} />
+              <div className="min-h-screen-h-cutoff pt-nav-height">
+                {children}
+                <Toaster />
+              </div>
+              <Footer categoryItems={processedNavbarData} />
+            </CartProvider>
           </UserProvider>
         </NextIntlClientProvider>
       </body>

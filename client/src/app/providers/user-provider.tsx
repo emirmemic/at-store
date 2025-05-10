@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { APIResponse, fetchAPI } from '@/lib/fetch-api';
@@ -37,7 +43,9 @@ export default function UserProvider({
   const [user, setUser] = useState<UserInformation | null>(initialValue);
 
   useEffect(() => {
-    if (!user) deleteCookie('jwt');
+    if (!user) {
+      deleteCookie('jwt');
+    }
   }, [user]);
 
   const setFavorites = (favorites: ProductResponse[]) => {
@@ -73,4 +81,12 @@ export default function UserProvider({
       {children}
     </UserContext.Provider>
   );
+}
+
+export function useUserProvider() {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('useUserProvider must be used within UserProvider');
+  }
+  return context;
 }

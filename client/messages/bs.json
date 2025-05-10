@@ -115,6 +115,10 @@
     "whyMac": {
       "title": "Zašto Mac | AT Store",
       "description": "Saznajte zašto je Mac najbolji izbor za vas."
+    },
+    "korpa": {
+      "title": "Korpa | AT Store",
+      "description": "Pregledajte svoju korpu i završite kupovinu."
     }
   },
   "about": {
@@ -612,7 +616,10 @@
     "save": "Spremi",
     "messagePlaceholder": "Unesite poruku...",
     "see": "Pogledaj",
-    "noProductsAvailable": "Nema dostupnih proizvoda"
+    "noProductsAvailable": "Nema dostupnih proizvoda",
+    "removeFromCart": "Ukloni iz korpe",
+    "addedToCart": "Dodano u korpu",
+    "removedFromCart": "Uklonjeno iz korpe"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -863,5 +870,24 @@
     "chooseMac": "Odaberi svoj Mac",
     "learnFromApple": "Uči uz Apple",
     "learnFromAppleText": "Pogledajte kompletnu ponudu Mac uređaja na koje možete iskoristiti obrazovni popust."
+  },
+  "cartPage": {
+    "title": "Korpa",
+    "tableHeaders": {
+      "productName": "Ime proizvoda",
+      "price": "Cijena",
+      "quantity": "Količina",
+      "total": "Ukupno"
+    },
+    "emptyCart": "Korpa je prazna.",
+    "returnToShopping": "Vrati se na kupovinu",
+    "continue": "Nastavi",
+    "enterCoupon": "Unesite kupon",
+    "apply": "Primjeni",
+    "totalPrice": "Ukupna cijena",
+    "mostSold": "Najprodavaniji",
+    "couponCode": "Kod kupona",
+    "invoice": "Predračun",
+    "invoiceDescription": "Klikom na predračun dobijate predračun po kojem možete uplatiti vašu narudžbu."
   }
 }

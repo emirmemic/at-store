@@ -3,6 +3,8 @@ import { BlocksContent } from '@strapi/blocks-react-renderer';
 import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { ImageProps } from '@/lib/types';
 
+import { StoreName } from '../constants';
+
 import { UserInformation } from './auth';
 
 interface ProductResponse {
@@ -24,6 +26,7 @@ interface ProductResponse {
   category?: CategoryItem;
   model?: IdentificationResponse;
   stores: StoreResponse[];
+  amountInStock: number;
   color?: ColorResponse;
   memory?: MemoryResponse;
   material?: string;
@@ -39,8 +42,11 @@ interface ProductResponse {
   numberOfCores?: number | null;
 }
 
-interface StoreResponse extends IdentificationResponse {
-  products: number;
+interface StoreResponse {
+  id: number;
+  documentId: string;
+  store: StoreName;
+  quantity: number;
 }
 
 interface IdentificationResponse {
@@ -60,8 +66,14 @@ interface MemoryResponse {
   unit: string;
 }
 
-interface ShoppingCartItem extends ProductResponse {
-  quantityInCart: number;
+export interface CartResponse {
+  items: ShoppingCartItem[];
+}
+
+interface ShoppingCartItem {
+  id: number;
+  product: ProductResponse;
+  quantity: number;
 }
 
 interface InstallmentOption {
@@ -91,13 +103,13 @@ interface BestSellerItem extends ProductResponse {
 }
 
 export type {
-  ShoppingCartItem,
-  CategoryItem,
-  SubCategoryItem,
   BestSellerItem,
-  InstallmentOption,
-  ProductResponse,
+  CategoryItem,
   ColorResponse,
-  MemoryResponse,
   IdentificationResponse,
+  InstallmentOption,
+  MemoryResponse,
+  ProductResponse,
+  ShoppingCartItem,
+  SubCategoryItem,
 };

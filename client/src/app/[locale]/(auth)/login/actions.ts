@@ -5,7 +5,13 @@ import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { createLoginSchema, LoginFormData } from '@/lib/schemas/auth';
 import { getUser } from '@/lib/services';
-import { AuthResponse, LocalizationKey, UserInformation } from '@/lib/types';
+import { getCart } from '@/lib/services/get-cart';
+import {
+  AuthResponse,
+  LocalizationKey,
+  ShoppingCartItem,
+  UserInformation,
+} from '@/lib/types';
 
 export async function handleSubmit(
   _prevState: unknown,
@@ -16,8 +22,8 @@ export async function handleSubmit(
 
   try {
     const loginData = createLoginSchema(t).parse(data);
-    const user = await login(loginData);
-    return { data, user };
+    const loginResponse = await login(loginData);
+    return { data, loginResponse };
   } catch (err) {
     return err instanceof ZodError
       ? {
@@ -38,7 +44,10 @@ export async function handleSubmit(
 const login = async ({
   email,
   password,
-}: LoginFormData): Promise<UserInformation | null> => {
+}: LoginFormData): Promise<{
+  user: UserInformation | null;
+  cart: ShoppingCartItem[];
+} | null> => {
   const res = await fetchAPI<AuthResponse>(
     `${STRAPI_BASE_URL}/api/auth/local`,
     {
@@ -51,7 +60,8 @@ const login = async ({
   if (res.data) {
     await createJwtCookie(res.data.jwt);
     const user = await getUser();
-    return user;
+    const cart = await getCart();
+    return { user, cart };
   }
   return null;
 };

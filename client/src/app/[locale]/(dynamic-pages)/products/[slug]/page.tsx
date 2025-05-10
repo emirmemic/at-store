@@ -4,10 +4,10 @@ import { getTranslations } from 'next-intl/server';
 import ProductVariantsProvider from '@/app/providers/product-variants-provider';
 import { InfoBlock } from '@/components';
 import { STRAPI_BASE_URL } from '@/lib/constants';
+import { getInfoBlocksData } from '@/lib/data';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { ProductDetails } from './components';
-import { getInfoBlocksData } from './data';
 import { MetadataResponse, ProductTypeResponse } from './types';
 
 interface GenerateMetadataParams {

@@ -1,16 +1,18 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState, useContext, useEffect } from 'react';
+import { useActionState, useEffect } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { useCartProvider } from '@/app/providers';
+import { useUserProvider } from '@/app/providers/user-provider';
 import { IconLoader } from '@/components/icons';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link, useRouter } from '@/i18n/routing';
-import { useToast } from '@/lib/hooks/use-toast';
+import { Link } from '@/i18n/routing';
+import { toast } from '@/lib/hooks/use-toast';
 
 import { Title } from '../../components';
 import { handleSubmit } from '../actions';
@@ -21,9 +23,9 @@ export default function Form() {
   const t = useTranslations('loginPage');
   const validation = useTranslations('validation');
   const router = useRouter();
-  const { toast } = useToast();
 
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useUserProvider();
+  const { setCart } = useCartProvider();
 
   const [formState, action, isPending] = useActionState(
     (_: unknown, formData: FormData) => handleSubmit(_, formData, validation),
@@ -31,15 +33,17 @@ export default function Form() {
   );
 
   useEffect(() => {
-    if (formState?.user) {
+    if (formState?.loginResponse) {
       router.replace(PAGE_NAMES.HOME);
-      setUser(formState.user);
+      setUser(formState.loginResponse.user);
+
+      setCart(formState.loginResponse.cart);
       toast({
         title: t('loginSuccess'),
         variant: 'success',
       });
     }
-  }, [formState, router, setUser, toast, t]);
+  }, [formState, setUser, setCart, router, t]);
 
   return (
     <form

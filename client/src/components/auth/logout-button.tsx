@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ButtonHTMLAttributes, ReactNode, useContext, useState } from 'react';
+import { ButtonHTMLAttributes, ReactNode, useState } from 'react';
 
 import { redirectToHomePage } from '@/app/actions';
-import { UserContext } from '@/app/providers';
+import { useUserProvider } from '@/app/providers/user-provider';
 import { useToast } from '@/lib/hooks/use-toast';
 
 interface LogoutButtonProps
@@ -20,7 +20,7 @@ export default function LogoutButton({
 }: LogoutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const userProvider = useContext(UserContext);
+  const { setUser } = useUserProvider();
   const { toast } = useToast();
   const t = useTranslations();
 
@@ -33,7 +33,7 @@ export default function LogoutButton({
         title: t('common.successful'),
         variant: 'success',
       });
-      userProvider.setUser(null);
+      setUser(null);
     } catch (error) {
       setError(
         error instanceof Error ? error.message : 'An unknown error occurred'

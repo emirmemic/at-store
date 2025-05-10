@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { useCartProvider, UserContext } from '@/app/providers';
 import { IconHeart, IconLoader } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
@@ -21,11 +21,15 @@ interface ButtonsProps {
 }
 
 export default function Buttons({ product }: ButtonsProps) {
-  const t = useTranslations('');
+  const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
 
   const { toggleFavorite, user } = useContext(UserContext);
+  const { updateCart, cart } = useCartProvider();
+  const productAlreadyInCart = cart.find(
+    (item) => item.product.productVariantId === product.productVariantId
+  );
 
   /** Is this product in the current user's favorites? */
   const isFavorited =
@@ -59,6 +63,7 @@ export default function Buttons({ product }: ButtonsProps) {
     wifiModel: product.wifiModel ? product.wifiModel.name : undefined,
     ancModel: product.ancModel ? product.ancModel.name : undefined,
     braceletSize: product.braceletSize ? product.braceletSize.name : undefined,
+    amountInStock: product.amountInStock,
   };
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(adjustedProduct),
@@ -82,11 +87,35 @@ export default function Buttons({ product }: ButtonsProps) {
     }
   };
 
+  const handleCartClick = () => {
+    toast({
+      title: productAlreadyInCart
+        ? t('common.removedFromCart')
+        : t('common.addedToCart'),
+    });
+    if (productAlreadyInCart) {
+      updateCart({
+        ...productAlreadyInCart,
+        quantity: 0,
+      });
+    } else {
+      updateCart({
+        id: adjustedProduct.id,
+        product: adjustedProduct,
+        quantity: 1,
+      });
+    }
+  };
+
   return (
     <div className="flex w-full flex-col items-center gap-6 md:items-start">
-      {/* TODO Implement adding to cart functionality */}
-      <Button className="h-12 w-72" size="md" variant="filled">
-        {t('common.buyNow')}
+      <Button
+        className="h-12 w-72"
+        size="md"
+        variant="filled"
+        onClick={handleCartClick}
+      >
+        {productAlreadyInCart ? t('common.removeFromCart') : t('common.buyNow')}
       </Button>
       <Button
         asChild

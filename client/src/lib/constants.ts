@@ -19,6 +19,7 @@ export const STORE_NAMES = [
   'Banja Luka',
 ] as const;
 
+export type StoreName = (typeof STORE_NAMES)[number];
 export const CONTACT_NUMBERS = {
   complaintsNumber: '+387 33 956 188',
 };
@@ -59,3 +60,4 @@ export const GOOGLE_MAPS_LOCATIONS = {
 // Product Related
 // The name of the category in the Strapi database, used for fetching products.It is the unique identifier for the category.
 export const ACCESSORY_CATEGORY_NAME = 'dodaci';
+export const CART_KEY = 'cart';

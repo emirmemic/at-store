@@ -5,43 +5,40 @@ import { useTranslations } from 'next-intl';
 import { IconTrash } from '@/components/icons';
 import { StrapiImage } from '@/components/strapi/components';
 import { CounterInput } from '@/components/ui/counter-input';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCartTableItemProps {
-  product: ShoppingCartItem;
-  onQuantityChange?: (productId: string, newQuantity: number) => void;
-  onRemove?: (productId: string) => void;
+  cartItem: ShoppingCartItem;
+  onQuantityChange?: (cartItem: ShoppingCartItem) => void;
+  onRemove?: (cartItem: ShoppingCartItem) => void;
   className?: string;
 }
 
 export default function ProductCartTableItem({
-  product,
+  cartItem,
   onQuantityChange,
   onRemove,
   className,
 }: ProductCartTableItemProps) {
   const t = useTranslations('common');
+  const { product, quantity } = cartItem;
 
   const handleQuantityChange = (newValue: number) => {
-    onQuantityChange?.(product.productVariantId, newValue);
+    onQuantityChange?.({ ...cartItem, quantity: newValue });
   };
 
   const handleRemove = () => {
-    onRemove?.(product.productVariantId);
+    onRemove?.({ ...cartItem, quantity: 0 });
   };
 
-  const availability = product.stores.length > 0;
-  const availableQuantity = availability
-    ? Object.values(product.stores).reduce(
-        (acc, store) => acc + store.products,
-        0
-      )
-    : 0;
   const finalPrice = product.discountedPrice ?? product.originalPrice;
-  const totalPrice = `${finalPrice * product.quantityInCart} ${CURRENCY}`;
+  const totalPrice = `${finalPrice * quantity} ${CURRENCY}`;
   const image = product.images?.[0] ?? null;
+
   return (
     <div
       className={cn(
@@ -49,7 +46,7 @@ export default function ProductCartTableItem({
         className
       )}
     >
-      <div className="flex items-center gap-3 pr-8 md:col-span-3 md:grid md:grid-cols-3 md:gap-4 md:p-0">
+      <div className="flex items-center gap-3 pr-8 md:col-span-2 md:grid md:grid-cols-2 md:gap-4 md:p-0">
         <div className="col-span-1 mb-2 h-32 w-32">
           {image && (
             <StrapiImage
@@ -62,24 +59,36 @@ export default function ProductCartTableItem({
             />
           )}
         </div>
-        <div className="flex flex-col gap-3 md:col-span-2 md:flex-row md:gap-4">
-          <p className="md:w-1/2 md:text-end">{product.name}</p>
-          <p className="md:w-1/2 md:text-end">
+        <div className="flex flex-col gap-3 md:col-span-1 md:flex-row md:gap-4">
+          <Link
+            className="hover:underline md:w-1/2 md:text-end"
+            href={{
+              pathname: PAGE_NAMES.PRODUCT_DETAILS,
+              params: { slug: product.productLink },
+            }}
+          >
+            {product.name}
+          </Link>
+          <p className="md:hidden">
             {finalPrice} {CURRENCY}
           </p>
         </div>
       </div>
 
+      <p className="hidden self-center md:col-span-1 md:block">
+        {finalPrice} {CURRENCY}
+      </p>
+
       <div className="flex w-full items-center justify-between gap-4 md:col-span-2 md:grid md:grid-cols-2 md:justify-center md:gap-4">
         <CounterInput
-          className="self-end"
-          max={availableQuantity}
+          className="self-end md:self-start"
+          max={product.amountInStock}
           min={1}
-          value={product.quantityInCart}
+          value={quantity}
           onChange={handleQuantityChange}
         />
 
-        <p className="md:text-end">{totalPrice}</p>
+        <p>{totalPrice}</p>
       </div>
 
       <div className="md:col-span-1 md:flex md:justify-end">
