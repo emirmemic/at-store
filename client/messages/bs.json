@@ -167,6 +167,7 @@
   "navbar": {
     "favorites": "Omiljeni",
     "cart": "Korpa",
+    "invoice": "Predračun",
     "search": "Pretraži",
     "searchPlaceholder": "Pretraži proizvode...",
     "account": "Korisnicki racun",

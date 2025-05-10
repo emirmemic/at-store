@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
 import { useCartProvider } from '@/app/providers';
+import { useUserProvider } from '@/app/providers/user-provider';
 import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
 import { IconCart } from '@/components/nav-bar/icons';
 import { StrapiImage } from '@/components/strapi/components';
@@ -66,6 +67,9 @@ interface ItemsInCartProps {
   onClickButton: () => void;
 }
 const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
+  const { user } = useUserProvider();
+  const isOrganization = user?.accountDetails.role?.type === 'organization';
+
   const t = useTranslations('navbar');
   return (
     <div className="relative pb-40">
@@ -92,7 +96,9 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
           variant={'filled'}
           onClick={onClickButton}
         >
-          <Link href={PAGE_NAMES.PAYMENT}>{t('payment')}</Link>
+          <Link href={isOrganization ? PAGE_NAMES.B2B : PAGE_NAMES.PAYMENT}>
+            {isOrganization ? t('invoice') : t('payment')}
+          </Link>
         </Button>
       </div>
     </div>
@@ -107,6 +113,7 @@ export default function DesktopCart() {
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, closePopup);
   const { cart } = useCartProvider();
+  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <div ref={outsideRef} className="flex items-center gap-2">
@@ -117,7 +124,10 @@ export default function DesktopCart() {
         onClick={togglePopup}
       >
         <span className="sr-only">{t('account')}</span>
-        <IconCart className="transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconCart
+          className="transition-colors duration-300 group-hover:text-grey-medium"
+          itemsInCart={cartCount}
+        />
       </button>
       <AnimateHeight
         className="fixed right-0 top-nav-height w-96 rounded-l-2xl bg-white shadow-standard-black"
