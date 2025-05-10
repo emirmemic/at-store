@@ -23,14 +23,9 @@ import { cn } from '@/lib/utils/utils';
 interface MobileMenuProps {
   menuItems: NavMenuItem[];
   className?: string;
-  cartCount: number;
 }
 
-export default function MobileMenu({
-  menuItems,
-  className,
-  cartCount,
-}: MobileMenuProps) {
+export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
   const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MobileMenuType>('list');
@@ -104,7 +99,6 @@ export default function MobileMenu({
         >
           <div className="max-h-screen-h-cutoff overflow-y-auto px-8 pb-6 pt-8 custom-scrollbar">
             <MobileActions
-              cartCount={cartCount}
               className="mb-6"
               closeMenu={closeMenu}
               toggleSearch={toggleSearch}

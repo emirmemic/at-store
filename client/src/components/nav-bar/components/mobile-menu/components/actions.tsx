@@ -1,6 +1,7 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
+import { useCartProvider } from '@/app/providers';
 import { IconHeart } from '@/components/icons';
 import { UserAvatar } from '@/components/nav-bar/components';
 import { IconCart, IconSearch } from '@/components/nav-bar/icons';
@@ -13,18 +14,19 @@ interface MobileActionsProps {
   className?: string;
   toggleSearch: () => void;
   closeMenu: () => void;
-  cartCount: number;
 }
 export default function MobileActions({
   className,
   toggleSearch,
   closeMenu,
-  cartCount,
 }: MobileActionsProps) {
   const t = useTranslations('navbar');
 
   const buttonClasses = 'group flex items-center justify-center p-1';
   const iconClasses = 'group-hover:text-grey-medium';
+
+  const { cart } = useCartProvider();
+  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <div className={cn('flex flex-col gap-2', className)}>

@@ -9,18 +9,16 @@ import {
   SiteLogo,
 } from '@/components/nav-bar/components';
 import { PopupType } from '@/components/nav-bar/types';
-import { NavMenuItem, ShoppingCartItem } from '@/lib/types';
+import { NavMenuItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopMenuProps {
   menuItems: NavMenuItem[];
   className?: string;
-  cart: ShoppingCartItem[];
 }
 export default function DesktopMenu({
   menuItems,
   className,
-  cart,
 }: DesktopMenuProps) {
   const [activePopup, setActivePopup] = useState<PopupType>('none');
   return (
@@ -42,7 +40,7 @@ export default function DesktopMenu({
           setActivePopup={setActivePopup}
         />
         <DesktopAccount />
-        <DesktopCart cart={cart} />
+        <DesktopCart />
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 'use client';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
+import { useCartProvider } from '@/app/providers';
 import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
 import { IconCart } from '@/components/nav-bar/icons';
+import { StrapiImage } from '@/components/strapi/components';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
@@ -22,11 +23,17 @@ const NoItems = ({ text }: { text: string }) => (
 const ListItem = ({ item }: { item: ShoppingCartItem }) => {
   const { product } = item;
   const image = product.images?.[0] ?? null;
+  const { updateCart } = useCartProvider();
+
+  const handleRemove = () => {
+    updateCart({ ...item, quantity: 0 });
+  };
+
   return (
     <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
       <div className="flex h-32 w-36 items-center justify-center">
         {image && (
-          <Image
+          <StrapiImage
             alt={product.name}
             className="h-full w-full object-contain"
             height={100}
@@ -43,7 +50,7 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
       </div>
       <Button
         className="group absolute bottom-1 right-1 p-2"
-        onClick={() => {}}
+        onClick={handleRemove}
       >
         <IconTrash
           className="transition-colors duration-300 group-hover:text-grey-darker"
@@ -92,16 +99,14 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
   );
 };
 
-interface DesktopCartProps {
-  cart: ShoppingCartItem[];
-}
-export default function DesktopCart({ cart }: DesktopCartProps) {
+export default function DesktopCart() {
   const t = useTranslations('navbar');
   const [isOpen, setIsOpen] = useState(false);
   const closePopup = () => setIsOpen(false);
   const togglePopup = () => setIsOpen(!isOpen);
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, closePopup);
+  const { cart } = useCartProvider();
 
   return (
     <div ref={outsideRef} className="flex items-center gap-2">

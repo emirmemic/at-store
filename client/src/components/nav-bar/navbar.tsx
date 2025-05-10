@@ -95,16 +95,8 @@ export default function Navbar({ navbarData }: NavbarProps) {
   ];
   return (
     <nav className="fixed top-0 z-50 flex h-nav-height w-screen bg-black pr-4">
-      <MobileMenu
-        cartCount={0}
-        className="md:hidden"
-        menuItems={finalNavbarData}
-      />
-      <DesktopMenu
-        cart={[]}
-        className="hidden md:flex"
-        menuItems={finalNavbarData}
-      />
+      <MobileMenu className="md:hidden" menuItems={finalNavbarData} />
+      <DesktopMenu className="hidden md:flex" menuItems={finalNavbarData} />
     </nav>
   );
 }
