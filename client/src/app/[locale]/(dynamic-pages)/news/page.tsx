@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
-import { IconAtBusiness } from '../../(static-pages)/icons';
 import IconAtSoft from '../../(static-pages)/icons/at-soft';
 
 import LatestProduct from './components/latestProduct';
@@ -112,7 +111,7 @@ export default async function Page() {
                 hotItem?.productImage?.name ||
                 null
               }
-              className="h-full max-h-32 w-full max-w-72 md:max-w-56 lg:max-w-80"
+              className="h-full max-h-32 w-full max-w-72 object-contain md:max-w-56 lg:max-w-80"
               height={500}
               src={hotItem?.productImage?.url ?? ''}
               width={500}
@@ -121,27 +120,34 @@ export default async function Page() {
               {hotItem?.caption ?? 'Image not available'}
             </p>
 
-            <Button asChild size={'lg'} variant={'filled'}>
-              <Link
-                aria-label={hotItem?.actionLink?.linkText || t('common.buyNow')}
-                href={hotItem?.actionLink?.linkUrl || ''}
-                rel={
-                  hotItem?.actionLink?.isExternal
-                    ? 'noopener noreferrer'
-                    : undefined
-                }
-                target={hotItem?.actionLink?.isExternal ? '_blank' : undefined}
-                title={hotItem?.actionLink?.linkText || t('common.buyNow')}
-              >
-                {t('common.buyNow')}
-              </Link>
-            </Button>
+            {hotItem.actionLink && (
+              <Button asChild size={'lg'} variant={'filled'}>
+                <Link
+                  aria-label={
+                    hotItem?.actionLink?.linkText || t('common.buyNow')
+                  }
+                  href={hotItem?.actionLink?.linkUrl || ''}
+                  rel={
+                    hotItem?.actionLink?.isExternal
+                      ? 'noopener noreferrer'
+                      : undefined
+                  }
+                  target={
+                    hotItem?.actionLink?.isExternal ? '_blank' : undefined
+                  }
+                  title={hotItem?.actionLink?.linkText || t('common.buyNow')}
+                >
+                  {t('common.buyNow')}
+                </Link>
+              </Button>
+            )}
           </div>
         </section>
       )}
       <section className="flex flex-col items-center justify-between gap-12 pt-16 text-center md:flex-row md:items-start md:gap-20 md:pt-14 lg:gap-60">
         <div className="order-1">
           <CardBlock
+            asChild
             Icon={IconApple}
             bgColor="bg-blue"
             className="w-[310px] px-5 py-7"

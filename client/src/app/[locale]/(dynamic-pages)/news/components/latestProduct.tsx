@@ -1,7 +1,7 @@
 import { StrapiImage } from '@/components';
 import { cn } from '@/lib/utils/utils';
 
-import { ProductItem } from '../page';
+import { ProductItem } from '../types';
 
 export default function LatestProduct({
   title,
