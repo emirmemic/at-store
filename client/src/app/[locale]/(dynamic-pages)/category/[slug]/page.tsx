@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import qs from 'qs';
 
 import { InfoBlock } from '@/components';
 import { ProductListTitle, SubProductCard } from '@/components/product-cards';
@@ -23,7 +22,6 @@ async function fetchCategory(slug: string) {
   const res = await fetchAPI<CategoryResponse>(url.href, {
     method: 'GET',
   });
-  console.log('category response', res);
   return res;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {

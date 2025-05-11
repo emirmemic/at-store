@@ -7,12 +7,6 @@ const matchesCategory = (item: NavMenuItem, categoryName: string): boolean => {
     str?.toLowerCase().includes(categoryName.toLowerCase()) ?? false;
   return check(item.name) || check(item.displayName);
 };
-const makeSubCategoryLink = (
-  item: SubCategoryItem,
-  categoryLink: string
-): string => {
-  return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${item.link}`;
-};
 const updateSubCategoryLink = (
   item: SubCategoryItem,
   isAccessory: boolean,
