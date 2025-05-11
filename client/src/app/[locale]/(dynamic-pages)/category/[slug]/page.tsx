@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
 import { InfoBlock } from '@/components';
 import { ProductListTitle, SubProductCard } from '@/components/product-cards';
@@ -14,6 +15,7 @@ interface CategoryResponse extends CategoryItem {
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; slug: string }>;
 }
+
 async function fetchCategory(slug: string) {
   const path = `/api/categories/by-slug/${slug}`;
   const url = new URL(path, STRAPI_BASE_URL);
@@ -21,6 +23,7 @@ async function fetchCategory(slug: string) {
   const res = await fetchAPI<CategoryResponse>(url.href, {
     method: 'GET',
   });
+  console.log('category response', res);
   return res;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
@@ -86,10 +89,11 @@ export default async function Page({
 
   const t = await getTranslations();
   const makeSubCategoryLink = (subCategory: SubCategoryItem) => {
+    const firstProduct = subCategory.products?.[0];
     const categoryLink = categoryData.link;
-    const subCategoryLink = subCategory.link;
-    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${subCategoryLink}`;
+    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${firstProduct?.productTypeId}/${firstProduct?.productLink}`;
   };
+
   return (
     <main className="pb-28 pt-11 container-max-width">
       <ProductListTitle title={categoryData.displayName} />

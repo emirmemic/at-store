@@ -29,6 +29,9 @@ export default factories.createCoreController(
                   'shortDescription',
                 ],
                 populate: {
+                  products: {
+                    fields: ['id', 'productLink', 'productTypeId'],
+                  },
                   image: {
                     fields: ['url', 'alternativeText'],
                   },
