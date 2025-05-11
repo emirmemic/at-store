@@ -1,15 +1,19 @@
 'use client';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { useCartProvider } from '@/app/providers';
 import { useUserProvider } from '@/app/providers/user-provider';
 import { Button } from '@/components/ui/button';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { CURRENCY } from '@/lib/constants';
 
 export default function TotalPriceSection() {
   const t = useTranslations();
   const { cart } = useCartProvider();
   const { user } = useUserProvider();
+
+  const isLoggedIn = user !== null;
   const isOrganization = user?.accountDetails.role?.type === 'organization';
 
   const totalPrice = cart.reduce(
@@ -18,15 +22,6 @@ export default function TotalPriceSection() {
     0
   );
   const topBorder = 'border-t border-grey-silver';
-
-  // For organization users, show invoice button
-  function onInvoice() {
-    // TODO: Implement invoice logic
-  }
-
-  function onContinue() {
-    // TODO: Implement continue logic
-  }
 
   return (
     <div
@@ -37,13 +32,18 @@ export default function TotalPriceSection() {
       )}
       <p>{t('cartPage.totalPrice')}</p>
       <p>{`${totalPrice} ${CURRENCY}`}</p>
-      <Button
-        size={'lg'}
-        typography={'button1'}
-        variant={'filled'}
-        onClick={isOrganization ? onInvoice : onContinue}
-      >
-        {isOrganization ? t('cartPage.invoice') : t('cartPage.continue')}
+      <Button asChild size={'lg'} typography={'button1'} variant={'filled'}>
+        <Link
+          href={
+            isLoggedIn
+              ? isOrganization
+                ? PAGE_NAMES.B2B
+                : PAGE_NAMES.CHECKOUT
+              : PAGE_NAMES.LOGIN_OR_GUEST
+          }
+        >
+          {isOrganization ? t('cartPage.invoice') : t('cartPage.continue')}
+        </Link>
       </Button>
       <div className={`w-full md:hidden ${topBorder}`} />
     </div>

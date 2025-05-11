@@ -51,6 +51,12 @@ export const routing = defineRouting({
     [PAGE_NAMES.CART]: {
       bs: '/korpa',
     },
+    [PAGE_NAMES.CHECKOUT]: {
+      bs: '/checkout',
+    },
+    [PAGE_NAMES.LOGIN_OR_GUEST]: {
+      bs: '/prijava-ili-gost',
+    },
     [PAGE_NAMES.CAREERS]: {
       bs: '/karijera',
     },

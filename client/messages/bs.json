@@ -897,5 +897,27 @@
     "newIphone": "Stigao je novi iPhone 16e",
     "appleBrand": "Apple je zadržao prvo mjesto najvrijednijeg brenda na svijetu.",
     "appleStreak": "Najvrijedna kompanija u svijetu je Apple, već treću godinu zaredom."
+  },
+  "checkoutPage": {
+    "title": "Checkout",
+    "deliveryMethods": "Načini dostave",
+    "inTheCart": "U korpi",
+    "toPay": "Za platiti",
+    "delivery": "Dostava",
+    "branchOffice": "Poslovnica",
+    "total": "Ukupno",
+    "additionalInfo": "Dodatne informacije",
+    "note": "Napomena",
+    "payment": "Plaćanje",
+    "preview": "Pregled",
+    "continue": "Nastavi",
+    "payOnDelivery": "Plaćanje prilikom preuzimanja",
+    "payWithCard": "Plaćanje karticom",
+    "payOnDeliveryDescription": "Platit ćete račun prilikom preuzimanja.",
+    "iAgree": "Saglasan sam."
+  },
+  "loginOrGuestPage": {
+    "title": "Izaberi kako želiš nastaviti",
+    "continueAsGuest": "Nastavi kao gost"
   }
 }

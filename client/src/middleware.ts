@@ -11,6 +11,8 @@ const AUTH_ROUTES = [
   '/registracija',
   '/forgot-password',
   '/reset-password',
+  '/login-or-guest',
+  '/prijava-ili-gost',
 ] as const;
 
 type AuthRoutes = (typeof AUTH_ROUTES)[number];

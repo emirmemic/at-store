@@ -12,6 +12,8 @@ export const PAGE_NAMES = {
   AT_SOFT: 'https://www.atsofts.com',
   B2B: '/at-business',
   CART: '/cart',
+  CHECKOUT: '/checkout',
+  LOGIN_OR_GUEST: '/login-or-guest',
   CAREERS: '/careers',
   CATEGORY: '/category',
   CATEGORY_PAGE: '/category/[slug]',

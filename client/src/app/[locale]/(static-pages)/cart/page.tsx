@@ -5,12 +5,10 @@ import { useCartProvider } from '@/app/providers';
 import { InfoBlock } from '@/components';
 import { getInfoBlocksData } from '@/lib/data';
 
-import {
-  CartItemsList,
-  EmptyCart,
-  MostSoldSection,
-  TotalPriceSection,
-} from './components';
+import { MostSoldSection } from '../components';
+import PageTitle from '../components/page-title';
+
+import { CartItemsList, EmptyCart, TotalPriceSection } from './components';
 
 export default function CartPage() {
   const t = useTranslations();
@@ -20,11 +18,7 @@ export default function CartPage() {
 
   return (
     <main className="flex flex-col py-12 container-max-width">
-      <header>
-        <h1 className="pb-16 text-center heading-1 md:display">
-          {t('cartPage.title')}
-        </h1>
-      </header>
+      <PageTitle title={t('cartPage.title')} />
       {cart && cart.length > 0 ? (
         <>
           <CartItemsList />
