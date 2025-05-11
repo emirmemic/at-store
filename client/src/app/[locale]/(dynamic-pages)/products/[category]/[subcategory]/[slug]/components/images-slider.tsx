@@ -71,8 +71,8 @@ export default function ImagesSlider({
     <div
       className={`flex w-full flex-col gap-4 lg:h-[484px] lg:flex-row-reverse ${className}`}
     >
-      <div className="relative w-full rounded-2xl bg-grey-almost-white p-3">
-        <div className="h-full w-full">
+      <div className="relative h-full w-full rounded-2xl bg-grey-almost-white p-3">
+        <div className="h-[484px] w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeImage?.url}
@@ -119,7 +119,7 @@ export default function ImagesSlider({
             orientation={orientation}
             setApi={setApi}
           >
-            <CarouselContent className="flex gap-4 overflow-hidden pb-8 lg:h-[512px]">
+            <CarouselContent className="flex gap-4 pb-8 lg:h-[512px]">
               {images.map((image, index) => (
                 <CarouselItem
                   key={index}

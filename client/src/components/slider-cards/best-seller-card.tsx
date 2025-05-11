@@ -22,6 +22,7 @@ export default function BestSellerCard(bestSeller: BestSellerItem) {
 
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] ?? null;
+
   const finalLink = makeProductLink(
     category?.link ?? '',
     productTypeId,

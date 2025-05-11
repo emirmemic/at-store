@@ -13,6 +13,7 @@ interface ProductResponse {
   productVariantId: string;
   productTypeId: string;
   name: string;
+  displayName: string;
   productLink: string;
   webAccountArticleName: string;
   description?: string | null;

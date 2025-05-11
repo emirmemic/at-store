@@ -12,8 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { ProductResponse } from '@/lib/types';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
 
 import { PromoCardItem } from './types';
@@ -23,11 +23,15 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
 
   const { caption, product, learnMoreVariant, textColor, image } = promoCard;
   if (product === null) return null;
-  const { name } = product;
-
+  const { name, productLink, productTypeId, category, displayName } = product;
+  const finalLink = makeProductLink(
+    category?.link ?? '',
+    productTypeId,
+    productLink ?? ''
+  );
   return (
     <div className="relative w-full">
-      <div className="aspect-[4/3] min-h-[7.75rem] w-full min-w-[12.75rem] rounded-lg border-[2px] object-cover">
+      <div className="aspect-[4/3] min-h-[148px] w-full min-w-[12.75rem] rounded-2xl border-[2px] object-cover">
         <StrapiImage
           priority
           alt={image?.alternativeText || name}
@@ -44,11 +48,14 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           textColor === 'black' ? 'text-black' : 'text-white'
         )}
       >
-        <h3 className="heading-4 lg:heading-3">{name}</h3>
+        <h3 className="line-clamp-2 heading-4 lg:heading-3">
+          {displayName || name}
+        </h3>
         <p className="heading-5 lg:heading-4">{caption}</p>
         <div className="flex flex-col items-center justify-center gap-2 py-8 sm:flex-row sm:gap-14">
           <LearnMoreDialog
             learnMoreVariant={learnMoreVariant}
+            link={finalLink}
             product={product}
           />
           <Button
@@ -58,9 +65,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
             typography={'button2'}
             variant={'filled'}
           >
-            <Link href={`${PAGE_NAMES.PRODUCTS}/${product.productLink}`}>
-              {t('buyNow')}
-            </Link>
+            <Link href={finalLink}>{t('buyNow')}</Link>
           </Button>
         </div>
       </div>
@@ -71,9 +76,14 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
 interface LearnMoreDialogProps {
   product: ProductResponse;
   learnMoreVariant: TransparentVariant;
+  link: string;
 }
 
-function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
+function LearnMoreDialog({
+  product,
+  learnMoreVariant,
+  link,
+}: LearnMoreDialogProps) {
   const t = useTranslations();
   const image = product.images && product.images[0] ? product.images[0] : null;
   return (
@@ -109,9 +119,7 @@ function LearnMoreDialog({ product, learnMoreVariant }: LearnMoreDialogProps) {
             </DialogDescription>
           </div>
           <Button asChild size={'lg'} typography={'button1'} variant="filled">
-            <Link href={`${PAGE_NAMES.PRODUCTS}/${product.productLink}`}>
-              {t('common.buyNow')}
-            </Link>
+            <Link href={link}>{t('common.buyNow')}</Link>
           </Button>
         </div>
       </DialogContent>

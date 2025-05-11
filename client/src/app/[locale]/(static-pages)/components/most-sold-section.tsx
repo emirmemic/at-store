@@ -54,12 +54,9 @@ export default function MostSoldSection() {
           }),
         ]}
       >
-        <CarouselContent className="py-2">
+        <CarouselContent className="-ml-4 p-4">
           {mostSold.map((item) => (
-            <CarouselItem
-              key={item.id}
-              className="w-fit pl-4 md:basis-1/3 lg:basis-1/4"
-            >
+            <CarouselItem key={item.id} className="flex w-fit basis-72 pl-4">
               <BestSellerCard {...item} />
             </CarouselItem>
           ))}
