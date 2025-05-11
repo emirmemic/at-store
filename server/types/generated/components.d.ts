@@ -226,7 +226,7 @@ export interface NewspageLatestProdcuts extends Struct.ComponentSchema {
     displayName: 'LatestProdcuts';
   };
   attributes: {
-    description: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
