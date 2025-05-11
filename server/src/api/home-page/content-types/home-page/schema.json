@@ -15,9 +15,6 @@
     "title": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
     "heroSection": {
       "type": "component",
       "repeatable": false,

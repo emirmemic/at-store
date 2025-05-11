@@ -1,14 +1,14 @@
 'use client';
 
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { IconTrash } from '@/components/icons';
 import { StrapiImage } from '@/components/strapi/components';
 import { CounterInput } from '@/components/ui/counter-input';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCartTableItemProps {
@@ -38,7 +38,11 @@ export default function ProductCartTableItem({
   const finalPrice = product.discountedPrice ?? product.originalPrice;
   const totalPrice = `${finalPrice * quantity} ${CURRENCY}`;
   const image = product.images?.[0] ?? null;
-
+  const finalLink = makeProductLink(
+    product.category?.link ?? '',
+    product.productTypeId,
+    product.productLink ?? ''
+  );
   return (
     <div
       className={cn(
@@ -62,10 +66,7 @@ export default function ProductCartTableItem({
         <div className="flex flex-col gap-3 md:col-span-1 md:flex-row md:gap-4">
           <Link
             className="hover:underline md:w-1/2 md:text-end"
-            href={{
-              pathname: PAGE_NAMES.PRODUCT_DETAILS,
-              params: { slug: product.productLink },
-            }}
+            href={finalLink}
           >
             {product.name}
           </Link>

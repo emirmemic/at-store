@@ -16,6 +16,10 @@ export async function getSearchResults(searchTerm = '', pageSize = 10) {
     pagination: {
       pageSize,
     },
+    populate: {
+      category: true,
+      subCategory: true,
+    },
   };
 
   if (searchTerm) {

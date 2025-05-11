@@ -119,13 +119,13 @@ export default factories.createCoreController(
     },
 
     async getProductOptions(ctx) {
-      const { slug } = ctx.params;
-      if (!slug) return ctx.badRequest('slug is missing');
+      const { productTypeId } = ctx.params;
+      if (!productTypeId) return ctx.badRequest('productTypeId is missing');
 
       try {
         ctx.body = await strapi
           .service('api::product.product-options')
-          .getProductVariantsBySlug(slug);
+          .getProductVariantsByTypeId(productTypeId);
       } catch (error) {
         ctx.body = { error: error.message };
         ctx.throw(500, 'Could not build product-type options');

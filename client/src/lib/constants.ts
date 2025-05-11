@@ -12,7 +12,7 @@ export const STRAPI_IMAGE_FIELDS = [
 
 /* Frontend */
 export const CURRENCY = 'KM';
-export const MINIMUM_AMOUNT_FREE_DELIVERY = 399;
+export const MINIMUM_AMOUNT_FREE_DELIVERY = 400;
 export const STORE_NAMES = [
   'Sarajevo SCC',
   'Sarajevo Alta',
@@ -60,4 +60,5 @@ export const GOOGLE_MAPS_LOCATIONS = {
 // Product Related
 // The name of the category in the Strapi database, used for fetching products.It is the unique identifier for the category.
 export const ACCESSORY_CATEGORY_NAME = 'dodaci';
+export const ACCESSORY_CATEGORY_LINK = 'dodaci';
 export const CART_KEY = 'cart';

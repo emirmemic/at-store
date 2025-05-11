@@ -2,11 +2,7 @@
 
 import qs from 'qs';
 
-import {
-  ACCESSORY_CATEGORY_NAME,
-  STRAPI_BASE_URL,
-  STRAPI_IMAGE_FIELDS,
-} from '@/lib/constants';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { AccessoriesResponse } from '../types';
@@ -20,6 +16,8 @@ interface FetchProductsOptions {
   colorFilters?: string[];
   brandFilters?: string[];
   materialFilters?: string[];
+  categoryLink?: string;
+  subCategoryLink?: string;
 }
 
 export async function fetchProducts({
@@ -29,6 +27,8 @@ export async function fetchProducts({
   colorFilters = [],
   brandFilters = [],
   materialFilters = [],
+  categoryLink,
+  subCategoryLink,
 }: FetchProductsOptions) {
   let sortParam;
 
@@ -56,7 +56,8 @@ export async function fetchProducts({
   const query = qs.stringify(
     {
       filters: buildFilters({
-        categoryName: ACCESSORY_CATEGORY_NAME,
+        categoryLink,
+        subCategoryLink,
         filters: {
           color: colorFilters,
           brand: brandFilters,
@@ -66,6 +67,7 @@ export async function fetchProducts({
       populate: {
         brand: true,
         category: true,
+        subCategory: true,
         model: true,
         stores: true,
         color: true,
@@ -84,7 +86,6 @@ export async function fetchProducts({
       encodeValuesOnly: true,
     }
   );
-
   const path = '/api/products';
   const url = new URL(path, STRAPI_BASE_URL);
   url.search = query;

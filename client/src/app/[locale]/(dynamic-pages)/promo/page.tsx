@@ -62,8 +62,8 @@ export default async function Page() {
         {t('title')}
       </h1>
       <PromoSliderWrapper className="container-max-width-xl" />
+      <CurrentPromotions className="pl-6 container-max-width-lg md:pl-12" />
       <div className="flex flex-col gap-16 container-max-width">
-        <CurrentPromotions />
         {info && (
           <InfoBlock
             actionLink={info.actionLink}

@@ -27,7 +27,7 @@ export default {
     },
     {
       method: 'GET',
-      path: '/products/:slug/options',
+      path: '/products/:productTypeId/options',
       handler: 'api::product.product.getProductOptions',
       config: {
         auth: false,

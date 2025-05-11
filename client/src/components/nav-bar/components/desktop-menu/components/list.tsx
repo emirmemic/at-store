@@ -1,14 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { useRef, useState } from 'react';
-
-import { InfoCard } from '@/components/info-cards';
-import { DesktopPopup } from '@/components/nav-bar/components';
 import { PopupType } from '@/components/nav-bar/types';
-import { StrapiImage } from '@/components/strapi/components';
-import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { NavMenuItem } from '@/lib/types';
+
+import ListItem from './list-item';
 
 interface DesktopListProps {
   menuItems: NavMenuItem[];
@@ -21,122 +16,17 @@ export default function DesktopList({
   menuItems,
   activePopup,
   setActivePopup,
-  ...props
 }: DesktopListProps) {
-  const [activeMenu, setActiveMenu] = useState<NavMenuItem | null>(null);
-  const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
-  const outsideRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseLeave = () => {
-    setActiveMenu(null);
-    setActivePopup('none');
-    setSelectedMenuId(null);
-  };
-  useClickOutside(outsideRef, handleMouseLeave);
-
-  const handleClick = (menuItem: NavMenuItem) => {
-    if (menuItem.subCategories && menuItem.subCategories.length > 0) {
-      setActiveMenu(menuItem);
-      setActivePopup('menu');
-      setSelectedMenuId(menuItem.id);
-    } else {
-      setActiveMenu(null);
-      setActivePopup('none');
-      setSelectedMenuId(null);
-    }
-  };
-
   return (
-    <>
-      <ul className="flex h-full items-center gap-1 lg:gap-4">
-        {menuItems.map((menuItem) => (
-          <li
-            key={menuItem.id}
-            className={`h-full transition duration-300 ${
-              selectedMenuId === menuItem.id ? 'bg-grey-darkest' : ''
-            }`}
-          >
-            {menuItem.subCategories && menuItem.subCategories.length > 0 ? (
-              <button
-                className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:bg-grey-darkest lg:px-4 lg:paragraph-2"
-                onClick={() => handleClick(menuItem)}
-                {...props}
-              >
-                {menuItem.displayName || menuItem.name}
-              </button>
-            ) : (
-              <Link
-                className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:bg-grey-darkest lg:px-4 lg:paragraph-2"
-                href={menuItem.link}
-                onClick={() => setActivePopup('none')}
-                {...props}
-              >
-                {menuItem.displayName || menuItem.name}
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <DesktopPopup isActive={activePopup === 'menu'}>
-        <div
-          ref={outsideRef}
-          className="shadow-large-black mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white px-6 py-3"
-        >
-          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {activeMenu?.subCategories?.map((sub) => (
-              <li key={sub.id}>
-                <Link
-                  className="flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 hover:text-grey-medium active:scale-95"
-                  href={sub.link}
-                  onClick={() => setActivePopup('none')}
-                >
-                  <span className="h-12 w-12 overflow-hidden">
-                    {sub.navbarIcon && (
-                      <StrapiImage
-                        alt={sub.navbarIcon.alternativeText || sub.displayName}
-                        className="h-full w-full object-contain"
-                        height={48}
-                        src={sub.navbarIcon.url}
-                        width={48}
-                      />
-                    )}
-                  </span>
-                  {sub.displayName || sub.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-10 w-full rounded-xl bg-gray-100 px-6 py-4 text-black">
-            <div className="flex flex-row items-center justify-center gap-2">
-              <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <InfoCard
-                  description={'infoCards.payInInstallmentsDescription'}
-                  icon={'💳'}
-                  title={'infoCards.payInInstallmentsTitle'}
-                />
-                <InfoCard
-                  description={'infoCards.eduDiscountDescription'}
-                  icon={'🎓'}
-                  title={'infoCards.eduDiscountTitle'}
-                />
-              </div>
-              <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <InfoCard
-                  description={'infoCards.mikrofinDescription'}
-                  icon={'🏦'}
-                  title={'infoCards.mikrofinTitle'}
-                />
-                <InfoCard
-                  description={'infoCards.deliveryDescription'}
-                  icon={'📦'}
-                  title={'infoCards.deliveryTitle'}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </DesktopPopup>
-    </>
+    <ul className="flex h-full items-center gap-1 lg:gap-4">
+      {menuItems.map((menuItem) => (
+        <ListItem
+          key={menuItem.id}
+          activePopup={activePopup}
+          menuItem={menuItem}
+          setActivePopup={setActivePopup}
+        ></ListItem>
+      ))}
+    </ul>
   );
 }

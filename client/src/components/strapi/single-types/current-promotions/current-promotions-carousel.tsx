@@ -43,6 +43,7 @@ export default function CurrentPromotionsCarousel({ cards }: PropType) {
     <Carousel
       opts={{
         loop: true,
+        align: 'start',
       }}
       setApi={setApi}
     >

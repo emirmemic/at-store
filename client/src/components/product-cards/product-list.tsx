@@ -9,7 +9,6 @@ interface ProductListProps {
 
 export default function ProductsList({
   products,
-  productCardVariant = 'standard',
   className = '',
 }: ProductListProps) {
   return (
@@ -21,7 +20,6 @@ export default function ProductsList({
           key={product.id}
           className="self-stretch"
           product={product}
-          variant={productCardVariant}
         />
       ))}
     </div>

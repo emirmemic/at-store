@@ -24,6 +24,7 @@ interface ProductResponse {
   favoritedBy?: UserInformation[];
   brand?: IdentificationResponse;
   category?: CategoryItem;
+  subCategory?: SubCategoryItem;
   model?: IdentificationResponse;
   stores: StoreResponse[];
   amountInStock: number;
@@ -91,6 +92,7 @@ interface CategoryItem {
   image: ImageProps | null;
   metaTitle?: string | null;
   metaDescription?: string | null;
+  products?: ProductResponse[];
 }
 interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;

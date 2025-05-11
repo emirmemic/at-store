@@ -83,6 +83,12 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
         break;
     }
   };
+  const makeProductLink = (product: ProductResponse) => {
+    const categoryLink = product.category?.link;
+    const subCategoryLink = product.productTypeId;
+    const productLink = product.productLink;
+    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${subCategoryLink}/${productLink}`;
+  };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -148,7 +154,7 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
                   className={`block w-full rounded-lg p-2 footer-text hover:bg-grey-extra-light ${
                     index === focusedIndex ? 'bg-grey-extra-light' : ''
                   }`}
-                  href={`${PAGE_NAMES.PRODUCTS}/${product.productLink}`}
+                  href={makeProductLink(product)}
                   onClick={handleClick}
                 >
                   {product.name}

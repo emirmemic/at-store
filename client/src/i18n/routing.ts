@@ -1,7 +1,7 @@
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 
-import { PAGE_NAMES } from './page-names';
+import { DYNAMIC_PAGES, PAGE_NAMES } from './page-names';
 
 export const routing = defineRouting({
   // A list of all locales that are supported
@@ -17,6 +17,9 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.ACCESSORIES]: {
       bs: '/dodaci',
+    },
+    [DYNAMIC_PAGES.ACCESSORIES_SUBCATEGORY]: {
+      bs: '/dodaci/[subcategory]',
     },
     [PAGE_NAMES.ACCOUNT]: {
       bs: '/racun',
@@ -63,7 +66,7 @@ export const routing = defineRouting({
     [PAGE_NAMES.CATEGORY]: {
       bs: '/kategorija',
     },
-    [PAGE_NAMES.CATEGORY_PAGE]: {
+    [DYNAMIC_PAGES.CATEGORY_PAGE]: {
       bs: '/kategorija/[slug]',
     },
     [PAGE_NAMES.COMPLAINTS]: {
@@ -90,12 +93,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.ICONS]: {
       bs: '/icons-page',
     },
-    [PAGE_NAMES.IPAD]: {
-      bs: '/ipad',
-    },
-    [PAGE_NAMES.IPHONE]: {
-      bs: '/iphone',
-    },
     [PAGE_NAMES.LOGIN]: {
       bs: '/prijava',
     },
@@ -120,9 +117,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.PAYMENT_METHODS]: {
       bs: '/nacini-placanja',
     },
-    [PAGE_NAMES.PLACEHOLDER_CATEGORY_PAGE]: {
-      bs: '/placeholder-category-page',
-    },
     [PAGE_NAMES.PRIVACY_POLICY]: {
       bs: '/politika-privatnosti',
     },
@@ -132,8 +126,8 @@ export const routing = defineRouting({
     [PAGE_NAMES.PRODUCTS]: {
       bs: '/proizvodi',
     },
-    [PAGE_NAMES.PRODUCT_DETAILS]: {
-      bs: '/proizvodi/[slug]',
+    [DYNAMIC_PAGES.PRODUCT_DETAILS]: {
+      bs: '/proizvodi/[category]/[subcategory]/[slug]',
     },
     [PAGE_NAMES.REGISTER]: {
       bs: '/registracija',
@@ -149,12 +143,6 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.SUPPORT]: {
       bs: '/podrska',
-    },
-    [PAGE_NAMES.SUBCATEGORY]: {
-      bs: '/podkategorija',
-    },
-    [PAGE_NAMES.SUBCATEGORY_PAGE]: {
-      bs: '/podkategorija/[slug]',
     },
     [PAGE_NAMES.TERMS_OF_PURCHASE]: {
       bs: '/uslovi-kupovine',

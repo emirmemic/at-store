@@ -1,14 +1,3 @@
-import { NavMenuItem } from '@/lib/types';
-
-export const matchesCategory = (
-  item: NavMenuItem,
-  categoryName: string
-): boolean => {
-  const check = (str?: string) =>
-    str?.toLowerCase().includes(categoryName.toLowerCase()) ?? false;
-  return check(item.name) || check(item.displayName);
-};
-
 /**
  * Ensures the array has at least `minLength` items by cloning and appending items.
  * Each clone gets a unique `id`.
@@ -43,10 +32,10 @@ export const extendItemsToMinLength = <T extends { id: string }>(
   // Loop until we hit at least minLength and give each clone a unique id
   while (result.length < minLength) {
     if (cloneRound > maxIterations) {
+      // eslint-disable-next-line no-console
       console.warn(`Max iterations (${maxIterations}) reached.`);
       break; // Exit to avoid infinite loop
     }
-    console.log(`Cloning items for round ${cloneRound}`);
 
     const clones = items.map((item) => ({
       ...item,

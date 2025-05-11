@@ -1,11 +1,10 @@
 import { useTranslations } from 'next-intl';
 
-import { matchesCategory } from '@/app/[locale]/(home-page)/utils/helpers';
 import { DesktopMenu, MobileMenu } from '@/components/nav-bar/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname } from '@/i18n/routing';
-import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 import { NavMenuItem } from '@/lib/types';
+import { matchesCategory } from '@/lib/utils/link-helpers';
 
 interface NavbarProps {
   navbarData: NavMenuItem[];
@@ -27,7 +26,6 @@ export default function Navbar({ navbarData }: NavbarProps) {
   };
 
   // Helper functions
-
   function seeAllSubCategory(categoryPath: Pathname) {
     return {
       id: 'see-all',
@@ -44,7 +42,6 @@ export default function Navbar({ navbarData }: NavbarProps) {
   }
 
   // Builds a navigation item with custom logic based on its category:
-  // - For accessories: link to the main accessories page and clear subcategories.
   // - For Mac: retain existing subcategories and add the "Why Mac" subcategory.
   // - For all others: retain existing subcategories and append a "See All"  subcategory if subcategories exist.
   const buildNavItem = (item: NavMenuItem): NavMenuItem => {
@@ -55,14 +52,6 @@ export default function Navbar({ navbarData }: NavbarProps) {
             seeAllSubCategory(item.link as Pathname),
           ]
         : [];
-
-    if (matchesCategory(item, ACCESSORY_CATEGORY_NAME)) {
-      return {
-        ...item,
-        link: PAGE_NAMES.ACCESSORIES,
-        subCategories: [],
-      };
-    }
 
     if (matchesCategory(item, 'mac')) {
       return {

@@ -1,36 +1,28 @@
 'use client';
-
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import { Buttons } from '@/app/[locale]/(dynamic-pages)/products/[slug]/components';
 import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { formatScreenSize } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
-
-import { Button } from '../ui/button';
 
 import ProductTag from './product-tag';
 
 interface ProductCardProps {
   product: ProductResponse;
-  variant?: 'standard' | 'accessories';
   className?: string;
 }
-export default function ProductCard({
-  product,
-  variant = 'standard',
-  className,
-}: ProductCardProps) {
+export default function ProductCard({ product, className }: ProductCardProps) {
   const {
     name,
     discountedPrice,
@@ -109,30 +101,29 @@ export default function ProductCard({
   const discountPercentage = discountedPrice
     ? Math.round(((originalPrice - discountedPrice) / originalPrice) * 100)
     : 0;
+  const finalLink = makeProductLink(
+    product.category?.link ?? '',
+    product.productTypeId,
+    productLink ?? ''
+  );
   return (
-    <div className={cn('flex w-full flex-col bg-white', className)}>
-      <Link
-        className="z-1 absolute inset-0"
-        href={{
-          pathname: PAGE_NAMES.PRODUCT_DETAILS,
-          params: { slug: productLink },
-        }}
-      >
+    <div className={cn('relative flex w-full flex-col bg-white', className)}>
+      <Link className="z-1 absolute inset-0" href={finalLink}>
         <span className="sr-only">
           {t('common.viewDetailsWithName', { productName: name })}
         </span>
       </Link>
-      <div className="aspect-[4/3] w-full bg-grey-almost-white">
+      <div className="w-full bg-grey-almost-white">
         {image ? (
           <StrapiImage
             alt={image?.alternativeText || name}
-            className="h-full w-full object-contain"
+            className="aspect-[4/3] w-full object-contain"
             height={200}
             src={image?.url ?? ''}
             width={200}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-1">
+          <div className="flex aspect-[4/3] h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-1">
             {t('productPage.noImagesAvailable')}
           </div>
         )}
@@ -157,7 +148,6 @@ export default function ProductCard({
             ))}
           </div>
         )}
-
         {discountedPrice && (
           <div className="flex items-center gap-2 text-sm">
             <p className="text-muted-foreground line-through">{`${originalPrice} ${CURRENCY}`}</p>

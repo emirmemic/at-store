@@ -24,7 +24,7 @@ export default function DesktopMenu({
   return (
     <div
       className={cn(
-        'relative flex grow items-center justify-between gap-4 px-4 container-max-width-lg',
+        'relative flex grow items-center justify-between gap-4 px-6 container-max-width-lg md:px-12',
         className
       )}
     >

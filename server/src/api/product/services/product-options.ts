@@ -6,20 +6,14 @@ export default ({ strapi }) => ({
    * @returns {Promise<any>} - The product variants with unified response format and
    * available options.
    */
-  async getProductVariantsBySlug(slug: string) {
-    // Fetch the product by slug and get its productTypeId
-    const product = await strapi.documents('api::product.product').findFirst({
-      filters: { productLink: slug },
-      status: 'published',
-      fields: ['productTypeId'],
-    });
-
-    if (!product?.productTypeId) return null;
-    const productTypeId = product.productTypeId;
-
+  async getProductVariantsByTypeId(typeId: string) {
     // Fetch all products of the same type and organize them by their attributes and populate available options
     const products = await strapi.documents('api::product.product').findMany({
-      filters: { productTypeId },
+      filters: {
+        productTypeId: {
+          $eqi: typeId,
+        },
+      },
       status: 'published',
       populate: {
         brand: true,
@@ -32,7 +26,6 @@ export default ({ strapi }) => ({
           fields: ['url', 'alternativeText'],
         },
       },
-      fields: ['*'],
     });
 
     // Create maps to store unique values
@@ -59,8 +52,8 @@ export default ({ strapi }) => ({
       } = product;
 
       // Populate maps with unique values
-      if (color) colorMap.set(color.id, color);
-      if (memory) memoryMap.set(memory.id, memory);
+      if (color) colorMap.set(Number(color.id), color);
+      if (memory) memoryMap.set(Number(memory.id), memory);
       scalarAttributes.forEach((attr) => {
         const val = product[attr];
         if (val && !scalarMaps[attr].has(val)) {
@@ -81,7 +74,7 @@ export default ({ strapi }) => ({
     });
 
     return {
-      productTypeId,
+      productTypeId: typeId,
       attributes: {
         colors: formatColorOptions(colorMap),
         memories: formatMemoryOptions(memoryMap),

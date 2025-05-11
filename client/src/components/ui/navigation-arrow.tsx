@@ -52,8 +52,7 @@ const NavigationArrow = React.forwardRef<HTMLButtonElement, SliderButtonProps>(
                 direction,
                 size,
                 variant,
-              }),
-              '-translate-x-16'
+              })
             )}
             fill="none"
             height="24"

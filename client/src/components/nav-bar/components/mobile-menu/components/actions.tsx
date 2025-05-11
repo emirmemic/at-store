@@ -36,7 +36,7 @@ export default function MobileActions({
           <Link
             aria-label={t('favorites')}
             className={buttonClasses}
-            href={PAGE_NAMES.FAVORITES}
+            href={PAGE_NAMES.ACCOUNT_FAVORITES}
             title={t('favorites')}
             onClick={closeMenu}
           >

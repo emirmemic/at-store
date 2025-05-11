@@ -178,7 +178,17 @@
     "seeCart": "Vidi čitavu korpu",
     "payment": "Plaćanje",
     "visitHomePage": "Posjetite početnu stranicu At Store",
-    "noResults": "Nema rezultata pretrage"
+    "noResults": "Nema rezultata pretrage",
+    "infoCards": {
+      "payInInstallmentsTitle": "Plaćanje na rate",
+      "eduDiscountTitle": "Obrazovni popust",
+      "mikrofinTitle": "Mikrofin kreditiranje",
+      "deliveryTitle": "Dostava",
+      "payInInstallmentsDescription": "U AT Storeu možete kupovati uz mogućnost plaćanja kreditnom ili shopping karticom do 36 rata.",
+      "eduDiscountDescription": "Izaberi popust za studente i profesore kako bi mogao da učiš bilo kad, bilo gdje.",
+      "mikrofinDescription": "AT Store i Mikrofin kreditna organizacija Vam nude mogućnost kupovine omiljenog Apple proizvoda na rate.",
+      "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}  {currency}."
+    }
   },
   "footer": {
     "homePage": "Početna stranica",
@@ -833,16 +843,6 @@
     "productLink": "Link uređaja",
     "formNote": "Napomena",
     "notePlaceHolder": "Unesite napomenu"
-  },
-  "infoCards": {
-    "payInInstallmentsTitle": "Plaćanje na rate",
-    "eduDiscountTitle": "Obrazovni popust",
-    "mikrofinTitle": "Mikrofin kreditiranje",
-    "deliveryTitle": "Dostava",
-    "payInInstallmentsDescription": "U AT Storeu možete kupovati uz mogućnost plaćanja kreditnom ili shopping karticom do 36 rata.",
-    "eduDiscountDescription": "Izaberi popust za studente i profesore kako bi mogao da učiš bilo kad, bilo gdje.",
-    "mikrofinDescription": "AT Store i Mikrofin kreditna organizacija Vam nude mogućnost kupovine omiljenog Apple proizvoda na rate.",
-    "deliveryDescription": "Dostava je besplatna za narudžbe preko 400 KM."
   },
   "educationalDiscountPage": {
     "title": "Obrazovni popust",

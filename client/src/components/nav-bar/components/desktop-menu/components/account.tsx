@@ -80,7 +80,7 @@ const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
         onClick={closePopup}
       />
       <DesktopAccountItem
-        href={PAGE_NAMES.FAVORITES}
+        href={PAGE_NAMES.ACCOUNT_FAVORITES}
         icon={IconHeart}
         title={t('navbar.favorites')}
         onClick={closePopup}

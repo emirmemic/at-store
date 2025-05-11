@@ -1,14 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { AnimateAppearance } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { useRouter } from '@/i18n/routing';
-import { ACCESSORY_CATEGORY_NAME, STRAPI_BASE_URL } from '@/lib/constants';
+import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ColorResponse, IdentificationResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
@@ -18,8 +16,15 @@ import FilterItem from './filter-item';
 interface FiltersProps {
   className?: string;
   isLoading: boolean;
+  categoryLink: string;
+  subCategoryLink?: string;
 }
-export default function Filters({ className, isLoading }: FiltersProps) {
+export default function Filters({
+  className,
+  isLoading,
+  categoryLink,
+  subCategoryLink,
+}: FiltersProps) {
   const [colors, setColors] = useState<ColorResponse[]>([]);
   const [brands, setBrands] = useState<IdentificationResponse[]>([]);
   const [materials, setMaterials] = useState<IdentificationResponse[]>([]);
@@ -29,6 +34,7 @@ export default function Filters({ className, isLoading }: FiltersProps) {
 
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations('accessoriesPage');
 
   // Sync state with URL on load
@@ -45,8 +51,16 @@ export default function Filters({ className, isLoading }: FiltersProps) {
   }, [searchParams]);
 
   useEffect(() => {
-    const makePath = (endpoint: string) =>
-      `${STRAPI_BASE_URL}/api/${endpoint}/by-category-name/${ACCESSORY_CATEGORY_NAME}`;
+    const makePath = (endpoint: string) => {
+      let path;
+      if (subCategoryLink) {
+        path = `${STRAPI_BASE_URL}/api/${endpoint}/by-sub-category-link/${subCategoryLink}`;
+      } else {
+        path = `${STRAPI_BASE_URL}/api/${endpoint}/by-category-link/${categoryLink}`;
+      }
+      return path;
+    };
+
     async function fetchFilters() {
       const colorsPath = makePath('colors');
       const brandsPath = makePath('brands');
@@ -64,7 +78,7 @@ export default function Filters({ className, isLoading }: FiltersProps) {
     }
 
     fetchFilters();
-  }, []);
+  }, [categoryLink, subCategoryLink]);
 
   const handleFilterChange = (
     filterType: 'color' | 'brand' | 'material',
@@ -117,12 +131,9 @@ export default function Filters({ className, isLoading }: FiltersProps) {
       currentParams.set('sort', 'latest');
     }
 
-    router.replace({
-      pathname: PAGE_NAMES.ACCESSORIES,
-      query: Object.fromEntries(currentParams.entries()),
-    });
+    const newRoute = `${pathname}?${currentParams.toString()}`;
+    router.push(newRoute);
   };
-
   const resetFilters = () => {
     setSelectedColors([]);
     setSelectedBrands([]);
@@ -132,10 +143,8 @@ export default function Filters({ className, isLoading }: FiltersProps) {
     resetParams.set('page', '1');
     resetParams.set('sort', 'latest');
 
-    router.replace({
-      pathname: PAGE_NAMES.ACCESSORIES,
-      query: Object.fromEntries(resetParams.entries()),
-    });
+    const newRoute = `${pathname}?${resetParams.toString()}`;
+    router.push(newRoute);
   };
 
   return (

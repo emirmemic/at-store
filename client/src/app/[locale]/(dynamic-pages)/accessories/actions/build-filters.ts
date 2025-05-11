@@ -1,5 +1,6 @@
 interface BuildFiltersOptions {
-  categoryName?: string;
+  categoryLink?: string; // The link of the category to filter by
+  subCategoryLink?: string; // The link of the subcategory to filter by
   filters?: {
     [key: string]: string[]; // key is field name (color, brand, material), value is array of selected filters
   };
@@ -8,14 +9,16 @@ interface BuildFiltersOptions {
  * Builds a set of filters for querying data based on category and selected filter values.
  *
  * @param options - The options for building filters.
- * @param options.categoryName - The name of the category to filter by.
+ * @param options.categoryLink - The link of the category to filter by.
+ * @param options.subCategoryLink - The link of the subcategory to filter by.
  * @param options.filters - An object where keys are field names (e.g., color, brand)
  * and values are arrays of selected filter values.
  * @returns A record containing the constructed filters.
  *
  * @example
  * const filters = buildFilters({
- *   categoryName: 'Dodaci',
+ *   categoryLink: 'dodaci',
+ *   subCategoryLink: 'mac-dodaci',
  *   filters: {
  *     color: ['red', 'blue'],
  *     brand: ['Apple', 'Beats'],
@@ -25,20 +28,28 @@ interface BuildFiltersOptions {
  * // Output:
  * // {
  * //   category: { name: { $eqi: 'Dodaci' } },
- * //   color: { name: { $ini: ['red', 'blue'] } },
- * //   brand: { name: { $ini: ['Apple', 'Beats'] } },
+ * //   color: { name: { $in: ['red', 'blue'] } },
+ * //   brand: { name: { $in: ['Apple', 'Beats'] } },
  * // }
  */
 export function buildFilters({
-  categoryName,
+  categoryLink,
+  subCategoryLink,
   filters = {},
 }: BuildFiltersOptions) {
   const finalFilters: Record<string, unknown> = {};
 
-  if (categoryName) {
+  if (categoryLink) {
     finalFilters.category = {
-      name: {
-        $eqi: categoryName,
+      link: {
+        $eqi: categoryLink,
+      },
+    };
+  }
+  if (subCategoryLink) {
+    finalFilters.subCategory = {
+      link: {
+        $eqi: subCategoryLink,
       },
     };
   }
@@ -47,7 +58,7 @@ export function buildFilters({
     if (values.length > 0) {
       finalFilters[field] = {
         name: {
-          $ini: values,
+          $in: values,
         },
       };
     }

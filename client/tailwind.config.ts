@@ -13,7 +13,6 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sf-pro': ['var(--font-sf-pro)', 'sans-serif'],
         'sf-pro-display': ['var(--font-sf-pro-display)', 'sans-serif'],
       },
       screens: {
@@ -202,7 +201,6 @@ export default {
           fontSize: '1.5rem',
         },
         '.paragraph-2': {
-          'font-family': 'var(--font-sf-pro-display)',
           '@apply typography-paragraph': {},
           lineHeight: 'var(--line-height-medium)',
           fontWeight: '300',

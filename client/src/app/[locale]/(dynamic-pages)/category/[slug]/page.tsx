@@ -85,6 +85,11 @@ export default async function Page({
   }
 
   const t = await getTranslations();
+  const makeSubCategoryLink = (subCategory: SubCategoryItem) => {
+    const categoryLink = categoryData.link;
+    const subCategoryLink = subCategory.link;
+    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${subCategoryLink}`;
+  };
   return (
     <main className="pb-28 pt-11 container-max-width">
       <ProductListTitle title={categoryData.displayName} />
@@ -94,7 +99,7 @@ export default async function Page({
             key={subCategory.id}
             buttonText={t('common.see')}
             image={subCategory.image}
-            link={`${PAGE_NAMES.SUBCATEGORY}/${subCategory.link}`}
+            link={makeSubCategoryLink(subCategory)}
             specifications={[]}
             title={subCategory.displayName}
           />

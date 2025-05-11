@@ -1,7 +1,18 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { createContext, ReactNode, useContext, useState } from 'react';
+import {
+  notFound,
+  useParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   AvailableOption,
@@ -10,9 +21,194 @@ import {
   ProductVariant,
   SelectedOptionKey,
   SelectedOptions,
-} from '@/app/[locale]/(dynamic-pages)/products/[slug]/types';
-import { PAGE_NAMES } from '@/i18n/page-names';
+} from '@/app/[locale]/(dynamic-pages)/products/[category]/[subcategory]/[slug]/types';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 
+export type ProductVariantContextType = {
+  variants: ProductVariant[];
+  productOptions: ProductTypeAttributes;
+  selectedVariant: ProductVariant;
+  selectedOptions: SelectedOptions;
+  selectOption: (type: SelectedOptionKey, value: string) => void;
+  availableOptions: ProductTypeAttributes;
+  latestClicked: { key: SelectedOptionKey; value: string } | null;
+};
+export const ProductContext = createContext<ProductVariantContextType>(
+  {} as ProductVariantContextType
+);
+
+export default function ProductVariantsProvider({
+  children,
+  variants,
+  productOptions,
+}: {
+  children: ReactNode;
+  variants: ProductVariant[];
+  productOptions: ProductTypeAttributes;
+}) {
+  const router = useRouter();
+  const { slug } = useParams();
+  if (!slug) {
+    notFound();
+  }
+  const searchParams = useSearchParams();
+  const searchKey = searchParams.get('key') as SelectedOptionKey | 'color';
+  const initialVariant = variants.find((v) => v.productLink === slug);
+  if (!initialVariant) {
+    notFound();
+  }
+  const [selectedVariant, setSelectedVariant] =
+    useState<ProductVariant>(initialVariant);
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>(
+    () => initializeSelectedOptions(initialVariant) as SelectedOptions
+  );
+
+  // Find the first available key from the variant dynamically
+  const defaultKey: SelectedOptionKey =
+    (searchKey && initialVariant[searchKey]?.value
+      ? searchKey
+      : (OPTION_FAMILIES.find(
+          (key) => initialVariant[key]?.value
+        ) as SelectedOptionKey)) ?? '';
+
+  // Get the corresponding value
+  const defaultValue = defaultKey
+    ? initialVariant[defaultKey]?.value || ''
+    : '';
+
+  const [latestClicked, setLatestClicked] = useState<{
+    key: SelectedOptionKey;
+    value: string;
+  }>({
+    key: defaultKey,
+    value: defaultValue,
+  });
+
+  const [availableOptions, setAvailableOptions] =
+    useState<ProductTypeAttributes>(
+      deriveAvailableOptions(variants, latestClicked)
+    );
+
+  const selectVariantFromUrl = (slug: string) => {
+    const variant = variants.find((v) => v.productLink === slug);
+    if (!variant) return notFound();
+
+    const key: SelectedOptionKey =
+      searchKey && variant[searchKey]?.value
+        ? searchKey
+        : (OPTION_FAMILIES.find(
+            (key) => !!variant[key]?.value
+          ) as SelectedOptionKey) || 'color';
+
+    const value = variant[key]?.value || '';
+
+    setSelectedVariant(variant);
+    setSelectedOptions(initializeSelectedOptions(variant));
+    setLatestClicked({ key, value });
+    setAvailableOptions(deriveAvailableOptions(variants, { key, value }));
+  };
+
+  const selectOption = (type: SelectedOptionKey, value: string) => {
+    const newSelectedOptions: SelectedOptions = {
+      ...selectedOptions,
+      [type]: value,
+    };
+    setSelectedOptions(newSelectedOptions);
+    setLatestClicked({ key: type, value });
+
+    // Try to find an exact match
+    const exactMatch = variants.find((variant) => {
+      return Object.entries(newSelectedOptions).every(([key, val]) => {
+        return variant[key as SelectedOptionKey]?.value === val;
+      });
+    });
+
+    if (exactMatch) {
+      setSelectedVariant(exactMatch);
+      setAvailableOptions(
+        deriveAvailableOptions(variants, { key: type, value })
+      );
+      router.push(makeRouteLink(exactMatch, type));
+      return;
+    }
+
+    // Find the closest match that at least includes the latest selected value
+    const closestMatch = variants
+      .map((variant) => {
+        let score = 0;
+        for (const [key, val] of Object.entries(newSelectedOptions)) {
+          if (variant[key as SelectedOptionKey]?.value === val) {
+            score += 1;
+          }
+        }
+        return { variant, score };
+      })
+      .filter(({ variant }) => {
+        return variant[type]?.value === value;
+      })
+      .sort((a, b) => b.score - a.score)[0]?.variant;
+
+    if (closestMatch) {
+      setSelectedVariant(closestMatch);
+      setAvailableOptions(
+        deriveAvailableOptions(variants, { key: type, value })
+      );
+      const newSelectedOptions = initializeSelectedOptions(closestMatch);
+      setSelectedOptions(newSelectedOptions);
+      router.push(makeRouteLink(closestMatch, type));
+    } else {
+      setAvailableOptions(
+        deriveAvailableOptions(variants, { key: type, value })
+      );
+      setSelectedOptions(initializeSelectedOptions(selectedVariant));
+      router.push(makeRouteLink(selectedVariant, type));
+    }
+  };
+  // Check if url changed
+  useEffect(() => {
+    if (!slug) return;
+
+    const variant = variants.find((v) => v.productLink === slug);
+    if (!variant) {
+      notFound();
+    }
+
+    if (slug) {
+      if (typeof slug === 'string') {
+        selectVariantFromUrl(slug);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, variants]);
+
+  return (
+    <ProductContext.Provider
+      value={{
+        variants,
+        productOptions,
+        selectedVariant,
+        selectOption,
+        availableOptions,
+        latestClicked,
+        selectedOptions,
+      }}
+    >
+      {children}
+    </ProductContext.Provider>
+  );
+}
+
+export function useProductVariants() {
+  const context = useContext(ProductContext);
+  if (!context) {
+    throw new Error(
+      'useProductVariants must be used within ProductVariantsProvider'
+    );
+  }
+  return context;
+}
+
+// HELPERS
 // Dynamically initialize selected options from a variant
 function initializeSelectedOptions(variant: ProductVariant): SelectedOptions {
   return OPTION_FAMILIES.reduce((acc, key) => {
@@ -66,134 +262,11 @@ function deriveAvailableOptions(
 }
 
 // Make a route link based on the selected option
-const makeRouteLink = (link: string, type: SelectedOptionKey) => {
-  return `${PAGE_NAMES.PRODUCTS}/${link}?key=${type}`;
-};
-export type ProductVariantContextType = {
-  variants: ProductVariant[];
-  productOptions: ProductTypeAttributes;
-  selectedVariant: ProductVariant;
-  selectedOptions: SelectedOptions;
-  selectOption: (type: SelectedOptionKey, value: string) => void;
-  availableOptions: ProductTypeAttributes;
-  latestClicked: { key: SelectedOptionKey; value: string } | null;
-};
-export const ProductContext = createContext<ProductVariantContextType>(
-  {} as ProductVariantContextType
-);
-
-export default function ProductVariantsProvider({
-  children,
-  variants,
-  productOptions,
-  initialVariant,
-}: {
-  children: ReactNode;
-  variants: ProductVariant[];
-  productOptions: ProductTypeAttributes;
-  initialVariant: ProductVariant;
-}) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const searchKey = searchParams.get('key') as SelectedOptionKey | 'color';
-  const [selectedVariant, setSelectedVariant] =
-    useState<ProductVariant>(initialVariant);
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>(
-    () => initializeSelectedOptions(initialVariant) as SelectedOptions
+const makeRouteLink = (product: ProductVariant, type: SelectedOptionKey) => {
+  const productLink = makeProductLink(
+    product.category?.link || '',
+    product.productTypeId,
+    product.productLink || ''
   );
-  const [latestClicked, setLatestClicked] = useState<{
-    key: SelectedOptionKey;
-    value: string;
-  }>({
-    key: searchKey || 'color',
-    value: initialVariant[searchKey || 'color']?.name || '',
-  });
-
-  const [availableOptions, setAvailableOptions] =
-    useState<ProductTypeAttributes>(
-      deriveAvailableOptions(variants, latestClicked)
-    );
-
-  const selectOption = (type: SelectedOptionKey, value: string) => {
-    const newSelectedOptions: SelectedOptions = {
-      ...selectedOptions,
-      [type]: value,
-    };
-    setSelectedOptions(newSelectedOptions);
-    setLatestClicked({ key: type, value });
-
-    // Try to find an exact match
-    const exactMatch = variants.find((variant) => {
-      return Object.entries(newSelectedOptions).every(([key, val]) => {
-        return variant[key as SelectedOptionKey]?.value === val;
-      });
-    });
-
-    if (exactMatch) {
-      setSelectedVariant(exactMatch);
-      setAvailableOptions(
-        deriveAvailableOptions(variants, { key: type, value })
-      );
-      router.push(makeRouteLink(exactMatch.productLink, type));
-      return;
-    }
-
-    // Find the closest match that at least includes the latest selected value
-    const closestMatch = variants
-      .map((variant) => {
-        let score = 0;
-        for (const [key, val] of Object.entries(newSelectedOptions)) {
-          if (variant[key as SelectedOptionKey]?.value === val) {
-            score += 1;
-          }
-        }
-        return { variant, score };
-      })
-      .filter(({ variant }) => {
-        return variant[type]?.value === value;
-      })
-      .sort((a, b) => b.score - a.score)[0]?.variant;
-
-    if (closestMatch) {
-      setSelectedVariant(closestMatch);
-      setAvailableOptions(
-        deriveAvailableOptions(variants, { key: type, value })
-      );
-      const newSelectedOptions = initializeSelectedOptions(closestMatch);
-      setSelectedOptions(newSelectedOptions);
-      router.push(makeRouteLink(closestMatch.productLink, type));
-    } else {
-      setAvailableOptions(
-        deriveAvailableOptions(variants, { key: type, value })
-      );
-      setSelectedOptions(initializeSelectedOptions(selectedVariant));
-      router.push(makeRouteLink(selectedVariant.productLink, type));
-    }
-  };
-
-  return (
-    <ProductContext.Provider
-      value={{
-        variants,
-        productOptions,
-        selectedVariant,
-        selectOption,
-        availableOptions,
-        latestClicked,
-        selectedOptions,
-      }}
-    >
-      {children}
-    </ProductContext.Provider>
-  );
-}
-
-export function useProductVariants() {
-  const context = useContext(ProductContext);
-  if (!context) {
-    throw new Error(
-      'useProductVariants must be used within ProductVariantsProvider'
-    );
-  }
-  return context;
-}
+  return `${productLink}?key=${type}`;
+};

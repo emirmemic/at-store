@@ -1,10 +1,11 @@
 import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components';
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { DYNAMIC_PAGES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import { CURRENCY } from '@/lib/constants';
 import { SubCategoryItem } from '@/lib/types';
+
 export default function SubCategoryCard(item: SubCategoryItem) {
   const {
     displayName,
@@ -21,8 +22,8 @@ export default function SubCategoryCard(item: SubCategoryItem) {
       <Link
         className="z-1 absolute inset-0"
         href={{
-          pathname: PAGE_NAMES.SUBCATEGORY_PAGE,
-          params: { slug: link },
+          pathname: DYNAMIC_PAGES.ACCESSORIES_SUBCATEGORY,
+          params: { subcategory: link },
         }}
         title={t('common.viewDetailsWithName', { productName: displayName })}
       >

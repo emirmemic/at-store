@@ -1,20 +1,23 @@
 import { factories } from '@strapi/strapi';
-import { getAvailableItems } from '../../../utils/get-available-items';
+import {
+  getItemsByCategoryLink,
+  getItemsBySubCategoryLink,
+} from '../../../utils/get-available-items';
 export default factories.createCoreController(
   'api::color.color',
   ({ strapi }) => ({
-    async getAvailableColors(ctx) {
-      const { categoryName } = ctx.params;
+    async getAvailableColorsByCategory(ctx) {
+      const { categoryLink } = ctx.params;
 
-      if (!categoryName) {
-        return ctx.badRequest('Category name is required');
+      if (!categoryLink) {
+        return ctx.badRequest('Category link is required');
       }
 
       try {
-        const colors = await getAvailableItems(
+        const colors = await getItemsByCategoryLink(
           strapi,
           'api::color.color',
-          categoryName,
+          categoryLink,
           ['id', 'documentId', 'name', 'hex']
         );
         ctx.body = colors;
@@ -22,6 +25,28 @@ export default factories.createCoreController(
         console.error(error);
         return ctx.internalServerError(
           'Failed to fetch colors with published products in the specified category'
+        );
+      }
+    },
+    async getAvailableColorsBySubCategory(ctx) {
+      const { subCategoryLink } = ctx.params;
+
+      if (!subCategoryLink) {
+        return ctx.badRequest('SubCategory link is required');
+      }
+
+      try {
+        const colors = await getItemsBySubCategoryLink(
+          strapi,
+          'api::color.color',
+          subCategoryLink,
+          ['id', 'documentId', 'name', 'hex']
+        );
+        ctx.body = colors;
+      } catch (error) {
+        console.error(error);
+        return ctx.internalServerError(
+          'Failed to fetch colors with published products in the specified subCategory'
         );
       }
     },
