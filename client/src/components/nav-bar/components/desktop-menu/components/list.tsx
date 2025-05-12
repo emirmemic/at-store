@@ -1,7 +1,6 @@
 'use client';
 
-import { PopupType } from '@/components/nav-bar/types';
-import { NavMenuItem } from '@/lib/types';
+import { PopupType, NavMenuItem } from '@/components/nav-bar/types';
 
 import ListItem from './list-item';
 

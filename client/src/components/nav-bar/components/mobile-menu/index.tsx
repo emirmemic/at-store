@@ -12,12 +12,15 @@ import {
   SearchInput,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
-import { MobileMenuType } from '@/components/nav-bar/types';
+import {
+  MobileMenuType,
+  NavMenuItem,
+  NavSubMenuItem,
+} from '@/components/nav-bar/types';
 import { AnimateHeight, AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { NavMenuItem, SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
@@ -29,10 +32,8 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
   const t = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<MobileMenuType>('list');
-  const [activeSubmenu, setActiveSubmenu] = useState<SubCategoryItem[]>(
-    menuItems.length > 0 && menuItems[0].subCategories
-      ? menuItems[0].subCategories
-      : []
+  const [activeSubmenu, setActiveSubmenu] = useState<NavSubMenuItem[]>(
+    menuItems.length > 0 && menuItems[0].subItems ? menuItems[0].subItems : []
   );
   const outsideRef = useRef<HTMLDivElement>(null);
   useClickOutside(outsideRef, () => setIsOpen(false));
@@ -56,7 +57,7 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
       setActiveMenu('list');
     }
   };
-  const selectActiveSubmenu = (submenu: SubCategoryItem[]) => {
+  const selectActiveSubmenu = (submenu: NavSubMenuItem[]) => {
     setActiveMenu('sub-list');
     setActiveSubmenu(submenu);
   };

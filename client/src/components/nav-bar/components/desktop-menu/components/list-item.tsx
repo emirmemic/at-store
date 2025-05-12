@@ -5,11 +5,10 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import { DesktopInfoCard, DesktopPopup } from '@/components/nav-bar/components';
-import { PopupType } from '@/components/nav-bar/types';
+import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
 import { StrapiImage } from '@/components/strapi/components';
 import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
-import { NavMenuItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopListProps {
@@ -61,7 +60,7 @@ export default function ListItem({
           'bg-grey-darkest': isOpen,
         })}
       >
-        {menuItem.subCategories && menuItem.subCategories.length > 0 ? (
+        {menuItem.subItems && menuItem.subItems.length > 0 ? (
           <button
             className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:bg-grey-darkest lg:px-4 lg:paragraph-2"
             onClick={handleClick}
@@ -84,7 +83,7 @@ export default function ListItem({
           className="shadow-large-black mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white px-6 py-3"
         >
           <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {menuItem?.subCategories?.map((sub) => (
+            {menuItem?.subItems?.map((sub) => (
               <li key={sub.id}>
                 <Link
                   className="flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 hover:text-grey-medium active:scale-95"
@@ -92,17 +91,17 @@ export default function ListItem({
                   onClick={handleOutsideClick}
                 >
                   <span className="h-12 w-12 overflow-hidden">
-                    {sub.navbarIcon && (
+                    {sub.icon && (
                       <StrapiImage
-                        alt={sub.navbarIcon.alternativeText || sub.displayName}
+                        alt={sub.icon.alternativeText || sub.displayName}
                         className="h-full w-full object-contain"
                         height={48}
-                        src={sub.navbarIcon.url}
+                        src={sub.icon.url}
                         width={48}
                       />
                     )}
                   </span>
-                  {sub.displayName || sub.name}
+                  {sub.displayName}
                 </Link>
               </li>
             ))}

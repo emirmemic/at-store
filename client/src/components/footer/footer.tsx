@@ -10,8 +10,8 @@ import {
   SectionMobile,
 } from '@/components/footer/components';
 import { FooterSectionType, LinkHref } from '@/components/footer/types';
+import { NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { NavMenuItem } from '@/lib/types';
 
 interface FooterProps {
   categoryItems: NavMenuItem[];

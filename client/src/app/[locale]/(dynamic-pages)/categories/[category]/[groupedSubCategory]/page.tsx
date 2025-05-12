@@ -6,36 +6,36 @@ import { ProductListTitle, SubProductCard } from '@/components/product-cards';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { CategoryItem, SubCategoryItem } from '@/lib/types';
+import { GroupedSubCategoryItem } from '@/lib/types';
+import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
 
-interface CategoryResponse extends CategoryItem {
-  subCategories: SubCategoryItem[];
-}
+import Slider from './slider';
+
 interface GenerateMetadataParams {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; groupedSubCategory: string }>;
 }
 
-async function fetchCategory(slug: string) {
-  const path = `/api/categories/by-slug/${slug}`;
+async function fetchData(slug: string) {
+  const path = `/api/grouped-sub-categories/by-slug/${slug}`;
   const url = new URL(path, STRAPI_BASE_URL);
 
-  const res = await fetchAPI<CategoryResponse>(url.href, {
+  const res = await fetchAPI<GroupedSubCategoryItem>(url.href, {
     method: 'GET',
   });
   return res;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
-  const { locale, slug } = await params;
+  const { locale, groupedSubCategory } = await params;
   const t = await getTranslations({
     locale,
     namespace: 'metaData.category',
   });
-  const response = await fetchCategory(slug);
-  const categoryData = response.data;
-  if (categoryData) {
-    const title = `${categoryData.metaTitle || categoryData.displayName} | AT Store`;
-    const description = categoryData.metaDescription || t('description');
-    const productImages = categoryData?.image ? [categoryData.image] : [];
+  const response = await fetchData(groupedSubCategory);
+  const data = response.data;
+  if (data) {
+    const title = `${data.metaTitle || data.displayName} | AT Store`;
+    const description = data.metaDescription || t('description');
+    const productImages = data?.sliderImages ? data.sliderImages : [];
     const productImagesOP = productImages.map((image) => ({
       url: STRAPI_BASE_URL + image.url,
       alt: image.alternativeText || 'AT Store',
@@ -67,46 +67,40 @@ export default async function Page({
   params,
 }: {
   params: Promise<{
-    slug: string;
+    groupedSubCategory: string;
   }>;
 }) {
-  const { slug } = await params;
-
-  if (!slug) {
+  const { groupedSubCategory } = await params;
+  if (!groupedSubCategory) {
     notFound();
   }
-  const response = await fetchCategory(slug);
-  if (!response) {
+  const response = await fetchData(groupedSubCategory);
+  const data = response.data;
+  if (!data) {
     notFound();
   }
-  const categoryData = response.data;
-
-  if (!categoryData) {
-    notFound();
-  }
-
   const t = await getTranslations();
-  const makeSubCategoryLink = (subCategory: SubCategoryItem) => {
-    const firstProduct = subCategory.products?.[0];
-    const categoryLink = categoryData.link;
-    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${firstProduct?.productTypeId}/${firstProduct?.productLink}`;
-  };
+  const title = data.displayName;
+  const subCategories = data.subCategories || [];
+  const categoryLink = data.category?.link || '';
+  const images = data.sliderImages || [];
 
   return (
     <main className="pb-28 pt-11 container-max-width">
-      <ProductListTitle title={categoryData.displayName} />
-      <div className="mb-16 flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
-        {categoryData.subCategories.map((subCategory) => (
+      <ProductListTitle title={title} />
+      <div className="flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
+        {subCategories.map((subCategory) => (
           <SubProductCard
             key={subCategory.id}
             buttonText={t('common.see')}
             image={subCategory.image}
-            link={makeSubCategoryLink(subCategory)}
+            link={makeSubCategoryLink(categoryLink, subCategory)}
             specifications={[]}
-            title={subCategory.displayName}
+            title={subCategory.displayName || subCategory.name}
           />
         ))}
       </div>
+      {images.length > 0 && <Slider className="pb-24 pt-16" images={images} />}
       <InfoBlock
         actionLink={{
           id: 1,

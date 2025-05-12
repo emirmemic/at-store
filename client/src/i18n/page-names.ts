@@ -15,7 +15,7 @@ export const PAGE_NAMES = {
   CHECKOUT: '/checkout',
   LOGIN_OR_GUEST: '/login-or-guest',
   CAREERS: '/careers',
-  CATEGORY: '/category',
+  CATEGORIES: '/categories',
   COMPLAINTS: '/complaints',
   CONTACT_US: '/contact-us',
   COOKIE_POLICY: '/cookie-policy',
@@ -47,9 +47,10 @@ export const PAGE_NAMES = {
 } as const;
 
 export const DYNAMIC_PAGES = {
-  PRODUCT_DETAILS: '/products/[category]/[subcategory]/[slug]',
-  CATEGORY_PAGE: '/category/[slug]',
   ACCESSORIES_SUBCATEGORY: '/accessories/[subcategory]',
+  CATEGORY_PAGE: '/categories/[category]',
+  GROUPED_SUBCATEGORY: '/categories/[category]/[groupedSubCategory]',
+  PRODUCT_DETAILS: '/products/[category]/[productTypeId]/[productLink]',
 } as const;
 export type PageNameKey = keyof typeof PAGE_NAMES;
 export type DynamicPageKey = keyof typeof DYNAMIC_PAGES;

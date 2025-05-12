@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getNavbarData } from '@/lib/services';
-import { updateCategoryLink } from '@/lib/utils/link-helpers';
+import { getNavbarData } from '@/components/nav-bar/actions';
+import { makeCategoryLink } from '@/lib/utils/link-helpers';
 
 import CategoriesCarousel from './carousel';
 
@@ -17,7 +17,10 @@ export default async function CategoriesSection({
     return null;
   }
 
-  const finalCategories = categories.map((item) => updateCategoryLink(item));
+  const finalCategories = categories.map((item) => ({
+    ...item,
+    link: makeCategoryLink(item.link, item.name, item.displayName),
+  }));
   return (
     <section className={`flex w-full flex-col gap-6 ${className}`}>
       <h2 className="heading-4 md:heading-2">{t('seeAllCategories')}</h2>

@@ -1,25 +1,30 @@
+/**
+ * grouped-sub-category controller
+ */
+
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController(
-  'api::category.category',
+  'api::grouped-sub-category.grouped-sub-category',
   ({ strapi }) => ({
-    async getCategoryBySlug(ctx) {
+    async getGroupedSubCategoryBySlug(ctx) {
       const { slug } = ctx.params;
       if (!slug) {
-        return ctx.badRequest('Category slug is required');
+        return ctx.badRequest('Grouped sub-category slug is required');
       }
       try {
-        const category = await strapi
-          .documents('api::category.category')
+        const item = await strapi
+          .documents('api::grouped-sub-category.grouped-sub-category')
           .findFirst({
             filters: {
-              link: slug,
+              slug,
             },
             status: 'published',
             populate: {
-              image: {
+              sliderImages: {
                 fields: ['url', 'alternativeText'],
               },
+              category: true,
               subCategories: {
                 fields: [
                   'id',
@@ -40,13 +45,13 @@ export default factories.createCoreController(
             },
           });
 
-        if (!category) {
-          return ctx.notFound('Category not found');
+        if (!item) {
+          return ctx.notFound('Grouped sub-category not found');
         }
 
-        return category;
+        return item;
       } catch (error) {
-        return ctx.badRequest('Failed to fetch category details');
+        return ctx.badRequest('Failed to fetch grouped sub-category details');
       }
     },
   })

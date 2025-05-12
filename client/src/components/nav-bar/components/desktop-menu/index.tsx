@@ -8,8 +8,7 @@ import {
   DesktopSearch,
   SiteLogo,
 } from '@/components/nav-bar/components';
-import { PopupType } from '@/components/nav-bar/types';
-import { NavMenuItem } from '@/lib/types';
+import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
 import { cn } from '@/lib/utils/utils';
 
 interface DesktopMenuProps {

@@ -94,11 +94,24 @@ interface CategoryItem {
   metaTitle?: string | null;
   metaDescription?: string | null;
   products?: ProductResponse[];
+  subCategories?: SubCategoryItem[] | null;
+  groupedSubCategories?: GroupedSubCategoryItem[] | null;
 }
 interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
   tag: string | null;
   navbarIcon: ImageProps | null;
+}
+interface GroupedSubCategoryItem {
+  id: string;
+  displayName: string;
+  slug: string;
+  sliderImages?: ImageProps[] | null;
+  navbarIcon: ImageProps | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  category?: CategoryItem;
+  subCategories?: SubCategoryItem[] | null;
 }
 
 interface BestSellerItem {
@@ -117,4 +130,5 @@ export type {
   ProductResponse,
   ShoppingCartItem,
   SubCategoryItem,
+  GroupedSubCategoryItem,
 };

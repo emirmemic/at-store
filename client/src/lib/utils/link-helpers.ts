@@ -1,55 +1,57 @@
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
-import { NavMenuItem, SubCategoryItem } from '@/lib/types';
 
-const matchesCategory = (item: NavMenuItem, categoryName: string): boolean => {
+import { SubCategoryItem } from '../types';
+
+const matchesCategory = ({
+  name,
+  categoryName,
+}: {
+  name?: string;
+  categoryName: string;
+}): boolean => {
   const check = (str?: string) =>
     str?.toLowerCase().includes(categoryName.toLowerCase()) ?? false;
-  return check(item.name) || check(item.displayName);
+  return check(name);
 };
-const updateSubCategoryLink = (
-  item: SubCategoryItem,
-  isAccessory: boolean,
-  categoryLink: string,
-  firstProductLink: string = ''
-): SubCategoryItem => {
-  let link;
-  if (isAccessory) {
-    link = `${PAGE_NAMES.ACCESSORIES}/${item.link}`;
-  } else {
-    link = `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${item.link}/${firstProductLink}`;
-  }
+const isAccessory = (name: string): boolean => {
+  return matchesCategory({
+    name,
+    categoryName: ACCESSORY_CATEGORY_NAME,
+  });
+};
 
-  return {
-    ...item,
-    link,
-  };
-};
-const updateCategoryLink = (item: NavMenuItem): NavMenuItem => {
-  let link;
-  if (matchesCategory(item, ACCESSORY_CATEGORY_NAME)) {
-    link = PAGE_NAMES.ACCESSORIES;
-    const newSubCategories = item.subCategories?.map((sub) =>
-      updateSubCategoryLink(sub, true, item.link)
-    );
-    return {
-      ...item,
-      link,
-      subCategories: newSubCategories,
-    };
-  } else {
-    link = `${PAGE_NAMES.CATEGORY}/${item.link}`;
-    const newSubCategories = item.subCategories?.map((sub) => {
-      const firstProductLink = sub.products?.[0]?.productLink ?? '';
-      return updateSubCategoryLink(sub, false, item.link, firstProductLink);
-    });
-    return {
-      ...item,
-      link,
-      subCategories: newSubCategories,
-    };
+const makeCategoryLink = (
+  categoryLink: string,
+  name: string,
+  displayName: string
+): string => {
+  if (isAccessory(name || displayName)) {
+    return PAGE_NAMES.ACCESSORIES;
   }
+  return `${PAGE_NAMES.CATEGORIES}/${categoryLink}`;
 };
+const makeSubCategoryLink = (
+  categoryLink: string,
+  subCategory: SubCategoryItem
+): string => {
+  const name = subCategory.name || subCategory.displayName;
+  const subCategoryLink = subCategory?.link || '';
+  const firstProduct = subCategory.products?.[0];
+  const productTypeId = firstProduct?.productTypeId || '';
+  const productLink = firstProduct?.productLink || '';
+  if (isAccessory(name)) {
+    return `${PAGE_NAMES.ACCESSORIES}/${subCategoryLink}`;
+  }
+  return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${productTypeId}/${productLink}`;
+};
+const makeGroupedSubCategoryLink = (
+  categoryLink: string,
+  groupedSubCategoryLink: string
+): string => {
+  return `${PAGE_NAMES.CATEGORIES}/${categoryLink}/${groupedSubCategoryLink}`;
+};
+
 const makeProductLink = (
   categoryLink: string,
   productTypeId: string,
@@ -61,7 +63,9 @@ const makeProductLink = (
 
 export {
   matchesCategory,
-  updateSubCategoryLink,
-  updateCategoryLink,
+  isAccessory,
+  makeCategoryLink,
   makeProductLink,
+  makeSubCategoryLink,
+  makeGroupedSubCategoryLink,
 };

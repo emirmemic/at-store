@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grouped_sub_categories",
+  "info": {
+    "singularName": "grouped-sub-category",
+    "pluralName": "grouped-sub-categories",
+    "displayName": "Grouped Sub Category",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "displayName": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "displayName",
+      "regex": "^(?!\\/)[a-zA-Z0-9\\-\\/_]+$",
+      "required": true
+    },
+    "sliderImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "groupedSubCategories"
+    },
+    "subCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-category.sub-category",
+      "mappedBy": "parentSubCategory"
+    },
+    "navbarIcon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

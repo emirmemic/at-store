@@ -18,9 +18,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.ACCESSORIES]: {
       bs: '/dodaci',
     },
-    [DYNAMIC_PAGES.ACCESSORIES_SUBCATEGORY]: {
-      bs: '/dodaci/[subcategory]',
-    },
     [PAGE_NAMES.ACCOUNT]: {
       bs: '/racun',
     },
@@ -63,11 +60,8 @@ export const routing = defineRouting({
     [PAGE_NAMES.CAREERS]: {
       bs: '/karijera',
     },
-    [PAGE_NAMES.CATEGORY]: {
+    [PAGE_NAMES.CATEGORIES]: {
       bs: '/kategorija',
-    },
-    [DYNAMIC_PAGES.CATEGORY_PAGE]: {
-      bs: '/kategorija/[slug]',
     },
     [PAGE_NAMES.COMPLAINTS]: {
       bs: '/reklamacije',
@@ -90,6 +84,7 @@ export const routing = defineRouting({
     [PAGE_NAMES.GLOBAL_COMPONENTS]: {
       bs: '/global-components',
     },
+
     [PAGE_NAMES.ICONS]: {
       bs: '/icons-page',
     },
@@ -126,9 +121,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.PRODUCTS]: {
       bs: '/proizvodi',
     },
-    [DYNAMIC_PAGES.PRODUCT_DETAILS]: {
-      bs: '/proizvodi/[category]/[subcategory]/[slug]',
-    },
     [PAGE_NAMES.REGISTER]: {
       bs: '/registracija',
     },
@@ -152,6 +144,18 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.WHY_MAC]: {
       bs: '/zasto-mac',
+    },
+    [DYNAMIC_PAGES.ACCESSORIES_SUBCATEGORY]: {
+      bs: '/dodaci/[subcategory]',
+    },
+    [DYNAMIC_PAGES.CATEGORY_PAGE]: {
+      bs: '/kategorije/[category]',
+    },
+    [DYNAMIC_PAGES.GROUPED_SUBCATEGORY]: {
+      bs: '/kategorije/[category]/[groupedSubCategory]',
+    },
+    [DYNAMIC_PAGES.PRODUCT_DETAILS]: {
+      bs: '/proizvodi/[category]/[productTypeId]/[productLink]',
     },
   },
 });

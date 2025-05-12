@@ -75,6 +75,12 @@
     "metaDescription": {
       "type": "string",
       "maxLength": 255
+    },
+    "parentSubCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::grouped-sub-category.grouped-sub-category",
+      "inversedBy": "subCategories"
     }
   }
 }

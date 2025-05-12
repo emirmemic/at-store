@@ -476,6 +476,10 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     displayName: Schema.Attribute.String & Schema.Attribute.Required;
+    groupedSubCategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::grouped-sub-category.grouped-sub-category'
+    >;
     image: Schema.Attribute.Media<'images'>;
     link: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -704,6 +708,46 @@ export interface ApiEducationalDiscountEducationalDiscount
         maxLength: 50;
         minLength: 3;
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGroupedSubCategoryGroupedSubCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'grouped_sub_categories';
+  info: {
+    description: '';
+    displayName: 'Grouped Sub Category';
+    pluralName: 'grouped-sub-categories';
+    singularName: 'grouped-sub-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    displayName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::grouped-sub-category.grouped-sub-category'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.String;
+    metaTitle: Schema.Attribute.String;
+    navbarIcon: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    sliderImages: Schema.Attribute.Media<'images', true>;
+    slug: Schema.Attribute.UID<'displayName'> & Schema.Attribute.Required;
+    subCategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-category.sub-category'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1273,6 +1317,10 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     navbarIcon: Schema.Attribute.Media<'images'>;
+    parentSubCategory: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::grouped-sub-category.grouped-sub-category'
+    >;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     shortDescription: Schema.Attribute.String;
@@ -1844,6 +1892,7 @@ declare module '@strapi/strapi' {
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::current-promotion.current-promotion': ApiCurrentPromotionCurrentPromotion;
       'api::educational-discount.educational-discount': ApiEducationalDiscountEducationalDiscount;
+      'api::grouped-sub-category.grouped-sub-category': ApiGroupedSubCategoryGroupedSubCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::material.material': ApiMaterialMaterial;
       'api::memory.memory': ApiMemoryMemory;

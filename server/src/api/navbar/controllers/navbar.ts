@@ -32,8 +32,21 @@ export default factories.createCoreController(
                       fields: ['url', 'alternativeText'],
                     },
                     products: {
-                      fields: ['id', 'productLink', 'publishedAt'],
+                      fields: [
+                        'id',
+                        'productLink',
+                        'publishedAt',
+                        'productTypeId',
+                      ],
                     },
+                  },
+                },
+                groupedSubCategories: {
+                  populate: {
+                    navbarIcon: {
+                      fields: ['url', 'alternativeText'],
+                    },
+                    fields: ['id', 'displayName', 'slug'],
                   },
                 },
               },

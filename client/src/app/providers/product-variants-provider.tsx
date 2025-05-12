@@ -21,7 +21,7 @@ import {
   ProductVariant,
   SelectedOptionKey,
   SelectedOptions,
-} from '@/app/[locale]/(dynamic-pages)/products/[category]/[subcategory]/[slug]/types';
+} from '@/app/[locale]/(dynamic-pages)/products/[category]/[productTypeId]/[productLink]/types';
 import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 
@@ -52,13 +52,13 @@ export default function ProductVariantsProvider({
 }) {
   // Initialize router and params
   const router = useRouter();
-  const { slug } = useParams();
-  if (!slug) {
+  const { productLink } = useParams();
+  if (!productLink) {
     notFound();
   }
   const searchParams = useSearchParams();
   const searchKey = searchParams.get('key') as SelectedOptionKey | 'color';
-  const initialVariant = variants.find((v) => v.productLink === slug);
+  const initialVariant = variants.find((v) => v.productLink === productLink);
   if (!initialVariant) {
     notFound();
   }
@@ -176,20 +176,20 @@ export default function ProductVariantsProvider({
   // Lifecycle methods
   // Check if url changed
   useEffect(() => {
-    if (!slug) return;
+    if (!productLink) return;
 
-    const variant = variants.find((v) => v.productLink === slug);
+    const variant = variants.find((v) => v.productLink === productLink);
     if (!variant) {
       notFound();
     }
 
-    if (slug) {
-      if (typeof slug === 'string') {
-        selectVariantFromUrl(slug);
+    if (productLink) {
+      if (typeof productLink === 'string') {
+        selectVariantFromUrl(productLink);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug, variants]);
+  }, [productLink, variants]);
 
   return (
     <ProductContext.Provider

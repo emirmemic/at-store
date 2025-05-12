@@ -67,6 +67,12 @@
     "metaDescription": {
       "type": "string",
       "maxLength": 255
+    },
+    "groupedSubCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::grouped-sub-category.grouped-sub-category",
+      "mappedBy": "category"
     }
   }
 }

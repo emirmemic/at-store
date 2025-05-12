@@ -9,11 +9,12 @@ import {
 import '@/app/globals.css';
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
+import { getNavbarData } from '@/components/nav-bar/actions';
+import { formatNavbarData } from '@/components/nav-bar/utils/formatData';
 import { Toaster } from '@/components/ui/toaster';
 import { routing, type Locale } from '@/i18n/routing';
-import { getNavbarData, getUser } from '@/lib/services';
+import { getUser } from '@/lib/services';
 import { getCart } from '@/lib/services/get-cart';
-import { updateCategoryLink } from '@/lib/utils/link-helpers';
 
 import { SF_Pro_Display } from '../fonts/fonts';
 import CartProvider from '../providers/cart-provider';
@@ -80,10 +81,9 @@ export default async function LocaleLayout({ children, params }: PropsType) {
   setRequestLocale(locale);
   // Providing all messages to the client side
   const messages = await getMessages();
-  const navbarData = (await getNavbarData()) || [];
-  const processedNavbarData = navbarData.map((item) =>
-    updateCategoryLink(item)
-  );
+  const navbarResponse = (await getNavbarData()) || [];
+  const processedNavbarData = formatNavbarData(navbarResponse);
+
   const user = await getUser();
   const cart = await getCart();
 

@@ -1,7 +1,6 @@
 'use client';
 
 import Autoplay from 'embla-carousel-autoplay';
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
@@ -14,19 +13,19 @@ import {
 } from '@/components/ui/carousel';
 import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
-import { PromoSliderItemResponse } from '@/lib/types';
+import { ImageProps } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface PromoSliderProps {
   className?: string;
-  slides: PromoSliderItemResponse[];
+  images: ImageProps[];
 }
 
-export default function PromoSlider({ className, slides }: PromoSliderProps) {
+export default function Slider({ className, images }: PromoSliderProps) {
   const t = useTranslations('common');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoplayActive, setIsAutoplayActive] = useState(true);
-  const totalSlides = slides.length;
+  const totalSlides = images.length;
   const [api, setApi] = useState<CarouselApi | null>(null);
 
   const handleDotClick = (index: number) => {
@@ -38,13 +37,13 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
   };
 
   useEffect(() => {
-    if (!api || !slides || slides.length <= 1) return;
+    if (!api || !images || images.length <= 1) return;
     if (isAutoplayActive && api.plugins().autoplay) {
       api.plugins().autoplay?.play();
     } else {
       api.plugins().autoplay?.stop();
     }
-  }, [api, isAutoplayActive, slides]);
+  }, [api, isAutoplayActive, images]);
 
   return (
     <section className={cn('flex w-full flex-col gap-4', className)}>
@@ -63,42 +62,23 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
         onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
       >
         <CarouselContent>
-          {slides.map((slide) => (
+          {images.map((image, index) => (
             <CarouselItem
-              key={slide.id}
+              key={`${image.id}-${index}`}
               className="aspect-video basis-[416px] md:basis-[716px]"
             >
-              {slide.actionLink ? (
-                <Link
-                  className="h-full w-full overflow-hidden"
-                  href={slide.actionLink.linkUrl}
-                  title={slide.actionLink.linkText || t('viewDetails')}
-                >
-                  <span className="sr-only">{t('viewDetails')}</span>
-                  <StrapiImage
-                    priority
-                    alt={slide.image?.alternativeText ?? 'Image'}
-                    className="h-full w-full object-cover"
-                    height={240}
-                    sizes="100vw"
-                    src={slide.image.url}
-                    width={400}
-                  />
-                </Link>
-              ) : (
-                <div className="h-full w-full overflow-hidden">
-                  <span className="sr-only">{t('viewDetails')}</span>
-                  <StrapiImage
-                    priority
-                    alt={slide.image?.alternativeText ?? 'Image'}
-                    className="h-full w-full object-cover"
-                    height={240}
-                    sizes="100vw"
-                    src={slide.image.url}
-                    width={400}
-                  />
-                </div>
-              )}
+              <div className="h-full w-full overflow-hidden">
+                <span className="sr-only">{t('viewDetails')}</span>
+                <StrapiImage
+                  priority
+                  alt={image?.alternativeText ?? 'Image'}
+                  className="h-full w-full object-cover"
+                  height={240}
+                  sizes="100vw"
+                  src={image.url}
+                  width={400}
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

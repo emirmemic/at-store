@@ -1,5 +1,3 @@
-import { CategoryItem, SubCategoryItem } from './product';
-
 // Strapi Global Components Types
 interface ImageProps {
   id: number;
@@ -43,19 +41,11 @@ interface PromotionalFlipCardResponse {
   backTextColor?: string;
   actionLink: ActionLinkResponse | null;
 }
-interface NavMenuItem extends CategoryItem {
-  subCategories?: SubCategoryItem[];
-}
-interface NavbarResponseData {
-  categories: NavMenuItem[];
-}
 
 export type {
   ImageProps,
   InfoBlockResponse,
   ActionLinkResponse,
-  NavbarResponseData,
-  NavMenuItem,
   PromoSliderItemResponse,
   PromotionalFlipCardResponse,
 };

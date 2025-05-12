@@ -11,10 +11,10 @@ import RelatedProducts from './components/related-products';
 import { MetadataResponse } from './types';
 
 interface GenerateMetadataParams {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; productLink: string }>;
 }
-async function fetchMetadata(slug: string) {
-  const path = `/api/products/${slug}/metadata`;
+async function fetchMetadata(productLink: string) {
+  const path = `/api/products/${productLink}/metadata`;
   const url = new URL(path, STRAPI_BASE_URL);
 
   const res = await fetchAPI<MetadataResponse>(url.href, {
@@ -23,12 +23,12 @@ async function fetchMetadata(slug: string) {
   return res;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
-  const { locale, slug } = await params;
+  const { locale, productLink } = await params;
   const t = await getTranslations({
     locale,
     namespace: 'metaData.productDetails',
   });
-  const response = await fetchMetadata(slug);
+  const response = await fetchMetadata(productLink);
   const productData = response.data;
   const title = productData ? `${productData.title} | AT Store` : t('title');
   const description = productData ? productData.description : t('description');

@@ -5,7 +5,7 @@ import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ProductResponse } from '@/lib/types';
 
-import { ProductTypeResponse } from './[slug]/types';
+import { ProductTypeResponse } from './[productLink]/types';
 
 const getProductOptions = async (
   subCategoryLink: string
@@ -42,22 +42,21 @@ export default async function Layout({
   params: Promise<{
     locale: string;
     category: string;
-    subcategory: string;
+    productTypeId: string;
   }>;
   children: React.ReactNode;
 }) {
-  const { category, subcategory } = await params;
-
-  if (!category || !subcategory) {
+  const { category, productTypeId } = await params;
+  if (!category || !productTypeId) {
     notFound();
   }
-  const options = await getProductOptions(subcategory);
+  const options = await getProductOptions(productTypeId);
   if (!options) {
     notFound();
   }
   const variants = options.variants ?? [];
   const attributes = options.attributes ?? {};
-  const relatedProducts = (await getRelatedProducts(subcategory)) ?? [];
+  const relatedProducts = (await getRelatedProducts(productTypeId)) ?? [];
 
   return (
     <ProductVariantsProvider

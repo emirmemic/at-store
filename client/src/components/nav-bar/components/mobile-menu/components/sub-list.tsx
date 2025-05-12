@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
+import { NavSubMenuItem } from '@/components/nav-bar/types';
 import NavigationArrow from '@/components/ui/navigation-arrow';
-import { SubCategoryItem } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
 
 interface MobileMenuProps {
-  subMenuItems: SubCategoryItem[];
+  subMenuItems: NavSubMenuItem[];
   className?: string;
   closeMenu?: () => void;
   onBack: () => void;
@@ -40,7 +40,7 @@ export default function MobileSubList({
           href={item.link}
           onClick={closeMenu}
         >
-          {item.displayName || item.name}
+          {item.displayName}
         </Link>
       ))}
     </div>
