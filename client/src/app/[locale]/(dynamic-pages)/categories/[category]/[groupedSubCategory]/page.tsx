@@ -86,29 +86,35 @@ export default async function Page({
   const images = data.sliderImages || [];
 
   return (
-    <main className="pb-28 pt-11 container-max-width">
-      <ProductListTitle title={title} />
-      <div className="flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
-        {subCategories.map((subCategory) => (
-          <SubProductCard
-            key={subCategory.id}
-            buttonText={t('common.see')}
-            image={subCategory.image}
-            link={makeSubCategoryLink(categoryLink, subCategory)}
-            specifications={[]}
-            title={subCategory.displayName || subCategory.name}
-          />
-        ))}
+    <main className="pb-28 pt-11">
+      <div className="container-max-width">
+        <ProductListTitle title={title} />
+        <div className="flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
+          {subCategories.map((subCategory) => (
+            <SubProductCard
+              key={subCategory.id}
+              buttonText={t('common.see')}
+              image={subCategory.image}
+              link={makeSubCategoryLink(categoryLink, subCategory)}
+              specifications={[]}
+              title={subCategory.displayName || subCategory.name}
+            />
+          ))}
+        </div>
       </div>
-      {images.length > 0 && <Slider className="pb-24 pt-16" images={images} />}
-      <InfoBlock
-        actionLink={{
-          id: 1,
-          linkUrl: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
-        }}
-        description={t('categoryPage.edDescription')}
-        title={t('categoryPage.edTitle')}
-      />
+      <section className="pb-24 pt-16 container-max-width-xl">
+        {images.length > 0 && <Slider images={images} />}
+      </section>
+      <section className="py-8 container-max-width">
+        <InfoBlock
+          actionLink={{
+            id: 1,
+            linkUrl: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
+          }}
+          description={t('categoryPage.edDescription')}
+          title={t('categoryPage.edTitle')}
+        />
+      </section>
     </main>
   );
 }
