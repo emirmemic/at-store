@@ -22,6 +22,7 @@ import {
   SelectedOptionKey,
   SelectedOptions,
 } from '@/app/[locale]/(dynamic-pages)/products/[category]/[subcategory]/[slug]/types';
+import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 
 export type ProductVariantContextType = {
@@ -29,6 +30,7 @@ export type ProductVariantContextType = {
   productOptions: ProductTypeAttributes;
   selectedVariant: ProductVariant;
   selectedOptions: SelectedOptions;
+  relatedProducts: ProductResponse[];
   selectOption: (type: SelectedOptionKey, value: string) => void;
   availableOptions: ProductTypeAttributes;
   latestClicked: { key: SelectedOptionKey; value: string } | null;
@@ -40,12 +42,15 @@ export const ProductContext = createContext<ProductVariantContextType>(
 export default function ProductVariantsProvider({
   children,
   variants,
+  relatedProducts,
   productOptions,
 }: {
   children: ReactNode;
   variants: ProductVariant[];
+  relatedProducts: ProductResponse[];
   productOptions: ProductTypeAttributes;
 }) {
+  // Initialize router and params
   const router = useRouter();
   const { slug } = useParams();
   if (!slug) {
@@ -57,6 +62,8 @@ export default function ProductVariantsProvider({
   if (!initialVariant) {
     notFound();
   }
+
+  /* States */
   const [selectedVariant, setSelectedVariant] =
     useState<ProductVariant>(initialVariant);
   const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>(
@@ -89,6 +96,7 @@ export default function ProductVariantsProvider({
       deriveAvailableOptions(variants, latestClicked)
     );
 
+  // Methods
   const selectVariantFromUrl = (slug: string) => {
     const variant = variants.find((v) => v.productLink === slug);
     if (!variant) return notFound();
@@ -164,6 +172,8 @@ export default function ProductVariantsProvider({
       router.push(makeRouteLink(selectedVariant, type));
     }
   };
+
+  // Lifecycle methods
   // Check if url changed
   useEffect(() => {
     if (!slug) return;
@@ -185,6 +195,7 @@ export default function ProductVariantsProvider({
     <ProductContext.Provider
       value={{
         variants,
+        relatedProducts,
         productOptions,
         selectedVariant,
         selectOption,

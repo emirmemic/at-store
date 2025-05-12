@@ -5,41 +5,50 @@ import { StrapiImage } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
 import { ProductResponse } from '@/lib/types';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
 
 interface ProductCardProps {
   product: ProductResponse;
-  onAddToCart: (productId: string) => void;
+  className?: string;
 }
 export default function RelatedProductAccessories({
   product,
-  onAddToCart,
+  className,
 }: ProductCardProps) {
   const t = useTranslations('common');
-  const { name, images, productLink, discountedPrice, originalPrice } = product;
+  const {
+    name,
+    images,
+    productLink,
+    discountedPrice,
+    originalPrice,
+    displayName,
+  } = product;
   const image = images?.[0] ?? null;
   const finalPrice = discountedPrice ?? originalPrice;
-
+  const finalName = displayName || name;
+  const finalLink = makeProductLink(
+    product.category?.link ?? '',
+    product.productTypeId,
+    productLink ?? ''
+  );
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-72 flex-col items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-outline-black transition-all hover:shadow-outline-black-hover'
+        'relative flex w-full max-w-72 flex-col items-center justify-between gap-4 rounded-2xl bg-white p-4 shadow-outline-black transition-all hover:shadow-outline-black-hover',
+        className
       )}
     >
-      {productLink && (
-        <Link
-          className="z-1 absolute inset-0"
-          href={`/products/${productLink}`}
-        >
-          <span className="sr-only">
-            {t('viewDetailsWithName', { productName: name })}
-          </span>
-        </Link>
-      )}
+      <Link className="z-1 absolute inset-0" href={finalLink}>
+        <span className="sr-only">
+          {t('viewDetailsWithName', { productName: finalName })}
+        </span>
+      </Link>
       <div className="h-40 w-full">
         {image && (
           <StrapiImage
-            alt={image?.alternativeText || name}
+            alt={image?.alternativeText || finalName}
             className="h-full w-full object-contain"
             height={168}
             src={image?.url ?? ''}
@@ -49,17 +58,12 @@ export default function RelatedProductAccessories({
       </div>
       <div className="flex flex-col gap-1">
         <p className="flex min-h-16 items-center justify-center text-center heading-4">
-          {name}
+          {finalName}
         </p>
         <p className="text-center paragraph-1">{`${finalPrice} ${CURRENCY}`}</p>
       </div>
-      <Button
-        className="relative z-10"
-        size={'md'}
-        variant={'filled'}
-        onClick={() => onAddToCart(product.productVariantId)}
-      >
-        {t('buyNow')}
+      <Button asChild size={'md'} variant={'filled'}>
+        <span>{t('buyNow')}</span>
       </Button>
     </div>
   );

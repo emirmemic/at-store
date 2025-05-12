@@ -13,7 +13,6 @@ export default function ProductDetails() {
   const { details, name, originalPrice, discountedPrice } = selectedVariant;
   const finalPrice = discountedPrice ?? originalPrice;
   const image = selectedVariant.images?.[0] || null;
-
   return (
     <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-[1.5fr_1fr]">
       <div className="order-1 flex flex-col gap-5 md:order-2">

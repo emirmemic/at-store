@@ -23,7 +23,6 @@ export default function CategoriesCarousel({
   return (
     <div className="border-b border-grey-darker pb-3">
       <Carousel
-        className=""
         opts={{
           loop: true,
           align: 'start',

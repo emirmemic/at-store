@@ -35,5 +35,15 @@ export default {
         policies: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/products/:productTypeId/related-products',
+      handler: 'api::product.product.getRelatedProducts',
+      config: {
+        auth: false,
+        middlewares: [],
+        policies: [],
+      },
+    },
   ],
 };

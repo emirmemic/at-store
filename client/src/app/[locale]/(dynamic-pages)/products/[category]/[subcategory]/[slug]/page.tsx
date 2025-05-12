@@ -7,6 +7,7 @@ import { getInfoBlocksData } from '@/lib/data';
 import { fetchAPI } from '@/lib/fetch-api';
 
 import { ProductDetails } from './components';
+import RelatedProducts from './components/related-products';
 import { MetadataResponse } from './types';
 
 interface GenerateMetadataParams {
@@ -64,6 +65,7 @@ export default function Page() {
   return (
     <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
       <ProductDetails />
+      <RelatedProducts />
       <div className="flex flex-col items-center justify-center gap-8">
         {infoBlocks.map((infoBlock) => (
           <InfoBlock

@@ -131,5 +131,18 @@ export default factories.createCoreController(
         ctx.throw(500, 'Could not build product-type options');
       }
     },
+    async getRelatedProducts(ctx) {
+      const { productTypeId } = ctx.params;
+      if (!productTypeId) return ctx.badRequest('productTypeId is missing');
+
+      try {
+        ctx.body = await strapi
+          .service('api::product.related-products')
+          .findRelatedProducts(productTypeId);
+      } catch (error) {
+        ctx.body = { error: error.message };
+        ctx.throw(500, 'Could not build related products');
+      }
+    },
   })
 );
