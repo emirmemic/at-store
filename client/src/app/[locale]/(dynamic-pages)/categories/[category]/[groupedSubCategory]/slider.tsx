@@ -45,6 +45,15 @@ export default function Slider({ className, images }: PromoSliderProps) {
     }
   }, [api, isAutoplayActive, images]);
 
+  const plugins = [];
+  if (images.length > 2) {
+    plugins.push(
+      Autoplay({
+        delay: 3000,
+      })
+    );
+  }
+
   return (
     <section className={cn('flex w-full flex-col gap-4', className)}>
       <Carousel
@@ -53,11 +62,7 @@ export default function Slider({ className, images }: PromoSliderProps) {
           loop: true,
           align: 'start',
         }}
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
+        plugins={plugins}
         setApi={setApi}
         onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
       >

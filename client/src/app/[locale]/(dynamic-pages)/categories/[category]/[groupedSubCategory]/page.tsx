@@ -83,7 +83,7 @@ export default async function Page({
   const title = data.displayName;
   const subCategories = data.subCategories || [];
   const categoryLink = data.category?.link || '';
-  const images = data.sliderImages || [];
+  const images = data?.sliderImages || [];
 
   return (
     <main className="pb-28 pt-11">
@@ -103,7 +103,7 @@ export default async function Page({
         </div>
       </div>
       <section className="pb-24 pt-16 container-max-width-xl">
-        {images.length > 0 && <Slider images={images} />}
+        {images.length > 1 && <Slider images={images} />}
       </section>
       <section className="py-8 container-max-width">
         <InfoBlock
