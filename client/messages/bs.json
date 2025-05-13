@@ -615,7 +615,7 @@
     "viewMore": "Pogledaj više",
     "successful": "Uspješno",
     "error": "Došlo je do greške",
-    "startsFrom": "Počne od",
+    "startsFrom": "Počinje od",
     "requestFailAlert": "Poruka nije poslana",
     "requestSuccessAlert": "Uspješno ste poslali zahtjev",
     "add": "Dodaj",
@@ -702,8 +702,7 @@
     "paymentTitle": "Načini plaćanja",
     "paymentDescription": "Prilikom kupovine putem Web stranice možete platiti samo Unicredit Shopping karticom na rate.",
     "deliveryTitle": "Dostava",
-    "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}.",
-    "relatedProducts": "Povezani dodaci"
+    "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}."
   },
   "categoryPage": {
     "edTitle": "Obrazovni popust",

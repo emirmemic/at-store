@@ -27,23 +27,17 @@ export default function Options({
   options,
 }: SpecsProps) {
   // Installment Logic
-  const [selectedOption, setSelectedOption] =
-    useState<InstallmentOption | null>(null);
-  const t = useTranslations('');
   const installmentOptions = [
-    { label: 'Bez rata', value: 0 },
+    { label: 'Bez rata', value: 1 },
     { label: '6 rata', value: 6 },
     { label: '12 rata', value: 12 },
     { label: '18 rata', value: 18 },
     { label: '24 rata', value: 24 },
   ];
-  const handleSelect = (option: InstallmentOption) => {
-    if (option.value === 0) {
-      setSelectedOption(null);
-      return;
-    }
-    setSelectedOption(option);
-  };
+  const lastOption = installmentOptions[installmentOptions.length - 1];
+  const [selectedOption, setSelectedOption] =
+    useState<InstallmentOption | null>(lastOption);
+  const t = useTranslations('');
 
   // Options Logic
   const { availableOptions } = useProductVariants();
@@ -124,7 +118,7 @@ export default function Options({
             <Installments
               installmentOptions={installmentOptions}
               selectedOption={selectedOption}
-              onSelectOption={handleSelect}
+              onSelectOption={setSelectedOption}
             />
           </div>
         </div>
