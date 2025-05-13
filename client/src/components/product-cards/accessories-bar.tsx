@@ -33,7 +33,7 @@ export default function AccessoriesBar({
         <p className="bullet-2">{finalSubtitle}</p>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-4 md:gap-x-6 xl:gap-x-24">
-        {items.map(({ id, icon, displayName }) => {
+        {items.map(({ id, icon, displayName, name }) => {
           return (
             <Link
               key={id}
@@ -55,7 +55,7 @@ export default function AccessoriesBar({
                 )}
               </div>
               <p className="flex grow items-center text-center bullet-1 md:paragraph-1">
-                {displayName}
+                {displayName || name}
               </p>
             </Link>
           );
