@@ -82,7 +82,6 @@ export default async function Page({
     notFound();
   }
   const categoryData = response.data;
-
   if (!categoryData) {
     notFound();
   }
@@ -99,7 +98,6 @@ export default async function Page({
             buttonText={t('common.see')}
             image={subCategory.image}
             link={makeSubCategoryLink(categoryData.link, subCategory)}
-            specifications={[]}
             title={subCategory.displayName || subCategory.name}
           />
         ))}

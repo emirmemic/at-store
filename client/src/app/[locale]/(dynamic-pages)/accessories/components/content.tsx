@@ -1,21 +1,18 @@
 'use client';
-
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { IconLoader } from '@/components/icons';
 import { ProductsList } from '@/components/product-cards';
 import PaginationPages from '@/components/ui/pagination-pages';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { useRouter } from '@/i18n/routing';
 import { useDebounceValue } from '@/lib/hooks';
-import { ProductResponse } from '@/lib/types';
+import { ModelResponse, ProductResponse } from '@/lib/types';
 
 import { fetchProducts } from '../actions/actions';
 import { parseFiltersFromSearchParams } from '../actions/parse-filters';
 
-import { Filters, Sort } from '.';
+import { Filters, Models, Sort } from '.';
 
 export default function Content({
   pageTitle,
@@ -30,8 +27,10 @@ export default function Content({
   // Get the router and search parameters
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const initialPage = +(searchParams.get('page') ?? 1);
   const initialSort = searchParams.get('sort') || 'latest';
+  const initialModelId = searchParams.get('model') || null;
   const t = useTranslations();
 
   // State variables
@@ -40,30 +39,47 @@ export default function Content({
   const [total, setTotal] = useState<number>(0);
   const [sortOption, setSortOption] = useState<string>(initialSort);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedModel, setSelectedModel] = useState<ModelResponse | null>({
+    id: Number(initialModelId),
+    name: '',
+    displayName: '',
+  });
 
   // Handlers for sorting and pagination
   const handleSortChange = (newSort: string) => {
     setSortOption(newSort);
     setPage(1);
-    router.push({
-      pathname: PAGE_NAMES.ACCESSORIES,
-      query: {
-        ...Object.fromEntries(searchParams.entries()),
-        sort: newSort,
-        page: 1,
-      },
-    });
+    const currentParams = new URLSearchParams(searchParams.toString());
+    currentParams.set('sort', newSort);
+    currentParams.set('page', '1');
+    const newRoute = `${pathname}?${currentParams.toString()}`;
+    router.push(newRoute);
   };
   const handlePageChange = (page: number) => {
     setPage(page);
-    router.push({
-      pathname: PAGE_NAMES.ACCESSORIES,
-      query: {
-        ...Object.fromEntries(searchParams.entries()),
-        sort: sortOption,
-        page,
-      },
-    });
+    const currentParams = new URLSearchParams(searchParams.toString());
+    currentParams.set('page', page.toString());
+    const newRoute = `${pathname}?${currentParams.toString()}`;
+    router.push(newRoute);
+  };
+  const handleModelChange = (model: ModelResponse) => {
+    if (model.id === selectedModel?.id) {
+      setSelectedModel(null);
+      setPage(1);
+      const currentParams = new URLSearchParams(searchParams.toString());
+      currentParams.delete('model');
+      currentParams.set('page', '1');
+      const newRoute = `${pathname}?${currentParams.toString()}`;
+      router.push(newRoute);
+      return;
+    }
+    setSelectedModel(model);
+    setPage(1);
+    const currentParams = new URLSearchParams(searchParams.toString());
+    currentParams.set('model', model.id.toString());
+    currentParams.set('page', '1');
+    const newRoute = `${pathname}?${currentParams.toString()}`;
+    router.push(newRoute);
   };
 
   // Lifecycle hook to fetch products with debouncing
@@ -72,8 +88,14 @@ export default function Content({
     async function loadProducts() {
       setIsLoading(true);
 
-      const { colorFilters, brandFilters, materialFilters, page, sort } =
-        parseFiltersFromSearchParams(debouncedSearchParams);
+      const {
+        colorFilters,
+        brandFilters,
+        materialFilters,
+        page,
+        sort,
+        modelId,
+      } = parseFiltersFromSearchParams(debouncedSearchParams);
 
       const response = await fetchProducts({
         sortOption: sort,
@@ -83,6 +105,7 @@ export default function Content({
         materialFilters,
         categoryLink,
         subCategoryLink,
+        modelId,
       });
       setProducts(response?.data?.data || []);
       setTotal(response?.data?.meta.pagination.pageCount || 0);
@@ -97,6 +120,12 @@ export default function Content({
       <div className="border-b border-grey-dark pb-4">
         <h1 className="heading-3">{pageTitle}</h1>
       </div>
+      <Models
+        categoryLink={categoryLink}
+        selectedModel={selectedModel}
+        subCategoryLink={subCategoryLink}
+        onSelectModel={handleModelChange}
+      />
       <div className="relative flex min-h-[400px] flex-col gap-4">
         {isLoading && (
           <div

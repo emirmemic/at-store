@@ -1,8 +1,5 @@
 'use client';
-import {
-  InchSelectionTab,
-  MacAccessoriesBar,
-} from '@/components/product-cards';
+import { InchSelectionTab } from '@/components/product-cards';
 
 export default function ProductCardExamples() {
   const inchOptions = [
@@ -32,9 +29,6 @@ export default function ProductCardExamples() {
       <div className="h-[2px] w-full bg-grey"></div>
       <h2 className="display">Product Cards</h2>
       <div className="h-[2px] w-full bg-grey"></div>
-      <h3 className="heading-2">Mac dodaci bar</h3>
-      <div className="h-[2px] w-full bg-grey"></div>
-      <MacAccessoriesBar />
       <div className="h-[2px] w-full bg-grey"></div>
       <div className="flex w-full flex-wrap gap-4">
         {/* SubProductCard and InchSelectionTab are used together and should have the same width according to the design. That's why the max width is controlled by the parent element, rather than each component individually. */}

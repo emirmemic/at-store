@@ -471,6 +471,10 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    accessoryType: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::sub-category.sub-category'
+    >;
     chips: Schema.Attribute.Relation<'oneToMany', 'api::chip.chip'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -862,6 +866,8 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    displayName: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::model.model'> &
       Schema.Attribute.Private;
@@ -870,7 +876,7 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
-    sub_category: Schema.Attribute.Relation<
+    subCategory: Schema.Attribute.Relation<
       'manyToOne',
       'api::sub-category.sub-category'
     >;

@@ -2,8 +2,8 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/categories/by-slug/:slug',
-      handler: 'api::category.category.getCategoryBySlug',
+      path: '/models/by-category/:category',
+      handler: 'api::model.model.getModelsByCategory',
       config: {
         policies: [],
         middlewares: [],
@@ -12,8 +12,8 @@ export default {
     },
     {
       method: 'GET',
-      path: '/categories/:slug/accessory-models',
-      handler: 'api::category.category.getAccessoryTypeAndModels',
+      path: '/models/by-sub-category/:category/:subCategory',
+      handler: 'api::model.model.getModelsBySubCategory',
       config: {
         policies: [],
         middlewares: [],

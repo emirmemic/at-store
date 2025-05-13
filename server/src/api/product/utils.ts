@@ -396,3 +396,40 @@ export async function getStores(webAccountProduct: WebAccountProduct) {
   }
   return stores;
 }
+
+const getAccessoryTypeForCategory = async (categoryName) => {
+  // Check if the category is 'dodaci' or any other category
+  if (categoryName.toLowerCase() === 'dodaci') {
+    // Get all subcategories under the 'dodaci' category
+    const dodaciCategory = await strapi.db
+      .query('api::category.category')
+      .findOne({
+        where: {
+          name: 'dodaci',
+        },
+        populate: ['subCategories'],
+      });
+
+    if (dodaciCategory) {
+      return dodaciCategory.subCategories.map(
+        (subCategory) => subCategory.name
+      );
+    }
+  } else {
+    // For other categories, set the accessory type based on the category name
+    const accessoryTypeName = `${categoryName.toLowerCase()}_dodaci`;
+
+    // Find the corresponding subcategory in the 'dodaci' category
+    const accessoryType = await strapi.db
+      .query('api::sub-category.sub-category')
+      .findOne({
+        where: {
+          name: accessoryTypeName,
+        },
+      });
+
+    return accessoryType ? accessoryType.id : null;
+  }
+
+  return null;
+};

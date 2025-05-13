@@ -31,7 +31,7 @@ const getRelatedProducts = async (
     method: 'GET',
   });
   if (!response.data) {
-    notFound();
+    return [];
   }
   return response.data;
 };

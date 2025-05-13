@@ -91,7 +91,6 @@ export default {
       : `${productionSyncingInterval} * * * *`;
 
     const environment = isDevelopment ? 'development' : 'production';
-
     strapi.cron.add({
       syncProducts: {
         task: async () => {
@@ -103,6 +102,9 @@ export default {
             await strapi
               .service('api::product.product')
               .syncWebAccountProducts();
+            await strapi
+              .service('api::category.category')
+              .makeRelationAccessoryType();
             const duration = Date.now() - startTime;
             strapi.log.info(
               `Product sync completed successfully in ${duration}ms`

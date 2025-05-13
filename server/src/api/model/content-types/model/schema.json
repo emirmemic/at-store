@@ -28,11 +28,20 @@
       "target": "api::category.category",
       "inversedBy": "models"
     },
-    "sub_category": {
+    "subCategory": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::sub-category.sub-category",
       "inversedBy": "models"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     }
   }
 }

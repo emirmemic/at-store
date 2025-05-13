@@ -26,7 +26,7 @@ interface ProductResponse {
   brand?: IdentificationResponse;
   category?: CategoryItem;
   subCategory?: SubCategoryItem;
-  model?: IdentificationResponse;
+  model?: ModelResponse;
   stores: StoreResponse[];
   amountInStock: number;
   color?: ColorResponse;
@@ -54,6 +54,12 @@ interface StoreResponse {
 interface IdentificationResponse {
   id: number;
   name: string;
+}
+interface ModelResponse {
+  id: number;
+  name: string;
+  displayName?: string;
+  icon?: ImageProps | null;
 }
 
 interface ColorResponse {
@@ -95,6 +101,7 @@ interface CategoryItem {
   metaDescription?: string | null;
   products?: ProductResponse[];
   subCategories?: SubCategoryItem[] | null;
+  models?: ModelResponse[] | null;
   groupedSubCategories?: GroupedSubCategoryItem[] | null;
 }
 interface SubCategoryItem extends CategoryItem {
@@ -124,6 +131,7 @@ export type {
   BestSellerItem,
   CategoryItem,
   ColorResponse,
+  ModelResponse,
   IdentificationResponse,
   InstallmentOption,
   MemoryResponse,

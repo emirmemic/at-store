@@ -1,5 +1,5 @@
 export { default as InchSelectionTab } from './inch-selection-tab';
-export { default as MacAccessoriesBar } from './mac-accessories-bar';
+export { default as AccessoriesBar } from './accessories-bar';
 export { default as ProductCard } from './product-card';
 export { default as ProductCartTableItem } from './product-cart-table-item';
 export { default as ProductTag } from './product-tag';

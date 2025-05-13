@@ -11,5 +11,6 @@ export function parseFiltersFromSearchParams(params: URLSearchParams) {
     materialFilters: params.get('material')?.split(',').filter(Boolean) || [],
     page: parseInt(params.get('page') || '1', 10),
     sort: params.get('sort') || 'latest',
+    modelId: params.get('model') || undefined,
   };
 }

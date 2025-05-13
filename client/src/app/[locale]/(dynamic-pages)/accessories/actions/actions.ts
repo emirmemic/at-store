@@ -4,6 +4,7 @@ import qs from 'qs';
 
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
+import { ModelResponse } from '@/lib/types';
 
 import { AccessoriesResponse } from '../types';
 
@@ -18,6 +19,7 @@ interface FetchProductsOptions {
   materialFilters?: string[];
   categoryLink?: string;
   subCategoryLink?: string;
+  modelId?: string;
 }
 
 export async function fetchProducts({
@@ -29,6 +31,7 @@ export async function fetchProducts({
   materialFilters = [],
   categoryLink,
   subCategoryLink,
+  modelId,
 }: FetchProductsOptions) {
   let sortParam;
 
@@ -58,6 +61,7 @@ export async function fetchProducts({
       filters: buildFilters({
         categoryLink,
         subCategoryLink,
+        modelId,
         filters: {
           color: colorFilters,
           brand: brandFilters,
@@ -89,9 +93,26 @@ export async function fetchProducts({
   const path = '/api/products';
   const url = new URL(path, STRAPI_BASE_URL);
   url.search = query;
-
   const res = await fetchAPI<AccessoriesResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
+}
+
+export async function fetchModels({
+  categoryLink,
+  subCategoryLink,
+}: {
+  categoryLink: string;
+  subCategoryLink?: string;
+}) {
+  const path = subCategoryLink
+    ? `/api/models/by-sub-category/${categoryLink}/${subCategoryLink}`
+    : `/api/models/by-category/${categoryLink}`;
+  const url = new URL(path, STRAPI_BASE_URL);
+  const res = await fetchAPI<ModelResponse[]>(url.href, {
+    method: 'GET',
+  });
+  return res.data || [];
 }

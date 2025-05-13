@@ -25,8 +25,8 @@ export default function SubProductCard({
 }: SubProductCardProps) {
   return (
     <div className="flex w-full flex-col justify-between gap-3 rounded-2xl border border-grey-extra-light bg-grey-almost-white px-8 pb-8 pt-4 shadow-popup-black md:flex-row-reverse md:justify-between md:gap-8 md:px-6 md:py-8 lg:px-14">
-      <div className="aspect-1/1 w-full max-w-56">
-        {image && (
+      <div className="h-52 w-56">
+        {image ? (
           <StrapiImage
             alt={image.alternativeText ?? title}
             className="h-full w-full object-contain"
@@ -35,6 +35,8 @@ export default function SubProductCard({
             src={image?.url ?? ''}
             width={276}
           />
+        ) : (
+          <div className="h-full w-full" />
         )}
       </div>
       <div className="flex flex-col items-center gap-7 md:items-start md:justify-between md:pt-3">

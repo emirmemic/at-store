@@ -1,6 +1,7 @@
 interface BuildFiltersOptions {
   categoryLink?: string; // The link of the category to filter by
   subCategoryLink?: string; // The link of the subcategory to filter by
+  modelId?: string; // The ID of the model to filter by
   filters?: {
     [key: string]: string[]; // key is field name (color, brand, material), value is array of selected filters
   };
@@ -35,6 +36,7 @@ interface BuildFiltersOptions {
 export function buildFilters({
   categoryLink,
   subCategoryLink,
+  modelId,
   filters = {},
 }: BuildFiltersOptions) {
   const finalFilters: Record<string, unknown> = {};
@@ -50,6 +52,13 @@ export function buildFilters({
     finalFilters.subCategory = {
       link: {
         $eqi: subCategoryLink,
+      },
+    };
+  }
+  if (modelId) {
+    finalFilters.model = {
+      id: {
+        $eqi: modelId,
       },
     };
   }

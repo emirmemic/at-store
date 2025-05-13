@@ -40,7 +40,7 @@ export default function Sort({
   return (
     <div className={`flex justify-end ${className}`}>
       <DropdownMenu onOpenChange={(open) => setIsDropdownOpen(open)}>
-        <DropdownMenuTrigger className="flex items-center gap-4 px-2 py-4 paragraph-2 hover:text-grey-darker focus:outline-0">
+        <DropdownMenuTrigger className="flex items-center gap-4 p-2 paragraph-2 hover:text-grey-darker focus:outline-0">
           {selectedOption}
           <IconChevron
             className={cn(

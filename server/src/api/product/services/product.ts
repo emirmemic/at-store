@@ -87,6 +87,7 @@ export default factories.createCoreService('api::product.product', () => ({
                 model = await strapi.documents('api::model.model').create({
                   data: {
                     name: modelName,
+                    displayName: modelName,
                   },
                 });
               }

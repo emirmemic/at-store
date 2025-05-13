@@ -2,11 +2,15 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
 import { InfoBlock } from '@/components';
-import { ProductListTitle, SubProductCard } from '@/components/product-cards';
+import {
+  AccessoriesBar,
+  ProductListTitle,
+  SubProductCard,
+} from '@/components/product-cards';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { GroupedSubCategoryItem } from '@/lib/types';
+import { GroupedSubCategoryItem, SubCategoryItem } from '@/lib/types';
 import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
 
 import Slider from './slider';
@@ -24,6 +28,16 @@ async function fetchData(slug: string) {
   });
   return res;
 }
+async function getAccessoryModels(category: string) {
+  const path = `/api/categories/${category}/accessory-models`;
+  const url = new URL(path, STRAPI_BASE_URL);
+  const response = await fetchAPI<SubCategoryItem>(url.href, {
+    method: 'GET',
+    isAuth: false,
+  });
+  return response;
+}
+
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale, groupedSubCategory } = await params;
   const t = await getTranslations({
@@ -68,10 +82,11 @@ export default async function Page({
 }: {
   params: Promise<{
     groupedSubCategory: string;
+    category: string;
   }>;
 }) {
-  const { groupedSubCategory } = await params;
-  if (!groupedSubCategory) {
+  const { groupedSubCategory, category } = await params;
+  if (!groupedSubCategory || !category) {
     notFound();
   }
   const response = await fetchData(groupedSubCategory);
@@ -84,6 +99,8 @@ export default async function Page({
   const subCategories = data.subCategories || [];
   const categoryLink = data.category?.link || '';
   const images = data?.sliderImages || [];
+  const accessoryType = (await getAccessoryModels(category)).data;
+  const accessoryModels = accessoryType?.models || [];
 
   return (
     <main className="pb-28 pt-11">
@@ -96,7 +113,6 @@ export default async function Page({
               buttonText={t('common.see')}
               image={subCategory.image}
               link={makeSubCategoryLink(categoryLink, subCategory)}
-              specifications={[]}
               title={subCategory.displayName || subCategory.name}
             />
           ))}
@@ -105,6 +121,16 @@ export default async function Page({
       <section className="pb-24 pt-16 container-max-width-xl">
         {images.length > 1 && <Slider images={images} />}
       </section>
+      {accessoryModels.length > 0 && (
+        <section className="container-max-width">
+          <AccessoriesBar
+            accessoryTypeLink={accessoryType?.link || ''}
+            items={accessoryModels}
+            subtitle={accessoryType?.shortDescription || ''}
+            title={accessoryType?.displayName || ''}
+          />
+        </section>
+      )}
       <section className="py-8 container-max-width">
         <InfoBlock
           actionLink={{
