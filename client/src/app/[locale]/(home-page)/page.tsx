@@ -23,6 +23,9 @@ const homePageQuery = qs.stringify(
         populate: {
           product: {
             populate: {
+              category: {
+                fields: ['link'],
+              },
               images: {
                 fields: STRAPI_IMAGE_FIELDS,
               },
