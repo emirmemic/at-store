@@ -83,7 +83,7 @@ export default factories.createCoreController(
 
         const accessoryType = category.accessoryType;
         if (!accessoryType) {
-          return [];
+          return ctx.badRequest('Accessory type not found');
         }
 
         return accessoryType;
