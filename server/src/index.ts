@@ -91,7 +91,7 @@ export default {
       : `${productionSyncingInterval} * * * *`;
 
     const environment = isDevelopment ? 'development' : 'production';
-    /* strapi.cron.add({
+    strapi.cron.add({
       syncProducts: {
         task: async () => {
           try {
@@ -123,10 +123,10 @@ export default {
           tz: 'UTC',
         },
       },
-    }); */
+    });
     // Log when the cron job is initialized with schedule info
-    /* strapi.log.info(
+    strapi.log.info(
       `Product sync cron job initialized (${environment} mode, schedule: ${cronRule})`
-    ); */
+    );
   },
 };

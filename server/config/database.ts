@@ -40,6 +40,6 @@ export default ({ env }) => {
     runMigrations: env.bool('RUN_MIGRATIONS', true),
     // When forceMigration is true, Strapi will forcefully update the schema to match your models,
     // even if that means making destructive changes.
-    forceMigration: env.bool('FORCE_MIGRATION', true),
+    forceMigration: env.bool('FORCE_MIGRATION', false),
   };
 };

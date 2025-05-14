@@ -1,3 +1,4 @@
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 export const sendSubscribedEmail = async ({
   email,
   name,
@@ -7,7 +8,7 @@ export const sendSubscribedEmail = async ({
   name: string;
   token: string;
 }) => {
-  const unsubscribeUrl = `${process.env.FRONTEND_URL}/newsletter/unsubscribe?token=${token}`;
+  const unsubscribeUrl = `${frontendUrl}/newsletter/unsubscribe?token=${token}`;
 
   try {
     await strapi
@@ -36,7 +37,7 @@ export const sendUnsubscribedEmail = async ({
   email: string;
   name: string;
 }) => {
-  const subscribeUrl = `${process.env.FRONTEND_URL}/newsletter`;
+  const subscribeUrl = `${frontendUrl}/newsletter`;
 
   try {
     await strapi
