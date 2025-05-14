@@ -979,6 +979,46 @@ export interface ApiNewsPageNewsPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiNewsletterNewsletter extends Struct.CollectionTypeSchema {
+  collectionName: 'newsletters';
+  info: {
+    description: '';
+    displayName: 'Newsletter';
+    pluralName: 'newsletters';
+    singularName: 'newsletter';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::newsletter.newsletter'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    subscribed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    subscribedAt: Schema.Attribute.DateTime;
+    token: Schema.Attribute.UID & Schema.Attribute.Private;
+    unsubscribedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   collectionName: 'orders';
   info: {
@@ -1837,6 +1877,10 @@ export interface PluginUsersPermissionsUser
         maxLength: 30;
         minLength: 3;
       }>;
+    newsletter: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::newsletter.newsletter'
+    >;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
     password: Schema.Attribute.Password & Schema.Attribute.Private;
     payment_methods: Schema.Attribute.Relation<
@@ -1904,6 +1948,7 @@ declare module '@strapi/strapi' {
       'api::most-sold.most-sold': ApiMostSoldMostSold;
       'api::navbar.navbar': ApiNavbarNavbar;
       'api::news-page.news-page': ApiNewsPageNewsPage;
+      'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::order.order': ApiOrderOrder;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;

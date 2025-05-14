@@ -84,7 +84,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.GLOBAL_COMPONENTS]: {
       bs: '/global-components',
     },
-
     [PAGE_NAMES.ICONS]: {
       bs: '/icons-page',
     },
@@ -99,6 +98,9 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.NEWSLETTER]: {
       bs: '/newsletter',
+    },
+    [PAGE_NAMES.NEWSLETTER_UNSUBSCRIBE]: {
+      bs: '/newsletter/odjava',
     },
     [PAGE_NAMES.NEWS]: {
       bs: '/novosti',

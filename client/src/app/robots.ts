@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/account',
+      disallow: ['/account', '/newsletter/unsubscribe'],
     },
     sitemap: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/sitemap.xml`,
   };

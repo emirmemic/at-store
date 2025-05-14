@@ -29,6 +29,7 @@ export const PAGE_NAMES = {
   MAC: '/mac',
   MIKROFIN_INVOICE: '/mikrofin-invoice',
   NEWSLETTER: '/newsletter',
+  NEWSLETTER_UNSUBSCRIBE: '/newsletter/unsubscribe',
   NEWS: '/news',
   ORDER_CANCELLATION: '/order-cancellation',
   PAYMENT: '/payment',

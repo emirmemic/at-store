@@ -677,6 +677,7 @@
     "name": "Ime",
     "surname": "Prezime",
     "nameAndSurname": "Ime i prezime",
+    "enterNameSurname": "Unesite ime i prezime",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Potvrdi lozinku",
@@ -708,6 +709,17 @@
   "categoryPage": {
     "edTitle": "Obrazovni popust",
     "edDescription": "Obrazovni popus za studente i zaposlene pri obrazovnim institucijama."
+  },
+  "newsletterPage": {
+    "title": "Newsletter",
+    "subtitle": "Prijavi se na Newsletter",
+    "description": "Putem Newslettera dobijate redovne informacije o promocijama i aktivnostima koje AT Store ima.",
+    "signUp": "Prijavi se",
+    "successfulSignUp": "Uspješno ste se prijavili na Newsletter",
+    "unsubscribe": {
+      "title": "Odjava uspješna",
+      "description": "Uspješno ste se odjavili sa Newsletter liste. Žao nam je što odlazite – uvijek ste dobrodošli da se ponovo prijavite u budućnosti."
+    }
   },
   "loginPage": {
     "title": "Prijavite se",

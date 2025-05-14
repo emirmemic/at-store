@@ -126,6 +126,12 @@
       "relation": "oneToOne",
       "target": "api::cart.cart",
       "mappedBy": "user"
+    },
+    "newsletter": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::newsletter.newsletter",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
