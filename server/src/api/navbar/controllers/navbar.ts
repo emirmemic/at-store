@@ -9,7 +9,13 @@ export default factories.createCoreController(
           populate: {
             items: {
               populate: {
-                category: true,
+                category: {
+                  populate: {
+                    image: {
+                      fields: ['url', 'alternativeText'],
+                    },
+                  },
+                },
                 subCategories: {
                   populate: {
                     navbarIcon: {
