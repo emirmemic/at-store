@@ -10,14 +10,13 @@ import { NavbarResponseData } from './types';
 interface Response {
   data: ProductResponse[];
 }
-export async function getSearchResults(searchTerm = '', pageSize = 10) {
+export async function getSearchResults(searchTerm = '') {
   const path = '/api/products';
 
   const query = {
+    status: 'published',
     filters: {},
-    pagination: {
-      pageSize,
-    },
+    sort: ['originalPrice:desc'],
     populate: {
       category: true,
       subCategory: true,
@@ -26,9 +25,14 @@ export async function getSearchResults(searchTerm = '', pageSize = 10) {
 
   if (searchTerm) {
     query.filters = {
-      name: {
-        $containsi: searchTerm,
-      },
+      $or: [
+        { name: { $containsi: searchTerm } },
+        { description: { $containsi: searchTerm } },
+        { brand: { name: { $containsi: searchTerm } } },
+        { model: { name: { $containsi: searchTerm } } },
+        { category: { name: { $containsi: searchTerm } } },
+        { subCategory: { name: { $containsi: searchTerm } } },
+      ],
     };
   }
 
