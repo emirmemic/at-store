@@ -60,12 +60,12 @@ export default function Form() {
         <Input
           required
           autoComplete="email"
-          defaultValue={formValues.email}
           errorMessage={state?.errors?.email}
           id="email"
           name="email"
           placeholder={'at@atstore.ba'}
           type="email"
+          value={formValues.email}
           onChange={(e) =>
             setFormValues((prev) => ({ ...prev, email: e.target.value }))
           }
