@@ -15,7 +15,7 @@ export default async function Page({
 }) {
   const { query } = await searchParams;
   const t = await getTranslations();
-  const response = await getSearchResults(query, 24);
+  const response = await getSearchResults(query);
   const products = response || [];
   return (
     <main className="flex min-h-screen-h-cutoff flex-col py-12 container-max-width">
