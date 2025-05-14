@@ -28,9 +28,13 @@
       "default": "white"
     },
     "image": {
-      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "title": {
+      "type": "string",
       "required": true
     }
   }

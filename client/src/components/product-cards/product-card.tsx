@@ -9,7 +9,7 @@ import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { CURRENCY } from '@/lib/constants';
-import { formatScreenSize } from '@/lib/formatters';
+import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
@@ -31,17 +31,6 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     images,
     favoritedBy,
     productLink,
-    ancModel,
-    keyboard,
-    material,
-    braceletSize,
-    color,
-    memory,
-    brand,
-    ram,
-    chip,
-    numberOfCores,
-    screenSize,
   } = product;
   const t = useTranslations('');
   const router = useRouter();
@@ -83,18 +72,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       router.push(PAGE_NAMES.LOGIN);
     }
   };
-  const specs: string[] = [];
-  if (screenSize) specs.push(formatScreenSize(screenSize));
-  if (memory) specs.push(`${memory.value}${memory.unit}`);
-  if (ram) specs.push(`${ram.value}${ram.unit}`);
-  if (chip) specs.push(chip.name);
-  if (numberOfCores) specs.push(`${numberOfCores} cores`);
-  if (ancModel) specs.push(ancModel);
-  if (keyboard) specs.push(keyboard);
-  if (material) specs.push(material);
-  if (braceletSize) specs.push(braceletSize);
-  if (color) specs.push(color.name);
-  if (brand) specs.push(brand.name);
+  const specs = makeSpecsArray(product);
   const finalSpecs = specs.slice(0, 4);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;

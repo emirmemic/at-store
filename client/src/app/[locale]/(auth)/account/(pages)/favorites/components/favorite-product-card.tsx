@@ -2,11 +2,12 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { useCartProvider, UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components';
 import { IconLoader, IconTrash } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { CURRENCY } from '@/lib/constants';
+import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
@@ -16,10 +17,24 @@ export default function FavoriteProductCard({
 }: {
   product: ProductResponse;
 }) {
+  // Providers and Hooks
   const userProvider = useContext(UserContext);
+  const { updateCart, cart } = useCartProvider();
   const t = useTranslations();
   const { toast } = useToast();
 
+  // Data
+  const { name, images, originalPrice, discountedPrice } = product;
+  const image = images?.[0];
+  const price = discountedPrice ?? originalPrice;
+  const specifications = makeSpecsArray(product);
+  const productAlreadyInCart = cart.find(
+    (item) => item.product.productVariantId === product.productVariantId
+  );
+  const headingClassName = 'heading-5 md:bullet-heading-2 lg:heading-4';
+  const paragraphClassName = 'paragraph-2 md:bullet-1 lg:paragraph-1';
+
+  // Handlers
   const { isLoading, execute } = useLoader({
     apiCall: () => userProvider.toggleFavorite(product),
     onSuccess: () => {
@@ -35,14 +50,25 @@ export default function FavoriteProductCard({
       });
     },
   });
-
-  const { name, images, originalPrice, discountedPrice } = product;
-  const image = images?.[0];
-
-  const price = discountedPrice ?? originalPrice;
-
-  const headingClassName = 'heading-5 md:bullet-heading-2 lg:heading-4';
-  const paragraphClassName = 'paragraph-2 md:bullet-1 lg:paragraph-1';
+  const handleCartClick = () => {
+    toast({
+      title: productAlreadyInCart
+        ? t('common.removedFromCart')
+        : t('common.addedToCart'),
+    });
+    if (productAlreadyInCart) {
+      updateCart({
+        ...productAlreadyInCart,
+        quantity: 0,
+      });
+    } else {
+      updateCart({
+        id: product.id,
+        product: product,
+        quantity: 1,
+      });
+    }
+  };
 
   return (
     <div className="relative flex w-full flex-col items-center justify-between gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">
@@ -68,19 +94,29 @@ export default function FavoriteProductCard({
           )}
         </button>
         <p className={paragraphClassName}>{name}</p>
-        <p className={paragraphClassName}>
-          {/* TODO: Remove hardcoded value */}
-          {/* {specifications?.join(', ') ?? 'M3 8 CPU 10 GPU 8GB 256GB'} */}
-        </p>
-        <p className={headingClassName}>{`${price} ${CURRENCY}`}</p>
+        {specifications.length > 0 && (
+          <p className={paragraphClassName}>
+            {specifications.map((spec, index) => (
+              <span key={index}>
+                {spec}
+                {index < specifications.length - 1 && ', '}
+              </span>
+            ))}
+          </p>
+        )}
+        <p
+          className={`${headingClassName} !font-bold`}
+        >{`${price} ${CURRENCY}`}</p>
         <Button
           className="w-fit"
           size={'md'}
           typography={'button1'}
           variant={'filled'}
-          onClick={() => {}}
+          onClick={handleCartClick}
         >
-          {t('common.buyNow')}
+          {productAlreadyInCart
+            ? t('common.removeFromCart')
+            : t('common.buyNow')}
         </Button>
       </div>
     </div>

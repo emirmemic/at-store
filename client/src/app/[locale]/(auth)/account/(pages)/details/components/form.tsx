@@ -58,7 +58,6 @@ export default function Form() {
               </span>
             </label>
             <Input
-              className="bg-white"
               defaultValue={
                 formState?.data[field.name as keyof AccountDetailsFormData]
               }

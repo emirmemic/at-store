@@ -202,6 +202,26 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
     product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     textColor: Schema.Attribute.Enumeration<['white', 'black']> &
       Schema.Attribute.DefaultTo<'white'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface NavbarItem extends Struct.ComponentSchema {
+  collectionName: 'components_navbar_items';
+  info: {
+    description: '';
+    displayName: 'item';
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    groupedSubCategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::grouped-sub-category.grouped-sub-category'
+    >;
+    subCategories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::sub-category.sub-category'
+    >;
   };
 }
 
@@ -248,6 +268,7 @@ declare module '@strapi/strapi' {
       'homepage.hero-section': HomepageHeroSection;
       'homepage.hero-slider': HomepageHeroSlider;
       'homepage.promo-card': HomepagePromoCard;
+      'navbar.item': NavbarItem;
       'newspage.hot-item': NewspageHotItem;
       'newspage.latest-prodcuts': NewspageLatestProdcuts;
     }

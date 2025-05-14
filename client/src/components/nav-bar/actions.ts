@@ -57,8 +57,9 @@ export async function getNavbarData() {
     const response = await fetchAPI<NavbarResponseData>(url.href, {
       method: 'GET',
       next: { revalidate: 60 },
+      isAuth: false,
     });
-    const finalData = response.data?.categories || [];
+    const finalData = response.data?.items || [];
     return finalData;
   } catch {
     return null;

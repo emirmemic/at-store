@@ -9,4 +9,5 @@ export interface PromoCardItem {
   textColor: TextColor;
   image: ImageProps | null;
   product: ProductResponse | null;
+  title: string;
 }

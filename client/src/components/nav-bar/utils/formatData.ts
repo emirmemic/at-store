@@ -1,49 +1,45 @@
-import { CategoryItem } from '@/lib/types';
 import {
   makeCategoryLink,
   makeGroupedSubCategoryLink,
   makeSubCategoryLink,
 } from '@/lib/utils/link-helpers';
 
-import { NavMenuItem, NavSubMenuItem } from '../types';
+import { NavbarResponseItem, NavMenuItem, NavSubMenuItem } from '../types';
 
-const formatNavbarData = (items: CategoryItem[]): NavMenuItem[] => {
-  return items.map((category) => {
+const formatNavbarData = (items: NavbarResponseItem[]): NavMenuItem[] => {
+  return items.map((item) => {
     // Build base category link
     const categoryLink = makeCategoryLink(
-      category.link,
-      category.name,
-      category.displayName
+      item.category.link,
+      item.category.name,
+      item.category.displayName
     );
 
     let subItems: NavSubMenuItem[] = [];
 
     // Use groupedSubCategories if present
-    if (
-      category.groupedSubCategories &&
-      category.groupedSubCategories.length > 0
-    ) {
-      subItems = category.groupedSubCategories.map((group) => ({
+    if (item.groupedSubCategories && item.groupedSubCategories.length > 0) {
+      subItems = item.groupedSubCategories.map((group) => ({
         id: group.id,
         displayName: group.displayName,
-        link: makeGroupedSubCategoryLink(category.link, group.slug),
+        link: makeGroupedSubCategoryLink(item.category.link, group.slug),
         icon: group.navbarIcon ?? null,
       }));
     }
     // Otherwise use subCategories
-    else if (category.subCategories && category.subCategories.length > 0) {
-      subItems = category.subCategories.map((sub) => ({
+    else if (item.subCategories && item.subCategories.length > 0) {
+      subItems = item.subCategories.map((sub) => ({
         id: sub.id,
         displayName: sub.displayName,
-        link: makeSubCategoryLink(category.link, sub),
+        link: makeSubCategoryLink(item.category.link, sub),
         icon: sub.navbarIcon ?? null,
       }));
     }
 
     return {
-      id: category.id,
-      name: category.name,
-      displayName: category.displayName,
+      id: item.category.id,
+      name: item.category.name,
+      displayName: item.category.displayName,
       link: categoryLink,
       subItems,
     };

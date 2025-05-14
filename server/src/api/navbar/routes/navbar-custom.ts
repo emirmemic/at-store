@@ -6,7 +6,7 @@ export default {
       handler: 'api::navbar.navbar.getPublishedItems',
       config: {
         policies: [],
-        middlewares: [],
+        middlewares: ['api::category.set-starting-price'],
         auth: false,
       },
     },

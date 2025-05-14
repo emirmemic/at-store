@@ -21,9 +21,12 @@ import { PromoCardItem } from './types';
 export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   const t = useTranslations('common');
 
-  const { caption, product, learnMoreVariant, textColor, image } = promoCard;
-  if (product === null) return null;
-  const { name, productLink, productTypeId, category, displayName } = product;
+  const { caption, product, learnMoreVariant, textColor, image, title } =
+    promoCard;
+  if (!product) {
+    return null;
+  }
+  const { name, productLink, productTypeId, category } = product;
   const finalLink = makeProductLink(
     category?.link ?? '',
     productTypeId,
@@ -48,9 +51,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           textColor === 'black' ? 'text-black' : 'text-white'
         )}
       >
-        <h3 className="line-clamp-2 heading-4 lg:heading-3">
-          {displayName || name}
-        </h3>
+        <h3 className="line-clamp-2 heading-4 lg:heading-3">{title}</h3>
         <p className="heading-5 lg:heading-4">{caption}</p>
         <div className="flex flex-col items-center justify-center gap-2 py-8 sm:flex-row sm:gap-14">
           <LearnMoreDialog

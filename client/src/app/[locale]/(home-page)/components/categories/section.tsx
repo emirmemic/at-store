@@ -12,14 +12,15 @@ export default async function CategoriesSection({
   className,
 }: CategoriesSectionProps) {
   const t = await getTranslations('homepage');
-  const categories = (await getNavbarData()) || [];
-  if (!categories || categories.length === 0) {
+  const items = (await getNavbarData()) || [];
+  if (!items || items.length === 0) {
     return null;
   }
 
-  const finalCategories = categories.map((item) => ({
-    ...item,
-    link: makeCategoryLink(item.link, item.name, item.displayName),
+  const categories = items.map((item) => item.category);
+  const finalCategories = categories.map((category) => ({
+    ...category,
+    link: makeCategoryLink(category.link, category.name, category.displayName),
   }));
   return (
     <section className={`flex w-full flex-col gap-6 ${className}`}>

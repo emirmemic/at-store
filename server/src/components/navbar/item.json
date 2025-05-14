@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_navbar_items",
+  "info": {
+    "displayName": "item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::category.category"
+    },
+    "groupedSubCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::grouped-sub-category.grouped-sub-category"
+    },
+    "subCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-category.sub-category"
+    }
+  }
+}

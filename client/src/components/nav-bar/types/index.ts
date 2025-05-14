@@ -1,4 +1,9 @@
-import { CategoryItem, ImageProps } from '@/lib/types';
+import {
+  CategoryItem,
+  GroupedSubCategoryItem,
+  ImageProps,
+  SubCategoryItem,
+} from '@/lib/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const POPUP_TYPES = ['none', 'menu', 'search'] as const;
@@ -22,13 +27,19 @@ interface NavSubMenuItem {
   icon: ImageProps | null;
 }
 
+interface NavbarResponseItem {
+  category: CategoryItem;
+  subCategories: SubCategoryItem[];
+  groupedSubCategories: GroupedSubCategoryItem[];
+}
 interface NavbarResponseData {
-  categories: CategoryItem[];
+  items: NavbarResponseItem[];
 }
 export type {
   PopupType,
   MobileMenuType,
   NavbarResponseData,
+  NavbarResponseItem,
   NavMenuItem,
   NavSubMenuItem,
 };

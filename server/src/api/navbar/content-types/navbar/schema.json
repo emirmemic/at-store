@@ -4,16 +4,18 @@
   "info": {
     "singularName": "navbar",
     "pluralName": "navbars",
-    "displayName": "Navbar"
+    "displayName": "Navbar",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "categories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::category.category"
+    "items": {
+      "displayName": "item",
+      "type": "component",
+      "repeatable": true,
+      "component": "navbar.item"
     }
   }
 }

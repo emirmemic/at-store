@@ -7,26 +7,10 @@ export default factories.createCoreController(
       try {
         const navbar = await strapi.service('api::navbar.navbar').find({
           populate: {
-            categories: {
-              filters: {
-                products: {
-                  publishedAt: {
-                    $notNull: true,
-                  },
-                },
-              },
+            items: {
               populate: {
-                image: {
-                  fields: ['url', 'alternativeText'],
-                },
+                category: true,
                 subCategories: {
-                  filters: {
-                    products: {
-                      publishedAt: {
-                        $notNull: true,
-                      },
-                    },
-                  },
                   populate: {
                     navbarIcon: {
                       fields: ['url', 'alternativeText'],
@@ -57,28 +41,31 @@ export default factories.createCoreController(
         if (!navbar) {
           return ctx.notFound('Navbar not found');
         }
-        // Get the first product from each subcategory that has published products
-        // it is used on the frontend to make a link to the product page
-        const filteredCategories = navbar.categories.map((category) => {
-          const filteredSubCategories = category.subCategories.map(
-            (subCategory) => {
-              const filteredProducts = subCategory.products.filter(
+
+        const filteredItems = navbar.items.map((item) => {
+          // Filter subcategories by checking if they have published products
+          const filteredSubCategories = (item.subCategories || [])
+            .map((subCategory) => {
+              const publishedProducts = (subCategory.products || []).filter(
                 (product) => product.publishedAt !== null
               );
-              const firstProduct = filteredProducts[0] || null;
+
+              const firstProduct = publishedProducts[0] || null;
+
               return {
                 ...subCategory,
                 products: firstProduct ? [firstProduct] : [],
               };
-            }
-          );
+            })
+            .filter((sub) => sub.products.length > 0);
+
           return {
-            ...category,
+            ...item,
             subCategories: filteredSubCategories,
           };
         });
 
-        return { ...navbar, categories: filteredCategories };
+        return { ...navbar, items: filteredItems };
       } catch (error) {
         console.error('Failed to fetch navbar:', error);
         return ctx.internalServerError('Failed to fetch navbar data');

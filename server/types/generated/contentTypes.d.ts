@@ -919,6 +919,7 @@ export interface ApiMostSoldMostSold extends Struct.SingleTypeSchema {
 export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
   collectionName: 'navbars';
   info: {
+    description: '';
     displayName: 'Navbar';
     pluralName: 'navbars';
     singularName: 'navbar';
@@ -927,13 +928,10 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    categories: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    items: Schema.Attribute.Component<'navbar.item', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
