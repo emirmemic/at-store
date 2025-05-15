@@ -35,8 +35,8 @@ export default function MenuCard({ className }: { className?: string }) {
           <Link
             key={item.id}
             className={cn(
-              'flex gap-5 transition-all duration-300 hover:text-grey-medium',
-              isActive ? 'heading-4' : 'paragraph-1'
+              'flex gap-5 transition-all duration-300 paragraph-1 hover:text-grey-darker',
+              { '!font-bold': isActive }
             )}
             href={item.href}
           >

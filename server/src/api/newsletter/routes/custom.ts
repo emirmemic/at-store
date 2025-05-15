@@ -21,7 +21,7 @@ export default {
       },
     },
     {
-      method: 'POST',
+      method: 'PATCH',
       path: '/newsletter/toggle-subscription',
       handler: 'api::newsletter.newsletter.toggleSubscription',
       config: {

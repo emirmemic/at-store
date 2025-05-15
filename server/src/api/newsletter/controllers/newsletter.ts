@@ -149,17 +149,48 @@ export default factories.createCoreController(
         return ctx.unauthorized('Please log in to access this resource.');
       }
 
-      // Get user's newsletter record
-      const subscriber = await strapi.db
+      // Try to find existing newsletter record
+      let subscriber = await strapi.db
         .query('api::newsletter.newsletter')
         .findOne({
           where: { users_permissions_user: user.id },
         });
 
+      // If no record exists, create a new one (assume subscription is being turned ON)
       if (!subscriber) {
-        return ctx.notFound('No newsletter record found for this user.');
+        const userData = await strapi.db
+          .query('plugin::users-permissions.user')
+          .findOne({
+            where: { id: user.id },
+          });
+
+        const newEntry = await strapi
+          .documents('api::newsletter.newsletter')
+          .create({
+            data: {
+              email: userData.email,
+              name: userData.username || userData.name || '',
+              subscribed: true,
+              subscribedAt: new Date(),
+              token: uuidv4(),
+              publishedAt: new Date(),
+              users_permissions_user: user.id,
+            },
+          });
+
+        await sendSubscribedEmail({
+          name: newEntry.name,
+          email: newEntry.email,
+          token: newEntry.token,
+        });
+
+        return ctx.send({
+          message: 'Successfully subscribed.',
+          data: formatReturnedData(newEntry),
+        });
       }
 
+      // Toggle the subscription status
       const newSubscribedStatus = !subscriber.subscribed;
       const subscribedAt = newSubscribedStatus ? new Date() : null;
       const unsubscribedAt = newSubscribedStatus ? null : new Date();
@@ -169,17 +200,17 @@ export default factories.createCoreController(
         subscribedAt,
         unsubscribedAt,
         token: uuidv4(),
-        ...(subscriber.users_permissions_user && {
-          users_permissions_user: subscriber.users_permissions_user,
-        }),
+        users_permissions_user: subscriber.users_permissions_user,
       };
+
       const updated = await strapi
         .documents('api::newsletter.newsletter')
         .update({
           documentId: subscriber.documentId,
           data: newData,
         });
-      // Send email based on the new subscription status
+
+      // Send email based on new status
       if (newSubscribedStatus) {
         await sendSubscribedEmail({
           name: updated.name,
