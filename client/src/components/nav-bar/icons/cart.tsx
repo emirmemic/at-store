@@ -5,7 +5,7 @@ interface IconCartProps extends IconProps {
 }
 
 export default function IconCart({
-  size = 18,
+  size = 24,
   className = '',
   itemsInCart = 0,
   ...props
@@ -13,7 +13,7 @@ export default function IconCart({
   return (
     <span className="relative">
       {itemsInCart > 0 && (
-        <span className="absolute bottom-0 left-0 right-0 top-1 flex items-center justify-center rounded-full text-current paragraph-3 md:right-4">
+        <span className="absolute bottom-0 left-0 right-0 top-[5px] flex items-center justify-center rounded-full text-current paragraph-5 md:right-4">
           {itemsInCart}
         </span>
       )}

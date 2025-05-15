@@ -716,9 +716,12 @@
     "description": "Putem Newslettera dobijate redovne informacije o promocijama i aktivnostima koje AT Store ima.",
     "signUp": "Prijavi se",
     "successfulSignUp": "Uspješno ste se prijavili na Newsletter",
+    "successfulUnsubscribe": "Uspješno ste se odjavili sa Newsletter liste",
+    "accountSubscribe": "Prijavite se da dobijate newsletter.",
+    "accountInfo": "Prijavom na naš newsletter dobijate ekskluzivan pristup: Posebnim ponudama i popustima - Budite prvi koji će saznati za naše najnovije promocije i popuste. Najnovijim vestima i trendovima - Ostanite informisani o najnovijim dešavanjima, savetima i inspiracijama iz vaše omiljene oblasti. Poklonima i iznenađenjima - Pratite naš newsletter i povremeno vas možemo iznenaditi ekskluzivnim poklonima. Ranim pristupom događajima i lansiranjima - Budite među prvima koji će dobiti informacije o novim proizvodima, događajima i specijalnim dešavanjima. Prijavite se sada i budite u toku.",
     "unsubscribe": {
       "title": "Odjava uspješna",
-      "description": "Uspješno ste se odjavili sa Newsletter liste. Žao nam je što odlazite – uvijek ste dobrodošli da se ponovo prijavite u budućnosti."
+      "description": "Uspješno ste se odjavili sa Newsletter liste. Žao nam je što odlazite - uvijek ste dobrodošli da se ponovo prijavite u budućnosti."
     }
   },
   "loginPage": {

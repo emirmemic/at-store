@@ -40,7 +40,7 @@ export default function MobileActions({
             title={t('favorites')}
             onClick={closeMenu}
           >
-            <IconHeart className={iconClasses} />
+            <IconHeart className={iconClasses} size={18} />
           </Link>
           <Link
             aria-label={t('cart')}
@@ -49,7 +49,11 @@ export default function MobileActions({
             title={t('cart')}
             onClick={closeMenu}
           >
-            <IconCart className={iconClasses} itemsInCart={cartCount} />
+            <IconCart
+              className={iconClasses}
+              itemsInCart={cartCount}
+              size={18}
+            />
           </Link>
           <Button
             aria-label={t('search')}
@@ -57,7 +61,7 @@ export default function MobileActions({
             title={t('search')}
             onClick={toggleSearch}
           >
-            <IconSearch className={iconClasses} />
+            <IconSearch className={iconClasses} size={18} />
           </Button>
         </div>
       </div>

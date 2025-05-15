@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { notFound, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { MonoAppleBlock } from '@/components';
 import { IconLoader } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -32,7 +33,7 @@ export default function Page() {
   const t = useTranslations();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-
+  const { updateUserNewsletter } = useContext(UserContext);
   if (!token || typeof token !== 'string') {
     notFound();
   }
@@ -46,7 +47,10 @@ export default function Page() {
   const [isUnsubscribed, setIsUnsubscribed] = useState(false);
   const { execute, isLoading, error } = useLoader({
     apiCall: unsubscribe,
-    onSuccess: () => setIsUnsubscribed(true),
+    onSuccess: () => {
+      setIsUnsubscribed(true);
+      updateUserNewsletter(false);
+    },
   });
 
   useEffect(() => {

@@ -71,8 +71,8 @@ export default function ImagesSlider({
     <div
       className={`flex w-full flex-col gap-4 lg:h-[484px] lg:flex-row-reverse ${className}`}
     >
-      <div className="relative h-full w-full rounded-2xl bg-grey-almost-white p-3">
-        <div className="h-[484px] w-full">
+      <div className="relative h-full w-full rounded-2xl bg-grey-almost-white">
+        <div className="h-[484px] w-full py-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeImage?.url}

@@ -147,7 +147,7 @@ export default function Buttons({ product }: ButtonsProps) {
         ) : (
           <IconHeart
             className={cn(
-              'h-8 w-8',
+              'h-6 w-6',
               isFavorited ? 'text-red-deep' : 'text-black'
             )}
             filled={isFavorited}

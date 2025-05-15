@@ -45,7 +45,7 @@ const FavoritesHeart = React.forwardRef<HTMLButtonElement, FavoritesHeartProps>(
           )}
           filled={isLoading ? isLoading : isInFavorites}
           pathClassName="transition-colors duration-300 ease-in-out"
-          size={size === 'small' ? 28 : 36}
+          size={size === 'small' ? 24 : 32}
         />
       </Comp>
     );

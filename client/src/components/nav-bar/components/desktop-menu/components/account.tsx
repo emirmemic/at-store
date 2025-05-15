@@ -40,7 +40,7 @@ const DesktopAccountItem = ({
   return (
     <li>
       <Link className={linkClasses} href={href} onClick={onClick}>
-        <Icon className={iconClasses} />
+        <Icon className={iconClasses} size={18} />
         {title}
       </Link>
     </li>
@@ -97,12 +97,12 @@ const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
               >
                 {isLoading ? (
                   <>
-                    <IconLoader className={iconClasses} size={24} />
+                    <IconLoader className={iconClasses} size={18} />
                     {t('login.loggingOut')}
                   </>
                 ) : (
                   <>
-                    <IconLogout className={iconClasses} size={24} />
+                    <IconLogout className={iconClasses} size={18} />
                     {t('login.logout')}
                   </>
                 )}
@@ -155,7 +155,10 @@ export default function DesktopAccount() {
         onClick={togglePopup}
       >
         <span className="sr-only">{t('navbar.account')}</span>
-        <IconAccount className="transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconAccount
+          className="transition-colors duration-300 group-hover:text-grey-medium"
+          size={18}
+        />
       </button>
       <AnimateHeight
         className="fixed right-0 top-nav-height w-72 rounded-l-2xl border-b border-l border-t border-grey-light bg-black shadow-standard-black-hover"

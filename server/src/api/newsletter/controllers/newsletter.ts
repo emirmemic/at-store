@@ -143,6 +143,61 @@ export default factories.createCoreController(
         );
       }
     },
+    async toggleSubscription(ctx) {
+      const { user } = ctx.state;
+      if (!user) {
+        return ctx.unauthorized('Please log in to access this resource.');
+      }
+
+      // Get user's newsletter record
+      const subscriber = await strapi.db
+        .query('api::newsletter.newsletter')
+        .findOne({
+          where: { users_permissions_user: user.id },
+        });
+
+      if (!subscriber) {
+        return ctx.notFound('No newsletter record found for this user.');
+      }
+
+      const newSubscribedStatus = !subscriber.subscribed;
+      const subscribedAt = newSubscribedStatus ? new Date() : null;
+      const unsubscribedAt = newSubscribedStatus ? null : new Date();
+
+      const newData = {
+        subscribed: newSubscribedStatus,
+        subscribedAt,
+        unsubscribedAt,
+        token: uuidv4(),
+        ...(subscriber.users_permissions_user && {
+          users_permissions_user: subscriber.users_permissions_user,
+        }),
+      };
+      const updated = await strapi
+        .documents('api::newsletter.newsletter')
+        .update({
+          documentId: subscriber.documentId,
+          data: newData,
+        });
+      // Send email based on the new subscription status
+      if (newSubscribedStatus) {
+        await sendSubscribedEmail({
+          name: updated.name,
+          email: updated.email,
+          token: updated.token,
+        });
+      } else {
+        await sendUnsubscribedEmail({
+          name: updated.name,
+          email: updated.email,
+        });
+      }
+
+      return ctx.send({
+        message: `Successfully ${newSubscribedStatus ? 'subscribed' : 'unsubscribed'}.`,
+        data: formatReturnedData(updated),
+      });
+    },
   })
 );
 

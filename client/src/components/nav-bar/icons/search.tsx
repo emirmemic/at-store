@@ -1,7 +1,7 @@
 import { IconProps } from '@/lib/types';
 
 export default function IconSearch({
-  size = 18,
+  size = 24,
   className = '',
   ...props
 }: IconProps) {

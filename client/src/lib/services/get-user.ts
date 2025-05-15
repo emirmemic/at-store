@@ -15,7 +15,7 @@ export async function getUser(): Promise<UserInformation | null> {
 
     const [userInfo, favorites] = await Promise.all([
       fetchAPI<UserInformationResponse>(
-        `${STRAPI_BASE_URL}/api/users/me?populate=role`,
+        `${STRAPI_BASE_URL}/api/users/me?populate[role]=*&populate[newsletter]=*`,
         {
           method: 'GET',
           next: { tags: ['user-info'] },
@@ -25,7 +25,6 @@ export async function getUser(): Promise<UserInformation | null> {
         method: 'GET',
       }),
     ]);
-
     if (!userInfo.data) return null;
     const { name, email } = userInfo.data;
     const initials =
@@ -43,6 +42,7 @@ export async function getUser(): Promise<UserInformation | null> {
         companyName: userInfo.data.companyName,
         role: userInfo.data.role,
         provider: userInfo.data.provider,
+        newsletter: userInfo.data.newsletter ?? null,
       },
       favoriteProducts: favorites.data ?? [],
     };

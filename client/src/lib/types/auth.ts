@@ -15,6 +15,7 @@ interface AccountDetails {
   companyName?: string;
   companyIdNumber?: string;
   role?: RoleResponse;
+  newsletter?: NewsletterResponse | null;
   provider: OAuthProvider;
 }
 
@@ -41,7 +42,15 @@ interface RoleResponse {
   name: string;
   type: UserType;
 }
-
+interface NewsletterResponse {
+  id: number;
+  documentId: string;
+  name: string;
+  email: string;
+  subscribed: boolean;
+  subscribedAt: string;
+  unsubscribedAt: string | null;
+}
 type OAuthProvider = 'google' | 'facebook' | 'apple' | 'local';
 type UserType = 'organization' | 'authenticated';
 
@@ -52,5 +61,6 @@ export type {
   UserInformation,
   UserInformationResponse,
   UserType,
+  NewsletterResponse,
   AccountDetails,
 };

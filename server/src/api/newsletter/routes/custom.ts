@@ -20,5 +20,13 @@ export default {
         middlewares: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/newsletter/toggle-subscription',
+      handler: 'api::newsletter.newsletter.toggleSubscription',
+      config: {
+        middlewares: ['global::is-owner'],
+      },
+    },
   ],
 };

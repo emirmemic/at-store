@@ -35,12 +35,12 @@ export default function MobileLoginLogout({ closeMenu }: PropsType) {
                 {isLoading ? (
                   <>
                     {t('login.loggingOut')}
-                    <IconLoader className={iconClasses} size={28} />
+                    <IconLoader className={iconClasses} size={18} />
                   </>
                 ) : (
                   <>
                     {t('login.logout')}
-                    <IconLogout className={iconClasses} size={28} />
+                    <IconLogout className={iconClasses} size={18} />
                   </>
                 )}
               </span>

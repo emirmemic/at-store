@@ -38,7 +38,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
       <div className="mb-3 flex items-center gap-6 lg:mb-6">
         <h2 className="text-white heading-3">{title}</h2>
         {isFavorites && (
-          <IconHeart className="text-red-deep" filled={true} size={36} />
+          <IconHeart className="text-red-deep" filled={true} size={32} />
         )}
       </div>
       <div className="flex flex-col gap-6 md:gap-3 lg:flex-row lg:gap-16">

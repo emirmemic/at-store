@@ -36,7 +36,10 @@ export default function DesktopSearch({
         onClick={togglePopup}
       >
         <span className="sr-only">{t('search')}</span>
-        <IconSearch className="transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconSearch
+          className="transition-colors duration-300 group-hover:text-grey-medium"
+          size={18}
+        />
       </button>
       <DesktopPopup isActive={activePopup === 'search'}>
         <div className="w-full pb-12">

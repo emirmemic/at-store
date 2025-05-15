@@ -20,6 +20,7 @@ export type UserContextType = {
   toggleFavorite: (
     product: ProductResponse
   ) => Promise<APIResponse<{ isFavorited: boolean }>>;
+  updateUserNewsletter: (subscribed: boolean) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -31,6 +32,7 @@ export const UserContext = createContext<UserContextType>({
     statusText: 'OK',
     type: 'default',
   }),
+  updateUserNewsletter: () => {},
 });
 
 export default function UserProvider({
@@ -51,6 +53,20 @@ export default function UserProvider({
   const setFavorites = (favorites: ProductResponse[]) => {
     if (user) {
       setUser({ ...user, favoriteProducts: favorites });
+    }
+  };
+  const updateUserNewsletter = (subscribed: boolean) => {
+    if (user && user.accountDetails && user.accountDetails.newsletter) {
+      setUser({
+        ...user,
+        accountDetails: {
+          ...user.accountDetails,
+          newsletter: {
+            ...user.accountDetails.newsletter,
+            subscribed: subscribed,
+          },
+        },
+      });
     }
   };
 
@@ -77,7 +93,9 @@ export default function UserProvider({
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, toggleFavorite }}>
+    <UserContext.Provider
+      value={{ user, setUser, toggleFavorite, updateUserNewsletter }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -15,8 +15,8 @@ import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { ShoppingCartItem } from '@/lib/types';
 
 const NoItems = ({ text }: { text: string }) => (
-  <div className="flex flex-col items-center justify-center gap-2 px-6 pb-14 pt-4">
-    <p className="heading-3">{text}</p>
+  <div className="flex flex-col items-center justify-center gap-4 px-6 pb-14 pt-4">
+    <p className="heading-4">{text}</p>
     <IconShoppingCart size={88} />
   </div>
 );
@@ -32,7 +32,7 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
 
   return (
     <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
-      <div className="flex h-32 w-36 items-center justify-center">
+      <div className="flex h-32 w-32 shrink-0 items-center justify-center">
         {image && (
           <StrapiImage
             alt={product.name}
@@ -44,8 +44,8 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
         )}
       </div>
       <div className="flex grow flex-col gap-2">
-        <p className="paragraph-1">{product.name}</p>
-        <p className="paragraph-1">
+        <p className="paragraph-2">{product.name}</p>
+        <p className="paragraph-2">
           {product.discountedPrice ?? product.originalPrice}
         </p>
       </div>
@@ -75,7 +75,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
     <div className="relative pb-40">
       <div className="flex max-h-[calc(100vh-20rem)] flex-col gap-2 overflow-y-auto custom-scrollbar">
         {cart.map((item) => (
-          <ListItem key={item.product.id} item={item} />
+          <ListItem key={item.id} item={item} />
         ))}
       </div>
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-between gap-4 bg-grey-extra-light pb-8 pt-5">
@@ -127,6 +127,7 @@ export default function DesktopCart() {
         <IconCart
           className="transition-colors duration-300 group-hover:text-grey-medium"
           itemsInCart={cartCount}
+          size={18}
         />
       </button>
       <AnimateHeight

@@ -21,10 +21,10 @@ export default factories.createCoreController(
             items: {
               populate: {
                 product: {
-                  category: {
-                    fields: ['link'],
-                  },
                   populate: {
+                    category: {
+                      fields: ['link'],
+                    },
                     images: {
                       fields: ['url', 'name', 'alternativeText'],
                     },

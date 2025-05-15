@@ -1,7 +1,8 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useContext, useEffect, useState } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
@@ -13,13 +14,13 @@ import { handleSubmit } from '../actions';
 export default function Form() {
   const t = useTranslations('');
   const validation = useTranslations('validation');
+  const { updateUserNewsletter } = useContext(UserContext);
   const [formValues, setFormValues] = useState({ name: '', email: '' });
   const [state, action, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
       handleSubmit(prevState, formData, validation),
     undefined
   );
-
   useEffect(() => {
     if (state && state.data && !state.apiError && !state.errors) {
       toast({
@@ -27,7 +28,9 @@ export default function Form() {
         variant: 'success',
       });
       setFormValues({ name: '', email: '' });
+      updateUserNewsletter(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, t]);
 
   return (

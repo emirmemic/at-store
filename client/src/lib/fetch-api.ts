@@ -86,7 +86,6 @@ export async function fetchAPI<T = unknown>(
   options: FetchAPIOptions
 ): Promise<APIResponse<T>> {
   const { method, body, next, timeout = 8000, isAuth = true } = options;
-
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -103,7 +102,6 @@ export async function fetchAPI<T = unknown>(
 
   // Set the final body. If it's FormData leave it as-is; if not, stringify it.
   const finalBody = isFormData ? body : JSON.stringify(body);
-
   const requestInit: RequestInit = {
     method,
     headers: fetchHeaders,
