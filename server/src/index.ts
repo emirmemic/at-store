@@ -88,7 +88,7 @@ export default {
     const isDevelopment = process.env.NODE_ENV === 'development';
     const cronRule = isDevelopment
       ? `*/${developmentSyncingInterval} * * * *`
-      : `${productionSyncingInterval} * * * *`;
+      : `*/${productionSyncingInterval} * * * *`
 
     const environment = isDevelopment ? 'development' : 'production';
     strapi.cron.add({
