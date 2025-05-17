@@ -137,7 +137,7 @@ export default function MikrofinForm() {
               id="productVariantId"
               name="productVariantId"
               placeholder={t('mikrofinInvoicePage.placeholder.productId')}
-              type="url"
+              type="text"
             />
           </div>
           <div>
