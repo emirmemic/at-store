@@ -28,7 +28,7 @@ export default function Buttons({ product }: ButtonsProps) {
   const { toggleFavorite, user } = useContext(UserContext);
   const { updateCart, cart } = useCartProvider();
   const productAlreadyInCart = cart.find(
-    (item) => item.product.productVariantId === product.productVariantId
+    (item) => item.product?.productVariantId === product?.productVariantId
   );
 
   /** Is this product in the current user's favorites? */
@@ -128,7 +128,7 @@ export default function Buttons({ product }: ButtonsProps) {
           aria-label="Buy on installments"
           href={{
             pathname: PAGE_NAMES.MIKROFIN_INVOICE,
-            query: { productLink: product.productLink },
+            query: { productId: product.productVariantId },
           }}
         >
           {t('productPage.buyOnInstallments')}

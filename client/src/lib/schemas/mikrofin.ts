@@ -2,14 +2,14 @@ import { z } from 'zod';
 
 import { LocalizationKey } from '../types';
 
-import { nameAndSurnameSchema, phoneNumberSchema } from './common';
+import { phoneNumberSchema } from './common';
 
 const mikrofinSchema = (t: LocalizationKey) =>
   z.object({
-    nameAndSurname: nameAndSurnameSchema(t),
+    nameAndSurname: z.string().trim().min(3, t('nameAndSurnameRequired')),
     phoneNumber: phoneNumberSchema(t),
     email: z.string().min(1, t('emailRequired')).email(t('invalidEmailFormat')),
-    productLink: z.string().trim().nonempty(t('linkRequired')),
+    productVariantId: z.string().trim().nonempty(t('productIdRequired')),
     note: z
       .string()
       .trim()

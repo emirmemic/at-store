@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useState, useRef } from 'react';
+import { useActionState, useEffect, useState, useContext } from 'react';
 
+import { UserContext } from '@/app/providers';
 import { mikrofin } from '@/assets/images';
 import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -29,33 +30,45 @@ const FormLabel = ({
 );
 
 export default function MikrofinForm() {
+  // Hooks and context
   const searchParams = useSearchParams();
-  const productLinkQuery = searchParams.get('productLink') || '';
+  const productIdQuery = searchParams.get('productId') || '';
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+  const t = useTranslations();
+  const [prefilled, setPrefilled] = useState(true);
+
+  // Initial values
+  const nameAndSurname = user
+    ? user.accountDetails.name + ' ' + user.accountDetails?.surname || ''
+    : '';
+  const defaultInitialValues = {
+    nameAndSurname: prefilled ? nameAndSurname : '',
+    email: prefilled ? user?.accountDetails.email || '' : '',
+    phoneNumber: prefilled ? user?.accountDetails.phoneNumber || '' : '',
+    productVariantId: prefilled ? productIdQuery : '',
+    note: '',
+  };
   const [formState, submitAction, isPending] = useActionState(
     (prevState: unknown, formData: FormData) =>
       mikrofinAction(prevState, formData, validation),
     undefined
   );
-  const t = useTranslations();
   const validation = useTranslations('validation');
   const [alertVisible, setAlertVisible] = useState(false);
-  const submittedRef = useRef(false);
+  const pathname = usePathname();
 
+  // Lifecycle methods
   useEffect(() => {
-    if (!submittedRef.current && (formState || formState === null)) {
+    if (formState || formState === null) {
       setAlertVisible(true);
-      submittedRef.current = true;
+      setPrefilled(false);
+      router.replace(pathname, { scroll: false });
     }
-  }, [formState]);
+  }, [formState, pathname, router]);
 
   return (
-    <form
-      noValidate
-      action={(formData) => {
-        submittedRef.current = false;
-        return submitAction(formData);
-      }}
-    >
+    <form noValidate action={submitAction}>
       <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-5xl">
         <div
           className={'order-1 flex flex-col gap-y-4 md:-order-none md:max-w-96'}
@@ -63,59 +76,67 @@ export default function MikrofinForm() {
           <div>
             <FormLabel
               htmlFor="nameAndSurname"
-              title={t('mikrofinInvoicePage.formName')}
+              title={`${t('mikrofinInvoicePage.formName')}*`}
             />
             <Input
               autoComplete="name and surname"
-              defaultValue={formState?.data.nameAndSurname}
+              defaultValue={
+                formState?.data.nameAndSurname ||
+                defaultInitialValues.nameAndSurname
+              }
               errorMessage={formState?.errors.nameAndSurname}
               id="nameAndSurname"
               name="nameAndSurname"
-              placeholder={`${t('mikrofinInvoicePage.formName')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.name')}
               type="text"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="email"
-              title={t('mikrofinInvoicePage.formEmail')}
+              title={`${t('mikrofinInvoicePage.formEmail')}*`}
             />
             <Input
               autoComplete="email"
-              defaultValue={formState?.data.email}
+              defaultValue={formState?.data.email || defaultInitialValues.email}
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={`${t('mikrofinInvoicePage.formEmail')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.email')}
               type="email"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="phoneNumber"
-              title={t('mikrofinInvoicePage.formNumber')}
+              title={`${t('mikrofinInvoicePage.formNumber')}*`}
             />
             <Input
               autoComplete="tel"
-              defaultValue={formState?.data.phoneNumber}
+              defaultValue={
+                formState?.data.phoneNumber || defaultInitialValues.phoneNumber
+              }
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={`${t('mikrofinInvoicePage.formNumber')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.number')}
               type="tel"
             />
           </div>
           <div>
             <FormLabel
-              htmlFor="productLink"
-              title={t('mikrofinInvoicePage.productLink')}
+              htmlFor="productVariantId"
+              title={`${t('mikrofinInvoicePage.productId')}*`}
             />
             <Input
-              defaultValue={formState?.data.productLink || productLinkQuery}
-              errorMessage={formState?.errors.productLink}
-              id="productLink"
-              name="productLink"
-              placeholder={`${t('mikrofinInvoicePage.productLink')}*`}
+              defaultValue={
+                formState?.data?.productVariantId ||
+                defaultInitialValues.productVariantId
+              }
+              errorMessage={formState?.errors.productVariantId}
+              id="productVariantId"
+              name="productVariantId"
+              placeholder={t('mikrofinInvoicePage.placeholder.productId')}
               type="url"
             />
           </div>
@@ -129,7 +150,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.note}
               id="note"
               name="note"
-              placeholder={`${t('mikrofinInvoicePage.notePlaceHolder')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.note')}
             />
           </div>
         </div>
@@ -138,7 +159,7 @@ export default function MikrofinForm() {
             <div className="md:h-72 lg:h-[382px]">
               <Image
                 alt="mikrofin"
-                className="h-full w-full object-contain"
+                className="h-full w-full rounded-2xl object-contain"
                 height={406}
                 src={mikrofin}
                 width={1192}

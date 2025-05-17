@@ -12,10 +12,10 @@
   },
   "attributes": {
     "latestProducts": {
-      "displayName": "LatestProdcuts",
+      "displayName": "LatestProducts",
       "type": "component",
       "repeatable": true,
-      "component": "newspage.latest-prodcuts",
+      "component": "newspage.latest-products",
       "required": true
     },
     "hotItem": {

@@ -8,6 +8,17 @@ import { NavbarResponseItem, NavMenuItem, NavSubMenuItem } from '../types';
 
 const formatNavbarData = (items: NavbarResponseItem[]): NavMenuItem[] => {
   return items.map((item) => {
+    if (!item.category) {
+      return {
+        id: String(item.id),
+        name: '',
+        displayName: '',
+        link: '',
+        subItems: [],
+        groupedSubCategories: [],
+      };
+    }
+
     // Build base category link
     const categoryLink = makeCategoryLink(
       item.category.link,

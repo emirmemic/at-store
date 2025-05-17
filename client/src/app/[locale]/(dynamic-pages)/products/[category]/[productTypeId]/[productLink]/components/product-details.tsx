@@ -20,6 +20,7 @@ export default function ProductDetails() {
           discountedPrice={discountedPrice}
           name={name}
           originalPrice={originalPrice}
+          productVariantId={selectedVariant.productVariantId}
         />
         <div className="hidden w-full gap-14 md:flex md:flex-col">
           <Options finalPrice={finalPrice} options={productOptions} />

@@ -28,6 +28,7 @@ interface NavSubMenuItem {
 }
 
 interface NavbarResponseItem {
+  id: number;
   category: CategoryItem;
   subCategories: SubCategoryItem[];
   groupedSubCategories: GroupedSubCategoryItem[];

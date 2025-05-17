@@ -17,13 +17,7 @@ export async function mikrofinAction(
   const validated = mikrofinSchema(t);
 
   try {
-    const { nameAndSurname, ...mikrofinData } = validated.parse(data);
-    const [name, surname] = nameAndSurname.split(' ');
-    const dataToSend = {
-      ...mikrofinData,
-      name,
-      surname,
-    };
+    const dataToSend = validated.parse(data);
     await createPreInvoice(dataToSend);
   } catch (error) {
     if (error instanceof ZodError) {
@@ -41,16 +35,13 @@ export async function mikrofinAction(
   }
   return null;
 }
-async function createPreInvoice(
-  dataToSend: Omit<mikrofinFormData, 'nameAndSurname'> & {
-    name: string;
-    surname: string;
-  }
-) {
-  const res = await fetchAPI(`${STRAPI_BASE_URL}/api/pre-invoices`, {
+async function createPreInvoice(dataToSend: mikrofinFormData) {
+  const res = await fetchAPI(`${STRAPI_BASE_URL}/api/mikrofin-pre-invoices`, {
     method: 'POST',
     body: { data: dataToSend },
+    isAuth: false,
   });
+
   if (res.error) {
     const detailsErrors = res.error.details?.errors || [];
     const fieldErrors = Object.fromEntries(

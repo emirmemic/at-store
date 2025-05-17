@@ -1,26 +1,19 @@
 {
   "kind": "collectionType",
-  "collectionName": "pre_invoices",
+  "collectionName": "mikrofin_pre_invoices",
   "info": {
-    "singularName": "pre-invoice",
-    "pluralName": "pre-invoices",
-    "displayName": "PreInvoice",
+    "singularName": "mikrofin-pre-invoice",
+    "pluralName": "mikrofin-pre-invoices",
+    "displayName": "Mikrofin Pre-invoice",
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
-    "name": {
+    "nameAndSurname": {
       "type": "string",
       "required": true,
-      "maxLength": 50,
-      "minLength": 3
-    },
-    "surname": {
-      "type": "string",
-      "required": true,
-      "unique": false,
       "maxLength": 50,
       "minLength": 3
     },
@@ -32,16 +25,25 @@
     "phoneNumber": {
       "type": "string",
       "required": true,
-      "minLength": 8,
-      "maxLength": 12
+      "maxLength": 20,
+      "minLength": 8
     },
-    "productLink": {
+    "productVariantId": {
       "type": "string",
       "required": true
     },
     "note": {
       "type": "text",
       "maxLength": 300
+    },
+    "isCompleted": {
+      "type": "boolean",
+      "default": false
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
     }
   }
 }

@@ -213,7 +213,8 @@ export interface NavbarItem extends Struct.ComponentSchema {
     displayName: 'item';
   };
   attributes: {
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'> &
+      Schema.Attribute.Required;
     groupedSubCategories: Schema.Attribute.Relation<
       'oneToMany',
       'api::grouped-sub-category.grouped-sub-category'
@@ -239,11 +240,11 @@ export interface NewspageHotItem extends Struct.ComponentSchema {
   };
 }
 
-export interface NewspageLatestProdcuts extends Struct.ComponentSchema {
-  collectionName: 'components_newspage_latest_prodcuts';
+export interface NewspageLatestProducts extends Struct.ComponentSchema {
+  collectionName: 'components_newspage_latest_products';
   info: {
     description: '';
-    displayName: 'LatestProdcuts';
+    displayName: 'LatestProducts';
   };
   attributes: {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
@@ -270,7 +271,7 @@ declare module '@strapi/strapi' {
       'homepage.promo-card': HomepagePromoCard;
       'navbar.item': NavbarItem;
       'newspage.hot-item': NewspageHotItem;
-      'newspage.latest-prodcuts': NewspageLatestProdcuts;
+      'newspage.latest-products': NewspageLatestProducts;
     }
   }
 }

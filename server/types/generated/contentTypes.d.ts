@@ -850,6 +850,55 @@ export interface ApiMemoryMemory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMikrofinPreInvoiceMikrofinPreInvoice
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'mikrofin_pre_invoices';
+  info: {
+    description: '';
+    displayName: 'Mikrofin Pre-invoice';
+    pluralName: 'mikrofin-pre-invoices';
+    singularName: 'mikrofin-pre-invoice';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    isCompleted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mikrofin-pre-invoice.mikrofin-pre-invoice'
+    > &
+      Schema.Attribute.Private;
+    nameAndSurname: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+        minLength: 3;
+      }>;
+    note: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
+    phoneNumber: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+        minLength: 8;
+      }>;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    productVariantId: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiModelModel extends Struct.CollectionTypeSchema {
   collectionName: 'models';
   info: {
@@ -925,7 +974,7 @@ export interface ApiNavbarNavbar extends Struct.SingleTypeSchema {
     singularName: 'navbar';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -962,7 +1011,7 @@ export interface ApiNewsPageNewsPage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     hotItem: Schema.Attribute.Component<'newspage.hot-item', false>;
     latestProducts: Schema.Attribute.Component<
-      'newspage.latest-prodcuts',
+      'newspage.latest-products',
       true
     > &
       Schema.Attribute.Required;
@@ -1093,58 +1142,6 @@ export interface ApiPaymentMethodPaymentMethod
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-  };
-}
-
-export interface ApiPreInvoicePreInvoice extends Struct.CollectionTypeSchema {
-  collectionName: 'pre_invoices';
-  info: {
-    description: '';
-    displayName: 'PreInvoice';
-    pluralName: 'pre-invoices';
-    singularName: 'pre-invoice';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.Email & Schema.Attribute.Required;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::pre-invoice.pre-invoice'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 50;
-        minLength: 3;
-      }>;
-    note: Schema.Attribute.Text &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 300;
-      }>;
-    phoneNumber: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 12;
-        minLength: 8;
-      }>;
-    productLink: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    surname: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 50;
-        minLength: 3;
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
   };
 }
 
@@ -1944,6 +1941,7 @@ declare module '@strapi/strapi' {
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::material.material': ApiMaterialMaterial;
       'api::memory.memory': ApiMemoryMemory;
+      'api::mikrofin-pre-invoice.mikrofin-pre-invoice': ApiMikrofinPreInvoiceMikrofinPreInvoice;
       'api::model.model': ApiModelModel;
       'api::most-sold.most-sold': ApiMostSoldMostSold;
       'api::navbar.navbar': ApiNavbarNavbar;
@@ -1951,7 +1949,6 @@ declare module '@strapi/strapi' {
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::order.order': ApiOrderOrder;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
-      'api::pre-invoice.pre-invoice': ApiPreInvoicePreInvoice;
       'api::product.product': ApiProductProduct;
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;

@@ -704,7 +704,8 @@
     "paymentDescription": "Prilikom kupovine putem Web stranice možete platiti samo Unicredit Shopping karticom na rate.",
     "deliveryTitle": "Dostava",
     "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}.",
-    "relatedProducts": "Povezani dodaci"
+    "relatedProducts": "Povezani dodaci",
+    "productId": "Šifra artikla"
   },
   "categoryPage": {
     "edTitle": "Obrazovni popust",
@@ -802,7 +803,8 @@
     "cardNumberRequired": "Broj kartice je obavezan",
     "invalidCardNumber": "Neispravan broj kartice",
     "expirationDateRequired": "Datum isteka je obavezan",
-    "invalidExpirationDate": "Neispravan datum isteka"
+    "invalidExpirationDate": "Neispravan datum isteka",
+    "productIdRequired": "Šifra artikla je obavezna"
   },
   "complaintsPage": {
     "title": "Reklamacije",
@@ -856,9 +858,15 @@
     "microCredit": "Mikrokreditna organizacija",
     "formEmail": "Email",
     "formNumber": "Broj",
-    "productLink": "Link uređaja",
+    "productId": "Šifra artikla",
     "formNote": "Napomena",
-    "notePlaceHolder": "Unesite napomenu"
+    "placeholder": {
+      "name": "Unesite vaše ime i prezime",
+      "email": "at@atstore.ba",
+      "number": "061 123 456",
+      "productId": "Unesite šifru artikla",
+      "note": "Unesite napomenu"
+    }
   },
   "educationalDiscountPage": {
     "title": "Obrazovni popust",

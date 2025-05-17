@@ -7,8 +7,8 @@ export const phoneNumberSchema = (t: LocalizationKey) =>
     .string()
     .nonempty(t('phoneNumberRequired'))
     .min(8, t('phoneNumberMinLength', { minLength: '8' }))
-    .max(12, t('phoneNumberMaxLength', { maxLength: '12' }))
-    .regex(/^[0-9]+$/, t('phoneNumberInvalidFormat'));
+    .max(20, t('phoneNumberMaxLength', { maxLength: '20' }))
+    .regex(/^(\+387|00387|0)?[0-9\s\-\/]+$/, t('phoneNumberInvalidFormat'));
 
 export const emailSchema = (t: LocalizationKey) =>
   z.string().min(1, t('emailRequired')).email(t('invalidEmailFormat'));
