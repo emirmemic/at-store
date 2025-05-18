@@ -564,15 +564,6 @@
       "address": "Adresa",
       "phoneNumber": "Broj"
     },
-    "paymentMethods": {
-      "title": "Načini plaćanja",
-      "addNewPaymentMethod": "Dodaj novu metodu plaćanja",
-      "noPaymentMethods": "Nemate način plaćanja.",
-      "nameAndSurname": "Ime i prezime",
-      "cardNumber": "Broj kartice",
-      "expirationDate": "Datum isteka",
-      "dialogTitle": "Dodaj karticu"
-    },
     "favorites": {
       "title": "Omiljeni",
       "noFavorites": "Nemate niti jedan uređaj u omiljenim."

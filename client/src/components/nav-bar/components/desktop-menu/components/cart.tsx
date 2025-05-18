@@ -23,7 +23,7 @@ const NoItems = ({ text }: { text: string }) => (
 
 const ListItem = ({ item }: { item: ShoppingCartItem }) => {
   const { product } = item;
-  const image = product.images?.[0] ?? null;
+  const image = product?.images?.[0] ?? null;
   const { updateCart } = useCartProvider();
 
   const handleRemove = () => {

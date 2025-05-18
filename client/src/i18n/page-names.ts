@@ -5,7 +5,6 @@ export const PAGE_NAMES = {
   ACCOUNT_DASHBOARD: '/account/dashboard',
   ACCOUNT_ORDERS: '/account/orders',
   ACCOUNT_DETAILS: '/account/details',
-  ACCOUNT_PAYMENT_METHODS: '/account/payment-methods',
   ACCOUNT_FAVORITES: '/account/favorites',
   ACCOUNT_NEWSLETTER: '/account/newsletter',
   AIRPODS: '/airpods',

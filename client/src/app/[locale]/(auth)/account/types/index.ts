@@ -18,13 +18,4 @@ interface OrderResponse {
   createdAt: string;
 }
 
-interface PaymentMethodResponse {
-  id: number;
-  documentId: string;
-  nameAndSurname: string;
-  cardNumber: string;
-  expirationDate: string;
-  isDefault: boolean;
-}
-
-export type { AccountMenu, OrderResponse, PaymentMethodResponse };
+export type { AccountMenu, OrderResponse };

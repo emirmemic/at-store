@@ -1,4 +1,5 @@
 'use client';
+import debounce from 'lodash.debounce';
 import {
   createContext,
   ReactNode,
@@ -34,6 +35,9 @@ export const CartContext = createContext<CartContextType>({
   clearCart: () => {},
 });
 
+// Map to store debounced functions per product
+const debouncedUpdateMap = new Map<string, (quantity: number) => void>();
+
 export default function CartProvider({
   children,
   initialValue,
@@ -51,6 +55,19 @@ export default function CartProvider({
       setCart(getCartFromLocalStorage());
     }
   }, [user]);
+
+  // Get or create a persistent debounced updater for a product
+  function getDebouncedUpdate(documentId: string) {
+    if (!debouncedUpdateMap.has(documentId)) {
+      debouncedUpdateMap.set(
+        documentId,
+        debounce((quantity: number) => {
+          updateBackendCart(documentId, quantity);
+        }, 300)
+      );
+    }
+    return debouncedUpdateMap.get(documentId) as (quantity: number) => void;
+  }
 
   // Update the cart with the new changes
   const updateCart = async (cartItem: ShoppingCartItem): Promise<void> => {
@@ -80,8 +97,8 @@ export default function CartProvider({
     setCart(updatedCart);
 
     if (user) {
-      // Update the cart in the server
-      await updateBackendCart(cartItem.product.documentId, cartItem.quantity);
+      // Debounced backend update: only the last call in a burst will be sent
+      getDebouncedUpdate(cartItem.product.documentId)(cartItem.quantity);
     } else {
       // Update the cart in local storage
       updateCartInLocalStorage(updatedCart);

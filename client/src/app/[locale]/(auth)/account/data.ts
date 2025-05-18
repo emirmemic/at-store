@@ -4,7 +4,6 @@ import {
   IconNews,
   IconSettings,
   IconShoppingCart,
-  IconWallet,
 } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { LocalizationKey } from '@/lib/types';
@@ -32,18 +31,12 @@ const getMenuItems = (t: LocalizationKey): AccountMenu[] => [
   },
   {
     id: 4,
-    label: t('accountPage.paymentMethods.title'),
-    href: PAGE_NAMES.ACCOUNT_PAYMENT_METHODS,
-    Icon: IconWallet,
-  },
-  {
-    id: 5,
     label: t('accountPage.favorites.title'),
     href: PAGE_NAMES.ACCOUNT_FAVORITES,
     Icon: IconHeart,
   },
   {
-    id: 6,
+    id: 5,
     label: t('accountPage.newsletter.title'),
     href: PAGE_NAMES.ACCOUNT_NEWSLETTER,
     Icon: IconNews,

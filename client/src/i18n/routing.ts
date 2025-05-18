@@ -30,9 +30,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.ACCOUNT_DETAILS]: {
       bs: '/racun/podaci',
     },
-    [PAGE_NAMES.ACCOUNT_PAYMENT_METHODS]: {
-      bs: '/racun/nacini-placanja',
-    },
     [PAGE_NAMES.ACCOUNT_FAVORITES]: {
       bs: '/racun/omiljeni',
     },

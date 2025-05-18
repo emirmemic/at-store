@@ -85,7 +85,7 @@ export async function fetchAPI<T = unknown>(
   url: string,
   options: FetchAPIOptions
 ): Promise<APIResponse<T>> {
-  const { method, body, next, timeout = 8000, isAuth = true } = options;
+  const { method, body, next, timeout = 30000, isAuth = true } = options;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
