@@ -55,7 +55,6 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::product.product",
-      "private": true,
       "inversedBy": "orders"
     }
   }

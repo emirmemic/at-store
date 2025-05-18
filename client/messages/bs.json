@@ -546,6 +546,7 @@
       "orderNumber": "Order no",
       "orderDate": "Order date",
       "pending": "Na čekanju",
+      "completed": "Završeno",
       "shipped": "Poslano",
       "delivered": "Uspješno dostavljeno",
       "canceled": "Otkazano"

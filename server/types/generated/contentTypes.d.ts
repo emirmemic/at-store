@@ -1100,8 +1100,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'pending'>;
     paymentMethod: Schema.Attribute.Enumeration<['card', 'cash']> &
       Schema.Attribute.Required;
-    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'> &
-      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     selectedStore: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;

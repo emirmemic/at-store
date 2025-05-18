@@ -14,14 +14,11 @@ function getTranslation(
     case 'pending':
       translation = t('accountPage.orders.pending');
       break;
-    case 'shipped':
-      translation = t('accountPage.orders.shipped');
-      break;
-    case 'delivered':
-      translation = t('accountPage.orders.delivered');
-      break;
     case 'canceled':
       translation = t('accountPage.orders.canceled');
+      break;
+    case 'completed':
+      translation = t('accountPage.orders.completed');
       break;
     default:
       translation = 'Unknown';
@@ -46,7 +43,7 @@ export interface OrderProductCardProps {
   id: number;
   product: ProductResponse;
   orderStatus?: OrderStatusEnum;
-  orderNumber?: number;
+  orderNumber?: string;
   orderDate?: string;
 }
 
@@ -76,7 +73,11 @@ export default function OrderProductCard(props: OrderProductCardProps) {
         />
         <TextItem
           spanText={`${t('accountPage.orders.orderDate')}: `}
-          text={orderDate}
+          text={
+            orderDate
+              ? new Date(orderDate).toLocaleDateString('de-DE')
+              : undefined
+          }
         />
       </div>
     </div>

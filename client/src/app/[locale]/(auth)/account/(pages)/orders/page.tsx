@@ -46,7 +46,7 @@ export default async function Page() {
           <OrderProductCard
             key={product.id}
             id={product.id}
-            orderDate={order.orderDate}
+            orderDate={order.createdAt}
             orderNumber={order.orderNumber}
             orderStatus={order.orderStatus}
             product={product}
