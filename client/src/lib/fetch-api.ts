@@ -15,7 +15,7 @@ type NextFetchRequestConfig = {
 interface FetchAPIOptions {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: Record<string, unknown> | FormData;
-  /** Whether the request requires authentication */
+  /** Whether the request requires authentication, is `true` by default */
   isAuth?: boolean;
   /** Next.js cache configuration for the request */
   next?: NextFetchRequestConfig;

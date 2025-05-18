@@ -10,6 +10,14 @@ export interface ProductsResponse {
   };
 }
 
+export interface ProductStockResponse {
+  product_variant_id: string;
+  availability_by_store: {
+    [key: string]: number;
+  };
+  amount_in_stock: number;
+}
+
 export interface WebAccountProduct {
   brand: {
     name: string;
@@ -125,4 +133,10 @@ export interface StrapiProduct {
   publishedAt?: Date | null;
   amountInStock: number;
   deviceCompatibility: string[];
+  orders: {
+    documentId: string;
+    orderStatus: OrderStatus;
+  }[];
 }
+
+type OrderStatus = 'pending' | 'completed' | 'canceled';

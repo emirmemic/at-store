@@ -2,7 +2,12 @@ import { z } from 'zod';
 
 import { LocalizationKey, UserType } from '../types';
 
-import { emailSchema, nameAndSurnameSchema, phoneNumberSchema } from './common';
+import {
+  createContactInfoSchema,
+  createPersonalInfoSchema,
+  emailSchema,
+  nameAndSurnameSchema,
+} from './common';
 
 // Base schemas
 const passwordSchema = (t: LocalizationKey) =>
@@ -14,19 +19,6 @@ const passwordSchema = (t: LocalizationKey) =>
     .regex(/[A-Z]/, t('passwordUppercase'))
     .regex(/[a-z]/, t('passwordLowercase'))
     .regex(/[0-9]/, t('passwordNumber'));
-
-// Reusable schema parts
-const createPersonalInfoSchema = (t: LocalizationKey) =>
-  z.object({
-    name: z.string().trim().min(1, t('nameRequired')),
-    surname: z.string().trim().min(1, t('surnameRequired')),
-  });
-
-const createContactInfoSchema = (t: LocalizationKey) =>
-  z.object({
-    address: z.string().trim().optional(),
-    phoneNumber: phoneNumberSchema(t),
-  });
 
 const createCompanyInfoSchema = (t: LocalizationKey) =>
   z.object({

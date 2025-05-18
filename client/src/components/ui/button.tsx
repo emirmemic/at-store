@@ -52,6 +52,8 @@ const buttonVariants = cva(
           'border-blue',
           'text-white',
           'hover:bg-blue',
+          'data-[active=true]:bg-blue',
+          'data-[active=true]:text-white',
         ],
         /// Add to favorites button
         addToFavorites: [

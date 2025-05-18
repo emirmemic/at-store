@@ -16,6 +16,7 @@ interface ProductCartTableItemProps {
   onQuantityChange?: (cartItem: ShoppingCartItem) => void;
   onRemove?: (cartItem: ShoppingCartItem) => void;
   className?: string;
+  isMobile?: boolean;
 }
 
 export default function ProductCartTableItem({
@@ -23,6 +24,7 @@ export default function ProductCartTableItem({
   onQuantityChange,
   onRemove,
   className,
+  isMobile = false,
 }: ProductCartTableItemProps) {
   const t = useTranslations('common');
   const { product, quantity } = cartItem;
@@ -39,19 +41,32 @@ export default function ProductCartTableItem({
   const totalPrice = `${finalPrice * quantity} ${CURRENCY}`;
   const image = product.images?.[0] ?? null;
   const finalLink = makeProductLink(
-    product.category?.link ?? '',
+    product?.category?.link ?? '',
     product.productTypeId,
     product.productLink ?? ''
   );
+
   return (
     <div
       className={cn(
-        'relative flex w-full flex-col gap-2 border-b border-grey-light p-2 pb-4 heading-5 md:grid md:grid-cols-6 md:gap-4 lg:heading-4',
+        isMobile
+          ? 'relative flex w-full flex-col gap-2 border-b border-grey-light p-2 pb-4 heading-5'
+          : 'relative flex w-full flex-col gap-2 border-b border-grey-light p-2 pb-4 heading-5 md:grid md:grid-cols-6 md:gap-4 lg:heading-4',
         className
       )}
     >
-      <div className="flex items-center gap-3 pr-8 md:col-span-2 md:grid md:grid-cols-2 md:gap-4 md:p-0">
-        <div className="col-span-1 mb-2 h-32 w-32">
+      <div
+        className={cn(
+          isMobile
+            ? 'flex items-center gap-3 pr-8'
+            : 'flex items-center gap-3 pr-8 md:col-span-2 md:grid md:grid-cols-2 md:gap-4 md:p-0'
+        )}
+      >
+        <div
+          className={cn(
+            isMobile ? 'col-span-1 mb-2 h-32 w-32' : 'col-span-1 mb-2 h-32 w-32'
+          )}
+        >
           {image && (
             <StrapiImage
               alt={image?.alternativeText || product.name}
@@ -63,26 +78,40 @@ export default function ProductCartTableItem({
             />
           )}
         </div>
-        <div className="flex flex-col gap-3 md:col-span-1 md:flex-row md:gap-4">
+        <div
+          className={cn(
+            isMobile
+              ? 'flex flex-col gap-3'
+              : 'flex flex-col gap-3 md:col-span-1 md:flex-row md:gap-4'
+          )}
+        >
           <Link
-            className="hover:underline md:w-1/2 md:text-end"
+            className={cn('max-h-28 overflow-hidden hover:underline')}
             href={finalLink}
           >
             {product.name}
           </Link>
-          <p className="md:hidden">
+          <p className={isMobile ? '' : 'md:hidden'}>
             {finalPrice} {CURRENCY}
           </p>
         </div>
       </div>
 
-      <p className="hidden self-center md:col-span-1 md:block">
-        {finalPrice} {CURRENCY}
-      </p>
+      {!isMobile && (
+        <p className="hidden self-center md:col-span-1 md:block">
+          {finalPrice} {CURRENCY}
+        </p>
+      )}
 
-      <div className="flex w-full items-center justify-between gap-4 md:col-span-2 md:grid md:grid-cols-2 md:justify-center md:gap-4">
+      <div
+        className={cn(
+          isMobile
+            ? 'flex w-full items-center justify-between gap-4'
+            : 'flex w-full items-center justify-between gap-4 md:col-span-2 md:grid md:grid-cols-2 md:justify-center md:gap-4'
+        )}
+      >
         <CounterInput
-          className="self-end md:self-start"
+          className={cn(isMobile ? 'self-end' : 'self-end md:self-start')}
           max={product.amountInStock}
           min={1}
           value={quantity}
@@ -92,10 +121,15 @@ export default function ProductCartTableItem({
         <p>{totalPrice}</p>
       </div>
 
-      <div className="md:col-span-1 md:flex md:justify-end">
+      <div
+        className={cn(isMobile ? '' : 'md:col-span-1 md:flex md:justify-end')}
+      >
         <button
           aria-label={t('removeItem')}
-          className="absolute right-2 top-2 p-2 text-black transition-colors duration-300 hover:text-grey-darker md:static"
+          className={cn(
+            'absolute right-2 top-2 p-2 text-black transition-colors duration-300 hover:text-grey-darker',
+            !isMobile && 'md:static'
+          )}
           title={t('removeItem')}
           type="button"
           onClick={handleRemove}

@@ -62,6 +62,7 @@ export default factories.createCoreService('api::product.product', () => ({
                     'memory',
                     'material',
                     'chip',
+                    'orders',
                   ],
                 });
 
@@ -71,6 +72,21 @@ export default factories.createCoreService('api::product.product', () => ({
               ) {
                 continue;
               }
+
+              // Check if the status in one of the orders is pending
+              // If it is, we skip this product
+              if (existingProduct && existingProduct.orders.length > 0) {
+                const hasPendingOrder = existingProduct.orders.some(
+                  (order) => order.orderStatus === 'pending'
+                );
+                if (hasPendingOrder) {
+                  strapi.log.info(
+                    `Product ${webAccountProduct.product_variant_id} is in pending order, skipping...`
+                  );
+                  continue;
+                }
+              }
+
               const brandName = webAccountProduct.brand?.name ?? null;
               let brand = await findEntity('brand', brandName);
               if (!brand && brandName) {
@@ -279,11 +295,20 @@ export default factories.createCoreService('api::product.product', () => ({
                     ([_, value]) => value !== undefined
                   )
                 );
-
-                await strapi.documents('api::product.product').update({
-                  documentId: existingProduct.documentId,
-                  data: sanitizedProductData,
-                });
+                // If the product is already published, we update it directly
+                if (existingProduct.publishedAt) {
+                  await strapi.documents('api::product.product').update({
+                    documentId: existingProduct.documentId,
+                    data: sanitizedProductData,
+                    status: 'published',
+                  });
+                } else {
+                  // If the product is in draft state, we only update it in the draft state without publishing
+                  await strapi.documents('api::product.product').update({
+                    documentId: existingProduct.documentId,
+                    data: sanitizedProductData,
+                  });
+                }
               } else {
                 // Create new product
                 await strapi.documents('api::product.product').create({

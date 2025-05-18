@@ -57,7 +57,7 @@ export default factories.createCoreController(
     },
     async updateCart(ctx) {
       const { user } = ctx.state;
-      const { productId } = ctx.params;
+      const { productId: productDocumentId } = ctx.params;
 
       if (!ctx.request.body) {
         return ctx.badRequest('Request body is required');
@@ -105,7 +105,9 @@ export default factories.createCoreController(
 
         // If quantity is 0, remove the item from the cart
         if (quantity === 0 && cart.items && cart.items.length > 0) {
-          const item = items.find((item) => item.product.id == productId);
+          const item = items.find(
+            (item) => item.product.documentId == productDocumentId
+          );
           if (item) {
             items.splice(items.indexOf(item), 1);
           }
@@ -113,23 +115,20 @@ export default factories.createCoreController(
           // If the item already exists in the cart, update the quantity
           // Otherwise, add the item to the cart
           const existingItem = items.find(
-            (item) => item.product.id == productId
+            (item) => item.product.documentId == productDocumentId
           );
 
           if (existingItem) {
             existingItem.quantity = quantity;
           } else {
-            console.log(productId);
-
             const product = await strapi
               .documents('api::product.product')
-              .findFirst({
-                filters: {
-                  id: productId,
-                },
+              .findOne({
+                documentId: productDocumentId,
                 populate: {
                   fields: [
                     'id',
+                    'documentId',
                     'displayName',
                     'originalPrice',
                     'discountedPrice',
@@ -147,7 +146,7 @@ export default factories.createCoreController(
             }
 
             items.push({
-              id: productId,
+              id: productDocumentId,
               product: product,
               quantity: quantity,
             });
@@ -169,6 +168,35 @@ export default factories.createCoreController(
       } catch (error) {
         strapi.log.error('Failed updating cart', error);
         return ctx.internalServerError('Unable to update cart', { error });
+      }
+    },
+    async clearCart(ctx) {
+      const { user } = ctx.state;
+      try {
+        const cart = await strapi.documents('api::cart.cart').findFirst({
+          filters: {
+            user: {
+              id: user.id,
+            },
+          },
+        });
+
+        if (!cart) {
+          return ctx.notFound('Cart not found');
+        }
+
+        await strapi.documents('api::cart.cart').update({
+          documentId: cart.documentId,
+          data: {
+            items: [],
+            user: user.id,
+          },
+        });
+
+        return ctx.send({ message: 'Cart cleared successfully' });
+      } catch (error) {
+        strapi.log.error('Failed clearing cart', error);
+        return ctx.internalServerError('Unable to clear cart', { error });
       }
     },
   })

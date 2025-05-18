@@ -11,8 +11,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { STORE_NAMES } from '@/lib/constants';
 import { cn } from '@/lib/utils/utils';
 
 interface StoreSelectPopupProps {
@@ -28,7 +26,6 @@ export default function StoreSelectPopup({
   onContinue,
   children,
   selectedStore,
-  onSelectStore,
 }: StoreSelectPopupProps) {
   const t = useTranslations('common');
   const [open, setOpen] = useState(false);
@@ -53,11 +50,11 @@ export default function StoreSelectPopup({
         >
           <p className="w-full text-center heading-4 md:text-left md:heading-3">{`${t('chooseShop')}:`}</p>
           <div className="flex w-full flex-col gap-6">
-            <RadioGroup
+            {/* <RadioGroup
               defaultValue={selectedStore || STORE_NAMES[0]}
               onValueChange={onSelectStore}
             >
-              {STORE_NAMES.map((store) => (
+              {STORES.map((store) => (
                 <RadioGroupItem
                   key={store}
                   className="flex cursor-pointer items-center gap-4 paragraph-1"
@@ -67,7 +64,7 @@ export default function StoreSelectPopup({
                   <span>{store}</span>
                 </RadioGroupItem>
               ))}
-            </RadioGroup>
+            </RadioGroup> */}
           </div>
           <Button
             className="px-16"

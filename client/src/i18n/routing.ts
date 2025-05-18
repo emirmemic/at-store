@@ -54,6 +54,12 @@ export const routing = defineRouting({
     [PAGE_NAMES.CHECKOUT]: {
       bs: '/checkout',
     },
+    [PAGE_NAMES.CHECKOUT_PAYMENT]: {
+      bs: '/checkout/placanje',
+    },
+    [PAGE_NAMES.CHECKOUT_SUCCESS]: {
+      bs: '/checkout/uspjeh',
+    },
     [PAGE_NAMES.LOGIN_OR_GUEST]: {
       bs: '/prijava-ili-gost',
     },
@@ -107,9 +113,6 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.ORDER_CANCELLATION]: {
       bs: '/otkazivanje-narudzbe',
-    },
-    [PAGE_NAMES.PAYMENT]: {
-      bs: '/placanje',
     },
     [PAGE_NAMES.PAYMENT_METHODS]: {
       bs: '/nacini-placanja',

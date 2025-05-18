@@ -96,7 +96,7 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
           variant={'filled'}
           onClick={onClickButton}
         >
-          <Link href={isOrganization ? PAGE_NAMES.B2B : PAGE_NAMES.PAYMENT}>
+          <Link href={isOrganization ? PAGE_NAMES.B2B : PAGE_NAMES.CHECKOUT}>
             {isOrganization ? t('invoice') : t('payment')}
           </Link>
         </Button>

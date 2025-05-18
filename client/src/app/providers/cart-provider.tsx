@@ -10,19 +10,28 @@ import {
 import { CART_KEY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
 
-import { updateCart as updateBackendCart } from './actions';
+import {
+  updateCart as updateBackendCart,
+  clearCart as clearBackendCart,
+} from './actions';
 import { useUserProvider } from './user-provider';
 
 export type CartContextType = {
   cart: ShoppingCartItem[];
   updateCart: (cartItem: ShoppingCartItem) => Promise<void>;
   setCart: (cart: ShoppingCartItem[]) => void;
+  getTotalPrice: () => number;
+  clearCart: () => void;
 };
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
   updateCart: async () => {},
   setCart: () => {},
+  getTotalPrice: () => {
+    return 0;
+  },
+  clearCart: () => {},
 });
 
 export default function CartProvider({
@@ -72,15 +81,36 @@ export default function CartProvider({
 
     if (user) {
       // Update the cart in the server
-      await updateBackendCart(cartItem.product.id, cartItem.quantity);
+      await updateBackendCart(cartItem.product.documentId, cartItem.quantity);
     } else {
       // Update the cart in local storage
       updateCartInLocalStorage(updatedCart);
     }
   };
 
+  function getTotalPrice() {
+    return cart.reduce(
+      (total, { product: { discountedPrice, originalPrice }, quantity }) =>
+        total + (discountedPrice || originalPrice) * quantity,
+      0
+    );
+  }
+
+  function clearCart() {
+    setCart([]);
+    if (user) {
+      // Clear the cart in the server
+      clearBackendCart();
+    } else {
+      // Clear the cart in local storage
+      updateCartInLocalStorage([]);
+    }
+  }
+
   return (
-    <CartContext.Provider value={{ cart, updateCart, setCart }}>
+    <CartContext.Provider
+      value={{ cart, updateCart, setCart, getTotalPrice, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -110,7 +140,7 @@ export function getCartFromLocalStorage(): ShoppingCartItem[] {
   }
 }
 
-function updateCartInLocalStorage(cart: ShoppingCartItem[]) {
+export function updateCartInLocalStorage(cart: ShoppingCartItem[]) {
   if (typeof window !== 'undefined') {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }

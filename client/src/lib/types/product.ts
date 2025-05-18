@@ -3,7 +3,7 @@ import { BlocksContent } from '@strapi/blocks-react-renderer';
 import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { ImageProps } from '@/lib/types';
 
-import { StoreName } from '../constants';
+import { StoreCode } from '../constants';
 
 import { UserInformation } from './auth';
 
@@ -46,8 +46,11 @@ interface ProductResponse {
 
 interface StoreResponse {
   id: number;
-  documentId: string;
-  store: StoreName;
+  store: {
+    id: number;
+    name: StoreCode;
+    documentId: string;
+  };
   quantity: number;
 }
 
@@ -127,6 +130,11 @@ interface BestSellerItem {
   product: ProductResponse;
 }
 
+interface ProductStockResponse {
+  productVariantId: string;
+  amountInStock: number;
+}
+
 export type {
   BestSellerItem,
   CategoryItem,
@@ -139,4 +147,6 @@ export type {
   ShoppingCartItem,
   SubCategoryItem,
   GroupedSubCategoryItem,
+  StoreResponse,
+  ProductStockResponse,
 };

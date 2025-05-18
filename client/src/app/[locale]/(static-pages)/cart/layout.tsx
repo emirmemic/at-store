@@ -8,11 +8,11 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   const t = await getTranslations({ locale, namespace: 'metaData' });
 
   return {
-    title: t('korpa.title'),
-    description: t('korpa.description'),
+    title: t('cart.title'),
+    description: t('cart.description'),
     openGraph: {
-      title: t('korpa.title'),
-      description: t('korpa.description'),
+      title: t('cart.title'),
+      description: t('cart.description'),
     },
   };
 }

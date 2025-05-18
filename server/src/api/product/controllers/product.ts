@@ -2,6 +2,36 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreController(
   'api::product.product',
   ({ strapi }) => ({
+    async find(ctx) {
+      // Ensure filters exist
+      ctx.query = ctx.query || {};
+      ctx.query.filters = ctx.query.filters || {};
+
+      // Inject the amountInStock > 0 filter
+      (ctx.query.filters as Record<string, any>).amountInStock = {
+        ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
+        $gt: 0,
+      };
+
+      // Call the default core controller logic
+      const { data, meta } = await super.find(ctx);
+      return { data, meta };
+    },
+    async findOne(ctx) {
+      // Ensure filters exist
+      ctx.query = ctx.query || {};
+      ctx.query.filters = ctx.query.filters || {};
+
+      // Inject the amountInStock > 0 filter
+      (ctx.query.filters as Record<string, any>).amountInStock = {
+        ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
+        $gt: 0,
+      };
+
+      // Call the default core controller logic
+      const { data, meta } = await super.findOne(ctx);
+      return { data, meta };
+    },
     async toggleFavorite(ctx) {
       const { user } = ctx.state;
       const { productId } = ctx.params;

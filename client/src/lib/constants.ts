@@ -12,14 +12,21 @@ export const STRAPI_IMAGE_FIELDS = [
 
 /* Frontend */
 export const CURRENCY = 'KM';
+export const CURRENCY_ISO = 'BAM';
+
 export const MINIMUM_AMOUNT_FREE_DELIVERY = 400;
-export const STORE_NAMES = [
-  'Sarajevo SCC',
-  'Sarajevo Alta',
-  'Banja Luka',
+export const DELIVERY_COST = 10;
+
+export const STORES = [
+  { code: 'AT Store (SCC)', name: 'Sarajevo SCC' },
+  { code: 'AT Store (ALTA)', name: 'Sarajevo Alta' },
+  { code: 'AT Store (DELTA)', name: 'Banja Luka' },
 ] as const;
 
-export type StoreName = (typeof STORE_NAMES)[number];
+export type Store = (typeof STORES)[number];
+export type StoreCode = Store['code'];
+export type StoreName = Store['name'];
+
 export const CONTACT_NUMBERS = {
   complaintsNumber: '+387 33 956 188',
 };

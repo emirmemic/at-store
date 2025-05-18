@@ -26,3 +26,15 @@ export const nameAndSurnameSchema = (t: LocalizationKey) =>
       },
       { message: t('nameAndSurnameFormat') }
     );
+
+export const createPersonalInfoSchema = (t: LocalizationKey) =>
+  z.object({
+    name: z.string().trim().min(1, t('nameRequired')),
+    surname: z.string().trim().min(1, t('surnameRequired')),
+  });
+
+export const createContactInfoSchema = (t: LocalizationKey) =>
+  z.object({
+    address: z.string().trim().optional(),
+    phoneNumber: phoneNumberSchema(t),
+  });

@@ -8,14 +8,16 @@ interface AccountMenu {
   Icon: Icon;
 }
 
-export type OrderStatusEnum = 'pending' | 'delivered' | 'canceled' | 'shipped';
+export type OrderStatusEnum = 'pending' | 'canceled' | 'completed';
+
 interface OrderResponse {
   id: number;
   products: ProductResponse[];
   orderStatus: OrderStatusEnum;
-  orderNumber: number;
-  orderDate: string;
+  orderNumber: string;
+  createdAt: string;
 }
+
 interface PaymentMethodResponse {
   id: number;
   documentId: string;

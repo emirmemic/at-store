@@ -116,9 +116,13 @@
       "title": "Zašto Mac | AT Store",
       "description": "Saznajte zašto je Mac najbolji izbor za vas."
     },
-    "korpa": {
+    "cart": {
       "title": "Korpa | AT Store",
       "description": "Pregledajte svoju korpu i završite kupovinu."
+    },
+    "checkout": {
+      "title": "Checkout | AT Store",
+      "description": "Završite svoju kupovinu i odaberite način plaćanja."
     }
   },
   "about": {
@@ -630,7 +634,10 @@
     "noProductsAvailable": "Nema dostupnih proizvoda",
     "removeFromCart": "Ukloni iz korpe",
     "addedToCart": "Dodano u korpu",
-    "removedFromCart": "Uklonjeno iz korpe"
+    "removedFromCart": "Uklonjeno iz korpe",
+    "somethingWentWrong": "Došlo je do greške",
+    "contactUs": "Kontaktirajte nas",
+    "quantity": "Količina"
   },
   "atBusinessPage": {
     "title": "At Business",
@@ -804,7 +811,11 @@
     "invalidCardNumber": "Neispravan broj kartice",
     "expirationDateRequired": "Datum isteka je obavezan",
     "invalidExpirationDate": "Neispravan datum isteka",
-    "productIdRequired": "Šifra artikla je obavezna"
+    "productIdRequired": "Šifra artikla je obavezna",
+    "cityRequired": "Grad je obavezan",
+    "postalCodeRequired": "Poštanski broj je obavezan",
+    "postalCodeInvalidFormat": "Neispravan poštanski broj",
+    "countryRequired": "Država je obavezna"
   },
   "complaintsPage": {
     "title": "Reklamacije",
@@ -923,6 +934,38 @@
     "appleStreak": "Najvrijedna kompanija u svijetu je Apple, već treću godinu zaredom."
   },
   "checkoutPage": {
+    "deliveryForm": {
+      "name": "Ime",
+      "surname": "Prezime",
+      "email": "Email",
+      "phoneNumber": "Broj telefona",
+      "address": "Adresa",
+      "postalCode": "Poštanski broj",
+      "city": "Grad",
+      "country": "Država",
+      "note": "Napomena",
+      "notePlaceholder": "Dostaviti u periodu od 10:00 do 17:00.",
+      "additionalInfo": "Dodatne informacije"
+    },
+    "paymentPage": {
+      "title": "Plaćanje",
+      "paymentDeclined": "Plaćanje je odbijeno",
+      "paymentSuccessful": "Plaćanje je uspješno",
+      "paymentSuccessfulDescription": "Hvala Vam na kupovini. Vaša narudžba je uspješno kreirana.",
+      "orderDate": "Datum narudžbe",
+      "orderNumber": "Broj narudžbe",
+      "orderStatus": "Status narudžbe",
+      "order": "Narudžba",
+      "finish": "Završi",
+      "orderCreated": "Narudžba je kreirana",
+      "payOnDelivery": "Plaćanje prilikom preuzimanja",
+      "payWithCard": "Plaćanje karticom",
+      "payOnDeliveryDescription": "Platit ćete račun prilikom preuzimanja.",
+      "enterCard": "Unesite karticu",
+      "outOfStock": "Nema na skladištu, molimo kontaktirajte nas za dodatnu potvrdu",
+      "outOfStockProducts": "Količina sljedećih proizvoda u vašoj korpi je veća od dostupne količine na našem skladištu, molimo kontaktirajte nas za dodatnu potvrdu",
+      "success": "Uspješno"
+    },
     "title": "Checkout",
     "deliveryMethods": "Načini dostave",
     "inTheCart": "U korpi",
@@ -930,15 +973,14 @@
     "delivery": "Dostava",
     "branchOffice": "Poslovnica",
     "total": "Ukupno",
-    "additionalInfo": "Dodatne informacije",
     "note": "Napomena",
-    "payment": "Plaćanje",
     "preview": "Pregled",
     "continue": "Nastavi",
-    "payOnDelivery": "Plaćanje prilikom preuzimanja",
-    "payWithCard": "Plaćanje karticom",
-    "payOnDeliveryDescription": "Platit ćete račun prilikom preuzimanja.",
-    "iAgree": "Saglasan sam."
+    "pickupFormTitle": "Preuzmite u:",
+    "pickupStore": "Preuzmite u {store}",
+    "paymentDeclined": "Plaćanje je odbijeno",
+    "info": "Info",
+    "storeSelectionError": "Nismo u mogućnosti da preuzmemo dostupnost lokacije. Molimo vas da pozovete ovaj broj za pomoć: +387 33 956 188"
   },
   "loginOrGuestPage": {
     "title": "Izaberi kako želiš nastaviti",

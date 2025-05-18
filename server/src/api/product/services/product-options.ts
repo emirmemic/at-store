@@ -19,7 +19,13 @@ export default ({ strapi }) => ({
         brand: true,
         category: true,
         model: true,
-        stores: true,
+        stores: {
+          populate: {
+            store: {
+              fields: ['id', 'name', 'documentId'],
+            },
+          },
+        },
         color: true,
         memory: true,
         images: {

@@ -6,7 +6,6 @@ import {
   ErrorPopup,
   ProductDetailsPopup,
   StoreSelectPopup,
-  StoreSelectInfo,
 } from '@/components/popup';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,10 +15,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { STORE_NAMES } from '@/lib/constants';
+import { STORES } from '@/lib/constants';
 
 export default function PopupExamples() {
-  const [selectedStore, setSelectedStore] = useState<string>(STORE_NAMES[0]);
+  const [selectedStore, setSelectedStore] = useState<string>(STORES[0].name);
   const selectStore = (store: string) => {
     setSelectedStore(store);
   };
@@ -71,14 +70,11 @@ export default function PopupExamples() {
       </StoreSelectPopup>
 
       {/* Assuming success message will be coming from backend, this text is not added to bs.json */}
-      <StoreSelectInfo
-        message="Vaša narudžba je rezervisana u poslovnici u SCC-u."
-        onContinue={() => {}}
-      >
+      {/* <StoreSelectInfo message="Vaša narudžba je rezervisana u poslovnici u SCC-u.">
         <Button size={'md'} typography={'button1'} variant={'filled'}>
           Store Select Popup Info
         </Button>
-      </StoreSelectInfo>
+      </StoreSelectInfo> */}
     </>
   );
 }

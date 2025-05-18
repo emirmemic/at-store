@@ -87,7 +87,7 @@ export default {
   bootstrap: async () => {
     const isDevelopment = process.env.NODE_ENV === 'development';
     const cronRule = isDevelopment
-      ? `0 */${developmentSyncingInterval} * * *`
+      ? `*/${developmentSyncingInterval} * * * *`
       : `*/${productionSyncingInterval} * * * *`;
 
     const environment = isDevelopment ? 'development' : 'production';

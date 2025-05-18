@@ -1080,22 +1080,30 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    address: Schema.Attribute.JSON & Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    deliveryMethod: Schema.Attribute.Enumeration<['pickup', 'delivery']> &
+      Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'global.cart-item', true> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::order.order'> &
       Schema.Attribute.Private;
-    orderDate: Schema.Attribute.Date & Schema.Attribute.Required;
-    orderNumber: Schema.Attribute.BigInteger &
+    orderNumber: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     orderStatus: Schema.Attribute.Enumeration<
-      ['pending', 'delivered', 'canceled', 'shipped']
+      ['pending', 'canceled', 'completed']
     > &
+      Schema.Attribute.DefaultTo<'pending'>;
+    paymentMethod: Schema.Attribute.Enumeration<['card', 'cash']> &
       Schema.Attribute.Required;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'> &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    selectedStore: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1205,7 +1213,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     model: Schema.Attribute.Relation<'manyToOne', 'api::model.model'>;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     numberOfCores: Schema.Attribute.Integer;
-    order: Schema.Attribute.Relation<'manyToOne', 'api::order.order'>;
+    orders: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
     originalPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     productLink: Schema.Attribute.String &
       Schema.Attribute.Required &

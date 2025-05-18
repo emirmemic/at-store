@@ -13,17 +13,9 @@
   "attributes": {
     "orderStatus": {
       "type": "enumeration",
-      "enum": ["pending", "delivered", "canceled", "shipped"],
-      "required": true
-    },
-    "orderNumber": {
-      "type": "biginteger",
-      "required": true,
-      "unique": true
-    },
-    "orderDate": {
-      "type": "date",
-      "required": true
+      "enum": ["pending", "canceled", "completed"],
+      "required": false,
+      "default": "pending"
     },
     "user": {
       "type": "relation",
@@ -31,11 +23,40 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "orders"
     },
+    "orderNumber": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "deliveryMethod": {
+      "type": "enumeration",
+      "enum": ["pickup", "delivery"],
+      "required": true
+    },
+    "paymentMethod": {
+      "type": "enumeration",
+      "enum": ["card", "cash"],
+      "required": true
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.cart-item",
+      "required": true
+    },
+    "selectedStore": {
+      "type": "string"
+    },
+    "address": {
+      "type": "json",
+      "private": true
+    },
     "products": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::product.product",
-      "mappedBy": "order"
+      "private": true,
+      "inversedBy": "orders"
     }
   }
 }
