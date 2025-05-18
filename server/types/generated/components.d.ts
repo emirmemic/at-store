@@ -213,8 +213,7 @@ export interface NavbarItem extends Struct.ComponentSchema {
     displayName: 'item';
   };
   attributes: {
-    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'> &
-      Schema.Attribute.Required;
+    category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;
     groupedSubCategories: Schema.Attribute.Relation<
       'oneToMany',
       'api::grouped-sub-category.grouped-sub-category'

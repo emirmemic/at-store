@@ -26,8 +26,11 @@ export function StrapiVideo({
 
   return (
     <video
+      muted
+      playsInline
       className={className}
-      poster={posterUrl ?? undefined}
+      crossOrigin="anonymous"
+      poster={posterUrl || undefined}
       preload="metadata"
       src={videoUrl}
       {...props}
