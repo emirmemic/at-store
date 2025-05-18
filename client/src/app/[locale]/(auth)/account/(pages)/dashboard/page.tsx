@@ -48,7 +48,7 @@ export default async function Page() {
     return orderTotal + price;
   }, 0);
   const lastOrder = orders?.sort(
-    (a, b) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime()
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   )[0];
 
   const cardStyling =
@@ -81,7 +81,7 @@ export default async function Page() {
                 <OrderProductCard
                   key={product.id}
                   id={product.id}
-                  orderDate={lastOrder.orderDate}
+                  orderDate={lastOrder.createdAt}
                   orderNumber={lastOrder.orderNumber}
                   orderStatus={lastOrder.orderStatus}
                   product={product}
