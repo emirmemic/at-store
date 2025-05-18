@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect } from 'react';
 
+import { useUserProvider } from '@/app/providers/user-provider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -20,12 +21,25 @@ export default function Form() {
   const validation = useTranslations('validation');
   const { setDeliveryForm, deliveryForm, deliveryMethod, selectedStore } =
     useCheckoutProvider();
-
+  const { user } = useUserProvider();
+  const accountDetails = user?.accountDetails;
   const [formState, action, isPending] = useActionState(
     (_: unknown, __: FormData) => handleSubmit(_, __, validation),
-    deliveryForm && {
+    (deliveryForm && {
       data: deliveryForm as DeliveryForm,
-    }
+    }) ||
+      (accountDetails && {
+        data: {
+          address: accountDetails.address,
+          email: accountDetails.email,
+          name: accountDetails.name,
+          surname: accountDetails.surname,
+          phoneNumber: accountDetails.phoneNumber,
+          city: '',
+          postalCode: '',
+          country: '',
+        } as DeliveryForm,
+      })
   );
 
   useEffect(() => {
