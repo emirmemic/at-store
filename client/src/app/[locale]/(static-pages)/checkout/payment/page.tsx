@@ -1,11 +1,9 @@
 'use client';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { useCartProvider } from '@/app/providers';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
@@ -13,7 +11,7 @@ import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 import { TitleWithValue } from '../components/cart-section';
 import { useCheckoutProvider } from '../providers/checkout-provider';
 
-import { PaymentWithCard } from './components';
+import { PaymentOnDelivery, PaymentWithCard } from './components';
 
 type PaymentMethod = 'card' | 'cash';
 
@@ -93,24 +91,7 @@ export default function CheckoutPaymentPage() {
             <span>{method.title}</span>
           </Checkbox>
         ))}
-        {paymentMethod === 'cash' && (
-          <>
-            <div className="w-full rounded-2xl border border-black bg-grey-silver px-4 py-10">
-              <p className="paragraph-2">
-                {t('paymentPage.payOnDeliveryDescription')}
-              </p>
-            </div>
-            <Button
-              asChild
-              className="ml-auto mt-3"
-              size={'lg'}
-              typography={'button1'}
-              variant={'filled'}
-            >
-              <Link href={PAGE_NAMES.CHECKOUT_SUCCESS}>{t('continue')}</Link>
-            </Button>
-          </>
-        )}
+        {paymentMethod === 'cash' && <PaymentOnDelivery />}
         {paymentMethod === 'card' && (
           <div className="w-full rounded-2xl border border-black px-4 py-10">
             <PaymentWithCard />
