@@ -9,7 +9,6 @@ import {
   IconNews,
   IconSettings,
   IconShoppingCart,
-  IconWallet,
 } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname, usePathname } from '@/i18n/routing';
@@ -36,11 +35,6 @@ function getTitleCardContent(
       return {
         Icon: IconSettings,
         title: t('details.title'),
-      };
-    case PAGE_NAMES.ACCOUNT_PAYMENT_METHODS:
-      return {
-        Icon: IconWallet,
-        title: t('paymentMethods.title'),
       };
     case PAGE_NAMES.ACCOUNT_FAVORITES:
       return {
