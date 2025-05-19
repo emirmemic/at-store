@@ -65,6 +65,7 @@ async function loader() {
 
   const res = await fetchAPI<HomepageResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
 
   if (!res.data)

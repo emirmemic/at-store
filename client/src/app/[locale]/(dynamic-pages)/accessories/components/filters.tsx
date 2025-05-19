@@ -67,9 +67,15 @@ export default function Filters({
       const materialsPath = makePath('materials');
 
       const [colorsRes, brandsRes, materialsRes] = await Promise.all([
-        fetchAPI<ColorResponse[]>(colorsPath, { method: 'GET' }),
-        fetchAPI<IdentificationResponse[]>(brandsPath, { method: 'GET' }),
-        fetchAPI<IdentificationResponse[]>(materialsPath, { method: 'GET' }),
+        fetchAPI<ColorResponse[]>(colorsPath, { method: 'GET', isAuth: false }),
+        fetchAPI<IdentificationResponse[]>(brandsPath, {
+          method: 'GET',
+          isAuth: false,
+        }),
+        fetchAPI<IdentificationResponse[]>(materialsPath, {
+          method: 'GET',
+          isAuth: false,
+        }),
       ]);
 
       setColors(colorsRes?.data || []);

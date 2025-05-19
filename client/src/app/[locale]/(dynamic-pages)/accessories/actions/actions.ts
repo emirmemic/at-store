@@ -113,6 +113,7 @@ export async function fetchModels({
   const url = new URL(path, STRAPI_BASE_URL);
   const res = await fetchAPI<ModelResponse[]>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res.data || [];
 }

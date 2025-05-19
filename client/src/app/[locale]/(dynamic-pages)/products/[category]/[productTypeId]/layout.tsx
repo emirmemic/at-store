@@ -15,6 +15,7 @@ const getProductOptions = async (
 
   const response = await fetchAPI<ProductTypeResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   if (!response.data) {
     notFound();
@@ -29,6 +30,7 @@ const getRelatedProducts = async (
 
   const response = await fetchAPI<ProductResponse[]>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   if (!response.data) {
     return [];

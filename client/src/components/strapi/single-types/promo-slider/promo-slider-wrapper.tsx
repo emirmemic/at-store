@@ -34,6 +34,7 @@ async function fetchSlides() {
 
   const res = await fetchAPI<PromoSliderResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
 
   return res;

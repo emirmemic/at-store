@@ -32,6 +32,7 @@ async function fetchCards() {
   url.search = query;
   const res = await fetchAPI<CurrentPromotionsResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }

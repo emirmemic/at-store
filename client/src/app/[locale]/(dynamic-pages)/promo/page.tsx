@@ -47,6 +47,7 @@ async function fetchPageData() {
 
   const res = await fetchAPI<PromoPageResponseData>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }

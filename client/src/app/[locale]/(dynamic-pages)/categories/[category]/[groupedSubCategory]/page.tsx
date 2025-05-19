@@ -25,6 +25,7 @@ async function fetchData(slug: string) {
 
   const res = await fetchAPI<GroupedSubCategoryItem>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }

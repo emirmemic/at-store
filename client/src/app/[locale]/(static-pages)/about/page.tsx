@@ -55,6 +55,7 @@ async function fetchPageData() {
 
   const res = await fetchAPI<AboutPageResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }

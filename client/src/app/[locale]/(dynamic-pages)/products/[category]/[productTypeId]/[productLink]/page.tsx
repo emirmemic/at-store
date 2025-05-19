@@ -19,6 +19,7 @@ async function fetchMetadata(productLink: string) {
 
   const res = await fetchAPI<MetadataResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }

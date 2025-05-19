@@ -22,7 +22,10 @@ export async function getPlaceDetails(
   }
   const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=${fields}&key=${googleApiKey}&language=${language}`;
 
-  const response = await fetchAPI<ResponseType>(url, { method: 'GET' });
+  const response = await fetchAPI<ResponseType>(url, {
+    method: 'GET',
+    isAuth: false,
+  });
   if (!response) return { error: 'No response from API' };
   if (response.status !== 200 || !response.data)
     return { error: 'Invalid response from API' };

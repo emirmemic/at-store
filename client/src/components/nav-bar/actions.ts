@@ -46,6 +46,7 @@ export async function getSearchResults(searchTerm = '') {
   try {
     const response = await fetchAPI<Response>(url.href, {
       method: 'GET',
+      isAuth: false,
     });
     return response.data?.data || [];
   } catch {

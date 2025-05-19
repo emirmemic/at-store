@@ -58,7 +58,10 @@ async function loader() {
   const path = '/api/news-page';
   const url = new URL(path, STRAPI_BASE_URL);
   url.search = newsPageQuery;
-  const res = await fetchAPI<NewsPageResponse>(url.href, { method: 'GET' });
+  const res = await fetchAPI<NewsPageResponse>(url.href, {
+    method: 'GET',
+    isAuth: false,
+  });
 
   if (!res.data) {
     return { latestProducts: null, hotItem: null };

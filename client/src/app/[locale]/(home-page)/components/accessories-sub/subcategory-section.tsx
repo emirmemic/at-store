@@ -17,6 +17,12 @@ const query = qs.stringify(
       image: {
         fields: STRAPI_IMAGE_FIELDS,
       },
+      products: {
+        filters: {
+          publishedAt: { $notNull: true },
+          amountInStock: { $gt: 0 },
+        },
+      },
     },
     filters: {
       category: {
@@ -44,6 +50,7 @@ async function fetchSubCategories() {
   url.search = query;
   const res = await fetchAPI<SubCategoriesResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
   return res;
 }
@@ -51,6 +58,12 @@ async function fetchSubCategories() {
 export default async function SubCategorySection() {
   const response = await fetchSubCategories();
   const items = response?.data?.data || [];
-  const extendedItems = extendItemsToMinLength(items);
+  const filteredItems = items.filter(
+    (item) => item.products && item.products.length > 0
+  );
+  if (!filteredItems || filteredItems.length === 0) {
+    return null;
+  }
+  const extendedItems = extendItemsToMinLength(filteredItems);
   return <SubCategoriesCarousel items={extendedItems} />;
 }
