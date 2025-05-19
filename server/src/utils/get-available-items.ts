@@ -22,7 +22,7 @@ export const getItemsByLink = async (
   const items = await strapi.db.query(model).findMany({
     where: {
       products: {
-        publishedAt: { $notNull: true },
+        ...publishedAndInStockFilter,
         [linkType]: {
           link: {
             $eq: link,
@@ -72,4 +72,13 @@ export const getItemsBySubCategoryLink = async (
   fields = ['id', 'documentId', 'name']
 ): Promise<Array<Record<string, any>>> => {
   return getItemsByLink(strapi, model, subCategoryLink, 'subCategory', fields);
+};
+
+/**
+ * Filters to find items that are published and in stock.
+ * @type {Object}
+ */
+export const publishedAndInStockFilter: object = {
+  publishedAt: { $notNull: true },
+  amountInStock: { $gt: 0 },
 };

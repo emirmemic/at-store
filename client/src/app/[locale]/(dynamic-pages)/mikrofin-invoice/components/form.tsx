@@ -2,9 +2,9 @@
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useState, useContext } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { useUserProvider } from '@/app/providers/user-provider';
 import { mikrofin } from '@/assets/images';
 import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -34,7 +34,7 @@ export default function MikrofinForm() {
   const searchParams = useSearchParams();
   const productIdQuery = searchParams.get('productId') || '';
   const router = useRouter();
-  const { user } = useContext(UserContext);
+  const { user } = useUserProvider();
   const t = useTranslations();
   const [prefilled, setPrefilled] = useState(true);
 

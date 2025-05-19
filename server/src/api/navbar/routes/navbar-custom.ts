@@ -2,8 +2,8 @@ export default {
   routes: [
     {
       method: 'GET',
-      path: '/navbar/published',
-      handler: 'api::navbar.navbar.getPublishedItems',
+      path: '/navbar/filtered',
+      handler: 'api::navbar.navbar.getFilteredItems',
       config: {
         policies: [],
         middlewares: ['api::category.set-starting-price'],

@@ -49,7 +49,7 @@ export default factories.createCoreController(
                 unsubscribedAt: null,
                 token: uuidv4(),
                 ...(existingUser && {
-                  users_permissions_user: existingUser.id,
+                  user: existingUser.id,
                 }),
               },
             });
@@ -78,7 +78,7 @@ export default factories.createCoreController(
             subscribed: true,
             subscribedAt: new Date(),
             publishedAt: new Date(),
-            ...(existingUser && { users_permissions_user: existingUser.id }),
+            ...(existingUser && { user: existingUser.id }),
           },
         });
 
@@ -121,8 +121,8 @@ export default factories.createCoreController(
               subscribed: false,
               unsubscribedAt: new Date(),
               token: uuidv4(),
-              ...(subscriber.users_permissions_user && {
-                users_permissions_user: subscriber.users_permissions_user,
+              ...(subscriber.user && {
+                user: subscriber.user,
               }),
             },
           });
@@ -153,7 +153,7 @@ export default factories.createCoreController(
       let subscriber = await strapi.db
         .query('api::newsletter.newsletter')
         .findOne({
-          where: { users_permissions_user: user.id },
+          where: { user: user.id },
         });
 
       // If no record exists, create a new one (assume subscription is being turned ON)
@@ -174,7 +174,7 @@ export default factories.createCoreController(
               subscribedAt: new Date(),
               token: uuidv4(),
               publishedAt: new Date(),
-              users_permissions_user: user.id,
+              user: user.id,
             },
           });
 
@@ -200,7 +200,7 @@ export default factories.createCoreController(
         subscribedAt,
         unsubscribedAt,
         token: uuidv4(),
-        users_permissions_user: subscriber.users_permissions_user,
+        user: subscriber.user,
       };
 
       const updated = await strapi

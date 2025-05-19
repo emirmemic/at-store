@@ -3,6 +3,7 @@
  */
 
 import { factories } from '@strapi/strapi';
+import { publishedAndInStockFilter } from '../../../utils/get-available-items';
 
 export default factories.createCoreController(
   'api::grouped-sub-category.grouped-sub-category',
@@ -34,6 +35,7 @@ export default factories.createCoreController(
                   'shortDescription',
                 ],
                 populate: {
+                  filters: publishedAndInStockFilter,
                   products: {
                     fields: ['id', 'productLink', 'productTypeId'],
                   },
@@ -48,8 +50,14 @@ export default factories.createCoreController(
         if (!item) {
           return ctx.notFound('Grouped sub-category not found');
         }
+        const subCategories = item.subCategories.filter(
+          (subCategory) => subCategory.products.length > 0
+        );
 
-        return item;
+        return {
+          ...item,
+          subCategories,
+        };
       } catch (error) {
         return ctx.badRequest('Failed to fetch grouped sub-category details');
       }

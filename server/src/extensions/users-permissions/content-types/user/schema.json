@@ -115,12 +115,6 @@
       "target": "api::product.product",
       "mappedBy": "favoritedBy"
     },
-    "payment_methods": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::payment-method.payment-method",
-      "mappedBy": "user"
-    },
     "cart": {
       "type": "relation",
       "relation": "oneToOne",
@@ -131,7 +125,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::newsletter.newsletter",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

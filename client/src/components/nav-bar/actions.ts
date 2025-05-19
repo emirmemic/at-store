@@ -54,7 +54,7 @@ export async function getSearchResults(searchTerm = '') {
 }
 
 export async function getNavbarData() {
-  const path = '/api/navbar/published';
+  const path = '/api/navbar/filtered';
   const url = new URL(path, STRAPI_BASE_URL);
 
   try {

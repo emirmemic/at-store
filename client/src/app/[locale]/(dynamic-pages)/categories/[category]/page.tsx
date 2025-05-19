@@ -22,6 +22,7 @@ async function fetchCategory(slug: string) {
 
   const res = await fetchAPI<CategoryResponse>(url.href, {
     method: 'GET',
+    isAuth: false,
   });
 
   return res;

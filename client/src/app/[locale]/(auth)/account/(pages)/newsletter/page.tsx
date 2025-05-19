@@ -1,8 +1,8 @@
 'use client';
 import { useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import { UserContext } from '@/app/providers';
+import { useUserProvider } from '@/app/providers/user-provider';
 import { IconLoader } from '@/components/icons';
 import { Switch } from '@/components/ui/switch';
 import { useLoader } from '@/lib/hooks';
@@ -16,7 +16,7 @@ export default function Page() {
   // Providers and Hooks
   const t = useTranslations('newsletterPage');
   const { toast } = useToast();
-  const { user, updateUserNewsletter } = useContext(UserContext);
+  const { user, updateUserNewsletter } = useUserProvider();
 
   // State
   const [isSubscribed, setIsSubscribed] = useState(

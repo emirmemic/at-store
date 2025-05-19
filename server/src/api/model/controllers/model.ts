@@ -3,6 +3,7 @@
  */
 
 import { factories } from '@strapi/strapi';
+import { publishedAndInStockFilter } from '../../../utils/get-available-items';
 
 export default factories.createCoreController(
   'api::model.model',
@@ -19,14 +20,22 @@ export default factories.createCoreController(
               link: category,
             },
           },
+          populate: {
+            products: {
+              filters: publishedAndInStockFilter,
+            },
+          },
           status: 'published',
         });
 
         if (!models || models.length === 0) {
           return ctx.notFound('No models found for category');
         }
+        const filteredModels = models.filter((model) => {
+          model.products.length > 0;
+        });
 
-        return models;
+        return filteredModels;
       } catch (error) {
         return ctx.badRequest('Failed to fetch models under category');
       }
@@ -49,6 +58,11 @@ export default factories.createCoreController(
               link: subCategory,
             },
           },
+          populate: {
+            products: {
+              filters: publishedAndInStockFilter,
+            },
+          },
           status: 'published',
         });
 
@@ -57,8 +71,11 @@ export default factories.createCoreController(
             `No models found for ${category} and ${subCategory}`
           );
         }
+        const filteredModels = models.filter((model) => {
+          model.products.length > 0;
+        });
 
-        return models;
+        return filteredModels;
       } catch (error) {
         return ctx.badRequest(
           `Failed to fetch models under ${category} and ${subCategory}, error: ${error}`

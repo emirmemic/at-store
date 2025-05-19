@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+import { publishedAndInStockFilter } from '../../../utils/get-available-items';
 
 export default factories.createCoreController(
   'api::category.category',
@@ -30,6 +31,7 @@ export default factories.createCoreController(
                 ],
                 populate: {
                   products: {
+                    filters: publishedAndInStockFilter,
                     fields: ['id', 'productLink', 'productTypeId'],
                   },
                   image: {
@@ -43,8 +45,13 @@ export default factories.createCoreController(
         if (!category) {
           return ctx.notFound('Category not found');
         }
-
-        return category;
+        const subCategories = category.subCategories.filter(
+          (subCategory) => subCategory.products.length > 0
+        );
+        return {
+          ...category,
+          subCategories,
+        };
       } catch (error) {
         return ctx.badRequest('Failed to fetch category details');
       }
@@ -67,6 +74,16 @@ export default factories.createCoreController(
                   models: {
                     fields: ['id', 'name', 'displayName'],
                     populate: {
+                      products: {
+                        filters: publishedAndInStockFilter,
+                        fields: [
+                          'id',
+                          'productLink',
+                          'productTypeId',
+                          'publishedAt',
+                          'amountInStock',
+                        ],
+                      },
                       icon: {
                         fields: ['url', 'alternativeText'],
                       },
@@ -85,8 +102,13 @@ export default factories.createCoreController(
         if (!accessoryType) {
           return ctx.badRequest('Accessory type not found');
         }
-
-        return accessoryType;
+        const models = accessoryType.models.filter(
+          (model) => model.products.length > 0
+        );
+        return {
+          ...accessoryType,
+          models,
+        };
       } catch (error) {
         return ctx.badRequest('Failed to fetch accessory type and models');
       }
