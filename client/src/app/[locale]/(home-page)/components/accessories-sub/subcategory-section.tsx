@@ -61,7 +61,7 @@ export default async function SubCategorySection() {
   const filteredItems = items.filter(
     (item) => item.products && item.products.length > 0
   );
-  if (!filteredItems || filteredItems.length === 0) {
+  if (filteredItems.length === 0) {
     return null;
   }
   const extendedItems = extendItemsToMinLength(filteredItems);

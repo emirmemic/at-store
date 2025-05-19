@@ -1,5 +1,5 @@
 'use client';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useUserProvider } from '@/app/providers/user-provider';
@@ -10,10 +10,11 @@ import Form from './form';
 
 export default function Content() {
   const { user } = useUserProvider();
+  const router = useRouter();
   // Redirect if user is logged in and has account details
   if (user && user.accountDetails) {
     const newRoute = PAGE_NAMES.ACCOUNT_NEWSLETTER;
-    redirect(newRoute);
+    router.push(newRoute);
   }
   const t = useTranslations('newsletterPage');
   return (
