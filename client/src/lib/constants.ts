@@ -75,6 +75,7 @@ export const AT_STORE_INFO = {
   website: 'www.atstore.ba',
   email: 'at@atstore.ba',
   phone: '+387 33 956 618',
+  businessEmail: 'business@atstore.ba',
   bankAccounts: [
     { bank: 'Raiffeisen Bank', account: '1610000103890018' },
     { bank: 'ProCredit Bank', account: '1941410317500185' },

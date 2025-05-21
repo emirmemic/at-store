@@ -11,6 +11,7 @@ export const generateInvoiceHTML = ({
   invoiceNumber,
   totalPrice,
 }: InvoiceData) => {
+  const businessEmail = AT_STORE_INFO.businessEmail;
   return `
   <html>
     <head>
@@ -34,6 +35,11 @@ export const generateInvoiceHTML = ({
 
       <div style="margin-top: 3rem;">
         ${makeProductsTable(cart, totalPrice)}
+      </div>
+
+      <div style="margin-top: 4rem; font-size: 12px; color: #444;">
+        <strong>Napomena:</strong><br/>
+        Ova ponuda važi 24 sata. Nakon izvršene uplate, pošaljite potvrdu o uplati na email adresu <a href="mailto:${businessEmail}">${businessEmail}</a>.
       </div>
     </body>
   </html>
@@ -234,10 +240,13 @@ const makeProductsTable = (cart: ShoppingCartItem[], totalPrice: number) => {
 };
 
 const formatDate = (date: Date) => {
-  return date.toLocaleDateString('de-DE', {
+  return date.toLocaleString('de-DE', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
   });
 };
 
