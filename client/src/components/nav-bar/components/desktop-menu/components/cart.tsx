@@ -89,17 +89,17 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
         >
           <Link href={PAGE_NAMES.CART}>{t('seeCart')}</Link>
         </Button>
-        <Button
-          asChild
-          className="w-full max-w-48 whitespace-normal"
-          size={'md'}
-          variant={'filled'}
-          onClick={onClickButton}
-        >
-          <Link href={isOrganization ? PAGE_NAMES.B2B : PAGE_NAMES.CHECKOUT}>
-            {isOrganization ? t('invoice') : t('payment')}
-          </Link>
-        </Button>
+        {!isOrganization && (
+          <Button
+            asChild
+            className="w-full max-w-48 whitespace-normal"
+            size={'md'}
+            variant={'filled'}
+            onClick={onClickButton}
+          >
+            <Link href={PAGE_NAMES.CHECKOUT}>{t('payment')}</Link>
+          </Button>
+        )}
       </div>
     </div>
   );

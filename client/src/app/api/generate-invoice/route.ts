@@ -1,14 +1,9 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import puppeteer from 'puppeteer';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
-import { generateInvoiceHTML } from '@/lib/templates/invoiceHtml';
-import type {
-  ShoppingCartItem,
-  UserInformation,
-  InvoiceData,
-} from '@/lib/types';
+import { generatePreInvoicePdf } from '@/lib/pdf/generate';
+import type { InvoiceData } from '@/lib/types';
 
 export async function POST(req: NextRequest) {
   try {
@@ -95,34 +90,4 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-// Helper: PDF generation
-export async function generatePreInvoicePdf(
-  organization: UserInformation,
-  cart: ShoppingCartItem[],
-  invoiceNumber: string,
-  totalPrice: number
-) {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-
-  const page = await browser.newPage();
-  const html = generateInvoiceHTML({
-    organization,
-    cart,
-    invoiceNumber,
-    totalPrice,
-  });
-
-  await page.setContent(html, { waitUntil: 'networkidle0' });
-  const pdfBuffer = await page.pdf({
-    format: 'A4',
-    printBackground: true,
-  });
-
-  await browser.close();
-  return pdfBuffer;
 }
