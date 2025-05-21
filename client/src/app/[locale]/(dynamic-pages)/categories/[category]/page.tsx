@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
 import { InfoBlock } from '@/components';
 import { ProductListTitle, SubProductCard } from '@/components/product-cards';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { STRAPI_BASE_URL } from '@/lib/constants';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { CategoryItem, SubCategoryItem } from '@/lib/types';
 import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
@@ -18,13 +19,19 @@ interface GenerateMetadataParams {
 
 async function fetchCategory(slug: string) {
   const path = `/api/categories/by-slug/${slug}`;
+  const query = qs.stringify({
+    populate: {
+      image: {
+        fields: STRAPI_IMAGE_FIELDS,
+      },
+    },
+  });
   const url = new URL(path, STRAPI_BASE_URL);
-
+  url.search = query;
   const res = await fetchAPI<CategoryResponse>(url.href, {
     method: 'GET',
     isAuth: false,
   });
-
   return res;
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {

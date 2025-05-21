@@ -60,7 +60,7 @@ export default function RelatedProductAccessories({
         <p className="flex min-h-16 items-center justify-center text-center heading-4">
           {finalName}
         </p>
-        <Price value={finalPrice} />
+        <Price className="text-center paragraph-1" value={finalPrice} />
       </div>
       <Button asChild size={'md'} variant={'filled'}>
         <span>{t('buyNow')}</span>
