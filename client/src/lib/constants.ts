@@ -64,6 +64,24 @@ export const GOOGLE_MAPS_LOCATIONS = {
   },
 } as const;
 
+// Organization Pre-invoice Related
+export const AT_STORE_INFO = {
+  logoUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/assets/images/logo-black.png`,
+  name: 'AT STORE d.o.o.',
+  address: 'Franca Lehara 2, 71000 Sarajevo',
+  id: '4201813620006',
+  pdv: '201813620006',
+  registry: '065-0-Reg13-002173',
+  website: 'www.atstore.ba',
+  email: 'at@atstore.ba',
+  phone: '+387 33 956 618',
+  bankAccounts: [
+    { bank: 'Raiffeisen Bank', account: '1610000103890018' },
+    { bank: 'ProCredit Bank', account: '1941410317500185' },
+    { bank: 'UniCredit Bank', account: '3386902268310195' },
+  ],
+};
+
 // Product Related
 // The name of the category in the Strapi database, used for fetching products.It is the unique identifier for the category.
 export const ACCESSORY_CATEGORY_NAME = 'dodaci';

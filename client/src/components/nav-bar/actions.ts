@@ -1,7 +1,7 @@
 'use server';
 import qs from 'qs';
 
-import { STRAPI_BASE_URL } from '@/lib/constants';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ProductResponse } from '@/lib/types';
 
@@ -20,6 +20,9 @@ export async function getSearchResults(searchTerm = '') {
     populate: {
       category: true,
       subCategory: true,
+      images: {
+        fields: STRAPI_IMAGE_FIELDS,
+      },
     },
   };
 

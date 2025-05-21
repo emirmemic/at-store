@@ -907,6 +907,9 @@
       "quantity": "Količina",
       "total": "Ukupno"
     },
+    "previewInvoice": "Pregled predračuna",
+    "preInvoiceError": "Greška prilikom kreiranja predračuna",
+    "preInvoiceSuccess": "Predračun je uspješno kreiran. Molimo provjerite svoj e-mail.",
     "emptyCart": "Korpa je prazna.",
     "returnToShopping": "Vrati se na kupovinu",
     "continue": "Nastavi",

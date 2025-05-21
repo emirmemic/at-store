@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "organization_pre_invoices",
+  "info": {
+    "singularName": "organization-pre-invoice",
+    "pluralName": "organization-pre-invoices",
+    "displayName": "Organization Pre Invoice",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "invoiceNumber": {
+      "type": "uid"
+    },
+    "invoiceStatus": {
+      "type": "enumeration",
+      "enum": ["pending", "paid", "processed"]
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "organizationPreInvoices"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.cart-item"
+    },
+    "pdfFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files"]
+    },
+    "totalAmount": {
+      "type": "decimal"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "emailSent": {
+      "type": "boolean"
+    }
+  }
+}

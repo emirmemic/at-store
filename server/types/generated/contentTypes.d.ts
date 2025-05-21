@@ -1113,6 +1113,49 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiOrganizationPreInvoiceOrganizationPreInvoice
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'organization_pre_invoices';
+  info: {
+    description: '';
+    displayName: 'Organization Pre Invoice';
+    pluralName: 'organization-pre-invoices';
+    singularName: 'organization-pre-invoice';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailSent: Schema.Attribute.Boolean;
+    invoiceNumber: Schema.Attribute.UID;
+    invoiceStatus: Schema.Attribute.Enumeration<
+      ['pending', 'paid', 'processed']
+    >;
+    items: Schema.Attribute.Component<'global.cart-item', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::organization-pre-invoice.organization-pre-invoice'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    pdfFile: Schema.Attribute.Media<'files'>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    totalAmount: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   collectionName: 'products';
   info: {
@@ -1847,6 +1890,10 @@ export interface PluginUsersPermissionsUser
       'api::newsletter.newsletter'
     >;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
+    organizationPreInvoices: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::organization-pre-invoice.organization-pre-invoice'
+    >;
     password: Schema.Attribute.Password & Schema.Attribute.Private;
     phoneNumber: Schema.Attribute.BigInteger &
       Schema.Attribute.Required &
@@ -1912,6 +1959,7 @@ declare module '@strapi/strapi' {
       'api::news-page.news-page': ApiNewsPageNewsPage;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
       'api::order.order': ApiOrderOrder;
+      'api::organization-pre-invoice.organization-pre-invoice': ApiOrganizationPreInvoiceOrganizationPreInvoice;
       'api::product.product': ApiProductProduct;
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;

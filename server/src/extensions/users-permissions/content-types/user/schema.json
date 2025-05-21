@@ -126,6 +126,12 @@
       "relation": "oneToOne",
       "target": "api::newsletter.newsletter",
       "mappedBy": "user"
+    },
+    "organizationPreInvoices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::organization-pre-invoice.organization-pre-invoice",
+      "mappedBy": "user"
     }
   }
 }
