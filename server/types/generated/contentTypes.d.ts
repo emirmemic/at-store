@@ -1252,7 +1252,7 @@ export interface ApiPromoPagePromoPage extends Struct.SingleTypeSchema {
     singularName: 'promo-page';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -1265,6 +1265,7 @@ export interface ApiPromoPagePromoPage extends Struct.SingleTypeSchema {
       'api::promo-page.promo-page'
     > &
       Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

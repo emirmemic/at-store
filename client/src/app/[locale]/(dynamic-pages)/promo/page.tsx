@@ -4,9 +4,10 @@ import qs from 'qs';
 import { InfoBlock } from '@/components';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { STRAPI_BASE_URL } from '@/lib/constants';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
+import ProductsSlider from './products-slider';
 import { PromoPageResponseData } from './types';
 
 interface GenerateMetadataParams {
@@ -33,6 +34,13 @@ const query = qs.stringify(
           actionLink: true,
         },
       },
+      products: {
+        populate: {
+          images: {
+            fields: STRAPI_IMAGE_FIELDS,
+          },
+        },
+      },
     },
   },
   {
@@ -56,6 +64,7 @@ export default async function Page() {
   const t = await getTranslations('promoPage');
   const response = await fetchPageData();
   const info = response?.data?.data.infoBlock || null;
+  const products = response?.data?.data.products || [];
 
   return (
     <div className="flex flex-col gap-16 py-10 md:py-14">
@@ -73,7 +82,7 @@ export default async function Page() {
           />
         )}
       </div>
-      {/* TODO Implement the last section with product cards once the products are configured  */}
+      {products.length > 0 && <ProductsSlider products={products} />}
     </div>
   );
 }
