@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
-import { CURRENCY } from '@/lib/constants';
 import { BestSellerItem } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 
 import { StrapiImage } from '../strapi/components/strapi-image';
+import Price from '../ui/price';
 export default function BestSellerCard(bestSeller: BestSellerItem) {
   const {
     name,
@@ -44,9 +44,7 @@ export default function BestSellerCard(bestSeller: BestSellerItem) {
         </div>
         <p className="mb-3 paragraph-4">{tagline}</p>
         <p className="mb-3 text-ellipsis heading-4">{name}</p>
-        <p className="font-sf-pro-display paragraph-2">
-          {`${finalPrice} ${CURRENCY}`}
-        </p>
+        <Price className="font-sf-pro-display paragraph-2" value={finalPrice} />
       </div>
       {productLink && (
         <Button asChild className="mx-auto w-fit" size="md" variant="filled">

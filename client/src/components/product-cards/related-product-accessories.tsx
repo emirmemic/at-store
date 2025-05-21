@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { StrapiImage } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
-import { CURRENCY } from '@/lib/constants';
+import Price from '@/components/ui/price';
 import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
@@ -60,7 +60,7 @@ export default function RelatedProductAccessories({
         <p className="flex min-h-16 items-center justify-center text-center heading-4">
           {finalName}
         </p>
-        <p className="text-center paragraph-1">{`${finalPrice} ${CURRENCY}`}</p>
+        <Price value={finalPrice} />
       </div>
       <Button asChild size={'md'} variant={'filled'}>
         <span>{t('buyNow')}</span>

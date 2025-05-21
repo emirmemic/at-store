@@ -7,8 +7,8 @@ import { useContext, useState } from 'react';
 import { UserContext } from '@/app/providers';
 import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
+import Price from '@/components/ui/price';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { CURRENCY } from '@/lib/constants';
 import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -129,11 +129,14 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         )}
         {discountedPrice && (
           <div className="flex items-center gap-2 text-sm">
-            <p className="text-muted-foreground line-through">{`${originalPrice} ${CURRENCY}`}</p>
+            <Price
+              className="text-muted-foreground line-through"
+              value={originalPrice}
+            />
             <p className="text-green-600">{`${discountPercentage}% off`}</p>
           </div>
         )}
-        <p className="text-sm font-semibold">{`${finalPrice} ${CURRENCY}`}</p>
+        <Price className="text-sm font-semibold" value={finalPrice} />
       </div>
       {tag && (
         <ProductTag

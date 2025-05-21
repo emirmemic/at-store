@@ -11,11 +11,8 @@ import { useState } from 'react';
 import { useCartProvider } from '@/app/providers';
 import { IconChevron } from '@/components/icons';
 import { ProductCartTableItem } from '@/components/product-cards';
-import {
-  CURRENCY,
-  DELIVERY_COST,
-  MINIMUM_AMOUNT_FREE_DELIVERY,
-} from '@/lib/constants';
+import Price from '@/components/ui/price';
+import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 export default function CartSection() {
   const [isOpen, setIsOpen] = useState(true);
@@ -77,7 +74,7 @@ export function TitleWithValue({
   return (
     <div className="flex justify-between">
       <p className="paragraph-1">{title}</p>
-      <p className="heading-5">{`${value} ${CURRENCY}`}</p>
+      <Price className="heading-5" value={value} />
     </div>
   );
 }
