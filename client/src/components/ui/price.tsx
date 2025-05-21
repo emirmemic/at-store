@@ -1,4 +1,5 @@
 import { CURRENCY } from '@/lib/constants';
+import { formatPrice } from '@/lib/formatters';
 
 interface PriceProps {
   value: number;
@@ -6,14 +7,9 @@ interface PriceProps {
 }
 
 export default function Price({ value, className }: PriceProps) {
-  const formatter = new Intl.NumberFormat('de-DE', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  });
-
   return (
     <span className={className}>
-      {formatter.format(value)} {CURRENCY}
+      {formatPrice(value)} {CURRENCY}
     </span>
   );
 }

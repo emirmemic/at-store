@@ -6,29 +6,157 @@ import { useTranslations } from 'next-intl';
 import { IconTrash } from '@/components/icons';
 import { StrapiImage } from '@/components/strapi/components';
 import { CounterInput } from '@/components/ui/counter-input';
-import { CURRENCY } from '@/lib/constants';
-import { ShoppingCartItem } from '@/lib/types';
+import Price from '@/components/ui/price';
+import { ImageProps, ProductResponse, ShoppingCartItem } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
-import { cn } from '@/lib/utils/utils';
 
 interface ProductCartTableItemProps {
   cartItem: ShoppingCartItem;
   onQuantityChange?: (cartItem: ShoppingCartItem) => void;
   onRemove?: (cartItem: ShoppingCartItem) => void;
-  className?: string;
-  isMobile?: boolean;
+  isDesktop?: boolean;
 }
+
+interface CartItemProps {
+  product: ProductResponse;
+  image: ImageProps | null;
+  finalLink: string;
+  quantity: number;
+  finalPrice: number;
+  totalPrice: number;
+  onRemove: () => void;
+  onQuantityChange: (newValue: number) => void;
+}
+
+const ImageContainer = ({
+  image,
+  product,
+}: {
+  image: ImageProps | null;
+  product: ProductResponse;
+}) => {
+  const t = useTranslations('productPage');
+  return (
+    <div className="h-32 w-32 shrink-0">
+      {image ? (
+        <StrapiImage
+          alt={image?.alternativeText || product.displayName}
+          className="h-full w-full object-contain"
+          height={128}
+          sizes="(max-width: 1024px) 8rem, 10rem"
+          src={image?.url ?? ''}
+          width={128}
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-4">
+          {t('noImagesAvailable')}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const CloseButton = ({ onClick }: { onClick: () => void }) => {
+  const t = useTranslations('common');
+  return (
+    <button
+      aria-label={t('removeItem')}
+      className="p-3 text-black transition-colors duration-300 hover:text-grey-darker"
+      title={t('removeItem')}
+      type="button"
+      onClick={onClick}
+    >
+      <IconTrash className="h-5 w-5" />
+    </button>
+  );
+};
+
+const MobileCartItem = ({
+  product,
+  quantity,
+  image,
+  finalLink,
+  finalPrice,
+  totalPrice,
+  onRemove,
+  onQuantityChange,
+}: CartItemProps) => {
+  return (
+    <div className="flex flex-col gap-2 border-b border-grey-light p-4 heading-5">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3 pr-8">
+          <ImageContainer image={image} product={product} />
+          <div className="flex flex-col gap-3">
+            <Link className="hover:underline" href={finalLink}>
+              {product.displayName}
+            </Link>
+            <Price value={finalPrice} />
+          </div>
+        </div>
+        <CloseButton onClick={onRemove} />
+      </div>
+      <div className="flex w-full items-center justify-between gap-4">
+        <CounterInput
+          max={product.amountInStock}
+          min={1}
+          value={quantity}
+          onChange={onQuantityChange}
+        />
+
+        <Price value={totalPrice} />
+      </div>
+    </div>
+  );
+};
+const DesktopCartItem = ({
+  product,
+  quantity,
+  image,
+  finalLink,
+  finalPrice,
+  totalPrice,
+  onRemove,
+  onQuantityChange,
+}: CartItemProps) => {
+  return (
+    <tr className="border-b border-grey-light paragraph-2">
+      <td className="px-4 py-4">
+        <div className="flex items-center gap-4">
+          <ImageContainer image={image} product={product} />
+          <Link className="hover:underline" href={finalLink}>
+            {product.displayName}
+          </Link>
+        </div>
+      </td>
+      <td className="whitespace-nowrap px-4 py-4">
+        <Price value={finalPrice} />
+      </td>
+
+      <td className="px-4 py-4">
+        <CounterInput
+          max={product.amountInStock}
+          min={1}
+          value={quantity}
+          onChange={onQuantityChange}
+        />
+      </td>
+      <td className="whitespace-nowrap px-4 py-4">
+        <Price value={totalPrice} />
+      </td>
+      <td className="px-4 py-4">
+        <CloseButton onClick={onRemove} />
+      </td>
+    </tr>
+  );
+};
 
 export default function ProductCartTableItem({
   cartItem,
   onQuantityChange,
-  onRemove,
-  className,
-  isMobile = false,
+  onRemove = () => {}, // Provide a default no-op function to avoid runtime errors
+  isDesktop = true,
 }: ProductCartTableItemProps) {
-  const t = useTranslations('common');
   const { product, quantity } = cartItem;
-
   const handleQuantityChange = (newValue: number) => {
     onQuantityChange?.({ ...cartItem, quantity: newValue });
   };
@@ -38,105 +166,38 @@ export default function ProductCartTableItem({
   };
 
   const finalPrice = product.discountedPrice ?? product.originalPrice;
-  const totalPrice = `${finalPrice * quantity} ${CURRENCY}`;
+  const totalPrice = finalPrice * quantity;
   const image = product.images?.[0] ?? null;
   const finalLink = makeProductLink(
     product?.category?.link ?? '',
     product.productTypeId,
     product.productLink ?? ''
   );
-
   return (
-    <div
-      className={cn(
-        isMobile
-          ? 'relative flex w-full flex-col gap-2 border-b border-grey-light p-2 pb-4 heading-5'
-          : 'relative flex w-full flex-col gap-2 border-b border-grey-light p-2 pb-4 heading-5 md:grid md:grid-cols-6 md:gap-4 lg:heading-4',
-        className
-      )}
-    >
-      <div
-        className={cn(
-          isMobile
-            ? 'flex items-center gap-3 pr-8'
-            : 'flex items-center gap-3 pr-8 md:col-span-2 md:grid md:grid-cols-2 md:gap-4 md:p-0'
-        )}
-      >
-        <div
-          className={cn(
-            isMobile ? 'col-span-1 mb-2 h-32 w-32' : 'col-span-1 mb-2 h-32 w-32'
-          )}
-        >
-          {image && (
-            <StrapiImage
-              alt={image?.alternativeText || product.name}
-              className="h-full w-full object-contain"
-              height={128}
-              sizes="(max-width: 1024px) 8rem, 10rem"
-              src={image?.url ?? ''}
-              width={128}
-            />
-          )}
-        </div>
-        <div
-          className={cn(
-            isMobile
-              ? 'flex flex-col gap-3'
-              : 'flex flex-col gap-3 md:col-span-1 md:flex-row md:gap-4'
-          )}
-        >
-          <Link
-            className={cn('max-h-28 overflow-hidden hover:underline')}
-            href={finalLink}
-          >
-            {product.name}
-          </Link>
-          <p className={isMobile ? '' : 'md:hidden'}>
-            {finalPrice} {CURRENCY}
-          </p>
-        </div>
-      </div>
-
-      {!isMobile && (
-        <p className="hidden self-center md:col-span-1 md:block">
-          {finalPrice} {CURRENCY}
-        </p>
-      )}
-
-      <div
-        className={cn(
-          isMobile
-            ? 'flex w-full items-center justify-between gap-4'
-            : 'flex w-full items-center justify-between gap-4 md:col-span-2 md:grid md:grid-cols-2 md:justify-center md:gap-4'
-        )}
-      >
-        <CounterInput
-          className={cn(isMobile ? 'self-end' : 'self-end md:self-start')}
-          max={product.amountInStock}
-          min={1}
-          value={quantity}
-          onChange={handleQuantityChange}
+    <>
+      {isDesktop ? (
+        <DesktopCartItem
+          finalLink={finalLink}
+          finalPrice={finalPrice}
+          image={image}
+          product={product}
+          quantity={quantity}
+          totalPrice={totalPrice}
+          onQuantityChange={handleQuantityChange}
+          onRemove={handleRemove}
         />
-
-        <p>{totalPrice}</p>
-      </div>
-
-      <div
-        className={cn(isMobile ? '' : 'md:col-span-1 md:flex md:justify-end')}
-      >
-        <button
-          aria-label={t('removeItem')}
-          className={cn(
-            'absolute right-2 top-2 p-2 text-black transition-colors duration-300 hover:text-grey-darker',
-            !isMobile && 'md:static'
-          )}
-          title={t('removeItem')}
-          type="button"
-          onClick={handleRemove}
-        >
-          <IconTrash className="h-5 w-5" />
-        </button>
-      </div>
-    </div>
+      ) : (
+        <MobileCartItem
+          finalLink={finalLink}
+          finalPrice={finalPrice}
+          image={image}
+          product={product}
+          quantity={quantity}
+          totalPrice={totalPrice}
+          onQuantityChange={handleQuantityChange}
+          onRemove={handleRemove}
+        />
+      )}
+    </>
   );
 }

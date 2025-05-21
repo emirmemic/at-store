@@ -57,7 +57,7 @@ export default function CartSection() {
           <ProductCartTableItem
             key={item.id}
             cartItem={item}
-            isMobile={true}
+            isDesktop={false}
             onQuantityChange={updateCart}
             onRemove={updateCart}
           />

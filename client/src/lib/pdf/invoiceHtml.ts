@@ -1,4 +1,5 @@
 import { AT_STORE_INFO, CURRENCY } from '@/lib/constants';
+import { formatPrice } from '@/lib/formatters';
 import type {
   InvoiceData,
   ShoppingCartItem,
@@ -247,12 +248,5 @@ const formatDate = (date: Date) => {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
-  });
-};
-
-const formatPrice = (price: number) => {
-  return price.toLocaleString('de-DE', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
   });
 };

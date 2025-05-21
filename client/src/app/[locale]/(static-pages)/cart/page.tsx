@@ -16,8 +16,8 @@ export default function CartPage() {
     <main className="flex flex-col py-12 container-max-width">
       <PageTitle title={t('cartPage.title')} />
       <Content />
-      <MostSoldSection />
-      <div className="mt-20 flex flex-col items-center justify-center gap-8">
+      {/* <MostSoldSection /> */}
+      {/* <div className="mt-20 flex flex-col items-center justify-center gap-8">
         {infoBlocks.map((infoBlock) => (
           <InfoBlock
             key={infoBlock.id}
@@ -28,7 +28,7 @@ export default function CartPage() {
             title={infoBlock.title}
           />
         ))}
-      </div>
+      </div> */}
     </main>
   );
 }

@@ -97,6 +97,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             alt={image?.alternativeText || name}
             className="aspect-[4/3] w-full object-contain"
             height={200}
+            sizes="(max-width: 1024px) 16rem, 32rem"
             src={image?.url ?? ''}
             width={200}
           />

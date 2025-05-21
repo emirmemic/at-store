@@ -4,11 +4,17 @@ import { useRef, useState } from 'react';
 
 import { useCartProvider } from '@/app/providers';
 import { useUserProvider } from '@/app/providers/user-provider';
-import { IconClose, IconShoppingCart, IconTrash } from '@/components/icons';
+import {
+  IconClose,
+  IconShoppingCart,
+  IconTrash,
+  IconX,
+} from '@/components/icons';
 import { IconCart } from '@/components/nav-bar/icons';
 import { StrapiImage } from '@/components/strapi/components';
 import { AnimateHeight } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
+import Price from '@/components/ui/price';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
@@ -22,7 +28,10 @@ const NoItems = ({ text }: { text: string }) => (
 );
 
 const ListItem = ({ item }: { item: ShoppingCartItem }) => {
-  const { product } = item;
+  const t = useTranslations('productPage');
+  const { product, quantity } = item;
+  const finalPrice = product.discountedPrice ?? product.originalPrice;
+  const totalPrice = finalPrice * quantity;
   const image = product?.images?.[0] ?? null;
   const { updateCart } = useCartProvider();
 
@@ -32,8 +41,8 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
 
   return (
     <div className="relative flex items-center gap-2 border-b border-grey-extra-light px-6 py-4">
-      <div className="flex h-32 w-32 shrink-0 items-center justify-center">
-        {image && (
+      <div className="relative flex h-32 w-32 shrink-0 items-center justify-center">
+        {image ? (
           <StrapiImage
             alt={product.name}
             className="h-full w-full object-contain"
@@ -41,13 +50,25 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
             src={image?.url ?? ''}
             width={100}
           />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-4">
+            {t('noImagesAvailable')}
+          </div>
+        )}
+        {quantity > 1 && (
+          <span className="absolute right-1 top-1 flex items-center justify-center gap-0.5 rounded-full bg-blue px-2 py-0.5 text-sm text-white paragraph-2">
+            <span>
+              <IconX className="h-2 w-2"></IconX>
+            </span>
+            <span>{quantity}</span>
+          </span>
         )}
       </div>
       <div className="flex grow flex-col gap-2">
         <p className="paragraph-2">{product.name}</p>
-        <p className="paragraph-2">
-          {product.discountedPrice ?? product.originalPrice}
-        </p>
+        <div className="flex items-center gap-2">
+          <Price value={totalPrice} />
+        </div>
       </div>
       <Button
         className="group absolute bottom-1 right-1 p-2"
@@ -71,6 +92,9 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
   const isOrganization = user?.accountDetails.role?.type === 'organization';
 
   const t = useTranslations('navbar');
+  const buttonText = isOrganization
+    ? t('seeCartAndRequestInvoice')
+    : t('seeCart');
   return (
     <div className="relative pb-40">
       <div className="flex max-h-[calc(100vh-20rem)] flex-col gap-2 overflow-y-auto custom-scrollbar">
@@ -78,21 +102,21 @@ const ItemsInCart = ({ cart, onClickButton }: ItemsInCartProps) => {
           <ListItem key={item.id} item={item} />
         ))}
       </div>
-      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-between gap-4 bg-grey-extra-light pb-8 pt-5">
+      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center gap-4 bg-grey-extra-light px-8 pb-8 pt-5">
         <Button
           asChild
-          className="w-full max-w-48 whitespace-normal"
+          className="w-full whitespace-normal"
           size={'md'}
           transparentVariant={'black'}
           variant={'transparent'}
           onClick={onClickButton}
         >
-          <Link href={PAGE_NAMES.CART}>{t('seeCart')}</Link>
+          <Link href={PAGE_NAMES.CART}>{buttonText}</Link>
         </Button>
         {!isOrganization && (
           <Button
             asChild
-            className="w-full max-w-48 whitespace-normal"
+            className="w-full whitespace-normal"
             size={'md'}
             variant={'filled'}
             onClick={onClickButton}

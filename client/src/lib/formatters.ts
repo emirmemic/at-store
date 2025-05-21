@@ -20,3 +20,10 @@ export const makeSpecsArray = (product: ProductResponse): string[] => {
   if (product.brand) specs.push(product.brand.name);
   return specs.slice(0, 4);
 };
+
+export const formatPrice = (price: number) => {
+  return price.toLocaleString('de-DE', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  });
+};

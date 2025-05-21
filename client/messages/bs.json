@@ -183,6 +183,7 @@
     "payment": "Plaćanje",
     "visitHomePage": "Posjetite početnu stranicu At Store",
     "noResults": "Nema rezultata pretrage",
+    "seeCartAndRequestInvoice": "Pregledaj korpu i zatraži predračun",
     "infoCards": {
       "payInInstallmentsTitle": "Plaćanje na rate",
       "eduDiscountTitle": "Obrazovni popust",
@@ -918,8 +919,8 @@
     "totalPrice": "Ukupna cijena",
     "mostSold": "Najprodavaniji",
     "couponCode": "Kod kupona",
-    "invoice": "Predračun",
-    "invoiceDescription": "Klikom na predračun dobijate predračun po kojem možete uplatiti vašu narudžbu."
+    "invoice": "Napravi predračun",
+    "invoiceDescription": "Klikom na \"Napravi predračun\", predračun će vam biti poslan na e-mail, koji možete koristiti za uplatu narudžbe."
   },
   "newsPage": {
     "title": "Novosti",
