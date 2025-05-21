@@ -60,17 +60,8 @@ export const routing = defineRouting({
     [PAGE_NAMES.LOGIN_OR_GUEST]: {
       bs: '/prijava-ili-gost',
     },
-    [PAGE_NAMES.CAREERS]: {
-      bs: '/karijera',
-    },
-    [PAGE_NAMES.CATEGORIES]: {
-      bs: '/kategorija',
-    },
     [PAGE_NAMES.COMPLAINTS]: {
       bs: '/reklamacije',
-    },
-    [PAGE_NAMES.CONTACT_US]: {
-      bs: '/kontaktirajte-nas',
     },
     [PAGE_NAMES.COOKIE_POLICY]: {
       bs: '/politika-kolacica',
@@ -84,17 +75,8 @@ export const routing = defineRouting({
     [PAGE_NAMES.FIND_STORE]: {
       bs: '/pronadi-store',
     },
-    [PAGE_NAMES.GLOBAL_COMPONENTS]: {
-      bs: '/global-components',
-    },
-    [PAGE_NAMES.ICONS]: {
-      bs: '/icons-page',
-    },
     [PAGE_NAMES.LOGIN]: {
       bs: '/prijava',
-    },
-    [PAGE_NAMES.MAC]: {
-      bs: '/mac',
     },
     [PAGE_NAMES.MIKROFIN_INVOICE]: {
       bs: '/mikrofin-predracun',
@@ -120,9 +102,6 @@ export const routing = defineRouting({
     [PAGE_NAMES.PROMO]: {
       bs: '/promo',
     },
-    [PAGE_NAMES.PRODUCTS]: {
-      bs: '/proizvodi',
-    },
     [PAGE_NAMES.REGISTER]: {
       bs: '/registracija',
     },
@@ -141,20 +120,23 @@ export const routing = defineRouting({
     [PAGE_NAMES.TERMS_OF_PURCHASE]: {
       bs: '/uslovi-kupovine',
     },
-    [PAGE_NAMES.WATCH]: {
-      bs: '/watch',
-    },
     [PAGE_NAMES.WHY_MAC]: {
       bs: '/zasto-mac',
     },
     [DYNAMIC_PAGES.ACCESSORIES_SUBCATEGORY]: {
       bs: '/dodaci/[subcategory]',
     },
+    [DYNAMIC_PAGES.CATEGORIES]: {
+      bs: '/kategorija',
+    },
     [DYNAMIC_PAGES.CATEGORY_PAGE]: {
       bs: '/kategorije/[category]',
     },
     [DYNAMIC_PAGES.GROUPED_SUBCATEGORY]: {
       bs: '/kategorije/[category]/[groupedSubCategory]',
+    },
+    [DYNAMIC_PAGES.PRODUCTS]: {
+      bs: '/proizvodi',
     },
     [DYNAMIC_PAGES.PRODUCT_DETAILS]: {
       bs: '/proizvodi/[category]/[productTypeId]/[productLink]',

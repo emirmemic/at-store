@@ -9,7 +9,7 @@ import {
   whyMacDevices,
 } from '@/assets/images';
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { DYNAMIC_PAGES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -100,8 +100,17 @@ export default function Page() {
           {t('whyMacPage.viewAll')}
         </h3>
         <div>
-          <Button asChild size={'lg'} typography={'button1'} variant={'filled'}>
-            <Link href={PAGE_NAMES.MAC}>{t('common.view')}</Link>
+          <Button size={'lg'} typography={'button1'} variant={'filled'}>
+            <Link
+              href={{
+                pathname: DYNAMIC_PAGES.CATEGORY_PAGE,
+                params: {
+                  category: 'mac',
+                },
+              }}
+            >
+              {t('common.view')}
+            </Link>
           </Button>
         </div>
       </div>

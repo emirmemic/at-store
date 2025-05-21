@@ -1,4 +1,4 @@
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
 import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 
 import { SubCategoryItem } from '../types';
@@ -29,7 +29,7 @@ const makeCategoryLink = (
   if (isAccessory(name || displayName)) {
     return PAGE_NAMES.ACCESSORIES;
   }
-  return `${PAGE_NAMES.CATEGORIES}/${categoryLink}`;
+  return `${DYNAMIC_PAGES.CATEGORIES}/${categoryLink}`;
 };
 const makeSubCategoryLink = (
   categoryLink: string,
@@ -43,13 +43,13 @@ const makeSubCategoryLink = (
   if (isAccessory(name)) {
     return `${PAGE_NAMES.ACCESSORIES}/${subCategoryLink}`;
   }
-  return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${productTypeId}/${productLink}`;
+  return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${productTypeId}/${productLink}`;
 };
 const makeGroupedSubCategoryLink = (
   categoryLink: string,
   groupedSubCategoryLink: string
 ): string => {
-  return `${PAGE_NAMES.CATEGORIES}/${categoryLink}/${groupedSubCategoryLink}`;
+  return `${DYNAMIC_PAGES.CATEGORIES}/${categoryLink}/${groupedSubCategoryLink}`;
 };
 
 const makeProductLink = (
@@ -58,7 +58,7 @@ const makeProductLink = (
   productLink: string
 ): string => {
   const lowerCased = productTypeId.toLowerCase();
-  return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${lowerCased}/${productLink}`;
+  return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${lowerCased}/${productLink}`;
 };
 
 export {

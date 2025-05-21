@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState, useRef } from 'react';
 
 import { AnimateHeight } from '@/components/transitions';
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
 import { useDebounceValue } from '@/lib/hooks';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
@@ -71,7 +71,7 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
         e.preventDefault();
         if (focusedIndex >= 0) {
           router.push(
-            `${PAGE_NAMES.PRODUCTS}/${products[focusedIndex].productLink}`
+            `${DYNAMIC_PAGES.PRODUCTS}/${products[focusedIndex].productLink}`
           );
           handleClick();
         } else {
@@ -87,7 +87,7 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
     const categoryLink = product.category?.link;
     const subCategoryLink = product.productTypeId;
     const productLink = product.productLink;
-    return `${PAGE_NAMES.PRODUCTS}/${categoryLink}/${subCategoryLink}/${productLink}`;
+    return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${subCategoryLink}/${productLink}`;
   };
   useEffect(() => {
     if (inputRef.current) {

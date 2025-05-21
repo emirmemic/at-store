@@ -11,7 +11,7 @@ import {
   macBookAirM1AtBusiness,
 } from '@/assets/images';
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { DYNAMIC_PAGES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
 
 import { ImgSection } from '../../(static-pages)/components';
@@ -124,7 +124,16 @@ export default function Page() {
               typography={'button1'}
               variant={'filled'}
             >
-              <Link href={PAGE_NAMES.MAC}>{t('common.view')}</Link>
+              <Link
+                href={{
+                  pathname: DYNAMIC_PAGES.CATEGORY_PAGE,
+                  params: {
+                    category: 'mac',
+                  },
+                }}
+              >
+                {t('common.view')}
+              </Link>
             </Button>
           </div>
         </div>

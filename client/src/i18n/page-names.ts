@@ -15,19 +15,13 @@ export const PAGE_NAMES = {
   CHECKOUT_PAYMENT: '/checkout/payment',
   CHECKOUT_SUCCESS: '/checkout/success',
   LOGIN_OR_GUEST: '/login-or-guest',
-  CAREERS: '/careers',
-  CATEGORIES: '/categories',
   COMPLAINTS: '/complaints',
-  CONTACT_US: '/contact-us',
   COOKIE_POLICY: '/cookie-policy',
   DELIVERY: '/delivery',
   EDUCATIONAL_DISCOUNT: '/educational-discount',
   FIND_STORE: '/find-store',
-  GLOBAL_COMPONENTS: '/global-components',
   HOME: '/',
-  ICONS: '/icons-page',
   LOGIN: '/login',
-  MAC: '/mac',
   MIKROFIN_INVOICE: '/mikrofin-invoice',
   NEWSLETTER: '/newsletter',
   NEWSLETTER_UNSUBSCRIBE: '/newsletter/unsubscribe',
@@ -35,7 +29,6 @@ export const PAGE_NAMES = {
   ORDER_CANCELLATION: '/order-cancellation',
   PAYMENT_METHODS: '/payment-methods',
   PRIVACY_POLICY: '/privacy-policy',
-  PRODUCTS: '/products',
   PROMO: '/promo',
   REGISTER: '/register',
   RESET_PASSWORD: '/reset-password',
@@ -43,15 +36,16 @@ export const PAGE_NAMES = {
   SEARCH: '/search',
   SUPPORT: '/support',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
-  WATCH: '/watch',
   WHY_MAC: '/why-mac',
 } as const;
 
 export const DYNAMIC_PAGES = {
   ACCESSORIES_SUBCATEGORY: '/accessories/[subcategory]',
+  CATEGORIES: '/categories',
   CATEGORY_PAGE: '/categories/[category]',
   GROUPED_SUBCATEGORY: '/categories/[category]/[groupedSubCategory]',
   PRODUCT_DETAILS: '/products/[category]/[productTypeId]/[productLink]',
+  PRODUCTS: '/products',
 } as const;
 export type PageNameKey = keyof typeof PAGE_NAMES;
 export type DynamicPageKey = keyof typeof DYNAMIC_PAGES;
