@@ -35,9 +35,15 @@ export default factories.createCoreController(
                   'shortDescription',
                 ],
                 populate: {
-                  filters: publishedAndInStockFilter,
                   products: {
-                    fields: ['id', 'productLink', 'productTypeId'],
+                    filters: publishedAndInStockFilter,
+                    fields: [
+                      'id',
+                      'productLink',
+                      'productTypeId',
+                      'amountInStock',
+                      'publishedAt',
+                    ],
                   },
                   image: {
                     fields: ['url', 'alternativeText'],
@@ -59,6 +65,7 @@ export default factories.createCoreController(
           subCategories,
         };
       } catch (error) {
+        console.error('Controller error:', error);
         return ctx.badRequest('Failed to fetch grouped sub-category details');
       }
     },
