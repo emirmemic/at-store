@@ -100,7 +100,7 @@ const makeOrganizationInfo = (organization: UserInformation) => {
   const { companyName, address, companyIdNumber } = accountDetails;
   return `
     <div style="border-left: 3px solid #c81b1b; padding-left: 10px; display: flex; flex-direction: column; gap: 5px;">
-      <div style="font-size: 10px; color:#2e2e30;">PARTNER:</div>
+      <div style="font-size: 10px; color:#2e2e30;">KUPAC:</div>
       <div style="font-size: 14px; font-weight: bold;">${companyName || ''}</div>
       <div>${address || ''}</div>
       <div style="font-size: 11px; color: #444;">ID: ${companyIdNumber || ''}</div>
