@@ -19,12 +19,14 @@ interface NavMenuItem {
   displayName: string;
   link: string;
   subItems?: NavSubMenuItem[];
+  updatedAt?: string | null;
 }
 interface NavSubMenuItem {
   id: string;
   displayName: string;
   link: string;
   icon: ImageProps | null;
+  updatedAt?: string | null;
 }
 
 interface NavbarResponseItem {

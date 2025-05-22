@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
       ? productImagesOP
       : [
           {
-            url: '/images/open-graph.jpg',
+            url: '/assets/images/open-graph.jpg',
             width: 1200,
             height: 630,
             alt: 'AT Store',

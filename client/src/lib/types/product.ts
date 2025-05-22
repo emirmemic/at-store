@@ -42,6 +42,7 @@ interface ProductResponse {
   ram?: MemoryResponse | null;
   chip?: IdentificationResponse | null;
   numberOfCores?: number | null;
+  updatedAt?: string | null;
 }
 
 interface StoreResponse {
@@ -106,6 +107,7 @@ interface CategoryItem {
   subCategories?: SubCategoryItem[] | null;
   models?: ModelResponse[] | null;
   groupedSubCategories?: GroupedSubCategoryItem[] | null;
+  updatedAt?: string | null;
 }
 interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
@@ -122,6 +124,7 @@ interface GroupedSubCategoryItem {
   metaDescription?: string | null;
   category?: CategoryItem;
   subCategories?: SubCategoryItem[] | null;
+  updatedAt?: string | null;
 }
 
 interface BestSellerItem {

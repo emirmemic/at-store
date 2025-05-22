@@ -35,6 +35,7 @@ const formatNavbarData = (items: NavbarResponseItem[]): NavMenuItem[] => {
         displayName: group.displayName,
         link: makeGroupedSubCategoryLink(item.category.link, group.slug),
         icon: group.navbarIcon ?? null,
+        updatedAt: group.updatedAt ?? null,
       }));
     }
     // Otherwise use subCategories
@@ -44,6 +45,7 @@ const formatNavbarData = (items: NavbarResponseItem[]): NavMenuItem[] => {
         displayName: sub.displayName,
         link: makeSubCategoryLink(item.category.link, sub),
         icon: sub.navbarIcon ?? null,
+        updatedAt: sub.updatedAt ?? null,
       }));
     }
 

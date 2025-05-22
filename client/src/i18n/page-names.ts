@@ -1,4 +1,5 @@
 export const PAGE_NAMES = {
+  HOME: '/',
   ABOUT: '/about',
   ACCESSORIES: '/accessories',
   ACCOUNT: '/account',
@@ -20,7 +21,6 @@ export const PAGE_NAMES = {
   DELIVERY: '/delivery',
   EDUCATIONAL_DISCOUNT: '/educational-discount',
   FIND_STORE: '/find-store',
-  HOME: '/',
   LOGIN: '/login',
   MIKROFIN_INVOICE: '/mikrofin-invoice',
   NEWSLETTER: '/newsletter',
@@ -39,6 +39,7 @@ export const PAGE_NAMES = {
   WHY_MAC: '/why-mac',
 } as const;
 
+// SITEMAP LOGIC IS BASED ON THESE CONFIGURATIONS, IF YOU CHANGE THEM, MAKE SURE TO UPDATE THE SITEMAP LOGIC AS WELL
 export const DYNAMIC_PAGES = {
   ACCESSORIES_SUBCATEGORY: '/accessories/[subcategory]',
   CATEGORIES: '/categories',

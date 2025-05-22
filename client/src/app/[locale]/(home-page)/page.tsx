@@ -94,8 +94,7 @@ export default async function Page({
   if (!data)
     return <div>Fetch is successful, but there is no data for this page</div>;
 
-  // I've commented a few lines below because we still didn't decide if we are surely going to remove it. For now let them be commented.
-
+  // TODO: Delete commented code if not needed
   const { title, promoCards, heroSection } = data;
   return (
     <main>
