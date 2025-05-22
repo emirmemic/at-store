@@ -1,4 +1,3 @@
-//TODO handle API Errors for files
 import { ZodError } from 'zod';
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
@@ -15,6 +14,7 @@ export async function complaintsAction(
   errors: Record<string, string>;
 } | null> {
   const formDataObject = Object.fromEntries(formData) as ComplaintsFormData;
+
   const files: Record<string, File> = {};
 
   for (const [key, value] of formData.entries()) {
@@ -22,6 +22,7 @@ export async function complaintsAction(
       files[key] = value as File;
     }
   }
+
   let validated: ComplaintsFormData;
   try {
     validated = complaintsSchema(t).parse(formDataObject);
@@ -32,7 +33,6 @@ export async function complaintsAction(
           .reverse()
           .map(({ path, message }) => [path[0], message])
       );
-      // Early return without uploading any files if data is invalid
       return { data: formDataObject, errors: fieldErrors };
     }
     return {
@@ -41,7 +41,6 @@ export async function complaintsAction(
     };
   }
 
-  // Helper function to upload a single file
   const uploadFile = async (file: File): Promise<number | null> => {
     const uploadFormData = new FormData();
     uploadFormData.append('files', file);

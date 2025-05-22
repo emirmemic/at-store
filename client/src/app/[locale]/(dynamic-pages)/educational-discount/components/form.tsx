@@ -1,12 +1,14 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useState } from 'react';
+import { ZodError } from 'zod';
 
 import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { InputFileUpload } from '@/components/ui/input-file';
+import { FileImageSchema } from '@/lib/schemas/educationalDiscount';
 
 import { formAction } from '../actions';
 
@@ -40,17 +42,36 @@ export default function EducationalDiscountForm() {
   };
 
   const validation = useTranslations('validation');
+  const [fileError, setFileError] = useState<string | undefined>();
   const [alertVisible, setAlertVisible] = useState(false);
   useEffect(() => {
     if ((formState === null && !isPending) || formState?.errors) {
       setAlertVisible(true);
     }
-  }, [formState, isPending]);
-  useEffect(() => {
     if ((formState === null || formState?.errors) && !isPending) {
       clearFileInputs();
     }
+    if (formState?.errors?.indexPhoto) {
+      setFileError(formState?.errors?.indexPhoto);
+    }
   }, [formState, isPending]);
+
+  const handleFileChange = (files: File[] | null) => {
+    setFileError(undefined);
+    if (!files || files.length === 0) {
+      return;
+    }
+
+    const file = files[0];
+    try {
+      FileImageSchema(validation).parse(file);
+    } catch (err) {
+      if (err instanceof ZodError) {
+        setFileError(err.errors[0].message);
+      }
+    }
+  };
+
   return (
     <form noValidate action={submitAction}>
       <h2 className="pb-12 text-center heading-2">
@@ -62,7 +83,7 @@ export default function EducationalDiscountForm() {
             <div>
               <FormLabel
                 htmlFor="name"
-                title={t('educationalDiscountPage.formName')}
+                title={`${t('educationalDiscountPage.formName')}*`}
               />
               <Input
                 autoComplete="name"
@@ -70,14 +91,14 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.name}
                 id="name"
                 name="name"
-                placeholder={`${t('educationalDiscountPage.formName')}*`}
+                placeholder={t('educationalDiscountPage.formName')}
                 type="text"
               />
             </div>
             <div>
               <FormLabel
                 htmlFor="surname"
-                title={t('educationalDiscountPage.formSurName')}
+                title={`${t('educationalDiscountPage.formSurName')}*`}
               />
               <Input
                 autoComplete="surname"
@@ -85,14 +106,14 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.surname}
                 id="surname"
                 name="surname"
-                placeholder={`${t('educationalDiscountPage.formSurName')}*`}
+                placeholder={t('educationalDiscountPage.formSurName')}
                 type="text"
               />
             </div>
             <div>
               <FormLabel
                 htmlFor="phoneNumber"
-                title={t('educationalDiscountPage.formNumber')}
+                title={`${t('educationalDiscountPage.formNumber')}*`}
               />
               <Input
                 autoComplete="tel"
@@ -100,14 +121,14 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.phoneNumber}
                 id="phoneNumber"
                 name="phoneNumber"
-                placeholder={`${t('educationalDiscountPage.formNumber')}*`}
-                type="number"
+                placeholder={t('educationalDiscountPage.formNumber')}
+                type="string"
               />
             </div>
             <div>
               <FormLabel
                 htmlFor="email"
-                title={t('educationalDiscountPage.formEmail')}
+                title={`${t('educationalDiscountPage.formEmail')}*`}
               />
               <Input
                 autoComplete="email"
@@ -115,7 +136,7 @@ export default function EducationalDiscountForm() {
                 errorMessage={formState?.errors.email}
                 id="email"
                 name="email"
-                placeholder={`${t('educationalDiscountPage.formEmail')}*`}
+                placeholder={t('educationalDiscountPage.formEmail')}
                 type="email"
               />
             </div>
@@ -129,9 +150,10 @@ export default function EducationalDiscountForm() {
               ref={indexPhotoRef}
               accept=".svg,.png"
               disabled={isPending}
-              errorMessage={formState?.errors.indexPhoto}
+              errorMessage={fileError}
               id="indexPhoto"
               name="indexPhoto"
+              onFileChange={handleFileChange}
             />
           </div>
         </div>

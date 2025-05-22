@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "educational_discount_pages",
+  "info": {
+    "singularName": "educational-discount-page",
+    "pluralName": "educational-discount-pages",
+    "displayName": "Educational Discount Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "product1": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "product2": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "product3": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "chooseYourMac": {
+      "type": "component",
+      "repeatable": false,
+      "component": "newspage.hot-item"
+    }
+  }
+}

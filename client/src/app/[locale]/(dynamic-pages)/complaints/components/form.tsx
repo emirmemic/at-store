@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useRef, useState } from 'react';
+import { ZodError } from 'zod';
 
 import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { InputFileUpload } from '@/components/ui/input-file';
 import { Textarea } from '@/components/ui/textarea';
+import { FileImageSchema } from '@/lib/schemas/complaints';
 
 import { complaintsAction } from '../actions';
 
@@ -34,6 +36,11 @@ export default function ComplaintsForm() {
   const deviceImageRef = useRef<{ clear: () => void } | null>(null);
   const warrantyImageRef = useRef<{ clear: () => void } | null>(null);
   const billImageRef = useRef<{ clear: () => void } | null>(null);
+  const [fileErrors, setFileErrors] = useState({
+    deviceImage: undefined as string | undefined,
+    warrantyImage: undefined as string | undefined,
+    billImage: undefined as string | undefined,
+  });
   const clearFileInputs = () => {
     if (deviceImageRef.current) {
       deviceImageRef.current.clear();
@@ -54,20 +61,57 @@ export default function ComplaintsForm() {
     if ((formState === null && !isPending) || formState?.errors) {
       setAlertVisible(true);
     }
-  }, [formState, isPending]);
-  useEffect(() => {
     if ((formState === null || formState?.errors) && !isPending) {
       clearFileInputs();
     }
+    if (formState?.errors) {
+      setFileErrors((errors) => ({
+        ...errors,
+        deviceImage: formState.errors.deviceImage,
+        warrantyImage: formState.errors.warrantyImage,
+        billImage: formState.errors.billImage,
+      }));
+    }
   }, [formState, isPending]);
 
+  const handleFileChange = (
+    field: keyof typeof fileErrors,
+    files: File[] | null
+  ) => {
+    const file = files && files[0] ? files[0] : null;
+    setFileErrors((errors) => ({ ...errors, [field]: undefined }));
+    if (!file) {
+      return;
+    }
+    try {
+      const fd = {
+        billImage: field === 'billImage' ? file : null,
+        deviceImage: field === 'deviceImage' ? file : null,
+        warrantyImage: field === 'warrantyImage' ? file : null,
+      };
+      FileImageSchema(validation).parse(fd);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const fieldErrors = Object.fromEntries(
+          [...error.errors]
+            .reverse()
+            .map(({ path, message }) => [path[0], message])
+        );
+        setFileErrors((errors) => ({ ...errors, [field]: fieldErrors[field] }));
+      }
+    }
+  };
   const formStyle = 'flex flex-col gap-y-4';
+
   return (
     <form noValidate action={submitAction}>
       <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-3xl">
         <div className={`md:col-span-2 md:max-w-96 ${formStyle}`}>
           <div>
-            <FormLabel htmlFor="name" title={t('complaintsPage.formName')} />
+            <FormLabel
+              htmlFor="name"
+              title={`${t('complaintsPage.formName')}*`}
+            />
             <Input
               required
               autoComplete="given-name"
@@ -75,14 +119,14 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.name}
               id="name"
               name="name"
-              placeholder={`${t('complaintsPage.formName')}*`}
+              placeholder={t('complaintsPage.formName')}
               type="text"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="surname"
-              title={`${t('complaintsPage.formSurName')}*`}
+              title={t('complaintsPage.formSurName')}
             />
             <Input
               required
@@ -98,7 +142,7 @@ export default function ComplaintsForm() {
           <div>
             <FormLabel
               htmlFor="phoneNumber"
-              title={t('complaintsPage.formNumber')}
+              title={`${t('complaintsPage.formNumber')}*`}
             />
             <Input
               required
@@ -107,12 +151,15 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={`${t('complaintsPage.formNumber')}*`}
+              placeholder={t('complaintsPage.formNumber')}
               type="number"
             />
           </div>
           <div>
-            <FormLabel htmlFor="email" title={t('complaintsPage.formEmail')} />
+            <FormLabel
+              htmlFor="email"
+              title={`${t('complaintsPage.formEmail')}*`}
+            />
             <Input
               required
               autoComplete="email"
@@ -120,14 +167,14 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={`${t('complaintsPage.formEmail')}*`}
+              placeholder={t('complaintsPage.formEmail')}
               type="email"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="message"
-              title={t('complaintsPage.formMessage')}
+              title={`${t('common.messagePlaceholder')}*`}
             />
             <Textarea
               required
@@ -135,7 +182,7 @@ export default function ComplaintsForm() {
               errorMessage={formState?.errors.message}
               id="message"
               name="message"
-              placeholder={`${t('common.messagePlaceholder')}*`}
+              placeholder={t('complaintsPage.formMessage')}
             />
           </div>
         </div>
@@ -148,11 +195,12 @@ export default function ComplaintsForm() {
           />
           <InputFileUpload
             ref={deviceImageRef}
-            accept=".svg,.png"
+            accept=".jpeg,.png"
             disabled={isPending}
-            errorMessage={formState?.errors.deviceImage}
+            errorMessage={fileErrors.deviceImage}
             id="deviceImage"
             name="deviceImage"
+            onFileChange={(files) => handleFileChange('deviceImage', files)}
           />
           <FormLabel
             htmlFor="warrantyImage"
@@ -160,11 +208,12 @@ export default function ComplaintsForm() {
           />
           <InputFileUpload
             ref={warrantyImageRef}
-            accept=".svg,.png"
+            accept=".jpeg,.png"
             disabled={isPending}
-            errorMessage={formState?.errors.warrantyImage}
+            errorMessage={fileErrors.warrantyImage}
             id="warrantyImage"
             name="warrantyImage"
+            onFileChange={(files) => handleFileChange('warrantyImage', files)}
           />
           <FormLabel
             htmlFor="billImage"
@@ -172,11 +221,12 @@ export default function ComplaintsForm() {
           />
           <InputFileUpload
             ref={billImageRef}
-            accept=".svg,.png"
+            accept=".jpeg,.png"
             disabled={isPending}
-            errorMessage={formState?.errors.billImage}
+            errorMessage={fileErrors.billImage}
             id="billImage"
             name="billImage"
+            onFileChange={(files) => handleFileChange('billImage', files)}
           />
           <div className="text-red-deep paragraph-2">
             {formState?.errors.msg}

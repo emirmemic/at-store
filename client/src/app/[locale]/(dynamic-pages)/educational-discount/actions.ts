@@ -16,7 +16,6 @@ export async function formAction(
   errors: Record<string, string>;
 } | null> {
   const data = Object.fromEntries(formData) as EducationalDiscountSchema;
-
   try {
     const validated = educationalDiscountSchema(t);
     validated.parse(data);
@@ -34,7 +33,7 @@ export async function formAction(
       errors: { msg: 'Unexpected error during validation' },
     };
   }
-  const indexPhoto = formData.get('indexPhoto') as File | null;
+  const indexPhoto = data.indexPhoto;
 
   const uploadFile = async (file: File): Promise<number | null> => {
     const fd = new FormData();

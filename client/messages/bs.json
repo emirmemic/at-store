@@ -808,7 +808,9 @@
     "cityRequired": "Grad je obavezan",
     "postalCodeRequired": "Poštanski broj je obavezan",
     "postalCodeInvalidFormat": "Neispravan poštanski broj",
-    "countryRequired": "Država je obavezna"
+    "countryRequired": "Država je obavezna",
+    "invalidFileFormat": "Dozvoljene su samo PNG ili JPEG datoteke",
+    "maxFileSize": "Maksimalna veličina je {maxSize}"
   },
   "complaintsPage": {
     "title": "Reklamacije",

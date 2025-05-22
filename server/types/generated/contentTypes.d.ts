@@ -669,6 +669,39 @@ export interface ApiCurrentPromotionCurrentPromotion
   };
 }
 
+export interface ApiEducationalDiscountPageEducationalDiscountPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'educational_discount_pages';
+  info: {
+    description: '';
+    displayName: 'Educational Discount Page';
+    pluralName: 'educational-discount-pages';
+    singularName: 'educational-discount-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    chooseYourMac: Schema.Attribute.Component<'newspage.hot-item', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::educational-discount-page.educational-discount-page'
+    > &
+      Schema.Attribute.Private;
+    product1: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    product2: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    product3: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEducationalDiscountEducationalDiscount
   extends Struct.CollectionTypeSchema {
   collectionName: 'educational_discounts';
@@ -1948,6 +1981,7 @@ declare module '@strapi/strapi' {
       'api::color.color': ApiColorColor;
       'api::complaint.complaint': ApiComplaintComplaint;
       'api::current-promotion.current-promotion': ApiCurrentPromotionCurrentPromotion;
+      'api::educational-discount-page.educational-discount-page': ApiEducationalDiscountPageEducationalDiscountPage;
       'api::educational-discount.educational-discount': ApiEducationalDiscountEducationalDiscount;
       'api::grouped-sub-category.grouped-sub-category': ApiGroupedSubCategoryGroupedSubCategory;
       'api::home-page.home-page': ApiHomePageHomePage;

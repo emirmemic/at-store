@@ -76,7 +76,7 @@ export default function MikrofinForm() {
           <div>
             <FormLabel
               htmlFor="nameAndSurname"
-              title={`${t('mikrofinInvoicePage.formName')}*`}
+              title={t('mikrofinInvoicePage.placeholder.name')}
             />
             <Input
               autoComplete="name and surname"
@@ -87,14 +87,14 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.nameAndSurname}
               id="nameAndSurname"
               name="nameAndSurname"
-              placeholder={t('mikrofinInvoicePage.placeholder.name')}
+              placeholder={`${t('mikrofinInvoicePage.formName')}*`}
               type="text"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="email"
-              title={`${t('mikrofinInvoicePage.formEmail')}*`}
+              title={t('mikrofinInvoicePage.placeholder.email')}
             />
             <Input
               autoComplete="email"
@@ -102,14 +102,14 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={t('mikrofinInvoicePage.placeholder.email')}
+              placeholder={`${t('mikrofinInvoicePage.formEmail')}*`}
               type="email"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="phoneNumber"
-              title={`${t('mikrofinInvoicePage.formNumber')}*`}
+              title={t('mikrofinInvoicePage.placeholder.number')}
             />
             <Input
               autoComplete="tel"
@@ -119,14 +119,14 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={t('mikrofinInvoicePage.placeholder.number')}
+              placeholder={`${t('mikrofinInvoicePage.formNumber')}*`}
               type="tel"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="productVariantId"
-              title={`${t('mikrofinInvoicePage.productId')}*`}
+              title={t('mikrofinInvoicePage.placeholder.productId')}
             />
             <Input
               defaultValue={
@@ -136,21 +136,21 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.productVariantId}
               id="productVariantId"
               name="productVariantId"
-              placeholder={t('mikrofinInvoicePage.placeholder.productId')}
+              placeholder={`${t('mikrofinInvoicePage.productId')}*`}
               type="text"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="note"
-              title={t('mikrofinInvoicePage.formNote')}
+              title={t('mikrofinInvoicePage.placeholder.note')}
             />
             <Textarea
               defaultValue={formState?.data.note}
               errorMessage={formState?.errors.note}
               id="note"
               name="note"
-              placeholder={t('mikrofinInvoicePage.placeholder.note')}
+              placeholder={t('mikrofinInvoicePage.formNote')}
             />
           </div>
         </div>
