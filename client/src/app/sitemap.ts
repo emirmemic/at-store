@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import type { MetadataRoute } from 'next';
 import qs from 'qs';
 
@@ -36,8 +35,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
   );
+  // TODO: This implementation assumes there are no more than 1000 published and in-stock products.
+  // If this limit is exceeded, implement pagination and split the sitemap accordingly.
+  // Note: This only generates links for the first 1000 valid products.
+  // If the page structure changes, update the logic as needed.
 
-  // TODO - This implementation assumes that there wont be more than 1000(published and in stock) products if that is not the case implement pagination and split the sitemap, it generates links only for the first 1000 products that are published and in stock. If page structure changes, update the logic accordingly.
   // Dynamic Product Pages
   const productPages: MetadataRoute.Sitemap = [];
   try {
