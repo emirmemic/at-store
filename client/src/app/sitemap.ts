@@ -12,6 +12,11 @@ import { ProductResponse, SubCategoryItem } from '@/lib/types';
 
 interface ProductsRequestResponse {
   data: ProductResponse[];
+  meta: {
+    pagination: {
+      total: number;
+    };
+  };
 }
 interface SubCategoriesResponse {
   data: SubCategoryItem[];
@@ -35,15 +40,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
   );
-  // TODO: This implementation assumes there are no more than 1000 published and in-stock products.
-  // If this limit is exceeded, implement pagination and split the sitemap accordingly.
-  // Note: This only generates links for the first 1000 valid products.
-  // If the page structure changes, update the logic as needed.
+  // TODO: If number of pages is too high, consider splitting sitemap into multiple files.
 
   // Dynamic Product Pages
   const productPages: MetadataRoute.Sitemap = [];
   try {
-    const products = await fetchProducts();
+    const products = await fetchAllProducts();
     for (const product of products) {
       const { category, productTypeId, productLink, updatedAt } = product;
       for (const locale of locales) {
@@ -184,27 +186,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...categoryPages,
     ...accessoriesPages,
   ];
+
   return allPages;
 }
 
-const fetchProducts = async () => {
-  const query = qs.stringify({
-    populate: {
-      category: true,
-    },
-    pagination: {
-      pageSize: 1000,
-    },
-  });
-  const path = '/api/products';
-  const url = new URL(path, STRAPI_BASE_URL);
-  url.search = query;
-  const res = await fetchAPI<ProductsRequestResponse>(url.href, {
-    method: 'GET',
-    isAuth: false,
-  });
-  const products = res.data?.data || [];
-  return products;
+const fetchAllProducts = async () => {
+  const maxIterations = 10;
+  const pageSize = 100;
+  let page = 1;
+  let allProducts: ProductResponse[] = [];
+  let hasMore = true;
+
+  while (hasMore) {
+    if (page > maxIterations) {
+      console.warn(
+        `Max iterations (${maxIterations}) reached. Stopping product fetch.`
+      );
+      break;
+    }
+    const query = qs.stringify({
+      populate: {
+        category: true,
+      },
+      pagination: {
+        page,
+        pageSize,
+      },
+    });
+
+    const path = '/api/products';
+    const url = new URL(path, STRAPI_BASE_URL);
+    url.search = query;
+
+    const res = await fetchAPI<ProductsRequestResponse>(url.href, {
+      method: 'GET',
+      isAuth: false,
+    });
+
+    const products = res.data?.data || [];
+    allProducts = [...allProducts, ...products];
+    const total = res.data?.meta?.pagination?.total || 0;
+    const fetched = page * pageSize;
+
+    if (fetched >= total) {
+      hasMore = false;
+    } else {
+      page++;
+    }
+  }
+
+  return allProducts;
 };
 
 async function fetchSubCategories() {
