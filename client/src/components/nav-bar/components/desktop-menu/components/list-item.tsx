@@ -90,14 +90,14 @@ export default function ListItem({
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >
-                  <span className="h-12 w-12 overflow-hidden">
+                  <span className="h-32 w-32 overflow-hidden">
                     {sub.icon && (
                       <StrapiImage
                         alt={sub.icon.alternativeText || sub.displayName}
                         className="h-full w-full object-contain"
-                        height={48}
+                        height={128}
                         src={sub.icon.url}
-                        width={48}
+                        width={128}
                       />
                     )}
                   </span>
