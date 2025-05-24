@@ -85,7 +85,8 @@ export async function complaintsAction(
 
   const res = await fetchAPI(`${STRAPI_BASE_URL}/api/complaints`, {
     method: 'POST',
-    body: { data: complaintData, isAuth: false },
+    isAuth: false,
+    body: { data: complaintData },
   });
   if (res.error) {
     const detailsErrors = res.error.details?.errors || [];

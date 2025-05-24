@@ -71,7 +71,7 @@ export async function formAction(
   const res = await fetchAPI(`${STRAPI_BASE_URL}/api/educational-discounts`, {
     method: 'POST',
     isAuth: false,
-    body: { data: submitData, isAuth: false },
+    body: { data: submitData },
   });
   if (res.error) {
     const details = res.error.details?.errors || [];
