@@ -1,22 +1,18 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
+import { ImgSection } from '@/app/[locale]/(static-pages)/components';
 import {
   atBusinessMac,
   iPadMiniAtBusiness,
   macBookAirEducationalDiscount,
 } from '@/assets/images';
-import { StrapiImage } from '@/components';
+import { InfoBlock, StrapiImage } from '@/components';
 import { ProductsList } from '@/components/product-cards';
-import { Button } from '@/components/ui/button';
-import { DYNAMIC_PAGES } from '@/i18n/page-names';
-import { Link as RoutingLink } from '@/i18n/routing';
+import { ActionLink } from '@/components/strapi/components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { ProductResponse } from '@/lib/types';
-
-import { ImgSection } from '../../(static-pages)/components';
+import { ActionLinkResponse } from '@/lib/types';
 
 import EducationalDiscountForm from './components/form';
 import { EducationalPageResponse } from './types';
@@ -41,24 +37,15 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 const educationalDiscountPageQuery = qs.stringify(
   {
     populate: {
-      product1: {
+      featuredProducts: {
         populate: {
-          images: {
-            fields: STRAPI_IMAGE_FIELDS,
-          },
-        },
-      },
-      product2: {
-        populate: {
-          images: {
-            fields: STRAPI_IMAGE_FIELDS,
-          },
-        },
-      },
-      product3: {
-        populate: {
-          images: {
-            fields: STRAPI_IMAGE_FIELDS,
+          products: {
+            populate: {
+              images: {
+                fields: STRAPI_IMAGE_FIELDS,
+              },
+              category: true,
+            },
           },
         },
       },
@@ -89,19 +76,21 @@ async function loader() {
   if (!data) {
     return {};
   }
-  const { product1, product2, product3, chooseYourMac } = data;
-
-  const rawProducts = [product1, product2, product3];
-  const products: ProductResponse[] = rawProducts.filter(
-    (p): p is ProductResponse => p !== null
-  );
-
-  return { products, chooseYourMac };
+  const { featuredProducts, chooseYourMac } = data;
+  return { featuredProducts, chooseYourMac };
 }
 
 export default async function Page() {
-  const { products, chooseYourMac } = await loader();
+  const { featuredProducts, chooseYourMac } = await loader();
+  const products = featuredProducts?.products || [];
   const t = await getTranslations();
+  const macLink: ActionLinkResponse = {
+    id: 1,
+    linkUrl: '/categories/mac',
+    isExternal: false,
+    openInNewTab: false,
+    linkText: t('common.view'),
+  };
   const imgSection = [
     {
       title: t('educationalDiscountPage.item1.title'),
@@ -164,27 +153,13 @@ export default async function Page() {
             </p>
 
             {chooseYourMac.actionLink && (
-              <Button asChild size={'lg'} variant={'filled'}>
-                <Link
-                  aria-label={
-                    chooseYourMac?.actionLink?.linkText || t('common.buyNow')
-                  }
-                  href={chooseYourMac?.actionLink?.linkUrl || ''}
-                  rel={
-                    chooseYourMac?.actionLink?.isExternal
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
-                  target={
-                    chooseYourMac?.actionLink?.isExternal ? '_blank' : undefined
-                  }
-                  title={
-                    chooseYourMac?.actionLink?.linkText || t('common.buyNow')
-                  }
-                >
-                  {t('common.buyNow')}
-                </Link>
-              </Button>
+              <ActionLink
+                actionLink={chooseYourMac.actionLink}
+                size="lg"
+                variant="filled"
+              >
+                {chooseYourMac.actionLink.linkText || t('common.buyNow')}
+              </ActionLink>
             )}
           </div>
         </section>
@@ -193,7 +168,8 @@ export default async function Page() {
       {products && products.length > 0 && (
         <section className="py-12 md:py-16">
           <h2 className="pb-12 text-center heading-1 md:pb-14">
-            {t('educationalDiscountPage.chooseMac')}
+            {featuredProducts?.sectionTitle ||
+              t('educationalDiscountPage.featuredProducts')}
           </h2>
           <ProductsList products={products}></ProductsList>
         </section>
@@ -202,32 +178,11 @@ export default async function Page() {
         <h2 className="pb-12 text-center heading-1 md:pb-14">
           {t('educationalDiscountPage.learnFromApple')}
         </h2>
-        <div className="flex flex-col justify-between gap-y-6 rounded-2xl bg-blue-steel px-9 py-12 shadow-popup-black md:flex-row md:items-center md:px-12 md:py-6">
-          <div>
-            <p className="w-full text-center text-white md:max-w-md md:text-start md:heading-4 lg:max-w-2xl lg:heading-3">
-              {t('educationalDiscountPage.learnFromAppleText')}
-            </p>
-          </div>
-          <div className="self-center">
-            <Button
-              asChild
-              size={'lg'}
-              typography={'button1'}
-              variant={'filled'}
-            >
-              <RoutingLink
-                href={{
-                  pathname: DYNAMIC_PAGES.CATEGORY_PAGE,
-                  params: {
-                    category: 'mac',
-                  },
-                }}
-              >
-                {t('common.view')}
-              </RoutingLink>
-            </Button>
-          </div>
-        </div>
+        <InfoBlock
+          actionLink={macLink}
+          className="py-8"
+          description={t('educationalDiscountPage.learnFromAppleText')}
+        />
       </section>
     </main>
   );

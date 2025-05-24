@@ -1,11 +1,10 @@
 'use client';
 
 import Autoplay from 'embla-carousel-autoplay';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 
 import { StrapiImage, StrapiVideo } from '@/components';
+import { ActionLink } from '@/components/strapi/components';
 import {
   Carousel,
   CarouselApi,
@@ -31,7 +30,6 @@ const SliderItem: React.FC<HeroSliderItem> = ({
   const imageUrl = media?.url;
   const altText = media?.alternativeText || placeholderImage?.alternativeText;
 
-  const t = useTranslations('common');
   return (
     <div key={id} className="relative h-full w-full">
       {isVideo ? (
@@ -54,13 +52,9 @@ const SliderItem: React.FC<HeroSliderItem> = ({
         />
       )}
       {actionLink && (
-        <Link
-          aria-label={actionLink.linkText || t('viewDetails')}
-          className="absolute inset-0 z-10"
-          href={actionLink.linkUrl}
-          rel={actionLink.isExternal ? 'noopener noreferrer' : undefined}
-          target={actionLink.isExternal ? '_blank' : undefined}
-          title={actionLink.linkText || t('viewDetails')}
+        <ActionLink
+          actionLink={actionLink}
+          className="bg- absolute inset-0 z-10"
         />
       )}
     </div>

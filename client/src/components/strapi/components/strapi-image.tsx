@@ -11,6 +11,7 @@ interface StrapiImageProps {
   fill?: boolean;
   priority?: boolean;
   sizes?: string;
+  loading?: 'lazy' | 'eager';
 }
 
 export function getStrapiMedia(url: string | null) {

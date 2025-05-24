@@ -1,16 +1,21 @@
-// TODO: ADD choose your mac component
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
 import {
   macBookAirBrandAwareness,
   macFamilyScreen,
   whyMacDevices,
 } from '@/assets/images';
-import { Button } from '@/components/ui/button';
-import { DYNAMIC_PAGES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
+import { InfoBlock } from '@/components';
+import { ProductsList } from '@/components/product-cards';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
+import { ActionLinkResponse } from '@/lib/types';
+
+import { WhyMacPageResponse } from './types';
+
+// Metadata
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }
@@ -27,8 +32,54 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     },
   };
 }
-export default function Page() {
-  const t = useTranslations();
+
+// Fetching Page Data
+const query = qs.stringify(
+  {
+    populate: {
+      featuredProducts: {
+        populate: {
+          products: {
+            populate: {
+              images: {
+                fields: STRAPI_IMAGE_FIELDS,
+              },
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    encodeValuesOnly: true,
+  }
+);
+
+async function fetchPageData() {
+  const path = '/api/why-mac-page';
+  const url = new URL(path, STRAPI_BASE_URL);
+  url.search = query;
+
+  const res = await fetchAPI<WhyMacPageResponse>(url.href, {
+    method: 'GET',
+    isAuth: false,
+  });
+  return res;
+}
+export default async function Page() {
+  const t = await getTranslations();
+  const response = await fetchPageData();
+
+  const featuredProducts = response?.data?.data.featuredProducts;
+  const products = featuredProducts?.products || [];
+  const macLink: ActionLinkResponse = {
+    id: 1,
+    linkUrl: '/categories/mac',
+    isExternal: false,
+    openInNewTab: false,
+    linkText: t('common.view'),
+  };
   return (
     <main className="py-12 container-max-width md:py-16">
       <h1 className="text-center heading-2 md:heading-1">
@@ -90,30 +141,23 @@ export default function Page() {
           ></Image>
         </div>
       </section>
-      <section className="py-12 md:py-16">
-        <h2 className="text-center heading-2 lg:heading-1">
-          {t('whyMacPage.chooseYourMac')}
-        </h2>
+      {products && products.length > 0 && (
+        <section className="py-12 container-max-width md:py-16">
+          {featuredProducts?.sectionTitle && (
+            <h2 className="pb-12 text-center heading-1 md:pb-14">
+              {featuredProducts?.sectionTitle}
+            </h2>
+          )}
+          <ProductsList products={products}></ProductsList>
+        </section>
+      )}
+      <section className="flex flex-col gap-9 py-12 md:py-16">
+        <InfoBlock
+          actionLink={macLink}
+          className="py-12"
+          description={t('whyMacPage.viewAll')}
+        />
       </section>
-      <div className="flex flex-col items-center justify-between gap-y-9 rounded-2xl bg-blue-steel px-9 py-12 shadow-popup-black md:flex-row md:px-11 md:py-14">
-        <h3 className="text-center text-white heading-4">
-          {t('whyMacPage.viewAll')}
-        </h3>
-        <div>
-          <Button size={'lg'} typography={'button1'} variant={'filled'}>
-            <Link
-              href={{
-                pathname: DYNAMIC_PAGES.CATEGORY_PAGE,
-                params: {
-                  category: 'mac',
-                },
-              }}
-            >
-              {t('common.view')}
-            </Link>
-          </Button>
-        </div>
-      </div>
     </main>
   );
 }

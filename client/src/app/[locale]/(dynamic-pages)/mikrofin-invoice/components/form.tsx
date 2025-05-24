@@ -94,7 +94,7 @@ export default function MikrofinForm() {
           <div>
             <FormLabel
               htmlFor="email"
-              title={t('mikrofinInvoicePage.placeholder.email')}
+              title={`${t('mikrofinInvoicePage.formEmail')}*`}
             />
             <Input
               autoComplete="email"
@@ -102,14 +102,14 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={`${t('mikrofinInvoicePage.formEmail')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.email')}
               type="email"
             />
           </div>
           <div>
             <FormLabel
               htmlFor="phoneNumber"
-              title={t('mikrofinInvoicePage.placeholder.number')}
+              title={`${t('mikrofinInvoicePage.formNumber')}*`}
             />
             <Input
               autoComplete="tel"
@@ -119,7 +119,7 @@ export default function MikrofinForm() {
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={`${t('mikrofinInvoicePage.formNumber')}*`}
+              placeholder={t('mikrofinInvoicePage.placeholder.number')}
               type="tel"
             />
           </div>

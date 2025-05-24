@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "why_mac_pages",
+  "info": {
+    "singularName": "why-mac-page",
+    "pluralName": "why-mac-pages",
+    "displayName": "Why Mac Page"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "featuredProducts": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.featured-products"
+    }
+  }
+}

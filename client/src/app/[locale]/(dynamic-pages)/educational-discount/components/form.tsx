@@ -86,7 +86,9 @@ export default function EducationalDiscountForm() {
                 title={`${t('educationalDiscountPage.formName')}*`}
               />
               <Input
-                autoComplete="name"
+                aria-labelledby="name"
+                aria-required="true"
+                autoComplete="given-name"
                 defaultValue={formState?.data.name}
                 errorMessage={formState?.errors.name}
                 id="name"
@@ -101,7 +103,9 @@ export default function EducationalDiscountForm() {
                 title={`${t('educationalDiscountPage.formSurName')}*`}
               />
               <Input
-                autoComplete="surname"
+                aria-labelledby="surname"
+                aria-required="true"
+                autoComplete="family-name"
                 defaultValue={formState?.data.surname}
                 errorMessage={formState?.errors.surname}
                 id="surname"
@@ -116,13 +120,16 @@ export default function EducationalDiscountForm() {
                 title={`${t('educationalDiscountPage.formNumber')}*`}
               />
               <Input
+                required
+                aria-labelledby="phoneNumber"
+                aria-required="true"
                 autoComplete="tel"
                 defaultValue={formState?.data.phoneNumber}
                 errorMessage={formState?.errors.phoneNumber}
                 id="phoneNumber"
                 name="phoneNumber"
-                placeholder={t('educationalDiscountPage.formNumber')}
-                type="string"
+                placeholder={t('mikrofinInvoicePage.placeholder.number')}
+                type="tel"
               />
             </div>
             <div>
@@ -131,20 +138,23 @@ export default function EducationalDiscountForm() {
                 title={`${t('educationalDiscountPage.formEmail')}*`}
               />
               <Input
+                required
+                aria-labelledby="email"
+                aria-required="true"
                 autoComplete="email"
                 defaultValue={formState?.data.email}
                 errorMessage={formState?.errors.email}
                 id="email"
                 name="email"
-                placeholder={t('educationalDiscountPage.formEmail')}
+                placeholder={t('mikrofinInvoicePage.placeholder.email')}
                 type="email"
               />
             </div>
           </div>
-          <div className="pb-12 lg:pb-0">
+          <div className="pb-12 pt-8 lg:pb-0">
             <FormLabel
               htmlFor="indexPhoto"
-              title2={t('educationalDiscountPage.addPhoto')}
+              title2={`${t('educationalDiscountPage.addPhoto')}*`}
             />
             <InputFileUpload
               ref={indexPhotoRef}

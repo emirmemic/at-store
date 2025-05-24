@@ -48,6 +48,7 @@ export async function complaintsAction(
       `${STRAPI_BASE_URL}/api/upload`,
       {
         method: 'POST',
+        isAuth: false,
         body: uploadFormData,
       }
     );
@@ -84,7 +85,7 @@ export async function complaintsAction(
 
   const res = await fetchAPI(`${STRAPI_BASE_URL}/api/complaints`, {
     method: 'POST',
-    body: { data: complaintData },
+    body: { data: complaintData, isAuth: false },
   });
   if (res.error) {
     const detailsErrors = res.error.details?.errors || [];

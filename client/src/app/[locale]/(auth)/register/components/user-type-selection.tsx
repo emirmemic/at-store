@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IconAtStoreLogo } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { UserType } from '@/lib/types';
 
 import { Container, Title } from '../../components';
@@ -19,6 +20,7 @@ export default function UserTypeSelection({
     <Container className={`gap-4 ${className}`}>
       <Title
         className="mt-16"
+        linkPath={PAGE_NAMES.LOGIN}
         linkText={t('loginPrompt')}
         subtitle={t('subtitle')}
         title={t('title')}

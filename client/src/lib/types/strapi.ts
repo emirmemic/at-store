@@ -16,7 +16,7 @@ interface ActionLinkResponse {
 }
 interface InfoBlockResponse {
   id: number;
-  title: string;
+  title?: string;
   description?: string;
   isFavorites?: boolean;
   actionLink?: ActionLinkResponse | null;

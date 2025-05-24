@@ -2,12 +2,12 @@ import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
 import { InfoBlock } from '@/components';
+import { ProductsList } from '@/components/product-cards';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
-import ProductsSlider from './products-slider';
 import { PromoPageResponseData } from './types';
 
 interface GenerateMetadataParams {
@@ -34,10 +34,15 @@ const query = qs.stringify(
           actionLink: true,
         },
       },
-      products: {
+      featuredProducts: {
         populate: {
-          images: {
-            fields: STRAPI_IMAGE_FIELDS,
+          products: {
+            populate: {
+              images: {
+                fields: STRAPI_IMAGE_FIELDS,
+              },
+              category: true,
+            },
           },
         },
       },
@@ -64,7 +69,8 @@ export default async function Page() {
   const t = await getTranslations('promoPage');
   const response = await fetchPageData();
   const info = response?.data?.data.infoBlock || null;
-  const products = response?.data?.data.products || [];
+  const featuredProducts = response?.data?.data.featuredProducts;
+  const products = featuredProducts?.products || [];
 
   return (
     <div className="flex flex-col gap-16 py-10 md:py-14">
@@ -82,7 +88,16 @@ export default async function Page() {
           />
         )}
       </div>
-      {products.length > 0 && <ProductsSlider products={products} />}
+      {products && products.length > 0 && (
+        <section className="py-12 container-max-width md:py-16">
+          {featuredProducts?.sectionTitle && (
+            <h2 className="pb-12 text-center heading-1 md:pb-14">
+              {featuredProducts?.sectionTitle}
+            </h2>
+          )}
+          <ProductsList products={products}></ProductsList>
+        </section>
+      )}
     </div>
   );
 }

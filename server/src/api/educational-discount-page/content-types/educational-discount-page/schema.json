@@ -11,20 +11,10 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "product1": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
-    },
-    "product2": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
-    },
-    "product3": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
+    "featuredProducts": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.featured-products"
     },
     "chooseYourMac": {
       "type": "component",

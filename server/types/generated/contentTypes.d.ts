@@ -588,7 +588,7 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
     singularName: 'complaint';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     billImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
@@ -615,15 +615,12 @@ export interface ApiComplaintComplaint extends Struct.CollectionTypeSchema {
         maxLength: 50;
         minLength: 3;
       }>;
-    phoneNumber: Schema.Attribute.BigInteger &
+    phoneNumber: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: '12';
-          min: '8';
-        },
-        string
-      >;
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+        minLength: 8;
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     surname: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -686,15 +683,16 @@ export interface ApiEducationalDiscountPageEducationalDiscountPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    featuredProducts: Schema.Attribute.Component<
+      'global.featured-products',
+      false
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::educational-discount-page.educational-discount-page'
     > &
       Schema.Attribute.Private;
-    product1: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
-    product2: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
-    product3: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -712,7 +710,7 @@ export interface ApiEducationalDiscountEducationalDiscount
     singularName: 'educational-discount';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -735,7 +733,7 @@ export interface ApiEducationalDiscountEducationalDiscount
     phoneNumber: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 12;
+        maxLength: 20;
         minLength: 8;
       }>;
     publishedAt: Schema.Attribute.DateTime;
@@ -1291,6 +1289,10 @@ export interface ApiPromoPagePromoPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    featuredProducts: Schema.Attribute.Component<
+      'global.featured-products',
+      false
+    >;
     infoBlock: Schema.Attribute.Component<'global.info-block', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1298,7 +1300,6 @@ export interface ApiPromoPagePromoPage extends Struct.SingleTypeSchema {
       'api::promo-page.promo-page'
     > &
       Schema.Attribute.Private;
-    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1412,6 +1413,37 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
     shortDescription: Schema.Attribute.String;
     startingPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     tag: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWhyMacPageWhyMacPage extends Struct.SingleTypeSchema {
+  collectionName: 'why_mac_pages';
+  info: {
+    displayName: 'Why Mac Page';
+    pluralName: 'why-mac-pages';
+    singularName: 'why-mac-page';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featuredProducts: Schema.Attribute.Component<
+      'global.featured-products',
+      false
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::why-mac-page.why-mac-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2000,6 +2032,7 @@ declare module '@strapi/strapi' {
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
       'api::store.store': ApiStoreStore;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
+      'api::why-mac-page.why-mac-page': ApiWhyMacPageWhyMacPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

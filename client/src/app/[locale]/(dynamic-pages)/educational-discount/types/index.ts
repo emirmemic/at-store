@@ -2,9 +2,10 @@ import { ActionLinkResponse, ImageProps, ProductResponse } from '@/lib/types';
 
 export interface EducationalPageResponse {
   data: {
-    product1: ProductResponse | null;
-    product2: ProductResponse | null;
-    product3: ProductResponse | null;
+    featuredProducts: {
+      sectionTitle: string;
+      products: ProductResponse[];
+    } | null;
     chooseYourMac: ChooseYourMac | null;
   };
 }

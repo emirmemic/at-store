@@ -1,5 +1,4 @@
 //TODO ADD CONSTANTS FOR ALL PAGES THAT USE CONSTANTS
-//TODO ADD sr-only for  form inputs
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';

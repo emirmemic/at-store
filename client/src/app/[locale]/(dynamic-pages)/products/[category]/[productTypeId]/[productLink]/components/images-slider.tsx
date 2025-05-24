@@ -65,7 +65,7 @@ export default function ImagesSlider({
     };
   }, [activeIndex, api]);
 
-  if (!images || images?.length === 0) return <NoImages />;
+  if (!images || images?.length === 0) return <NoImages tag={tag || ''} />;
   const hasMoreImages = images?.length > 1;
   return (
     <div
@@ -97,7 +97,7 @@ export default function ImagesSlider({
         </div>
         {tag && (
           <ProductTag
-            className="absolute right-0 top-0 -translate-y-1/2"
+            className="absolute right-6 top-0 -translate-y-1/2"
             tag={tag}
           />
         )}

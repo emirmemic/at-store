@@ -1,10 +1,9 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
 import { CardBlock, StrapiImage } from '@/components';
 import { IconApple } from '@/components/icons';
-import { Button } from '@/components/ui/button';
+import { ActionLink } from '@/components/strapi/components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 
@@ -122,27 +121,14 @@ export default async function Page() {
             <p className="mb-7 flex-1 text-white heading-4 md:mb-0 lg:heading-3">
               {hotItem?.caption ?? 'Image not available'}
             </p>
-
             {hotItem.actionLink && (
-              <Button asChild size={'lg'} variant={'filled'}>
-                <Link
-                  aria-label={
-                    hotItem?.actionLink?.linkText || t('common.buyNow')
-                  }
-                  href={hotItem?.actionLink?.linkUrl || ''}
-                  rel={
-                    hotItem?.actionLink?.isExternal
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
-                  target={
-                    hotItem?.actionLink?.isExternal ? '_blank' : undefined
-                  }
-                  title={hotItem?.actionLink?.linkText || t('common.buyNow')}
-                >
-                  {t('common.buyNow')}
-                </Link>
-              </Button>
+              <ActionLink
+                actionLink={hotItem.actionLink}
+                size={'lg'}
+                variant={'filled'}
+              >
+                {hotItem.actionLink.linkText || t('common.buyNow')}
+              </ActionLink>
             )}
           </div>
         </section>

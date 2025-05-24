@@ -10,7 +10,15 @@ import Options from './options';
 export default function ProductDetails() {
   const { productOptions, selectedVariant } = useProductVariants();
 
-  const { details, name, originalPrice, discountedPrice } = selectedVariant;
+  const {
+    details,
+    name,
+    originalPrice,
+    discountedPrice,
+    tag,
+    images,
+    productVariantId,
+  } = selectedVariant;
   const finalPrice = discountedPrice ?? originalPrice;
   const image = selectedVariant.images?.[0] || null;
   return (
@@ -20,7 +28,7 @@ export default function ProductDetails() {
           discountedPrice={discountedPrice}
           name={name}
           originalPrice={originalPrice}
-          productVariantId={selectedVariant.productVariantId}
+          productVariantId={productVariantId}
         />
         <div className="hidden w-full gap-14 md:flex md:flex-col">
           <Options finalPrice={finalPrice} options={productOptions} />
@@ -28,12 +36,7 @@ export default function ProductDetails() {
         </div>
       </div>
       <div className="order-2 flex flex-col items-start gap-12 md:order-1">
-        <ImagesSlider
-          className="mb-5"
-          images={selectedVariant.images}
-          tag={selectedVariant.tag}
-        />
-
+        <ImagesSlider className="mb-5" images={images} tag={tag} />
         {details && (
           <>
             <div className="h-0.5 w-full bg-grey-light"></div>

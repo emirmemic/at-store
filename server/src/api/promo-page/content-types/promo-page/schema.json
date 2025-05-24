@@ -16,10 +16,10 @@
       "repeatable": false,
       "component": "global.info-block"
     },
-    "products": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product.product"
+    "featuredProducts": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.featured-products"
     }
   }
 }

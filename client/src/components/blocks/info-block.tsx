@@ -1,13 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { ReactNode } from 'react';
-import type { ComponentProps } from 'react';
 
 import { IconHeart } from '@/components/icons';
+import { ActionLink } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/routing';
 import { InfoBlockResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-type LinkHref = ComponentProps<typeof Link>['href'];
+
 interface InfoBlockProps extends Omit<InfoBlockResponse, 'id'> {
   descriptionComponent?: ReactNode;
   className?: string;
@@ -35,44 +34,42 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
         { 'pb-12': !hasAction }
       )}
     >
-      <div className="mb-3 flex items-center gap-6 lg:mb-6">
-        <h2 className="text-white heading-3">{title}</h2>
-        {isFavorites && (
-          <IconHeart className="text-red-deep" filled={true} size={32} />
-        )}
-      </div>
+      {title && (
+        <div className="mb-3 flex items-center gap-6 lg:mb-6">
+          <h2 className="text-white heading-3">{title}</h2>
+          {isFavorites && (
+            <IconHeart className="text-red-deep" filled={true} size={32} />
+          )}
+        </div>
+      )}
       <div className="flex flex-col gap-6 md:gap-3 lg:flex-row lg:gap-16">
         {descriptionComponent ?? (
-          <p className="flex-1 text-white paragraph-1">{description}</p>
+          <div className="flex flex-1 items-center">
+            <p className="text-white paragraph-1">{description}</p>
+          </div>
         )}
 
         {onClick && (
           <Button
             className="self-end"
-            size={'lg'}
-            typography={'button1'}
-            variant={'filled'}
+            size="lg"
+            typography="button1"
+            variant="filled"
             onClick={onClick}
           >
             {t('view')}
           </Button>
         )}
         {actionLink && (
-          <Button
-            asChild
+          <ActionLink
+            actionLink={actionLink}
             className="self-end"
-            size={'lg'}
-            typography={'button1'}
-            variant={'filled'}
+            size="lg"
+            typography="button1"
+            variant="filled"
           >
-            <Link
-              href={actionLink.linkUrl as LinkHref}
-              rel={actionLink?.isExternal ? 'noopener noreferrer' : undefined}
-              target={actionLink?.openInNewTab ? '_blank' : '_self'}
-            >
-              {actionLink.linkText ?? t('view')}
-            </Link>
-          </Button>
+            {actionLink.linkText ?? t('view')}
+          </ActionLink>
         )}
       </div>
     </div>

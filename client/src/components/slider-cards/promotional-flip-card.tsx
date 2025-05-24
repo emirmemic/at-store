@@ -1,12 +1,10 @@
 'use client';
-
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
 import { IconFlip } from '@/components/icons';
+import { ActionLink } from '@/components/strapi/components';
 import { StrapiImage } from '@/components/strapi/components/strapi-image';
-import { Button } from '@/components/ui/button';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { PromotionalFlipCardResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
@@ -100,17 +98,9 @@ export default function PromotionalFlipCard(
           </div>
           <div className="flex flex-col gap-3">
             {actionLink && (
-              <Button asChild size={'md'} variant="filled">
-                <Link
-                  href={actionLink.linkUrl}
-                  rel={
-                    actionLink?.isExternal ? 'noopener noreferrer' : undefined
-                  }
-                  target={actionLink?.openInNewTab ? '_blank' : '_self'}
-                >
-                  {actionLink.linkText ?? t('buyNow')}
-                </Link>
-              </Button>
+              <ActionLink actionLink={actionLink} size="md" variant="filled">
+                {actionLink.linkText || t('buyNow')}
+              </ActionLink>
             )}
             <IconFlip className="ml-auto shrink-0" />
           </div>

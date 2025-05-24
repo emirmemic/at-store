@@ -96,6 +96,8 @@ export default function ListItem({
                         alt={sub.icon.alternativeText || sub.displayName}
                         className="h-full w-full object-contain"
                         height={128}
+                        loading="lazy"
+                        sizes="640px"
                         src={sub.icon.url}
                         width={128}
                       />

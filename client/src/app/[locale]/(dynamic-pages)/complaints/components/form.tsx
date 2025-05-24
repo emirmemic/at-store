@@ -114,6 +114,8 @@ export default function ComplaintsForm() {
             />
             <Input
               required
+              aria-labelledby="name"
+              aria-required="true"
               autoComplete="given-name"
               defaultValue={formState?.data.name}
               errorMessage={formState?.errors.name}
@@ -126,16 +128,18 @@ export default function ComplaintsForm() {
           <div>
             <FormLabel
               htmlFor="surname"
-              title={t('complaintsPage.formSurName')}
+              title={`${t('complaintsPage.formSurName')}*`}
             />
             <Input
               required
+              aria-labelledby="surname"
+              aria-required="true"
               autoComplete="family-name"
               defaultValue={formState?.data.surname}
               errorMessage={formState?.errors.surname}
               id="surname"
               name="surname"
-              placeholder={`${t('complaintsPage.formSurName')}*`}
+              placeholder={t('complaintsPage.formSurName')}
               type="text"
             />
           </div>
@@ -146,13 +150,15 @@ export default function ComplaintsForm() {
             />
             <Input
               required
+              aria-labelledby="phoneNumber"
+              aria-required="true"
               autoComplete="tel"
               defaultValue={formState?.data.phoneNumber}
               errorMessage={formState?.errors.phoneNumber}
               id="phoneNumber"
               name="phoneNumber"
-              placeholder={t('complaintsPage.formNumber')}
-              type="number"
+              placeholder={t('mikrofinInvoicePage.placeholder.number')}
+              type="tel"
             />
           </div>
           <div>
@@ -162,12 +168,14 @@ export default function ComplaintsForm() {
             />
             <Input
               required
+              aria-labelledby="email"
+              aria-required="true"
               autoComplete="email"
               defaultValue={formState?.data.email}
               errorMessage={formState?.errors.email}
               id="email"
               name="email"
-              placeholder={t('complaintsPage.formEmail')}
+              placeholder={t('mikrofinInvoicePage.placeholder.email')}
               type="email"
             />
           </div>
@@ -178,6 +186,7 @@ export default function ComplaintsForm() {
             />
             <Textarea
               required
+              aria-labelledby="message"
               defaultValue={formState?.data.message}
               errorMessage={formState?.errors.message}
               id="message"
@@ -191,11 +200,14 @@ export default function ComplaintsForm() {
         >
           <FormLabel
             htmlFor="deviceImage"
-            title2={t('complaintsPage.deviceImage')}
+            title2={`${t('complaintsPage.deviceImage')}*`}
           />
           <InputFileUpload
             ref={deviceImageRef}
+            required
             accept=".jpeg,.png"
+            aria-labelledby="deviceImage"
+            aria-required="true"
             disabled={isPending}
             errorMessage={fileErrors.deviceImage}
             id="deviceImage"
@@ -204,11 +216,14 @@ export default function ComplaintsForm() {
           />
           <FormLabel
             htmlFor="warrantyImage"
-            title2={t('complaintsPage.warrantyImage')}
+            title2={`${t('complaintsPage.warrantyImage')}*`}
           />
           <InputFileUpload
             ref={warrantyImageRef}
+            required
             accept=".jpeg,.png"
+            aria-labelledby="warrantyImage"
+            aria-required="true"
             disabled={isPending}
             errorMessage={fileErrors.warrantyImage}
             id="warrantyImage"
@@ -217,11 +232,14 @@ export default function ComplaintsForm() {
           />
           <FormLabel
             htmlFor="billImage"
-            title2={t('complaintsPage.billImage')}
+            title2={`${t('complaintsPage.billImage')}*`}
           />
           <InputFileUpload
             ref={billImageRef}
+            required
             accept=".jpeg,.png"
+            aria-labelledby="billImage"
+            aria-required="true"
             disabled={isPending}
             errorMessage={fileErrors.billImage}
             id="billImage"

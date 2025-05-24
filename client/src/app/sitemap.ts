@@ -40,8 +40,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
   );
-  // TODO: If number of pages is too high, consider splitting sitemap into multiple files.
 
+  // TODO: If number of products is too high, consider splitting sitemap into multiple files.
   // Dynamic Product Pages
   const productPages: MetadataRoute.Sitemap = [];
   try {
