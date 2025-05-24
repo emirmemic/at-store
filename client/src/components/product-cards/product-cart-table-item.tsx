@@ -61,7 +61,7 @@ const CloseButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <button
       aria-label={t('removeItem')}
-      className="p-3 text-black transition-colors duration-300 hover:text-grey-darker"
+      className="-mr-2 p-2 text-black transition-colors duration-300 hover:text-grey-darker"
       title={t('removeItem')}
       type="button"
       onClick={onClick}
@@ -82,9 +82,9 @@ const MobileCartItem = ({
   onQuantityChange,
 }: CartItemProps) => {
   return (
-    <div className="flex flex-col gap-2 border-b border-grey-light p-4 heading-5">
+    <div className="flex flex-col gap-2 border-b border-grey-light py-4 heading-5">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3 pr-8">
+        <div className="flex items-center gap-3">
           <ImageContainer image={image} product={product} />
           <div className="flex flex-col gap-3">
             <Link className="hover:underline" href={finalLink}>

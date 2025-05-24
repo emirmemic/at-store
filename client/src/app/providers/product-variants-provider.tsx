@@ -1,5 +1,4 @@
 'use client';
-
 import {
   notFound,
   useParams,
@@ -136,7 +135,7 @@ export default function ProductVariantsProvider({
       setAvailableOptions(
         deriveAvailableOptions(variants, { key: type, value })
       );
-      router.push(makeRouteLink(exactMatch, type));
+      router.push(makeRouteLink(exactMatch, type), { scroll: false });
       return;
     }
 
@@ -163,13 +162,13 @@ export default function ProductVariantsProvider({
       );
       const newSelectedOptions = initializeSelectedOptions(closestMatch);
       setSelectedOptions(newSelectedOptions);
-      router.push(makeRouteLink(closestMatch, type));
+      router.push(makeRouteLink(closestMatch, type), { scroll: false });
     } else {
       setAvailableOptions(
         deriveAvailableOptions(variants, { key: type, value })
       );
       setSelectedOptions(initializeSelectedOptions(selectedVariant));
-      router.push(makeRouteLink(selectedVariant, type));
+      router.push(makeRouteLink(selectedVariant, type), { scroll: false });
     }
   };
 

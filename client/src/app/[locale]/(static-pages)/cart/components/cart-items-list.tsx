@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { useCartProvider } from '@/app/providers';
 import { ProductCartTableItem } from '@/components/product-cards';
+import AnimatedList from '@/components/transitions/animate-list';
 import { useIsDesktop } from '@/lib/hooks/use-is-desktop';
 
 export default function CartItemsList() {
@@ -44,15 +45,19 @@ export default function CartItemsList() {
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          {cart.map((item) => (
-            <ProductCartTableItem
-              key={item.id}
-              cartItem={item}
-              isDesktop={false}
-              onQuantityChange={updateCart}
-              onRemove={updateCart}
-            />
-          ))}
+          <AnimatedList
+            className="w-full"
+            getKey={(item) => String(item.id)}
+            items={cart}
+            renderItem={(item) => (
+              <ProductCartTableItem
+                cartItem={item}
+                isDesktop={false}
+                onQuantityChange={updateCart}
+                onRemove={updateCart}
+              />
+            )}
+          />
         </div>
       )}
     </>

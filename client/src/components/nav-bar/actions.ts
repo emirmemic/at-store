@@ -33,8 +33,10 @@ export async function getSearchResults(searchTerm = '') {
         { description: { $containsi: searchTerm } },
         { brand: { name: { $containsi: searchTerm } } },
         { model: { name: { $containsi: searchTerm } } },
+        { productVariantId: { $containsi: searchTerm } },
         { category: { name: { $containsi: searchTerm } } },
         { subCategory: { name: { $containsi: searchTerm } } },
+        { color: { name: { $containsi: searchTerm } } },
       ],
     };
   }
