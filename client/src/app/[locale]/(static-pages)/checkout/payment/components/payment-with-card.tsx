@@ -24,6 +24,7 @@ import { getMonriUrl } from '@/lib/utils/utils';
 
 import { useCheckoutProvider } from '../../providers/checkout-provider';
 import { OrderSuccessData } from '../../types';
+import { generateOrderNumber } from '../../utils';
 import { createOrder, getProductsStatus, OrderPayload } from '../actions';
 import { PaymentResult, Result } from '../types';
 
@@ -50,7 +51,7 @@ export default function PaymentWithCard() {
   const totalPrice = getTotalPrice() + deliveryPrice;
 
   useEffect(() => {
-    const orderNumber = crypto?.randomUUID();
+    const orderNumber = generateOrderNumber();
 
     // Check if products are in stock
     async function checkProductsStatus() {
@@ -187,6 +188,7 @@ export default function PaymentWithCard() {
             quantity: item.quantity,
           })),
           deliveryMethod: deliveryMethod,
+          paymentMethod: 'card',
           orderNumber: paymentResult?.order_number,
           totalPrice: totalPrice,
         };

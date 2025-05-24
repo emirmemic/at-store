@@ -10,10 +10,9 @@ import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 import { TitleWithValue } from '../components/cart-section';
 import { useCheckoutProvider } from '../providers/checkout-provider';
+import { PaymentMethod } from '../types';
 
 import { PaymentOnDelivery, PaymentWithCard } from './components';
-
-type PaymentMethod = 'card' | 'cash';
 
 export default function CheckoutPaymentPage() {
   const t = useTranslations('checkoutPage');

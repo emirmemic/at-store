@@ -10,6 +10,9 @@ export interface OrderSuccessData {
     quantity: number;
   }[];
   deliveryMethod: DeliveryMethod;
+  paymentMethod: PaymentMethod;
   orderNumber: string;
   totalPrice: number;
 }
+
+export type PaymentMethod = 'card' | 'cash';

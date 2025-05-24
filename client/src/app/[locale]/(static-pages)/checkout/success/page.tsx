@@ -30,7 +30,11 @@ export default function Page() {
   return (
     <div className="flex max-w-[526px] flex-col items-center justify-center gap-6 self-center rounded-2xl border border-grey-extra-light px-5 py-10 text-center shadow-standard-black">
       <IconCheckoutCheck size={150} />
-      <h2 className="heading-3">{t('paymentPage.paymentSuccessful')}</h2>
+      <h2 className="heading-3">
+        {orderSuccessData.paymentMethod === 'card'
+          ? t('paymentPage.paymentSuccessful')
+          : t('paymentPage.orderCreated')}
+      </h2>
       <p className="mb-6 paragraph-1">
         {t('paymentPage.paymentSuccessfulDescription')}
       </p>

@@ -12,6 +12,7 @@ import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 import { useCheckoutProvider } from '../../providers/checkout-provider';
 import { OrderSuccessData } from '../../types';
+import { generateOrderNumber } from '../../utils';
 import { createOrder, getProductsStatus, OrderPayload } from '../actions';
 
 export default function PaymentOnDelivery() {
@@ -29,7 +30,7 @@ export default function PaymentOnDelivery() {
   const deliveryPrice =
     getTotalPrice() > MINIMUM_AMOUNT_FREE_DELIVERY ? 0 : DELIVERY_COST;
   const totalPrice = getTotalPrice() + deliveryPrice;
-  const orderNumber = crypto?.randomUUID();
+  const orderNumber = generateOrderNumber();
 
   async function onContinue() {
     setIsLoading(true);
@@ -82,6 +83,7 @@ export default function PaymentOnDelivery() {
           deliveryMethod: deliveryMethod,
           orderNumber: orderNumber,
           totalPrice: totalPrice,
+          paymentMethod: 'cash',
         };
         setOrderSuccessData(orderSuccessData);
         setIsLoading(false);
