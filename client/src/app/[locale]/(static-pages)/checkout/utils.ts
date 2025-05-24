@@ -2,6 +2,7 @@ import { ZodError } from 'zod';
 
 import { DeliveryForm, deliverySchema } from '@/lib/schemas/checkout';
 import { LocalizationKey } from '@/lib/types';
+import { generateIdFromDate } from '@/lib/utils/utils';
 
 export async function handleSubmit(
   _prevState: unknown,
@@ -44,12 +45,6 @@ export async function handleSubmit(
   };
 }
 
-// Generate a shorter unique order number
 export const generateOrderNumber = () => {
-  // Use timestamp for uniqueness
-  const timestamp = `${Date.now()}${Math.floor(performance.now() % 1000)}`; // Combine Date.now() with performance.now() for better uniqueness
-  // Add some randomness (4 digits)
-  const randomPart = Math.floor(1000 + Math.random() * 9000);
-  // Combine for uniqueness
-  return `${timestamp}${randomPart}`;
+  return `ORD-${generateIdFromDate()}`;
 };

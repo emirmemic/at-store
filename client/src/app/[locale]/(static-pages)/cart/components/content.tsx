@@ -14,6 +14,7 @@ import {
   InvoiceData,
   InvoiceGenerateResponse,
 } from '@/lib/types';
+import { generateIdFromDate } from '@/lib/utils/utils';
 
 import CartItemsList from './cart-items-list';
 import EmptyCart from './empty-cart';
@@ -61,7 +62,7 @@ export default function Content() {
   const [pdfUrl, setPdfUrl] = useState('');
   // Handlers
   const handleInvoice = async () => {
-    const invoiceNumber = `INV-${Date.now()}`;
+    const invoiceNumber = `INV-${generateIdFromDate()}`;
     const data: InvoiceData = {
       organization: user,
       cart,
