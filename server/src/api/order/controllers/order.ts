@@ -16,6 +16,7 @@ export default factories.createCoreController(
         return ctx.badRequest('Order data is required');
       }
       const { user } = ctx.state;
+      const isOrganization = user && user.role.type === 'organization';
 
       // All products are in stock, proceed with the order creation
       let newOrder;

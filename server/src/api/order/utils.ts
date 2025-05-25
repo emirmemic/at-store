@@ -46,7 +46,7 @@ export async function notifyAdminAboutOrderCreation(
     .plugin('email')
     .service('email')
     .send({
-      to: process.env.ADMIN_EMAIL,
+      to: process.env.ORDERS_EMAIL,
       from: process.env.DEFAULT_FROM,
       subject: 'Nova narudžba je napravljena',
       text: `Nova narudžba #${order.orderNumber} je napravljena.
@@ -110,7 +110,7 @@ export async function notifyAdminAboutOrderFailure(
     .plugin('email')
     .service('email')
     .send({
-      to: process.env.ADMIN_EMAIL,
+      to: process.env.ORDERS_EMAIL,
       from: process.env.DEFAULT_FROM,
       subject: 'GREŠKA: Problem s kreiranjem narudžbe',
       text: `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} je neuspjelo.

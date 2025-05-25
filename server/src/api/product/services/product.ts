@@ -46,12 +46,14 @@ export default factories.createCoreService('api::product.product', () => ({
           for (const webAccountProduct of webAccountProducts) {
             // Check if product already exists
             try {
-              const existingProduct: StrapiProduct = await strapi.db
-                .query('api::product.product')
-                .findOne({
-                  where: {
+              // First, try to find the published product
+              let existingProduct = await strapi
+                .documents('api::product.product')
+                .findFirst({
+                  filters: {
                     productVariantId: webAccountProduct.product_variant_id,
                   },
+                  status: 'published',
                   populate: [
                     'brand',
                     'model',
@@ -66,9 +68,39 @@ export default factories.createCoreService('api::product.product', () => ({
                   ],
                 });
 
+              let isPublished = !!existingProduct;
+
+              if (!existingProduct) {
+                // If not found, try to find the draft product
+                existingProduct = await strapi
+                  .documents('api::product.product')
+                  .findFirst({
+                    filters: {
+                      productVariantId: webAccountProduct.product_variant_id,
+                    },
+                    status: 'draft',
+                    populate: [
+                      'brand',
+                      'model',
+                      'category',
+                      'subCategory',
+                      'stores.store',
+                      'color',
+                      'memory',
+                      'material',
+                      'chip',
+                      'orders',
+                    ],
+                  });
+                isPublished = false;
+              }
+
               if (
                 existingProduct &&
-                isSameProduct(webAccountProduct, existingProduct)
+                isSameProduct(
+                  webAccountProduct,
+                  existingProduct as StrapiProduct
+                )
               ) {
                 continue;
               }
@@ -296,7 +328,7 @@ export default factories.createCoreService('api::product.product', () => ({
                   )
                 );
                 // If the product is already published, we update it directly
-                if (existingProduct.publishedAt) {
+                if (isPublished) {
                   await strapi.documents('api::product.product').update({
                     documentId: existingProduct.documentId,
                     data: sanitizedProductData,
