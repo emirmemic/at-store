@@ -1,6 +1,9 @@
+import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
+import { LocalizationKey } from '@/lib/types';
+
 import { SectionProps } from '../components/section';
 
-export const getSections = (t: (key: string) => string): SectionProps[] => [
+export const getSections = (t: LocalizationKey): SectionProps[] => [
   {
     title: t('termsOfPurchasePage.item1.title'),
     listItems: [
@@ -34,7 +37,14 @@ export const getSections = (t: (key: string) => string): SectionProps[] => [
     listItems: [
       [{ text: t('termsOfPurchasePage.item4.listItems1') }],
       [{ text: t('termsOfPurchasePage.item4.listItems2') }],
-      [{ text: t('termsOfPurchasePage.item4.listItems3') }],
+      [
+        {
+          text: t('termsOfPurchasePage.item4.listItems3', {
+            amount: MINIMUM_AMOUNT_FREE_DELIVERY,
+            currency: CURRENCY,
+          }),
+        },
+      ],
     ],
     sectionNumber: 4,
   },

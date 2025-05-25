@@ -263,8 +263,8 @@
     },
     "item3": {
       "title": "Troškovi dostave",
-      "listItem1": "Dostava je besplatna za narudžbe iznad 399 KM.",
-      "listItem2": "Za narudžbe ispod 399 KM, troškovi dostave bit će prikazani prilikom dovršetka kupnje."
+      "listItem1": "Dostava je besplatna za narudžbe iznad {amount} {currency}.",
+      "listItem2": "Za narudžbe ispod {amount} {currency}, troškovi dostave bit će prikazani prilikom dovršetka kupnje."
     },
     "item4": {
       "title": "Praćenje pošiljke",
@@ -325,7 +325,7 @@
     },
     "infoBlock2": {
       "title": "Dostava",
-      "description": "Dostava je besplatna za narudžbe preko 399 KM."
+      "description": "Dostava je besplatna za narudžbe preko {amount} {currency}."
     },
     "infoBlock3": {
       "title": "Reklamacije",
@@ -436,7 +436,7 @@
       "title": "Dostava i isporuka",
       "listItems1": "Dostava se vrši isključivo na području Bosne i Hercegovine putem BH Pošte.",
       "listItems2": "Rok isporuke je 2-5 radnih dana, osim u slučaju nepredviđenih okolnosti.",
-      "listItems3": "Dostava je besplatna za narudžbe iznad 399 KM."
+      "listItems3": "Dostava je besplatna za narudžbe iznad {amount} {currency}."
     },
     "item5": {
       "title": "Otkazivanje narudžbi i povrat proizvoda",
@@ -927,7 +927,7 @@
   "newsPage": {
     "title": "Novosti",
     "description": "Dobrodošli na stranicu novosti AT Store-a! Ovdje možete pronaći najnovije informacije o Apple proizvodima, ekskluzivnim ponudama, događanjima i savjetima za bolje korisničko iskustvo",
-    "newIphone": "Stigao je novi iPhone 16e",
+    "appleNumber1": "Apple je no.1 brend u svijetu.",
     "appleBrand": "Apple je zadržao prvo mjesto najvrijednijeg brenda na svijetu.",
     "appleStreak": "Najvrijedna kompanija u svijetu je Apple, već treću godinu zaredom."
   },

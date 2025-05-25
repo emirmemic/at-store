@@ -1,4 +1,6 @@
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
+import { LocalizationKey } from '@/lib/types';
 
 import { FaqSectionType } from '../components/faq-section';
 import { SectionProps } from '../components/section';
@@ -25,7 +27,7 @@ export const getFaqSection = (t: (key: string) => string): FaqSectionType[] => [
   },
 ];
 
-export const getInfoBlock = (t: (key: string) => string) => [
+export const getInfoBlock = (t: LocalizationKey) => [
   {
     id: 1,
     description: t('paymentMethodsPage.infoBlock1.description'),
@@ -37,7 +39,10 @@ export const getInfoBlock = (t: (key: string) => string) => [
   },
   {
     id: 2,
-    description: t('paymentMethodsPage.infoBlock2.description'),
+    description: t('paymentMethodsPage.infoBlock2.description', {
+      amount: MINIMUM_AMOUNT_FREE_DELIVERY,
+      currency: CURRENCY,
+    }),
     actionLink: {
       id: 2,
       linkUrl: PAGE_NAMES.DELIVERY,

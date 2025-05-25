@@ -2,12 +2,10 @@ import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
 import { CardBlock, StrapiImage } from '@/components';
-import { IconApple } from '@/components/icons';
+import { IconApple, IconAtStoreLogo } from '@/components/icons';
 import { ActionLink } from '@/components/strapi/components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-
-import IconAtSoft from '../../(static-pages)/icons/at-soft';
 
 import LatestProduct from './components/latestProduct';
 import { NewsPageResponse } from './types';
@@ -83,7 +81,7 @@ export default async function Page() {
           <h1 className="pb-2 heading-1"> {t('newsPage.title')}</h1>
           <p className="paragraph-1">{t('newsPage.description')}</p>
         </div>
-        <IconAtSoft className='md:max-w-[380px]" w-full max-w-80' />
+        <IconAtStoreLogo className="h-20 w-80 shrink-0 lg:w-[380px]" />
       </section>
       {latestProducts && latestProducts.length > 0 && (
         <section className="mt-16 flex flex-col gap-24 rounded-2xl bg-blue-steel p-11 px-6 py-14 shadow-popup-black md:gap-32 md:px-28 md:py-16 lg:gap-24 lg:px-10 lg:py-11">
@@ -133,7 +131,7 @@ export default async function Page() {
           </div>
         </section>
       )}
-      <section className="flex flex-col items-center justify-between gap-12 pt-16 text-center md:flex-row md:items-start md:gap-20 md:pt-14 lg:gap-60">
+      <section className="flex flex-col items-center justify-between gap-12 pt-16 text-center md:flex-row md:gap-20 md:pt-14 lg:gap-60">
         <div className="order-1">
           <CardBlock
             asChild
@@ -145,8 +143,8 @@ export default async function Page() {
             title={t('newsPage.appleBrand')}
           />
         </div>
-        <div className="flex flex-col gap-12 md:order-1 md:max-w-md md:flex-1 md:gap-5 md:text-right lg:gap-9">
-          <h3 className="heading-3">{t('atBusinessPage.contactTitle')}</h3>
+        <div className="flex flex-col gap-12 md:order-1 md:max-w-md md:flex-1 md:gap-5 md:pb-12 md:text-right lg:gap-9">
+          <h3 className="heading-3">{t('newsPage.appleNumber1')}</h3>
           <p className="paragraph-1">{t('newsPage.appleStreak')}</p>
         </div>
       </section>
