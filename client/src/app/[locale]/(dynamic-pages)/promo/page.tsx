@@ -5,8 +5,9 @@ import { InfoBlock } from '@/components';
 import { ProductsList } from '@/components/product-cards';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
+import { productsQuery } from '@/lib/utils/productsQuery';
 
 import { PromoPageResponseData } from './types';
 
@@ -36,14 +37,7 @@ const query = qs.stringify(
       },
       featuredProducts: {
         populate: {
-          products: {
-            populate: {
-              images: {
-                fields: STRAPI_IMAGE_FIELDS,
-              },
-              category: true,
-            },
-          },
+          products: productsQuery,
         },
       },
     },

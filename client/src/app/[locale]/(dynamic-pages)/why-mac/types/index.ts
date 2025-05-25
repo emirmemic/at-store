@@ -1,10 +1,7 @@
-import { ProductResponse } from '@/lib/types';
+import { FeaturedProductsResponse } from '@/lib/types';
 
 export interface WhyMacPageResponse {
   data: {
-    featuredProducts: {
-      sectionTitle: string;
-      products: ProductResponse[];
-    } | null;
+    featuredProducts: FeaturedProductsResponse | null;
   };
 }

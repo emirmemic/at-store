@@ -1,11 +1,12 @@
-import { ActionLinkResponse, ImageProps, ProductResponse } from '@/lib/types';
+import {
+  ActionLinkResponse,
+  FeaturedProductsResponse,
+  ImageProps,
+} from '@/lib/types';
 
 export interface EducationalPageResponse {
   data: {
-    featuredProducts: {
-      sectionTitle: string;
-      products: ProductResponse[];
-    } | null;
+    featuredProducts: FeaturedProductsResponse | null;
     chooseYourMac: ChooseYourMac | null;
   };
 }

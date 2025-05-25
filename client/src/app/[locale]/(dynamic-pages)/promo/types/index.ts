@@ -1,11 +1,8 @@
-import { InfoBlockResponse, ProductResponse } from '@/lib/types';
+import { FeaturedProductsResponse, InfoBlockResponse } from '@/lib/types';
 
 export interface PromoPageResponseData {
   data: {
     infoBlock: InfoBlockResponse | null;
-    featuredProducts: {
-      sectionTitle: string;
-      products: ProductResponse[];
-    } | null;
+    featuredProducts: FeaturedProductsResponse | null;
   };
 }

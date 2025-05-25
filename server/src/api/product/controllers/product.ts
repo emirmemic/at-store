@@ -12,7 +12,7 @@ export default factories.createCoreController(
         ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
         $gt: 0,
       };
-
+      console.log('find is called', ctx.query);
       // Call the default core controller logic
       const { data, meta } = await super.find(ctx);
       return { data, meta };
@@ -27,7 +27,7 @@ export default factories.createCoreController(
         ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
         $gt: 0,
       };
-
+      console.log('findone is called', ctx.query);
       // Call the default core controller logic
       const { data, meta } = await super.findOne(ctx);
       return { data, meta };

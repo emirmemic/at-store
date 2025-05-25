@@ -1,3 +1,5 @@
+import { ProductResponse } from './product';
+
 // Strapi Global Components Types
 interface ImageProps {
   id: number;
@@ -42,10 +44,15 @@ interface PromotionalFlipCardResponse {
   actionLink: ActionLinkResponse | null;
 }
 
+interface FeaturedProductsResponse {
+  sectionTitle?: string;
+  products: ProductResponse[];
+}
 export type {
   ImageProps,
   InfoBlockResponse,
   ActionLinkResponse,
   PromoSliderItemResponse,
   PromotionalFlipCardResponse,
+  FeaturedProductsResponse,
 };

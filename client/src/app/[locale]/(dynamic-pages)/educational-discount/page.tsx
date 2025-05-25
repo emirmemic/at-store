@@ -13,6 +13,7 @@ import { ActionLink } from '@/components/strapi/components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ActionLinkResponse } from '@/lib/types';
+import { productsQuery } from '@/lib/utils/productsQuery';
 
 import EducationalDiscountForm from './components/form';
 import { EducationalPageResponse } from './types';
@@ -39,14 +40,7 @@ const educationalDiscountPageQuery = qs.stringify(
     populate: {
       featuredProducts: {
         populate: {
-          products: {
-            populate: {
-              images: {
-                fields: STRAPI_IMAGE_FIELDS,
-              },
-              category: true,
-            },
-          },
+          products: productsQuery,
         },
       },
       chooseYourMac: {
@@ -167,10 +161,11 @@ export default async function Page() {
       <EducationalDiscountForm />
       {products && products.length > 0 && (
         <section className="py-12 md:py-16">
-          <h2 className="pb-12 text-center heading-1 md:pb-14">
-            {featuredProducts?.sectionTitle ||
-              t('educationalDiscountPage.featuredProducts')}
-          </h2>
+          {featuredProducts?.sectionTitle && (
+            <h2 className="pb-12 text-center heading-1 md:pb-14">
+              {featuredProducts?.sectionTitle}
+            </h2>
+          )}
           <ProductsList products={products}></ProductsList>
         </section>
       )}

@@ -9,9 +9,10 @@ import {
 } from '@/assets/images';
 import { InfoBlock } from '@/components';
 import { ProductsList } from '@/components/product-cards';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { ActionLinkResponse } from '@/lib/types';
+import { productsQuery } from '@/lib/utils/productsQuery';
 
 import { WhyMacPageResponse } from './types';
 
@@ -39,14 +40,7 @@ const query = qs.stringify(
     populate: {
       featuredProducts: {
         populate: {
-          products: {
-            populate: {
-              images: {
-                fields: STRAPI_IMAGE_FIELDS,
-              },
-              category: true,
-            },
-          },
+          products: productsQuery,
         },
       },
     },
