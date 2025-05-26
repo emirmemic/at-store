@@ -4,6 +4,8 @@ import { Order } from '../types';
 import {
   notifyAdminAboutOrderCreation,
   notifyAdminAboutOrderFailure,
+  notifyCustomerAboutOrderCreation,
+  notifyCustomerAboutOrderFailure,
 } from '../utils';
 
 export default factories.createCoreController(
@@ -66,11 +68,14 @@ export default factories.createCoreController(
         });
         // Notify admin about the failed order creation
         notifyAdminAboutOrderFailure(order);
+        // Notify customer about the failed order creation
+        notifyCustomerAboutOrderFailure(order);
         return ctx.badRequest('Failed to update product stock', error);
       }
 
       strapi.log.info('New order created:', newOrder);
       notifyAdminAboutOrderCreation(order);
+      notifyCustomerAboutOrderCreation(order);
       return ctx.created({
         message: 'Order created successfully',
       });

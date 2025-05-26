@@ -170,6 +170,7 @@ export default function PaymentWithCard() {
             productVariantId: item.product.productVariantId,
             productDocumentId: item.product.documentId,
             quantity: item.quantity,
+            name: item.product.name,
           })),
           address: deliveryForm,
           deliveryMethod,

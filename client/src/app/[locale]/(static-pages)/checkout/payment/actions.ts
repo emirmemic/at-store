@@ -12,6 +12,7 @@ export interface OrderPayload {
     productVariantId: string;
     productDocumentId: string;
     quantity: number;
+    name: string;
   }[];
   address: DeliveryForm | null | undefined;
   deliveryMethod: DeliveryMethod;
