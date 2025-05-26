@@ -22,5 +22,6 @@ export interface Order {
     productVariantId: string;
     productDocumentId: string;
     quantity: number;
+    name: string;
   }[];
 }
