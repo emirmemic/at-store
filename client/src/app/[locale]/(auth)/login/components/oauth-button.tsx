@@ -13,7 +13,11 @@ export default function OAuthButton({
   variant?: 'icon' | 'button';
 }) {
   const backendUrl = getStrapiURL();
-  const path = `/api/connect/${provider}`;
+  const isApple = provider === 'apple';
+
+  const path = isApple
+    ? `/api/users-permissions/connect/apple`
+    : `/api/connect/${provider}`;
   const url = new URL(backendUrl + path);
 
   const Icon: Icon = (() => {

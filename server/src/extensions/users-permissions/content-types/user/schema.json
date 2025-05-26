@@ -132,6 +132,9 @@
       "relation": "oneToMany",
       "target": "api::organization-pre-invoice.organization-pre-invoice",
       "mappedBy": "user"
+    },
+    "appleSub": {
+      "type": "text"
     }
   }
 }
