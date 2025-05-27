@@ -20,6 +20,7 @@ export async function GET(request: Request) {
 
     const pathParts = pathname.split('/').filter(Boolean);
     const provider = pathParts.length === 3 ? pathParts[1] : pathParts[2];
+    const isApple = provider === 'apple';
 
     if (!token) {
       return NextResponse.redirect(
@@ -28,18 +29,43 @@ export async function GET(request: Request) {
     }
 
     const backendUrl = getStrapiURL();
-    const path = `/api/auth/${provider}/callback`;
+    const path = isApple
+      ? `/api/users-permissions/connect/apple/callback`
+      : `/api/auth/${provider}/callback`;
 
     const url = new URL(backendUrl + path);
-    if (provider === 'apple') {
-      url.searchParams.append('code', token);
+    url.searchParams.append('access_token', token);
+
+    let res;
+    let data;
+    // Use POST method for Apple sign in
+    if (isApple) {
+      const name = searchParams.get('name');
+      const surname = searchParams.get('surname');
+
+      const user = name
+        ? {
+            name: {
+              firstName: name || '',
+              lastName: surname || '',
+            },
+          }
+        : null;
+      res = await fetch(url.href, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          accessToken: token,
+          ...(user && { user }),
+        }),
+      });
+      data = await res.json();
     } else {
-      url.searchParams.append('access_token', token);
+      res = await fetch(url.href);
+      data = await res.json();
     }
-
-    const res = await fetch(url.href);
-
-    const data = await res.json();
 
     if (data.error) {
       throw new Error(`Authentication failed: ${data.error.message}`);
@@ -52,7 +78,12 @@ export async function GET(request: Request) {
     const cookieStore = await cookies();
     cookieStore.set('jwt', data.jwt, config);
 
-    return NextResponse.redirect(new URL('/?success=true', frontendUrl));
+    const response = NextResponse.redirect(
+      new URL('/?success=true', frontendUrl),
+      { status: 303 }
+    );
+    response.cookies.set('jwt', data.jwt, config);
+    return response;
   } catch (error) {
     const errorMessage = encodeURIComponent(
       error instanceof Error ? error.message : 'Authentication failed'
