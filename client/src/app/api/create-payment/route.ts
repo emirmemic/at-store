@@ -8,8 +8,10 @@ export async function POST(req: NextRequest) {
     const reqBody = await req.json();
     const { amount, currency, order_number, order_info, transaction_type } =
       reqBody;
+
+    const amountInFenings = Math.round(amount * 100);
     const body = JSON.stringify({
-      amount,
+      amount: amountInFenings,
       currency,
       order_number,
       order_info,
@@ -32,6 +34,7 @@ export async function POST(req: NextRequest) {
     const monriUrl = isProduction
       ? 'https://ipg.monri.com'
       : 'https://ipgtest.monri.com';
+
     const monriRes = await fetch(`${monriUrl}/v2/payment/new`, {
       method: 'POST',
       headers: {

@@ -197,7 +197,7 @@ export default function PaymentWithCard() {
         redirect(PAGE_NAMES.CHECKOUT_SUCCESS);
       } else if (paymentResult?.status === 'declined') {
         toast({
-          title: t('common.paymentDeclined'),
+          title: t('checkoutPage.paymentDeclined'),
           variant: 'destructive',
         });
       } else {
