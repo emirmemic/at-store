@@ -93,7 +93,7 @@ export default function OrgUserForm() {
         errorMessage={formState?.errors?.phoneNumber}
         name="phoneNumber"
         placeholder={`${t('phoneNumber')}*`}
-        type="number"
+        type="tel"
       />
       <Input
         defaultValue={formState?.data.address}

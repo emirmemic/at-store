@@ -1962,15 +1962,12 @@ export interface PluginUsersPermissionsUser
       'api::organization-pre-invoice.organization-pre-invoice'
     >;
     password: Schema.Attribute.Password & Schema.Attribute.Private;
-    phoneNumber: Schema.Attribute.BigInteger &
+    phoneNumber: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: '12';
-          min: '8';
-        },
-        string
-      >;
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+        minLength: 8;
+      }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;

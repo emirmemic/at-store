@@ -104,10 +104,10 @@
       "max": "13"
     },
     "phoneNumber": {
-      "type": "biginteger",
+      "type": "string",
       "required": true,
-      "max": "12",
-      "min": "8"
+      "maxLength": 20,
+      "minLength": 8
     },
     "favoriteProducts": {
       "type": "relation",
