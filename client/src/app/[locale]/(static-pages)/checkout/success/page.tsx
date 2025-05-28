@@ -22,7 +22,7 @@ export default function Page() {
   }
 
   const deliveryPrice = getDeliveryPrice();
-  const finalPrice = orderSuccessData.totalPrice + getDeliveryPrice();
+  const finalPrice = orderSuccessData.totalPrice;
 
   return (
     <div className="flex max-w-[526px] flex-col items-center justify-center gap-6 self-center rounded-2xl border border-grey-extra-light px-5 py-10 text-center shadow-standard-black">
