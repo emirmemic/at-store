@@ -12,19 +12,20 @@ import { useCartProvider } from '@/app/providers';
 import { IconChevron } from '@/components/icons';
 import { ProductCartTableItem } from '@/components/product-cards';
 import Price from '@/components/ui/price';
-import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
+
+import { useCheckoutProvider } from '../providers/checkout-provider';
 
 export default function CartSection() {
   const [isOpen, setIsOpen] = useState(true);
   const t = useTranslations('checkoutPage');
+  const { getDeliveryPrice } = useCheckoutProvider();
 
   const { cart, updateCart, getTotalPrice } = useCartProvider();
   if (cart.length === 0) redirect('/cart');
 
   const cartItemsPrice = getTotalPrice();
 
-  const deliveryPrice =
-    cartItemsPrice > MINIMUM_AMOUNT_FREE_DELIVERY ? 0 : DELIVERY_COST;
+  const deliveryPrice = getDeliveryPrice();
   const totalPrice = cartItemsPrice + deliveryPrice;
 
   return (

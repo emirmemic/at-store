@@ -1,7 +1,12 @@
 'use client';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-import { StoreCode } from '@/lib/constants';
+import { useCartProvider } from '@/app/providers';
+import {
+  DELIVERY_COST,
+  MINIMUM_AMOUNT_FREE_DELIVERY,
+  StoreCode,
+} from '@/lib/constants';
 import { DeliveryForm } from '@/lib/schemas/checkout';
 
 import { DeliveryMethod } from '../page';
@@ -16,6 +21,7 @@ export type CheckoutContextType = {
   deliveryForm: DeliveryForm | null;
   orderSuccessData: OrderSuccessData | null;
   setOrderSuccessData: (data: OrderSuccessData | null) => void;
+  getDeliveryPrice: () => number;
 };
 
 export const CheckoutContext = createContext<CheckoutContextType>({
@@ -27,6 +33,9 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   setOrderSuccessData: () => {},
   deliveryForm: null,
   orderSuccessData: null,
+  getDeliveryPrice: () => {
+    return 0;
+  },
 });
 
 export default function CheckoutProvider({
@@ -40,6 +49,21 @@ export default function CheckoutProvider({
   const [deliveryForm, setDeliveryForm] = useState<DeliveryForm | null>(null);
   const [orderSuccessData, setOrderSuccessData] =
     useState<OrderSuccessData | null>(null);
+  const { getTotalPrice } = useCartProvider();
+
+  function getDeliveryPrice() {
+    const isPickup = deliveryMethod === 'pickup';
+    if (isPickup) {
+      return 0;
+    } else if (
+      deliveryMethod === 'delivery' &&
+      getTotalPrice() > MINIMUM_AMOUNT_FREE_DELIVERY
+    ) {
+      return 0;
+    } else {
+      return DELIVERY_COST;
+    }
+  }
 
   return (
     <CheckoutContext.Provider
@@ -52,6 +76,7 @@ export default function CheckoutProvider({
         deliveryForm,
         orderSuccessData,
         setOrderSuccessData,
+        getDeliveryPrice,
       }}
     >
       {children}

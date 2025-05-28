@@ -8,7 +8,6 @@ import { IconLoader } from '@/components/icons';
 import { OutOfStockPopup } from '@/components/popup';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 import { useCheckoutProvider } from '../../providers/checkout-provider';
 import { OrderSuccessData } from '../../types';
@@ -19,16 +18,20 @@ export default function PaymentOnDelivery() {
   const t = useTranslations('checkoutPage');
   // PROVIDERS
   const { getTotalPrice, cart, clearCart } = useCartProvider();
-  const { setOrderSuccessData, deliveryForm, deliveryMethod, selectedStore } =
-    useCheckoutProvider();
+  const {
+    setOrderSuccessData,
+    deliveryForm,
+    deliveryMethod,
+    selectedStore,
+    getDeliveryPrice,
+  } = useCheckoutProvider();
   // STATES
   const [isLoading, setIsLoading] = useState(false);
   const [outOfStockDialog, setOutOfStockDialog] = useState(false);
   const [outOfStockProducts, setOutOfStockProducts] = useState<string[]>([]);
 
   // CONSTANTS
-  const deliveryPrice =
-    getTotalPrice() > MINIMUM_AMOUNT_FREE_DELIVERY ? 0 : DELIVERY_COST;
+  const deliveryPrice = getDeliveryPrice();
   const totalPrice = getTotalPrice() + deliveryPrice;
   const orderNumber = generateOrderNumber();
 

@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { useCartProvider } from '@/app/providers';
 import { Checkbox } from '@/components/ui/checkbox';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 import { TitleWithValue } from '../components/cart-section';
 import { useCheckoutProvider } from '../providers/checkout-provider';
@@ -19,7 +18,8 @@ export default function CheckoutPaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
-  const { deliveryForm, selectedStore } = useCheckoutProvider();
+  const { deliveryForm, selectedStore, getDeliveryPrice } =
+    useCheckoutProvider();
 
   if (!deliveryForm) {
     redirect(PAGE_NAMES.CHECKOUT);
@@ -27,8 +27,7 @@ export default function CheckoutPaymentPage() {
 
   const { getTotalPrice } = useCartProvider();
 
-  const deliveryPrice =
-    getTotalPrice() > MINIMUM_AMOUNT_FREE_DELIVERY ? 0 : DELIVERY_COST;
+  const deliveryPrice = getDeliveryPrice();
   const finalPrice = getTotalPrice() + deliveryPrice;
 
   const { name, surname, city, postalCode, ...deliveryFormValues } =

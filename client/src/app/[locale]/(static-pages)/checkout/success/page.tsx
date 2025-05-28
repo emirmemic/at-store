@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import IconCheckoutCheck from '@/components/icons/checkout-check';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { DELIVERY_COST, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 
 import { TitleWithValue } from '../components/cart-section';
 import { useCheckoutProvider } from '../providers/checkout-provider';
@@ -16,16 +15,14 @@ import { OrderDetails, SingleOrderItem } from './components';
 export default function Page() {
   const t = useTranslations('checkoutPage');
 
-  const { orderSuccessData } = useCheckoutProvider();
+  const { orderSuccessData, getDeliveryPrice } = useCheckoutProvider();
 
   if (!orderSuccessData) {
     redirect(PAGE_NAMES.CHECKOUT);
   }
-  const deliveryPrice =
-    orderSuccessData.totalPrice > MINIMUM_AMOUNT_FREE_DELIVERY
-      ? 0
-      : DELIVERY_COST;
-  const finalPrice = orderSuccessData.totalPrice + deliveryPrice;
+
+  const deliveryPrice = getDeliveryPrice();
+  const finalPrice = orderSuccessData.totalPrice + getDeliveryPrice();
 
   return (
     <div className="flex max-w-[526px] flex-col items-center justify-center gap-6 self-center rounded-2xl border border-grey-extra-light px-5 py-10 text-center shadow-standard-black">

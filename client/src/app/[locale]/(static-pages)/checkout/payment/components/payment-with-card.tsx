@@ -14,11 +14,7 @@ import { IconLoader } from '@/components/icons';
 import { OutOfStockPopup } from '@/components/popup';
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import {
-  CURRENCY_ISO,
-  DELIVERY_COST,
-  MINIMUM_AMOUNT_FREE_DELIVERY,
-} from '@/lib/constants';
+import { CURRENCY_ISO } from '@/lib/constants';
 import { toast } from '@/lib/hooks';
 import { getMonriUrl } from '@/lib/utils/utils';
 
@@ -34,8 +30,13 @@ export default function PaymentWithCard() {
   const t = useTranslations();
   // PROVIDERS
   const { getTotalPrice, cart, clearCart } = useCartProvider();
-  const { deliveryForm, deliveryMethod, selectedStore, setOrderSuccessData } =
-    useCheckoutProvider();
+  const {
+    deliveryForm,
+    deliveryMethod,
+    selectedStore,
+    setOrderSuccessData,
+    getDeliveryPrice,
+  } = useCheckoutProvider();
   // STATES
   const [clientSecret, setClientSecret] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,8 +47,7 @@ export default function PaymentWithCard() {
   const monriRef = useRef<any>(null);
 
   // CONSTANTS
-  const deliveryPrice =
-    getTotalPrice() > MINIMUM_AMOUNT_FREE_DELIVERY ? 0 : DELIVERY_COST;
+  const deliveryPrice = getDeliveryPrice();
   const totalPrice = getTotalPrice() + deliveryPrice;
 
   useEffect(() => {
