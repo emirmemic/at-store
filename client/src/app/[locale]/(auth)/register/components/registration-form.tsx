@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { IconAtStoreLogo } from '@/components/icons';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { UserType } from '@/lib/types';
 
 import { Container } from '../../components';
@@ -22,6 +23,7 @@ export default function RegistrationForm({
       <IconAtStoreLogo height={50} width={230} />
       <Title
         className="mb-9 mt-11"
+        linkPath={PAGE_NAMES.LOGIN}
         linkText={t('loginPrompt')}
         subtitle={t('subtitle')}
         title={t('title')}

@@ -92,7 +92,7 @@ export default function Form() {
         errorMessage={formState?.errors?.phoneNumber}
         name="phoneNumber"
         placeholder={`${t('phoneNumber')}*`}
-        type="number"
+        type="tel"
       />
       {isPending ? (
         <IconLoader className="mt-3 self-center" size={46} />

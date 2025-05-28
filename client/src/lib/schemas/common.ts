@@ -18,11 +18,11 @@ export const nameAndSurnameSchema = (t: LocalizationKey) =>
     .string()
     .trim()
     .min(1, t('nameAndSurnameRequired'))
-    .regex(/^[a-zA-Z]+(?:\s[a-zA-Z]+)+$/, t('nameAndSurnameFormat'))
+    .regex(/^[\p{L} .'\-]+$/u, t('nameAndSurnameFormat'))
     .refine(
       (val) => {
-        const parts = val.split(' ');
-        return parts.length === 2 && parts[0].length > 0 && parts[1].length > 0;
+        const parts = val.trim().split(/\s+/);
+        return parts.length >= 2;
       },
       { message: t('nameAndSurnameFormat') }
     );
