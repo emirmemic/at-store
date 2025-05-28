@@ -76,6 +76,12 @@ export default function Options({
       availableOnes: availableOptions.memories,
     },
     {
+      key: 'ram',
+      title: t('productPage.ram'),
+      options: options.rams,
+      availableOnes: availableOptions.rams,
+    },
+    {
       key: 'keyboard',
       title: t('productPage.keyboardType'),
       options: keyboards,

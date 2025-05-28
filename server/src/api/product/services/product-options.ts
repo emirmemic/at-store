@@ -31,6 +31,7 @@ export default ({ strapi }) => ({
         },
         color: true,
         memory: true,
+        ram: true,
         images: {
           fields: ['url', 'alternativeText'],
         },
@@ -47,6 +48,7 @@ export default ({ strapi }) => ({
 
     const colorMap = new Map<number, any>();
     const memoryMap = new Map<number, any>();
+    const ramMap = new Map<number, any>();
 
     // Iterate through products to populate maps and create variants
     const variants = products.map((product) => {
@@ -58,11 +60,13 @@ export default ({ strapi }) => ({
         ancModel,
         screenSize,
         wifiModel,
+        ram,
       } = product;
 
       // Populate maps with unique values
       if (color) colorMap.set(Number(color.id), color);
       if (memory) memoryMap.set(Number(memory.id), memory);
+      if (ram) ramMap.set(Number(ram.id), ram);
       scalarAttributes.forEach((attr) => {
         const val = product[attr];
         if (val && !scalarMaps[attr].has(val)) {
@@ -74,6 +78,7 @@ export default ({ strapi }) => ({
         ...product,
         color,
         memory,
+        ram,
         keyboard,
         braceletSize,
         ancModel,
@@ -87,6 +92,7 @@ export default ({ strapi }) => ({
       attributes: {
         colors: formatColorOptions(colorMap),
         memories: formatMemoryOptions(memoryMap),
+        rams: formatMemoryOptions(ramMap),
         keyboards: formatScalarOptions(scalarMaps.keyboard),
         braceletSizes: formatScalarOptions(scalarMaps.braceletSize),
         ancModels: formatScalarOptions(scalarMaps.ancModel),
@@ -110,6 +116,12 @@ export default ({ strapi }) => ({
           ? {
               name: `${variant.memory.value}${variant.memory.unit}`,
               value: `${variant.memory.value}${variant.memory.unit}`,
+            }
+          : null,
+        ram: variant.ram
+          ? {
+              name: `${variant.ram.value}${variant.ram.unit}`,
+              value: `${variant.ram.value}${variant.ram.unit}`,
             }
           : null,
         ...Object.fromEntries(
@@ -150,11 +162,19 @@ const formatColorOptions = (
 
 const formatMemoryOptions = (
   memoryMap: Map<number, { value: string; unit: string }>
-) =>
-  [...memoryMap.values()].map(({ value, unit }) => ({
-    name: `${value}${unit}`,
-    value: `${value}${unit}`,
-  }));
+) => {
+  const seen = new Set();
+  return [...memoryMap.values()]
+    .map(({ value, unit }) => {
+      const label = `${value}${unit}`;
+      return { name: label, value: label };
+    })
+    .filter(({ value }) => {
+      if (seen.has(value)) return false;
+      seen.add(value);
+      return true;
+    });
+};
 
 const formatScalarValue = (value?: string | null) => {
   if (!value) return null;

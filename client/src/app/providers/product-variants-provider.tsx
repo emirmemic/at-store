@@ -238,6 +238,7 @@ function deriveAvailableOptions(
 
   const colors = new Map<string, AvailableOption>();
   const memories = new Map<string, AvailableOption>();
+  const rams = new Map<string, AvailableOption>();
   const keyboards = new Map<string, AvailableOption>();
   const braceletSizes = new Map<string, AvailableOption>();
   const ancModels = new Map<string, AvailableOption>();
@@ -247,6 +248,7 @@ function deriveAvailableOptions(
   narrowed.forEach((variant) => {
     if (variant.color) colors.set(variant.color.name, variant.color);
     if (variant.memory) memories.set(variant.memory.name, variant.memory);
+    if (variant.ram) rams.set(variant.ram.name, variant.ram);
     if (variant.keyboard)
       keyboards.set(variant.keyboard.name, variant.keyboard);
     if (variant.braceletSize)
@@ -263,6 +265,7 @@ function deriveAvailableOptions(
   return {
     colors: Array.from(colors.values()),
     memories: Array.from(memories.values()),
+    rams: Array.from(rams.values()),
     keyboards: Array.from(keyboards.values()),
     braceletSizes: Array.from(braceletSizes.values()),
     ancModels: Array.from(ancModels.values()),

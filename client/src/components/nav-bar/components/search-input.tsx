@@ -25,11 +25,13 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleClick = () => {
-    setQuery('');
-    setFocusedIndex(-1);
-    if (onClick) {
-      onClick();
-    }
+    setTimeout(() => {
+      setQuery('');
+      setFocusedIndex(-1);
+      if (onClick) {
+        onClick();
+      }
+    }, 200);
   };
 
   useEffect(() => {
@@ -70,9 +72,9 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
       case 'Enter':
         e.preventDefault();
         if (focusedIndex >= 0) {
-          router.push(
-            `${DYNAMIC_PAGES.PRODUCTS}/${products[focusedIndex].productLink}`
-          );
+          const selectedProduct = products[focusedIndex];
+          const productLink = makeProductLink(selectedProduct);
+          router.push(productLink);
           handleClick();
         } else {
           router.push(`${PAGE_NAMES.SEARCH}?query=${query}`);
@@ -104,13 +106,6 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
           )}
           placeholder={t('searchPlaceholder')}
           value={query}
-          onBlur={() => {
-            setTimeout(() => {
-              setProducts([]);
-              setFocusedIndex(-1);
-              setQuery('');
-            }, 200);
-          }}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => {
             if (debouncedQuery.trim().length > 2) {

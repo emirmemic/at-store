@@ -16,6 +16,7 @@ interface ProductTypeResponse {
 interface ProductTypeAttributes {
   colors?: AvailableOption[];
   memories?: AvailableOption[];
+  rams?: AvailableOption[];
   keyboards?: AvailableOption[];
   braceletSizes?: AvailableOption[];
   ancModels?: AvailableOption[];
@@ -30,6 +31,7 @@ type AvailableOption = {
 const OPTION_FAMILIES = [
   'color',
   'memory',
+  'ram',
   'keyboard',
   'braceletSize',
   'ancModel',
@@ -51,6 +53,7 @@ type ProductVariant = Omit<
 > & {
   color: AvailableOption | null;
   memory: AvailableOption | null;
+  ram: AvailableOption | null;
   keyboard: AvailableOption | null;
   screenSize: AvailableOption | null;
   wifiModel: AvailableOption | null;
@@ -61,6 +64,7 @@ type ProductVariant = Omit<
 interface SelectedOptions {
   color: string;
   memory: string;
+  ram: string;
   keyboard: string;
   screenSize: string;
   braceletSize: string;
