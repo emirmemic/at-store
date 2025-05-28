@@ -138,7 +138,7 @@ export default function Content() {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {t('cartPage.previewInvoice')}
+                  {t('cartPage.clickToDownloadInvoice')}
                 </Link>
               )}
             </AlertDescription>

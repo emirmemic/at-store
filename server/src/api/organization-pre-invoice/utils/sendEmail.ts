@@ -46,17 +46,13 @@ export const sendEmailToUser = async ({
 
         <p>Molimo Vas da izvršite uplatu prema podacima iz predračuna. Nakon uplate, <strong>pošaljite potvrdu o uplati</strong> na:</p>
         <p><a href="mailto:${adminEmail}">${adminEmail}</a></p>
+        <p>Vaš PDF predračun možete preuzeti na sljedećem linku:</p>
+        <p><a href="${pdfUrl}" target="_blank">Preuzmi PDF</a></p>
 
         <p>Ukoliko imate bilo kakvih pitanja, slobodno nas kontaktirajte.</p>
 
         <p>Srdačan pozdrav,<br/><strong>AT Store tim</strong></p>
       `,
-        attachments: [
-          {
-            filename: `predracun-${invoiceNumber}.pdf`,
-            path: pdfUrl,
-          },
-        ],
       });
     return true;
   } catch (error) {
@@ -71,10 +67,12 @@ export const sendEmailToAdmin = async ({
   user,
   invoiceDocumentId,
   invoiceNumber,
+  userEmailSent,
 }: {
   user: StrapiUser;
   invoiceDocumentId: string;
   invoiceNumber: string;
+  userEmailSent: boolean;
 }) => {
   try {
     await strapi
@@ -104,7 +102,7 @@ export const sendEmailToAdmin = async ({
         <p>Korisnik <strong>${user.username}</strong> (<a href="mailto:${user.email}">${user.email}</a>) je kreirao novi organizacijski predračun.</p>
 
         <p><strong>Broj predračuna:</strong> ${invoiceNumber}</p>
-
+        <p><strong>Da li je korisniku poslan e-mail:</strong> ${userEmailSent ? '✅ Da' : '❌ Ne'}</p>
         <p>
           <a href="${strapiUrl}/admin/content-manager/collection-types/api::organization-pre-invoice.organization-pre-invoice/${invoiceDocumentId}" target="_blank">
             ➡️ Otvori predračun u admin konzoli

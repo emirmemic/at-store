@@ -6,7 +6,7 @@ module.exports = {
       handler: 'organization-pre-invoice.createFromCart',
       config: {
         policies: [],
-        middlewares: [],
+        middlewares: ['global::is-owner'],
       },
     },
   ],

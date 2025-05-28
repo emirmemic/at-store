@@ -14,8 +14,7 @@ const phoneNumberSchema = z
   .string()
   .nonempty('Broj telefona je obavezan')
   .min(8, 'Broj telefona mora imati najmanje 8 cifara')
-  .max(12, 'Broj telefona ne smije biti duži od 12 cifara')
-  .regex(/^[0-9]+$/, 'Broj telefona smije sadržavati samo brojeve');
+  .max(20, 'Broj telefona ne smije biti duži od 20 cifara');
 
 const emailSchema = z
   .string()

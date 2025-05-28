@@ -5,5 +5,12 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreRouter(
-  'api::organization-pre-invoice.organization-pre-invoice'
+  'api::organization-pre-invoice.organization-pre-invoice',
+  {
+    config: {
+      find: {
+        middlewares: ['global::is-owner'],
+      },
+    },
+  }
 );
