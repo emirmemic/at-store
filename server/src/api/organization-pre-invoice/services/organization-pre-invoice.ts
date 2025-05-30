@@ -20,6 +20,9 @@ export default factories.createCoreService(
     ) => {
       try {
         // 1. Fetch user's cart
+        strapi.log.info(
+          `Fetching cart for user: ${user.id}, username: ${user.username}`
+        );
         const cart = await strapi.db.query('api::cart.cart').findOne({
           where: { user: user.id },
           populate: {
@@ -30,15 +33,23 @@ export default factories.createCoreService(
         });
 
         if (!cart || !cart.items || cart.items.length === 0) {
+          strapi.log.warn(
+            `Cart not found or empty for user: ${user.id}, username: ${user.username}`
+          );
           throw new Error('Cart is empty or not found for the user');
         }
-
+        strapi.log.info(
+          `Cart found for user: ${user.id}, items count: ${cart.items.length}`
+        );
         // 2. Create pre-invoice
         const items = cart.items.map((item) => ({
           product: item.product.documentId,
           quantity: item.quantity,
         }));
 
+        strapi.log.info(
+          `Creating pre-invoice for user: ${user.id}, invoice number: ${invoiceNumber}`
+        );
         const preInvoice = await strapi
           .documents('api::organization-pre-invoice.organization-pre-invoice')
           .create({
@@ -52,7 +63,16 @@ export default factories.createCoreService(
               totalAmount: totalPrice,
             },
           });
+        if (!preInvoice) {
+          strapi.log.error(
+            `Failed to create pre-invoice for user: ${user.id}, username: ${user.username}`
+          );
+          throw new Error('Failed to create pre-invoice');
+        }
 
+        strapi.log.info(
+          `Pre-invoice created for user: ${user.id}, pre-invoice ID: ${preInvoice.id}`
+        );
         // 3. Fetch PDF
         const foundPdf = await strapi.db.query('plugin::upload.file').findOne({
           where: { id: fileId },
@@ -60,7 +80,9 @@ export default factories.createCoreService(
         });
 
         if (!foundPdf) {
-          console.error('PDF file not found:', fileId);
+          strapi.log.error(
+            `PDF file not found for user: ${user.id}, username: ${user.username}`
+          );
           throw new Error('PDF file not found');
         }
 
@@ -69,22 +91,27 @@ export default factories.createCoreService(
         // 4. Send emails with timeout
         let userEmailSent = false;
         let adminEmailSent = false;
-
+        strapi.log.info(
+          `Sending emails for pre-invoice ID: ${preInvoice.id}, user: ${user.id}`
+        );
         try {
           const userResult = await Promise.race([
             sendEmailToUser({ user, pdfUrl, invoiceNumber }),
             timeout(5000),
           ]);
+          strapi.log.info(
+            `Email sent to user: ${user.id}, username: ${user.username}`
+          );
           userEmailSent = userResult === true;
         } catch (emailError) {
-          console.error(
-            'Failed or timed out sending email to user:',
+          strapi.log.error(
+            `Failed or timed out sending email to user: ${user.id}, username: ${user.username}`,
             emailError
           );
         }
 
         try {
-          await Promise.race([
+          const response = await Promise.race([
             sendEmailToAdmin({
               user,
               invoiceDocumentId: preInvoice.documentId,
@@ -93,16 +120,22 @@ export default factories.createCoreService(
             }),
             timeout(5000),
           ]);
+          strapi.log.info(
+            `Email sent to admin for pre-invoice ID: ${preInvoice.id}`
+          );
           adminEmailSent = true;
         } catch (adminEmailError) {
-          console.error(
-            'Failed or timed out sending email to admin:',
+          strapi.log.error(
+            `Failed or timed out sending email to admin for pre-invoice ID: ${preInvoice.id}`,
             adminEmailError
           );
         }
 
         // 5. Update invoice if user email sent
         if (userEmailSent) {
+          strapi.log.info(
+            `User email sent successfully for pre-invoice ID, update invoice status to emailSent: ${preInvoice.id}`
+          );
           const updated = await strapi.db
             .query('api::organization-pre-invoice.organization-pre-invoice')
             .update({
