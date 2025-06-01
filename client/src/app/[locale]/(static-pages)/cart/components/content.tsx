@@ -23,7 +23,6 @@ import TotalPriceSection from './total-price-section';
 const generatePdf = async (
   invoiceData: InvoiceData
 ): Promise<InvoiceGenerateResponse> => {
-  console.log(new Date().toISOString(), 'Generating PDF is initiated...');
   const path = '/api/generate-invoice';
   const body = JSON.stringify({ invoiceData });
   const res = await fetch(path, {
@@ -45,10 +44,6 @@ const createInvoice = async (
   totalPrice: number
 ) => {
   const path = `${STRAPI_BASE_URL}/api/organization-pre-invoices/create-from-cart`;
-  console.log(
-    new Date().toISOString(),
-    'Create invoice request is starting from client...'
-  );
   const res = await fetchAPI<CreateInvoiceResponse>(path, {
     method: 'POST',
     body: { fileId, invoiceNumber, totalPrice },

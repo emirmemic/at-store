@@ -46,13 +46,17 @@ export const sendEmailToUser = async ({
 
         <p>Molimo Vas da izvršite uplatu prema podacima iz predračuna. Nakon uplate, <strong>pošaljite potvrdu o uplati</strong> na:</p>
         <p><a href="mailto:${adminEmail}">${adminEmail}</a></p>
-        <p>Vaš PDF predračun možete preuzeti na sljedećem linku:</p>
-        <p><a href="${pdfUrl}" target="_blank">Preuzmi PDF</a></p>
 
         <p>Ukoliko imate bilo kakvih pitanja, slobodno nas kontaktirajte.</p>
 
         <p>Srdačan pozdrav,<br/><strong>AT Store tim</strong></p>
       `,
+        attachments: [
+          {
+            filename: `predracun-${invoiceNumber}.pdf`,
+            path: pdfUrl,
+          },
+        ],
       });
     return true;
   } catch (error) {

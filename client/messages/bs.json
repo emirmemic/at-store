@@ -911,7 +911,7 @@
       "quantity": "Količina",
       "total": "Ukupno"
     },
-    "clickToDownloadInvoice": "Kliknite da preuzmete predračun",  
+    "clickToDownloadInvoice": "Kliknite da preuzmete predračun",
     "preInvoiceError": "Greška prilikom kreiranja predračuna",
     "preInvoiceSuccess": "Predračun je uspješno kreiran. Molimo provjerite svoj e-mail.",
     "emptyCart": "Korpa je prazna.",
