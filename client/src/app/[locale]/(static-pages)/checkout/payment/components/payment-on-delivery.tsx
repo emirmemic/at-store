@@ -24,6 +24,7 @@ export default function PaymentOnDelivery() {
     deliveryMethod,
     selectedStore,
     getDeliveryPrice,
+    isGift,
   } = useCheckoutProvider();
   // STATES
   const [isLoading, setIsLoading] = useState(false);
@@ -70,11 +71,11 @@ export default function PaymentOnDelivery() {
           })),
           address: deliveryForm,
           deliveryMethod,
+          isGift,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
           orderNumber: orderNumber,
           paymentMethod: 'cash',
         };
-
         await createOrder(orderPayload);
         clearCart();
         const orderSuccessData: OrderSuccessData = {
@@ -84,6 +85,7 @@ export default function PaymentOnDelivery() {
             price: item.product.discountedPrice || item.product.originalPrice,
             quantity: item.quantity,
           })),
+          isGift,
           deliveryMethod: deliveryMethod,
           orderNumber: orderNumber,
           totalPrice: totalPrice,

@@ -1117,6 +1117,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     deliveryMethod: Schema.Attribute.Enumeration<['pickup', 'delivery']> &
       Schema.Attribute.Required;
+    isGift: Schema.Attribute.Boolean;
     items: Schema.Attribute.Component<'global.cart-item', true> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

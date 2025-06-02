@@ -946,6 +946,7 @@
       "notePlaceholder": "Dostaviti u periodu od 10:00 do 17:00.",
       "additionalInfo": "Dodatne informacije"
     },
+    "giftCheckbox": "Kupujem kao poklon",
     "paymentPage": {
       "title": "Plaćanje",
       "paymentDeclined": "Plaćanje je odbijeno",

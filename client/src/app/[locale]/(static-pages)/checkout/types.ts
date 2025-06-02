@@ -13,6 +13,7 @@ export interface OrderSuccessData {
   paymentMethod: PaymentMethod;
   orderNumber: string;
   totalPrice: number;
+  isGift: boolean;
 }
 
 export type PaymentMethod = 'card' | 'cash';

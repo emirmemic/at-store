@@ -18,7 +18,7 @@ export default function CheckoutPaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
     null
   );
-  const { deliveryForm, selectedStore, getDeliveryPrice } =
+  const { deliveryForm, selectedStore, getDeliveryPrice, isGift, setIsGift } =
     useCheckoutProvider();
 
   if (!deliveryForm) {
@@ -62,13 +62,27 @@ export default function CheckoutPaymentPage() {
             {`${t('pickupFormTitle')} ${selectedStore}`}
           </p>
         )}
-        {deliveryFormItems &&
-          deliveryFormItems.length > 0 &&
-          deliveryFormItems.map((value, index) => (
-            <p key={index} className="text-grey-darker paragraph-2">
-              {value}
-            </p>
-          ))}
+        <div className="flex w-full flex-col gap-4 border-b border-black">
+          {deliveryFormItems &&
+            deliveryFormItems.length > 0 &&
+            deliveryFormItems.map((value, index) => (
+              <p key={index} className="text-grey-darker paragraph-2">
+                {value}
+              </p>
+            ))}
+        </div>
+        <div className="w-full py-6">
+          <Checkbox
+            checked={isGift}
+            className="bg-white"
+            id="isGift"
+            labelClassName="flex items-center gap-2 cursor-pointer hover:text-grey-dark transition-colors duration-300"
+            name="isGift"
+            onCheckedChange={(checked) => setIsGift(Boolean(checked))}
+          >
+            <span>{t('giftCheckbox')}</span>
+          </Checkbox>
+        </div>
         <p className="border-t border-black pt-4 heading-4">
           {t('paymentPage.title')}
         </p>
@@ -78,7 +92,7 @@ export default function CheckoutPaymentPage() {
             checked={paymentMethod === method.method}
             className="bg-white"
             defaultChecked={paymentMethod === method.method}
-            labelClassName="flex items-center gap-6"
+            labelClassName="flex items-center gap-6 cursor-pointer hover:text-grey-dark transition-colors duration-300"
             name={method.method}
             onCheckedChange={() =>
               setPaymentMethod(

@@ -79,7 +79,7 @@ export default function Form() {
       <div className="mt-6 flex justify-between gap-2.5">
         <Checkbox
           className="bg-white"
-          labelClassName="flex items-center gap-2 paragraph-2"
+          labelClassName="flex items-center gap-2 paragraph-2 cursor-pointer hover:text-grey-dark transition-colors duration-300"
           name="rememberMe"
         >
           <span>{t('rememberMe')}</span>

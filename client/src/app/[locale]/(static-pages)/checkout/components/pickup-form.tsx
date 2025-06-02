@@ -19,7 +19,7 @@ export default function PickupForm() {
           checked={selectedStore === store.code}
           className="bg-white"
           defaultChecked={selectedStore === store.code}
-          labelClassName="flex items-center gap-6"
+          labelClassName="flex items-center gap-6 cursor-pointer hover:text-grey-dark transition-colors duration-300"
           name={store.code}
           onCheckedChange={() => {
             setSelectedStore(selectedStore === store.code ? null : store.code);

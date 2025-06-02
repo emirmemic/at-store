@@ -32,6 +32,7 @@ export default factories.createCoreController(
           product: item.productDocumentId,
           quantity: item.quantity,
         })),
+        isGift: order.isGift,
         products: order.items.map((product) => product.productDocumentId),
       };
       try {

@@ -15,6 +15,7 @@ export interface Order {
     country: string;
     note?: string;
   };
+  isGift: boolean;
   deliveryMethod: 'pickup' | 'delivery';
   paymentMethod: 'card' | 'cash';
   selectedStore: StoreCode | null;

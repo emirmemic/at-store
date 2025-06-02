@@ -22,6 +22,8 @@ export type CheckoutContextType = {
   orderSuccessData: OrderSuccessData | null;
   setOrderSuccessData: (data: OrderSuccessData | null) => void;
   getDeliveryPrice: () => number;
+  isGift: boolean;
+  setIsGift: (isGift: boolean) => void;
 };
 
 export const CheckoutContext = createContext<CheckoutContextType>({
@@ -36,6 +38,8 @@ export const CheckoutContext = createContext<CheckoutContextType>({
   getDeliveryPrice: () => {
     return 0;
   },
+  isGift: false,
+  setIsGift: () => {},
 });
 
 export default function CheckoutProvider({
@@ -44,6 +48,7 @@ export default function CheckoutProvider({
   children: ReactNode;
 }) {
   const [selectedStore, setSelectedStore] = useState<StoreCode | null>(null);
+  const [isGift, setIsGift] = useState<boolean>(false);
   const [deliveryMethod, setDeliveryMethod] =
     useState<DeliveryMethod>('delivery');
   const [deliveryForm, setDeliveryForm] = useState<DeliveryForm | null>(null);
@@ -77,6 +82,8 @@ export default function CheckoutProvider({
         orderSuccessData,
         setOrderSuccessData,
         getDeliveryPrice,
+        isGift,
+        setIsGift,
       }}
     >
       {children}

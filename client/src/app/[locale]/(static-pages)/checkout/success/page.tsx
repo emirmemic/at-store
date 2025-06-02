@@ -1,10 +1,12 @@
 'use client';
+
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 import IconCheckoutCheck from '@/components/icons/checkout-check';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
 import { TitleWithValue } from '../components/cart-section';
@@ -42,6 +44,7 @@ export default function Page() {
         {orderSuccessData.items.map((item, index) => (
           <SingleOrderItem key={index} {...item} />
         ))}
+
         <div className="w-full border-t border-grey" />
         <TitleWithValue
           title={t('toPay')}
@@ -52,6 +55,18 @@ export default function Page() {
           <TitleWithValue title={t('delivery')} value={deliveryPrice} />
         )}
         <TitleWithValue title={t('total')} value={finalPrice} />
+        {orderSuccessData.isGift && (
+          <div>
+            <Checkbox
+              disabled
+              checked={orderSuccessData.isGift}
+              labelClassName="flex items-center gap-6"
+              name="isGift"
+            >
+              {t('giftCheckbox')}
+            </Checkbox>
+          </div>
+        )}
       </div>
       <Button asChild size={'xlg'} typography={'button1'} variant={'filled'}>
         <Link href={PAGE_NAMES.HOME}>{t('paymentPage.finish')}</Link>

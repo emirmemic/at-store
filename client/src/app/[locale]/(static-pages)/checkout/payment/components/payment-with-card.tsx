@@ -34,6 +34,7 @@ export default function PaymentWithCard() {
     deliveryForm,
     deliveryMethod,
     selectedStore,
+    isGift,
     setOrderSuccessData,
     getDeliveryPrice,
   } = useCheckoutProvider();
@@ -172,6 +173,7 @@ export default function PaymentWithCard() {
             quantity: item.quantity,
             name: item.product.name,
           })),
+          isGift,
           address: deliveryForm,
           deliveryMethod,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
@@ -188,6 +190,7 @@ export default function PaymentWithCard() {
             price: item.product.discountedPrice || item.product.originalPrice,
             quantity: item.quantity,
           })),
+          isGift,
           deliveryMethod: deliveryMethod,
           paymentMethod: 'card',
           orderNumber: paymentResult?.order_number,
