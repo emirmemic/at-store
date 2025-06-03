@@ -18,7 +18,9 @@ export interface OrderPayload {
   deliveryMethod: DeliveryMethod;
   selectedStore: StoreCode | null;
   isGift: boolean;
+  totalPrice: number;
   orderNumber: string;
+  deliveryPrice: number;
   paymentMethod: 'card' | 'cash';
 }
 

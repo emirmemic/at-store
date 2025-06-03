@@ -1,3 +1,5 @@
+import { ProductsResponse, StrapiProduct } from '../product/types';
+
 export type StoreCode =
   | 'AT Store (SCC)'
   | 'AT Store (ALTA)'
@@ -15,8 +17,10 @@ export interface Order {
     country: string;
     note?: string;
   };
+  totalPrice: number;
   isGift: boolean;
   deliveryMethod: 'pickup' | 'delivery';
+  deliveryPrice: number;
   paymentMethod: 'card' | 'cash';
   selectedStore: StoreCode | null;
   items: {
@@ -24,5 +28,12 @@ export interface Order {
     productDocumentId: string;
     quantity: number;
     name: string;
+  }[];
+}
+export interface OrderPopulated extends Omit<Order, 'items'> {
+  createdAt: string;
+  items: {
+    product: StrapiProduct;
+    quantity: number;
   }[];
 }

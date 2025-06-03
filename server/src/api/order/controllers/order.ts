@@ -28,10 +28,12 @@ export default factories.createCoreController(
         deliveryMethod: order.deliveryMethod,
         paymentMethod: order.paymentMethod,
         selectedStore: order.selectedStore,
+        deliveryPrice: order.deliveryPrice,
         items: order.items.map((item) => ({
           product: item.productDocumentId,
           quantity: item.quantity,
         })),
+        totalPrice: order.totalPrice,
         isGift: order.isGift,
         products: order.items.map((product) => product.productDocumentId),
       };
@@ -39,6 +41,25 @@ export default factories.createCoreController(
         newOrder = await strapi.documents('api::order.order').create({
           data: orderData,
         });
+        const populatedOrder = await strapi
+          .documents('api::order.order')
+          .findOne({
+            documentId: newOrder.documentId,
+            populate: {
+              items: {
+                populate: {
+                  product: {
+                    populate: {
+                      images: {
+                        fields: ['url', 'name', 'alternativeText'],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          });
+        newOrder = populatedOrder || newOrder;
       } catch (error) {
         return ctx.badRequest('Failed to create order', error);
       }
@@ -68,17 +89,18 @@ export default factories.createCoreController(
           documentId: newOrder.documentId,
         });
         // Notify admin about the failed order creation
-        notifyAdminAboutOrderFailure(order);
+        notifyAdminAboutOrderFailure(newOrder);
         // Notify customer about the failed order creation
-        notifyCustomerAboutOrderFailure(order);
+        notifyCustomerAboutOrderFailure(newOrder);
         return ctx.badRequest('Failed to update product stock', error);
       }
 
       strapi.log.info('New order created:', newOrder);
-      notifyAdminAboutOrderCreation(order);
-      notifyCustomerAboutOrderCreation(order);
+      notifyAdminAboutOrderCreation(newOrder);
+      notifyCustomerAboutOrderCreation(newOrder);
       return ctx.created({
         message: 'Order created successfully',
+        order: newOrder,
       });
     },
     /**

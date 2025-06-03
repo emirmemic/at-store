@@ -176,12 +176,19 @@ export default function PaymentWithCard() {
           isGift,
           address: deliveryForm,
           deliveryMethod,
+          deliveryPrice,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
+          totalPrice: totalPrice,
           orderNumber: paymentResult?.order_number,
           paymentMethod: 'card',
         };
 
-        await createOrder(orderPayload);
+        try {
+          await createOrder(orderPayload);
+        } catch {
+          setIsLoading(false);
+          return;
+        }
         clearCart();
         const orderSuccessData: OrderSuccessData = {
           items: cart.map((item) => ({

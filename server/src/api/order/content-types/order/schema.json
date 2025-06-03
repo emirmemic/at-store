@@ -59,6 +59,12 @@
     },
     "isGift": {
       "type": "boolean"
+    },
+    "totalPrice": {
+      "type": "decimal"
+    },
+    "deliveryPrice": {
+      "type": "decimal"
     }
   }
 }

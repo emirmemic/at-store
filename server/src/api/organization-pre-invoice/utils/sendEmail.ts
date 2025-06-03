@@ -1,4 +1,5 @@
 import { StrapiUser } from '../../../../types/user';
+import { contactInfoBlock } from '../../../utils/contact-email-template';
 
 const adminEmail = process.env.ADMIN_EMAIL || 'business@atstore.ba';
 const defaultFrom = process.env.DEFAULT_FROM || 'no-reply@atstore.ba';
@@ -47,7 +48,7 @@ export const sendEmailToUser = async ({
         <p>Molimo Vas da izvršite uplatu prema podacima iz predračuna. Nakon uplate, <strong>pošaljite potvrdu o uplati</strong> na:</p>
         <p><a href="mailto:${adminEmail}">${adminEmail}</a></p>
 
-        <p>Ukoliko imate bilo kakvih pitanja, slobodno nas kontaktirajte.</p>
+        ${contactInfoBlock()}
 
         <p>Srdačan pozdrav,<br/><strong>AT Store tim</strong></p>
       `,

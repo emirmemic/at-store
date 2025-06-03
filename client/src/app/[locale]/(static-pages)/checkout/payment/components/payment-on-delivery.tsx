@@ -71,12 +71,19 @@ export default function PaymentOnDelivery() {
           })),
           address: deliveryForm,
           deliveryMethod,
+          deliveryPrice,
           isGift,
+          totalPrice: totalPrice,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
           orderNumber: orderNumber,
           paymentMethod: 'cash',
         };
-        await createOrder(orderPayload);
+        try {
+          await createOrder(orderPayload);
+        } catch {
+          setIsLoading(false);
+          return;
+        }
         clearCart();
         const orderSuccessData: OrderSuccessData = {
           items: cart.map((item) => ({

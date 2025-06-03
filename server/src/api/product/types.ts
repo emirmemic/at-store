@@ -137,6 +137,11 @@ export interface StrapiProduct {
     documentId: string;
     orderStatus: OrderStatus;
   }[];
+  images?: {
+    id: number;
+    url: string;
+    alternativeText: string;
+  }[];
 }
 
 type OrderStatus = 'pending' | 'completed' | 'canceled';

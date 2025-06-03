@@ -1,3 +1,8 @@
+import {
+  contactInfoBlock,
+  contactInfoText,
+} from '../../../utils/contact-email-template';
+
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 export const sendSubscribedEmail = async ({
   email,
@@ -18,12 +23,16 @@ export const sendSubscribedEmail = async ({
         to: email,
         from: process.env.DEFAULT_FROM,
         subject: 'Hvala što ste se pretplatili na naš newsletter!',
-        text: `U bilo kojem trenutku se možete odjaviti putem ovog linka: ${unsubscribeUrl}`,
+        text: `U bilo kojem trenutku se možete odjaviti putem ovog linka: ${unsubscribeUrl}
+        ${contactInfoText()}
+        `,
         html: `
           <p>Poštovani ${name},</p>
           <p>Hvala što ste se pretplatili na naš newsletter!</p>
           <p>Ako se ikada poželite odjaviti, kliknite na link ispod:</p>
           <p><a href="${unsubscribeUrl}">Odjavi se</a></p>
+
+          ${contactInfoBlock()}
         `,
       });
   } catch (error) {
@@ -47,12 +56,15 @@ export const sendUnsubscribedEmail = async ({
         to: email,
         from: process.env.DEFAULT_FROM,
         subject: 'Žao nam je što se odjavljujete od našeg newslettera',
-        text: `Ako se ikada poželite ponovo pretplatiti, kliknite na ovaj link: ${subscribeUrl}`,
+        text: `Ako se ikada poželite ponovo pretplatiti, kliknite na ovaj link: ${subscribeUrl}
+        ${contactInfoText()}
+        `,
         html: `
           <p>Poštovani ${name},</p>
           <p>Žao nam je što se odjavljujete od našeg newslettera</p>
           <p>Ako se ikada poželite ponovo pretplatiti, kliknite na link ispod:</p>
           <p><a href="${subscribeUrl}">Ponovo se pretplati</a></p>
+          ${contactInfoBlock()}
         `,
       });
   } catch (error) {
