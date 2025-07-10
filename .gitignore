@@ -3,3 +3,5 @@ node_modules
 dokku_private_key
 
 private_keys
+
+.DS_Store
