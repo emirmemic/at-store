@@ -9,6 +9,7 @@ import { fetchAPI } from '@/lib/fetch-api';
 
 import LatestProduct from './components/latestProduct';
 import { NewsPageResponse } from './types';
+
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }

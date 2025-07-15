@@ -1,4 +1,5 @@
 'use client';
+
 import { useProductVariants } from '@/app/providers/product-variants-provider';
 import { ProductDetailsPopup } from '@/components/popup';
 

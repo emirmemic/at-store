@@ -1,4 +1,5 @@
 'use server';
+
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { CartResponse, ShoppingCartItem } from '@/lib/types';

@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import CategoriesCarousel from './carousel';
-
 import { getNavbarData } from '@/components/nav-bar/actions';
 import { makeCategoryLink } from '@/lib/utils/link-helpers';
+
+import CategoriesCarousel from './carousel';
 
 interface CategoriesSectionProps {
   className?: string;

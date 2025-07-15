@@ -17,6 +17,7 @@ import ProductsSliderPagination from '@/components/ui/products-slider-pagination
 import { ImageProps } from '@/lib/types';
 
 import NoImages from './no-images';
+
 interface ImagesSliderProps {
   className?: string;
   images: ImageProps[] | null;

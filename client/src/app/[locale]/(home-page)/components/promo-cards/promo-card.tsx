@@ -3,8 +3,6 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { PromoCardItem } from './types';
-
 import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { Button, TransparentVariant } from '@/components/ui/button';
 import {
@@ -17,6 +15,8 @@ import {
 import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
+
+import { PromoCardItem } from './types';
 
 export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   const t = useTranslations('common');

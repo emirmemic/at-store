@@ -10,6 +10,7 @@ import { getPlaceDetails } from '../actions';
 import { StoreType, OpeningHours } from '../types';
 
 import StoreStatus from './store-status';
+
 interface StoreProps {
   store: StoreType;
   isSelected?: boolean;

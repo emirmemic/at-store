@@ -7,6 +7,7 @@ import {
 } from 'next-intl/server';
 
 import '@/app/globals.css';
+
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/nav-bar';
 import { getNavbarData } from '@/components/nav-bar/actions';

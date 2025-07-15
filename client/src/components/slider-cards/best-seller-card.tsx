@@ -7,6 +7,7 @@ import { makeProductLink } from '@/lib/utils/link-helpers';
 
 import { StrapiImage } from '../strapi/components/strapi-image';
 import Price from '../ui/price';
+
 export default function BestSellerCard(bestSeller: BestSellerItem) {
   const {
     name,

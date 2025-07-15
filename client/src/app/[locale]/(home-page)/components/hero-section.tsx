@@ -3,8 +3,6 @@
 import Autoplay from 'embla-carousel-autoplay';
 import React, { useEffect, useState } from 'react';
 
-import { HeroSliderItem, HeroSectionResponse } from '../types';
-
 import { StrapiImage, StrapiVideo } from '@/components';
 import { ActionLink } from '@/components/strapi/components';
 import {
@@ -18,6 +16,8 @@ import {
 import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
 import { cn } from '@/lib/utils/utils';
+
+import { HeroSliderItem, HeroSectionResponse } from '../types';
 
 const SliderItem: React.FC<HeroSliderItem> = ({
   id,

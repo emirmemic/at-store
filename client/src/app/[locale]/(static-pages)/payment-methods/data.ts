@@ -4,6 +4,7 @@ import { LocalizationKey } from '@/lib/types';
 
 import { FaqSectionType } from '../components/faq-section';
 import { SectionProps } from '../components/section';
+
 export const getFaqSection = (t: (key: string) => string): FaqSectionType[] => [
   {
     question: t('paymentMethodsPage.faqItem1.question'),

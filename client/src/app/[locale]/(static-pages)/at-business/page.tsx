@@ -10,6 +10,7 @@ import ImgSection from '../components/img-section';
 import { IconAtBusiness } from '../icons';
 
 import { getImgSectionInfo } from './data';
+
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }
