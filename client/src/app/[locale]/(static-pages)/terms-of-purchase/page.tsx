@@ -1,9 +1,10 @@
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import Section from '@/app/[locale]/(static-pages)/components/section';
-
 import { getSections } from './data';
+
+import Section from '@/app/[locale]/(static-pages)/components/section';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -25,18 +26,78 @@ export default function TermsOfPurchase() {
   const t = useTranslations();
   const sections = getSections(t);
 
+  // Helper function to generate id from section title
+  function generateIdFromTitle(title: string) {
+    return title
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '');
+  }
+
   return (
-    <div className="w-full py-10 pt-12 container-max-width md:py-[60px]">
-      <h1 className="mb-9 text-center heading-2 md:mb-16 md:heading-1">
-        {t('termsOfPurchasePage.title')}
-      </h1>
-      <p className="mb-5 paragraph-2 md:paragraph-1">
-        {t('termsOfPurchasePage.paragraph')}
-      </p>
-      <div className="flex flex-col gap-5">
-        {sections.map((section) => (
-          <Section key={section.sectionNumber} {...section} />
-        ))}
+    <div className="flex w-full justify-center bg-white px-4 py-12 text-sm text-neutral-700 md:px-8 md:text-base">
+      <div className="w-full max-w-3xl">
+        <h1 className="mb-8 text-left text-3xl font-semibold text-neutral-900 md:text-4xl">
+          {t('termsOfPurchasePage.title')}
+        </h1>
+        <p className="mb-10 text-neutral-700">
+          {t('termsOfPurchasePage.paragraph')}
+        </p>
+        {/* Sadržaj */}
+        <div className="border-t border-neutral-200 pt-8" />
+        <div className="mb-10">
+          <h2 className="mb-4 text-xl font-semibold text-neutral-900">
+            Sadržaj
+          </h2>
+          <ul className="list-inside list-decimal space-y-2 text-blue-600">
+            {sections.map((section) => {
+              const id = generateIdFromTitle(section.title);
+              return (
+                <li key={section.sectionNumber}>
+                  <Link className="hover:underline" href={`#${id}`}>
+                    {section.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="flex flex-col gap-10 border-t border-neutral-200 pt-8 md:gap-12">
+          {sections.map((section) => (
+            <div
+              key={section.sectionNumber}
+              id={generateIdFromTitle(section.title)}
+            >
+              <Section {...section} />
+            </div>
+          ))}
+        </div>
+        {/* FAQ sekcija */}
+        <div className="mt-12 border-t border-neutral-200 pt-10" id="faq">
+          <h2 className="mb-6 text-2xl font-semibold text-neutral-900 md:text-3xl">
+            Često postavljana pitanja (FAQ)
+          </h2>
+          <div className="space-y-4 text-neutral-700">
+            <details className="rounded-md bg-neutral-50 p-4 shadow-sm">
+              <summary className="cursor-pointer font-semibold">
+                Kako mogu izvršiti narudžbu?
+              </summary>
+              <p className="mt-2 text-sm">
+                Narudžbu možete izvršiti putem naše web stranice jednostavnim
+                dodavanjem proizvoda u korpu i slijedeći korake za plaćanje.
+              </p>
+            </details>
+            <details className="rounded-md bg-neutral-50 p-4 shadow-sm">
+              <summary className="cursor-pointer font-semibold">
+                Koji su dostupni načini plaćanja?
+              </summary>
+              <p className="mt-2 text-sm">
+                Prihvatamo kartično plaćanje, plaćanje pouzećem i plaćanje
+                virmanom.
+              </p>
+            </details>
+          </div>
+        </div>
       </div>
     </div>
   );

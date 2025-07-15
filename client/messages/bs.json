@@ -482,7 +482,7 @@
   "privacyPolicyPage": {
     "title": "Politika privatnosti",
     "paragraph": "(u daljnjem tekstu \"i\", \"nas\" ili \"naš\") posvećen je zaštiti vaše privatnosti i osobnih podataka. Ova politika privatnosti objašnjava kako prikupljamo, koristimo, dijelimo i štitimo vaše podatke kada koristite našu web stranicu i usluge.",
-    "paragraphHeading": "At Store",
+    "paragraphHeading": "AT Store",
     "item1": {
       "title": "Koje podatke prikupljamo? Prikupljamo sljedeće vrste podataka:",
       "listItem": "Osobni podaci: Ime, prezime, adresa, e-mail adresa, telefonski broj i drugi podaci koje nam dostavite prilikom registracije, kupnje ili upita.",
@@ -633,7 +633,7 @@
     "quantity": "Količina"
   },
   "atBusinessPage": {
-    "title": "At Business",
+    "title": "AT Business",
     "buttonText": "Kupi Sada",
     "contactTitle": "Registrujte se kao pravno lice i skratite postupak narudžbe ili nas pozovite.",
     "sectionTitle": "Odaberi svoj Mac",
