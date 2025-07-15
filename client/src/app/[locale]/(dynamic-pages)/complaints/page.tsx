@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import ComplaintsForm from './components/form';
-
 import { CardBlock, InfoBlock } from '@/components';
 import { IconCondition, IconDamage, IconPurchased } from '@/components/icons';
 import { CONTACT_EMAILS, CONTACT_NUMBERS } from '@/lib/constants';
+
+import ComplaintsForm from './components/form';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;

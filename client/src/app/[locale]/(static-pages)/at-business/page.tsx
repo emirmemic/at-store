@@ -4,13 +4,14 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
+import { macBookAirM1AtBusiness } from '@/assets/images';
+import { Button } from '@/components/ui/button';
+
 import ImgSection from '../components/img-section';
 import { IconAtBusiness } from '../icons';
 
 import { getImgSectionInfo } from './data';
 
-import { macBookAirM1AtBusiness } from '@/assets/images';
-import { Button } from '@/components/ui/button';
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
 }

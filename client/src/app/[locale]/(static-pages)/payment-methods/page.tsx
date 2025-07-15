@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { getFaqSection, getInfoBlock, getSections } from './data';
-
 import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
 import Section from '@/app/[locale]/(static-pages)/components/section';
 import { InfoBlock } from '@/components';
+
+import { getFaqSection, getInfoBlock, getSections } from './data';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;

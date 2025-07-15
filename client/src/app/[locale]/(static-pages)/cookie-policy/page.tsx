@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { getSections } from './data';
-
 import Section from '@/app/[locale]/(static-pages)/components/section';
+
+import { getSections } from './data';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
