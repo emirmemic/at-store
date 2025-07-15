@@ -1,15 +1,16 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { IconClose } from '@/components/icons';
 import {
-  SiteLogo,
   MobileActions,
   MobileList,
   MobileLoginLogout,
   MobileSubList,
   SearchInput,
+  SiteLogo,
 } from '@/components/nav-bar/components';
 import { IconMenu } from '@/components/nav-bar/icons';
 import {
@@ -88,9 +89,9 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
           onClick={toggleMenu}
         >
           {isOpen ? (
-            <IconClose className="text-white" />
+            <IconClose className="text-black" />
           ) : (
-            <IconMenu className="text-white" />
+            <IconMenu className="text-black" />
           )}
         </Button>
 

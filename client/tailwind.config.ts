@@ -251,6 +251,7 @@ export default {
         },
         '.footer-text': {
           fontWeight: '300',
+          color: '#111',
           fontSize: '.875rem',
           lineHeight: '1.125rem',
         },

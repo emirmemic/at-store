@@ -62,14 +62,14 @@ export default function ListItem({
       >
         {menuItem.subItems && menuItem.subItems.length > 0 ? (
           <button
-            className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:bg-grey-darkest lg:px-4 lg:paragraph-2"
+            className="flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4 lg:paragraph-2"
             onClick={handleClick}
           >
             {menuItem.displayName || menuItem.name}
           </button>
         ) : (
           <Link
-            className="flex h-full items-center px-2 text-white transition-colors duration-300 navigation hover:bg-grey-darkest lg:px-4 lg:paragraph-2"
+            className="flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4 lg:paragraph-2"
             href={menuItem.link}
             onClick={handleOutsideClick}
           >
@@ -86,7 +86,7 @@ export default function ListItem({
             {menuItem?.subItems?.map((sub) => (
               <li key={sub.id}>
                 <Link
-                  className="flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 hover:text-grey-medium active:scale-95"
+                  className="hover:text-grey-white flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 active:scale-95"
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >

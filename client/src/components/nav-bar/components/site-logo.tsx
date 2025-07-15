@@ -11,7 +11,7 @@ export default function Logo() {
       href="/"
     >
       <span className="sr-only">{t('visitHomePage')}</span>
-      <IconAtStoreLogo className="h-full w-full object-contain text-white md:w-44" />
+      <IconAtStoreLogo className="h-full w-full object-contain text-black md:w-44" />
     </Link>
   );
 }

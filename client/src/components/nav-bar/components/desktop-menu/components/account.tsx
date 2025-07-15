@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useContext, useRef, useState } from 'react';
@@ -147,9 +148,9 @@ export default function DesktopAccount() {
   const user = useContext(UserContext).user;
 
   return (
-    <div ref={outsideRef} className="flex items-center gap-2 text-white">
+    <div ref={outsideRef} className="flex items-center gap-2 text-black">
       <button
-        className="group h-full p-1 text-white"
+        className="group h-full p-1 text-black"
         title={t('navbar.account')}
         type="button"
         onClick={togglePopup}

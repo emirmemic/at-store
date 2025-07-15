@@ -1,4 +1,5 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 
@@ -142,7 +143,7 @@ export default function DesktopCart() {
   return (
     <div ref={outsideRef} className="flex items-center gap-2">
       <button
-        className="group h-full p-1 text-white"
+        className="group h-full p-1 text-black"
         title={t('account')}
         type="button"
         onClick={togglePopup}
