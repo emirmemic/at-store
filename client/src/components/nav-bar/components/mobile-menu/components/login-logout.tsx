@@ -1,4 +1,5 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
@@ -18,11 +19,12 @@ export default function MobileLoginLogout({ closeMenu }: PropsType) {
   const user = useContext(UserContext).user;
 
   const buttonClasses =
-    'group mx-auto flex w-fit items-center gap-4 p-4 transition-colors duration-300 heading-4 hover:text-grey-medium';
+    'group mx-auto flex w-full items-center justify-start gap-2 transition-colors duration-300 text-2xl font-thin text-black hover:text-grey-medium w-full mt-10';
   const iconClasses =
-    'text-white transition-colors duration-300 group-hover:text-grey-medium';
+    'text-black transition-colors duration-300 group-hover:text-grey-medium';
   return (
     <>
+      <div className="h-[0.5px] w-full bg-grey-darker"></div>
       {user ? (
         <LogoutButton className="mx-auto flex w-fit flex-col">
           {({ isLoading, error }) => (
@@ -35,12 +37,12 @@ export default function MobileLoginLogout({ closeMenu }: PropsType) {
                 {isLoading ? (
                   <>
                     {t('login.loggingOut')}
-                    <IconLoader className={iconClasses} size={18} />
+                    <IconLoader className={iconClasses} size={16} />
                   </>
                 ) : (
                   <>
                     {t('login.logout')}
-                    <IconLogout className={iconClasses} size={18} />
+                    <IconLogout className={iconClasses} size={16} />
                   </>
                 )}
               </span>
@@ -55,7 +57,7 @@ export default function MobileLoginLogout({ closeMenu }: PropsType) {
           onClick={closeMenu}
         >
           {t('login.login')}
-          <IconAccount className={iconClasses} />
+          <IconAccount className={iconClasses} size={16} />
         </Link>
       )}
     </>

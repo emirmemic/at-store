@@ -122,14 +122,14 @@ interface LoggedOutAccountProps {
 }
 
 const LoggedOutAccount = ({ setIsOpen, t }: LoggedOutAccountProps) => (
-  <div className="flex flex-col items-center gap-6 p-4">
+  <div className="flex flex-col items-center gap-6 bg-white p-4">
     <p className="paragraph-2">{t('navbar.notLoggedIn')}</p>
     <Button
       asChild
       size="md"
       title={t('login.login')}
-      typography="button2"
-      variant="filled"
+      typography="button1"
+      variant="color"
     >
       <Link href={PAGE_NAMES.LOGIN} onClick={() => setIsOpen(false)}>
         {t('login.login')}
@@ -148,7 +148,7 @@ export default function DesktopAccount() {
   const user = useContext(UserContext).user;
 
   return (
-    <div ref={outsideRef} className="flex items-center gap-2 text-black">
+    <div ref={outsideRef} className="flex w-fit items-center gap-2 text-black">
       <button
         className="group h-full p-1 text-black"
         title={t('navbar.account')}
@@ -158,7 +158,7 @@ export default function DesktopAccount() {
         <span className="sr-only">{t('navbar.account')}</span>
         <IconAccount
           className="transition-colors duration-300 group-hover:text-grey-medium"
-          size={18}
+          size={16}
         />
       </button>
       <AnimateHeight

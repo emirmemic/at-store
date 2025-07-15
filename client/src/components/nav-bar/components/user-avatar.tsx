@@ -1,4 +1,5 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
@@ -20,7 +21,7 @@ export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
       setIsMobile(window.innerWidth < 768);
     };
 
-    handleResize(); // Set initial value
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -30,15 +31,19 @@ export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
 
   return (
     <div className="flex">
-      <p className="paragraph-5">{t('common.hi')},</p>
+      <p className="paragraph-4">{t('common.hi')}, </p>
       <Link
         href={isMobile ? PAGE_NAMES.ACCOUNT : PAGE_NAMES.ACCOUNT_DASHBOARD}
         onClick={closeMenu}
       >
         <span className="sr-only">{t('navbar.account')}</span>
-        <Avatar>
-          <AvatarFallback>{initials}</AvatarFallback>
-        </Avatar>
+        {!isMobile ? (
+          <Avatar>
+            <AvatarFallback>{initials}</AvatarFallback>
+          </Avatar>
+        ) : (
+          <p className="paragraph-5">{initials}</p>
+        )}
       </Link>
     </div>
   );

@@ -57,19 +57,19 @@ export default function ListItem({
         key={menuItem.id}
         ref={excludeRef}
         className={cn('h-full transition duration-300', {
-          'bg-grey-darkest': isOpen,
+          'w-fit bg-grey-light': isOpen,
         })}
       >
         {menuItem.subItems && menuItem.subItems.length > 0 ? (
           <button
-            className="flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4 lg:paragraph-2"
+            className="lg:text-md flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4"
             onClick={handleClick}
           >
             {menuItem.displayName || menuItem.name}
           </button>
         ) : (
           <Link
-            className="flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4 lg:paragraph-2"
+            className="lg:text-md flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4"
             href={menuItem.link}
             onClick={handleOutsideClick}
           >

@@ -152,7 +152,7 @@ export default function DesktopCart() {
         <IconCart
           className="transition-colors duration-300 group-hover:text-grey-medium"
           itemsInCart={cartCount}
-          size={18}
+          size={16}
         />
       </button>
       <AnimateHeight

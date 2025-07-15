@@ -24,19 +24,19 @@ export default function MobileSubList({
       <div className="flex w-full">
         <NavigationArrow
           aria-label={t('common.back')}
-          className="text-white"
+          className="text-black"
           direction={'left'}
           size={'lg'}
           title={t('common.back')}
           type="button"
-          variant={'white'}
+          variant={'black'}
           onClick={onBack}
         />
       </div>
       {subMenuItems.map((item) => (
         <Link
           key={item.id}
-          className="py-1 transition-all paragraph-1 hover:text-grey-medium active:scale-95"
+          className="py-1 text-black transition-all paragraph-1 hover:text-grey-medium active:scale-95"
           href={item.link}
           onClick={closeMenu}
         >

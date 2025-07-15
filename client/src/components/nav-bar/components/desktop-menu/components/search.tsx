@@ -40,7 +40,7 @@ export default function DesktopSearch({
         <span className="sr-only">{t('search')}</span>
         <IconSearch
           className="transition-colors duration-300 group-hover:text-grey-medium"
-          size={18}
+          size={16}
         />
       </button>
       <DesktopPopup isActive={activePopup === 'search'}>

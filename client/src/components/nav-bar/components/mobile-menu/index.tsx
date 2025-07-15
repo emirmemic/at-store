@@ -18,7 +18,7 @@ import {
   NavMenuItem,
   NavSubMenuItem,
 } from '@/components/nav-bar/types';
-import { AnimateHeight, AnimateSlots } from '@/components/transitions';
+import { AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
 import NavigationArrow from '@/components/ui/navigation-arrow';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
@@ -95,9 +95,20 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
           )}
         </Button>
 
-        <AnimateHeight
-          className="fixed left-0 top-nav-height z-50 w-full overflow-hidden bg-black text-white"
-          isVisible={isOpen}
+        {isOpen && (
+          <div
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+            onClick={closeMenu}
+          />
+        )}
+
+        <div
+          className={cn(
+            'fixed right-0 top-0 z-50 h-full w-4/5 max-w-sm overflow-y-auto bg-white text-white transition-all duration-300 ease-in-out',
+            isOpen
+              ? 'visible translate-x-0 opacity-100'
+              : 'invisible translate-x-full opacity-0'
+          )}
         >
           <div className="max-h-screen-h-cutoff overflow-y-auto px-8 pb-6 pt-8 custom-scrollbar">
             <MobileActions
@@ -142,7 +153,7 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
               )}
             </AnimateSlots>
           </div>
-        </AnimateHeight>
+        </div>
       </div>
     </div>
   );

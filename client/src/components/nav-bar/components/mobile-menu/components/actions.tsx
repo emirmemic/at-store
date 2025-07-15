@@ -1,8 +1,9 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 
 import { useCartProvider } from '@/app/providers';
-import { IconHeart } from '@/components/icons';
+import { IconClose, IconHeart } from '@/components/icons';
 import { UserAvatar } from '@/components/nav-bar/components';
 import { IconCart, IconSearch } from '@/components/nav-bar/icons';
 import { Button } from '@/components/ui/button';
@@ -30,7 +31,15 @@ export default function MobileActions({
 
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      <div className="flex items-center justify-between">
+      <Button
+        aria-label="Close menu"
+        className="ml-auto p-1 text-black"
+        color="white"
+        onClick={closeMenu}
+      >
+        <IconClose className="font-thin" size={28} />
+      </Button>
+      <div className="mt-10 flex items-center justify-between text-black">
         <UserAvatar closeMenu={closeMenu} />
         <div className="flex gap-3">
           <Link
@@ -65,7 +74,7 @@ export default function MobileActions({
           </Button>
         </div>
       </div>
-      <div className="h-0.5 w-full bg-grey-darker"></div>
+      <div className="h-[0.5px] w-full bg-grey-darker"></div>
     </div>
   );
 }
