@@ -82,7 +82,7 @@ export default function ListItem({
           ref={outsideRef}
           className="shadow-large-black mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white px-6 py-3"
         >
-          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {menuItem?.subItems?.map((sub) => (
               <li key={sub.id}>
                 <Link
@@ -90,12 +90,12 @@ export default function ListItem({
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >
-                  <span className="h-32 w-32 overflow-hidden">
+                  <span className="h-24 w-24 overflow-hidden">
                     {sub.icon && (
                       <StrapiImage
                         alt={sub.icon.alternativeText || sub.displayName}
                         className="h-full w-full object-contain"
-                        height={128}
+                        height={64}
                         loading="lazy"
                         sizes="640px"
                         src={sub.icon.url}
