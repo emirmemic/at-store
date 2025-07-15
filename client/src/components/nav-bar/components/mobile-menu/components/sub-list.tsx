@@ -20,7 +20,7 @@ export default function MobileSubList({
 }: MobileMenuProps) {
   const t = useTranslations();
   return (
-    <div className={cn('flex flex-col items-center gap-1', className)}>
+    <div className={cn('flex flex-col items-start gap-1', className)}>
       <div className="flex w-full">
         <NavigationArrow
           aria-label={t('common.back')}
