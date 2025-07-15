@@ -57,12 +57,12 @@ export default function PromotionalFlipCard(
       >
         <div className="absolute inset-0 flex [backface-visibility:hidden]">
           <div
-            className="relative flex grow flex-col justify-between overflow-hidden rounded-2xl px-4 py-3"
+            className="relative flex grow flex-col justify-between overflow-hidden rounded-2xl border px-4 py-3"
             style={{ color: frontTextColor ? frontTextColor : 'inherit' }}
           >
             <div>
-              <p className="mb-2 paragraph-2">{tagline}</p>
-              <h3 className="mb-2 line-clamp-2 heading-4">{title}</h3>
+              <p className="mb-2 paragraph-4">{tagline}</p>
+              <h3 className="heading-6 mb-2 line-clamp-2">{title}</h3>
               <p className="mb-6 paragraph-2">{priceLabel}</p>
             </div>
             {image && (
@@ -89,10 +89,10 @@ export default function PromotionalFlipCard(
         >
           <div>
             <p className="paragraph-2">{backTagline}</p>
-            <p className="heading-3">{backTitle}</p>
+            <p className="heading-4">{backTitle}</p>
           </div>
           <div>
-            <p className="mb-3 line-clamp-5 whitespace-pre-line heading-5">
+            <p className="mb-3 line-clamp-5 whitespace-pre-line paragraph-2">
               {backDescription}
             </p>
           </div>

@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
+import CategoriesCarousel from './carousel';
+
 import { getNavbarData } from '@/components/nav-bar/actions';
 import { makeCategoryLink } from '@/lib/utils/link-helpers';
-
-import CategoriesCarousel from './carousel';
 
 interface CategoriesSectionProps {
   className?: string;
@@ -24,7 +24,7 @@ export default async function CategoriesSection({
   }));
   return (
     <section className={`flex w-full flex-col gap-6 ${className}`}>
-      <h2 className="heading-4 md:heading-2">{t('seeAllCategories')}</h2>
+      <h2 className="heading-4 md:heading-4">{t('seeAllCategories')}</h2>
       <CategoriesCarousel categories={finalCategories} />
     </section>
   );

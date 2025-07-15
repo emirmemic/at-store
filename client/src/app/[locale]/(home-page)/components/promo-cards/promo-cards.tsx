@@ -7,7 +7,7 @@ interface PromoCardsProps {
 }
 export default function PromoCards({ promoCards, className }: PromoCardsProps) {
   return (
-    <section className={`grid gap-8 md:grid-cols-2 ${className}`}>
+    <section className={`grid gap-4 md:grid-cols-2 ${className}`}>
       {promoCards.map((promoCard) => (
         <PromoCard {...promoCard} key={promoCard.id} />
       ))}

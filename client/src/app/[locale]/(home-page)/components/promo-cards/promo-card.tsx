@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
+import { PromoCardItem } from './types';
+
 import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { Button, TransparentVariant } from '@/components/ui/button';
 import {
@@ -15,8 +17,6 @@ import {
 import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 import { cn } from '@/lib/utils/utils';
-
-import { PromoCardItem } from './types';
 
 export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   const t = useTranslations('common');
@@ -34,11 +34,11 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   );
   return (
     <div className="relative w-full">
-      <div className="aspect-[4/3] min-h-[148px] w-full min-w-[12.75rem] rounded-2xl border-[2px] object-cover">
+      <div className="aspect-[4/3] min-h-[7.75rem] w-full min-w-[12.75rem] object-cover">
         <StrapiImage
           priority
           alt={image?.alternativeText || name}
-          className="h-full w-full rounded-2xl object-cover"
+          className="h-full w-full object-cover"
           height={474}
           sizes="100vw"
           src={image?.url ?? ''}
@@ -51,8 +51,8 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           textColor === 'black' ? 'text-black' : 'text-white'
         )}
       >
-        <h3 className="line-clamp-2 heading-4 lg:heading-3">{title}</h3>
-        <p className="heading-5 lg:heading-4">{caption}</p>
+        <h3 className="heading-5 lg:heading-4">{title}</h3>
+        <p className="heading-6 lg:heading-6">{caption}</p>
         <div className="flex flex-col items-center justify-center gap-2 py-8 sm:flex-row sm:gap-14">
           <LearnMoreDialog
             learnMoreVariant={learnMoreVariant}

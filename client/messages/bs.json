@@ -662,7 +662,13 @@
     "phoneSupportHours": "Telefonska podrška je dostupna radnim danom od 11:00 do 17:00.",
     "requestHelp": "Zatraži pomoć za usluge ili softver",
     "title": "AT Store Workshop",
-    "turnOffFindMyDevice": "Isključi Find My Device"
+    "turnOffFindMyDevice": "Isključi Find My Device",
+    "emailHelpTitle": "Trebate pomoć? Pošaljite nam e-mail ili nas nazovite.",
+    "phoneNumber": "+387 956 188",
+    "haveQuestion": "Imate pitanje?",
+    "faqHelp": "Pogledajte naša FAQ, a ako tamo ne možete pronaći odgovor, nazovite nas.",
+    "findStoreTitle": "Pronađite lokaciju poslovnice.",
+    "findStoreText": "Možete posjetiti jednu od poslovnica za pomoć."
   },
   "errors": {
     "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."

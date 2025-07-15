@@ -47,7 +47,12 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
   }, [api, isAutoplayActive, slides]);
 
   return (
-    <section className={cn('flex w-full flex-col gap-4', className)}>
+    <section
+      className={cn(
+        'relative flex w-full flex-col items-center justify-center gap-4',
+        className
+      )}
+    >
       <Carousel
         className="w-full"
         opts={{
@@ -103,7 +108,7 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
           ))}
         </CarouselContent>
       </Carousel>
-      <div className="flex justify-center gap-2">
+      <div className="flex items-center justify-center gap-1 md:gap-3">
         <PlayPause
           isPlaying={isAutoplayActive}
           variant="dark"

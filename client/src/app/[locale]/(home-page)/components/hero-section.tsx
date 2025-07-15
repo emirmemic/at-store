@@ -3,6 +3,8 @@
 import Autoplay from 'embla-carousel-autoplay';
 import React, { useEffect, useState } from 'react';
 
+import { HeroSliderItem, HeroSectionResponse } from '../types';
+
 import { StrapiImage, StrapiVideo } from '@/components';
 import { ActionLink } from '@/components/strapi/components';
 import {
@@ -16,8 +18,6 @@ import {
 import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
 import { cn } from '@/lib/utils/utils';
-
-import { HeroSliderItem, HeroSectionResponse } from '../types';
 
 const SliderItem: React.FC<HeroSliderItem> = ({
   id,
@@ -123,7 +123,7 @@ export default function HeroSection({
         <CarouselPrevious variant={'white'} />
         <CarouselNext variant={'white'} />
       </Carousel>
-      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-4 left-1/2 z-10 mx-auto flex w-fit -translate-x-1/2 items-center justify-center gap-1 md:gap-3">
         <PlayPause
           isPlaying={isAutoplayActive}
           variant="light"

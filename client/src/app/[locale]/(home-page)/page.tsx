@@ -2,11 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
 
 // import { IconsBlock, MonoAppleBlock } from '@/components';
-import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
-import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-
 import {
   CategoriesSection,
   HeroSection,
@@ -15,6 +10,11 @@ import {
   SubCategorySection,
 } from './components';
 import { HomepageResponse } from './types';
+
+import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
+import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
 
 const homePageQuery = qs.stringify(
   {
@@ -105,22 +105,19 @@ export default async function Page({
       {heroSection && (
         <HeroSection {...heroSection} className="container-max-width-xl" />
       )}
-      <div className="pb-24 pt-8">
-        <div className="pl-6 container-max-width-lg md:pl-12">
-          <CategoriesSection className="pb-8" />
-          <CurrentPromotions className="pb-8" />
+      <div className="py-16">
+        <div className="px-3 container-max-width-lg md:px-4">
+          <CategoriesSection />
+          <CurrentPromotions />
           {promoCards && promoCards.length > 0 && (
-            <PromoCards
-              className="pb-8 pr-6 pt-11 md:pr-12"
-              promoCards={promoCards}
-            />
+            <PromoCards promoCards={promoCards} />
           )}
           {/* <section className="py-8 pr-6 md:pr-12">
             <IconsBlock />
           </section> */}
         </div>
-        <PromoSliderWrapper className="py-4 container-max-width-xl" />
-        <section className="py-4 container-max-width-xl">
+        <PromoSliderWrapper className="pb-4 pt-4 container-max-width-xl" />
+        <section className="pb-12 pt-0 container-max-width-xl">
           <SubCategorySection />
         </section>
         {/* <section className="px-6 py-8 container-max-width-lg md:px-12">

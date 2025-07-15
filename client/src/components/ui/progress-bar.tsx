@@ -14,9 +14,8 @@ const dotVariants = cva(
         dark: '',
       },
       active: {
-        true: 'w-38px h-6px md:h-4 md:w-[48px] bg-white ',
-        false:
-          'w-6px h-6px bg-grey-light md:w-4 md:h-4 group-hover:bg-grey-dark',
+        true: 'w-5 h-2 md:w-6 md:h-2 bg-white',
+        false: 'w-2 h-2 md:w-3 md:h-3 bg-grey-light group-hover:bg-grey-dark',
       },
       disabled: {
         true: 'pointer-events-none',
@@ -27,7 +26,7 @@ const dotVariants = cva(
       {
         variant: 'dark',
         active: true,
-        className: 'w-38px h-6px md:w-[80px] md:h-4 bg-white',
+        className: 'w-5 h-2 md:w-6 md:h-2 bg-white',
       },
     ],
     defaultVariants: {
@@ -37,12 +36,12 @@ const dotVariants = cva(
 );
 
 const progressBarVariants = cva(
-  'flex items-center justify-center rounded-full gap-1 px-4 py-6px md:gap-3 md:px-5',
+  'flex items-center justify-center rounded-full gap-0.5 px-2 py-1 md:gap-1 md:px-3',
   {
     variants: {
       variant: {
-        light: 'bg-grey-darker md:py-2 h-5 md:h-10',
-        dark: 'bg-grey-darkest md:py-3 h-5 md:h-14',
+        light: 'bg-grey-darker md:py-1 h-3 md:h-6',
+        dark: 'bg-grey-darkest md:py-1.5 h-3 md:h-6',
       },
       disabled: {
         true: 'opacity-30 pointer-events-none',

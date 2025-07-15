@@ -1,11 +1,11 @@
 import qs from 'qs';
 
+import CurrentPromotionsCarousel from './current-promotions-carousel';
+import { CurrentPromotionsResponse } from './types';
+
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import { cn } from '@/lib/utils/utils';
-
-import CurrentPromotionsCarousel from './current-promotions-carousel';
-import { CurrentPromotionsResponse } from './types';
 
 interface CurrentPromotionsProps {
   className?: string;
@@ -47,8 +47,8 @@ export default async function CurrentPromotions({
     return null;
   }
   return (
-    <section className={cn('flex w-full flex-col gap-6', className)}>
-      {title && <h2 className="heading-4 md:heading-2">{title}</h2>}
+    <section className={cn('flex w-full flex-col gap-6 pt-8', className)}>
+      {title && <h2 className="heading-4 md:heading-4">{title}</h2>}
       <CurrentPromotionsCarousel cards={cards} />
     </section>
   );

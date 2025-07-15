@@ -14,8 +14,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        light: 'w-5 h-5 md:w-10 md:h-10 bg-grey-darker',
-        dark: 'w-5 h-5 md:w-14 md:h-14 bg-grey-darkest',
+        light: 'w-4 h-4 md:w-6 md:h-6 bg-grey-darker',
+        dark: 'w-4 h-4 md:w-6 md:h-6 bg-grey-darkest',
       },
       isDisabled: {
         true: 'opacity-20 cursor-not-allowed',
@@ -31,8 +31,8 @@ const buttonVariants = cva(
 const iconVariants = cva('shrink-0 text-grey-light', {
   variants: {
     variant: {
-      light: 'w-4 h-4 md:w-6 md:h-6',
-      dark: 'w-4 h-4 md:w-8 md:h-8',
+      light: 'w-3 h-3 md:w-4 md:h-4',
+      dark: 'w-3 h-3 md:w-4 md:h-4',
     },
   },
   defaultVariants: {
