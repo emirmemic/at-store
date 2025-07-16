@@ -1,9 +1,10 @@
 'use client';
+
 import { ArrowRightCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { AnimateHeight } from '@/components/transitions';
 import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
@@ -114,7 +115,7 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
           }}
           onKeyDown={handleKeyDown}
         />
-        <IconSearch className="absolute left-4 top-1/2 h-8 w-8 -translate-y-1/2 text-grey-darkest" />
+        <IconSearch className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-grey-darkest" />
         <button
           className="absolute right-4 top-1/2 h-8 w-8 -translate-y-1/2 text-grey-darkest"
           title={t('search')}
