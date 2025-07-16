@@ -1,14 +1,14 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
+import { ProductDetails } from './components';
+import RelatedProducts from './components/related-products';
+import { MetadataResponse } from './types';
+
 import { InfoBlock } from '@/components';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { getInfoBlocksData } from '@/lib/data';
 import { fetchAPI } from '@/lib/fetch-api';
-
-import { ProductDetails } from './components';
-import RelatedProducts from './components/related-products';
-import { MetadataResponse } from './types';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; productLink: string }>;
@@ -67,18 +67,6 @@ export default function Page() {
     <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
       <ProductDetails />
       <RelatedProducts />
-      <div className="flex flex-col items-center justify-center gap-8">
-        {infoBlocks.map((infoBlock) => (
-          <InfoBlock
-            key={infoBlock.id}
-            actionLink={infoBlock.actionLink}
-            className="w-full md:max-w-[688px] lg:max-w-[1058px]"
-            description={infoBlock.description}
-            isFavorites={infoBlock.isFavorites}
-            title={infoBlock.title}
-          />
-        ))}
-      </div>
     </main>
   );
 }

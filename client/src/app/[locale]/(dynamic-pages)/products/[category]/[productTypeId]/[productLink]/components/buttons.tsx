@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
+import { ProductVariant } from '../types';
+
 import { useCartProvider, UserContext } from '@/app/providers';
 import { IconHeart, IconLoader } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -13,8 +15,6 @@ import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
-import { ProductVariant } from '../types';
 
 interface ButtonsProps {
   product: ProductVariant;
@@ -116,23 +116,6 @@ export default function Buttons({ product }: ButtonsProps) {
         onClick={handleCartClick}
       >
         {productAlreadyInCart ? t('common.removeFromCart') : t('common.buyNow')}
-      </Button>
-      <Button
-        asChild
-        className="h-12 w-72"
-        size="md"
-        transparentVariant="blue_blue"
-        variant="transparent"
-      >
-        <Link
-          aria-label="Buy on installments"
-          href={{
-            pathname: PAGE_NAMES.MIKROFIN_INVOICE,
-            query: { productId: product.productVariantId },
-          }}
-        >
-          {t('productPage.buyOnInstallments')}
-        </Link>
       </Button>
 
       <Button

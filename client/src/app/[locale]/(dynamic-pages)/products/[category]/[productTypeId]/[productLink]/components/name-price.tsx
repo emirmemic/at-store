@@ -32,7 +32,7 @@ export default function NamePrice({
   return (
     <div>
       <p className="text-grey-dark">{`${t('productId')}: ${productVariantId}`}</p>
-      <h1 className="mb-2 heading-3">{name}</h1>
+      <h1 className="mb-2 heading-4">{name}</h1>
       <div className="flex items-center gap-5">
         <Price className="heading-4" value={finalPrice} />
 
