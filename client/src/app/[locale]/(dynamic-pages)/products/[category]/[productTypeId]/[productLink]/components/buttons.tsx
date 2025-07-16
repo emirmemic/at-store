@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import { ProductVariant } from '../types';
-
 import { useCartProvider, UserContext } from '@/app/providers';
 import { IconHeart, IconLoader } from '@/components/icons';
 import { Button } from '@/components/ui/button';
@@ -15,6 +13,8 @@ import { useLoader } from '@/lib/hooks';
 import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
+
+import { ProductVariant } from '../types';
 
 interface ButtonsProps {
   product: ProductVariant;

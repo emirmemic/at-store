@@ -1,14 +1,14 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import { ProductDetails } from './components';
-import RelatedProducts from './components/related-products';
-import { MetadataResponse } from './types';
-
 import { InfoBlock } from '@/components';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { getInfoBlocksData } from '@/lib/data';
 import { fetchAPI } from '@/lib/fetch-api';
+
+import { ProductDetails } from './components';
+import RelatedProducts from './components/related-products';
+import { MetadataResponse } from './types';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; productLink: string }>;

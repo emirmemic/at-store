@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
-import CalendlyEmbed from './components/calendly';
-
 import multi from '@/assets/images/multi.png';
 import { CardBlock } from '@/components/blocks';
 import { IconBackup, IconLock, IconPhone } from '@/components/icons';
 import { PAGE_NAMES } from '@/i18n/page-names';
+
+import CalendlyEmbed from './components/calendly';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
