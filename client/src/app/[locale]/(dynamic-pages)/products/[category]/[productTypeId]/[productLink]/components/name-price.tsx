@@ -1,6 +1,5 @@
-import { useTranslations } from 'next-intl';
-
 import Price from '@/components/ui/price';
+import { useTranslations } from 'next-intl';
 
 interface NamePriceProps {
   name: string;
@@ -44,7 +43,7 @@ export default function NamePrice({
             />
             {discountPercentage !== null && (
               <span className="text-green-dark heading-5">
-                {discountPercentage}% off
+                {discountPercentage}% jeftinije
               </span>
             )}
           </>

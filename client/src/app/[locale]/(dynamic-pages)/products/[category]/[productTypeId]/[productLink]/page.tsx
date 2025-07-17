@@ -1,14 +1,9 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-import { InfoBlock } from '@/components';
-import { STRAPI_BASE_URL } from '@/lib/constants';
-import { getInfoBlocksData } from '@/lib/data';
-import { fetchAPI } from '@/lib/fetch-api';
-
+import { MetadataResponse } from './types';
 import { ProductDetails } from './components';
 import RelatedProducts from './components/related-products';
-import { MetadataResponse } from './types';
+import { STRAPI_BASE_URL } from '@/lib/constants';
+import { fetchAPI } from '@/lib/fetch-api';
+import { getTranslations } from 'next-intl/server';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; productLink: string }>;
@@ -60,9 +55,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   };
 }
 export default function Page() {
-  const t = useTranslations();
-
-  const infoBlocks = getInfoBlocksData(t);
   return (
     <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
       <ProductDetails />

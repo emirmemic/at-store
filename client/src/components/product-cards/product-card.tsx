@@ -1,22 +1,22 @@
 'use client';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+
 import { useContext, useState } from 'react';
 
-import { UserContext } from '@/app/providers';
-import { StrapiImage } from '@/components/strapi/components';
 import FavoritesHeart from '@/components/ui/favorites-heart';
-import Price from '@/components/ui/price';
+import Link from 'next/link';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import Price from '@/components/ui/price';
+import { ProductResponse } from '@/lib/types';
+import ProductTag from './product-tag';
+import { StrapiImage } from '@/components/strapi/components';
+import { UserContext } from '@/app/providers';
+import { cn } from '@/lib/utils/utils';
+import { makeProductLink } from '@/lib/utils/link-helpers';
 import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
+import { useRouter } from 'next/navigation';
 import { useToast } from '@/lib/hooks/use-toast';
-import { ProductResponse } from '@/lib/types';
-import { makeProductLink } from '@/lib/utils/link-helpers';
-import { cn } from '@/lib/utils/utils';
-
-import ProductTag from './product-tag';
+import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: ProductResponse;
@@ -133,7 +133,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               className="text-muted-foreground line-through"
               value={originalPrice}
             />
-            <p className="text-green-600">{`${discountPercentage}% off`}</p>
+            <p className="text-green-600">{`${discountPercentage}% jeftinije`}</p>
           </div>
         )}
         <Price className="text-sm font-semibold" value={finalPrice} />

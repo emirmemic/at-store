@@ -1,12 +1,4 @@
 'use client';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-
-import { useProductVariants } from '@/app/providers';
-import Installments from '@/components/ui/installments';
-import Price from '@/components/ui/price';
-import { InstallmentOption } from '@/lib/types';
-import { cn } from '@/lib/utils/utils';
 
 import {
   AvailableOption,
@@ -14,7 +6,14 @@ import {
   SelectedOptionKey,
 } from '../types';
 
+import { InstallmentOption } from '@/lib/types';
+import Installments from '@/components/ui/installments';
 import OptionsItem from './options-item';
+import Price from '@/components/ui/price';
+import { cn } from '@/lib/utils/utils';
+import { useProductVariants } from '@/app/providers';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface SpecsProps {
   className?: string;
@@ -31,8 +30,7 @@ export default function Options({
     { label: 'Bez rata', value: 1 },
     { label: '6 rata', value: 6 },
     { label: '12 rata', value: 12 },
-    { label: '18 rata', value: 18 },
-    { label: '24 rata', value: 24 },
+    { label: '24 rate', value: 24 },
   ];
   const lastOption = installmentOptions[installmentOptions.length - 1];
   const [selectedOption, setSelectedOption] =
