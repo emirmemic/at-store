@@ -150,27 +150,27 @@ const benefitsItems = [
     icon: '💳',
     title: 'Fleksibilno finansiranje',
     description: 'Prilagođene opcije finansiranja za vaše potrebe.',
-    image: '/images/mac-2.jpg',
+    image: 'assets/images/card.png',
   },
   {
     icon: '🛍️',
     title: 'Ekskluzivne ponude',
     description: 'Iskoristi posebne akcije i popuste koje AT Store nudi.',
-    image: '/images/mac-2.jpg',
+    image: 'assets/images/multi_offer.png',
   },
   {
     icon: '🌍',
     title: 'Dostupnost širom BiH',
     description:
       'Bilo da si u Sarajevu, Mostaru, Banjoj Luci ili bilo gdje drugo — AT Store obrazovne pogodnosti su ti nadohvat ruke, online ili u poslovnicama.',
-    image: '/images/mac-2.jpg',
+    image: 'assets/images/memoji.png',
   },
   {
     icon: '📚',
     title: 'Prilagođeno obrazovanju',
     description:
       'Po potrebi je moguća instalacija obrazovnih programa koje pomažu u učenju, istraživanju i kreativnosti – savršeno za školu, fakultet ili online kurseve.',
-    image: '/images/mac-2.jpg',
+    image: 'assets/images/mbp_edu.png',
   },
 ];
 
