@@ -166,29 +166,21 @@ export default function EducationalDiscountForm() {
               onFileChange={handleFileChange}
             />
           </div>
-        </div>
-        <div className="lg:justify-self-end">
-          <h2 className="pb-7 text-center heading-4 lg:text-end">
-            {t('educationalDiscountPage.howToDiscount')}
-          </h2>
-          <p className="text-center paragraph-2 lg:text-end">
-            {t('educationalDiscountPage.fillForm')}
-          </p>
-        </div>
-        <div className="self-center pt-6 md:justify-self-center md:pt-8">
-          {isPending ? (
-            <IconLoader size={46} />
-          ) : (
-            <Button
-              disabled={isPending}
-              size="lg"
-              type="submit"
-              typography="button1"
-              variant="filled"
-            >
-              {t('common.submit')}
-            </Button>
-          )}
+          <div className="pt-6">
+            {isPending ? (
+              <IconLoader size={46} />
+            ) : (
+              <Button
+                disabled={isPending}
+                size="lg"
+                type="submit"
+                typography="button1"
+                variant="filled"
+              >
+                {t('common.submit')}
+              </Button>
+            )}
+          </div>
         </div>
         <div className="w-full max-w-[336] self-center pt-2 lg:col-span-2 lg:justify-self-center lg:pt-8">
           <Alert

@@ -36,6 +36,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@strapi/provider-email-nodemailer": "^5.12.6",
     "@types/node": "^20",
     "concurrently": "^8.2.2",
@@ -45,7 +46,7 @@
   },
   "devDependencies": {
     "husky": "^9.1.7",
-    "ts-node": "^10.9.2",
-    "lint-staged": "^15.5.2"
+    "lint-staged": "^15.5.2",
+    "ts-node": "^10.9.2"
   }
 }
