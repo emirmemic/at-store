@@ -34,7 +34,7 @@ export default function ProductDetails() {
       {/* Desktop Layout */}
       <div className="hidden lg:flex lg:h-full">
         {/* Left side - Fixed Images (40% width, non-scrollable) */}
-        <div className="h-full w-1/2 overflow-hidden">
+        <div className="sticky top-0 h-full w-1/2 overflow-hidden">
           <div className="flex h-fit flex-col">
             <ImagesSlider className="h-fit" images={images} tag={tag} />
           </div>
@@ -53,7 +53,7 @@ export default function ProductDetails() {
         </div>
 
         {/* Right side - Scrollable Content (60% width) */}
-        <div className="h-full w-1/2 overflow-y-auto">
+        <div className="h-full w-1/2 overflow-y-scroll">
           <div className="p-8 pb-32">
             {/* Product Header */}
             <div className="mb-8">
@@ -90,8 +90,11 @@ export default function ProductDetails() {
 
             {/* Find More Stores */}
             <div className="mb-8">
+              <span className="text-sm font-medium text-blue">
+                Besplatno preuzimanje u poslovnici
+              </span>
               <button
-                className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
+                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
                 onClick={() => {
                   router.push('/find-store');
                 }}
@@ -127,60 +130,112 @@ export default function ProductDetails() {
               </div>
             </div>
 
-            {/* Delivery Information */}
-            <div className="mb-8 overflow-hidden rounded-xl border border-grey-light shadow-sm">
-              <details className="group transition-all duration-300 [&[open]]:bg-grey-almost-white">
-                <summary className="flex cursor-pointer select-none items-center justify-between px-6 py-5 text-lg font-semibold transition-colors hover:bg-grey-light">
-                  <span>Besplatna dostava i povrat</span>
-                  <span className="transition-transform group-open:rotate-180">
-                    ⌄
-                  </span>
-                </summary>
-                <div className="mt-3 space-y-4 px-6 pb-6 pt-0">
-                  <div className="flex items-start gap-3">
-                    <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                    <div>
-                      <p className="font-medium">Dostupno za 2-3 dana</p>
-                      <p className="text-sm text-grey-dark">
-                        Besplatna standardna dostava uz članstvo
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <RotateCcw className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                    <div>
-                      <p className="font-medium">Besplatan povrat</p>
-                      <p className="text-sm text-grey-dark">
-                        Možete vratiti narudžbu besplatno, u roku od 30 dana
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                    <div>
-                      <p className="font-medium">2 godine garancije</p>
-                      <p className="text-sm text-grey-dark">
-                        Garancija dostupna na sve proizvode
-                      </p>
-                    </div>
+            {/* Delivery and Payment Info - Always visible, grey background */}
+            <div className="mb-8 space-y-6 rounded-xl bg-grey-almost-white p-6">
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Dostava i garancija</h3>
+                <div className="flex items-start gap-3">
+                  <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                  <div>
+                    <p className="font-medium text-blue">
+                      Dostupno za 24-48 sati
+                    </p>
+                    <p className="text-sm text-grey-dark">
+                      Besplatna dostava za narudžbe preko 400 KM
+                    </p>
                   </div>
                 </div>
-              </details>
+                <div className="flex items-start gap-3">
+                  <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                  <div>
+                    <p className="font-medium text-green">1 godine garancije</p>
+                    <p className="text-sm text-grey-dark">
+                      Garancija dostupna na sve proizvode. Na iPhone uređaje 2
+                      godine garancije
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-              <details className="group border-t border-grey-light transition-all duration-300 [&[open]]:bg-grey-almost-white">
-                <summary className="flex cursor-pointer select-none items-center justify-between px-6 py-5 text-lg font-semibold transition-colors hover:bg-grey-light">
-                  <span>Načini plaćanja</span>
-                  <span className="transition-transform group-open:rotate-180">
-                    ⌄
+              <div className="border-t border-grey-light" />
+
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold">Načini plaćanja</h3>
+                <p className="text-sm text-grey-dark">
+                  Nudimo raznovrsne metode za jednostavnu i prilagođenu
+                  kupovinu.
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Jednokratna plaćanja:</strong> Maestro, American
+                  Express, Diners, Discover, Visa, MasterCard.
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Plaćanje na rate:</strong> Do 12 rata (Intesa, NLB,
+                  Diners, Amex), do 24 rate (UniCredit, Raiffeisen), do 36 rata
+                  (ProCredit Bank).
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Dodatne opcije:</strong> Virman/internet bankarstvo,
+                  pouzećem.
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Online plaćanja:</strong> Kartice MasterCard, Maestro,
+                  Visa, rate putem UniCredit banke.
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za
+                  brzi kredit bez odlaska u poslovnicu.
+                </p>
+                <p className="text-sm text-grey-dark">
+                  <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
+                </p>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 pb-8 pt-8">
+              <details className="group">
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span>Povrat i reklamacija</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
                   </span>
                 </summary>
-                <div className="mt-3 space-y-2 px-6 pb-6 pt-0 text-sm text-grey-dark">
-                  <p>- Gotovinsko plaćanje prilikom preuzimanja</p>
+                <div className="mt-4 space-y-2 text-gray-600">
                   <p>
-                    - Online Plaćanje karticama putem Monri servisa (Visa,
-                    MasterCard)
+                    -Ukoliko niste zadovoljni proizvodom, imate pravo na povrat
+                    ili zamjenu u roku od 7 dana od dana prijema.
                   </p>
-                  <p>- Mikrofin kreditiranje</p>
+                  <p>
+                    -Proizvod mora biti nekorišten, neoštećen i u originalnom
+                    pakovanju.
+                  </p>
+                  <p>
+                    -Za pokretanje postupka povrata kontaktirajte nas putem
+                    emaila ili telefona navedenog na stranici za kontakt.
+                  </p>
+                  <p>
+                    -Reklamacije se rješavaju u najkraćem mogućem roku, najčešće
+                    unutar 7 radnih dana.
+                  </p>
+                </div>
+              </details>
+            </div>
+            <div className="border-t border-gray-200 pb-8 pt-8">
+              <details className="group">
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span>Mikrofin finansiranje</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
+                  </span>
+                </summary>
+                <div className="mt-4 space-y-2 text-gray-600">
+                  <p>
+                    -Koristite kredit kompanije Mikrofin. Nema potrebe da više
+                    gubite vrijeme na dolazak u poslovnice.
+                  </p>
+                  <p>
+                    - Informišite se o našim proizvodima putem web stranice, a
+                    zatim podnesite online zahtjev za kredit.
+                  </p>
                 </div>
               </details>
             </div>
@@ -305,7 +360,7 @@ export default function ProductDetails() {
         </div>
 
         {/* 3. Options, Buttons, Store Availability, Delivery Info, Details */}
-        <div className="flex flex-col items-start gap-12">
+        <div className="flex flex-col items-start gap-6">
           {/* Options and Buy Now */}
           <div className="flex w-full flex-col gap-14">
             <Options finalPrice={finalPrice} options={productOptions} />
@@ -314,8 +369,11 @@ export default function ProductDetails() {
 
           {/* Find More Stores */}
           <div className="w-full">
+            <span className="text-sm font-medium text-blue">
+              Besplatno preuzimanje u poslovnici
+            </span>
             <button
-              className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
+              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
               onClick={() => {
                 router.push('/find-store');
               }}
@@ -350,43 +408,6 @@ export default function ProductDetails() {
               </ul>
             </div>
           </div>
-
-          {/* Delivery Information */}
-          <div className="rounded-lg bg-grey-almost-white p-6">
-            <h3 className="mb-4 text-lg font-semibold">
-              Besplatna dostava i povrat
-            </h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                <div>
-                  <p className="font-medium">Dostupno za 2-3 dana</p>
-                  <p className="text-sm text-grey-dark">
-                    Besplatna standardna dostava uz članstvo
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <RotateCcw className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                <div>
-                  <p className="font-medium">Besplatan povrat</p>
-                  <p className="text-sm text-grey-dark">
-                    Možete vratiti narudžbu besplatno, u roku od 30 dana
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                <div>
-                  <p className="font-medium">2 godine garancije</p>
-                  <p className="text-sm text-grey-dark">
-                    Garancija dostupna na sve proizvode
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {details && (
             <>
               <div className="h-0.5 w-full bg-grey-light"></div>
@@ -399,6 +420,99 @@ export default function ProductDetails() {
               />
             </>
           )}
+          {/* Delivery Information */}
+          <div className="rounded-lg bg-grey-almost-white p-6">
+            <h3 className="mb-4 text-lg font-semibold">
+              Besplatna dostava i povrat
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                <div>
+                  <p className="font-medium text-blue">
+                    Dostupno za 24-48 sati
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    Besplatna dostava za narudžbe preko 400 KM
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                <div>
+                  <p className="font-medium text-green">1 godine garancije</p>
+                  <p className="text-sm text-grey-dark">
+                    Garancija dostupna na sve proizvode. Na iPhone uređaje 2
+                    godine garancije
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-3 rounded-lg bg-grey-almost-white p-6">
+            <h3 className="text-lg font-semibold">Načini plaćanja</h3>
+            <p className="text-sm text-grey-dark">
+              Nudimo raznovrsne metode za jednostavnu i prilagođenu kupovinu.
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Jednokratna plaćanja:</strong> Maestro, American Express,
+              Diners, Discover, Visa, MasterCard.
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Plaćanje na rate:</strong> Do 12 rata (Intesa, NLB,
+              Diners, Amex), do 24 rate (UniCredit, Raiffeisen), do 36 rata
+              (ProCredit Bank).
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Dodatne opcije:</strong> Virman/internet bankarstvo,
+              pouzećem.
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Online plaćanja:</strong> Kartice MasterCard, Maestro,
+              Visa, rate putem UniCredit banke.
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za brzi
+              kredit bez odlaska u poslovnicu.
+            </p>
+            <p className="text-sm text-grey-dark">
+              <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
+            </p>
+          </div>
+
+          <div className="space-y-3 rounded-lg bg-grey-almost-white p-6">
+            <h3 className="text-lg font-semibold">Povrat i reklamacija</h3>
+            <p className="text-sm text-grey-dark">
+              -Ukoliko niste zadovoljni proizvodom, imate pravo na povrat ili
+              zamjenu u roku od 7 dana od dana prijema.
+            </p>
+            <p className="text-sm text-grey-dark">
+              -Proizvod mora biti nekorišten, neoštećen i u originalnom
+              pakovanju.
+            </p>
+            <p className="text-sm text-grey-dark">
+              -Za pokretanje postupka povrata kontaktirajte nas putem emaila ili
+              telefona navedenog na stranici za kontakt.
+            </p>
+            <p className="text-sm text-grey-dark">
+              -Reklamacije se rješavaju u najkraćem mogućem roku, najčešće
+              unutar 7 radnih dana.
+            </p>
+          </div>
+
+          <div className="space-y-3 rounded-lg bg-grey-almost-white p-6">
+            <h3 className="text-lg font-semibold">Mikrofin finansiranje</h3>
+            <p className="text-sm text-grey-dark">
+              -Koristite kredit kompanije Mikrofin. Nema potrebe da više gubite
+              vrijeme na dolazak u poslovnice.
+            </p>
+            <p className="text-sm text-grey-dark">
+              - Informišite se o našim proizvodima putem web stranice, a zatim
+              podnesite online zahtjev za kredit.
+            </p>
+          </div>
         </div>
       </div>
 
