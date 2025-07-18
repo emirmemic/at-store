@@ -12,7 +12,7 @@ export default function Page() {
 
   return (
     <AnimateSlots
-      className="flex min-h-screen-h-cutoff w-full flex-col items-center justify-center px-4 py-9 md:px-9 md:py-16"
+      className="flex min-h-screen-h-cutoff w-full flex-col items-center justify-center bg-[#f5f5f7] px-4 py-9 md:px-9 md:py-16"
       currentSlotKey={userType ?? 'initial'}
     >
       {userType ? (

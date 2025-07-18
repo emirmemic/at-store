@@ -26,7 +26,7 @@ export default function Container({
       )}
     >
       <button
-        className="absolute left-6 top-6 flex items-center gap-6 hover:text-grey-medium"
+        className="hover:black absolute left-6 top-6 flex items-center gap-6 text-black"
         type="button"
         onClick={onBack ?? router.back}
       >

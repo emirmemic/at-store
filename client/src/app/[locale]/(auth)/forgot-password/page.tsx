@@ -28,9 +28,10 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen-h-cutoff w-full flex-col items-center justify-center px-4 md:px-9">
-      <Container className="!pt-16">
-        <IconAtStoreLogo className="h-8 w-36" />
-        <Title className="mb-8" title={t('title')} />
+      <div className="absolute inset-0 bg-[#f5f5f7]" />
+      <Container className="bg-white !pt-16">
+        <IconAtStoreLogo className="h-8 w-36 text-black" />
+        <Title className="mb-8 text-black" title={t('title')} />
         <Form />
       </Container>
     </main>

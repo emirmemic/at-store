@@ -44,7 +44,7 @@ export default function Form() {
       className="flex w-full max-w-[336px] flex-col gap-3 md:max-w-[400px]"
     >
       {formState?.apiError && <Alert dismissible>{formState.apiError}</Alert>}
-      <h2 className="paragraph-4">{t('description')}</h2>
+      <h2 className="text-black paragraph-4">{t('description')}</h2>
       <Input
         defaultValue={formState?.data.email}
         errorMessage={formState?.errors?.email}

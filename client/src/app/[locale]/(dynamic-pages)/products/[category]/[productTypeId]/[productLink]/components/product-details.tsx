@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Heart, MapPin, RotateCcw, Share2, Shield, Truck } from 'lucide-react';
 
 import Buttons from './buttons';
@@ -10,10 +12,27 @@ import { ProductDetailsPopup } from '@/components/popup';
 import { StrapiImage } from '@/components';
 import { useProductVariants } from '@/app/providers/product-variants-provider';
 import { useRouter } from 'next/navigation';
+import { STRAPI_BASE_URL, GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
+import { AboutPageResponse } from '@/app/[locale]/(static-pages)/about/types';
+import { fetchAPI } from '@/lib/fetch-api';
 
 export default function ProductDetails() {
   const { productOptions, selectedVariant } = useProductVariants();
   const router = useRouter();
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Prevent body scroll when sidebar is open
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
 
   const {
     details,
@@ -25,6 +44,8 @@ export default function ProductDetails() {
     images,
     productVariantId,
   } = selectedVariant;
+
+  console.log(stores);
 
   const finalPrice = discountedPrice ?? originalPrice;
   const image = selectedVariant.images?.[0] || null;
@@ -90,44 +111,18 @@ export default function ProductDetails() {
 
             {/* Find More Stores */}
             <div className="mb-8">
-              <span className="text-sm font-medium text-blue">
+              <span className="text-sm font-medium text-black">
                 Besplatno preuzimanje u poslovnici
               </span>
               <button
-                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
-                onClick={() => {
-                  router.push('/find-store');
-                }}
+                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
+                onClick={() => setSidebarOpen(true)}
               >
                 <MapPin className="h-4 w-4" />
-                <span className="text-sm font-medium">
-                  Pronađi više prodavnica
+                <span className="text-sm font-medium text-blue">
+                  Pogledajte dostupnost u poslovnicama
                 </span>
               </button>
-              <div className="mt-4 space-y-2">
-                <p className="text-sm font-medium">
-                  Dostupno u sljedećim poslovnicama:
-                </p>
-                <ul className="list-disc pl-5 text-sm">
-                  {stores
-                    .filter((storeItem) => storeItem.quantity > 0)
-                    .map((storeItem) => (
-                      <li key={storeItem.id} className="text-[#22c55e]">
-                        {storeItem.store.name}
-                      </li>
-                    ))}
-                  {stores
-                    .filter((storeItem) => storeItem.quantity === 0)
-                    .map((storeItem) => (
-                      <li
-                        key={storeItem.id}
-                        className="text-[#ef4444] line-through"
-                      >
-                        {storeItem.store.name}
-                      </li>
-                    ))}
-                </ul>
-              </div>
             </div>
 
             {/* Delivery and Payment Info - Always visible, grey background */}
@@ -148,7 +143,7 @@ export default function ProductDetails() {
                 <div className="flex items-start gap-3">
                   <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
                   <div>
-                    <p className="font-medium text-green">1 godine garancije</p>
+                    <p className="font-medium text-blue">1 godine garancije</p>
                     <p className="text-sm text-grey-dark">
                       Garancija dostupna na sve proizvode. Na iPhone uređaje 2
                       godine garancije
@@ -156,41 +151,48 @@ export default function ProductDetails() {
                   </div>
                 </div>
               </div>
-
-              <div className="border-t border-grey-light" />
-
-              <div className="space-y-3">
-                <h3 className="text-lg font-semibold">Načini plaćanja</h3>
-                <p className="text-sm text-grey-dark">
-                  Nudimo raznovrsne metode za jednostavnu i prilagođenu
-                  kupovinu.
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Jednokratna plaćanja:</strong> Maestro, American
-                  Express, Diners, Discover, Visa, MasterCard.
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Plaćanje na rate:</strong> Do 12 rata (Intesa, NLB,
-                  Diners, Amex), do 24 rate (UniCredit, Raiffeisen), do 36 rata
-                  (ProCredit Bank).
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Dodatne opcije:</strong> Virman/internet bankarstvo,
-                  pouzećem.
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Online plaćanja:</strong> Kartice MasterCard, Maestro,
-                  Visa, rate putem UniCredit banke.
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za
-                  brzi kredit bez odlaska u poslovnicu.
-                </p>
-                <p className="text-sm text-grey-dark">
-                  <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
-                </p>
-              </div>
             </div>
+            <div className="border-t border-gray-200 pb-8 pt-8">
+              <details className="group">
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span>Načini plaćanja</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
+                  </span>
+                </summary>
+                <div className="mt-4 space-y-2 text-gray-600">
+                  <p>
+                    Nudimo raznovrsne metode za jednostavnu i prilagođenu
+                    kupovinu.
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Jednokratna plaćanja:</strong> Maestro, American
+                    Express, Diners, Discover, Visa, MasterCard.
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Plaćanje na rate:</strong> Do 12 rata (Intesa, NLB,
+                    Diners, Amex), do 24 rate (UniCredit, Raiffeisen), do 36
+                    rata (ProCredit Bank).
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Dodatne opcije:</strong> Virman/internet bankarstvo,
+                    pouzećem.
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Online plaćanja:</strong> Kartice MasterCard,
+                    Maestro, Visa, rate putem UniCredit banke.
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za
+                    brzi kredit bez odlaska u poslovnicu.
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
+                  </p>
+                </div>
+              </details>
+            </div>
+
             <div className="border-t border-gray-200 pb-8 pt-8">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
@@ -369,44 +371,18 @@ export default function ProductDetails() {
 
           {/* Find More Stores */}
           <div className="w-full">
-            <span className="text-sm font-medium text-blue">
+            <span className="text-sm font-medium text-black">
               Besplatno preuzimanje u poslovnici
             </span>
             <button
-              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
-              onClick={() => {
-                router.push('/find-store');
-              }}
+              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
+              onClick={() => setSidebarOpen(true)}
             >
               <MapPin className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                Pronađi više prodavnica
+              <span className="text-sm font-medium text-blue">
+                Pogledajte dostupnost u poslovnicama
               </span>
             </button>
-            <div className="mt-4 space-y-2">
-              <p className="text-sm font-medium">
-                Dostupno u sljedećim poslovnicama:
-              </p>
-              <ul className="list-disc pl-5 text-sm">
-                {stores
-                  .filter((storeItem) => storeItem.quantity > 0)
-                  .map((storeItem) => (
-                    <li key={storeItem.id} className="text-[#22c55e]">
-                      {storeItem.store.name}
-                    </li>
-                  ))}
-                {stores
-                  .filter((storeItem) => storeItem.quantity === 0)
-                  .map((storeItem) => (
-                    <li
-                      key={storeItem.id}
-                      className="text-[#ef4444] line-through"
-                    >
-                      {storeItem.store.name}
-                    </li>
-                  ))}
-              </ul>
-            </div>
           </div>
           {details && (
             <>
@@ -516,8 +492,127 @@ export default function ProductDetails() {
         </div>
       </div>
 
+      {/* Sidebar overlay for store availability */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-[1000] flex">
+          {/* Overlay backdrop */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={() => setSidebarOpen(false)}
+          />
+          {/* Sidebar panel (desktop and mobile identical) */}
+          <aside className="fixed right-0 top-0 z-[1000] flex h-screen w-full max-w-md flex-col overflow-y-auto bg-white shadow-lg transition-transform duration-300">
+            {/* Sticky close button */}
+            <div className="sticky top-0 z-10 flex justify-end border-b border-gray-100 bg-white p-4">
+              <button
+                aria-label="Zatvori"
+                className="text-2xl text-gray-600"
+                onClick={() => setSidebarOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex flex-1 flex-col p-6 pt-2">
+              {/* Header */}
+              <h2 className="mb-4 text-2xl font-bold">
+                Dostupnost u poslovnicama
+              </h2>
+              {/* Product info */}
+              {image && (
+                <div className="mb-4 flex items-center gap-4">
+                  <div className="h-16 w-16 overflow-hidden rounded-lg">
+                    <StrapiImage
+                      alt={image.alternativeText || name}
+                      className="object-cover"
+                      height={64}
+                      src={image.url}
+                      width={64}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">{name}</h3>
+                    <p className="text-sm">
+                      Boja: {selectedVariant.color?.name}
+                    </p>
+                    <p className="text-sm">
+                      Model: {selectedVariant.model?.name}
+                    </p>
+                    <p className="text-sm">
+                      Storage: {selectedVariant.memory?.name}
+                    </p>
+                  </div>
+                </div>
+              )}
+              <hr className="mb-4" />
+              {/* Results count */}
+              <p className="mb-4 text-sm text-gray-600">
+                {stores.filter((storeItem) => storeItem.quantity > 0).length}{' '}
+                rezultata
+              </p>
+              {/* Store list */}
+              <div className="scrollbar-hide space-y-6 overflow-y-auto pr-2">
+                {stores
+                  // Only include relevant stores (Alta, SCC, Delta) and those with quantity > 0
+                  .filter((storeItem) => {
+                    const name = storeItem.store.name;
+                    return (
+                      (name === 'AT Store (ALTA)' ||
+                        name === 'AT Store (SCC)' ||
+                        name === 'AT Store (DELTA)') &&
+                      storeItem.quantity > 0
+                    );
+                  })
+                  // Only map over stores with quantity > 0
+                  .filter((storeItem) => storeItem.quantity > 0)
+                  .map((storeItem) => {
+                    let location = null;
+                    // Map store name to correct GOOGLE_MAPS_LOCATIONS key
+                    if (storeItem.store.name === 'AT Store (ALTA)') {
+                      location = GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA;
+                    } else if (storeItem.store.name === 'AT Store (SCC)') {
+                      location = GOOGLE_MAPS_LOCATIONS.SARAJEVO_SCC;
+                    } else if (storeItem.store.name === 'AT Store (DELTA)') {
+                      location = GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA;
+                    }
+                    return (
+                      <div
+                        key={storeItem.id}
+                        className="flex flex-col rounded-xl border border-gray-200 bg-white p-4"
+                      >
+                        <h4 className="mb-2 text-lg font-semibold">
+                          {location?.storeName || storeItem.store.name}
+                        </h4>
+                        {location?.storeAddress && (
+                          <p className="mb-2 text-sm text-gray-700">
+                            {location.storeAddress}
+                          </p>
+                        )}
+                        <p className={`mt-1 text-xs text-[#22c55e]`}>
+                          {`Stanje: ${storeItem.quantity}`}
+                        </p>
+                        {location?.embedUrl && (
+                          <div className="mt-3 flex flex-1 flex-col">
+                            <iframe
+                              className="w-full rounded-md"
+                              height="200"
+                              loading="lazy"
+                              referrerPolicy="no-referrer-when-downgrade"
+                              src={location.embedUrl}
+                              width="100%"
+                            ></iframe>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </aside>
+        </div>
+      )}
+
       {/* Sticky Bottom Banner - Always visible on desktop */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 hidden border-t border-grey-light bg-white shadow-lg lg:block">
+      <div className="fixed bottom-0 left-0 right-0 z-[999] hidden border-t border-grey-light bg-white shadow-lg lg:block">
         <div className="flex items-center justify-between px-8 py-4">
           <div className="flex items-center gap-4">
             <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-grey-almost-white">
@@ -545,6 +640,20 @@ export default function ProductDetails() {
                 )}
               </p>
             </div>
+          </div>
+          <div className="mb-8">
+            <span className="text-sm font-medium text-black">
+              Besplatno preuzimanje u poslovnici
+            </span>
+            <button
+              className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <MapPin className="h-4 w-4" />
+              <span className="text-sm font-medium text-blue">
+                Pogledajte dostupnost u poslovnicama
+              </span>
+            </button>
           </div>
           <div className="flex items-center gap-4">
             <Buttons isModal={true} product={selectedVariant} />

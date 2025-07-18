@@ -52,7 +52,7 @@ export default function Form() {
       className="flex w-full max-w-[336px] flex-col gap-3"
     >
       <Title
-        className="mb-8 hidden self-center md:block"
+        className="mb-8 hidden self-center text-black md:block"
         linkPath={PAGE_NAMES.REGISTER}
         linkText={t('registerPrompt')}
         subtitle={t('subtitle')}
@@ -79,12 +79,15 @@ export default function Form() {
       <div className="mt-6 flex justify-between gap-2.5">
         <Checkbox
           className="bg-white"
-          labelClassName="flex items-center gap-2 paragraph-2 cursor-pointer hover:text-grey-dark transition-colors duration-300"
+          labelClassName="flex items-center gap-2 paragraph-2 cursor-pointer hover:text-grey-dark transition-colors duration-300 text-black"
           name="rememberMe"
         >
           <span>{t('rememberMe')}</span>
         </Checkbox>
-        <Link className="paragraph-6" href={PAGE_NAMES.FORGOT_PASSWORD}>
+        <Link
+          className="text-black paragraph-6"
+          href={PAGE_NAMES.FORGOT_PASSWORD}
+        >
           {t('forgotPassword')}
         </Link>
       </div>
