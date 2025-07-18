@@ -32,7 +32,7 @@ export default function ProductDetails() {
   return (
     <>
       {/* Desktop Layout */}
-      <div className="hidden lg:flex lg:h-screen">
+      <div className="hidden lg:flex lg:h-full">
         {/* Left side - Fixed Images (40% width, non-scrollable) */}
         <div className="h-full w-1/2 overflow-hidden">
           <div className="flex h-fit flex-col">
