@@ -17,21 +17,21 @@ export default function UserTypeSelection({
 }) {
   const t = useTranslations('registrationPage');
   return (
-    <Container className={`gap-4 ${className}`}>
+    <Container className={`gap-4 bg-white ${className}`}>
       <Title
-        className="mt-16"
+        className="mt-16 text-black"
         linkPath={PAGE_NAMES.LOGIN}
         linkText={t('loginPrompt')}
         subtitle={t('subtitle')}
         title={t('title')}
       />
-      <h2 className="mb-6 mt-14 heading-3 md:mb-16">
+      <h2 className="mb-6 mt-14 text-black heading-3 md:mb-16">
         {t('areYouALegalEntity')}
       </h2>
       <div className="flex flex-col gap-6 md:flex-row">
         <Button
           size={'default'}
-          transparentVariant={'white'}
+          transparentVariant={'black'}
           typography={'button1'}
           variant={'transparent'}
           onClick={() => onSelectUserType('organization')}
@@ -40,7 +40,7 @@ export default function UserTypeSelection({
         </Button>
         <Button
           size={'default'}
-          transparentVariant={'white'}
+          transparentVariant={'black'}
           typography={'button1'}
           variant={'transparent'}
           onClick={() => onSelectUserType('authenticated')}
@@ -48,7 +48,11 @@ export default function UserTypeSelection({
           {t('individual')}
         </Button>
       </div>
-      <IconAtStoreLogo className="mt-20 text-center" height={60} width={266} />
+      <IconAtStoreLogo
+        className="mt-20 text-center text-black"
+        height={60}
+        width={266}
+      />
     </Container>
   );
 }
