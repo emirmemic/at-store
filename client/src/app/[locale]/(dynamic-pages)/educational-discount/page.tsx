@@ -9,59 +9,67 @@ import SafeImage from './components/SafeImage';
 const macItems = [
   {
     title: 'MacBook Air',
-    subtitle: 'Apple Intelligence',
-    description: 'From $899 or $74.91/mo. for 12 mo.† with education savings',
-    image: '/images/mac-1.jpg',
+    subtitle: 'M4 čip',
+    description:
+      'Od 2.569 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/mbam4.png',
     icon: '🎓',
   },
   {
     title: 'MacBook Pro',
-    subtitle: 'M4 Chip',
-    description: 'Powerful performance for professionals and students alike.',
-    image: '/images/mac-2.jpg',
-    icon: '💻',
+    subtitle: 'M4 čip',
+    description:
+      'Od 4.169 KM ili 191 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/mbpm4.png',
+    icon: '🎓',
   },
   {
-    title: 'MacBook Air M2',
+    title: 'MacBook Air M3',
     subtitle: 'Tanji. Brži. Efikasniji.',
-    description: 'Od 1.999 KM uz EDU popust. Idealno za studente.',
-    image: '/images/mac-3.jpg',
-    icon: '✨',
+    description:
+      'Od 2.249 KM ili 103 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/mba.M3.png',
+    icon: '🎓',
   },
   {
     title: 'MacBook Pro M3',
     subtitle: 'Snaga za kreativce',
-    description: 'Profesionalni alati. Studentska cijena.',
-    image: '/images/mac-4.jpg',
-    icon: '🚀',
+    description:
+      'Od 3.829 KM ili 176 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/mbpm3.png',
+    icon: '🎓',
   },
   {
     title: 'iMac 24"',
-    subtitle: 'Sve-u-jednom',
-    description: 'Savršen za rad od kuće ili učionicu.',
-    image: '/images/mac-5.jpg',
-    icon: '🖥️',
+    subtitle: 'Savršen za rad od kuće ili učionicu.',
+    description:
+      'Od 3.329 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/imac.png',
+    icon: '🎓',
   },
   {
     title: 'Mac Studio',
-    subtitle: 'Napredna snaga',
-    description: 'Za najzahtjevnije kreativne zadatke.',
-    image: '/images/mac-6.jpg',
-    icon: '🎛️',
+    subtitle: 'Napredna snaga. M4 Max.',
+    description:
+      'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/macstudio.png',
+    icon: '🎓',
   },
   {
     title: 'Mac mini',
     subtitle: 'Kompaktan i moćan',
-    description: 'Idealno rješenje za studente programere.',
-    image: '/images/mac-7.jpg',
-    icon: '📦',
+    description:
+      'Od 1.619 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/macmini.png',
+    icon: '🎓',
   },
   {
-    title: 'MacBook Air M3',
+    title: 'Studio Display',
     subtitle: 'Novo iskustvo',
-    description: 'Ušteda i performanse u jednom.',
-    image: '/images/mac-8.jpg',
-    icon: '🌟',
+    description:
+      'Od 3.709 KM ili 170 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+    image: 'assets/images/studiodisplay.png',
+    icon: '🎓',
   },
 ];
 
@@ -348,7 +356,7 @@ export default function Page() {
           </div>
         ))}
       </section>
-      <section className="mt-20 w-full rounded-3xl py-16 pl-[10%] pr-[10%] text-gray-800 md:py-20">
+      <section className="mt-20 w-full rounded-3xl bg-[#f7f7f7] py-16 pl-[10%] pr-[10%] text-gray-800 md:py-20">
         <p className="mx-auto mb-12 max-w-3xl text-center text-lg text-gray-700 md:text-xl">
           Registrirajte svoj profil, prijavite se i odmah počnite štedjeti.
         </p>
@@ -387,9 +395,11 @@ export default function Page() {
           </div>
         </div>
         <div className="mt-12 flex justify-center">
-          <Button size="lg" variant="filled">
-            Registriraj se
-          </Button>
+          <Link href="/register">
+            <Button size="lg" variant="filled">
+              Registriraj se
+            </Button>
+          </Link>
         </div>
       </section>
       {/* Novi slider za Mac uređaje */}
@@ -405,10 +415,10 @@ export default function Page() {
             {macItems.map((item, i) => (
               <div
                 key={i}
-                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl bg-green p-6"
+                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl bg-[#f7f7f7] p-6"
               >
                 <div className="mb-2 text-ellipsis text-sm font-semibold uppercase text-orange-700">
-                  Offer eligible
+                  Obrazovni popust
                 </div>
                 <h3 className="mb-1 h-[52px] overflow-hidden text-ellipsis text-xl font-semibold text-gray-900">
                   {item.title}
@@ -447,7 +457,7 @@ export default function Page() {
             {ipadItems.map((item, i) => (
               <div
                 key={i}
-                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl bg-green p-6"
+                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl bg-[#f7f7f7] p-6"
               >
                 <div className="mb-2 text-ellipsis text-sm font-semibold uppercase text-orange-700">
                   Offer eligible
@@ -476,237 +486,20 @@ export default function Page() {
           </div>
         </div>
       </section>
-      {/* MacBook Air M1, MacBook Pro M4, iMac horizontal cards */}
-      <section className="flex w-full flex-col gap-8 py-12 pl-[10%] pr-[10%] md:flex-row">
-        {/* MacBook Air M1 */}
-        <div className="flex flex-1 flex-col rounded-3xl bg-gray-100 p-6 shadow-lg">
-          <div className="mb-6 w-full">
-            <img
-              alt="MacBook Air M1"
-              className="h-[250px] w-full rounded-3xl object-contain shadow-lg"
-              src="/images/macbook-air-m1.png"
-            />
-          </div>
-          <div className="flex flex-col gap-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 4v16m8-8H4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Vrhunske performanse
-                </h3>
-                <p className="text-sm text-black">
-                  Najnoviji M1 čip pruža nevjerojatnu brzinu i efikasnost za
-                  poslovne zadatke.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M8 12l2 2 4-4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Dugotrajna baterija
-                </h3>
-                <p className="text-sm text-black">
-                  Uživajte u dugom trajanju baterije koja prati vaše poslovne
-                  potrebe cijeli dan.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <Button size="lg" variant="filled">
-              Kupi sada
-            </Button>
-          </div>
-        </div>
-
-        {/* MacBook Pro M4 */}
-        <div className="flex flex-1 flex-col rounded-3xl bg-gray-100 p-6 shadow-lg">
-          <div className="mb-6 w-full">
-            <img
-              alt="MacBook Pro M4"
-              className="h-[250px] w-full rounded-3xl object-contain shadow-lg"
-              src="/images/macbook-pro-m4.png"
-            />
-          </div>
-          <div className="flex flex-col gap-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 4v16m8-8H4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Profesionalne performanse
-                </h3>
-                <p className="text-sm text-black">
-                  MacBook Pro M4 donosi ekstremnu snagu za najzahtjevnije
-                  poslovne i kreativne zadatke.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M8 12l2 2 4-4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Napredna grafika
-                </h3>
-                <p className="text-sm text-black">
-                  Savršen za obradu videa, dizajn i softverski razvoj uz novu M4
-                  grafiku i optimizaciju.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <Button size="lg" variant="filled">
-              Kupi sada
-            </Button>
-          </div>
-        </div>
-
-        {/* iMac */}
-        <div className="flex flex-1 flex-col rounded-3xl bg-gray-100 p-6 shadow-lg">
-          <div className="mb-6 w-full">
-            <img
-              alt="iMac"
-              className="h-[250px] w-full rounded-3xl object-contain shadow-lg"
-              src="/images/imac.png"
-            />
-          </div>
-          <div className="flex flex-col gap-6">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M12 4v16m8-8H4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Moćan i elegantan
-                </h3>
-                <p className="text-sm text-black">
-                  iMac je savršen za produktivnost i kreativni rad sa
-                  impresivnim ekranom.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600">
-                <svg
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M8 12l2 2 4-4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <h3 className="mb-1 text-lg font-semibold text-black">
-                  Impresivan ekran
-                </h3>
-                <p className="text-sm text-black">
-                  Uživajte u živopisnim bojama i oštroj slici zahvaljujući
-                  vrhunskom Retina ekranu.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <Button size="lg" variant="filled">
-              Kupi sada
-            </Button>
-          </div>
+      <section className="relative mb-12 mt-12 h-[400px] w-full">
+        <img
+          alt="Promotivni banner"
+          className="absolute inset-0 h-full w-full object-cover brightness-75"
+          src="assets/images/appleeducation.jpg" // zamijeni sa stvarnim imenom slike
+        />
+        <div className="relative z-10 flex h-full flex-col items-start justify-center px-6 text-white md:px-24">
+          <h2 className="mb-4 text-3xl font-bold md:text-5xl">
+            Iskoristi pogodnosti obrazovanja
+          </h2>
+          <p className="max-w-xl text-lg md:text-xl">
+            Popust od 5% važi za studente, za profesore i zaposlene u obrazovnim
+            institucijama.
+          </p>
         </div>
       </section>
       <section className="w-full py-10 pl-[10%] pr-[10%] md:py-14">
@@ -717,23 +510,71 @@ export default function Page() {
           </div>
 
           {/* Desni blok: Tri kartice */}
-          <div className="flex flex-1 flex-col justify-center gap-4">
-            {[1, 2, 3].map((item) => (
+          <div className="flex flex-1 flex-col justify-center gap-6">
+            {[
+              {
+                title: 'Obrazovni popust.',
+                description:
+                  'Obrazovni popust važi za studente, profesore i zaposlene u obrazovnim institucijama.',
+              },
+              {
+                title: 'Najbolji u klasi. Na fakultetu i dalje.',
+                description:
+                  'Šta god da vam koledž baci na put, Mac i iPad vam čuvaju leđa.',
+              },
+              {
+                title: 'Škola? Sjajno.',
+                description:
+                  'Popust od 5% važi za studente, za profesore i zaposlene u obrazovnim institucijama.',
+              },
+            ].map((item, i) => (
               <div
-                key={item}
-                className="cursor-pointer rounded-2xl bg-white p-6 shadow-md transition hover:shadow-lg"
+                key={i}
+                className="group cursor-pointer rounded-3xl bg-[#f7f7f7] p-8 shadow-md transition hover:scale-[1.02] hover:shadow-xl"
               >
-                <h3 className="mb-2 text-xl font-semibold">Kartica {item}</h3>
-                <p className="text-gray-600">
-                  Ovo je opis kartice broj {item}. Može sadržavati informacije
-                  ili benefite koje želite istaknuti.
-                </p>
-                <button className="mt-4 rounded-md bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700">
-                  Saznaj više
-                </button>
+                <h3 className="mb-2 text-2xl font-semibold text-teal-700 transition group-hover:text-blue-900">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700">{item.description}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="w-full bg-white px-[10%] py-16">
+        <h2 className="mb-8 text-center text-3xl font-bold text-gray-900">
+          Često postavljana pitanja
+        </h2>
+        <div className="ml-0 space-y-6">
+          <details className="group rounded-xl border p-6 transition">
+            <summary className="cursor-pointer text-lg font-medium text-gray-800 group-open:text-teal-700">
+              Kako mogu da iskoristim EDU popust?
+            </summary>
+            <p className="mt-2 text-gray-600">
+              Popust mogu da ostvare studenti, profesori ili zaposleni pri
+              obrazovnim institucijama. Neophodno je da u svoj korisnički nalog
+              priložite skeniranu kopiju indeksa sa overenom tekućom godinom
+              studiranja ili potvrdu o zaposlenju pri obrazovnoj instituciji.
+            </p>
+          </details>
+          <details className="group rounded-xl border p-6 transition">
+            <summary className="cursor-pointer text-lg font-medium text-gray-800 group-open:text-blue-700">
+              Na koje proizvode mogu ostvariti EDU popust?
+            </summary>
+            <p className="mt-2 text-gray-600">
+              Popust važi za sve Mac modele, uključujući i modele koji već imaju
+              snižene cijene.
+            </p>
+          </details>
+          <details className="group rounded-xl border p-6 transition">
+            <summary className="cursor-pointer text-lg font-medium text-gray-800 group-open:text-blue-700">
+              Da li EDU popust važi za Mac modele specifične konfiguracije?
+            </summary>
+            <p className="mt-2 text-gray-600">
+              Da, EDU popust važi za Mac modele specifične konfiguracije koji se
+              proizvode po pojedinačnom upitu.
+            </p>
+          </details>
         </div>
       </section>
     </main>
