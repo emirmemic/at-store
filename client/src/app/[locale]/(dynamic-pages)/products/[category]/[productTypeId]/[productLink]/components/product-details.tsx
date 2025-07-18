@@ -39,8 +39,8 @@ export default function ProductDetails() {
             <ImagesSlider className="h-fit" images={images} tag={tag} />
           </div>
           {details && (
-            <div className="mb-8 md:mt-10">
-              <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
+            <div className="mb-8 h-full md:mt-10">
+              <div className="mb-6 h-fit w-full bg-grey-light"></div>
               <ProductDetailsPopup
                 className=""
                 details={details}
