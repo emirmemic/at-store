@@ -171,7 +171,7 @@ export default function Footer({ categoryItems }: FooterProps) {
 
   return (
     <footer className="bg-[#F5F5F7] py-5 md:py-9">
-      <div className="flex flex-col gap-3 text-white container-max-width md:gap-6">
+      <div className="mx-auto flex max-w-[1000px] flex-col gap-3 text-white md:gap-6">
         <Description className="hidden md:block" items={descriptionItems} />
         <div className="w-full justify-between gap-7 md:flex lg:gap-28">
           <div className="mb-4 md:hidden">
