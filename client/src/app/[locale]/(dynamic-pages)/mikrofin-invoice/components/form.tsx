@@ -1,18 +1,18 @@
 'use client';
-import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useState } from 'react';
 
-import { useUserProvider } from '@/app/providers/user-provider';
-import { mikrofin } from '@/assets/images';
-import { IconLoader } from '@/components/icons';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useActionState, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
+import { IconLoader } from '@/components/icons';
+import Image from 'next/image';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-
+import { mikrofin } from '@/assets/images';
 import { mikrofinAction } from '../actions';
+import { useTranslations } from 'next-intl';
+import { useUserProvider } from '@/app/providers/user-provider';
 
 const FormLabel = ({
   title,
@@ -69,10 +69,8 @@ export default function MikrofinForm() {
 
   return (
     <form noValidate action={submitAction}>
-      <div className="flex w-full flex-col px-6 md:grid md:max-w-2xl md:grid-cols-3 md:justify-self-center md:px-0 lg:max-w-5xl">
-        <div
-          className={'order-1 flex flex-col gap-y-4 md:-order-none md:max-w-96'}
-        >
+      <div className="flex w-full max-w-xl flex-col gap-y-6 px-6 md:px-0 lg:max-w-2xl">
+        <div className="flex flex-col gap-y-4">
           <div>
             <FormLabel
               htmlFor="nameAndSurname"
@@ -154,23 +152,7 @@ export default function MikrofinForm() {
             />
           </div>
         </div>
-        <div className="order-0 flex flex-col items-center justify-end md:col-span-2 md:items-end md:justify-center">
-          <div className="max-w-72 pb-12 md:pb-0 lg:max-w-96">
-            <div className="md:h-72 lg:h-[382px]">
-              <Image
-                alt="mikrofin"
-                className="h-full w-full rounded-2xl object-contain"
-                height={406}
-                src={mikrofin}
-                width={1192}
-              />
-            </div>
-            <p className="pt-5 text-center heading-4 md:bullet-heading-1 lg:pt-9 lg:heading-3">
-              {t('mikrofinInvoicePage.microCredit')}
-            </p>
-          </div>
-        </div>
-        <div className="order-1 self-center pt-6 md:justify-self-center md:pt-8">
+        <div className="flex justify-center pt-4">
           {isPending ? (
             <IconLoader size={46} />
           ) : (
@@ -185,7 +167,7 @@ export default function MikrofinForm() {
             </Button>
           )}
         </div>
-        <div className="order-1 w-full max-w-[336] self-center pt-2 md:col-span-2 md:justify-self-center md:pt-8">
+        <div className="pt-4">
           <Alert
             dismissible
             variant={formState === null ? 'success' : 'destructive'}

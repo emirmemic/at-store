@@ -39,7 +39,7 @@ export default function ProductDetails() {
             <ImagesSlider className="h-fit" images={images} tag={tag} />
           </div>
           {details && (
-            <div className="mb-8">
+            <div className="mb-8 md:mt-10">
               <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
               <ProductDetailsPopup
                 className=""
@@ -275,14 +275,17 @@ export default function ProductDetails() {
 
       {/* Mobile Layout */}
       <div className="flex flex-col gap-8 lg:hidden">
-        <div className="order-2 flex flex-col gap-5">
+        {/* 1. ImagesSlider at the top */}
+        <ImagesSlider images={images} tag={tag} />
+
+        {/* 2. NamePrice and Action buttons */}
+        <div className="flex flex-col gap-5">
           <NamePrice
             discountedPrice={discountedPrice}
             name={name}
             originalPrice={originalPrice}
             productVariantId={productVariantId}
           />
-
           {/* Action buttons */}
           <div className="flex items-center gap-4">
             <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
@@ -301,8 +304,13 @@ export default function ProductDetails() {
           </div>
         </div>
 
-        <div className="order-1 flex flex-col items-start gap-12">
-          <ImagesSlider className="mb-5" images={images} tag={tag} />
+        {/* 3. Options, Buttons, Store Availability, Delivery Info, Details */}
+        <div className="flex flex-col items-start gap-12">
+          {/* Options and Buy Now */}
+          <div className="flex w-full flex-col gap-14">
+            <Options finalPrice={finalPrice} options={productOptions} />
+            <Buttons product={selectedVariant} />
+          </div>
 
           {/* Find More Stores */}
           <div className="w-full">
@@ -321,12 +329,22 @@ export default function ProductDetails() {
               <p className="text-sm font-medium">
                 Dostupno u sljedećim poslovnicama:
               </p>
-              <ul className="list-disc pl-5 text-sm text-[#22c55e]">
+              <ul className="list-disc pl-5 text-sm">
+                {stores
+                  .filter((storeItem) => storeItem.quantity > 0)
+                  .map((storeItem) => (
+                    <li key={storeItem.id} className="text-[#22c55e]">
+                      {storeItem.store.name}
+                    </li>
+                  ))}
                 {stores
                   .filter((storeItem) => storeItem.quantity === 0)
                   .map((storeItem) => (
-                    <li key={storeItem.id}>
-                      <span> {storeItem.store.name}</span>
+                    <li
+                      key={storeItem.id}
+                      className="text-[#ef4444] line-through"
+                    >
+                      {storeItem.store.name}
                     </li>
                   ))}
               </ul>
@@ -381,11 +399,6 @@ export default function ProductDetails() {
               />
             </>
           )}
-
-          <div className="flex w-full flex-col gap-14">
-            <Options finalPrice={finalPrice} options={productOptions} />
-            <Buttons product={selectedVariant} />
-          </div>
         </div>
       </div>
 

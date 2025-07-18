@@ -1,220 +1,23 @@
+'use client';
 // TODO Implement the section with product cards once the products are done
 // TODO Add function to kupi Sada Button
-
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-import SafeImage from './components/SafeImage';
-
-const macItems = [
-  {
-    title: 'MacBook Air',
-    subtitle: 'M4 čip',
-    description:
-      'Od 2.569 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/mbam4.png',
-    icon: '🎓',
-  },
-  {
-    title: 'MacBook Pro',
-    subtitle: 'M4 čip',
-    description:
-      'Od 4.169 KM ili 191 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/mbpm4.png',
-    icon: '🎓',
-  },
-  {
-    title: 'MacBook Air M3',
-    subtitle: 'Tanji. Brži. Efikasniji.',
-    description:
-      'Od 2.249 KM ili 103 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/mba.M3.png',
-    icon: '🎓',
-  },
-  {
-    title: 'MacBook Pro M3',
-    subtitle: 'Snaga za kreativce',
-    description:
-      'Od 3.829 KM ili 176 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/mbpm3.png',
-    icon: '🎓',
-  },
-  {
-    title: 'iMac 24"',
-    subtitle: 'Savršen za rad od kuće ili učionicu.',
-    description:
-      'Od 3.329 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/imac.png',
-    icon: '🎓',
-  },
-  {
-    title: 'Mac Studio',
-    subtitle: 'Napredna snaga. M4 Max.',
-    description:
-      'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/macstudio.png',
-    icon: '🎓',
-  },
-  {
-    title: 'Mac mini',
-    subtitle: 'Kompaktan i moćan',
-    description:
-      'Od 1.619 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/macmini.png',
-    icon: '🎓',
-  },
-  {
-    title: 'Studio Display',
-    subtitle: 'Novo iskustvo',
-    description:
-      'Od 3.709 KM ili 170 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-    image: 'assets/images/studiodisplay.png',
-    icon: '🎓',
-  },
-];
-
-const ipadItems = [
-  {
-    title: 'iPad Air',
-    subtitle: 'Apple Intelligence',
-    description: 'From $599 or $49.91/mo. for 12 mo.† with education savings',
-    image: '/images/ipad-1.jpg',
-    icon: '🎓',
-  },
-  {
-    title: 'iPad Pro',
-    subtitle: 'M4 Chip',
-    description: 'Professional power for creative minds.',
-    image: '/images/ipad-2.jpg',
-    icon: '🖊️',
-  },
-  {
-    title: 'iPad 10th Gen',
-    subtitle: 'Boje. Moć. Praktičnost.',
-    description: 'Odličan izbor za školske obaveze.',
-    image: '/images/ipad-3.jpg',
-    icon: '📘',
-  },
-  {
-    title: 'iPad mini',
-    subtitle: 'Mali, ali moćan',
-    description: 'Savršen za čitanje i bilješke.',
-    image: '/images/ipad-4.jpg',
-    icon: '📱',
-  },
-  {
-    title: 'iPad 9th Gen',
-    subtitle: 'Dostupan i pouzdan',
-    description: 'Omiljeni izbor učenika i roditelja.',
-    image: '/images/ipad-5.jpg',
-    icon: '🧮',
-  },
-  {
-    title: 'iPad Pro 13"',
-    subtitle: 'Najveći ekran ikad',
-    description: 'Više prostora za kreativnost.',
-    image: '/images/ipad-6.jpg',
-    icon: '📺',
-  },
-  {
-    title: 'iPad Air M2',
-    subtitle: 'Više snage, isti stil',
-    description: 'Povežite se, stvarajte i učite.',
-    image: '/images/ipad-7.jpg',
-    icon: '🌈',
-  },
-  {
-    title: 'iPad Pro 11"',
-    subtitle: 'Prijenosna moć',
-    description: 'Savršen spoj performansi i prenosivosti.',
-    image: '/images/ipad-8.jpg',
-    icon: '🔋',
-  },
-];
-
-const benefitsItems = [
-  {
-    icon: '🎓',
-    title: 'Popust za studente',
-    description:
-      'Uživajte u posebnim cijenama na Mac uređaje uz dokaz o obrazovanju.',
-    image: 'assets/images/popust-studenti.png',
-  },
-  {
-    icon: '💡',
-    title: 'Podrška pri izboru uređaja',
-    description:
-      'Naše osoblje vam pomaže odabrati uređaj koji najbolje odgovara vašim potrebama.',
-    image: 'assets/images/odabir.png',
-  },
-  {
-    icon: '📦',
-    title: 'Brza isporuka',
-    description:
-      'Naručite online i dobijte uređaj na kućnu adresu u najkraćem roku.',
-    image: 'assets/images/memoji.png',
-  },
-  {
-    icon: '💳',
-    title: 'Fleksibilno finansiranje',
-    description: 'Prilagođene opcije finansiranja za vaše potrebe.',
-    image: 'assets/images/card.png',
-  },
-  {
-    icon: '🛍️',
-    title: 'Ekskluzivne ponude',
-    description: 'Iskoristi posebne akcije i popuste koje AT Store nudi.',
-    image: 'assets/images/multi_offer.png',
-  },
-  {
-    icon: '🌍',
-    title: 'Dostupnost širom BiH',
-    description:
-      'Bilo da si u Sarajevu, Mostaru, Banjoj Luci ili bilo gdje drugo — AT Store obrazovne pogodnosti su ti nadohvat ruke, online ili u poslovnicama.',
-    image: 'assets/images/memoji.png',
-  },
-  {
-    icon: '📚',
-    title: 'Prilagođeno obrazovanju',
-    description:
-      'Po potrebi je moguća instalacija obrazovnih programa koje pomažu u učenju, istraživanju i kreativnosti – savršeno za školu, fakultet ili online kurseve.',
-    image: 'assets/images/mbp_edu.png',
-  },
-];
 
 import {
   atBusinessMac,
   iPadMiniAtBusiness,
   macBookAirEducationalDiscount,
-  macBookAirM1AtBusiness,
 } from '@/assets/images';
+
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
-
-import { ImgSection } from '../../(static-pages)/components';
-
 import EducationalDiscountForm from './components/form';
-
-interface GenerateMetadataParams {
-  params: Promise<{ locale: string }>;
-}
-export async function generateMetadata({ params }: GenerateMetadataParams) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metaData' });
-
-  return {
-    title: t('educationalDiscount.title'),
-    description: t('educationalDiscount.description'),
-    openGraph: {
-      title: t('educationalDiscount.title'),
-      description: t('educationalDiscount.description'),
-    },
-  };
-}
+import Image from 'next/image';
+import { Link } from '@/i18n/routing';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function Page() {
   const t = useTranslations();
+  const router = useRouter();
   const imgSection = [
     {
       title: t('educationalDiscountPage.item1.title'),
@@ -239,6 +42,187 @@ export default function Page() {
     },
   ];
 
+  const macItems = [
+    {
+      title: 'MacBook Air',
+      subtitle: 'M4 čip',
+      description:
+        'Od 2.569 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/mbam4.png',
+      icon: '🎓',
+      onClick: () => {
+        router.push(
+          '/proizvodi/mac/MBAM4-13/apple-mba-136-midnight-m4-10c-cpu-10c-gpu-24gb-512gb-cro-97647061'
+        );
+      },
+    },
+    {
+      title: 'MacBook Pro',
+      subtitle: 'M4 čip',
+      description:
+        'Od 4.169 KM ili 191 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/mbpm4.png',
+      icon: '🎓',
+    },
+    {
+      title: 'MacBook Air M3',
+      subtitle: 'Tanji. Brži. Efikasniji.',
+      description:
+        'Od 2.249 KM ili 103 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/mba.M3.png',
+      icon: '🎓',
+    },
+    {
+      title: 'MacBook Pro M3',
+      subtitle: 'Snaga za kreativce',
+      description:
+        'Od 3.829 KM ili 176 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/mbpm3.png',
+      icon: '🎓',
+    },
+    {
+      title: 'iMac 24"',
+      subtitle: 'Savršen za rad od kuće ili učionicu.',
+      description:
+        'Od 3.329 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/imac.png',
+      icon: '🎓',
+    },
+    {
+      title: 'Mac Studio',
+      subtitle: 'Napredna snaga. M4 Max.',
+      description:
+        'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/macstudio.png',
+      icon: '🎓',
+    },
+    {
+      title: 'Mac mini',
+      subtitle: 'Kompaktan i moćan',
+      description:
+        'Od 1.619 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/macmini.png',
+      icon: '🎓',
+    },
+    {
+      title: 'Studio Display',
+      subtitle: 'Novo iskustvo',
+      description:
+        'Od 3.709 KM ili 170 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+      image: 'assets/images/studiodisplay.png',
+      icon: '🎓',
+    },
+  ];
+
+  const ipadItems = [
+    {
+      title: 'iPad Air',
+      subtitle: 'Apple Intelligence',
+      description: 'From $599 or $49.91/mo. for 12 mo.† with education savings',
+      image: '/images/ipad-1.jpg',
+      icon: '🎓',
+    },
+    {
+      title: 'iPad Pro',
+      subtitle: 'M4 Chip',
+      description: 'Professional power for creative minds.',
+      image: '/images/ipad-2.jpg',
+      icon: '🖊️',
+    },
+    {
+      title: 'iPad 10th Gen',
+      subtitle: 'Boje. Moć. Praktičnost.',
+      description: 'Odličan izbor za školske obaveze.',
+      image: '/images/ipad-3.jpg',
+      icon: '📘',
+    },
+    {
+      title: 'iPad mini',
+      subtitle: 'Mali, ali moćan',
+      description: 'Savršen za čitanje i bilješke.',
+      image: '/images/ipad-4.jpg',
+      icon: '📱',
+    },
+    {
+      title: 'iPad 9th Gen',
+      subtitle: 'Dostupan i pouzdan',
+      description: 'Omiljeni izbor učenika i roditelja.',
+      image: '/images/ipad-5.jpg',
+      icon: '🧮',
+    },
+    {
+      title: 'iPad Pro 13"',
+      subtitle: 'Najveći ekran ikad',
+      description: 'Više prostora za kreativnost.',
+      image: '/images/ipad-6.jpg',
+      icon: '📺',
+    },
+    {
+      title: 'iPad Air M2',
+      subtitle: 'Više snage, isti stil',
+      description: 'Povežite se, stvarajte i učite.',
+      image: '/images/ipad-7.jpg',
+      icon: '🌈',
+    },
+    {
+      title: 'iPad Pro 11"',
+      subtitle: 'Prijenosna moć',
+      description: 'Savršen spoj performansi i prenosivosti.',
+      image: '/images/ipad-8.jpg',
+      icon: '🔋',
+    },
+  ];
+
+  const benefitsItems = [
+    {
+      icon: '🎓',
+      title: 'Popust za studente',
+      description:
+        'Uživajte u posebnim cijenama na Mac uređaje uz dokaz o obrazovanju.',
+      image: 'assets/images/popust-studenti.png',
+    },
+    {
+      icon: '💡',
+      title: 'Podrška pri izboru uređaja',
+      description:
+        'Naše osoblje vam pomaže odabrati uređaj koji najbolje odgovara vašim potrebama.',
+      image: 'assets/images/odabir.png',
+    },
+    {
+      icon: '📦',
+      title: 'Brza isporuka',
+      description:
+        'Naručite online i dobijte uređaj na kućnu adresu u najkraćem roku.',
+      image: 'assets/images/memoji.png',
+    },
+    {
+      icon: '💳',
+      title: 'Fleksibilno finansiranje',
+      description: 'Prilagođene opcije finansiranja za vaše potrebe.',
+      image: 'assets/images/card.png',
+    },
+    {
+      icon: '🛍️',
+      title: 'Ekskluzivne ponude',
+      description: 'Iskoristi posebne akcije i popuste koje AT Store nudi.',
+      image: 'assets/images/multi_offer.png',
+    },
+    {
+      icon: '🌍',
+      title: 'Dostupnost širom BiH',
+      description:
+        'Bilo da si u Sarajevu, Mostaru, Banjoj Luci ili bilo gdje drugo — AT Store obrazovne pogodnosti su ti nadohvat ruke, online ili u poslovnicama.',
+      image: 'assets/images/memoji.png',
+    },
+    {
+      icon: '📚',
+      title: 'Prilagođeno obrazovanju',
+      description:
+        'Po potrebi je moguća instalacija obrazovnih programa koje pomažu u učenju, istraživanju i kreativnosti – savršeno za školu, fakultet ili online kurseve.',
+      image: 'assets/images/mbp_edu.png',
+    },
+  ];
+
   return (
     <main className="w-full py-12 md:py-16 lg:py-16">
       <div className="w-full py-10">
@@ -258,7 +242,7 @@ export default function Page() {
             {/* Pomoć pri kupovini */}
             <div className="flex items-start gap-3">
               <div>
-                <span className="inline-block flex h-6 w-6 items-center justify-center rounded-full">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full">
                   🎓
                 </span>
               </div>
@@ -319,9 +303,12 @@ export default function Page() {
                   {item.description}
                 </div>
                 <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
-                  <img
+                  <Image
+                    fill
                     alt={item.title}
                     className="h-full w-full object-cover"
+                    priority={index === 0}
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
                   />
                 </div>
@@ -415,7 +402,8 @@ export default function Page() {
             {macItems.map((item, i) => (
               <div
                 key={i}
-                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl bg-[#f7f7f7] p-6"
+                className="relative flex h-[460px] min-w-[360px] max-w-[360px] flex-shrink-0 cursor-pointer snap-center flex-col justify-between rounded-2xl bg-[#f7f7f7] p-6"
+                onClick={item.onClick}
               >
                 <div className="mb-2 text-ellipsis text-sm font-semibold uppercase text-orange-700">
                   Obrazovni popust
@@ -430,9 +418,12 @@ export default function Page() {
                   {item.description}
                 </div>
                 <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
-                  <img
+                  <Image
+                    fill
                     alt={item.title}
                     className="h-full w-full object-cover"
+                    priority={i === 0}
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
                   />
                 </div>
@@ -472,9 +463,12 @@ export default function Page() {
                   {item.description}
                 </div>
                 <div className="relative h-[200px] w-full overflow-hidden rounded-lg">
-                  <img
+                  <Image
+                    fill
                     alt={item.title}
                     className="h-full w-full object-cover"
+                    priority={i === 0}
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
                   />
                 </div>
@@ -487,10 +481,11 @@ export default function Page() {
         </div>
       </section>
       <section className="relative mb-12 mt-12 h-[400px] w-full">
-        <img
+        <Image
           alt="Promotivni banner"
-          className="absolute inset-0 h-full w-full object-cover brightness-75"
-          src="assets/images/appleeducation.jpg" // zamijeni sa stvarnim imenom slike
+          className="object-cover brightness-75"
+          sizes="100vw"
+          src="assets/images/appleeducation.jpg"
         />
         <div className="relative z-10 flex h-full flex-col items-start justify-center px-6 text-white md:px-24">
           <h2 className="mb-4 text-3xl font-bold md:text-5xl">
