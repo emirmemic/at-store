@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  Heart,
-  MapPin,
-  RotateCcw,
-  Share2,
-  Shield,
-  Star,
-  Truck,
-} from 'lucide-react';
+import { Heart, MapPin, RotateCcw, Share2, Shield, Truck } from 'lucide-react';
 
 import Buttons from './buttons';
 import ImagesSlider from './images-slider';
@@ -17,15 +9,18 @@ import Options from './options';
 import { ProductDetailsPopup } from '@/components/popup';
 import { StrapiImage } from '@/components';
 import { useProductVariants } from '@/app/providers/product-variants-provider';
+import { useRouter } from 'next/navigation';
 
 export default function ProductDetails() {
   const { productOptions, selectedVariant } = useProductVariants();
+  const router = useRouter();
 
   const {
     details,
     name,
     originalPrice,
     discountedPrice,
+    stores,
     tag,
     images,
     productVariantId,
@@ -39,14 +34,26 @@ export default function ProductDetails() {
       {/* Desktop Layout */}
       <div className="hidden lg:flex lg:h-screen">
         {/* Left side - Fixed Images (40% width, non-scrollable) */}
-        <div className="h-full w-2/5 overflow-hidden">
+        <div className="h-full w-1/2 overflow-hidden">
           <div className="flex h-fit flex-col">
             <ImagesSlider className="h-fit" images={images} tag={tag} />
           </div>
+          {details && (
+            <div className="mb-8">
+              <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
+              <ProductDetailsPopup
+                className=""
+                details={details}
+                finalPrice={finalPrice}
+                image={image}
+                name={name}
+              />
+            </div>
+          )}
         </div>
 
         {/* Right side - Scrollable Content (60% width) */}
-        <div className="h-full w-3/5 overflow-y-auto">
+        <div className="h-full w-1/2 overflow-y-auto">
           <div className="p-8 pb-32">
             {/* Product Header */}
             <div className="mb-8">
@@ -59,13 +66,14 @@ export default function ProductDetails() {
 
               {/* Action buttons */}
               <div className="mt-4 flex items-center gap-4">
-                <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
-                  <Heart className="h-5 w-5" />
-                  <span className="text-sm">Favourite</span>
-                </button>
-                <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
+                <button
+                  className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                  }}
+                >
                   <Share2 className="h-5 w-5" />
-                  <span className="text-sm">Share</span>
+                  <span className="text-sm">Podijeli</span>
                 </button>
               </div>
             </div>
@@ -82,61 +90,100 @@ export default function ProductDetails() {
 
             {/* Find More Stores */}
             <div className="mb-8">
-              <button className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark">
+              <button
+                className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
+                onClick={() => {
+                  router.push('/find-store');
+                }}
+              >
                 <MapPin className="h-4 w-4" />
-                <span className="text-sm font-medium">Find more stores</span>
+                <span className="text-sm font-medium">
+                  Pronađi više prodavnica
+                </span>
               </button>
+              <div className="mt-4 space-y-2">
+                <p className="text-sm font-medium">
+                  Dostupno u sljedećim poslovnicama:
+                </p>
+                <ul className="list-disc pl-5 text-sm">
+                  {stores
+                    .filter((storeItem) => storeItem.quantity > 0)
+                    .map((storeItem) => (
+                      <li key={storeItem.id} className="text-[#22c55e]">
+                        {storeItem.store.name}
+                      </li>
+                    ))}
+                  {stores
+                    .filter((storeItem) => storeItem.quantity === 0)
+                    .map((storeItem) => (
+                      <li
+                        key={storeItem.id}
+                        className="text-[#ef4444] line-through"
+                      >
+                        {storeItem.store.name}
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </div>
 
             {/* Delivery Information */}
-            <div className="mb-8 rounded-lg bg-grey-almost-white p-6">
-              <h3 className="mb-4 text-lg font-semibold">
-                Free Delivery and Returns
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                  <div>
-                    <p className="font-medium">Available in 2-3 days</p>
-                    <p className="text-sm text-grey-dark">
-                      Free standard delivery with membership
-                    </p>
+            <div className="mb-8 overflow-hidden rounded-xl border border-grey-light shadow-sm">
+              <details className="group transition-all duration-300 [&[open]]:bg-grey-almost-white">
+                <summary className="flex cursor-pointer select-none items-center justify-between px-6 py-5 text-lg font-semibold transition-colors hover:bg-grey-light">
+                  <span>Besplatna dostava i povrat</span>
+                  <span className="transition-transform group-open:rotate-180">
+                    ⌄
+                  </span>
+                </summary>
+                <div className="mt-3 space-y-4 px-6 pb-6 pt-0">
+                  <div className="flex items-start gap-3">
+                    <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                    <div>
+                      <p className="font-medium">Dostupno za 2-3 dana</p>
+                      <p className="text-sm text-grey-dark">
+                        Besplatna standardna dostava uz članstvo
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <RotateCcw className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                    <div>
+                      <p className="font-medium">Besplatan povrat</p>
+                      <p className="text-sm text-grey-dark">
+                        Možete vratiti narudžbu besplatno, u roku od 30 dana
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
+                    <div>
+                      <p className="font-medium">2 godine garancije</p>
+                      <p className="text-sm text-grey-dark">
+                        Garancija dostupna na sve proizvode
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <RotateCcw className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                  <div>
-                    <p className="font-medium">Free Returns</p>
-                    <p className="text-sm text-grey-dark">
-                      You can return your order free of charge, within 30 days
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
-                  <div>
-                    <p className="font-medium">2 Year Warranty</p>
-                    <p className="text-sm text-grey-dark">
-                      Warranty available on all products
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              </details>
 
-            {/* Product Details */}
-            {details && (
-              <div className="mb-8">
-                <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
-                <ProductDetailsPopup
-                  className=""
-                  details={details}
-                  finalPrice={finalPrice}
-                  image={image}
-                  name={name}
-                />
-              </div>
-            )}
+              <details className="group border-t border-grey-light transition-all duration-300 [&[open]]:bg-grey-almost-white">
+                <summary className="flex cursor-pointer select-none items-center justify-between px-6 py-5 text-lg font-semibold transition-colors hover:bg-grey-light">
+                  <span>Načini plaćanja</span>
+                  <span className="transition-transform group-open:rotate-180">
+                    ⌄
+                  </span>
+                </summary>
+                <div className="mt-3 space-y-2 px-6 pb-6 pt-0 text-sm text-grey-dark">
+                  <p>- Gotovinsko plaćanje prilikom preuzimanja</p>
+                  <p>
+                    - Online Plaćanje karticama putem Monri servisa (Visa,
+                    MasterCard)
+                  </p>
+                  <p>- Mikrofin kreditiranje</p>
+                </div>
+              </details>
+            </div>
 
             {/* Leave a Review Section */}
             {/* <div className="mb-8">
@@ -222,18 +269,6 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div> */}
-
-            {/* Additional product information */}
-            <div className="space-y-6">
-              <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
-              <div>
-                <h3 className="mb-3 font-semibold">Product Details</h3>
-                <div className="space-y-1 text-sm text-grey-dark">
-                  <p>Style: {productVariantId}</p>
-                  <p>Country/Region of Origin: Vietnam</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -252,11 +287,16 @@ export default function ProductDetails() {
           <div className="flex items-center gap-4">
             <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
               <Heart className="h-5 w-5" />
-              <span className="text-sm">Favourite</span>
+              <span className="text-sm">Omiljeno</span>
             </button>
-            <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
+            <button
+              className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+              }}
+            >
               <Share2 className="h-5 w-5" />
-              <span className="text-sm">Share</span>
+              <span className="text-sm">Podijeli</span>
             </button>
           </div>
         </div>
@@ -266,42 +306,63 @@ export default function ProductDetails() {
 
           {/* Find More Stores */}
           <div className="w-full">
-            <button className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark">
+            <button
+              className="flex items-center gap-2 border-b border-grey-light pb-1 text-black transition-colors hover:text-grey-dark"
+              onClick={() => {
+                router.push('/find-store');
+              }}
+            >
               <MapPin className="h-4 w-4" />
-              <span className="text-sm font-medium">Find more stores</span>
+              <span className="text-sm font-medium">
+                Pronađi više prodavnica
+              </span>
             </button>
+            <div className="mt-4 space-y-2">
+              <p className="text-sm font-medium">
+                Dostupno u sljedećim poslovnicama:
+              </p>
+              <ul className="list-disc pl-5 text-sm text-[#22c55e]">
+                {stores
+                  .filter((storeItem) => storeItem.quantity === 0)
+                  .map((storeItem) => (
+                    <li key={storeItem.id}>
+                      <span> {storeItem.store.name}</span>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
 
           {/* Delivery Information */}
-          <div className="w-full rounded-lg bg-grey-almost-white p-6">
+          <div className="rounded-lg bg-grey-almost-white p-6">
             <h3 className="mb-4 text-lg font-semibold">
-              Free Delivery and Returns
+              Besplatna dostava i povrat
             </h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Truck className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
                 <div>
-                  <p className="font-medium">Available in 2-3 days</p>
+                  <p className="font-medium">Dostupno za 2-3 dana</p>
                   <p className="text-sm text-grey-dark">
-                    Free standard delivery with membership
+                    Besplatna standardna dostava uz članstvo
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <RotateCcw className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
                 <div>
-                  <p className="font-medium">Free Returns</p>
+                  <p className="font-medium">Besplatan povrat</p>
                   <p className="text-sm text-grey-dark">
-                    You can return your order free of charge, within 30 days
+                    Možete vratiti narudžbu besplatno, u roku od 30 dana
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Shield className="mt-0.5 h-5 w-5 flex-shrink-0 text-grey-dark" />
                 <div>
-                  <p className="font-medium">2 Year Warranty</p>
+                  <p className="font-medium">2 godine garancije</p>
                   <p className="text-sm text-grey-dark">
-                    Warranty available on all products
+                    Garancija dostupna na sve proizvode
                   </p>
                 </div>
               </div>
@@ -349,21 +410,17 @@ export default function ProductDetails() {
             <div>
               <h3 className="text-lg font-semibold">{name}</h3>
               <p className="text-lg font-semibold">
-                €{finalPrice.toFixed(2)}
+                {finalPrice.toFixed(2)} KM
                 {discountedPrice && originalPrice && (
                   <span className="ml-2 text-sm text-grey-dark line-through">
-                    €{originalPrice.toFixed(2)}
+                    {originalPrice.toFixed(2)} KM
                   </span>
                 )}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
-              <Heart className="h-5 w-5" />
-            </button>
-            <div className="h-8 w-px bg-grey-light"></div>
-            <Buttons product={selectedVariant} />
+            <Buttons isModal={true} product={selectedVariant} />
           </div>
         </div>
       </div>

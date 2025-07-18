@@ -1,26 +1,25 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
-
-import { useCartProvider, UserContext } from '@/app/providers';
 import { IconHeart, IconLoader } from '@/components/icons';
+import { UserContext, useCartProvider } from '@/app/providers';
+
 import { Button } from '@/components/ui/button';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
-import { useLoader } from '@/lib/hooks';
-import { useToast } from '@/lib/hooks/use-toast';
 import { ProductResponse } from '@/lib/types';
-import { cn } from '@/lib/utils/utils';
-
 import { ProductVariant } from '../types';
+import { cn } from '@/lib/utils/utils';
+import { useContext } from 'react';
+import { useLoader } from '@/lib/hooks';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/lib/hooks/use-toast';
+import { useTranslations } from 'next-intl';
 
 interface ButtonsProps {
   product: ProductVariant;
+  isModal?: boolean;
 }
 
-export default function Buttons({ product }: ButtonsProps) {
+export default function Buttons({ product, isModal = false }: ButtonsProps) {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
@@ -108,7 +107,7 @@ export default function Buttons({ product }: ButtonsProps) {
   };
 
   return (
-    <div className="flex w-full flex-col items-center gap-6 md:items-start">
+    <div className="flex w-full flex-row items-center gap-6 md:items-start">
       <Button
         className="h-12 w-72"
         size="md"
@@ -118,29 +117,31 @@ export default function Buttons({ product }: ButtonsProps) {
         {productAlreadyInCart ? t('common.removeFromCart') : t('common.buyNow')}
       </Button>
 
-      <Button
-        className="h-12 w-72"
-        disabled={isLoading}
-        size="md"
-        variant="addToFavorites"
-        onClick={handleFavoriteClick}
-      >
-        {isLoading ? (
-          <IconLoader className="h-8 w-8" />
-        ) : (
-          <IconHeart
-            className={cn(
-              'h-6 w-6',
-              isFavorited ? 'text-red-deep' : 'text-black'
-            )}
-            filled={isFavorited}
-            pathClassName="transition-colors duration-300 ease-in-out"
-          />
-        )}
-        {isFavorited
-          ? t('common.removeFromFavorites')
-          : t('common.addToFavorites')}
-      </Button>
+      {!isModal && (
+        <Button
+          className="h-12 w-72"
+          disabled={isLoading}
+          size="md"
+          variant="addToFavorites"
+          onClick={handleFavoriteClick}
+        >
+          {isLoading ? (
+            <IconLoader className="h-8 w-8" />
+          ) : (
+            <IconHeart
+              className={cn(
+                'h-6 w-6',
+                isFavorited ? 'text-red-deep' : 'text-black'
+              )}
+              filled={isFavorited}
+              pathClassName="transition-colors duration-300 ease-in-out"
+            />
+          )}
+          {isFavorited
+            ? t('common.removeFromFavorites')
+            : t('common.addToFavorites')}
+        </Button>
+      )}
     </div>
   );
 }

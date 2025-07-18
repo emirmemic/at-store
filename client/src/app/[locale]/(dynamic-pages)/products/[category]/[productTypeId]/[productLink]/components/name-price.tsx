@@ -32,22 +32,26 @@ export default function NamePrice({
     <div>
       <p className="text-grey-dark">{`${t('productId')}: ${productVariantId}`}</p>
       <h1 className="mb-2 heading-4">{name}</h1>
-      <div className="flex items-center gap-5">
-        <Price className="heading-4" value={finalPrice} />
-
-        {hasDiscount && (
-          <>
-            <Price
-              className="text-grey-darker line-through paragraph-1"
-              value={originalPrice}
-            />
-            {discountPercentage !== null && (
-              <span className="text-green-dark heading-5">
-                {discountPercentage}% jeftinije
-              </span>
-            )}
-          </>
-        )}
+      <div className="flex flex-col">
+        <div className="flex items-center gap-5">
+          <Price className="heading-4" value={finalPrice} />
+          {hasDiscount && (
+            <>
+              <Price
+                className="text-grey-darker line-through paragraph-1"
+                value={originalPrice}
+              />
+              {discountPercentage !== null && (
+                <span className="text-green-dark heading-5">
+                  {discountPercentage}% jeftinije
+                </span>
+              )}
+            </>
+          )}
+        </div>
+        <span className="mt-2 text-[1rem] font-thin">
+          ili samo {Math.round(finalPrice / 24)} KM na 24 rate.
+        </span>
       </div>
     </div>
   );
