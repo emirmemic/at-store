@@ -1,20 +1,19 @@
 'use client';
 
+import { GOOGLE_MAPS_LOCATIONS, STRAPI_BASE_URL } from '@/lib/constants';
+import { Heart, MapPin, RotateCcw, Share2, Shield, Truck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { Heart, MapPin, RotateCcw, Share2, Shield, Truck } from 'lucide-react';
-
+import { AboutPageResponse } from '@/app/[locale]/(static-pages)/about/types';
 import Buttons from './buttons';
 import ImagesSlider from './images-slider';
 import NamePrice from './name-price';
 import Options from './options';
 import { ProductDetailsPopup } from '@/components/popup';
 import { StrapiImage } from '@/components';
+import { fetchAPI } from '@/lib/fetch-api';
 import { useProductVariants } from '@/app/providers/product-variants-provider';
 import { useRouter } from 'next/navigation';
-import { STRAPI_BASE_URL, GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
-import { AboutPageResponse } from '@/app/[locale]/(static-pages)/about/types';
-import { fetchAPI } from '@/lib/fetch-api';
 
 export default function ProductDetails() {
   const { productOptions, selectedVariant } = useProductVariants();
@@ -641,7 +640,7 @@ export default function ProductDetails() {
               </p>
             </div>
           </div>
-          <div className="mb-8">
+          <div className="">
             <span className="text-sm font-medium text-black">
               Besplatno preuzimanje u poslovnici
             </span>
