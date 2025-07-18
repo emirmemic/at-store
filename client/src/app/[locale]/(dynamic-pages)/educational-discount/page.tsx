@@ -12,35 +12,24 @@ import { Button } from '@/components/ui/button';
 import EducationalDiscountForm from './components/form';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+
+// export async function generateMetadata({ params }: GenerateMetadataParams) {
+//   const { locale } = await params;
+//   const t = await getTranslations({ locale, namespace: 'metaData' });
+
+//   return {
+//     title: t('educationalDiscount.title'),
+//     description: t('educationalDiscount.description'),
+//     openGraph: {
+//       title: t('educationalDiscount.title'),
+//       description: t('educationalDiscount.description'),
+//     },
+//   };
+// }
 
 export default function Page() {
   const t = useTranslations();
-  const router = useRouter();
-  const imgSection = [
-    {
-      title: t('educationalDiscountPage.item1.title'),
-      description: t('educationalDiscountPage.item1.description'),
-      name: 'Mac',
-      image: atBusinessMac,
-      id: 1,
-    },
-    {
-      title: t('educationalDiscountPage.item2.title'),
-      description: t('educationalDiscountPage.item2.description'),
-      name: 'IPhone',
-      image: macBookAirEducationalDiscount,
-      id: 2,
-    },
-    {
-      title: t('educationalDiscountPage.item3.title'),
-      description: t('educationalDiscountPage.item3.description'),
-      name: 'IPad',
-      image: iPadMiniAtBusiness,
-      id: 3,
-    },
-  ];
 
   const macItems = [
     {
@@ -48,12 +37,10 @@ export default function Page() {
       subtitle: 'M4 čip',
       description:
         'Od 2.569 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/mbam4.png',
+      image: '/assets/images/mbam4.png',
       icon: '🎓',
       onClick: () => {
-        router.push(
-          '/proizvodi/mac/MBAM4-13/apple-mba-136-midnight-m4-10c-cpu-10c-gpu-24gb-512gb-cro-97647061'
-        );
+        console.log('emirko');
       },
     },
     {
@@ -61,7 +48,7 @@ export default function Page() {
       subtitle: 'M4 čip',
       description:
         'Od 4.169 KM ili 191 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/mbpm4.png',
+      image: '/assets/images/mbpm4.png',
       icon: '🎓',
     },
     {
@@ -69,7 +56,7 @@ export default function Page() {
       subtitle: 'Tanji. Brži. Efikasniji.',
       description:
         'Od 2.249 KM ili 103 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/mba.M3.png',
+      image: '/assets/images/mba.M3.png',
       icon: '🎓',
     },
     {
@@ -77,7 +64,7 @@ export default function Page() {
       subtitle: 'Snaga za kreativce',
       description:
         'Od 3.829 KM ili 176 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/mbpm3.png',
+      image: '/assets/images/mbpm3.png',
       icon: '🎓',
     },
     {
@@ -85,7 +72,7 @@ export default function Page() {
       subtitle: 'Savršen za rad od kuće ili učionicu.',
       description:
         'Od 3.329 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/imac.png',
+      image: '/assets/images/imac.png',
       icon: '🎓',
     },
     {
@@ -93,7 +80,7 @@ export default function Page() {
       subtitle: 'Napredna snaga. M4 Max.',
       description:
         'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/macstudio.png',
+      image: '/assets/images/macstudio.png',
       icon: '🎓',
     },
     {
@@ -101,7 +88,7 @@ export default function Page() {
       subtitle: 'Kompaktan i moćan',
       description:
         'Od 1.619 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/macmini.png',
+      image: '/assets/images/macmini.png',
       icon: '🎓',
     },
     {
@@ -109,7 +96,7 @@ export default function Page() {
       subtitle: 'Novo iskustvo',
       description:
         'Od 3.709 KM ili 170 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
-      image: 'assets/images/studiodisplay.png',
+      image: '/assets/images/studiodisplay.png',
       icon: '🎓',
     },
   ];
@@ -179,47 +166,70 @@ export default function Page() {
       title: 'Popust za studente',
       description:
         'Uživajte u posebnim cijenama na Mac uređaje uz dokaz o obrazovanju.',
-      image: 'assets/images/popust-studenti.png',
+      image: '/assets/images/popust-studenti.png',
     },
     {
       icon: '💡',
       title: 'Podrška pri izboru uređaja',
       description:
         'Naše osoblje vam pomaže odabrati uređaj koji najbolje odgovara vašim potrebama.',
-      image: 'assets/images/odabir.png',
+      image: '/assets/images/odabir.png',
     },
     {
       icon: '📦',
       title: 'Brza isporuka',
       description:
         'Naručite online i dobijte uređaj na kućnu adresu u najkraćem roku.',
-      image: 'assets/images/memoji.png',
+      image: '/assets/images/memoji.png',
     },
     {
       icon: '💳',
       title: 'Fleksibilno finansiranje',
       description: 'Prilagođene opcije finansiranja za vaše potrebe.',
-      image: 'assets/images/card.png',
+      image: '/assets/images/card.png',
     },
     {
       icon: '🛍️',
       title: 'Ekskluzivne ponude',
       description: 'Iskoristi posebne akcije i popuste koje AT Store nudi.',
-      image: 'assets/images/multi_offer.png',
+      image: '/assets/images/multi_offer.png',
     },
     {
       icon: '🌍',
       title: 'Dostupnost širom BiH',
       description:
         'Bilo da si u Sarajevu, Mostaru, Banjoj Luci ili bilo gdje drugo — AT Store obrazovne pogodnosti su ti nadohvat ruke, online ili u poslovnicama.',
-      image: 'assets/images/memoji.png',
+      image: '/assets/images/memoji.png',
     },
     {
       icon: '📚',
       title: 'Prilagođeno obrazovanju',
       description:
         'Po potrebi je moguća instalacija obrazovnih programa koje pomažu u učenju, istraživanju i kreativnosti – savršeno za školu, fakultet ili online kurseve.',
-      image: 'assets/images/mbp_edu.png',
+      image: '/assets/images/mbp_edu.png',
+    },
+  ];
+  const imgSection = [
+    {
+      title: t('educationalDiscountPage.item1.title'),
+      description: t('educationalDiscountPage.item1.description'),
+      name: 'Mac',
+      image: atBusinessMac,
+      id: 1,
+    },
+    {
+      title: t('educationalDiscountPage.item2.title'),
+      description: t('educationalDiscountPage.item2.description'),
+      name: 'IPhone',
+      image: macBookAirEducationalDiscount,
+      id: 2,
+    },
+    {
+      title: t('educationalDiscountPage.item3.title'),
+      description: t('educationalDiscountPage.item3.description'),
+      name: 'IPad',
+      image: iPadMiniAtBusiness,
+      id: 3,
     },
   ];
 
@@ -242,7 +252,7 @@ export default function Page() {
             {/* Pomoć pri kupovini */}
             <div className="flex items-start gap-3">
               <div>
-                <span className="flex h-6 w-6 items-center justify-center rounded-full">
+                <span className="inline-block flex h-6 w-6 items-center justify-center rounded-full">
                   🎓
                 </span>
               </div>
@@ -306,7 +316,7 @@ export default function Page() {
                   <Image
                     fill
                     alt={item.title}
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     priority={index === 0}
                     sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
@@ -421,7 +431,7 @@ export default function Page() {
                   <Image
                     fill
                     alt={item.title}
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     priority={i === 0}
                     sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
@@ -466,7 +476,7 @@ export default function Page() {
                   <Image
                     fill
                     alt={item.title}
-                    className="h-full w-full object-cover"
+                    className="object-cover"
                     priority={i === 0}
                     sizes="(min-width: 768px) 33vw, 100vw"
                     src={item.image}
@@ -482,10 +492,12 @@ export default function Page() {
       </section>
       <section className="relative mb-12 mt-12 h-[400px] w-full">
         <Image
+          fill
+          priority
           alt="Promotivni banner"
           className="object-cover brightness-75"
           sizes="100vw"
-          src="assets/images/appleeducation.jpg"
+          src={'/assets/images/appleeducation.jpg'}
         />
         <div className="relative z-10 flex h-full flex-col items-start justify-center px-6 text-white md:px-24">
           <h2 className="mb-4 text-3xl font-bold md:text-5xl">

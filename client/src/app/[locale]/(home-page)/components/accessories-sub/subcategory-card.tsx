@@ -1,10 +1,9 @@
-import { useTranslations } from 'next-intl';
-
-import { StrapiImage } from '@/components';
+import { CURRENCY } from '@/lib/constants';
 import { DYNAMIC_PAGES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { CURRENCY } from '@/lib/constants';
+import { StrapiImage } from '@/components';
 import { SubCategoryItem } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 export default function SubCategoryCard(item: SubCategoryItem) {
   const {
@@ -55,7 +54,7 @@ export default function SubCategoryCard(item: SubCategoryItem) {
         </p>
       )}
       <p className="mb-12 !font-normal text-grey-almost-black footer-text">
-        {`${t('common.startsFrom')}: ${startingPrice} ${CURRENCY}`}
+        {`${t('common.startsFrom')} ${startingPrice} ${CURRENCY}`}
       </p>
     </div>
   );

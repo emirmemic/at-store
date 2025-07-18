@@ -1,15 +1,15 @@
 'use client';
 
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
-
+import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
 import { DesktopInfoCard, DesktopPopup } from '@/components/nav-bar/components';
 import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
+import { useEffect, useRef, useState } from 'react';
+
+import Link from 'next/link';
 import { StrapiImage } from '@/components/strapi/components';
-import { CURRENCY, MINIMUM_AMOUNT_FREE_DELIVERY } from '@/lib/constants';
-import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { cn } from '@/lib/utils/utils';
+import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { useTranslations } from 'next-intl';
 
 interface DesktopListProps {
   menuItem: NavMenuItem;
@@ -108,35 +108,31 @@ export default function ListItem({
               </li>
             ))}
           </ul>
-          <div className="mt-10 w-full rounded-xl bg-gray-100 px-6 py-4 text-black">
-            <div className="flex flex-row items-center justify-center gap-2">
-              <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <DesktopInfoCard
-                  description={t('infoCards.payInInstallmentsDescription')}
-                  icon={'💳'}
-                  title={t('infoCards.payInInstallmentsTitle')}
-                />
-                <DesktopInfoCard
-                  description={t('infoCards.eduDiscountDescription')}
-                  icon={'🎓'}
-                  title={t('infoCards.eduDiscountTitle')}
-                />
-              </div>
-              <div className="flex w-full max-w-2xl flex-col justify-center gap-4">
-                <DesktopInfoCard
-                  description={t('infoCards.mikrofinDescription')}
-                  icon={'🏦'}
-                  title={t('infoCards.mikrofinTitle')}
-                />
-                <DesktopInfoCard
-                  description={t('infoCards.deliveryDescription', {
-                    currency: CURRENCY,
-                    price: MINIMUM_AMOUNT_FREE_DELIVERY,
-                  })}
-                  icon={'📦'}
-                  title={t('infoCards.deliveryTitle')}
-                />
-              </div>
+          <div className="mt-8 w-full rounded-xl border border-grey-light bg-grey-almost-white p-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <DesktopInfoCard
+                description={t('infoCards.payInInstallmentsDescription')}
+                icon={'💳'}
+                title={t('infoCards.payInInstallmentsTitle')}
+              />
+              <DesktopInfoCard
+                description={t('infoCards.eduDiscountDescription')}
+                icon={'🎓'}
+                title={t('infoCards.eduDiscountTitle')}
+              />
+              <DesktopInfoCard
+                description={t('infoCards.mikrofinDescription')}
+                icon={'🏦'}
+                title={t('infoCards.mikrofinTitle')}
+              />
+              <DesktopInfoCard
+                description={t('infoCards.deliveryDescription', {
+                  currency: CURRENCY,
+                  price: MINIMUM_AMOUNT_FREE_DELIVERY,
+                })}
+                icon={'📦'}
+                title={t('infoCards.deliveryTitle')}
+              />
             </div>
           </div>
         </div>

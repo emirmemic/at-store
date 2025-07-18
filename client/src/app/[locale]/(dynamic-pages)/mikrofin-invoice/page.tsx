@@ -1,17 +1,11 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
 import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
-import { getFaqSection } from '@/app/[locale]/(static-pages)/payment-methods/data';
-import { CardBlock } from '@/components';
 import IconInterest from '@/components/icons/interest';
 import IconRepayments from '@/components/icons/repayments';
 import IconRequest from '@/components/icons/request';
-import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { Link } from '@/i18n/routing';
-
 import MikrofinForm from './components/form';
+import { getFaqSection } from '@/app/[locale]/(static-pages)/payment-methods/data';
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;

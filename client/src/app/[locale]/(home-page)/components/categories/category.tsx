@@ -1,9 +1,8 @@
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-
-import { StrapiImage } from '@/components';
 import { CURRENCY } from '@/lib/constants';
 import { CategoryItem } from '@/lib/types';
+import Link from 'next/link';
+import { StrapiImage } from '@/components';
+import { useTranslations } from 'next-intl';
 
 interface CategoryProps {
   className?: string;
@@ -33,7 +32,7 @@ export default function Category({ category, className }: CategoryProps) {
       <span className="md:heading-6 text-center heading-5">
         {displayName || name}
       </span>
-      <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')}: ${startingPrice} ${CURRENCY}`}</span>
+      <span className="text-grey-darkest paragraph-4 md:paragraph-2">{`${t('startsFrom')} ${startingPrice} ${CURRENCY}`}</span>
     </Link>
   );
 }

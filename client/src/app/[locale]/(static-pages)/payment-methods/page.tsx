@@ -1,12 +1,7 @@
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { getFaqSection } from './data';
 import { getTranslations } from 'next-intl/server';
-
-import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
-import Section from '@/app/[locale]/(static-pages)/components/section';
-import { InfoBlock } from '@/components';
-
-import { getFaqSection, getInfoBlock, getSections } from './data';
+import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -26,10 +21,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 
 export default function PaymentMethods() {
   const t = useTranslations();
-  const sections = getSections(t);
 
   const faqSection = getFaqSection(t);
-  const infoBlock = getInfoBlock(t);
 
   return (
     <div className="w-full py-12 container-max-width md:py-[60px]">
