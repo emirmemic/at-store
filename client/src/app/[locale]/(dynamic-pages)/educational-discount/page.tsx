@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use client';
 // TODO Implement the section with product cards once the products are done
 // TODO Add function to kupi Sada Button
@@ -13,20 +14,6 @@ import EducationalDiscountForm from './components/form';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-
-// export async function generateMetadata({ params }: GenerateMetadataParams) {
-//   const { locale } = await params;
-//   const t = await getTranslations({ locale, namespace: 'metaData' });
-
-//   return {
-//     title: t('educationalDiscount.title'),
-//     description: t('educationalDiscount.description'),
-//     openGraph: {
-//       title: t('educationalDiscount.title'),
-//       description: t('educationalDiscount.description'),
-//     },
-//   };
-// }
 
 export default function Page() {
   const t = useTranslations();
@@ -252,7 +239,7 @@ export default function Page() {
             {/* Pomoć pri kupovini */}
             <div className="flex items-start gap-3">
               <div>
-                <span className="inline-block flex h-6 w-6 items-center justify-center rounded-full">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full">
                   🎓
                 </span>
               </div>
