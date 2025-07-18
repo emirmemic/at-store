@@ -101,7 +101,7 @@ export default function ImagesSlider({
               {images.map((image, index) => (
                 <CarouselItem
                   key={index}
-                  className="basis-auto cursor-pointer"
+                  className="ml-5 basis-auto cursor-pointer"
                   role="button"
                   tabIndex={0}
                   onClick={() => setActiveIndex(index)}
@@ -133,7 +133,6 @@ export default function ImagesSlider({
                 </CarouselItem>
               ))}
             </CarouselContent>
-
             {/* Navigation arrows for thumbnails */}
             <CarouselPrevious
               className="absolute left-0 top-1/2 h-8 w-8 -translate-x-3 -translate-y-1/2"
