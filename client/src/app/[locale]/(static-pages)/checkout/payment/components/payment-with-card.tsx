@@ -117,6 +117,13 @@ export default function PaymentWithCard() {
     // const card = components.create('card', {});
     cardRef.current = components.create('card', {});
 
+    const cardElement = document.getElementById('card-element');
+    if (cardElement) {
+      cardElement.innerHTML = ''; // Clear previous Monri component if exists
+    }
+
+    cardRef.current.mount('card-element');
+
     cardRef.current.onChange((e: { error: { message: string | null } }) => {
       const displayError = document.getElementById('card-errors');
       if (e.error && displayError) {
@@ -127,8 +134,6 @@ export default function PaymentWithCard() {
         }
       }
     });
-
-    cardRef.current.mount('card-element');
   }, [clientSecret]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
