@@ -1,15 +1,16 @@
 'use client';
-import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
 
-import { IconChevron } from '@/components/icons';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Collapsible,
-  CollapsibleTrigger,
   CollapsibleContent,
+  CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import { IdentificationResponse, ColorResponse } from '@/lib/types';
+import { ColorResponse, IdentificationResponse } from '@/lib/types';
+import { useEffect, useState } from 'react';
+
+import { Checkbox } from '@/components/ui/checkbox';
+import { IconChevron } from '@/components/icons';
+import { useTranslations } from 'next-intl';
 
 type ItemsType = IdentificationResponse[] | ColorResponse[];
 
@@ -42,16 +43,16 @@ export default function FilterItem({
 
   return (
     <Collapsible className={className} open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex w-full items-center gap-3 py-1 text-start paragraph-2">
+      <CollapsibleTrigger className="flex w-full items-center justify-between border-b border-gray-300 py-3 text-[18px] font-thin text-neutral-900">
         {title}
         <IconChevron
-          className={`w-3 transition-transform duration-500 ${
+          className={`h-3 w-3 text-gray-500 transition-transform duration-500 ${
             isOpen ? 'rotate-180' : 'rotate-0'
           }`}
         />
       </CollapsibleTrigger>
       <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-        <div className="flex flex-col gap-1 px-3 py-2">
+        <div className="flex flex-col gap-2 px-1 py-2">
           {items.length === 0 && (
             <span className="text-grey paragraph-2">
               {t('noItemsAvailable')}
@@ -62,13 +63,13 @@ export default function FilterItem({
               key={item.id}
               checked={selectedItems.includes(item.name)}
               label={item.name}
-              labelClassName="flex items-center gap-2 text-grey-darker paragraph-2 hover:text-grey-darkest cursor-pointer py-1"
+              labelClassName="flex items-center gap-2 text-neutral-800 text-[15px] font-medium cursor-pointer"
               onCheckedChange={() => onFilterChange(item.name)}
             >
               {'hex' in item ? (
                 <div className="flex items-center gap-2">
                   <div
-                    className="h-6 w-6 shrink-0 rounded-full border border-gray-300"
+                    className="h-5 w-5 shrink-0 rounded-full border border-gray-300"
                     style={{ backgroundColor: item.hex }}
                   />
                   <span className="capitalize">{item.name}</span>

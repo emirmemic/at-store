@@ -1,9 +1,6 @@
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-
-import { Button } from '@/components/ui/button';
-import { Pathname } from '@/i18n/routing';
 import { Icon } from '@/lib/types';
+import Link from 'next/link';
+import { Pathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils/utils';
 
 interface CardSectionProps {
@@ -16,23 +13,29 @@ interface CardSectionProps {
 
 export default function CardSection(props: Readonly<CardSectionProps>) {
   const { title, path, name, Icon, className } = props;
-  const t = useTranslations('common');
+
   return (
-    <div className="flex w-full max-w-[362px] flex-col items-center justify-center gap-6 rounded-2xl bg-blue-steel px-9 py-8 md:max-w-full md:gap-8 md:px-4 md:py-9 lg:gap-10 lg:px-8 lg:py-12">
-      <Icon
-        aria-label={name}
+    <Link className="w-full max-w-[362px]" href={path}>
+      <div
         className={cn(
-          'h-16 w-full max-w-72 text-white md:h-20 md:max-w-72 lg:h-24 lg:max-w-md',
+          'flex cursor-pointer flex-col items-center justify-center gap-6 rounded-2xl border border-gray-200 bg-white px-8 py-8 text-center shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl',
           className
         )}
-      ></Icon>
-
-      <p className="flex-1 text-white heading-3 md:heading-2 lg:heading-1">
-        {title}
-      </p>
-      <Button asChild size={'lg'} typography={'button1'} variant={'filled'}>
-        <Link href={path}>{t('view')}</Link>
-      </Button>
-    </div>
+        style={{
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale',
+        }}
+      >
+        <Icon
+          aria-label={name}
+          className="h-16 w-full max-w-72 text-gray-900 md:h-20 md:max-w-72 lg:h-24 lg:max-w-md"
+        />
+        <p className="flex-1 font-semibold text-gray-900 heading-3 md:heading-2 lg:heading-1">
+          {title}
+        </p>
+      </div>
+    </Link>
   );
 }

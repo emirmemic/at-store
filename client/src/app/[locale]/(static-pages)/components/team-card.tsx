@@ -1,11 +1,10 @@
-import { AvatarImage } from '@radix-ui/react-avatar';
-import React from 'react';
-
-import { getStrapiMedia } from '@/components/strapi/components/strapi-image';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
-import { TeamMember } from '../about/types';
+import { AvatarImage } from '@radix-ui/react-avatar';
 import { IconAvatar } from '../icons';
+import React from 'react';
+import { TeamMember } from '../about/types';
+import { getStrapiMedia } from '@/components/strapi/components/strapi-image';
 
 export default function TeamCard(member: TeamMember) {
   const { firstName, surname, image, position } = member;

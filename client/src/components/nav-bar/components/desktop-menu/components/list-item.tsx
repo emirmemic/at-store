@@ -108,8 +108,8 @@ export default function ListItem({
               </li>
             ))}
           </ul>
-          <div className="mt-8 w-full rounded-xl border border-grey-light bg-grey-almost-white p-6">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mt-8 w-fit rounded-xl border p-2">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
               <DesktopInfoCard
                 description={t('infoCards.payInInstallmentsDescription')}
                 icon={'💳'}
@@ -118,11 +118,13 @@ export default function ListItem({
               <DesktopInfoCard
                 description={t('infoCards.eduDiscountDescription')}
                 icon={'🎓'}
+                link="obrazovni-popust"
                 title={t('infoCards.eduDiscountTitle')}
               />
               <DesktopInfoCard
                 description={t('infoCards.mikrofinDescription')}
                 icon={'🏦'}
+                link="mikrofin-predracun"
                 title={t('infoCards.mikrofinTitle')}
               />
               <DesktopInfoCard

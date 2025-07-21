@@ -1,18 +1,16 @@
+import { AboutPageResponse, InfoItem } from './types';
+import { CardSection, ImgSection, TeamCard } from '../components';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+import { getCardBlocks, getInfo } from './data';
+
+import { IconAtStoreLogo } from '@/components/icons';
+import { MonoAppleBlock } from '@/components';
+import { OpeningHours } from '../find-store/types';
+import { fetchAPI } from '@/lib/fetch-api';
+import { formatWorkingHours } from './utils';
+import { getPlaceDetails } from '../find-store/actions';
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
-
-import { MonoAppleBlock } from '@/components';
-import { IconAtStoreLogo } from '@/components/icons';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-
-import { CardSection, ImgSection, TeamCard } from '../components';
-import { getPlaceDetails } from '../find-store/actions';
-import { OpeningHours } from '../find-store/types';
-
-import { getCardBlocks, getInfo } from './data';
-import { AboutPageResponse, InfoItem } from './types';
-import { formatWorkingHours } from './utils';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -133,25 +131,35 @@ export default async function AboutPage() {
   const styles = {
     mainContainer:
       'flex flex-col gap-12 py-12 container-max-width md:gap-16 md:py-16',
-    sectionBase: 'shadow-popup-black rounded-2xl bg-blue-steel ',
+    sectionBase: 'bg-white rounded-[32px] shadow-[0_8px_32px_rgba(0,0,0,0.05)]',
   };
   return (
-    <main className={styles.mainContainer}>
+    <main
+      className={`${styles.mainContainer}`}
+      style={{
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+      }}
+    >
       <header>
-        <h1 className="pb-16 text-center heading-2 md:heading-1">
+        <h1 className="pb-16 text-center text-gray-900 heading-2 md:heading-1">
           {t('about.title')}
         </h1>
       </header>
       <section
         className={`${styles.sectionBase} flex flex-col items-center justify-center gap-12 px-3 py-12 md:gap-16 md:px-16 lg:flex-row lg:gap-12 lg:px-11 lg:py-11`}
       >
-        <div className="order-1 flex-1 text-pretty text-center text-white lg:order-none lg:text-start">
-          <h2 className="bullet-heading-2 md:heading-4">
+        <div className="order-1 flex-1 text-pretty text-center text-gray-700 lg:order-none lg:text-start">
+          <h2 className="text-gray-900 bullet-heading-2 md:heading-4">
             {t('about.paragraphHeading')}
           </h2>
-          <p className="bullet-1 md:paragraph-1">{t('about.paragraph')}</p>
+          <p className="text-gray-700 bullet-1 md:paragraph-1">
+            {t('about.paragraph')}
+          </p>
         </div>
-        <IconAtStoreLogo className="h-16 max-w-72 text-white md:h-20 md:max-w-[354px]"></IconAtStoreLogo>
+        <IconAtStoreLogo className="h-16 max-w-72 text-gray-900 md:h-20 md:max-w-[354px]" />
       </section>
       <section
         className={`${styles.sectionBase} flex flex-col gap-12 px-3 py-12 md:gap-20 md:px-8 md:py-14 lg:px-11 lg:py-11`}
@@ -161,10 +169,10 @@ export default async function AboutPage() {
         ))}
       </section>
       <section className="flex flex-col gap-12 py-12 md:gap-16 md:py-16 lg:gap-16">
-        <h3 className="text-center heading-2 md:heading-1">
+        <h3 className="text-center text-gray-900 heading-2 md:heading-1">
           {t('about.cardBlockTitle')}
         </h3>
-        <div className="flex flex-col items-center gap-12 md:flex-row md:gap-12 lg:gap-[70px]">
+        <div className="flex flex-col items-center gap-12 md:flex-row md:justify-center md:gap-12 lg:gap-[70px]">
           {cardBlocks.map((cardSection) => (
             <CardSection key={cardSection.id} {...cardSection}></CardSection>
           ))}
@@ -173,7 +181,7 @@ export default async function AboutPage() {
       {teamsMembers && teamsMembers.length > 0 && (
         <section className="flex flex-col gap-16">
           {teamSectionTitle && (
-            <h3 className="text-center heading-2 md:heading-1">
+            <h3 className="text-center text-gray-900 heading-2 md:heading-1">
               {teamSectionTitle}
             </h3>
           )}

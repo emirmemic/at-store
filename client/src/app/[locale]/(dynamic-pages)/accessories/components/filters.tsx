@@ -1,17 +1,16 @@
 'use client';
 
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { ColorResponse, IdentificationResponse } from '@/lib/types';
 import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { AnimateAppearance } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
-import { STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { ColorResponse, IdentificationResponse } from '@/lib/types';
-import { cn } from '@/lib/utils/utils';
-
 import FilterItem from './filter-item';
+import { STRAPI_BASE_URL } from '@/lib/constants';
+import { cn } from '@/lib/utils/utils';
+import { fetchAPI } from '@/lib/fetch-api';
+import { useTranslations } from 'next-intl';
 
 interface FiltersProps {
   className?: string;
@@ -150,12 +149,7 @@ export default function Filters({
   };
 
   return (
-    <aside
-      className={cn(
-        'flex h-fit flex-col gap-2 border-b border-black px-2 pb-2 md:rounded-2xl md:border md:pb-12 md:pt-5',
-        className
-      )}
-    >
+    <aside className={cn('flex h-fit flex-col gap-6 px-2', className)}>
       {/* Reset button */}
       <AnimateAppearance
         className="flex w-full justify-center"
@@ -166,16 +160,15 @@ export default function Filters({
         }
       >
         <Button
+          className="rounded-xl bg-black px-4 py-2 text-white transition-colors hover:bg-neutral-900"
           size="sm"
-          transparentVariant="blue_black"
-          variant="transparent"
           onClick={resetFilters}
         >
           {t('resetFilters')}
         </Button>
       </AnimateAppearance>
 
-      <div className="flex w-full flex-wrap justify-between gap-2 md:flex-col">
+      <div className="flex w-full flex-wrap justify-start gap-4 md:flex-col">
         {/* Colors */}
         <FilterItem
           className="w-36 md:w-full"

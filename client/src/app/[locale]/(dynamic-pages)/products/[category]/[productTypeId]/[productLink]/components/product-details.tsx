@@ -496,11 +496,18 @@ export default function ProductDetails() {
         <div className="fixed inset-0 z-[1000] flex">
           {/* Overlay backdrop */}
           <div
-            className="fixed inset-0 bg-black bg-opacity-50"
+            className={`fixed inset-0 bg-black transition-opacity duration-300 ${
+              sidebarOpen ? 'opacity-50' : 'pointer-events-none opacity-0'
+            }`}
             onClick={() => setSidebarOpen(false)}
           />
-          {/* Sidebar panel (desktop and mobile identical) */}
-          <aside className="fixed right-0 top-0 z-[1000] flex h-screen w-full max-w-md flex-col overflow-y-auto bg-white shadow-lg transition-transform duration-300">
+
+          {/* Sidebar panel */}
+          <aside
+            className={`fixed right-0 top-0 z-[1000] flex h-screen w-full max-w-md transform flex-col overflow-y-auto bg-white shadow-lg transition-transform duration-300 ${
+              sidebarOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
             {/* Sticky close button */}
             <div className="sticky top-0 z-10 flex justify-end border-b border-gray-100 bg-white p-4">
               <button
@@ -511,12 +518,12 @@ export default function ProductDetails() {
                 ✕
               </button>
             </div>
+
             <div className="flex flex-1 flex-col p-6 pt-2">
-              {/* Header */}
               <h2 className="mb-4 text-2xl font-bold">
                 Dostupnost u poslovnicama
               </h2>
-              {/* Product info */}
+
               {image && (
                 <div className="mb-4 flex items-center gap-4">
                   <div className="h-16 w-16 overflow-hidden rounded-lg">
@@ -542,37 +549,35 @@ export default function ProductDetails() {
                   </div>
                 </div>
               )}
+
               <hr className="mb-4" />
-              {/* Results count */}
+
               <p className="mb-4 text-sm text-gray-600">
                 {stores.filter((storeItem) => storeItem.quantity > 0).length}{' '}
                 rezultata
               </p>
-              {/* Store list */}
+
               <div className="scrollbar-hide space-y-6 overflow-y-auto pr-2">
                 {stores
-                  // Only include relevant stores (Alta, SCC, Delta) and those with quantity > 0
                   .filter((storeItem) => {
-                    const name = storeItem.store.name;
+                    const storeName = storeItem.store.name;
                     return (
-                      (name === 'AT Store (ALTA)' ||
-                        name === 'AT Store (SCC)' ||
-                        name === 'AT Store (DELTA)') &&
-                      storeItem.quantity > 0
+                      [
+                        'AT Store (ALTA)',
+                        'AT Store (SCC)',
+                        'AT Store (DELTA)',
+                      ].includes(storeName) && storeItem.quantity > 0
                     );
                   })
-                  // Only map over stores with quantity > 0
-                  .filter((storeItem) => storeItem.quantity > 0)
                   .map((storeItem) => {
                     let location = null;
-                    // Map store name to correct GOOGLE_MAPS_LOCATIONS key
-                    if (storeItem.store.name === 'AT Store (ALTA)') {
+                    if (storeItem.store.name === 'AT Store (ALTA)')
                       location = GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA;
-                    } else if (storeItem.store.name === 'AT Store (SCC)') {
+                    else if (storeItem.store.name === 'AT Store (SCC)')
                       location = GOOGLE_MAPS_LOCATIONS.SARAJEVO_SCC;
-                    } else if (storeItem.store.name === 'AT Store (DELTA)') {
+                    else if (storeItem.store.name === 'AT Store (DELTA)')
                       location = GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA;
-                    }
+
                     return (
                       <div
                         key={storeItem.id}
@@ -586,9 +591,7 @@ export default function ProductDetails() {
                             {location.storeAddress}
                           </p>
                         )}
-                        <p className={`mt-1 text-xs text-[#22c55e]`}>
-                          {`Stanje: ${storeItem.quantity}`}
-                        </p>
+                        <p className="mt-1 text-xs text-[#22c55e]">{`Stanje: ${storeItem.quantity}`}</p>
                         {location?.embedUrl && (
                           <div className="mt-3 flex flex-1 flex-col">
                             <iframe

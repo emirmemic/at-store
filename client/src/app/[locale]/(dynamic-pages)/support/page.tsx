@@ -1,14 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-import multi from '@/assets/images/multi.png';
-import { CardBlock } from '@/components/blocks';
 import { IconBackup, IconLock, IconPhone } from '@/components/icons';
-import { PAGE_NAMES } from '@/i18n/page-names';
 
 import CalendlyEmbed from './components/calendly';
+import { CardBlock } from '@/components/blocks';
+import Image from 'next/image';
+import Link from 'next/link';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { getTranslations } from 'next-intl/server';
+import multi from '@/assets/images/multi.png';
+import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -214,38 +213,78 @@ export default function Page() {
           </div>
         </div>
 
-        <section className="mx-auto max-w-5xl px-4 py-8" id="faq-section">
-          <h2 className="mb-8 text-center text-3xl font-bold">Česta pitanja</h2>
-          <div className="space-y-6">
-            <details className="rounded-lg bg-white p-6 shadow-md">
-              <summary className="cursor-pointer text-xl font-semibold">
-                Da li vršite popravku uređaja?
-              </summary>
-              <p className="mt-4 text-gray-700">
-                Vršimo samo softversku popravku uređaja. Za hardversku popravku
-                potrebno je da se obratite ovlaštenom servisnom centru ASBIS.
-              </p>
-            </details>
-            <details className="rounded-lg bg-white p-6 shadow-md">
-              <summary className="cursor-pointer text-xl font-semibold">
-                Kako mogu putem vas popraviti uređaj?
-              </summary>
-              <p className="mt-4 text-gray-700">
-                Ukoliko ste uređaj kupili u AT Storeu, mi smo servisni drop
-                point i možete uređaj dostaviti u jednu od naših poslovnica,
-                nakon čega ćemo ga proslijediti ovlaštenom servisnom centru.
-              </p>
-            </details>
-            <details className="rounded-lg bg-white p-6 shadow-md">
-              <summary className="cursor-pointer text-xl font-semibold">
-                Koji su rokovi za popravku uređaja?
-              </summary>
-              <p className="mt-4 text-gray-700">
-                Rokovi za popravku zavise od vrste kvara i dostupnosti dijelova.
-                Obično softverske popravke obavljamo u roku od nekoliko sati,
-                dok hardverske popravke zavise od servisa ASBIS.
-              </p>
-            </details>
+        <section className="mx-auto max-w-4xl px-6 py-16" id="faq-section">
+          <h2
+            className="mb-16 text-center text-5xl font-extralight tracking-tight text-gray-900"
+            style={{
+              fontFamily:
+                '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+            }}
+          >
+            Često postavljana pitanja
+          </h2>
+          <div className="space-y-8">
+            {[
+              {
+                question: 'Da li vršite popravku uređaja?',
+                answer:
+                  'Vršimo samo softversku popravku uređaja. Za hardversku popravku potrebno je da se obratite ovlaštenom servisnom centru ASBIS.',
+              },
+              {
+                question: 'Kako mogu putem vas popraviti uređaj?',
+                answer:
+                  'Ukoliko ste uređaj kupili u AT Storeu, mi smo servisni drop point i možete uređaj dostaviti u jednu od naših poslovnica, nakon čega ćemo ga proslijediti ovlaštenom servisnom centru.',
+              },
+              {
+                question: 'Koji su rokovi za popravku uređaja?',
+                answer:
+                  'Rokovi za popravku zavise od vrste kvara i dostupnosti dijelova. Obično softverske popravke obavljamo u roku od nekoliko sati, dok hardverske popravke zavise od servisa ASBIS.',
+              },
+            ].map(({ question, answer }, idx) => (
+              <details
+                key={idx}
+                className="duration-400 group rounded-3xl border border-gray-300 bg-white px-8 py-7 shadow-[0_1px_3px_rgb(0_0_0_/_0.1)] transition-shadow hover:shadow-[0_4px_10px_rgb(0_0_0_/_0.1)]"
+              >
+                <summary
+                  className="flex cursor-pointer select-none items-center justify-between text-xl font-semibold leading-7 text-gray-900"
+                  style={{
+                    fontFamily:
+                      '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                  }}
+                >
+                  {question}
+                  <svg
+                    aria-hidden="true"
+                    className="ml-4 h-6 w-6 flex-shrink-0 transform transition-transform duration-300 group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 9l-7 7-7-7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </summary>
+                <p
+                  className="mt-5 max-w-prose text-base leading-7 text-gray-700"
+                  style={{
+                    fontFamily:
+                      '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                  }}
+                >
+                  {answer}
+                </p>
+              </details>
+            ))}
           </div>
         </section>
       </div>

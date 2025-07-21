@@ -1,14 +1,14 @@
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
-import qs from 'qs';
+import { CategoryItem, SubCategoryItem } from '@/lib/types';
+import { ProductListTitle, SubProductCard } from '@/components/product-cards';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
 import { InfoBlock } from '@/components';
-import { ProductListTitle, SubProductCard } from '@/components/product-cards';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { CategoryItem, SubCategoryItem } from '@/lib/types';
+import { getTranslations } from 'next-intl/server';
 import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
+import { notFound } from 'next/navigation';
+import qs from 'qs';
 
 interface CategoryResponse extends CategoryItem {
   subCategories: SubCategoryItem[];

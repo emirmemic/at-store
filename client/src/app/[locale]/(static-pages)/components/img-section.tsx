@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
-import Link from 'next/link';
 
+import Link from 'next/link';
 import { cn } from '@/lib/utils/utils';
 
 interface ImgSectionProps {
@@ -50,7 +50,7 @@ export default function ImgSection({
 
       <div
         className={cn(
-          'flex flex-col items-center text-white',
+          'text-bold flex flex-col items-center',
           reverseRow
             ? 'lg:mr-auto lg:items-start lg:text-left'
             : 'lg:ml-auto lg:items-end lg:text-right',
@@ -71,7 +71,7 @@ export default function ImgSection({
             <p key={index} className="bullet-1 md:paragraph-1">
               {item.path ? (
                 <Link
-                  className="text-grey underline transition-colors hover:text-grey-light"
+                  className="text-black underline transition-colors hover:text-black"
                   href={item.path}
                 >
                   {item.text}
