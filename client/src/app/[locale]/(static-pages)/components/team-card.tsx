@@ -22,7 +22,7 @@ export default function TeamCard(member: TeamMember) {
         <br />
         <span>{surname}</span>
       </p>
-      <p className="paragraph-2 md:paragraph-1">{position}</p>
+      <p className="paragraph-2 md:paragraph-2">{position}</p>
     </div>
   );
 }

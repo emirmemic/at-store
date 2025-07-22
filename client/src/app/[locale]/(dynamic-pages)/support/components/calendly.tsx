@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 
 interface CalendlyEmbedProps {
@@ -10,9 +11,9 @@ interface CalendlyEmbedProps {
 
 export default function CalendlyEmbed({
   url,
-  backgroundColor = '252732',
-  textColor = 'ffffff',
-  primaryColor = 'ffffff',
+  backgroundColor = 'fff',
+  textColor = '111',
+  primaryColor = '111',
 }: CalendlyEmbedProps) {
   const [height, setHeight] = useState('1200px');
 
