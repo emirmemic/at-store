@@ -54,7 +54,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
 
         {onClick && (
           <Button
-            className="self-end rounded-xl bg-black text-white transition-colors hover:bg-neutral-900"
+            className="self-end rounded-xl bg-blue text-white transition-colors hover:bg-neutral-900"
             size="lg"
             typography="button1"
             variant="filled"
@@ -66,7 +66,7 @@ export default function InfoBlock(props: Readonly<InfoBlockProps>) {
         {actionLink && (
           <ActionLink
             actionLink={actionLink}
-            className="self-end rounded-xl bg-black text-white transition-colors hover:bg-neutral-900"
+            className="self-end rounded-xl bg-blue text-white transition-colors hover:bg-neutral-900"
             size="lg"
             typography="button1"
             variant="filled"

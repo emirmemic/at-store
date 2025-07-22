@@ -1,19 +1,18 @@
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
-
-import { InfoBlock } from '@/components';
 import {
   AccessoriesBar,
   ProductListTitle,
   SubProductCard,
 } from '@/components/product-cards';
+import { GroupedSubCategoryItem, SubCategoryItem } from '@/lib/types';
+
+import { InfoBlock } from '@/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { GroupedSubCategoryItem, SubCategoryItem } from '@/lib/types';
-import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
-
 import Slider from './slider';
+import { fetchAPI } from '@/lib/fetch-api';
+import { getTranslations } from 'next-intl/server';
+import { makeSubCategoryLink } from '@/lib/utils/link-helpers';
+import { notFound } from 'next/navigation';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; groupedSubCategory: string }>;
