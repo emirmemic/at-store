@@ -1,38 +1,87 @@
+/* eslint-disable no-console */
 'use client';
 
-import { GOOGLE_MAPS_LOCATIONS, STRAPI_BASE_URL } from '@/lib/constants';
-import { Heart, MapPin, RotateCcw, Share2, Shield, Truck } from 'lucide-react';
+import {
+  ChevronDown,
+  Heart,
+  MapPin,
+  Share2,
+  Shield,
+  Truck,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { AboutPageResponse } from '@/app/[locale]/(static-pages)/about/types';
 import Buttons from './buttons';
+import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
 import ImagesSlider from './images-slider';
 import NamePrice from './name-price';
 import Options from './options';
 import { ProductDetailsPopup } from '@/components/popup';
 import { StrapiImage } from '@/components';
-import { fetchAPI } from '@/lib/fetch-api';
 import { useProductVariants } from '@/app/providers/product-variants-provider';
-import { useRouter } from 'next/navigation';
 
 export default function ProductDetails() {
   const { productOptions, selectedVariant } = useProductVariants();
-  const router = useRouter();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [visibleMaps, setVisibleMaps] = useState(new Set());
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Prevent body scroll when sidebar is open
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Pogledaj ovo!',
+          text: '',
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.error('Greška pri dijeljenju:', err);
+      }
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      alert('Link je kopiran u clipboard jer dijeljenje nije podržano.');
+    }
+  };
+
   useEffect(() => {
     if (sidebarOpen) {
       document.body.style.overflow = 'hidden';
+      setIsAnimating(true);
     } else {
       document.body.style.overflow = '';
+      if (isAnimating) {
+        // Allow animation to complete before removing animating state
+        const timer = setTimeout(() => setIsAnimating(false), 300);
+        return () => clearTimeout(timer);
+      }
     }
     return () => {
       document.body.style.overflow = '';
     };
-  }, [sidebarOpen]);
+  }, [sidebarOpen, isAnimating]);
 
+  const toggleMap = (storeId: number) => {
+    const newVisibleMaps = new Set(visibleMaps);
+    if (newVisibleMaps.has(storeId)) {
+      newVisibleMaps.delete(storeId);
+    } else {
+      newVisibleMaps.add(storeId);
+    }
+    setVisibleMaps(newVisibleMaps);
+  };
+
+  const openSidebar = () => {
+    setIsAnimating(true);
+    // Use requestAnimationFrame to ensure the sidebar is rendered before animating
+    requestAnimationFrame(() => {
+      setSidebarOpen(true);
+    });
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
   const {
     details,
     name,
@@ -43,8 +92,6 @@ export default function ProductDetails() {
     images,
     productVariantId,
   } = selectedVariant;
-
-  console.log(stores);
 
   const finalPrice = discountedPrice ?? originalPrice;
   const image = selectedVariant.images?.[0] || null;
@@ -88,9 +135,7 @@ export default function ProductDetails() {
               <div className="mt-4 flex items-center gap-4">
                 <button
                   className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
-                  onClick={() => {
-                    navigator.clipboard.writeText(window.location.href);
-                  }}
+                  onClick={handleShare}
                 >
                   <Share2 className="h-5 w-5" />
                   <span className="text-sm">Podijeli</span>
@@ -114,12 +159,12 @@ export default function ProductDetails() {
                 Besplatno preuzimanje u poslovnici
               </span>
               <button
-                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
-                onClick={() => setSidebarOpen(true)}
+                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                onClick={openSidebar}
               >
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
                 <span className="text-sm font-medium text-blue">
-                  Pogledajte dostupnost u poslovnicama
+                  Pogledajte dostupnost
                 </span>
               </button>
             </div>
@@ -220,6 +265,24 @@ export default function ProductDetails() {
                 </div>
               </details>
             </div>
+            {/* STARO ZA NOVO */}
+            <div className="border-t border-gray-200 pb-8 pt-8">
+              <details className="group">
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span>Trade-in u poslovnici</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
+                  </span>
+                </summary>
+                <div className="mt-4 space-y-2 text-gray-600">
+                  <p>
+                    Zamijeni svoj stari uređaj i preuzmi bilo koji naš proizvod
+                    po povoljnijoj cijeni!
+                  </p>
+                </div>
+              </details>
+            </div>
+            {/* MIKROFIN FINANSIRANJE */}
             <div className="border-t border-gray-200 pb-8 pt-8">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
@@ -240,91 +303,6 @@ export default function ProductDetails() {
                 </div>
               </details>
             </div>
-
-            {/* Leave a Review Section */}
-            {/* <div className="mb-8">
-              <div className="mb-6 h-0.5 w-full bg-grey-light"></div>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="mb-4 text-lg font-semibold">
-                    Customer Reviews
-                  </h3>
-
-
-                  <div className="mb-6 rounded-lg bg-grey-almost-white p-6">
-                    <div className="mb-4 flex items-center gap-4">
-                      <div className="flex items-center gap-1">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star
-                            key={star}
-                            className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                          />
-                        ))}
-                      </div>
-                      <span className="text-lg font-semibold">
-                        4.5 out of 5
-                      </span>
-                    </div>
-                    <p className="text-sm text-grey-dark">
-                      Based on 127 reviews
-                    </p>
-                  </div>
-
-
-                  <button className="mb-6 w-full rounded-lg border border-black bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-black hover:text-white">
-                    Write a Review
-                  </button>
-
-
-                  <div className="space-y-4">
-                    <div className="border-b border-grey-light pb-4">
-                      <div className="mb-2 flex items-center gap-2">
-                        <div className="flex items-center gap-1">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star
-                              key={star}
-                              className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                            />
-                          ))}
-                        </div>
-                        <span className="text-sm font-medium">John D.</span>
-                        <span className="text-sm text-grey-dark">
-                          • 2 days ago
-                        </span>
-                      </div>
-                      <p className="text-sm text-grey-dark">
-                        Great quality and fast delivery. Exactly as described!
-                      </p>
-                    </div>
-
-                    <div className="border-b border-grey-light pb-4">
-                      <div className="mb-2 flex items-center gap-2">
-                        <div className="flex items-center gap-1">
-                          {[1, 2, 3, 4].map((star) => (
-                            <Star
-                              key={star}
-                              className="h-4 w-4 fill-yellow-400 text-yellow-400"
-                            />
-                          ))}
-                          <Star className="h-4 w-4 text-grey-light" />
-                        </div>
-                        <span className="text-sm font-medium">Sarah M.</span>
-                        <span className="text-sm text-grey-dark">
-                          • 1 week ago
-                        </span>
-                      </div>
-                      <p className="text-sm text-grey-dark">
-                        Good product, but shipping took longer than expected.
-                      </p>
-                    </div>
-
-                    <button className="border-b border-grey-light pb-1 text-sm text-black transition-colors hover:text-grey-dark">
-                      View all reviews
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
@@ -350,9 +328,7 @@ export default function ProductDetails() {
             </button>
             <button
               className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
-              onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-              }}
+              onClick={handleShare}
             >
               <Share2 className="h-5 w-5" />
               <span className="text-sm">Podijeli</span>
@@ -374,12 +350,12 @@ export default function ProductDetails() {
               Besplatno preuzimanje u poslovnici
             </span>
             <button
-              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
-              onClick={() => setSidebarOpen(true)}
+              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+              onClick={openSidebar}
             >
-              <MapPin className="h-4 w-4" />
+              <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
               <span className="text-sm font-medium text-blue">
-                Pogledajte dostupnost u poslovnicama
+                Pogledajte dostupnost
               </span>
             </button>
           </div>
@@ -492,40 +468,61 @@ export default function ProductDetails() {
       </div>
 
       {/* Sidebar overlay for store availability */}
-      {sidebarOpen && (
+      {(sidebarOpen || isAnimating) && (
         <div className="fixed inset-0 z-[1000] flex">
-          {/* Overlay backdrop */}
+          {/* Overlay backdrop with fade animation */}
           <div
-            className={`fixed inset-0 bg-black transition-opacity duration-300 ${
-              sidebarOpen ? 'opacity-50' : 'pointer-events-none opacity-0'
+            className={`fixed inset-0 bg-black transition-opacity duration-300 ease-out ${
+              sidebarOpen ? 'opacity-50' : 'opacity-0'
             }`}
-            onClick={() => setSidebarOpen(false)}
+            onClick={closeSidebar}
           />
 
-          {/* Sidebar panel */}
+          {/* Sidebar panel with slide animation */}
           <aside
-            className={`fixed right-0 top-0 z-[1000] flex h-screen w-full max-w-md transform flex-col overflow-y-auto bg-white shadow-lg transition-transform duration-300 ${
-              sidebarOpen ? 'translate-x-0' : 'translate-x-full'
+            className={`fixed right-0 top-0 z-[1000] flex h-screen w-full max-w-md transform flex-col overflow-hidden bg-white shadow-2xl transition-all duration-300 ease-out ${
+              sidebarOpen
+                ? 'translate-x-0 opacity-100'
+                : 'translate-x-full opacity-0'
             }`}
           >
-            {/* Sticky close button */}
-            <div className="sticky top-0 z-10 flex justify-end border-b border-gray-100 bg-white p-4">
+            {/* Sticky close button with fade-in delay */}
+            <div
+              className={`sticky top-0 z-10 flex justify-end border-b border-gray-100 bg-white p-4 transition-all delay-100 duration-300 ${
+                sidebarOpen
+                  ? 'translate-y-0 opacity-100'
+                  : '-translate-y-2 opacity-0'
+              }`}
+            >
               <button
                 aria-label="Zatvori"
-                className="text-2xl text-gray-600"
-                onClick={() => setSidebarOpen(false)}
+                className="text-2xl text-gray-600 transition-all duration-200 hover:rotate-90 hover:scale-110 hover:text-gray-800"
+                onClick={closeSidebar}
               >
                 ✕
               </button>
             </div>
 
-            <div className="flex flex-1 flex-col p-6 pt-2">
+            {/* Sidebar content with staggered animation */}
+            <div
+              className={`duration-400 flex flex-1 flex-col overflow-y-auto p-6 pt-2 transition-all delay-150 ${
+                sidebarOpen
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-4 opacity-0'
+              }`}
+            >
               <h2 className="mb-4 text-2xl font-bold">
                 Dostupnost u poslovnicama
               </h2>
 
               {image && (
-                <div className="mb-4 flex items-center gap-4">
+                <div
+                  className={`mb-4 flex items-center gap-4 transition-all delay-200 duration-500 ${
+                    sidebarOpen
+                      ? 'translate-x-0 opacity-100'
+                      : '-translate-x-4 opacity-0'
+                  }`}
+                >
                   <div className="h-16 w-16 overflow-hidden rounded-lg">
                     <StrapiImage
                       alt={image.alternativeText || name}
@@ -550,9 +547,21 @@ export default function ProductDetails() {
                 </div>
               )}
 
-              <hr className="mb-4" />
+              <hr
+                className={`delay-250 mb-4 transition-all duration-500 ${
+                  sidebarOpen
+                    ? 'scale-x-100 opacity-100'
+                    : 'scale-x-0 opacity-0'
+                }`}
+              />
 
-              <p className="mb-4 text-sm text-gray-600">
+              <p
+                className={`mb-4 text-sm text-gray-600 transition-all delay-300 duration-500 ${
+                  sidebarOpen
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-2 opacity-0'
+                }`}
+              >
                 {stores.filter((storeItem) => storeItem.quantity > 0).length}{' '}
                 rezultata
               </p>
@@ -569,7 +578,7 @@ export default function ProductDetails() {
                       ].includes(storeName) && storeItem.quantity > 0
                     );
                   })
-                  .map((storeItem) => {
+                  .map((storeItem, index) => {
                     let location = null;
                     if (storeItem.store.name === 'AT Store (ALTA)')
                       location = GOOGLE_MAPS_LOCATIONS.SARAJEVO_ALTA;
@@ -578,10 +587,21 @@ export default function ProductDetails() {
                     else if (storeItem.store.name === 'AT Store (DELTA)')
                       location = GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA;
 
+                    const isMapVisible = visibleMaps.has(storeItem.id);
+
                     return (
                       <div
                         key={storeItem.id}
-                        className="flex flex-col rounded-xl border border-gray-200 bg-white p-4"
+                        className={`flex flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all duration-500 hover:shadow-md ${
+                          sidebarOpen
+                            ? 'translate-y-0 opacity-100'
+                            : 'translate-y-4 opacity-0'
+                        }`}
+                        style={{
+                          transitionDelay: sidebarOpen
+                            ? `${350 + index * 100}ms`
+                            : '0ms',
+                        }}
                       >
                         <h4 className="mb-2 text-lg font-semibold">
                           {location?.storeName || storeItem.store.name}
@@ -591,19 +611,47 @@ export default function ProductDetails() {
                             {location.storeAddress}
                           </p>
                         )}
-                        <p className="mt-1 text-xs text-[#22c55e]">{`Stanje: ${storeItem.quantity}`}</p>
+
+                        {/* Clickable button to show/hide map */}
                         {location?.embedUrl && (
-                          <div className="mt-3 flex flex-1 flex-col">
-                            <iframe
-                              className="w-full rounded-md"
-                              height="200"
-                              loading="lazy"
-                              referrerPolicy="no-referrer-when-downgrade"
-                              src={location.embedUrl}
-                              width="100%"
-                            ></iframe>
-                          </div>
+                          <button
+                            className="mt-3 flex items-center justify-center gap-2 rounded-md border border-blue bg-white px-4 py-2 text-blue transition-all duration-200 hover:scale-[1.02] hover:bg-blue hover:text-white hover:shadow-md"
+                            onClick={() => toggleMap(storeItem.id)}
+                          >
+                            <MapPin className="h-4 w-4" />
+                            <span className="text-sm font-medium">
+                              {isMapVisible ? 'Sakrij mapu' : 'Prikaži na mapi'}
+                            </span>
+                            <ChevronDown
+                              className={`h-4 w-4 transition-transform duration-300 ${
+                                isMapVisible ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </button>
                         )}
+
+                        {/* Animated map container */}
+                        <div
+                          className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                            isMapVisible
+                              ? 'mt-3 max-h-[250px] opacity-100'
+                              : 'mt-0 max-h-0 opacity-0'
+                          }`}
+                        >
+                          {location?.embedUrl && (
+                            <div className="flex flex-1 flex-col">
+                              <iframe
+                                className="w-full rounded-md border border-gray-200 transition-all duration-300 hover:shadow-sm"
+                                height="200"
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                src={location.embedUrl}
+                                title={`Map for ${location.storeName}`}
+                                width="100%"
+                              ></iframe>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -648,12 +696,12 @@ export default function ProductDetails() {
               Besplatno preuzimanje u poslovnici
             </span>
             <button
-              className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-colors hover:text-grey-dark"
-              onClick={() => setSidebarOpen(true)}
+              className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+              onClick={openSidebar}
             >
-              <MapPin className="h-4 w-4" />
+              <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
               <span className="text-sm font-medium text-blue">
-                Pogledajte dostupnost u poslovnicama
+                Pogledajte dostupnost
               </span>
             </button>
           </div>
