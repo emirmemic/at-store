@@ -43,6 +43,10 @@ export default function PaymentWithCard() {
   const [isLoading, setIsLoading] = useState(true);
   const [outOfStockDialog, setOutOfStockDialog] = useState(false);
   const [outOfStockProducts, setOutOfStockProducts] = useState<string[]>([]);
+  const [installmentOptions, setInstallmentOptions] = useState<any[]>([]);
+  const [selectedInstallment, setSelectedInstallment] = useState<string | null>(
+    null
+  );
   // REFS
   const cardRef = useRef<any>(null);
   const monriRef = useRef<any>(null);
@@ -136,6 +140,19 @@ export default function PaymentWithCard() {
     });
   }, [clientSecret]);
 
+  useEffect(() => {
+    function handleInstallmentsEvent(event: any) {
+      const options = event.detail.installments;
+      console.log('Installments received:', options);
+      setInstallmentOptions(options);
+    }
+
+    window.addEventListener('installments-event', handleInstallmentsEvent);
+    return () => {
+      window.removeEventListener('installments-event', handleInstallmentsEvent);
+    };
+  }, []);
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
@@ -148,6 +165,7 @@ export default function PaymentWithCard() {
       country: deliveryForm?.country,
       email: deliveryForm?.email,
       orderInfo: orderInfo,
+      ...(selectedInstallment ? { installments: selectedInstallment } : {}),
     };
 
     monriRef.current
@@ -250,6 +268,26 @@ export default function PaymentWithCard() {
 
         {/* <!-- Used to display Component errors. --> */}
         <div id="card-errors" role="alert" style={{ color: 'red' }}></div>
+
+        {installmentOptions.length > 0 && (
+          <div>
+            <label htmlFor="installments">Plaćanje na rate:</label>
+            <select
+              className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              id="installments"
+              value={selectedInstallment ?? ''}
+              onChange={(e) => setSelectedInstallment(e.target.value)}
+            >
+              <option value="">Odaberi broj rata</option>
+              {installmentOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <Button
           className="mt-3 self-end"
           disabled={!clientSecret}

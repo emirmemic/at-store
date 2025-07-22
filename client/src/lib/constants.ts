@@ -15,7 +15,7 @@ export const CURRENCY = 'KM';
 export const CURRENCY_ISO = 'BAM';
 
 export const MINIMUM_AMOUNT_FREE_DELIVERY = 400;
-export const DELIVERY_COST = 10;
+export const DELIVERY_COST = 0.1;
 
 export const STORES = [
   { code: 'AT Store (SCC)', name: 'Sarajevo SCC' },
