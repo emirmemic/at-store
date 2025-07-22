@@ -1,5 +1,6 @@
 'use client';
-import { motion, AnimatePresence } from 'framer-motion';
+
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function DesktopPopup({
   children,
@@ -15,7 +16,7 @@ export default function DesktopPopup({
       {isActive && (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
-          className={`fixed bottom-0 left-0 top-nav-height w-full blur-background ${className}`}
+          className={`fixed bottom-0 left-0 top-nav-height w-full pt-1 backdrop-blur-sm ${className}`}
           exit={{ opacity: 0, y: -10 }}
           initial={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}

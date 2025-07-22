@@ -80,7 +80,7 @@ export default function ListItem({
       <DesktopPopup className="px-12" isActive={isActive}>
         <div
           ref={outsideRef}
-          className="shadow-large-black mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white/90 px-6 py-3 backdrop-blur-3xl backdrop-saturate-200"
+          className="mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white/90 px-6 py-3"
         >
           <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {menuItem?.subItems?.map((sub) => (
@@ -108,7 +108,7 @@ export default function ListItem({
               </li>
             ))}
           </ul>
-          <div className="mt-8 w-fit rounded-xl border p-2">
+          <div className="mt-8 w-fit rounded-xl bg-white p-2">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
               <DesktopInfoCard
                 description={t('infoCards.payInInstallmentsDescription')}

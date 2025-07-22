@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   DesktopAccount,
   DesktopCart,
@@ -10,7 +8,9 @@ import {
   SiteLogo,
 } from '@/components/nav-bar/components';
 import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
+
 import { cn } from '@/lib/utils/utils';
+import { useState } from 'react';
 
 interface DesktopMenuProps {
   menuItems: NavMenuItem[];
@@ -24,7 +24,7 @@ export default function DesktopMenu({
   return (
     <div
       className={cn(
-        'relative flex grow items-center justify-between gap-4 px-6 container-max-width-lg md:px-12',
+        'relative flex grow items-center justify-between gap-4 bg-white/90 px-6 container-max-width-lg md:px-12',
         className
       )}
     >

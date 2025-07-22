@@ -1,11 +1,10 @@
-import { useTranslations } from 'next-intl';
-
 import { DesktopMenu, MobileMenu } from '@/components/nav-bar/components';
+import { NavMenuItem, NavSubMenuItem } from './types';
+
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { Pathname } from '@/i18n/routing';
 import { matchesCategory } from '@/lib/utils/link-helpers';
-
-import { NavMenuItem, NavSubMenuItem } from './types';
+import { useTranslations } from 'next-intl';
 
 interface NavbarProps {
   navbarData: NavMenuItem[];
@@ -70,7 +69,7 @@ export default function Navbar({ navbarData }: NavbarProps) {
     createSupportItem(),
   ];
   return (
-    <nav className="fixed top-0 z-50 flex h-nav-height w-screen bg-[#F5F5F7] pr-4">
+    <nav className="fixed top-0 z-[500] flex h-nav-height w-screen bg-white/10 pr-4">
       <MobileMenu className="md:hidden" menuItems={finalNavbarData} />
       <DesktopMenu className="hidden md:flex" menuItems={finalNavbarData} />
     </nav>

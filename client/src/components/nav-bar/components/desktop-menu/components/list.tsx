@@ -1,6 +1,6 @@
 'use client';
 
-import { PopupType, NavMenuItem } from '@/components/nav-bar/types';
+import { NavMenuItem, PopupType } from '@/components/nav-bar/types';
 
 import ListItem from './list-item';
 
@@ -24,7 +24,7 @@ export default function DesktopList({
           activePopup={activePopup}
           menuItem={menuItem}
           setActivePopup={setActivePopup}
-        ></ListItem>
+        />
       ))}
     </ul>
   );
