@@ -1,8 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-
 import {
   Description,
   FooterPayment,
@@ -11,8 +8,11 @@ import {
   SectionMobile,
 } from '@/components/footer/components';
 import { FooterSectionType, LinkHref } from '@/components/footer/types';
+
 import { NavMenuItem } from '@/components/nav-bar/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface FooterProps {
   categoryItems: NavMenuItem[];
@@ -88,11 +88,6 @@ export default function Footer({ categoryItems }: FooterProps) {
           id: 'findStore',
           name: t('companies.findStore'),
           path: PAGE_NAMES.FIND_STORE,
-        },
-        {
-          id: 'news',
-          name: t('companies.news'),
-          path: PAGE_NAMES.NEWS,
         },
         {
           id: 'atSoft',

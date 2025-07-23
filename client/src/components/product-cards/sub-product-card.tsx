@@ -22,7 +22,7 @@ export default function SubProductCard({
   onClick,
 }: SubProductCardProps) {
   return (
-    <div className="flex w-full flex-col justify-between gap-5 rounded-3xl border border-gray-100 bg-white px-6 pb-6 pt-4 shadow-md transition-all hover:shadow-lg md:flex-row-reverse md:gap-6 md:px-6 md:py-6 lg:px-12">
+    <div className="flex w-full flex-col justify-between gap-5 rounded-3xl border border-gray-200 bg-white px-6 pb-6 pt-4 shadow-md transition-all hover:shadow-lg md:flex-row-reverse md:gap-6 md:px-6 md:py-6 lg:px-12">
       <div className="h-48 w-52">
         {image ? (
           <StrapiImage
@@ -38,7 +38,7 @@ export default function SubProductCard({
         )}
       </div>
       <div className="flex flex-col items-center gap-6 md:items-start md:justify-between md:pt-3">
-        <p className="text-3xl font-semibold tracking-tight text-neutral-900">
+        <p className="text-2xl font-semibold tracking-tight text-neutral-900">
           {title}
         </p>
         {specifications && specifications.length > 0 && (

@@ -121,6 +121,15 @@ export default function ProductDetails() {
 
         {/* Right side - Scrollable Content (60% width) */}
         <div className="h-full w-1/2 overflow-y-scroll">
+          <div className="mt-4 flex items-center gap-4 px-8">
+            <button
+              className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
+              onClick={handleShare}
+            >
+              <Share2 className="h-5 w-5" />
+              <span className="text-sm">Podijeli</span>
+            </button>
+          </div>
           <div className="p-8 pb-32">
             {/* Product Header */}
             <div className="mb-8">
@@ -130,17 +139,6 @@ export default function ProductDetails() {
                 originalPrice={originalPrice}
                 productVariantId={productVariantId}
               />
-
-              {/* Action buttons */}
-              <div className="mt-4 flex items-center gap-4">
-                <button
-                  className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
-                  onClick={handleShare}
-                >
-                  <Share2 className="h-5 w-5" />
-                  <span className="text-sm">Podijeli</span>
-                </button>
-              </div>
             </div>
 
             {/* Options */}

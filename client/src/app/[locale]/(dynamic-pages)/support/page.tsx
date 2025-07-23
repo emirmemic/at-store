@@ -1,7 +1,6 @@
 import { IconBackup, IconLock, IconPhone } from '@/components/icons';
 
 import CalendlyEmbed from './components/calendly';
-import { CardBlock } from '@/components/blocks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PAGE_NAMES } from '@/i18n/page-names';

@@ -14,7 +14,7 @@ export default function DesktopInfoCard({
   link,
 }: InfoCardProps) {
   return (
-    <Link className="no-underline" href={link ? link : ''}>
+    <Link className="no-underline" href={link || '/'} replace={false}>
       <div
         className="flex h-28 w-full transform cursor-pointer flex-col items-center justify-center gap-2 rounded-xl p-2 text-center transition duration-300 ease-in-out lg:opacity-80 lg:hover:scale-[1.02] lg:hover:opacity-100"
         style={{
