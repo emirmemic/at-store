@@ -1,10 +1,9 @@
-import qs from 'qs';
-
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
 
 import PromoSlider from './promo-slider';
 import { PromoSliderResponse } from './types';
+import { fetchAPI } from '@/lib/fetch-api';
+import qs from 'qs';
 
 interface PromoSliderProps {
   className?: string;

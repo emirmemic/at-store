@@ -37,6 +37,9 @@ export const PAGE_NAMES = {
   SUPPORT: '/support',
   TERMS_OF_PURCHASE: '/terms-of-purchase',
   WHY_MAC: '/why-mac',
+  BODYART: '/bodyart',
+  ATSTORESUNDAYS: '/at-store-sundays',
+  DEMO: '/demo',
 } as const;
 
 // SITEMAP LOGIC IS BASED ON THESE CONFIGURATIONS, IF YOU CHANGE THEM, MAKE SURE TO UPDATE THE SITEMAP LOGIC AS WELL

@@ -1,7 +1,7 @@
+import { DYNAMIC_PAGES, PAGE_NAMES } from './page-names';
+
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
-
-import { DYNAMIC_PAGES, PAGE_NAMES } from './page-names';
 
 export const routing = defineRouting({
   // A list of all locales that are supported
@@ -20,6 +20,15 @@ export const routing = defineRouting({
     },
     [PAGE_NAMES.ACCOUNT]: {
       bs: '/racun',
+    },
+    [PAGE_NAMES.ATSTORESUNDAYS]: {
+      bs: '/at-store-sundays',
+    },
+    [PAGE_NAMES.DEMO]: {
+      bs: '/demo',
+    },
+    [PAGE_NAMES.BODYART]: {
+      bs: '/bodyart',
     },
     [PAGE_NAMES.ACCOUNT_DASHBOARD]: {
       bs: '/racun/pocetna',
