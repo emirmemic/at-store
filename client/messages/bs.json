@@ -131,8 +131,8 @@
     "paragraph": "Posjetite našu trgovinu i sa našim certificiranim osobljem možete saznati kako vam Apple proizvodi i rješenja mogu olakšati svakodnevne obaveze. Naše osoblje vam je uvijek na usluzi i mi vam možemo pomoći koji Apple proizvod odabrati. Ako ste ljubitelj Apple uređaja, onda je AT Store mjesto koje ćete definitivno željeti posjetiti.",
     "cardBlockTitle": "Pridružnice",
     "cardBlock": {
-      "title1": "AT Soft",
-      "title2": "AT Business"
+      "title1": "Kompanija za softverska rješenja i digitalnu transformaciju.",
+      "title2": "Specijalizovani odjel za poslovanje sa pravnim licima i institucijama."
     }
   },
   "notFound": {
@@ -178,7 +178,7 @@
     "closeMenu": "Zatvori meni",
     "openMenu": "Otvori meni",
     "notLoggedIn": "Niste prijavljeni",
-    "noItems": "Nemate proizvode u korpi",
+    "noItems": "Korpa je prazna",
     "seeCart": "Vidi čitavu korpu",
     "payment": "Plaćanje",
     "visitHomePage": "Posjetite početnu stranicu At Store",
@@ -884,7 +884,7 @@
   "educationalDiscountPage": {
     "title": "Obrazovni popust",
     "item1": {
-      "title": "Student si ?",
+      "title": "Student si?",
       "description": "Iskoristite posebne cijene za Mac. Odaberite popust za učenike i nastavnike. Možete se educirati bilo gdje, a Apple ekosistem bit će vam najbolji pomoćnik. Studentski popust važi za studente, profesore i zaposlene pri obrazovnim institucijama"
     },
     "item2": {

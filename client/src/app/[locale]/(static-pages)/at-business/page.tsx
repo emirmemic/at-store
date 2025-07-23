@@ -44,8 +44,15 @@ export default function AtBusinessPage() {
           />
         </section>
 
+        <div className="w-full">
+          <img
+            alt="Business Banner"
+            className="h-auto w-full rounded-3xl object-cover shadow-lg"
+            src="/assets/images/business-hero.png"
+          />
+        </div>
         {/* WHY CHOOSE US SECTION */}
-        <section className="mt-16 flex w-full flex-col items-center rounded-3xl bg-gray-900 p-8 shadow-lg">
+        <section className="mt-10 flex w-full flex-col items-center rounded-3xl bg-gray-900 p-8 shadow-lg">
           <h2 className="mb-4 text-center text-3xl font-bold underline decoration-blue-500 decoration-4 underline-offset-8 md:text-4xl">
             Zašto odabrati nas kao svog poslovnog partnera
           </h2>
@@ -149,183 +156,97 @@ export default function AtBusinessPage() {
 
         {/* APPLE DEVICES SECTIONS */}
         <section className="mt-16">
-          <div className="w-full">
+          <div className="w-full bg-black px-6 py-10 text-center text-white md:px-16">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+              Mac za poslovne korisnike
+            </h2>
+            <p className="text-lg text-gray-300 md:text-xl">
+              Brzina, pouzdanost i moć — savršeno za svakodnevne poslovne
+              izazove.
+            </p>
+          </div>
+          <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
             <img
               alt="Mac za poslovne korisnike"
               className="h-auto w-full object-cover"
-              src="/client/public/images/why-mac-devices.png"
+              src="/assets/images/mac_b2b.png"
             />
-            <div className="w-full bg-black px-6 py-10 text-center text-white md:px-16">
-              <h2 className="mb-4 text-3xl font-bold md:text-4xl">
-                Mac za poslovne korisnike
-              </h2>
-              <p className="text-lg text-gray-300 md:text-xl">
-                Brzina, pouzdanost i moć — savršeno za svakodnevne poslovne
-                izazove.
-              </p>
-            </div>
           </div>
+
           {/* MACBOOKS SECTION */}
-          <div className="mx-auto mt-20 grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-2 md:px-0">
-            {/* MacBook Air M1 */}
-            <section className="flex flex-col items-stretch gap-8">
-              <div className="w-full">
+          <div className="mx-auto mt-20 grid max-w-7xl grid-cols-1 gap-12 px-6 pb-16 md:grid-cols-2 md:px-0">
+            {/* MacBook Air M4 Card */}
+            <div className="group relative overflow-hidden rounded-3xl border border-gray-700 bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 transition-shadow hover:shadow-2xl">
+              <div className="mb-6 flex justify-center">
                 <img
-                  alt="MacBook Air M1"
-                  className="h-[300px] max-h-[50vh] w-full rounded-3xl object-contain shadow-lg"
-                  src="/images/macbook-air-m1.png"
+                  alt="MacBook Air M4"
+                  className="h-[240px] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                  src="/assets/images/macbook-air-m4.png"
                 />
               </div>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="flex items-start gap-6 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 shadow-lg">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600">
-                    <svg
-                      className="h-7 w-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 4v16m8-8H4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="mb-2 text-xl font-semibold text-white">
-                      Vrhunske performanse
-                    </h3>
-                    <p className="text-gray-300">
-                      Najnoviji M1 čip pruža nevjerojatnu brzinu i efikasnost za
-                      poslovne zadatke.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-6 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 shadow-lg">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600">
-                    <svg
-                      className="h-7 w-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      ></circle>
-                      <path
-                        d="M8 12l2 2 4-4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="mb-2 text-xl font-semibold text-white">
-                      Dugotrajna baterija
-                    </h3>
-                    <p className="text-gray-300">
-                      Uživajte u dugom trajanju baterije koja prati vaše
-                      poslovne potrebe cijeli dan.
-                    </p>
-                  </div>
-                </div>
+              <h3 className="mb-2 text-center text-2xl font-bold text-white">
+                MacBook Air M4
+              </h3>
+              <p className="mb-4 text-center text-gray-400">
+                Savršen za mobilne profesionalce i uredsku svakodnevicu.
+              </p>
+              <ul className="mb-6 list-disc space-y-2 px-6 text-sm text-gray-300">
+                <li>
+                  <strong>Performanse:</strong> Novi M4 čip
+                </li>
+                <li>
+                  <strong>Trajanje baterije:</strong> Do 18 sati
+                </li>
+                <li>
+                  <strong>Dizajn:</strong> Tanak i lagan
+                </li>
+              </ul>
+              <div className="flex justify-center">
+                <Link href="/proizvodi/mac/MBAM4-13/apple-mba-136-midnight-m4-10c-cpu-10c-gpu-24gb-512gb-cro-97647061">
+                  <Button size="lg" variant="filled">
+                    Saznaj više
+                  </Button>
+                </Link>
               </div>
-              <div className="mt-6 flex justify-center">
-                <Button size="lg" variant="filled">
-                  Kupi sada
-                </Button>
-              </div>
-            </section>
-            {/* MacBook Pro M4 */}
-            <section className="flex flex-col items-stretch gap-8">
-              <div className="w-full">
+            </div>
+
+            {/* MacBook Pro M4 Card */}
+            <div className="group relative overflow-hidden rounded-3xl border border-gray-700 bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 transition-shadow hover:shadow-2xl">
+              <div className="mb-6 flex justify-center">
                 <img
                   alt="MacBook Pro M4"
-                  className="h-[300px] max-h-[50vh] w-full rounded-3xl object-contain shadow-lg"
-                  src="/images/macbook-air-m1.png"
+                  className="h-[240px] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                  src="/assets/images/macbook-pro-m4.png"
                 />
               </div>
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="flex items-start gap-6 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 shadow-lg">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600">
-                    <svg
-                      className="h-7 w-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 4v16m8-8H4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="mb-2 text-xl font-semibold text-white">
-                      Profesionalne performanse
-                    </h3>
-                    <p className="text-gray-300">
-                      MacBook Pro M4 donosi ekstremnu snagu za najzahtjevnije
-                      poslovne i kreativne zadatke.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-6 rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-black p-8 shadow-lg">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600">
-                    <svg
-                      className="h-7 w-7 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      ></circle>
-                      <path
-                        d="M8 12l2 2 4-4"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="mb-2 text-xl font-semibold text-white">
-                      Napredna grafika
-                    </h3>
-                    <p className="text-gray-300">
-                      Savršen za obradu videa, dizajn i softverski razvoj uz
-                      novu M4 grafiku i optimizaciju.
-                    </p>
-                  </div>
-                </div>
+              <h3 className="mb-2 text-center text-2xl font-bold text-white">
+                MacBook Pro M4
+              </h3>
+              <p className="mb-4 text-center text-gray-400">
+                Moćan alat za kreativne profesionalce i inženjere.
+              </p>
+              <ul className="mb-6 list-disc space-y-2 px-6 text-sm text-gray-300">
+                <li>
+                  <strong>Procesor:</strong> M4 s naprednim grafičkim
+                  performansama
+                </li>
+                <li>
+                  <strong>Ekran:</strong> Liquid Retina XDR
+                </li>
+                <li>
+                  <strong>Namjena:</strong> Dizajn, programiranje i produkcija
+                </li>
+              </ul>
+              <div className="flex justify-center">
+                <Link href="/proizvodi/mac/MBPM4-14/apple-mbp-14-silver-m4-10c-m4-10c-gpu-16gb-1tb-zee-95024463">
+                  <Button size="lg" variant="filled">
+                    Saznaj više
+                  </Button>
+                </Link>
               </div>
-              <div className="mt-6 flex justify-center">
-                <Button size="lg" variant="filled">
-                  Kupi sada
-                </Button>
-              </div>
-            </section>
+            </div>
           </div>
-          <div className="mt-20 w-full">
-            <img
-              alt="iPhone u poslovanju"
-              className="h-auto w-full object-cover"
-              src="/images/iphone.jpg"
-            />
+          <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
             <div className="w-full bg-black px-6 py-10 text-center text-white md:px-16">
               <h2 className="mb-4 text-3xl font-bold md:text-4xl">
                 iPhone u poslovanju
@@ -334,13 +255,13 @@ export default function AtBusinessPage() {
                 Sigurnost i mobilnost uz najpametniji telefon na tržištu.
               </p>
             </div>
-          </div>
-          <div className="w-full">
             <img
-              alt="iPad za produktivnost"
+              alt="iPhone u poslovanju"
               className="h-auto w-full object-cover"
-              src="/images/ipad.jpg"
+              src="assets/images/iphone-b2b.png"
             />
+          </div>
+          <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
             <div className="w-full bg-black px-6 py-10 text-center text-white md:px-16">
               <h2 className="mb-4 text-3xl font-bold md:text-4xl">
                 iPad za produktivnost
@@ -349,6 +270,11 @@ export default function AtBusinessPage() {
                 Fleksibilnost tableta uz moć laptopa u vašem poslovanju.
               </p>
             </div>
+            <img
+              alt="iPad za produktivnost"
+              className="h-auto w-full object-cover"
+              src="assets/images/ipad-b2b-2.jpg"
+            />
           </div>
         </section>
 
@@ -417,14 +343,16 @@ export default function AtBusinessPage() {
             </div>
           </div>
           <div className="mt-12 flex justify-center">
-            <Button size="lg" variant="filled">
-              Registrirajte svoju tvrtku
-            </Button>
+            <Link href="/registracija">
+              <Button size="lg" variant="filled">
+                Registrujte svoju kompaniju
+              </Button>
+            </Link>
           </div>
         </section>
         {/* HARIS DZIKO CONTACT BLOCK */}
         <section className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(1)].map((_, i) => (
             <div
               key={i}
               className="flex flex-col items-center justify-between gap-6 rounded-3xl bg-gray-900 p-8 text-white shadow-lg md:flex-row"
@@ -433,21 +361,21 @@ export default function AtBusinessPage() {
                 <img
                   alt="Haris Dziko"
                   className="h-24 w-24 rounded-full object-cover shadow-md md:h-28 md:w-28"
-                  src="/images/haris-dziko.jpg"
+                  src="assets/images/memoji.png"
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
                 <p className="mb-2 text-sm uppercase tracking-wider text-gray-400">
                   Vaš kontakt za poslovne korisnike
                 </p>
-                <h3 className="mb-2 text-2xl font-bold">Haris Dziko</h3>
+                <h3 className="mb-2 text-2xl font-bold">Haris Džiko</h3>
                 <p className="mb-4 text-lg text-gray-300">B2B Manager</p>
                 <div className="flex flex-col gap-2 text-sm md:flex-row md:items-center md:text-base">
                   <Link
                     className="text-blue-400 hover:underline"
                     href="tel:+387956188"
                   >
-                    +387956188
+                    +387 33 956 188
                   </Link>
                   <span className="hidden text-gray-500 md:inline-block">
                     |
@@ -456,12 +384,49 @@ export default function AtBusinessPage() {
                     className="text-blue-400 hover:underline"
                     href="mailto:b2b@atstore.ba"
                   >
-                    b2b@atstore.ba
+                    Email
                   </Link>
                 </div>
               </div>
             </div>
           ))}
+        </section>
+
+        {/* FAQ SECTION */}
+        <section className="mx-auto mt-20 w-full max-w-4xl px-6">
+          <h2 className="mb-8 text-center text-4xl text-white">
+            Često postavljana pitanja
+          </h2>
+          <div className="space-y-4">
+            <details className="group rounded-xl p-6 text-white transition">
+              <summary className="cursor-pointer text-lg font-semibold group-open:text-blue-400">
+                Kako se mogu registrovati kao poslovni korisnik?
+              </summary>
+              <p className="mt-2 text-gray-300">
+                Kliknite na dugme Registrirajte svoju tvrtku i ispunite obrazac.
+                Nakon potvrde, dobićete pristup pogodnostima za poslovne
+                korisnike.
+              </p>
+            </details>
+            <details className="group rounded-xl p-6 text-white transition">
+              <summary className="cursor-pointer text-lg font-semibold group-open:text-blue-400">
+                Koje popuste dobijam kao poslovni korisnik?
+              </summary>
+              <p className="mt-2 text-gray-300">
+                Poslovni korisnici ostvaruju posebne popuste na odabrane Apple
+                proizvode i dodatke. Popusti zavise od vašeg profila i narudžbi.
+              </p>
+            </details>
+            <details className="group rounded-xl p-6 text-white transition">
+              <summary className="cursor-pointer text-lg font-semibold group-open:text-blue-400">
+                Koliko traje obrada registracije?
+              </summary>
+              <p className="mt-2 text-gray-300">
+                Obrada prijave traje do 24 sata, nakon čega ćete biti
+                obaviješteni putem emaila o statusu vašeg poslovnog profila.
+              </p>
+            </details>
+          </div>
         </section>
       </main>
     </div>

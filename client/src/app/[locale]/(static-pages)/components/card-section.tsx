@@ -30,9 +30,9 @@ export default function CardSection(props: Readonly<CardSectionProps>) {
       >
         <Icon
           aria-label={name}
-          className="h-16 w-full max-w-72 text-gray-900 md:h-20 md:max-w-72 lg:h-24 lg:max-w-md"
+          className="h-6 w-full max-w-40 text-gray-900 md:h-12 md:max-w-40 lg:h-16 lg:max-w-60"
         />
-        <p className="flex-1 font-semibold text-gray-900 heading-3 md:heading-2 lg:heading-1">
+        <p className="flex-1 font-semibold text-gray-900 paragraph-3 md:paragraph-2 lg:paragraph-1">
           {title}
         </p>
       </div>

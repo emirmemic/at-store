@@ -23,8 +23,8 @@ import { ShoppingCartItem } from '@/lib/types';
 
 const NoItems = ({ text }: { text: string }) => (
   <div className="flex flex-col items-center justify-center gap-4 px-6 pb-14 pt-4">
-    <p className="heading-4">{text}</p>
-    <IconShoppingCart size={88} />
+    <p className="heading-5">{text}</p>
+    <IconShoppingCart size={60} />
   </div>
 );
 
@@ -77,7 +77,7 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
       >
         <IconTrash
           className="transition-colors duration-300 group-hover:text-grey-darker"
-          size={24}
+          size={16}
         />
       </Button>
     </div>

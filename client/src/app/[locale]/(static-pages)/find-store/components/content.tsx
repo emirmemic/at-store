@@ -25,10 +25,10 @@ export default function Content({ stores }: { stores: StoreType[] }) {
 
   return (
     <>
-      <h1 className="mb-12 heading-2 md:heading-1">{t('title')}</h1>
+      <h1 className="mb-12 heading-4 md:heading-4">{t('title')}</h1>
       <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[400px_1fr]">
         <div>
-          <p className="mb-10 paragraph-1">{`${numberOfStores} ${t('stores')}`}</p>
+          <p className="mb-10 paragraph-2">{`${numberOfStores} ${t('stores')}`}</p>
           <div className="flex flex-col gap-2">
             {stores.map((store) => (
               <Store

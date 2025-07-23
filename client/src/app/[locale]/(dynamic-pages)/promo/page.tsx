@@ -73,15 +73,7 @@ export default async function Page() {
       </h1>
       <PromoSliderWrapper className="container-max-width-xl" />
       <CurrentPromotions className="pl-6 container-max-width-lg md:pl-12" />
-      <div className="flex flex-col gap-16 container-max-width">
-        {info && (
-          <InfoBlock
-            actionLink={info.actionLink}
-            description={info.description}
-            title={info.title ?? ''}
-          />
-        )}
-      </div>
+
       {products && products.length > 0 && (
         <section className="py-12 container-max-width md:py-16">
           {featuredProducts?.sectionTitle && (
@@ -89,7 +81,7 @@ export default async function Page() {
               {featuredProducts?.sectionTitle}
             </h2>
           )}
-          <ProductsList products={products}></ProductsList>
+          <ProductsList products={products} />
         </section>
       )}
     </div>

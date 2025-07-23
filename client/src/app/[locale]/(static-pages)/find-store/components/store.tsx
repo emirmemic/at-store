@@ -62,7 +62,7 @@ export default function Store({ store, isSelected, onClick }: StoreProps) {
       onClick={() => onClick(store)}
     >
       <p className="mb-1 heading-4">{name}</p>
-      <p className="text-grey-darker paragraph-1">
+      <p className="text-grey-darker paragraph-2">
         <span>{address}</span>
         <br />
         <span>{cityPostcode}</span>

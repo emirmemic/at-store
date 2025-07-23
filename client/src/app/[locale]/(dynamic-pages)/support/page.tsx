@@ -52,7 +52,7 @@ export default function Page() {
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || '';
   return (
     <div className="bg-gray-50">
-      <div className="mx-auto max-w-5xl px-4 py-4 lg:py-6">
+      <div className="max-w-8xl mx-auto px-4 py-4 lg:py-6">
         <div className="mb-4 flex flex-col items-center gap-4 rounded-3xl px-6 py-6 text-center md:mb-12">
           <h1 className="text-gray-900 heading-2 md:heading-1">
             {t('supportPage.title')}
@@ -66,8 +66,17 @@ export default function Page() {
               height={600}
               src={multi}
             />
+            <div className="mt-6 text-center">
+              <a
+                className="inline-block rounded-full bg-red-deep px-6 py-3 font-semibold text-white shadow-md transition hover:bg-red-700"
+                href="#zakazivanje-termina"
+              >
+                Zakažite termin
+              </a>
+            </div>
           </div>
         </div>
+
         <section className="mx-auto mb-12 mt-4 max-w-5xl">
           <div className="mx-auto mb-10 flex max-w-full flex-col rounded-2xl bg-white p-8 text-white shadow-lg transition-transform duration-300 hover:-translate-y-1">
             <h3 className="mb-4 text-center text-2xl font-semibold text-red-600">

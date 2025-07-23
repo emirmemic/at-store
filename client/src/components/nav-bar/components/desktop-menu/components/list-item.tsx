@@ -80,9 +80,9 @@ export default function ListItem({
       <DesktopPopup className="px-12" isActive={isActive}>
         <div
           ref={outsideRef}
-          className="mx-auto flex w-fit flex-col gap-2 rounded-2xl bg-white/90 px-6 py-3"
+          className="border-white- mx-auto flex w-fit flex-col gap-2 rounded-3xl border-2 bg-white/90 px-6 py-3"
         >
-          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
             {menuItem?.subItems?.map((sub) => (
               <li key={sub.id}>
                 <Link
@@ -90,7 +90,7 @@ export default function ListItem({
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >
-                  <span className="h-24 w-24 overflow-hidden">
+                  <span className="h-16 w-24 overflow-hidden">
                     {sub.icon && (
                       <StrapiImage
                         alt={sub.icon.alternativeText || sub.displayName}

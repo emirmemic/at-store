@@ -1,7 +1,7 @@
 import { IconProps } from '@/lib/types';
 
 export default function IconX({
-  size = 16,
+  size = 24,
   className = '',
   ...props
 }: IconProps) {

@@ -46,17 +46,17 @@ export default function Page() {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="w-full bg-[#f5f7fa] px-6 py-16 md:px-10">
+      <section className="w-full bg-[#06306a] px-6 py-16 md:px-10">
         <div className="mx-auto max-w-5xl text-center">
           <img
             alt="Mikrofin"
-            className="mx-auto mb-6 h-12 w-auto md:h-16"
-            src="/images/mikrofin.jpg"
+            className="mx-auto mb-6 h-20 w-auto md:h-24"
+            src="assets/images/Mikrofin-logo_1.jpg"
           />
-          <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
+          <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
             Finansiranje uz Mikrofin
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-white">
             Nema potrebe da više gubite vrijeme na dolazak u poslovnice.
             Informišite se o našim proizvodima putem web stranice, a zatim
             podnesite online zahtjev za kredit.
@@ -72,21 +72,30 @@ export default function Page() {
           </h2>
           <div className="flex flex-col justify-between gap-8 text-center md:flex-row">
             <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
-              <img className="mx-auto mb-4 h-16" src="/icons/icon1.svg" />
-              <h3 className="mb-2 text-xl font-semibold">Bez kamata</h3>
+              <img
+                className="mx-auto mb-4 h-16"
+                src="assets/images/rok-otplate.svg"
+              />
+              <h3 className="mb-2 text-xl font-semibold">Rok otplate</h3>
               <p className="text-gray-600">
-                Plaćate samo ono što kupite, bez skrivenih troškova.
+                Od 60 dana do 36 mjeseci, u zavisnosti od visine iznosa.
               </p>
             </div>
             <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
-              <img className="mx-auto mb-4 h-16" src="/icons/icon2.svg" />
+              <img
+                className="mx-auto mb-4 h-16"
+                src="assets/images/iznos.svg"
+              />
               <h3 className="mb-2 text-xl font-semibold">Brzo odobrenje</h3>
               <p className="text-gray-600">
                 Odobrenje kredita u roku od nekoliko minuta.
               </p>
             </div>
             <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
-              <img className="mx-auto mb-4 h-16" src="/icons/icon3.svg" />
+              <img
+                className="mx-auto mb-4 h-16"
+                src="assets/images/online.svg"
+              />
               <h3 className="mb-2 text-xl font-semibold">Bez papira</h3>
               <p className="text-gray-600">
                 Kompletna procedura online, bez posjete poslovnici.

@@ -20,9 +20,9 @@ export default function RegistrationForm({
   const t = useTranslations('registrationPage');
   return (
     <Container className="!pt-16" onBack={() => onSelectUserType(undefined)}>
-      <IconAtStoreLogo height={50} width={230} />
+      <IconAtStoreLogo className="text-black" height={50} width={230} />
       <Title
-        className="mb-9 mt-11"
+        className="mb-9 mt-11 text-black"
         linkPath={PAGE_NAMES.LOGIN}
         linkText={t('loginPrompt')}
         subtitle={t('subtitle')}
