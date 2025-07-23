@@ -70,33 +70,42 @@ export default function Page() {
           <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">
             Zašto Mikrofin finansiranje?
           </h2>
-          <div className="flex flex-col justify-between gap-8 text-center md:flex-row">
-            <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
+          <div className="grid grid-cols-1 gap-6 text-center md:grid-cols-3">
+            <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
-                className="mx-auto mb-4 h-16"
+                className="mx-auto mb-4 h-14"
                 src="assets/images/rok-otplate.svg"
+                alt="Rok otplate"
               />
-              <h3 className="mb-2 text-xl font-semibold">Rok otplate</h3>
+              <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                Rok otplate
+              </h3>
               <p className="text-gray-600">
                 Od 60 dana do 36 mjeseci, u zavisnosti od visine iznosa.
               </p>
             </div>
-            <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
+            <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
-                className="mx-auto mb-4 h-16"
+                className="mx-auto mb-4 h-14"
                 src="assets/images/iznos.svg"
+                alt="Brzo odobrenje"
               />
-              <h3 className="mb-2 text-xl font-semibold">Brzo odobrenje</h3>
+              <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                Brzo odobrenje
+              </h3>
               <p className="text-gray-600">
                 Odobrenje kredita u roku od nekoliko minuta.
               </p>
             </div>
-            <div className="flex-1 rounded-xl bg-white p-6 shadow-lg">
+            <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
-                className="mx-auto mb-4 h-16"
+                className="mx-auto mb-4 h-14"
                 src="assets/images/online.svg"
+                alt="Bez papira"
               />
-              <h3 className="mb-2 text-xl font-semibold">Bez papira</h3>
+              <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                Bez papira
+              </h3>
               <p className="text-gray-600">
                 Kompletna procedura online, bez posjete poslovnici.
               </p>
@@ -113,28 +122,30 @@ export default function Page() {
         </div>
 
         {/* Right info block */}
-        <div>
-          <div className="rounded-xl bg-[#f8fafc] p-6 text-gray-800 shadow-md">
-            <h2 className="mb-4 text-2xl font-semibold">Kako funkcioniše?</h2>
-            <p className="mb-4">
+        <div className="grid grid-cols-1 gap-8">
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
+            <h3 className="mb-4 text-2xl font-semibold">Kako funkcioniše?</h3>
+            <p className="mb-4 text-gray-600">
               Nakon popunjavanja obrasca, dobićete informacije o odobrenju i
               mogućnostima otplate direktno putem naše platforme.
             </p>
-            <p>
+            <p className="text-gray-600">
               Kupovina na rate nikad nije bila jednostavnija – bez papirologije
               i čekanja.
             </p>
           </div>
-          <div className="mt-6 rounded-xl bg-[#f8fafc] p-6 text-gray-800 shadow-md">
-            <h2 className="mb-4 text-2xl font-semibold">Dodatne informacije</h2>
-            <p>
+
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
+            <h3 className="mb-4 text-2xl font-semibold">Dodatne informacije</h3>
+            <p className="text-gray-600">
               Detaljniji opis procesa, uslova i ostalih korisnih informacija za
               korisnike.
             </p>
           </div>
-          <div className="mt-6 rounded-xl bg-[#f8fafc] p-6 text-gray-800 shadow-md">
-            <h2 className="mb-4 text-2xl font-semibold">Kontaktirajte nas</h2>
-            <p>
+
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
+            <h3 className="mb-4 text-2xl font-semibold">Kontaktirajte nas</h3>
+            <p className="text-gray-600">
               Ukoliko imate pitanja ili nedoumice, slobodno nas kontaktirajte
               putem telefona ili emaila.
             </p>
@@ -149,7 +160,7 @@ export default function Page() {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Plaćanje pouzećem */}
-          <div className="flex flex-col items-center rounded-3xl bg-white p-8 text-center shadow-lg transition-shadow duration-300 hover:shadow-xl">
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
             <h3 className="mb-4 text-2xl font-semibold">Plaćanje pouzećem</h3>
             <p className="mb-6 text-gray-600">
               Plaćanje robe pouzećem prilikom preuzimanja paketa.
@@ -165,7 +176,7 @@ export default function Page() {
           </div>
 
           {/* Plaćanje karticom */}
-          <div className="flex flex-col items-center rounded-3xl bg-white p-8 text-center shadow-lg transition-shadow duration-300 hover:shadow-xl">
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
             <h3 className="mb-4 text-2xl font-semibold">Plaćanje karticom</h3>
             <p className="mb-6 text-gray-600">
               Plaćanje putem platnih kartica na web prodavnici.
@@ -181,7 +192,7 @@ export default function Page() {
           </div>
 
           {/* Plaćanje na rate */}
-          <div className="flex flex-col items-center rounded-3xl bg-white p-8 text-center shadow-lg transition-shadow duration-300 hover:shadow-xl">
+          <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 text-center shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
             <h3 className="mb-4 text-2xl font-semibold">Plaćanje na rate</h3>
             <p className="mb-6 text-gray-600">
               Kupovina proizvoda na rate bez kamata.

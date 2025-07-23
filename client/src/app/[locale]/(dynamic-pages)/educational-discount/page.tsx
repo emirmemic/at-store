@@ -668,7 +668,7 @@ export default function Page() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="group cursor-pointer rounded-3xl bg-blue-50 p-8 shadow-md transition hover:scale-[1.02] hover:shadow-xl"
+                className="group flex max-h-[150px] flex-1 cursor-pointer flex-col justify-between rounded-3xl border border-gray-200 bg-white/20 p-6 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl"
                 initial={{ opacity: 0, y: 40 }}
                 transition={{ duration: 0.6, delay: i * 0.2 }}
                 viewport={{ once: true }}

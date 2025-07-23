@@ -57,7 +57,7 @@ export default function ListItem({
         key={menuItem.id}
         ref={excludeRef}
         className={cn('h-full transition duration-300', {
-          'w-fit bg-grey-light': isOpen,
+          'w-fit rounded-xl bg-neutral-100': isOpen,
         })}
       >
         {menuItem.subItems && menuItem.subItems.length > 0 ? (
