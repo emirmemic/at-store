@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation';
 
 export default function BodyArt() {
   const router = useRouter();
+  // DATA
   const data = [
     {
       title: 'AirPods Pro 2. generacija',
@@ -52,21 +53,21 @@ export default function BodyArt() {
       title: 'Apple Watch Series 10',
       originalPrice: 899,
       discountPrice: 859,
-      url: '',
+      url: '/kategorije/watch/apple-watch-series-10',
       img: awSeries10,
     },
     {
       title: 'Apple Watch Ultra 2',
       originalPrice: 1.999,
       discountPrice: 1.899,
-      url: '',
+      url: '/kategorije/watch/apple-watch-ultra-2-2024',
       img: awUltra,
     },
     {
       title: 'Apple Watch SE',
       originalPrice: 499,
       discountPrice: 479,
-      url: '',
+      url: '/kategorije/watch/grouped-sub-category',
       img: awSe,
     },
   ];
@@ -76,14 +77,14 @@ export default function BodyArt() {
       title: 'AirPods Pro 2',
       originalPrice: 589,
       discountPrice: 559,
-      url: '',
+      url: '/proizvodi/music/APP2/apple-airpods-pro2-with-magsafe-case-usb-c-9764',
       img: airpodsPro2,
     },
     {
       title: 'AirPods Max',
       originalPrice: 1.339,
       discountPrice: 1.269,
-      url: '',
+      url: '/proizvodi/music/APM/apple-airpods-max-silver-5687',
       img: airpodsMaxOrange,
     },
     {
@@ -284,9 +285,10 @@ export default function BodyArt() {
             </span>
           </p>
           <p className="mt-2 text-4xl font-bold">5% popusta za Apple Watch.</p>
-          <a href="#" className="text-xl underline">
+          <Link className="text-xl underline" href={'/kategorije/watch'}>
             Izazovi sebe &gt;
-          </a>
+          </Link>
+
           <div className="flex items-center justify-center">
             <div className="mb-10 mt-10 grid w-full max-w-7xl grid-cols-1 gap-3 px-12 md:grid-cols-3">
               {watchData.map((item, i) => (
@@ -327,9 +329,9 @@ export default function BodyArt() {
           <p className="mt-2 text-4xl font-bold">
             5% popusta na sve slušalice? Dobro zvuči.
           </p>
-          <a href="#" className="text-xl underline">
+          <Link className="text-xl underline" href={'/kategorije/music'}>
             Klikni za snagu &gt;
-          </a>
+          </Link>
           <div className="flex items-center justify-center">
             <div className="mb-10 mt-10 grid w-full max-w-7xl grid-cols-1 gap-3 px-12 md:grid-cols-3">
               {headphonesData.map((item, i) => (
@@ -370,9 +372,9 @@ export default function BodyArt() {
           <p className="mt-2 text-4xl font-bold">
             Do 10% popusta na narukvice za Apple Watch.
           </p>
-          <a href="#" className="text-xl underline">
+          <Link className="text-xl underline" href={'/dodaci'}>
             Klikni za snagu &gt;
-          </a>
+          </Link>
           <div className="flex items-center justify-center">
             <div className="mb-10 mt-10 grid w-full max-w-7xl grid-cols-1 gap-3 px-12 md:grid-cols-3">
               {bandsData.map((item, i) => (

@@ -29,3 +29,4 @@ export { default as beatsSolo4 } from '../../../public/assets/images/beatssolo4.
 export { default as awNSB } from '../../../public/assets/images/awNSB.png';
 export { default as awNSL } from '../../../public/assets/images/awNSL.png';
 export { default as awOB } from '../../../public/assets/images/awOB.png';
+export { default as studioGym } from '../../../public/assets/images/studio.jpg';
