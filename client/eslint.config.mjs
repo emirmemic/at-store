@@ -33,15 +33,6 @@ const eslintConfig = [
       'react/no-unknown-property': 'warn',
       'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
-      'react/jsx-sort-props': [
-        'warn',
-        {
-          callbacksLast: true,
-          shorthandFirst: true,
-          reservedFirst: true,
-        },
-      ],
-
       'import/no-duplicates': 'warn',
     },
   }),
