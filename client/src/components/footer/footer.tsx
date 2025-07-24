@@ -168,7 +168,7 @@ export default function Footer({ categoryItems }: FooterProps) {
     <footer className="bg-[#F5F5F7] py-5 md:py-9">
       <div className="mx-auto flex max-w-[1000px] flex-col gap-3 md:gap-6">
         <Description className="hidden md:block" items={descriptionItems} />
-        <div className="w-full justify-between gap-7 md:flex lg:gap-28">
+        <div className="w-full justify-between gap-7 text-gray-500 md:flex lg:gap-28">
           <div className="mb-4 md:hidden">
             {updatedFooterSections.map((section) => (
               <SectionMobile
