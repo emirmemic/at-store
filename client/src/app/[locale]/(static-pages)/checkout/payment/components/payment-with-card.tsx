@@ -119,9 +119,10 @@ export default function PaymentWithCard() {
 
     const components = monriRef.current.components({
       clientSecret,
+    });
+    cardRef.current = components.create('card', {
       showInstallmentsSelection: true,
     });
-    cardRef.current = components.create('card', {});
 
     const cardElement = document.getElementById('card-element');
     if (cardElement) {
