@@ -56,7 +56,7 @@ export default function Form() {
           key={field.id}
           className={cn(
             'flex flex-col gap-4',
-            field.solo ? 'w-[336px]' : 'w-[194px]'
+            field.solo ? 'w-[405px]' : 'w-[194px]'
           )}
         >
           <label htmlFor={field.id}>

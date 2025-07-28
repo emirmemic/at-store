@@ -69,7 +69,7 @@ export default function Navbar({ navbarData }: NavbarProps) {
     createSupportItem(),
   ];
   return (
-    <nav className="fixed top-0 z-[500] flex h-nav-height w-screen bg-white/10 pr-4">
+    <nav className="fixed top-0 z-[500] flex h-nav-height w-screen bg-white/10">
       <MobileMenu className="md:hidden" menuItems={finalNavbarData} />
       <DesktopMenu className="hidden md:flex" menuItems={finalNavbarData} />
     </nav>

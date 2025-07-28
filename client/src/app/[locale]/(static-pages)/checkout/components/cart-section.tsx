@@ -42,25 +42,32 @@ export default function CartSection() {
           }`}
         />
       </CollapsibleTrigger>
-      {cartItemsPrice > 0 && (
-        <>
-          <h2 className="mb-4 hidden heading-4 md:block">{t('inTheCart')}</h2>
-          <TitleWithValue title={t('toPay')} value={cartItemsPrice} />
-          <TitleWithValue title={t('delivery')} value={deliveryPrice} />
-          <TitleWithValue title={t('total')} value={totalPrice} />
-        </>
-      )}
-      <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
-        {cart.map((item) => (
-          <ProductCartTableItem
-            key={item.id}
-            cartItem={item}
-            isDesktop={false}
-            onQuantityChange={updateCart}
-            onRemove={updateCart}
-          />
-        ))}
-      </CollapsibleContent>
+
+      <div className="space-y-4 bg-white p-6 shadow-sm">
+        {cartItemsPrice > 0 && (
+          <>
+            <h2 className="mb-4 hidden text-xl font-semibold text-gray-900 md:block">
+              {t('inTheCart')}
+            </h2>
+            <div className="divide-y divide-grey-light overflow-hidden rounded-lg border border-grey-light">
+              <TitleWithValue title={t('toPay')} value={cartItemsPrice} />
+              <TitleWithValue title={t('delivery')} value={deliveryPrice} />
+              <TitleWithValue title={t('total')} value={totalPrice} />
+            </div>
+          </>
+        )}
+        <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
+          {cart.map((item) => (
+            <ProductCartTableItem
+              key={item.id}
+              cartItem={item}
+              isDesktop={false}
+              onQuantityChange={updateCart}
+              onRemove={updateCart}
+            />
+          ))}
+        </CollapsibleContent>
+      </div>
     </Collapsible>
   );
 }
@@ -73,9 +80,9 @@ export function TitleWithValue({
   value: number;
 }) {
   return (
-    <div className="flex justify-between">
-      <p className="paragraph-1">{title}</p>
-      <Price className="heading-5" value={value} />
+    <div className="flex items-center justify-between bg-white px-4 py-3">
+      <p className="text-sm text-gray-600">{title}</p>
+      <Price className="text-base font-medium text-gray-900" value={value} />
     </div>
   );
 }

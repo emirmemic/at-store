@@ -10,6 +10,7 @@ import { StrapiImage } from '@/components/strapi/components';
 import { cn } from '@/lib/utils/utils';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { useTranslations } from 'next-intl';
+import { motion } from 'framer-motion';
 
 interface DesktopListProps {
   menuItem: NavMenuItem;
@@ -62,14 +63,14 @@ export default function ListItem({
       >
         {menuItem.subItems && menuItem.subItems.length > 0 ? (
           <button
-            className="lg:text-md flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4"
+            className="lg:text-md flex h-full items-center rounded-xl px-2 text-black transition-colors duration-300 navigation hover:bg-gray-200 lg:px-4"
             onClick={handleClick}
           >
             {menuItem.displayName || menuItem.name}
           </button>
         ) : (
           <Link
-            className="lg:text-md flex h-full items-center px-2 text-black transition-colors duration-300 navigation hover:bg-white lg:px-4"
+            className="lg:text-md hover:gray-200 ronded-xl flex h-full items-center px-2 text-black transition-colors duration-300 navigation lg:px-4"
             href={menuItem.link}
             onClick={handleOutsideClick}
           >
@@ -80,17 +81,35 @@ export default function ListItem({
       <DesktopPopup className="px-12" isActive={isActive}>
         <div
           ref={outsideRef}
-          className="border-white- mx-auto flex w-fit flex-col gap-2 rounded-3xl border-2 bg-white/90 px-6 py-3"
+          className="border-white- mx-auto flex w-fit flex-col gap-1 rounded-3xl border-2 bg-white/90 px-6 py-3"
         >
-          <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+          <motion.ul
+            className="grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-12"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
             {menuItem?.subItems?.map((sub) => (
-              <li key={sub.id}>
+              <motion.li
+                key={sub.id}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+              >
                 <Link
-                  className="hover:text-grey-white flex flex-col items-center gap-2 transition-colors duration-300 paragraph-4 active:scale-95"
+                  className="hover:text-grey-white flex flex-col items-center gap-2 pt-3 transition-colors duration-300 paragraph-4 active:scale-95"
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >
-                  <span className="h-16 w-24 overflow-hidden">
+                  <span className="h-12 w-24 overflow-hidden">
                     {sub.icon && (
                       <StrapiImage
                         alt={sub.icon.alternativeText || sub.displayName}
@@ -105,9 +124,9 @@ export default function ListItem({
                   </span>
                   {sub.displayName}
                 </Link>
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
           <div className="mt-8 w-fit rounded-xl bg-white p-2">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
               <DesktopInfoCard

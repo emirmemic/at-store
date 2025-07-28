@@ -294,19 +294,14 @@ export default function Page() {
   return (
     <main className="w-full py-12 md:py-16 lg:py-16">
       <div className="w-full py-10">
-        <div className="flex flex-col items-start justify-between gap-6 px-4 container-max-width md:flex-row md:items-center md:px-0">
+        <div className="flex flex-col gap-6 px-4 container-max-width md:flex-row md:items-center md:justify-between md:px-0">
           <div className="text-left">
             <h1 className="text-4xl font-bold md:text-5xl">
-              <span className="ml-[100px] text-teal-700">
-                Obrazovni popust.
-              </span>{' '}
-              <br></br>
-              <span className="ml-[100px] text-gray-900">
-                Učenje bez granica.
-              </span>{' '}
+              <span className="text-teal-700">Obrazovni popust.</span> <br></br>
+              <span className="text-gray-900">Učenje bez granica.</span>{' '}
             </h1>
           </div>
-          <div className="flex flex-col gap-4 text-right text-sm text-gray-700">
+          <div className="mt-2 flex flex-col gap-2 md:mt-0 md:flex-col">
             {/* Pomoć pri kupovini */}
             <div className="flex items-start gap-3">
               <div>
@@ -315,11 +310,11 @@ export default function Page() {
                 </span>
               </div>
               <div>
-                <h3 className="mr-[100px] text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-semibold text-gray-900">
                   Potrebna pomoć
                 </h3>
                 <a
-                  className="mr-[100px] text-sm text-blue-600 underline hover:text-blue-800"
+                  className="text-sm text-blue-600 underline hover:text-blue-800"
                   href="mailto:at@atstore.ba"
                 >
                   Kontaktirajte nas

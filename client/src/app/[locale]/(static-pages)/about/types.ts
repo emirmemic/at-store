@@ -26,6 +26,7 @@ interface ImageSectionItem {
 }
 
 interface InfoItem {
+  description?: any;
   id: number;
   placeId: string;
   title: string;

@@ -107,7 +107,7 @@ export default function Form() {
         )}
       </div>
       <div className="self-center md:hidden">
-        <p className="mt-8 text-center">{t('loginThrough')}</p>
+        <p className="mt-8 text-center text-black">{t('loginThrough')}</p>
         <div className="mt-4 flex gap-14">
           <OAuthButton provider="facebook" variant="icon" />
           <OAuthButton provider="apple" variant="icon" />

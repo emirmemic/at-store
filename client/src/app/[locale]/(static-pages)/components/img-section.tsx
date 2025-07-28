@@ -22,14 +22,8 @@ export default function ImgSection({
   index,
   errorMessage,
 }: Readonly<ImgSectionProps>) {
-  const reverseRow = index % 2 !== 0;
   return (
-    <div
-      className={cn(
-        'flex flex-col items-center gap-9 md:gap-11 lg:flex-row',
-        reverseRow && 'lg:flex-row-reverse'
-      )}
-    >
+    <div className="flex flex-col items-center gap-9 md:gap-11">
       <div
         className={cn(
           'w-full max-w-[300px] transition-transform duration-300 hover:scale-[1.02] md:max-w-[520px]',
@@ -50,17 +44,14 @@ export default function ImgSection({
 
       <div
         className={cn(
-          'text-bold flex flex-col items-center',
-          reverseRow
-            ? 'lg:mr-auto lg:items-start lg:text-left'
-            : 'lg:ml-auto lg:items-end lg:text-right',
-          description && 'text-center lg:w-1/2'
+          'text-bold flex flex-col items-start text-left',
+          description && 'w-full lg:w-1/2'
         )}
       >
         <h2
           className={cn(
-            'pb-3 heading-2 md:pb-12 lg:pb-6',
-            description && 'pb-7 heading-2 lg:pb-5'
+            'pb-3 heading-4 md:pb-12 lg:pb-6',
+            description && 'pb-7 heading-3 lg:pb-5'
           )}
         >
           {title}
@@ -68,7 +59,7 @@ export default function ImgSection({
         {description && <p className="bullet-1">{description}</p>}
         {content &&
           content.map((item, index) => (
-            <p key={index} className="bullet-1 md:paragraph-1">
+            <p key={index} className="bullet-1 md:paragraph-2">
               {item.path ? (
                 <Link
                   className="text-black underline transition-colors hover:text-black"

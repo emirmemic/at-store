@@ -1,11 +1,5 @@
 export const inputFields = [
   {
-    name: 'email',
-    type: 'email',
-    id: 'email',
-    solo: true,
-  },
-  {
     name: 'name',
     type: 'text',
     id: 'name',
@@ -19,6 +13,12 @@ export const inputFields = [
     name: 'address',
     type: 'text',
     id: 'address',
+    solo: true,
+  },
+  {
+    name: 'email',
+    type: 'email',
+    id: 'email',
     solo: true,
   },
   {

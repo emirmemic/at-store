@@ -76,7 +76,7 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
   return (
     <div
       className={cn(
-        'relative flex grow items-center justify-between gap-4 container-max-width',
+        'relative flex grow items-center justify-between gap-4 bg-white container-max-width',
         className
       )}
     >

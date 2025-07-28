@@ -9,7 +9,7 @@
       "description": "AT Store je prva Mono Apple Authorized Reseller trgovina u BiH. U ponudi su iPhone, iPad, iMac, MacBook Pro, MacBook Air… Mogućnost plaćanja na rate!"
     },
     "about": {
-      "title": "O Nama | AT Store",
+      "title": "O nama | AT Store",
       "description": "AT Store je prvi Mono Apple ovlašteni prodavač."
     },
     "login": {
@@ -127,7 +127,7 @@
   },
   "about": {
     "title": "O nama",
-    "paragraphHeading": "AT Store je prvi Mono Apple Authorized Reseller.",
+    "paragraphHeading": "AT Store je prvi Mono Apple Authorized Reseller u Bosni i Hercegovini.",
     "paragraph": "Posjetite našu trgovinu i sa našim certificiranim osobljem možete saznati kako vam Apple proizvodi i rješenja mogu olakšati svakodnevne obaveze. Naše osoblje vam je uvijek na usluzi i mi vam možemo pomoći koji Apple proizvod odabrati. Ako ste ljubitelj Apple uređaja, onda je AT Store mjesto koje ćete definitivno željeti posjetiti.",
     "cardBlockTitle": "Pridružnice",
     "cardBlock": {
@@ -977,7 +977,7 @@
     "inTheCart": "U korpi",
     "toPay": "Za platiti",
     "delivery": "Dostava",
-    "branchOffice": "Poslovnica",
+    "branchOffice": "Preuzimanje u poslovnici",
     "total": "Ukupno",
     "note": "Napomena",
     "preview": "Pregled",

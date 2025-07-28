@@ -53,7 +53,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
       >
         <h3 className="heading-5 lg:heading-4">{title}</h3>
         <p className="heading-6 lg:heading-6">{caption}</p>
-        <div className="flex flex-col items-center justify-center gap-2 py-8 sm:flex-row sm:gap-14">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-2 py-8 sm:gap-14">
           <LearnMoreDialog
             learnMoreVariant={learnMoreVariant}
             link={finalLink}
@@ -61,10 +61,9 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           />
           <Button
             asChild
-            className="min-w-40"
-            size={'md'}
-            typography={'button2'}
-            variant={'filled'}
+            className="min-w-28 text-[13px] text-sm font-semibold md:min-w-40"
+            size="sm"
+            variant="filled"
           >
             <Link href={finalLink}>{t('buyNow')}</Link>
           </Button>
@@ -91,11 +90,10 @@ function LearnMoreDialog({
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className="min-w-40"
-          size={'md'}
+          className="min-w-28 text-[13px] text-sm font-semibold md:min-w-40"
+          size="sm"
           transparentVariant={learnMoreVariant}
-          typography={'button2'}
-          variant={'transparent'}
+          variant="transparent"
         >
           {t('common.learnMore')}
         </Button>

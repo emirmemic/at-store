@@ -37,9 +37,9 @@ export default function Page() {
           <OAuthButton provider="apple" />
           <OAuthButton provider="google" />
         </div>
-        <IconAtStoreLogo className="h-8 w-36 md:hidden" />
+        <IconAtStoreLogo className="h-8 w-36 text-black md:hidden" />
         <Title
-          className="mb-8 md:hidden"
+          className="mb-8 text-black md:hidden"
           linkPath={PAGE_NAMES.REGISTER}
           linkText={t('registerPrompt')}
           subtitle={t('subtitle')}

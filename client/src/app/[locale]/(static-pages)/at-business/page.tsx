@@ -1,32 +1,54 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { IconAtBusiness } from '../icons';
 import Link from 'next/link';
 import { getImgSectionInfo } from './data';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from 'framer-motion';
+import { useRef } from 'react';
 
-interface GenerateMetadataParams {
-  params: Promise<{ locale: string }>;
-}
-export async function generateMetadata({ params }: GenerateMetadataParams) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metaData' });
-  return {
-    title: t('atBusiness.title'),
-    description: t('atBusiness.description'),
-    openGraph: {
-      title: t('atBusiness.title'),
-      description: t('atBusiness.description'),
-    },
-  };
-}
+// interface GenerateMetadataParams {
+//   params: Promise<{ locale: string }>;
+// }
+// export async function generateMetadata({ params }: GenerateMetadataParams) {
+//   const { locale } = await params;
+//   const t = await getTranslations({ locale, namespace: 'metaData' });
+//   return {
+//     title: t('atBusiness.title'),
+//     description: t('atBusiness.description'),
+//     openGraph: {
+//       title: t('atBusiness.title'),
+//       description: t('atBusiness.description'),
+//     },
+//   };
+// }
 export default function AtBusinessPage() {
   const t = useTranslations();
   const imgSectionInfo = getImgSectionInfo(t);
   const sectionBaseStyles =
     'rounded-2xl bg-gradient-to-br from-gray-900 via-gray-800 to-black shadow-popup-black';
+
+  // Individual refs and transforms for each parallax image
+  const bannerRef = useRef(null);
+  const macRef = useRef(null);
+  const iphoneRef = useRef(null);
+  const ipadRef = useRef(null);
+
+  const { scrollY } = useScroll();
+  const bannerY = useTransform(scrollY, [0, 300], [0, -100]);
+  const macY = useTransform(scrollY, [300, 900], [0, -100]);
+  const iphoneY = useTransform(scrollY, [900, 1500], [0, -100]);
+  const ipadY = useTransform(scrollY, [1500, 2100], [0, -100]);
+
   return (
-    <div className="relative overflow-hidden bg-black text-white">
+    <motion.div className="relative overflow-hidden bg-black text-white">
       <main className="flex flex-col px-6 py-16 container-max-width md:px-16">
         {/* HERO SECTION */}
         <section className="mb-12 flex flex-col-reverse items-center gap-12 rounded-lg border-b border-gray-700 bg-black/50 pb-12 backdrop-blur-sm md:flex-row md:gap-10">
@@ -45,10 +67,12 @@ export default function AtBusinessPage() {
         </section>
 
         <div className="w-full">
-          <img
+          <motion.img
             alt="Business Banner"
             className="h-auto w-full rounded-3xl object-cover shadow-lg"
             src="/assets/images/business-hero.png"
+            ref={bannerRef}
+            style={{ y: bannerY }}
           />
         </div>
         {/* WHY CHOOSE US SECTION */}
@@ -160,16 +184,18 @@ export default function AtBusinessPage() {
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">
               Mac za poslovne korisnike
             </h2>
-            <p className="text-lg text-gray-300 md:text-xl">
+            <p className="pb-[100px] text-lg text-gray-300 md:text-xl">
               Brzina, pouzdanost i moć — savršeno za svakodnevne poslovne
               izazove.
             </p>
           </div>
           <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
-            <img
+            <motion.img
               alt="Mac za poslovne korisnike"
               className="h-auto w-full object-cover"
               src="/assets/images/mac_b2b.png"
+              ref={macRef}
+              style={{ y: macY }}
             />
           </div>
 
@@ -251,14 +277,16 @@ export default function AtBusinessPage() {
               <h2 className="mb-4 text-3xl font-bold md:text-4xl">
                 iPhone u poslovanju
               </h2>
-              <p className="text-lg text-gray-300 md:text-xl">
+              <p className="pb-[100px] text-lg text-gray-300 md:text-xl">
                 Sigurnost i mobilnost uz najpametniji telefon na tržištu.
               </p>
             </div>
-            <img
+            <motion.img
               alt="iPhone u poslovanju"
               className="h-auto w-full object-cover"
               src="assets/images/iphone-b2b.png"
+              ref={iphoneRef}
+              style={{ y: iphoneY }}
             />
           </div>
           <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen">
@@ -266,14 +294,16 @@ export default function AtBusinessPage() {
               <h2 className="mb-4 text-3xl font-bold md:text-4xl">
                 iPad za produktivnost
               </h2>
-              <p className="text-lg text-gray-300 md:text-xl">
+              <p className="pb-[100px] text-lg text-gray-300 md:text-xl">
                 Fleksibilnost tableta uz moć laptopa u vašem poslovanju.
               </p>
             </div>
-            <img
+            <motion.img
               alt="iPad za produktivnost"
               className="h-auto w-full object-cover"
               src="assets/images/ipad-b2b-2.jpg"
+              ref={ipadRef}
+              style={{ y: ipadY }}
             />
           </div>
         </section>
@@ -429,6 +459,6 @@ export default function AtBusinessPage() {
           </div>
         </section>
       </main>
-    </div>
+    </motion.div>
   );
 }

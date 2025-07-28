@@ -93,9 +93,9 @@ export default function Page() {
               slučajno? Imaš problem i trebaš pomoć? Sve 5!
             </p>
           </div>
-          <div className="mb-10 flex gap-10">
+          <div className="mb-10 flex flex-col gap-6 md:flex-row">
             <Link
-              className="flex flex-1 flex-col rounded-2xl bg-gradient-to-b from-[#e55451] to-[#cd1c18] p-8 shadow-lg transition-transform duration-300 hover:-translate-y-1"
+              className="flex w-full flex-1 flex-col rounded-2xl bg-gradient-to-b from-[#e55451] to-[#cd1c18] p-8 shadow-lg transition-transform duration-300 hover:-translate-y-1"
               href={cards[0].link}
               target={cards[0].target}
             >
@@ -111,7 +111,7 @@ export default function Page() {
               </p>
             </Link>
             <Link
-              className="flex flex-1 flex-col rounded-2xl bg-gradient-to-b from-[#003366] to-[#0f52ba] p-8 shadow-lg transition-transform duration-300 hover:-translate-y-1"
+              className="flex w-full flex-1 flex-col rounded-2xl bg-gradient-to-b from-[#003366] to-[#0f52ba] p-8 shadow-lg transition-transform duration-300 hover:-translate-y-1"
               href={cards[1].link}
               target={cards[1].target}
             >
@@ -155,7 +155,7 @@ export default function Page() {
             {t('supportPage.chatWithExpert')}
           </h3>
 
-          <div className="mt-12 grid grid-cols-3 gap-6">
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-3">
             {/* Prva kartica - crvenkasta */}
             <Link
               className="flex cursor-pointer flex-col rounded-xl bg-gray-800 p-6 shadow-md transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"

@@ -9,14 +9,14 @@ import IconAtSoft from '../icons/at-soft';
 export const getCardBlocks = (t: (key: string) => string) => [
   {
     title: t('about.cardBlock.title1'),
-    name: 'AtSoft',
+    name: 'ATSoft',
     Icon: IconAtSoft,
     path: 'https://www.atsofts.com' as Pathname,
     id: 1,
   },
   {
     title: t('about.cardBlock.title2'),
-    name: 'AtBusiness',
+    name: 'ATBusiness',
     Icon: IconAtBusiness,
     path: PAGE_NAMES.B2B,
     id: 2,

@@ -10,14 +10,14 @@ export default function TeamCard(member: TeamMember) {
   const { firstName, surname, image, position } = member;
   const imageUrl = getStrapiMedia(image?.url || '') || '';
   return (
-    <div className="flex w-56 flex-col items-center text-center">
+    <div className="mx-auto flex w-56 flex-col items-center justify-center text-center">
       <Avatar className="mb-3 h-32 w-32 md:h-36 md:w-36">
         <AvatarImage alt={image?.alternativeText || ''} src={imageUrl} />
         <AvatarFallback>
           <IconAvatar className="h-32 w-32 md:h-36 md:w-36" />
         </AvatarFallback>
       </Avatar>
-      <p className="mb-2 heading-4 md:heading-3">
+      <p className="mb-2 heading-5 md:heading-4">
         <span>{firstName}</span>
         <br />
         <span>{surname}</span>

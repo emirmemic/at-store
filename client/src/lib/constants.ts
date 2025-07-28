@@ -18,9 +18,9 @@ export const MINIMUM_AMOUNT_FREE_DELIVERY = 400;
 export const DELIVERY_COST = 0.1;
 
 export const STORES = [
-  { code: 'AT Store (SCC)', name: 'Sarajevo SCC' },
-  { code: 'AT Store (ALTA)', name: 'Sarajevo Alta' },
-  { code: 'AT Store (DELTA)', name: 'Banja Luka' },
+  { code: 'AT Store (SCC)', name: 'AT Store SCC Sarajevo' },
+  { code: 'AT Store (ALTA)', name: 'AT Store Alta Sarajevo' },
+  { code: 'AT Store (DELTA)', name: 'AT Store Delta Banja Luka' },
 ] as const;
 
 export type Store = (typeof STORES)[number];

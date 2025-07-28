@@ -84,7 +84,7 @@ const MobileCartItem = ({
   return (
     <div className="flex flex-col gap-2 border-b border-grey-light py-4 heading-5">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex w-full flex-col items-center gap-3 sm:flex-row">
           <ImageContainer image={image} product={product} />
           <div className="flex flex-col gap-3">
             <Link className="hover:underline" href={finalLink}>
@@ -95,7 +95,7 @@ const MobileCartItem = ({
         </div>
         <CloseButton onClick={onRemove} />
       </div>
-      <div className="flex w-full items-center justify-between gap-4">
+      <div className="flex w-full flex-col items-start gap-4 text-left sm:flex-row sm:items-center sm:justify-between">
         <CounterInput
           max={product.amountInStock}
           min={1}

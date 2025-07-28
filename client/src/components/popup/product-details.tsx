@@ -40,7 +40,7 @@ export default function ProductDetailsPopup({
       )}
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="text-grey-darker paragraph-2">
+          <Button className="text-blue paragraph-2">
             {t('common.viewDetails')}
             <IconChevron className="-rotate-90" size={12} />
           </Button>

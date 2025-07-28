@@ -41,7 +41,7 @@ export default function MostSoldSection() {
 
   return (
     <section className="py-2 container-max-width-xl">
-      <p className="pb-4 pt-12 heading-2">{t('cartPage.mostSold')}</p>
+      <p className="pb-4 heading-3">{t('cartPage.mostSold')}</p>
       <Carousel
         className="w-full"
         opts={{

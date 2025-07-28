@@ -48,7 +48,7 @@ export default function OAuthButton({
             'flex w-full min-w-[300px] items-center justify-center gap-2.5 rounded-2xl p-2.5 text-center capitalize',
             provider === 'facebook' ? 'bg-blue' : '',
             provider === 'google' ? 'bg-gray-200 text-black' : '',
-            provider === 'apple' ? 'bg-grey-darkest' : ''
+            provider === 'apple' ? 'bg-gray-400 text-black' : ''
           )}
           href={url.href}
         >
