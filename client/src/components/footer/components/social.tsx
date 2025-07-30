@@ -69,7 +69,7 @@ export default function FooterSocial() {
   const t = useTranslations('footer');
 
   return (
-    <div className="flex items-center gap-6 pl-2 text-gray-500 md:flex-col md:gap-2">
+    <div className="flex items-center gap-6 px-4 text-gray-500 md:flex-col md:gap-2">
       <Link href="/">
         <span className="sr-only">{t('homePage')}</span>
         <IconAtStoreLogo className="h-8 w-36" />

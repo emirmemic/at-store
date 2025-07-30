@@ -22,7 +22,7 @@ import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { cn } from '@/lib/utils/utils';
 
 const iconClasses =
-  'text-white transition-colors duration-300 group-hover:text-grey-medium';
+  'text-black transition-colors duration-300 group-hover:text-grey-medium';
 const linkClasses =
   'group flex items-center gap-2 transition-colors duration-300 heading-5 hover:text-grey-medium';
 
@@ -55,7 +55,7 @@ interface LoggedInAccountProps {
 
 const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
   <>
-    <div className="item flex items-start justify-between gap-2 p-4">
+    <div className="item flex items-start justify-between gap-2 bg-white p-4 text-black">
       <UserAvatar closeMenu={closePopup} />
       <Button
         aria-label={t('navbar.closeMenu')}
@@ -63,11 +63,11 @@ const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
         title={t('navbar.closeMenu')}
         onClick={closePopup}
       >
-        <IconClose className="text-white transition-colors duration-300 group-hover:text-grey-medium" />
+        <IconClose className="text-black transition-colors duration-300 group-hover:text-grey-medium" />
       </Button>
     </div>
-    <div className="h-0.5 w-full bg-grey-darker"></div>
-    <ul className="flex flex-col gap-3 px-4 pb-9 pt-6">
+    <div className="h-0.5 w-full bg-gray-300"></div>
+    <ul className="flex flex-col gap-3 bg-white px-4 pb-9 pt-6">
       <DesktopAccountItem
         href={PAGE_NAMES.ACCOUNT_DASHBOARD}
         icon={IconAccount}

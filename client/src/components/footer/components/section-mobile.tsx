@@ -18,10 +18,10 @@ export default function SectionMobile({
   onToggle,
 }: SectionMobileProps) {
   return (
-    <div className="border-t border-grey-light">
+    <div className="px-4">
       <Collapsible key={section.id} open={isActive} onOpenChange={onToggle}>
         <CollapsibleTrigger className="flex w-full items-center justify-between border-b border-grey-light px-4 py-3 text-gray-500">
-          <span className="heading-5">{section.title}</span>
+          <span className="heading-6">{section.title}</span>
           <IconChevron
             className={`transition-transform duration-300 ${
               isActive ? 'rotate-180' : 'rotate-0'
@@ -34,7 +34,7 @@ export default function SectionMobile({
             {section.items.map((item) => (
               <li key={item.id}>
                 <Link
-                  className="transition-color text-gray-500 paragraph-2 hover:text-grey"
+                  className="transition-color text-gray-500 paragraph-4 hover:text-grey"
                   href={item.path}
                   target={item.target ?? undefined}
                 >

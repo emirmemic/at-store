@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
+import Link from 'next/link';
 
 import { InfoBlock } from '@/components';
 import { ProductsList } from '@/components/product-cards';
@@ -67,23 +68,48 @@ export default async function Page() {
   const products = featuredProducts?.products || [];
 
   return (
-    <div className="flex flex-col gap-16 py-10 md:py-14">
-      <h1 className="text-center heading-1 container-max-width">
-        {t('title')}
-      </h1>
-      <PromoSliderWrapper className="container-max-width-xl" />
-      <CurrentPromotions className="pl-6 container-max-width-lg md:pl-12" />
+    <div className="flex flex-col gap-12 bg-white py-12 md:py-20">
+      {/* Hero naslov */}
+      <section className="px-6 text-center container-max-width md:px-16">
+        <h1 className="mb-8 heading-1">{t('title')}</h1>
+        <p className="mx-auto max-w-2xl text-lg text-gray-600">
+          Uživaj u ekskluzivnim promocijama – samo ograničeno vrijeme.
+        </p>
+      </section>
 
+      {/* Sekcija: Izdvojeni uređaji */}
       {products && products.length > 0 && (
-        <section className="py-12 container-max-width md:py-16">
-          {featuredProducts?.sectionTitle && (
-            <h2 className="pb-12 text-center heading-1 md:pb-14">
-              {featuredProducts?.sectionTitle}
-            </h2>
-          )}
-          <ProductsList products={products} />
+        <section className="px-6 container-max-width md:px-16">
+          <h2 className="mb-8 text-left heading-4">
+            Izdvojeni uređaji na promociji
+          </h2>
+          <ProductsList products={products} className="mt-4" />
         </section>
       )}
+
+      {/* Aktuelne promocije - Full width */}
+      <section className="mb-8 w-full px-10">
+        <CurrentPromotions className="w-full" />
+      </section>
+
+      {/* Promo Slider */}
+      <section className="container-max-width-xl">
+        <PromoSliderWrapper />
+      </section>
+      <section className="bg-white py-24 text-center">
+        <h2 className="mb-4 text-3xl font-bold text-gray-900">
+          Spremni za novu Apple avanturu?
+        </h2>
+        <p className="mb-8 text-lg text-gray-600">
+          Posjeti najbližu AT Store poslovnicu ili naruči online.
+        </p>
+        <Link
+          href="/find-store"
+          className="inline-block rounded-full bg-black px-6 py-3 text-white transition hover:bg-gray-800"
+        >
+          Pronađi poslovnicu
+        </Link>
+      </section>
     </div>
   );
 }

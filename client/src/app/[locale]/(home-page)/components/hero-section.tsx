@@ -103,7 +103,7 @@ export default function HeroSection({
   }, [api, isAutoplayActive, sliderItems]);
 
   return (
-    <header className={cn('relative w-full', className)}>
+    <header className={cn('relative min-h-[200px] w-full', className)}>
       <Carousel
         className="w-full"
         opts={{
@@ -113,7 +113,7 @@ export default function HeroSection({
         setApi={setApi}
         onSlideChange={handleSlideChange}
       >
-        <CarouselContent className="m-0 aspect-video h-full w-full md:aspect-[2.6]">
+        <CarouselContent className="m-0 h-[250px] w-full md:h-[600px]">
           {sliderItems.map((slide) => (
             <CarouselItem key={slide.id} className="h-full w-full p-0">
               <SliderItem {...slide} />

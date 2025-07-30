@@ -79,10 +79,10 @@ export default function Page() {
   return (
     <main className="pb-16 pt-12 container-max-width">
       <header className="mb-16 text-center">
-        <h1 className="pb-5 heading-1 md:pb-8 md:heading-2 lg:pb-12 lg:heading-1">
+        <h1 className="pb-5 heading-3 md:pb-8 md:heading-2 lg:pb-12 lg:heading-1">
           {t('complaintsPage.title')}
         </h1>
-        <h2 className="heading-4 md:bullet-heading-1 lg:heading-3">
+        <h2 className="heading-5 md:bullet-heading-1 lg:heading-3">
           {t('complaintsPage.formTitle')}
         </h2>
       </header>

@@ -149,7 +149,7 @@ export default function Filters({
   };
 
   return (
-    <aside className={cn('flex h-fit flex-col gap-6 px-2', className)}>
+    <aside className={cn('flex h-fit flex-col gap-4 px-2 md:gap-6', className)}>
       {/* Reset button */}
       <AnimateAppearance
         className="flex w-full justify-center"
@@ -160,7 +160,7 @@ export default function Filters({
         }
       >
         <Button
-          className="rounded-xl bg-black px-4 py-2 text-white transition-colors hover:bg-neutral-900"
+          className="rounded-xl bg-black px-3 py-1.5 text-sm text-white transition-colors hover:bg-neutral-900 md:px-4 md:py-2 md:text-base"
           size="sm"
           onClick={resetFilters}
         >
@@ -168,10 +168,10 @@ export default function Filters({
         </Button>
       </AnimateAppearance>
 
-      <div className="flex w-full flex-wrap justify-start gap-4 md:flex-col">
+      <div className="flex w-full flex-wrap justify-start gap-3 sm:gap-4 md:flex-col">
         {/* Colors */}
         <FilterItem
-          className="w-36 md:w-full"
+          className="w-32 sm:w-36 md:w-full"
           isLoading={isLoading}
           items={colors}
           selectedItems={selectedColors}
@@ -181,7 +181,7 @@ export default function Filters({
 
         {/* Brands */}
         <FilterItem
-          className="w-36 md:w-full"
+          className="w-32 sm:w-36 md:w-full"
           isLoading={isLoading}
           items={brands}
           selectedItems={selectedBrands}
@@ -191,7 +191,7 @@ export default function Filters({
 
         {/* Materials */}
         <FilterItem
-          className="w-36 md:w-full"
+          className="w-32 sm:w-36 md:w-full"
           isLoading={isLoading}
           items={materials}
           selectedItems={selectedMaterials}

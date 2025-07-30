@@ -296,7 +296,7 @@ export default function Page() {
       <div className="w-full py-10">
         <div className="flex flex-col gap-6 px-4 container-max-width md:flex-row md:items-center md:justify-between md:px-0">
           <div className="text-left">
-            <h1 className="text-4xl font-bold md:text-5xl">
+            <h1 className="text-3xl font-bold md:text-5xl">
               <span className="text-teal-700">Obrazovni popust.</span> <br></br>
               <span className="text-gray-900">Učenje bez granica.</span>{' '}
             </h1>

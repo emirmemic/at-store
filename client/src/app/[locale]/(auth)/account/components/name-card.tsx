@@ -23,7 +23,7 @@ export default function NameCard({ className }: { className?: string }) {
       </Avatar>
       <div className="flex w-full flex-col items-center justify-center text-center md:max-w-[200px]">
         <p className="bullet-1 md:paragraph-1">{`${t('hi')},`}</p>
-        <p className="break-all bullet-heading-1 md:heading-4">
+        <p className="break-all bullet-heading-2 md:heading-4">
           {name ? name + ` ${surname}` : email}
         </p>
       </div>

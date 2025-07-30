@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IconAtStoreLogo } from '@/components/icons';
 import { TypeAnimation } from 'react-type-animation';
+import dynamic from 'next/dynamic';
+const CurrentPromotions = dynamic(
+  () =>
+    import(
+      '@/components/strapi/single-types/current-promotions/current-promotions'
+    ),
+  { ssr: true }
+);
 
 export default function AtStoreSundays() {
   return (
@@ -14,7 +22,7 @@ export default function AtStoreSundays() {
           <TypeAnimation
             repeat={1}
             sequence={['Sundays']}
-            speed={50}
+            speed={10}
             style={{ fontSize: '2em', display: 'inline-block' }}
             wrapper="span"
           />
@@ -22,24 +30,6 @@ export default function AtStoreSundays() {
         <p className="mt-2 text-center text-base font-medium text-white">
           Posebna ponuda svake nedjelje u Delta Shopping Centru
         </p>
-      </div>
-      <div className="w-full overflow-hidden rounded-xl">
-        <Image
-          src="/assets/images/delta1.jpg"
-          alt="Nedjeljna promocija"
-          width={1200}
-          height={600}
-          className="h-auto w-full object-cover"
-        />
-      </div>
-      <div className="w-full overflow-hidden rounded-xl">
-        <Image
-          src="/assets/images/delta.jpg"
-          alt="Nedjeljna promocija"
-          width={1200}
-          height={600}
-          className="h-auto w-full object-cover"
-        />
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -133,6 +123,7 @@ export default function AtStoreSundays() {
             se pamti.
           </p>
         </div>
+
         <div className="w-full overflow-hidden rounded-xl md:w-1/2">
           <video
             className="mx-auto w-full max-w-sm rounded-lg"

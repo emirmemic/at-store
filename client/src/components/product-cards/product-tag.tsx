@@ -13,12 +13,14 @@ export default function ProductTag({
   return (
     <div
       className={cn(
-        'flex min-w-28 justify-center rounded-2xl bg-red-deep px-2',
+        'flex min-w-20 justify-center rounded-xl bg-red-deep px-1.5 py-0.5 sm:min-w-28 sm:rounded-2xl sm:px-2 sm:py-1.5',
         className
       )}
       {...props}
     >
-      <p className="capitalize text-white heading-5">{tag}</p>
+      <p className="text-xs font-medium capitalize text-white sm:text-sm">
+        {tag}
+      </p>
     </div>
   );
 }

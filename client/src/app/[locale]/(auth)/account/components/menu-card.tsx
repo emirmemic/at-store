@@ -22,53 +22,62 @@ export default function MenuCard({ className }: { className?: string }) {
     'text-black transition-colors duration-300 group-hover:text-grey-medium';
   const menuItems = getMenuItems(t);
   return (
-    <CardContainer
-      className={cn(
-        'flex flex-col gap-5 p-9',
-        className,
-        pathName !== PAGE_NAMES.ACCOUNT && 'hidden flex-col gap-5 p-9 md:flex'
-      )}
-    >
-      {menuItems.map((item) => {
-        const isActive = item.href === pathName;
-        return (
-          <Link
-            key={item.id}
-            className={cn(
-              'flex gap-5 transition-all duration-300 paragraph-1 hover:text-grey-darker',
-              { '!font-bold': isActive }
-            )}
-            href={item.href}
-          >
-            <item.Icon size={30} />
-            <span>{item.label}</span>
-          </Link>
-        );
-      })}
-      <LogoutButton className="mx-auto flex w-fit flex-col">
-        {({ isLoading, error }) => (
-          <>
-            <span
-              className={cn(buttonClasses, {
-                'opacity-50': isLoading,
-              })}
-            >
-              {isLoading ? (
-                <>
-                  <IconLoader className={iconClasses} size={30} />
-                  {t('login.loggingOut')}
-                </>
-              ) : (
-                <>
-                  <IconLogout className={iconClasses} size={30} />
-                  {t('login.logout')}
-                </>
-              )}
-            </span>
-            {error && <span className="paragraph-1">{error}</span>}
-          </>
+    <>
+      <div className="text-center text-xl font-semibold text-black md:hidden"></div>
+      <CardContainer
+        className={cn(
+          'flex flex-col gap-2 rounded-3xl bg-white/60 p-6 shadow-xl backdrop-blur-md',
+          className,
+          pathName !== PAGE_NAMES.ACCOUNT && 'hidden md:flex'
         )}
-      </LogoutButton>
-    </CardContainer>
+      >
+        {menuItems.map((item) => {
+          const isActive = item.href === pathName;
+          return (
+            <Link
+              key={item.id}
+              className={cn(
+                'flex items-center gap-4 rounded-xl bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white/70 hover:text-black',
+                {
+                  'font-semibold text-black': isActive,
+                  'text-grey-darker': !isActive,
+                }
+              )}
+              href={item.href}
+            >
+              <item.Icon size={30} />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
+        <LogoutButton className="w-full">
+          {({ isLoading, error }) => (
+            <>
+              <span
+                className={cn(
+                  'flex items-center gap-4 rounded-xl bg-white/40 px-4 py-3 text-black transition-all duration-300 hover:bg-white/70',
+                  {
+                    'opacity-50': isLoading,
+                  }
+                )}
+              >
+                {isLoading ? (
+                  <>
+                    <IconLoader className={iconClasses} size={30} />
+                    {t('login.loggingOut')}
+                  </>
+                ) : (
+                  <>
+                    <IconLogout className={iconClasses} size={30} />
+                    {t('login.logout')}
+                  </>
+                )}
+              </span>
+              {error && <span className="paragraph-1">{error}</span>}
+            </>
+          )}
+        </LogoutButton>
+      </CardContainer>
+    </>
   );
 }

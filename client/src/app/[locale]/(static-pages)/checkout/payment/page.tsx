@@ -118,21 +118,29 @@ export default function CheckoutPaymentPage() {
             {t('paymentPage.title')}
           </p>
           {paymentMethods.map((method) => (
-            <Checkbox
-              key={method.method}
-              checked={paymentMethod === method.method}
-              className="bg-white"
-              defaultChecked={paymentMethod === method.method}
-              labelClassName="flex items-center gap-6 cursor-pointer hover:text-grey-dark transition-colors duration-300"
-              name={method.method}
-              onCheckedChange={() =>
-                setPaymentMethod(
-                  paymentMethod === method.method ? null : method.method
-                )
-              }
-            >
-              <span>{method.title}</span>
-            </Checkbox>
+            <div key={method.method}>
+              <Checkbox
+                checked={paymentMethod === method.method}
+                className="bg-white"
+                defaultChecked={paymentMethod === method.method}
+                labelClassName="flex items-center gap-6 cursor-pointer hover:text-grey-dark transition-colors duration-300"
+                name={method.method}
+                onCheckedChange={() =>
+                  setPaymentMethod(
+                    paymentMethod === method.method ? null : method.method
+                  )
+                }
+              >
+                <span>{method.title}</span>
+              </Checkbox>
+              {method.method === 'card' && (
+                <p className="mt-2 text-sm text-gray-500">
+                  Ukoliko želite platiti na rate, moguće je jedino ukoliko
+                  koristite UniCredit Shopping karticu i da je narudžba preko
+                  399 KM.
+                </p>
+              )}
+            </div>
           ))}
           {paymentMethod === 'cash' && <PaymentOnDelivery />}
           {paymentMethod === 'card' && (

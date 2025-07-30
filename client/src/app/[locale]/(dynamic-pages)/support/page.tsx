@@ -54,7 +54,7 @@ export default function Page() {
     <div className="bg-gray-50">
       <div className="max-w-8xl mx-auto px-4 py-4 lg:py-6">
         <div className="mb-4 flex flex-col items-center gap-4 rounded-3xl px-6 py-6 text-center md:mb-12">
-          <h1 className="text-gray-900 heading-2 md:heading-1">
+          <h1 className="text-gray-900 heading-4 md:heading-1">
             {t('supportPage.title')}
           </h1>
           <p className="text-red-deep heading-4">{t('supportPage.needHelp')}</p>
@@ -151,7 +151,7 @@ export default function Page() {
         </div>
 
         <div className="mx-auto max-w-6xl px-4 py-16">
-          <h3 className="mb-14 text-center heading-2 md:heading-1">
+          <h3 className="mb-14 text-center heading-4 md:heading-2">
             {t('supportPage.chatWithExpert')}
           </h3>
 
@@ -223,7 +223,7 @@ export default function Page() {
 
         <section className="mx-auto max-w-4xl px-6 py-16" id="faq-section">
           <h2
-            className="mb-16 text-center text-5xl font-extralight tracking-tight text-gray-900"
+            className="mb-16 text-center text-3xl font-extralight tracking-tight text-gray-900"
             style={{
               fontFamily:
                 '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif',

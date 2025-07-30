@@ -847,8 +847,10 @@
   "whyMacPage": {
     "title": "Zašto Mac?",
     "switchToMac": {
-      "text1": "Toliko je razloga",
-      "text2": "da pređeš na Mac."
+      "text1": "Toliko je razloga da pređeš na Mac.",
+      "text2": "Intuitivan. Nevjerojatno moćan. Dizajniran za posao, stvaranje i zabavu kakvu nisi ni sanjao. Prepun je aplikacija i spreman je za korištenje odmah po vađenju iz kutije.",
+      "text3": "Svaki je početak lak.",
+      "text4": "Instalacija Mac računala ne mora biti složena. Samo se prijavi u svoj iCloud račun i tvoj će Mac preuzeti podatke s tvojeg iPhonea ili iPada. Pomoćnik za prijenos podataka pomaže ti da brzo prebaciš postavke, korisničke račune i druge sadržaje. Ako imaš pitanja ili zatrebaš savjet, navrati u našu trgovinu gdje će ti pomoći obučeno osoblje. Dostupni smo za sva pitanja unutar 90 dana od kupnje proizvoda."
     },
     "whyBuyMac": "Lako se uči. Zapanjujuće moćan. I dizajniran da vam omogući da radite, igrate se i stvarate na načine koje niste zamislili. To je računar koji dolazi prepun aplikacija koje su spremne čim otvorite kutiju. Besplatna, redovna ažuriranja softvera održavaju stvari ažuriranim i neometanim radom. A ako već imate iPhone, osjećat ćete se poznatim od trenutka kada ga uključite.",
     "macCanDoIt": "Mac to može.",

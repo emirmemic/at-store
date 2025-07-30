@@ -51,7 +51,7 @@ export default function SubProductCard({
 
         {onClick ? (
           <Button
-            className="w-fit rounded-xl bg-blue px-5 py-2.5 text-white transition-colors hover:bg-blue-900"
+            className="w-fit rounded-3xl bg-blue px-5 py-2.5 text-white transition-colors hover:bg-blue-900"
             size={'md'}
             variant={'filled'}
             onClick={onClick}
@@ -61,7 +61,7 @@ export default function SubProductCard({
         ) : (
           <Button
             asChild
-            className="w-fit rounded-xl bg-blue px-5 py-2.5 text-white transition-colors hover:bg-blue-900"
+            className="w-fit rounded-3xl bg-blue px-5 py-2.5 text-white transition-colors hover:bg-blue-900"
             size={'md'}
             variant={'filled'}
           >

@@ -424,7 +424,7 @@ export default function AtBusinessPage() {
 
         {/* FAQ SECTION */}
         <section className="mx-auto mt-20 w-full max-w-4xl px-6">
-          <h2 className="mb-8 text-center text-4xl text-white">
+          <h2 className="mb-8 text-center text-3xl text-white">
             Često postavljana pitanja
           </h2>
           <div className="space-y-4">

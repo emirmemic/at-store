@@ -74,7 +74,7 @@ export default function EducationalDiscountForm() {
 
   return (
     <form noValidate action={submitAction}>
-      <h2 className="pb-12 text-center heading-2">
+      <h2 className="pb-12 text-center heading-4">
         {t('educationalDiscountPage.formTitle')}
       </h2>
       <div className="flex w-full flex-col px-6 lg:grid lg:grid-cols-3 lg:justify-self-center lg:px-0">

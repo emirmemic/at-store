@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils/utils';
 export default function CardContainer({
   children,
   className = '',
-  bgColor = 'bg-grey-almost-white',
+  bgColor = 'bg-white/10',
 }: {
   children: React.ReactNode;
   className?: string;
@@ -14,7 +14,7 @@ export default function CardContainer({
   return (
     <div
       className={cn(
-        'rounded-2xl border border-grey-extra-light shadow-standard-black',
+        'border-gray/20 rounded-2xl border bg-white/10 shadow-md backdrop-blur-md',
         bgColor,
         className
       )}

@@ -8,13 +8,13 @@ interface GenerateMetadataParams {
 }
 export async function generateMetadata({ params }: GenerateMetadataParams) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'paymentMethods' });
+  const t = await getTranslations({ locale, namespace: 'paymentMethodsPage' });
   return {
-    title: t('paymentMethods.title'),
-    description: t('paymentMethods.description'),
+    title: t('title'),
+    description: t('description'),
     openGraph: {
-      title: t('paymentMethods.title'),
-      description: t('paymentMethods.description'),
+      title: t('title'),
+      description: t('description'),
     },
   };
 }
@@ -61,6 +61,16 @@ export default function PaymentMethods() {
               <p className="text-sm text-neutral-700">
                 {t(
                   'Dostupno samo u online trgovini. Plaćanje gotovinom prilikom preuzimanja.'
+                )}
+              </p>
+            </div>
+            <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
+              <h2 className="mb-2 text-xl font-semibold">
+                {t('Plaćanje na rate online')}
+              </h2>
+              <p className="text-sm text-neutral-700">
+                {t(
+                  'Plaćanje na rate online moguće je samo ukoliko koristite UniCredit Shopping Card i da je narudžba veća od 399 KM.'
                 )}
               </p>
             </div>
@@ -115,7 +125,7 @@ export default function PaymentMethods() {
             </p>
             <Link
               className="inline-block rounded-full bg-black px-6 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
-              href="/contact"
+              href="/support"
             >
               {t('Kontaktirajte nas')}
             </Link>
@@ -126,17 +136,17 @@ export default function PaymentMethods() {
             </h3>
             <ul className="space-y-3 text-center text-sm text-blue-600">
               <li>
-                <Link className="hover:underline" href="/faq/shipping">
+                <Link className="hover:underline" href="/delivery">
                   {t('Informacije o isporuci')}
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" href="/faq/returns">
+                <Link className="hover:underline" href="/complaints">
                   {t('Povrati i reklamacije')}
                 </Link>
               </li>
               <li>
-                <Link className="hover:underline" href="/faq/payment">
+                <Link className="hover:underline" href="/payment-methods">
                   {t('Načini plaćanja')}
                 </Link>
               </li>

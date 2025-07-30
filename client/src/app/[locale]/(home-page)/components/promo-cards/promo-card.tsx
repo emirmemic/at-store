@@ -34,7 +34,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   );
   return (
     <div className="relative w-full">
-      <div className="aspect-[4/3] min-h-[7.75rem] w-full min-w-[12.75rem] object-cover">
+      <div className="aspect-[3/4] min-h-[18rem] w-full object-cover sm:aspect-[4/3] sm:min-h-[15rem] sm:min-w-[14rem]">
         <StrapiImage
           priority
           alt={image?.alternativeText || name}
@@ -47,13 +47,13 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
       </div>
       <div
         className={cn(
-          'absolute inset-0 top-8 p-2 text-center',
+          'absolute inset-0 top-4 p-2 text-center',
           textColor === 'black' ? 'text-black' : 'text-white'
         )}
       >
         <h3 className="heading-5 lg:heading-4">{title}</h3>
         <p className="heading-6 lg:heading-6">{caption}</p>
-        <div className="flex flex-row flex-wrap items-center justify-center gap-2 py-8 sm:gap-14">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-2 pb-6 pt-2 sm:gap-14 sm:pt-4">
           <LearnMoreDialog
             learnMoreVariant={learnMoreVariant}
             link={finalLink}
@@ -61,7 +61,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           />
           <Button
             asChild
-            className="min-w-28 text-[13px] text-sm font-semibold md:min-w-40"
+            className="min-w-24 text-xs font-semibold md:min-w-40 md:text-sm"
             size="sm"
             variant="filled"
           >
@@ -90,7 +90,7 @@ function LearnMoreDialog({
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          className="min-w-28 text-[13px] text-sm font-semibold md:min-w-40"
+          className="min-w-24 text-xs font-semibold md:min-w-40 md:text-sm"
           size="sm"
           transparentVariant={learnMoreVariant}
           variant="transparent"
