@@ -225,6 +225,11 @@ export default function ProductDetails() {
                     Maestro, Visa, rate putem UniCredit banke.
                   </p>
                   <p className="text-sm text-grey-dark">
+                    <strong>Online plaćanje na rate:</strong> Online plaćanje na
+                    rate moguće je samo ukoliko koristite UniCredit Shopping
+                    Card i da je narudžba veća od 399 KM.
+                  </p>
+                  <p className="text-sm text-grey-dark">
                     <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za
                     brzi kredit bez odlaska u poslovnicu.
                   </p>
