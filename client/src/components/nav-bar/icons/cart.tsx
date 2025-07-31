@@ -13,7 +13,7 @@ export default function IconCart({
   return (
     <span className="relative">
       {itemsInCart > 0 && (
-        <span className="absolute bottom-0 left-0 right-0 top-[5px] flex items-center justify-center rounded-full text-current paragraph-5 md:right-4">
+        <span className="absolute right-0 top-0 flex h-4 w-4 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-red-600 text-[10px] text-white">
           {itemsInCart}
         </span>
       )}
