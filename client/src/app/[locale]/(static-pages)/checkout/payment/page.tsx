@@ -110,8 +110,7 @@ export default function CheckoutPaymentPage() {
               <span>{t('giftCheckbox')}</span>
             </Checkbox>
             <p className="mt-2 text-sm text-gray-500">
-              Označavanjem ove opcije, vaša narudžba će biti upakovana u ukrasni
-              papir bez dodatne naplate.
+              Odaberite ovu opciju za besplatno poklon-pakovanje
             </p>
           </div>
           <p className="border-t border-black pt-4 heading-4">

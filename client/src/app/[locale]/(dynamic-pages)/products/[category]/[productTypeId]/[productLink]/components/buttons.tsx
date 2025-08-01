@@ -108,14 +108,25 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
 
   return (
     <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-start">
-      <Button
-        className="h-12 w-72"
-        size="md"
-        variant="filled"
-        onClick={handleCartClick}
-      >
-        {productAlreadyInCart ? t('common.removeFromCart') : t('common.buyNow')}
-      </Button>
+      {productAlreadyInCart ? (
+        <Button
+          className="h-12 w-72"
+          size="md"
+          variant="filled"
+          onClick={() => router.push('/cart')}
+        >
+          Pogledaj korpu
+        </Button>
+      ) : (
+        <Button
+          className="h-12 w-72"
+          size="md"
+          variant="filled"
+          onClick={handleCartClick}
+        >
+          {t('common.buyNow')}
+        </Button>
+      )}
 
       {!isModal && (
         <Button

@@ -12,6 +12,8 @@ import {
 import { useEffect, useState } from 'react';
 
 import Buttons from './buttons';
+
+import Link from 'next/link';
 import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
 import ImagesSlider from './images-slider';
 import NamePrice from './name-price';
@@ -302,6 +304,14 @@ export default function ProductDetails() {
                   <p>
                     - Informišite se o našim proizvodima putem web stranice, a
                     zatim podnesite online zahtjev za kredit.
+                    <span>
+                      <Link
+                        href="/mikrofin-invoice"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Saznaj više
+                      </Link>
+                    </span>
                   </p>
                 </div>
               </details>
@@ -325,10 +335,10 @@ export default function ProductDetails() {
           />
           {/* Action buttons */}
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
+            {/* <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
               <Heart className="h-5 w-5" />
               <span className="text-sm">Omiljeno</span>
-            </button>
+            </button> */}
             <button
               className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
               onClick={handleShare}
@@ -508,6 +518,14 @@ export default function ProductDetails() {
                   <p>
                     - Informišite se o našim proizvodima putem web stranice, a
                     zatim podnesite online zahtjev za kredit.
+                    <span>
+                      <Link
+                        href="/mikrofin-invoice"
+                        className="text-blue-600 hover:underline"
+                      >
+                        Saznaj više
+                      </Link>
+                    </span>
                   </p>
                 </div>
               </details>
@@ -637,6 +655,7 @@ export default function ProductDetails() {
                       location = GOOGLE_MAPS_LOCATIONS.BANJA_LUKA_DELTA;
 
                     const isMapVisible = visibleMaps.has(storeItem.id);
+                    const quantity = storeItem.quantity;
 
                     return (
                       <div
@@ -655,10 +674,29 @@ export default function ProductDetails() {
                         <h4 className="mb-2 text-lg font-semibold">
                           {location?.storeName || storeItem.store.name}
                         </h4>
+
                         {location?.storeAddress && (
                           <p className="mb-2 text-sm text-gray-700">
                             {location.storeAddress}
                           </p>
+                        )}
+                        {/* Phone number directly below name */}
+                        {location?.storePhone && (
+                          <p className="pb-2 text-sm text-grey-darker">
+                            {location.storePhone}
+                          </p>
+                        )}
+
+                        {/* Stock status and quantity, only if in stock */}
+                        {quantity > 0 && (
+                          <>
+                            <p className="text-sm font-medium text-blue-400">
+                              Na stanju
+                            </p>
+                            <p className="text-sm text-red-400">
+                              Dostupno: {quantity}
+                            </p>
+                          </>
                         )}
 
                         {/* Clickable button to show/hide map */}

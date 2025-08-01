@@ -14,7 +14,7 @@ export default function CardContainer({
   return (
     <div
       className={cn(
-        'border-gray/20 rounded-2xl border bg-white/10 shadow-md backdrop-blur-md',
+        'border-gray/20 rounded-xl border bg-white/10 p-3 text-xs shadow-md backdrop-blur-md sm:p-4 sm:text-sm md:p-5',
         bgColor,
         className
       )}

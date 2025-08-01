@@ -33,10 +33,13 @@ export default function MobileSubList({
           onClick={onBack}
         />
       </div>
-      {subMenuItems.map((item) => (
+      {subMenuItems.map((item, index) => (
         <Link
           key={item.id}
-          className="py-1 text-black transition-all paragraph-1 hover:text-grey-medium active:scale-95"
+          className={cn(
+            'py-1 text-black transition-all paragraph-1 hover:text-grey-medium active:scale-95',
+            index === subMenuItems.length - 1 && 'text-blue-500'
+          )}
           href={item.link}
           onClick={closeMenu}
         >

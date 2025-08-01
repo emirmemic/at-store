@@ -118,7 +118,7 @@ export default async function Page({
           </section> */}
         </div>
         <PromoSliderWrapper className="pb-4 pt-4 container-max-width-xl" />
-        <section className="pb-12 pt-0 container-max-width-xl">
+        <section className="pb-5 pt-0 container-max-width-xl">
           <SubCategorySection />
         </section>
         {/* <section className="px-6 py-8 container-max-width-lg md:px-12">

@@ -96,7 +96,7 @@ export default function ListItem({
               },
             }}
           >
-            {menuItem?.subItems?.map((sub) => (
+            {menuItem?.subItems?.map((sub, index) => (
               <motion.li
                 key={sub.id}
                 variants={{
@@ -105,7 +105,11 @@ export default function ListItem({
                 }}
               >
                 <Link
-                  className="hover:text-grey-white flex flex-col items-center gap-2 pt-3 transition-colors duration-300 paragraph-4 active:scale-95"
+                  className={`hover:text-grey-white flex flex-col items-center gap-2 pt-3 text-center text-[11px] transition-colors duration-300 active:scale-95 sm:text-xs md:text-sm ${
+                    index === (menuItem.subItems?.length ?? 0) - 1
+                      ? 'text-blue-500'
+                      : ''
+                  }`}
                   href={sub.link}
                   onClick={handleOutsideClick}
                 >
@@ -129,31 +133,41 @@ export default function ListItem({
           </motion.ul>
           <div className="mt-8 w-fit rounded-xl bg-white p-2">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-              <DesktopInfoCard
-                description={t('infoCards.payInInstallmentsDescription')}
-                icon={'💳'}
-                title={t('infoCards.payInInstallmentsTitle')}
-              />
-              <DesktopInfoCard
-                description={t('infoCards.eduDiscountDescription')}
-                icon={'🎓'}
-                link="obrazovni-popust"
-                title={t('infoCards.eduDiscountTitle')}
-              />
-              <DesktopInfoCard
-                description={t('infoCards.mikrofinDescription')}
-                icon={'🏦'}
-                link="mikrofin-predracun"
-                title={t('infoCards.mikrofinTitle')}
-              />
-              <DesktopInfoCard
-                description={t('infoCards.deliveryDescription', {
-                  currency: CURRENCY,
-                  price: MINIMUM_AMOUNT_FREE_DELIVERY,
-                })}
-                icon={'📦'}
-                title={t('infoCards.deliveryTitle')}
-              />
+              <Link href="nacini-placanja" onClick={handleOutsideClick}>
+                <DesktopInfoCard
+                  description={t('infoCards.payInInstallmentsDescription')}
+                  icon={'💳'}
+                  link="nacini-placanja"
+                  title={t('infoCards.payInInstallmentsTitle')}
+                />
+              </Link>
+              <Link href="obrazovni-popust" onClick={handleOutsideClick}>
+                <DesktopInfoCard
+                  description={t('infoCards.eduDiscountDescription')}
+                  icon={'🎓'}
+                  link="obrazovni-popust"
+                  title={t('infoCards.eduDiscountTitle')}
+                />
+              </Link>
+              <Link href="mikrofin-predracun" onClick={handleOutsideClick}>
+                <DesktopInfoCard
+                  description={t('infoCards.mikrofinDescription')}
+                  icon={'🏦'}
+                  link="mikrofin-predracun"
+                  title={t('infoCards.mikrofinTitle')}
+                />
+              </Link>
+              <Link href="dostava" onClick={handleOutsideClick}>
+                <DesktopInfoCard
+                  description={t('infoCards.deliveryDescription', {
+                    currency: CURRENCY,
+                    price: MINIMUM_AMOUNT_FREE_DELIVERY,
+                  })}
+                  icon={'📦'}
+                  link="dostava"
+                  title={t('infoCards.deliveryTitle')}
+                />
+              </Link>
             </div>
           </div>
         </div>

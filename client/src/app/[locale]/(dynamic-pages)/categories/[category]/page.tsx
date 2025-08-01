@@ -2,7 +2,6 @@ import { CategoryItem, SubCategoryItem } from '@/lib/types';
 import { ProductListTitle, SubProductCard } from '@/components/product-cards';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
-import { InfoBlock } from '@/components';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { fetchAPI } from '@/lib/fetch-api';
 import { getTranslations } from 'next-intl/server';
@@ -99,7 +98,7 @@ export default async function Page({
   return (
     <main className="pb-28 pt-11 container-max-width">
       <ProductListTitle title={categoryData.displayName} />
-      <div className="mb-16 flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
+      <div className="flex flex-col gap-4 py-16 lg:grid lg:grid-cols-2">
         {categoryData.subCategories.map((subCategory) => (
           <SubProductCard
             key={subCategory.id}
@@ -110,14 +109,6 @@ export default async function Page({
           />
         ))}
       </div>
-      <InfoBlock
-        actionLink={{
-          id: 1,
-          linkUrl: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
-        }}
-        description={t('categoryPage.edDescription')}
-        title={t('categoryPage.edTitle')}
-      />
     </main>
   );
 }

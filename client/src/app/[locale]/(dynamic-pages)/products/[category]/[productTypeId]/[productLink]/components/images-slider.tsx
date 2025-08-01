@@ -97,7 +97,7 @@ export default function ImagesSlider({
             orientation="horizontal"
             setApi={setApi}
           >
-            <CarouselContent className="flex gap-2">
+            <CarouselContent className="flex gap-1">
               {images.map((image, index) => (
                 <CarouselItem
                   key={index}

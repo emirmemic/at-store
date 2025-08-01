@@ -187,6 +187,11 @@ export default function Footer({ categoryItems }: FooterProps) {
           <FooterSocial />
         </div>
         <FooterPayment />
+        <div className="ml-4 md:ml-0">
+          <p className="text-left text-xs text-gray-500">
+            Developed by AT Soft, Sarajevo
+          </p>
+        </div>
       </div>
     </footer>
   );

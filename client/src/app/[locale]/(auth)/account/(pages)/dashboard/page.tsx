@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import qs from 'qs';
+import Link from 'next/link';
 
 import { MonoAppleBlock } from '@/components';
 import {
@@ -57,12 +58,14 @@ export default async function Page() {
   return (
     <div className="flex flex-col gap-9">
       <div className="flex justify-center gap-4 md:justify-start md:gap-11 lg:gap-12">
-        <Card
-          className={cardStyling}
-          count={ordersCount}
-          subtitle={t('orders')}
-          title={t('youHad')}
-        />
+        <Link href="/racun/narudzbe">
+          <Card
+            className={cardStyling}
+            count={ordersCount}
+            subtitle={t('orders')}
+            title={t('youHad')}
+          />
+        </Link>
         <Card
           className={cardStyling}
           count={totalSpent}
@@ -91,7 +94,21 @@ export default async function Page() {
           )}
         </div>
       )}
-      <MonoAppleBlock />
+      <div className="mt-12 flex flex-col items-center gap-6">
+        <p className="text-center text-lg font-semibold">
+          Pronađite najbližu AT Store poslovnicu i posjetite nas uživo.
+        </p>
+        <p className="max-w-2xl text-center text-sm text-gray-600">
+          Naše poslovnice se nalaze u Sarajevu i Banjoj Luci – dođite,
+          isprobajte uređaje uživo i zatražite savjet od našeg stručnog osoblja.
+        </p>
+        <Link
+          href="/find-store"
+          className="inline-block rounded-full bg-black px-6 py-3 font-semibold text-white transition hover:bg-gray-800"
+        >
+          Pogledaj lokacije
+        </Link>
+      </div>
     </div>
   );
 }

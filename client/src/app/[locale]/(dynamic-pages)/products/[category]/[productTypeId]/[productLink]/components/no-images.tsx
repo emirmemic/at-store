@@ -11,7 +11,7 @@ export default function NoImages({ tag }: { tag?: string }) {
       </div>
       {tag && (
         <ProductTag
-          className="absolute right-6 top-0 -translate-y-1/2"
+          className="absolute right-4 top-2 z-10 rounded-3xl bg-red-600 px-3 py-1 text-sm text-white"
           tag={tag}
         />
       )}

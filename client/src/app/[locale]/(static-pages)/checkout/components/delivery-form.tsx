@@ -51,29 +51,42 @@ export default function Form() {
 
   return (
     <form noValidate action={action} className="flex flex-wrap gap-4">
-      {inputFields.map((field) => (
-        <div
-          key={field.id}
-          className={cn(
-            'flex flex-col gap-4',
-            field.solo ? 'w-[405px]' : 'w-[194px]'
-          )}
-        >
-          <label htmlFor={field.id}>
-            <span className="paragraph-2">
-              {`${t(`checkoutPage.deliveryForm.${field.name}`)} *`}
-            </span>
-          </label>
-          <Input
-            defaultValue={formState?.data[field.name as keyof DeliveryForm]}
-            errorMessage={formState?.errors?.[field.name as keyof DeliveryForm]}
-            id={field.id}
-            name={field.name}
-            placeholder={t(`checkoutPage.deliveryForm.${field.name}`)}
-            type={field.type}
-          />
-        </div>
-      ))}
+      <input type="hidden" name="deliveryMethod" value={deliveryMethod} />
+      {inputFields.map((field) => {
+        const isHidden =
+          deliveryMethod === 'pickup' &&
+          ['address', 'email', 'city', 'postalCode', 'country'].includes(
+            field.name
+          );
+
+        if (isHidden) return null;
+
+        return (
+          <div
+            key={field.id}
+            className={cn(
+              'flex flex-col gap-4',
+              field.solo ? 'w-[405px]' : 'w-[194px]'
+            )}
+          >
+            <label htmlFor={field.id}>
+              <span className="paragraph-2">
+                {`${t(`checkoutPage.deliveryForm.${field.name}`)} *`}
+              </span>
+            </label>
+            <Input
+              defaultValue={formState?.data[field.name as keyof DeliveryForm]}
+              errorMessage={
+                formState?.errors?.[field.name as keyof DeliveryForm]
+              }
+              id={field.id}
+              name={field.name}
+              placeholder={t(`checkoutPage.deliveryForm.${field.name}`)}
+              type={field.type}
+            />
+          </div>
+        );
+      })}
       <div className="mt-10 w-full heading-4">
         <p className="mb-8">{t('checkoutPage.deliveryForm.additionalInfo')}</p>
         <label htmlFor={'note'}>

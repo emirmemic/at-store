@@ -32,7 +32,7 @@ export default function FavoriteProductCard({
     (item) => item.product.productVariantId === product.productVariantId
   );
   const headingClassName = 'heading-5 md:bullet-heading-2 lg:heading-4';
-  const paragraphClassName = 'paragraph-2 md:bullet-1 lg:paragraph-1';
+  const paragraphClassName = 'text-sm md:text-base text-gray-700';
 
   // Handlers
   const { isLoading, execute } = useLoader({
@@ -71,7 +71,7 @@ export default function FavoriteProductCard({
   };
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-between gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">
+    <div className="relative flex flex-col items-center gap-4 rounded-2xl border border-[#e0e0e0] bg-white/70 px-14 py-10 backdrop-blur-md transition-shadow hover:shadow-md md:flex-row md:px-3 md:py-8 lg:p-8">
       <StrapiImage
         alt={image?.alternativeText ?? null}
         className="h-full max-h-[166px] w-full max-w-[250px] object-contain md:max-h-[130px] md:max-w-[194px] lg:max-h-[166px] lg:max-w-[252px]"
@@ -90,23 +90,25 @@ export default function FavoriteProductCard({
           {isLoading ? (
             <IconLoader className="size-6 lg:size-9" />
           ) : (
-            <IconTrash className="size-6 lg:size-9" />
+            <IconTrash className="size-4 lg:size-7" />
           )}
         </button>
         <p className={paragraphClassName}>{name}</p>
+        <div className="border-b border-gray-200 pb-2" />
         {specifications.length > 0 && (
-          <p className={paragraphClassName}>
-            {specifications.map((spec, index) => (
-              <span key={index}>
-                {spec}
-                {index < specifications.length - 1 && ', '}
-              </span>
-            ))}
-          </p>
+          <>
+            <p className={paragraphClassName}>
+              {specifications.map((spec, index) => (
+                <span key={index}>
+                  {spec}
+                  {index < specifications.length - 1 && ', '}
+                </span>
+              ))}
+            </p>
+            <div className="border-b border-gray-200 pb-2" />
+          </>
         )}
-        <p
-          className={`${headingClassName} !font-bold`}
-        >{`${price} ${CURRENCY}`}</p>
+        <p className="pb-3 text-base font-bold">{`${price} ${CURRENCY}`}</p>
         <Button
           className="w-fit"
           size={'md'}

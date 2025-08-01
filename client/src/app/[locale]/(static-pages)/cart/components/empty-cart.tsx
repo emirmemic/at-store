@@ -10,8 +10,8 @@ export default function EmptyCart() {
 
   return (
     <div className="flex flex-col items-center justify-center gap-20 py-20">
-      <h2 className="text-center heading-1">{t('cartPage.emptyCart')}</h2>
-      <IconShoppingCart size={190} />
+      <h2 className="text-center heading-2">{t('cartPage.emptyCart')}</h2>
+      <IconShoppingCart size={150} />
       <Button
         asChild
         size={'default'}

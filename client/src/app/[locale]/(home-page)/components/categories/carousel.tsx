@@ -37,9 +37,9 @@ export default function CategoriesCarousel({
           {extendedCategories.map((category) => (
             <CarouselItem
               key={category.id}
-              className="w-fit basis-44 pl-4 md:basis-52 md:pl-8"
+              className="w-fit basis-28 pl-2 md:basis-32 md:pl-5"
             >
-              <Category category={category} className="h-full w-40 md:w-48" />
+              <Category category={category} className="h-full w-24 md:w-28" />
             </CarouselItem>
           ))}
         </CarouselContent>

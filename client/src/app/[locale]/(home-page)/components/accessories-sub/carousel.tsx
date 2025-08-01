@@ -33,7 +33,7 @@ export default function SubCategoriesCarousel({
     >
       <CarouselContent className="py-4">
         {items.map((item) => (
-          <CarouselItem key={item.id} className="flex basis-72">
+          <CarouselItem key={item.id} className="flex basis-52">
             <SubCategoryCard {...item} />
           </CarouselItem>
         ))}

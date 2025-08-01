@@ -13,10 +13,30 @@ export async function handleSubmit(
   errors?: DeliveryForm;
   success?: boolean;
 }> {
-  const data = Object.fromEntries(formData) as DeliveryForm;
+  const rawData = Object.fromEntries(formData) as DeliveryForm & {
+    deliveryMethod?: string;
+  };
+
+  const data: DeliveryForm & { deliveryMethod?: string } = {
+    ...rawData,
+    email: rawData.email || 'noemail@pickup.com',
+    address: rawData.address || 'Preuzimanje u poslovnici',
+    city: rawData.city || 'n/a',
+    postalCode: rawData.postalCode || '00000',
+    country: rawData.country || 'BA',
+  };
 
   try {
-    const validationSchema = deliverySchema(t);
+    const validationSchema =
+      data.deliveryMethod === 'pickup'
+        ? deliverySchema(t).partial({
+            address: true,
+            email: true,
+            city: true,
+            postalCode: true,
+            country: true,
+          }) // samo ime, prezime, phoneNumber i note ostaju required
+        : deliverySchema(t);
 
     validationSchema.parse(data);
     // go to the payment page

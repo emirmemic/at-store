@@ -28,12 +28,8 @@ function getTranslation(
 
 function TextItem({ text, spanText }: { text?: string; spanText?: string }) {
   return (
-    <p className="paragraph-2 md:bullet-1 lg:paragraph-1">
-      {spanText && (
-        <span className="heading-5 md:bullet-heading-2 lg:heading-4">
-          {spanText}
-        </span>
-      )}
+    <p className="text-sm text-gray-700 md:text-base">
+      {spanText && <span className="font-semibold text-black">{spanText}</span>}
       {text}
     </p>
   );
@@ -55,7 +51,7 @@ export default function OrderProductCard(props: OrderProductCardProps) {
   const image = images?.[0];
 
   return (
-    <div className="relative flex flex-col items-center gap-4 rounded-2xl border-grey-extra-light px-14 py-10 shadow-standard-black md:flex-row md:px-3 md:py-8 lg:p-8">
+    <div className="relative flex flex-col items-center gap-4 rounded-2xl border border-[#e0e0e0] bg-white/70 px-14 py-10 backdrop-blur-md transition-shadow hover:shadow-md md:flex-row md:px-3 md:py-8 lg:p-8">
       <StrapiImage
         alt={image?.alternativeText ?? null}
         className="h-full max-h-[166px] w-full max-w-[250px] object-contain md:max-h-[130px] md:max-w-[194px] lg:max-h-[166px] lg:max-w-[252px]"
@@ -65,20 +61,28 @@ export default function OrderProductCard(props: OrderProductCardProps) {
         width={250}
       />
       <div className="flex flex-col gap-1">
-        <TextItem text={name} />
-        <TextItem text={getTranslation(orderStatus ?? 'canceled', t)} />
-        <TextItem
-          spanText={`${t('accountPage.orders.orderNumber')}: `}
-          text={orderNumber?.toString()}
-        />
-        <TextItem
-          spanText={`${t('accountPage.orders.orderDate')}: `}
-          text={
-            orderDate
-              ? new Date(orderDate).toLocaleDateString('de-DE')
-              : undefined
-          }
-        />
+        <div className="border-b border-gray-200 pb-2">
+          <TextItem text={name} />
+        </div>
+        <div className="border-b border-gray-200 pb-2">
+          <TextItem text={getTranslation(orderStatus ?? 'canceled', t)} />
+        </div>
+        <div className="border-b border-gray-200 pb-2">
+          <TextItem
+            spanText={`${t('accountPage.orders.orderNumber')}: `}
+            text={orderNumber?.toString()}
+          />
+        </div>
+        <div className="border-b border-gray-200 pb-2">
+          <TextItem
+            spanText={`${t('accountPage.orders.orderDate')}: `}
+            text={
+              orderDate
+                ? new Date(orderDate).toLocaleDateString('de-DE')
+                : undefined
+            }
+          />
+        </div>
       </div>
     </div>
   );

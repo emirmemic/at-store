@@ -16,7 +16,7 @@ export default function Category({ category, className }: CategoryProps) {
       className={`flex flex-col items-center gap-2 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50 ${className}`}
       href={link}
     >
-      <span className="h-20 w-24 md:w-32">
+      <span className="h-10 w-24 md:w-32">
         {image && (
           <StrapiImage
             alt={image.alternativeText || name}
@@ -29,10 +29,13 @@ export default function Category({ category, className }: CategoryProps) {
         )}
       </span>
       <span className="sr-only">{t('viewMore')}</span>
-      <span className="text-center text-sm font-medium md:text-base">
+      <span className="text-center text-sm md:text-base">
         {displayName || name}
       </span>
-      <span className="text-xs text-grey-darkest md:text-sm">{`${t('startsFrom')} ${startingPrice} ${CURRENCY}`}</span>
+      <span className="text-xs text-grey-darkest md:text-sm">
+        {t('startsFrom')}{' '}
+        <span className="font-bold text-black">{`${startingPrice} ${CURRENCY}`}</span>
+      </span>
     </Link>
   );
 }

@@ -94,15 +94,13 @@ export default function Options({ className, options }: SpecsProps) {
           (option) =>
             option.options &&
             option.options.length > 1 && (
-              <>
-                <OptionsItem
-                  key={option.key}
-                  availableOnes={option.availableOnes ?? []}
-                  itemKey={option.key}
-                  options={option.options}
-                  title={option.title}
-                />
-              </>
+              <OptionsItem
+                key={option.key}
+                availableOnes={option.availableOnes ?? []}
+                itemKey={option.key}
+                options={option.options}
+                title={option.title}
+              />
             )
         )}
       </div>

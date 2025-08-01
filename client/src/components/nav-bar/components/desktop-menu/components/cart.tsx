@@ -67,6 +67,7 @@ const ListItem = ({ item }: { item: ShoppingCartItem }) => {
       </div>
       <div className="flex grow flex-col gap-2">
         <p className="paragraph-2">{product.name}</p>
+        <div className="w-full border-t border-grey-extra-light"></div>
         <div className="flex items-center gap-2">
           <Price value={totalPrice} />
         </div>

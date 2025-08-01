@@ -17,7 +17,7 @@ export default function RelatedProducts() {
   }
   return (
     <section className="py-2">
-      <p className="pb-4 pl-4 heading-2">{t('relatedProducts')}</p>
+      <p className="pb-4 pl-4 heading-3">{t('relatedProducts')}</p>
       <Carousel
         className="w-full"
         opts={{

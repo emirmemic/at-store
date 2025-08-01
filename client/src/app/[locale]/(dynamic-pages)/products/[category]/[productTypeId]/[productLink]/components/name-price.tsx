@@ -60,49 +60,51 @@ export default function NamePrice({
   };
 
   return (
-    <div>
-      <div className="mb-2 flex items-center gap-2">
-        <p className="text-grey-dark">{`${t('productId')}: ${productVariantId}`}</p>
-        <button
-          aria-label="Copy product variant ID"
-          className={`flex items-center justify-center rounded-md px-3 py-1 text-sm font-semibold transition ${
-            copied
-              ? 'bg-green-100 text-green-800'
-              : 'bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800'
-          }`}
-          type="button"
-          onClick={copyToClipboard}
-        >
-          {copied ? (
-            <CheckIcon className="h-5 w-5" />
-          ) : (
-            <ClipboardIcon className="h-5 w-5" />
-          )}
-        </button>
-      </div>
-
-      <h1 className="mb-2 heading-4">{name}</h1>
-      <div className="flex flex-col">
-        <div className="flex items-center gap-5">
-          <Price className="heading-4" value={finalPrice} />
-          {hasDiscount && (
-            <>
-              <Price
-                className="text-grey-darker line-through paragraph-1"
-                value={originalPrice}
-              />
-              {discountPercentage !== null && (
-                <span className="text-green-dark heading-5">
-                  {discountPercentage}% jeftinije
-                </span>
-              )}
-            </>
-          )}
+    <>
+      <div>
+        <div className="mb-2 flex items-center gap-2">
+          <p className="text-grey-dark">{`${t('productId')}: ${productVariantId}`}</p>
+          <button
+            aria-label="Copy product variant ID"
+            className={`flex items-center justify-center rounded-md px-3 py-1 text-sm font-semibold transition ${
+              copied
+                ? 'bg-green-100 text-green-800'
+                : 'bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800'
+            }`}
+            type="button"
+            onClick={copyToClipboard}
+          >
+            {copied ? (
+              <CheckIcon className="h-5 w-5" />
+            ) : (
+              <ClipboardIcon className="h-5 w-5" />
+            )}
+          </button>
         </div>
-        <span className="mt-2 text-[1rem] font-thin">
-          ili samo {Math.round(finalPrice / 24)} KM na 24 rate.
-        </span>
+
+        <h1 className="mb-2 heading-4">{name}</h1>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-5">
+            <Price className="heading-4" value={finalPrice} />
+            {hasDiscount && (
+              <>
+                <Price
+                  className="text-grey-darker line-through paragraph-1"
+                  value={originalPrice}
+                />
+                {discountPercentage !== null && (
+                  <span className="text-green-dark heading-5">
+                    {discountPercentage}% jeftinije
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+          <span className="mt-2 text-[1rem] font-thin">
+            ili samo {Math.round((finalPrice * 1.1) / 24)} KM na 24 rate.
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
