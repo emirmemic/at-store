@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -22,11 +23,19 @@ export default function CheckoutPage() {
         <div className="rounded-3xl border border-gray-300 bg-white p-6 shadow-sm md:sticky md:top-20">
           <CartSection />
           <div className="mt-6 flex justify-center gap-4 opacity-70">
-            <img src="assets/images/visa.svg" alt="Visa" className="h-6" />
-            <img
-              src="assets/images/mastercard1.svg"
+            <Image
+              src="/assets/images/visa.svg"
+              alt="Visa"
+              className="h-6"
+              width={40}
+              height={24}
+            />
+            <Image
+              src="/assets/images/mastercard1.svg"
               alt="Mastercard"
               className="h-6"
+              width={40}
+              height={24}
             />
           </div>
         </div>

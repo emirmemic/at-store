@@ -32,7 +32,7 @@ export default function Category({ category, className }: CategoryProps) {
       <span className="text-center text-sm md:text-base">
         {displayName || name}
       </span>
-      <span className="text-xs text-grey-darkest md:text-sm">
+      <span className="md:text-s text-center text-xs text-grey-darkest">
         {t('startsFrom')}{' '}
         <span className="font-bold text-black">{`${startingPrice} ${CURRENCY}`}</span>
       </span>

@@ -144,12 +144,8 @@ export default function PaymentWithCard() {
   }, [clientSecret]);
 
   useEffect(() => {
-    console.log('Listening for installments-event...');
-
     function handleInstallmentsEvent(event: any) {
-      console.log('installments-event fired:', event);
       const options = event.detail.installments;
-      console.log('Installment options:', options);
       setInstallmentOptions(options);
     }
 
@@ -161,10 +157,6 @@ export default function PaymentWithCard() {
 
   useEffect(() => {
     if (!clientSecret) return;
-    console.log('showInstallmentsSelection:', true);
-    console.log('Client Secret:', clientSecret);
-    console.log('Monri Ref:', monriRef.current);
-    console.log('Card Ref:', cardRef.current);
   }, [clientSecret]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

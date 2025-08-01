@@ -1,9 +1,5 @@
 import { useTranslations } from 'next-intl';
 
-import PageTitle from '@/app/[locale]/(static-pages)/components/page-title';
-import { InfoBlock } from '@/components';
-import { getInfoBlocksData } from '@/lib/data';
-
 import { MostSoldSection } from '../components';
 
 import { Content } from './components';
