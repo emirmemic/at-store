@@ -6,7 +6,7 @@ import { ACCESSORY_CATEGORY_LINK } from '@/lib/constants';
 import { Content } from '../components';
 
 const normalizeLink = (subcategory: string) =>
-  subcategory.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
+  subcategory.replace(/-/g, ' ').replace(/^iphone/i, 'iPhone');
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string; subcategory: string }>;
