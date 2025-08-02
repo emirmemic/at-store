@@ -309,7 +309,7 @@ export default factories.createCoreService('api::product.product', () => ({
                 braceletSize: webAccountProduct.narukvica_size.join(', '),
                 screenSize: webAccountProduct.specifications.screen_size,
                 ram: webAccountProduct.specifications.ram[0],
-                cores: webAccountProduct.specifications.number_of_cores,
+                // cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
                 deviceCompatibility:
                   webAccountProduct.device_compatibility || [],

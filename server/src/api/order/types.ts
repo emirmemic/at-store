@@ -1,4 +1,4 @@
-import { ProductsResponse, StrapiProduct } from '../product/types';
+import { StrapiProduct } from '../product/types';
 
 export type StoreCode =
   | 'AT Store (SCC)'
