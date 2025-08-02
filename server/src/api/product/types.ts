@@ -41,6 +41,10 @@ export interface WebAccountProduct {
     release_date: string | null;
     number_of_cores: number | null;
   };
+  ram_variant_selected: {
+    unit: string | null;
+    value: number | null;
+  } | null;
   product_type_id: string;
   product_variant_id: string;
   naziv_artikla_webaccount: string;

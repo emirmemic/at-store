@@ -4,6 +4,7 @@ import { findEntity, getStores, isSameProduct, makeLink } from '../utils';
 
 export default factories.createCoreService('api::product.product', () => ({
   syncWebAccountProducts: async () => {
+    let currentPage = 1;
     /// Store all productVariantIds from Web Account API
     const allWebAccountProducts: string[] = [];
     /// Flag to track if all products were synced successfully
@@ -34,7 +35,8 @@ export default factories.createCoreService('api::product.product', () => ({
 
       if (token) {
         for (let index = 1; index <= totalPages; index++) {
-          console.log(
+          currentPage = index;
+          strapi.log.info(
             `Fetching page ${index} of products from Web Account API...`
           );
 
@@ -313,7 +315,9 @@ export default factories.createCoreService('api::product.product', () => ({
                 accessoriesType: webAccountProduct.dodaci_type,
                 braceletSize: webAccountProduct.narukvica_size.join(', '),
                 screenSize: webAccountProduct.specifications.screen_size,
-                ram: webAccountProduct.specifications.ram[0],
+                ram:
+                  webAccountProduct.ram_variant_selected ??
+                  webAccountProduct.specifications.ram[0],
                 // cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
                 deviceCompatibility:
@@ -396,11 +400,13 @@ export default factories.createCoreService('api::product.product', () => ({
             });
             countOfDeletedProducts++;
           }
-          console.log(`Deleted ${countOfDeletedProducts} products`);
+          strapi.log.info(`Deleted ${countOfDeletedProducts} products`);
         }
       }
     } catch (error) {
-      strapi.log.error('Error syncing products from Web Account API:', error);
+      strapi.log.error(
+        `Error syncing products from Web Account API, ${currentPage}, error: ${error}`
+      );
     }
   },
 }));

@@ -93,12 +93,18 @@ export function isSameProduct(
     },
     {
       field: 'RAM Unit',
-      web: webAccountProduct?.specifications?.ram[0]?.unit ?? null,
+      web:
+        webAccountProduct?.ram_variant_selected?.unit ??
+        webAccountProduct?.specifications?.ram[0]?.unit ??
+        null,
       strapi: existingProduct?.ram?.unit ?? null,
     },
     {
       field: 'RAM Value',
-      web: webAccountProduct?.specifications?.ram[0]?.value ?? null,
+      web:
+        webAccountProduct?.ram_variant_selected?.value ??
+        webAccountProduct?.specifications?.ram[0]?.value ??
+        null,
       strapi: existingProduct?.ram?.value ?? null,
     },
     {
@@ -349,11 +355,11 @@ function logDifferences(
   productVariantId: string,
   currentPage: number
 ) {
-  console.log(`\n Current Web Account page: ${currentPage}`);
-  console.log(`\n${field} differs`);
-  console.log(`  Product Variant : ${productVariantId}`);
-  console.log(`  Web Account: ${JSON.stringify(webValue, null, 2)}`);
-  console.log(`  Strapi: ${JSON.stringify(strapiValue, null, 2)}`);
+  strapi.log.info(`Current Web Account page: ${currentPage}`);
+  strapi.log.info(`${field} differs`);
+  strapi.log.info(`  Product Variant : ${productVariantId}`);
+  strapi.log.info(`  Web Account: ${JSON.stringify(webValue, null, 2)}`);
+  strapi.log.info(`  Strapi: ${JSON.stringify(strapiValue, null, 2)}`);
 }
 
 /**
