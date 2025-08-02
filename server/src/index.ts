@@ -3,6 +3,9 @@ import {
   productionSyncingInterval,
 } from './utils/constants';
 
+// Flag to track if sync is currently running
+let isSyncInProgress = false;
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
   bootstrap: async () => {
@@ -15,6 +18,17 @@ export default {
     strapi.cron.add({
       syncProducts: {
         task: async () => {
+          // Check if sync is already in progress
+          if (isSyncInProgress) {
+            strapi.log.warn(
+              `Skipping product sync - previous sync still in progress (${environment} mode)`
+            );
+            return;
+          }
+
+          // Set the flag to indicate sync is starting
+          isSyncInProgress = true;
+
           try {
             strapi.log.info(
               `Starting product sync from web account (${environment} mode)...`
@@ -37,6 +51,9 @@ export default {
               timestamp: new Date().toISOString(),
               environment,
             });
+          } finally {
+            // Always reset the flag when sync is complete (success or failure)
+            isSyncInProgress = false;
           }
         },
         options: {
