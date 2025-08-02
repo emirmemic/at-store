@@ -2,22 +2,24 @@ import { factories } from '@strapi/strapi';
 import { LoginResponse, ProductsResponse, StrapiProduct } from '../types';
 import { findEntity, getStores, isSameProduct, makeLink } from '../utils';
 
+// Helper function to introduce a delay between API requests to prevent rate-limiting.
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default factories.createCoreService('api::product.product', () => ({
   syncWebAccountProducts: async () => {
     let currentPage = 1;
-    /// Store all productVariantIds from Web Account API
     const allWebAccountProducts: string[] = [];
-    /// Flag to track if all products were synced successfully
-    /// If any product fails to sync, we set this to false
     let allProductsSynced = true;
+
     try {
-      // Fetch products from Web Account API
+      // STEP 1: LOGIN TO THE WEB ACCOUNT API
+      strapi.log.info('Logging into Web Account API...');
       const loginCredentials = {
         username: process.env.WEB_ACCOUNT_USERNAME,
         password: process.env.WEB_ACCOUNT_PASSWORD,
       };
 
-      const res = await fetch(`${process.env.WEB_ACCOUNT_API_URL}/login`, {
+      const loginRes = await fetch(`${process.env.WEB_ACCOUNT_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,17 +27,28 @@ export default factories.createCoreService('api::product.product', () => ({
         body: JSON.stringify(loginCredentials),
       });
 
-      const responseData = await res.json();
-      if (!res.ok) {
-        const { error } = responseData as { error: string };
-        throw new Error('Failed to login to Web Account API, Error: ' + error);
+      // CORRECTED SECTION: Handle login error with proper typing
+      if (!loginRes.ok) {
+        // We cast the unknown JSON object to a specific type we expect for an error.
+        const errorData = (await loginRes.json()) as { error?: string };
+        throw new Error(
+          `Failed to login. Status: ${loginRes.status}, Error: ${errorData.error || 'Unknown error response'}`
+        );
       }
-      const { token } = responseData as LoginResponse;
+
+      const { token } = (await loginRes.json()) as LoginResponse;
+      if (!token) {
+        throw new Error('Login successful, but no token was returned.');
+      }
+
       let totalPages = 1;
 
-      if (token) {
-        for (let index = 1; index <= totalPages; index++) {
-          currentPage = index;
+      // STEP 2: PAGINATE THROUGH ALL PRODUCT PAGES
+      for (let index = 1; index <= totalPages; index++) {
+        currentPage = index;
+
+        // This is the main try/catch block for fetching and processing each page.
+        try {
           strapi.log.info(
             `Fetching page ${index} of products from Web Account API...`
           );
@@ -50,13 +63,27 @@ export default factories.createCoreService('api::product.product', () => ({
               },
             }
           );
+
+          // CRITICAL: Check if the request was successful (e.g., status 200).
+          if (!response.ok) {
+            // If not successful (e.g., 429, 500), read the body as TEXT to see the HTML error page.
+            const errorText = await response.text();
+            // Throw a new, informative error that will be caught by the catch block below.
+            throw new Error(
+              `API request failed with status ${response.status}: ${errorText}`
+            );
+          }
+
+          // If the response is OK, we can now safely parse it as JSON.
           const responseData = (await response.json()) as ProductsResponse;
           totalPages = responseData.pagination.total_pages;
           const { unique_products: webAccountProducts } = responseData;
 
+          // STEP 3: PROCESS EACH PRODUCT ON THE CURRENT PAGE
           for (const webAccountProduct of webAccountProducts) {
             allWebAccountProducts.push(webAccountProduct.product_variant_id);
-            // Check if product already exists
+
+            // This inner try/catch handles errors for a single product, allowing the sync to continue with the next one.
             try {
               // First, try to find the published product
               let existingProduct = await strapi
@@ -118,8 +145,6 @@ export default factories.createCoreService('api::product.product', () => ({
                 continue;
               }
 
-              // Check if the status in one of the orders is pending
-              // If it is, we skip this product
               if (existingProduct && existingProduct.orders.length > 0) {
                 const hasPendingOrder = existingProduct.orders.some(
                   (order) => order.orderStatus === 'pending'
@@ -135,21 +160,16 @@ export default factories.createCoreService('api::product.product', () => ({
               const brandName = webAccountProduct.brand?.name ?? null;
               let brand = await findEntity('brand', brandName);
               if (!brand && brandName) {
-                brand = await strapi.documents('api::brand.brand').create({
-                  data: {
-                    name: brandName,
-                  },
-                });
+                brand = await strapi
+                  .documents('api::brand.brand')
+                  .create({ data: { name: brandName } });
               }
 
               const modelName = webAccountProduct.model?.name ?? null;
               let model = await findEntity('model', modelName);
               if (!model && modelName) {
                 model = await strapi.documents('api::model.model').create({
-                  data: {
-                    name: modelName,
-                    displayName: modelName,
-                  },
+                  data: { name: modelName, displayName: modelName },
                 });
               }
 
@@ -157,16 +177,13 @@ export default factories.createCoreService('api::product.product', () => ({
                 webAccountProduct.specifications.chip?.name ?? null;
               let chip = await findEntity('chip', chipName);
               if (!chip && chipName) {
-                chip = await strapi.documents('api::chip.chip').create({
-                  data: {
-                    name: chipName,
-                  },
-                });
+                chip = await strapi
+                  .documents('api::chip.chip')
+                  .create({ data: { name: chipName } });
               }
 
               const colorName = webAccountProduct.color?.name || null;
               let color = await findEntity('color', colorName);
-
               if (!color && colorName) {
                 color = await strapi.documents('api::color.color').create({
                   data: {
@@ -182,14 +199,10 @@ export default factories.createCoreService('api::product.product', () => ({
                 value: memoryValue,
                 unit: memoryUnit,
               });
-
               if (!memory && memoryUnit && memoryValue !== null) {
-                memory = await strapi.documents('api::memory.memory').create({
-                  data: {
-                    value: memoryValue,
-                    unit: memoryUnit,
-                  },
-                });
+                memory = await strapi
+                  .documents('api::memory.memory')
+                  .create({ data: { value: memoryValue, unit: memoryUnit } });
               }
 
               const materialName = webAccountProduct.material ?? null;
@@ -197,15 +210,10 @@ export default factories.createCoreService('api::product.product', () => ({
               if (!material && materialName) {
                 material = await strapi
                   .documents('api::material.material')
-                  .create({
-                    data: {
-                      name: materialName,
-                    },
-                  });
+                  .create({ data: { name: materialName } });
               }
-              let categoryName = webAccountProduct.category?.name || null;
 
-              /// Sometimes webAccount returns "iPad Pro" as "ipad pro" or "iPad" as "ipad"
+              let categoryName = webAccountProduct.category?.name || null;
               if (categoryName?.toLowerCase() === 'ipad pro') {
                 categoryName = 'iPad Pro';
               } else if (categoryName?.toLowerCase() === 'ipad') {
@@ -217,32 +225,19 @@ export default factories.createCoreService('api::product.product', () => ({
                 'models',
                 'chips',
               ]);
-
-              // if category is "dodaci" then we set the subcategory to whatever `dodaci_type` is
-              // otherwise we set it to the first two words of the model name
               const subCategoryName =
-                categoryName.toLowerCase() === 'dodaci'
+                categoryName?.toLowerCase() === 'dodaci'
                   ? webAccountProduct.dodaci_type
                   : webAccountProduct.product_type_id || null;
 
-              // Find  the category
               if (category) {
                 const modelIds = category.models.map((model) => model.id) || [];
-                // Check if the model already exists in the category
-                // If the model is not in the category, add it
-                if (model) {
-                  if (!modelIds.includes(model.id)) {
-                    modelIds.push(model.id);
-                  }
+                if (model && !modelIds.includes(model.id)) {
+                  modelIds.push(model.id);
                 }
-
-                // Check if the chip already exists in the category
-                // If the chip is not in the category, add it
                 const chipIds = category.chips.map((chip) => chip.id) || [];
-                if (chip) {
-                  if (!chipIds.includes(chip.id)) {
-                    chipIds.push(chip.id);
-                  }
+                if (chip && !chipIds.includes(chip.id)) {
+                  chipIds.push(chip.id);
                 }
                 category = await strapi
                   .documents('api::category.category')
@@ -256,7 +251,6 @@ export default factories.createCoreService('api::product.product', () => ({
                     },
                   });
               } else if (!category && categoryName) {
-                // Create a new category
                 category = await strapi
                   .documents('api::category.category')
                   .create({
@@ -295,12 +289,8 @@ export default factories.createCoreService('api::product.product', () => ({
                 }
               }
 
-              // Handle Stores relation (many-to-many)
               const stores = await getStores(webAccountProduct);
-
-              // Create the product with all relations
               const articleName = webAccountProduct.naziv_artikla_webaccount;
-
               const productData = {
                 name: articleName,
                 displayName: articleName,
@@ -318,31 +308,27 @@ export default factories.createCoreService('api::product.product', () => ({
                 ram:
                   webAccountProduct.ram_variant_selected ??
                   webAccountProduct.specifications.ram[0],
-                // cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
                 deviceCompatibility:
                   webAccountProduct.device_compatibility || [],
                 amountInStock: webAccountProduct.amount_in_stock,
-                // Set relations
-                brand: brand ? brand?.id : null,
-                model: model ? model?.id : null,
-                category: category ? category?.id : null,
-                subCategory: subCategory ? subCategory?.id : null,
+                brand: brand ? brand.id : null,
+                model: model ? model.id : null,
+                category: category ? category.id : null,
+                subCategory: subCategory ? subCategory.id : null,
                 stores: stores,
-                color: color ? color?.id : null,
-                memory: memory ? memory?.id : null,
-                material: material ? material?.id : null,
+                color: color ? color.id : null,
+                memory: memory ? memory.id : null,
+                material: material ? material.id : null,
                 chip: chip ? chip.id : null,
               };
 
               if (existingProduct) {
-                // Remove only undefined values from productData, keep nulls to allow disconnecting relations
                 const sanitizedProductData = Object.fromEntries(
                   Object.entries(productData).filter(
                     ([_, value]) => value !== undefined
                   )
                 );
-                // If the product is already published, we update it directly
                 if (isPublished) {
                   await strapi.documents('api::product.product').update({
                     documentId: existingProduct.documentId,
@@ -350,17 +336,15 @@ export default factories.createCoreService('api::product.product', () => ({
                     status: 'published',
                   });
                 } else {
-                  // If the product is in draft state, we only update it in the draft state without publishing
                   await strapi.documents('api::product.product').update({
                     documentId: existingProduct.documentId,
                     data: sanitizedProductData,
                   });
                 }
               } else {
-                // Create new product
-                await strapi.documents('api::product.product').create({
-                  data: productData,
-                });
+                await strapi
+                  .documents('api::product.product')
+                  .create({ data: productData });
               }
             } catch (error) {
               allProductsSynced = false;
@@ -370,43 +354,58 @@ export default factories.createCoreService('api::product.product', () => ({
               );
             }
           }
+          // ADDED: A 250ms delay after each successful page fetch to avoid rate-limiting.
+          strapi.log.info(`Finished page ${index}. Waiting for 250ms...`);
+          await sleep(250);
+        } catch (error) {
+          allProductsSynced = false;
+          strapi.log.error(
+            `An error occurred while processing page ${currentPage}. Halting sync.`
+          );
+          // This will now log the actual error, including the full HTML response from the server.
+          strapi.log.error(error);
+          // Exit the loop because we can't continue if a page fetch fails.
+          break;
         }
-        if (allProductsSynced) {
-          /// After processing all products, we can delete products that are not in the Web Account API but exist in Strapi
-          const draftProducts = await strapi
-            .documents('api::product.product')
-            .findMany({
-              status: 'draft',
-            });
-          const publishedProducts = await strapi
-            .documents('api::product.product')
-            .findMany({
-              status: 'published',
-            });
+      }
 
-          const allProducts = [...draftProducts, ...publishedProducts];
-          const productsToDelete = allProducts
-            .filter(
-              (product) =>
-                !allWebAccountProducts.includes(product.productVariantId)
-            )
-            .map((product) => product.documentId);
+      // STEP 4: DELETE OBSOLETE PRODUCTS (only if the entire sync was successful)
+      if (allProductsSynced) {
+        strapi.log.info(
+          'Sync complete. Checking for obsolete products to delete...'
+        );
+        const draftProducts = await strapi
+          .documents('api::product.product')
+          .findMany({ status: 'draft' });
+        const publishedProducts = await strapi
+          .documents('api::product.product')
+          .findMany({ status: 'published' });
+        const allProducts = [...draftProducts, ...publishedProducts];
+        const productsToDelete = allProducts
+          .filter(
+            (product) =>
+              !allWebAccountProducts.includes(product.productVariantId)
+          )
+          .map((product) => product.documentId);
 
-          let countOfDeletedProducts = 0;
-          // Delete products that are not in the Web Account API
-          for (const productId of productsToDelete) {
-            await strapi.documents('api::product.product').delete({
-              documentId: productId,
-            });
-            countOfDeletedProducts++;
-          }
-          strapi.log.info(`Deleted ${countOfDeletedProducts} products`);
+        let countOfDeletedProducts = 0;
+        for (const productId of productsToDelete) {
+          await strapi
+            .documents('api::product.product')
+            .delete({ documentId: productId });
+          countOfDeletedProducts++;
         }
+        strapi.log.info(`Deleted ${countOfDeletedProducts} products.`);
+      } else {
+        strapi.log.warn(
+          'Sync failed or was interrupted. Skipping deletion of obsolete products to prevent data loss.'
+        );
       }
     } catch (error) {
       strapi.log.error(
-        `Error syncing products from Web Account API, ${currentPage}, error: ${error}`
+        'A critical error occurred during the product sync process.'
       );
+      strapi.log.error(error);
     }
   },
 }));
