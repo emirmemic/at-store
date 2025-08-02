@@ -66,7 +66,6 @@ export async function notifyAdminAboutOrderCreation(order) {
 }
 
 /* Failure Scenario */
-// This function is called when the order creation fails (payment succeeded but order creation failed)
 export async function notifyCustomerAboutOrderFailure(order) {
   await strapi
     .plugin('email')
@@ -94,52 +93,70 @@ export async function notifyAdminAboutOrderFailure(order) {
 }
 
 // Email templates for user and admin notifications
-function renderUserOrderSuccessEmail(order) {
+
+/**
+ * Renders the primary order confirmation email sent to the user.
+ * This is the main updated template with the new design.
+ */
+function renderUserOrderSuccessEmail(order: OrderPopulated) {
+  const orderDate = new Date(order.createdAt).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
   return renderWrapper(`
-    ${renderLogo()}
-    <div style="padding: 20px 24px 0 24px;">
-      <h2 style="color: #2e7d32; margin:0 0 8px 0; font-size: 20px;">✅ Hvala na Vašoj narudžbi!</h2>
-      <p style="margin:0 0 18px 0; color:#222;">
-        Poštovani ${order.address.name},<br>
-        Vaša narudžba <strong>#${order.orderNumber}</strong> je uspješno zaprimljena.
-      </p>
-      ${renderOrderDetails(order)}
-      ${renderDeliveryAddress(order)}
-      <div style="margin-top: 24px; color:#888; font-size:13px;">
-        ${contactInfoBlock()}
-        Hvala što kupujete kod nas!
-      </div>
-    </div>
-  `);
+        <div style="padding: 0 32px 32px 32px;">
+            ${renderLogo()}
+            <h1 style="font-size: 28px; font-weight: 600; color: #1d1d1f; margin: 0 0 16px 0;">Hvala na Vašoj narudžbi.</h1>
+            <p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">Obavijestit ćemo Vas kada Vaši artikli budu na putu.</p>
+            
+            <div style="font-size: 14px; color: #515154; padding: 16px 0; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;">
+                <span style="padding-right: 24px;">Broj narudžbe: <span style="color: #0066cc; text-decoration: none;">${order.orderNumber}</span></span>
+                <span>Naručeno: ${orderDate}</span>
+            </div>
+
+            ${renderOrderDetails(order)}
+            ${renderDeliveryAddress(order)}
+            ${renderBillingAndPaymentSection(order)}
+
+            <div style="margin-top: 40px; border-top: 1px solid #e5e5e5; padding-top: 20px; color:#888; font-size:12px;">
+                ${contactInfoBlock()}
+                <p style="margin-top: 16px;">Hvala što kupujete kod nas!</p>
+            </div>
+        </div>
+    `);
 }
-const userOrderSuccessText = (order) =>
-  `Poštovani ${order.address.name},
 
-  Vaša narudžba #${order.orderNumber} je uspješno zaprimljena!
+const userOrderSuccessText = (order) => `Poštovani ${order.address.name},
 
-  ${contactInfoText()}
+  Vaša narudžba #${order.orderNumber} je uspješno zaprimljena!
 
-  Hvala što kupujete kod nas!`;
+  ${contactInfoText()}
+
+  Hvala što kupujete kod nas!`;
 
 function renderAdminOrderSuccessEmail(order) {
   return renderWrapper(`
-    ${renderLogo()}
-    <div style="padding: 20px 24px 0 24px;">
-      <h2 style="color: #333; margin:0 0 8px 0; font-size: 20px;">Nova narudžba!</h2>
-      <p style="margin:0 0 18px 0; color:#222;">
-        Primljena je nova narudžba od ${order.address.name} ${order.address.surname}.<br>
-        Broj narudžbe: <strong>${order.orderNumber}</strong>
-      </p>
-      ${renderOrderDetails(order)}
-      ${renderDeliveryAddress(order)}
-      <div style="margin-top: 24px; color:#888; font-size:13px;">
-        Pogledajte i obradite narudžbu u administraciji.
-      </div>
+    <div style="padding: 32px;">
+        ${renderLogo()}
+        <h1 style="font-size: 24px; color: #1d1d1f;">Nova narudžba!</h1>
+        <p style="margin:0 0 18px 0; color:#222;">
+            Primljena je nova narudžba od ${order.address.name} ${order.address.surname}.<br>
+            Broj narudžbe: <strong>${order.orderNumber}</strong>
+        </p>
+        ${renderOrderDetails(order)}
+        ${renderDeliveryAddress(order)}
+        ${renderBillingAndPaymentSection(order)}
+        <div style="margin-top: 24px; color:#888; font-size:13px; border-top: 1px solid #e5e5e5; padding-top: 20px;">
+            Pogledajte i obradite narudžbu u administraciji.
+        </div>
     </div>
-  `);
+  `);
 }
-const adminOrderSuccessText = (order) =>
-  `Nova narudžba #${order.orderNumber} je napravljena.
+const adminOrderSuccessText = (
+  order
+) => `Nova narudžba #${order.orderNumber} je napravljena.
 
 Kupac: ${order.address.name} ${order.address.surname}
 Email: ${order.address.email}
@@ -149,26 +166,26 @@ Način plaćanja: ${order.paymentMethod === 'card' ? 'Kartica' : 'Gotovina'}
 `;
 function renderAdminOrderFailureEmail(order) {
   return renderWrapper(`
-    ${renderLogo()}
-    <div style="padding: 20px 24px 0 24px;">
-      <h2 style="color: #d32f2f; margin:0 0 8px 0; font-size: 20px;">⚠️ GREŠKA: Problem s narudžbom</h2>
-      <div style="background-color: #ffebee; border-left: 4px solid #d32f2f; padding: 15px; margin-bottom: 20px;">
-        <p style="color: #d32f2f; font-weight: bold;">
-          HITNO: Plaćanje je uspjelo, ali narudžba #${order.orderNumber} nije pravilno zabilježena u sustavu.<br>
-          Potrebna je hitna intervencija!
-        </p>
-      </div>
-      ${renderOrderDetails(order)}
-      ${renderDeliveryAddress(order)}
-      <div style="margin-top: 24px; color:#888; font-size:13px;">
-        Kontaktirajte kupca što prije!
-      </div>
-    </div>
-  `);
+    <div style="padding: 20px 24px 0 24px;">
+      <h2 style="color: #d32f2f; margin:0 0 8px 0; font-size: 20px;">⚠️ GREŠKA: Problem s narudžbom</h2>
+      <div style="background-color: #ffebee; border-left: 4px solid #d32f2f; padding: 15px; margin-bottom: 20px;">
+        <p style="color: #d32f2f; font-weight: bold;">
+          HITNO: Plaćanje je uspjelo, ali narudžba #${order.orderNumber} nije pravilno zabilježena u sustavu.<br>
+          Potrebna je hitna intervencija!
+        </p>
+      </div>
+      ${renderOrderDetails(order)}
+      ${renderDeliveryAddress(order)}
+      <div style="margin-top: 24px; color:#888; font-size:13px;">
+        Kontaktirajte kupca što prije!
+      </div>
+    </div>
+  `);
 }
 
-const adminOrderFailureText = (order) =>
-  `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} nije uspjelo.
+const adminOrderFailureText = (
+  order
+) => `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} nije uspjelo.
 
 Kupac: ${order.address.name} ${order.address.surname}
 Email: ${order.address.email}
@@ -179,181 +196,190 @@ Način plaćanja: ${order.paymentMethod === 'card' ? 'Kartica' : 'Gotovina'}
 Potrebna je hitna intervencija! Plaćanje je primljeno, ali narudžba nije pravilno zabilježena u sustavu.`;
 function renderUserOrderFailureEmail(order) {
   return renderWrapper(`
-    ${renderLogo()}
-    <div style="padding: 20px 24px 0 24px;">
-      <h2 style="color: #d9534f; margin:0 0 8px 0; font-size: 20px;">⚠️ Problem s narudžbom</h2>
-      <div style="background-color: #ffebee; border-left: 4px solid #d9534f; padding: 15px; margin-bottom: 20px;">
-        <p style="color: #d32f2f;">
-          Poštovani ${order.address.name},<br><br>
-          Vaša uplata za narudžbu <strong>#${order.orderNumber}</strong> je zaprimljena, ali došlo je do tehničkog problema pri obradi narudžbe.<br>
-          Naš tim je obaviješten i rješava problem što je brže moguće.
-        </p>
-      </div>
-      <div style="margin-top: 24px; color:#888; font-size:13px;">
-        ${contactInfoBlock()}
-      </div>
-    </div>
-  `);
+    <div style="padding: 20px 24px 0 24px;">
+      <h2 style="color: #d9534f; margin:0 0 8px 0; font-size: 20px;">⚠️ Problem s narudžbom</h2>
+      <div style="background-color: #ffebee; border-left: 4px solid #d9534f; padding: 15px; margin-bottom: 20px;">
+        <p style="color: #d32f2f;">
+          Poštovani ${order.address.name},<br><br>
+          Vaša uplata za narudžbu <strong>#${order.orderNumber}</strong> je zaprimljena, ali došlo je do tehničkog problema pri obradi narudžbe.<br>
+          Naš tim je obaviješten i rješava problem što je brže moguće.
+        </p>
+      </div>
+      <div style="margin-top: 24px; color:#888; font-size:13px;">
+        ${contactInfoBlock()}
+      </div>
+    </div>
+  `);
 }
-const userOrderFailureText = (order) =>
-  `Poštovani ${order.address.name},
+const userOrderFailureText = (order) => `Poštovani ${order.address.name},
 
-  Vaša uplata za narudžbu #${order.orderNumber} je uspješno zaprimljena, no došlo je do tehničkog problema pri obradi narudžbe.
+  Vaša uplata za narudžbu #${order.orderNumber} je uspješno zaprimljena, no došlo je do tehničkog problema pri obradi narudžbe.
 
-  Naš tim je već obaviješten i rješava problem što je brže moguće. 
+  Naš tim je već obaviješten i rješava problem što je brže moguće. 
 
-  ${contactInfoText()}
+  ${contactInfoText()}
 
-  Hvala na razumijevanju!`;
+  Hvala na razumijevanju!`;
 
-// Helper for the top wrapper
+/**
+ * Renders the main wrapper for all emails with a modern look.
+ */
 function renderWrapper(content) {
   return `
-    <div style="max-width: 600px; margin:0 auto; font-family: Arial, sans-serif; background:#fff; border: 1px solid #eee; border-radius:10px; overflow:hidden;">
-      ${content}
-    </div>
-  `;
+      <div style="background-color: #f5f5f7; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
+        <div style="max-width: 680px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden;">
+          ${content}
+        </div>
+      </div>
+    `;
 }
 
 const formatPrice = (price: number) => {
   return price.toLocaleString('de-DE', {
-    minimumFractionDigits: 0,
+    minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
 };
+
+/**
+ * Renders the billing and payment section, including totals.
+ */
+function renderBillingAndPaymentSection(order: OrderPopulated) {
+  const addr = order.address;
+  const priceWithoutDelivery = order.totalPrice - (order.deliveryPrice || 0);
+  const formatPriceWithCurrency = (price: number) =>
+    `${formatPrice(price)} ${CURRENCY}`;
+
+  const giftHtml = order.isGift
+    ? `<div style="margin: 20px 0 0 0; padding: 12px; background: #fff3cd; border-radius: 8px; color: #856404; font-size: 14px; border:1px solid #ffe08c;">
+             🎁 Ova narudžba je označena kao poklon!
+           </div>`
+    : '';
+
+  const totals = `
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border-top: 1px solid #e5e5e5; padding-top: 20px;">
+            <tbody>
+                <tr>
+                    <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f;">Međuzbroj</td>
+                    <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${formatPriceWithCurrency(priceWithoutDelivery)}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f;">Dostava</td>
+                    <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${order.deliveryPrice > 0 ? formatPriceWithCurrency(order.deliveryPrice) : 'Besplatna'}</td>
+                </tr>
+                <tr style="border-top: 1px solid #e5e5e5;">
+                    <td style="padding: 15px 0 8px 0; font-size: 17px; color: #1d1d1f; font-weight: 600;">Ukupno</td>
+                    <td style="padding: 15px 0 8px 0; font-size: 17px; color: #1d1d1f; font-weight: 600; text-align: right;">${formatPriceWithCurrency(order.totalPrice)}</td>
+                </tr>
+                 <tr>
+                    <td colspan="2" style="padding: 10px 0; font-size: 15px; color: #515154;">
+                        Način plaćanja: ${order.paymentMethod === 'cash' ? 'Pouzećem' : 'Kartica'}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    `;
+
+  return `
+        <h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Naplata i plaćanje</h2>
+        <hr style="border: none; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="vertical-align: top; padding-right: 10px;">
+                    <p style="font-size: 16px; color: #1d1d1f; font-weight: 500; margin-bottom: 5px;">Kontakt za naplatu</p>
+                    <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
+                        ${addr.name || ''} ${addr.surname || ''}<br>
+                        ${addr.email ? `<a href="mailto:${addr.email}" style="color:#0066cc; text-decoration:none;">${addr.email}</a><br>` : ''}
+                        ${addr.phoneNumber || ''}
+                    </p>
+                </td>
+                <td style="width: 50%; vertical-align: top; padding-left: 10px;">
+                    <p style="font-size: 16px; color: #1d1d1f; font-weight: 500; margin-bottom: 5px;">Adresa za naplatu</p>
+                    <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
+                         ${addr.name || ''} ${addr.surname || ''}<br>
+                         ${addr.city || ''} ${addr.postalCode || ''}
+                    </p>
+                </td>
+            </tr>
+        </table>
+        ${giftHtml}
+        ${totals}
+    `;
+}
+
+/**
+ * Renders the "Items to be Shipped" section of the email.
+ */
 function renderOrderDetails(order: OrderPopulated) {
   const formatPriceWithCurrency = (price: number) =>
     `${formatPrice(price)} ${CURRENCY}`;
-  const date = new Date(order.createdAt);
 
-  const priceWithoutDelivery = order.totalPrice - (order.deliveryPrice || 0);
-  // Gift section (show only if isGift is true)
-  const giftHtml = order.isGift
-    ? `<div style="margin: 14px 0 10px 0; padding: 10px; background: #fff3cd; border-radius: 8px; color: #856404; font-size: 15px; border:1.5px solid #ffe08c;">
-         🎁 Ova narudžba je označena kao poklon!<br>
-       </div>`
-    : '';
-
-  // Items table
   const itemsHtml = order.items
     .map(
       (item) => `
-    <tr style="border-bottom:1px solid #e2e2e2;">
-      <td style="padding: 7px 0; vertical-align: middle; border-right:1px solid #e2e2e2;">
-  ${
-    item.product.images &&
-    item.product.images.length &&
-    item.product.images[0].url
-      ? `<img src="${strapiUrl}${item.product.images[0].url}"
-             alt="${item.product.name}"
-             style="height: 38px; vertical-align: middle; margin-right: 8px; border-radius:6px; width: 38px; object-fit: contain;">`
-      : `<span style="
-            display: inline-block;
-            width: 38px;
-            height: 38px;
-            background: #cac3c3;
-            color: #bbb;
-            vertical-align: middle;
-            margin-right: 8px;
-            text-align: center;
-            border-radius: 10px;
-            line-height: 38px;
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-          ">
-         </span>`
-  }
-  <span style="font-weight: 600;">${item.product.name}</span>
-</td>
-
-      <td style="text-align: center; min-width:30px; border-right:1px solid #e2e2e2;">${item.quantity}</td>
-      <td style="text-align: right;">${formatPriceWithCurrency(item.product.originalPrice)}</td>
+    <tr style="border-bottom: 1px solid #e5e5e5;">
+        <td style="padding: 20px 0;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 80px; padding-right: 20px;">
+                         ${
+                           item.product.images &&
+                           item.product.images.length &&
+                           item.product.images[0].url
+                             ? `<img src="${strapiUrl}${item.product.images[0].url}"
+                                     alt="${item.product.name}"
+                                     style="width: 60px; height: 60px; object-fit: contain; border-radius: 8px; border: 1px solid #e5e5e5;">`
+                             : `<div style="width: 60px; height: 60px; background: #f5f5f5; border-radius: 8px;"></div>`
+                         }
+                    </td>
+                    <td style="vertical-align: top;">
+                        <p style="margin: 0; font-size: 16px; font-weight: 600; color: #1d1d1f;">${item.product.name}</p>
+                        <p style="margin: 5px 0 0 0; font-size: 14px; color: #515154;">Količina: ${item.quantity}</p>
+                    </td>
+                    <td style="vertical-align: top; text-align: right; font-size: 16px; color: #1d1d1f; font-weight: 500;">
+                        ${formatPriceWithCurrency(item.product.originalPrice * item.quantity)}
+                    </td>
+                </tr>
+            </table>
+        </td>
     </tr>
-  `
+  `
     )
     .join('');
 
   return `
-  <div style="margin: 10px 0 0 0; font-size:14px; font-family:Arial,sans-serif; background:#fff; border:1.5px solid #e2e2e2; border-radius:8px; max-width:530px; box-shadow:0 1px 4px #eee;">
-    <div style="margin: 14px 0 4px 0; text-align:center; font-weight:500; font-size:17px;">
-      DETALJI NARUDŽBE
-    </div>
-    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; border-bottom:1.5px solid #e2e2e2; padding-bottom:10px;">
-      <span>
-        Broj narudžbe: <span style="color:#368bf4;">${order.orderNumber}</span>
-      </span>
-      <span>
-        Datum: <span style="color:#368bf4; text-decoration:none;">
-          ${date.toLocaleDateString('de-DE')}
-        </span>
-      </span>
-    </div>
-    <table style="width:100%; border-collapse:collapse; margin-bottom: 13px; border:1.5px solid #e2e2e2; border-radius:6px; overflow:hidden;">
-      <thead>
-        <tr style="background:#f7f7f7; border-bottom:1.5px solid #e2e2e2;">
-          <th style="text-align:left; font-size:13px; padding-bottom:8px; font-weight: 400; border-right:1px solid #e2e2e2;">PROIZVOD</th>
-          <th style="text-align:center; font-size:13px; padding-bottom:8px; font-weight: 400; border-right:1px solid #e2e2e2;">KOLIČINA</th>
-          <th style="text-align:right; font-size:13px; padding-bottom:8px; font-weight: 400;">CIJENA</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${itemsHtml}
-      </tbody>
+    <h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Artikli za slanje</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tbody>
+            ${itemsHtml}
+        </tbody>
     </table>
-
-    <div style="border-top: 2px solid #e2e2e2; margin: 18px 0 10px 0;"></div>
-    <table style="width:100%; font-size:14px; border-collapse:collapse;">
-      <tr style="border-bottom:1px solid #e2e2e2;">
-        <td style="font-weight:600; padding:7px 0;">UKUPNO:</td>
-        <td style="text-align:right; padding:7px 0;">${formatPriceWithCurrency(priceWithoutDelivery)}</td>
-      </tr>
-      ${
-        order.deliveryPrice
-          ? `
-      <tr style="border-bottom:1px solid #e2e2e2;">
-        <td style="font-weight:600; padding:7px 0;">DOSTAVA:</td>
-        <td style="text-align:right; padding:7px 0;">${formatPriceWithCurrency(order.deliveryPrice)} PUTEM BRZA POŠTA</td>
-      </tr>
-      `
-          : '0'
-      }
-      <tr style="border-bottom:1px solid #e2e2e2;">
-        <td style="font-weight:600; padding:7px 0;">NAČIN PLAĆANJA:</td>
-        <td style="text-align:right; padding:7px 0;">
-          ${order.paymentMethod === 'cash' ? 'PLAĆANJE PRILIKOM PREUZIMANJA' : 'KARTICA'}
-        </td>
-      </tr>
-      <tr>
-        <td style="font-weight:600; padding:7px 0;">UKUPNO:</td>
-        <td style="text-align:right; padding:7px 0;">${formatPrice(order.totalPrice)}</td>
-      </tr>
-    </table>
-    ${giftHtml}
-  </div>
-  `;
+  `;
 }
 
+/**
+ * Renders the "Shipping Address" section of the email.
+ */
 function renderDeliveryAddress(order: OrderPopulated) {
   const addr = order.address;
   return `
-    <div style="margin-top: 22px; font-size: 14px;">
-      <div style="font-weight: bold; margin-bottom: 2px;">ADRESA ZA ISPORUKU:</div>
-      <div>
-        ${addr.name ? addr.name : ''} ${addr.surname ? addr.surname : ''}<br>
-
-        ${addr.city ? addr.city + '<br>' : ''}
-        ${addr.postalCode ? addr.postalCode + '<br>' : ''}
-        ${addr.phoneNumber ? addr.phoneNumber + '<br>' : ''}
-        ${addr.email ? `<a href="mailto:${addr.email}" style="color:#337ab7; text-decoration:underline;">${addr.email}</a><br>` : ''}
-      </div>
-    </div>
-  `;
+    <h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Adresa za dostavu</h2>
+    <hr style="border: none; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
+    <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
+        ${addr.name || ''} ${addr.surname || ''}<br>
+        ${addr.city || ''} ${addr.postalCode || ''}<br>
+        ${addr.phoneNumber || ''}
+    </p>
+  `;
 }
 
+/**
+ * Renders the logo with updated styling.
+ */
 function renderLogo() {
   return `
-    <div style="text-align: center; padding: 48px 0;">
-      <img src="${logoUrl}" alt="Logo" style="max-width: 240px; height: auto;">
+    <div style="text-align: left; padding: 32px 0 24px 0;">
+      <img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;">
     </div>
-  `;
+  `;
 }
