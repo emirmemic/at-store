@@ -33,7 +33,7 @@ export interface WebAccountProduct {
     ram: {
       value: number | null;
       unit: string | null;
-    };
+    }[];
     chip: {
       name: string | null;
     };

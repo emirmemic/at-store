@@ -90,16 +90,16 @@ export function isSameProduct(
       web: webAccountProduct?.naziv_artikla_webaccount ?? null,
       strapi: existingProduct?.webAccountArticleName ?? null,
     },
-    {
-      field: 'RAM Unit',
-      web: webAccountProduct?.specifications?.ram?.unit ?? null,
-      strapi: existingProduct?.ram?.unit ?? null,
-    },
-    {
-      field: 'RAM Value',
-      web: webAccountProduct?.specifications?.ram?.value ?? null,
-      strapi: existingProduct?.ram?.value ?? null,
-    },
+    // {
+    //   field: 'RAM Unit',
+    //   web: webAccountProduct?.specifications?.ram?.unit ?? null,
+    //   strapi: existingProduct?.ram?.unit ?? null,
+    // },
+    // {
+    //   field: 'RAM Value',
+    //   web: webAccountProduct?.specifications?.ram?.value ?? null,
+    //   strapi: existingProduct?.ram?.value ?? null,
+    // },
     {
       field: 'Chip',
       web: webAccountProduct?.specifications?.chip?.name ?? null,
@@ -115,11 +115,11 @@ export function isSameProduct(
       web: webAccountProduct?.specifications?.release_date ?? null,
       strapi: existingProduct?.releaseDate ?? null,
     },
-    {
-      field: 'Cores',
-      web: webAccountProduct?.specifications?.number_of_cores ?? null,
-      strapi: existingProduct?.cores ?? null,
-    },
+    // {
+    //   field: 'Cores',
+    //   web: webAccountProduct?.specifications?.number_of_cores ?? null,
+    //   strapi: existingProduct?.cores ?? null,
+    // },
     {
       field: 'Product Type ID',
       web: webAccountProduct?.product_type_id,
@@ -337,8 +337,8 @@ function logDifferences(
 ) {
   console.log(`\n${field} differs`);
   console.log(`  Product Variant : ${productVariantId}`);
-  console.log(`  Web Account: ${webValue}`);
-  console.log(`  Strapi: ${strapiValue}`);
+  console.log(`  Web Account: ${JSON.stringify(webValue, null, 2)}`);
+  console.log(`  Strapi: ${JSON.stringify(strapiValue, null, 2)}`);
 }
 
 /**

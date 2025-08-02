@@ -4,6 +4,11 @@ import { findEntity, getStores, isSameProduct, makeLink } from '../utils';
 
 export default factories.createCoreService('api::product.product', () => ({
   syncWebAccountProducts: async () => {
+    /// Store all productVariantIds from Web Account API
+    const allWebAccountProducts: string[] = [];
+    /// Flag to track if all products were synced successfully
+    /// If any product fails to sync, we set this to false
+    let allProductsSynced = true;
     try {
       // Fetch products from Web Account API
       const loginCredentials = {
@@ -44,6 +49,7 @@ export default factories.createCoreService('api::product.product', () => ({
           const { unique_products: webAccountProducts } = responseData;
 
           for (const webAccountProduct of webAccountProducts) {
+            allWebAccountProducts.push(webAccountProduct.product_variant_id);
             // Check if product already exists
             try {
               // First, try to find the published product
@@ -302,7 +308,7 @@ export default factories.createCoreService('api::product.product', () => ({
                 accessoriesType: webAccountProduct.dodaci_type,
                 braceletSize: webAccountProduct.narukvica_size.join(', '),
                 screenSize: webAccountProduct.specifications.screen_size,
-                ram: webAccountProduct.specifications.ram,
+                ram: webAccountProduct.specifications.ram[0],
                 cores: webAccountProduct.specifications.number_of_cores,
                 releaseDate: webAccountProduct.specifications.release_date,
                 deviceCompatibility:
@@ -348,12 +354,44 @@ export default factories.createCoreService('api::product.product', () => ({
                 });
               }
             } catch (error) {
+              allProductsSynced = false;
               strapi.log.error(
                 `Error processing product ${webAccountProduct.product_variant_id}:`,
                 error
               );
             }
           }
+        }
+        if (allProductsSynced) {
+          /// After processing all products, we can delete products that are not in the Web Account API but exist in Strapi
+          const draftProducts = await strapi
+            .documents('api::product.product')
+            .findMany({
+              status: 'draft',
+            });
+          const publishedProducts = await strapi
+            .documents('api::product.product')
+            .findMany({
+              status: 'published',
+            });
+
+          const allProducts = [...draftProducts, ...publishedProducts];
+          const productsToDelete = allProducts
+            .filter(
+              (product) =>
+                !allWebAccountProducts.includes(product.productVariantId)
+            )
+            .map((product) => product.documentId);
+
+          let countOfDeletedProducts = 0;
+          // Delete products that are not in the Web Account API
+          for (const productId of productsToDelete) {
+            await strapi.documents('api::product.product').delete({
+              documentId: productId,
+            });
+            countOfDeletedProducts++;
+          }
+          console.log(`Deleted ${countOfDeletedProducts} products`);
         }
       }
     } catch (error) {
