@@ -56,7 +56,8 @@ export const makeLink = (raw: string): string =>
  */
 export function isSameProduct(
   webAccountProduct: WebAccountProduct,
-  existingProduct: StrapiProduct
+  existingProduct: StrapiProduct,
+  currentPage: number
 ): boolean {
   let categoryName = webAccountProduct.category?.name || null;
   const subCategoryName =
@@ -193,7 +194,8 @@ export function isSameProduct(
   isIdentical = compareStoresValues(
     webStores,
     strapiStores,
-    existingProduct.productVariantId
+    existingProduct.productVariantId,
+    currentPage
   );
 
   if (!isIdentical) {
@@ -210,7 +212,8 @@ export function isSameProduct(
   isIdentical = compareDeviceCompatibility(
     webDeviceCompatibility,
     strapiDeviceCompatibility,
-    webAccountProduct.product_variant_id
+    webAccountProduct.product_variant_id,
+    currentPage
   );
 
   if (!isIdentical) {
@@ -232,7 +235,8 @@ export function isSameProduct(
           field,
           web,
           strapi,
-          webAccountProduct.product_variant_id
+          webAccountProduct.product_variant_id,
+          currentPage
         );
         // go to the next comparison
         return;
@@ -241,7 +245,13 @@ export function isSameProduct(
 
     if (web !== strapi) {
       isIdentical = false;
-      logDifferences(field, web, strapi, webAccountProduct.product_variant_id);
+      logDifferences(
+        field,
+        web,
+        strapi,
+        webAccountProduct.product_variant_id,
+        currentPage
+      );
     }
   });
 
@@ -255,7 +265,8 @@ export function isSameProduct(
 function compareDeviceCompatibility(
   webDeviceCompatibility: string[] | null,
   strapiDeviceCompatibility: string[] | null,
-  productVariantId: string
+  productVariantId: string,
+  currentPage: number
 ): boolean {
   if (!strapiDeviceCompatibility && !webDeviceCompatibility) {
     return true;
@@ -272,7 +283,8 @@ function compareDeviceCompatibility(
         'Device Compatibility',
         webDeviceCompatibility,
         strapiDeviceCompatibility,
-        productVariantId
+        productVariantId,
+        currentPage
       );
       return false;
     }
@@ -296,7 +308,8 @@ function compareStoresValues(
       name: string;
     };
   }[],
-  productVariantId: string
+  productVariantId: string,
+  currentPage: number
 ): boolean {
   if (!web && !strapi) {
     return true;
@@ -313,7 +326,7 @@ function compareStoresValues(
       );
 
     if (!sameStores) {
-      logDifferences('Stores', web, strapi, productVariantId);
+      logDifferences('Stores', web, strapi, productVariantId, currentPage);
       return false;
     }
     return true;
@@ -333,8 +346,10 @@ function logDifferences(
   field: string,
   webValue: any,
   strapiValue: any,
-  productVariantId: string
+  productVariantId: string,
+  currentPage: number
 ) {
+  console.log(`\n Current Web Account page: ${currentPage}`);
   console.log(`\n${field} differs`);
   console.log(`  Product Variant : ${productVariantId}`);
   console.log(`  Web Account: ${JSON.stringify(webValue, null, 2)}`);

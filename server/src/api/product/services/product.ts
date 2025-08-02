@@ -34,6 +34,10 @@ export default factories.createCoreService('api::product.product', () => ({
 
       if (token) {
         for (let index = 1; index <= totalPages; index++) {
+          console.log(
+            `Fetching page ${index} of products from Web Account API...`
+          );
+
           const response = await fetch(
             `${process.env.WEB_ACCOUNT_API_URL}/products/unique?page=${index}`,
             {
@@ -105,7 +109,8 @@ export default factories.createCoreService('api::product.product', () => ({
                 existingProduct &&
                 isSameProduct(
                   webAccountProduct,
-                  existingProduct as StrapiProduct
+                  existingProduct as StrapiProduct,
+                  index
                 )
               ) {
                 continue;
