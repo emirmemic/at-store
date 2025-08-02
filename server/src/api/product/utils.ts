@@ -91,16 +91,16 @@ export function isSameProduct(
       web: webAccountProduct?.naziv_artikla_webaccount ?? null,
       strapi: existingProduct?.webAccountArticleName ?? null,
     },
-    // {
-    //   field: 'RAM Unit',
-    //   web: webAccountProduct?.specifications?.ram?.unit ?? null,
-    //   strapi: existingProduct?.ram?.unit ?? null,
-    // },
-    // {
-    //   field: 'RAM Value',
-    //   web: webAccountProduct?.specifications?.ram?.value ?? null,
-    //   strapi: existingProduct?.ram?.value ?? null,
-    // },
+    {
+      field: 'RAM Unit',
+      web: webAccountProduct?.specifications?.ram[0]?.unit ?? null,
+      strapi: existingProduct?.ram?.unit ?? null,
+    },
+    {
+      field: 'RAM Value',
+      web: webAccountProduct?.specifications?.ram[0]?.value ?? null,
+      strapi: existingProduct?.ram?.value ?? null,
+    },
     {
       field: 'Chip',
       web: webAccountProduct?.specifications?.chip?.name ?? null,

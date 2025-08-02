@@ -12,6 +12,12 @@ export default factories.createCoreController(
         ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
         $gt: 0,
       };
+
+      // Inject the originalPrice > 0 filter
+      (ctx.query.filters as Record<string, any>).originalPrice = {
+        ...((ctx.query.filters as Record<string, any>).originalPrice || {}),
+        $gt: 0,
+      };
       // Call the default core controller logic
       const { data, meta } = await super.find(ctx);
       return { data, meta };
@@ -24,6 +30,12 @@ export default factories.createCoreController(
       // Inject the amountInStock > 0 filter
       (ctx.query.filters as Record<string, any>).amountInStock = {
         ...((ctx.query.filters as Record<string, any>).amountInStock || {}),
+        $gt: 0,
+      };
+
+      // Inject the originalPrice > 0 filter
+      (ctx.query.filters as Record<string, any>).originalPrice = {
+        ...((ctx.query.filters as Record<string, any>).originalPrice || {}),
         $gt: 0,
       };
       // Call the default core controller logic
