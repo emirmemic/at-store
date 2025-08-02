@@ -191,7 +191,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }
 
 const fetchAllProducts = async () => {
-  const maxIterations = 10;
+  const maxIterations = 50;
   const pageSize = 100;
   let page = 1;
   let allProducts: ProductResponse[] = [];
