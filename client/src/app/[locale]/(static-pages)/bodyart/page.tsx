@@ -430,7 +430,7 @@ export default function BodyArt() {
             Istraživanja pokazuju da čak 80% korisnika doživljava učinkovitiji i
             fokusiraniji trening uz <b>AirPods Max</b>.
           </span>
-          <span className="text-xl font-thin">
+          <span className="text-xl font-thin shadow-2xl">
             Savršen zvuk, udobnost i aktivno poništavanje buke čine ih idealnim
             partnerom za svaki funkcionalni trening.
           </span>

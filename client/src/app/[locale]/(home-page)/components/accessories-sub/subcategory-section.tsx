@@ -1,15 +1,14 @@
-import qs from 'qs';
-
-import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
 import {
   ACCESSORY_CATEGORY_NAME,
   STRAPI_BASE_URL,
   STRAPI_IMAGE_FIELDS,
 } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { SubCategoryItem } from '@/lib/types';
 
 import SubCategoriesCarousel from './carousel';
+import { SubCategoryItem } from '@/lib/types';
+import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
+import { fetchAPI } from '@/lib/fetch-api';
+import qs from 'qs';
 
 const query = qs.stringify(
   {

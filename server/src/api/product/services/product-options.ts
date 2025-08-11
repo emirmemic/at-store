@@ -13,9 +13,9 @@ export default ({ strapi }) => ({
         productTypeId: {
           $eqi: typeId,
         },
-        amountInStock: {
-          $gt: 0,
-        },
+        // amountInStock: {
+        //   $gt: 0,
+        // },
       },
       status: 'published',
       populate: {

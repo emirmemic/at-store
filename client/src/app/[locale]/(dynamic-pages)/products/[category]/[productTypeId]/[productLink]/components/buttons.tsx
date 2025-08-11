@@ -114,6 +114,7 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
           size="md"
           variant="filled"
           onClick={() => router.push('/cart')}
+          disabled={product.amountInStock === 0} // disable if amountInStock is 0
         >
           Pogledaj korpu
         </Button>
@@ -123,6 +124,7 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
           size="md"
           variant="filled"
           onClick={handleCartClick}
+          disabled={product.amountInStock === 0} // disable if amountInStock is 0
         >
           {t('common.buyNow')}
         </Button>
@@ -131,7 +133,7 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
       {!isModal && (
         <Button
           className="h-12 w-72"
-          disabled={isLoading}
+          disabled={isLoading || product.amountInStock === 0} // also disable here
           size="md"
           variant="addToFavorites"
           onClick={handleFavoriteClick}

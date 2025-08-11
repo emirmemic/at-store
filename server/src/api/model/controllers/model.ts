@@ -32,7 +32,7 @@ export default factories.createCoreController(
           return ctx.notFound('No models found for category');
         }
         const filteredModels = models.filter((model) => {
-          model.products.length > 0;
+          return model.products.length > 0;
         });
 
         return filteredModels;
@@ -72,7 +72,7 @@ export default factories.createCoreController(
           );
         }
         const filteredModels = models.filter((model) => {
-          model.products.length > 0;
+          return model.products.length > 0;
         });
 
         return filteredModels;

@@ -105,9 +105,7 @@ export default factories.createCoreService('api::navbar.navbar', () => ({
         // ✅ Grouped Subcategories: only include those that have subCategories with products
         const filteredGroupedSubCategories = (item.groupedSubCategories || [])
           .map((groupedSubCategory) => {
-            const filteredSubCats = (
-              groupedSubCategory.subCategories || []
-            ).filter((subCategory) => subCategory.products?.length > 0);
+            const filteredSubCats = groupedSubCategory.subCategories || [];
 
             if (filteredSubCats.length === 0) return null;
 
