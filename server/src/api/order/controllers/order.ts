@@ -1,12 +1,13 @@
-import { factories } from '@strapi/strapi';
-import { ProductStockResponse } from '../../product/types';
-import { Order } from '../types';
 import {
   notifyAdminAboutOrderCreation,
   notifyAdminAboutOrderFailure,
   notifyCustomerAboutOrderCreation,
   notifyCustomerAboutOrderFailure,
 } from '../utils';
+
+import { Order } from '../types';
+import { ProductStockResponse } from '../../product/types';
+import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController(
   'api::order.order',
@@ -26,8 +27,7 @@ export default factories.createCoreController(
         orderNumber: order.orderNumber,
         address: order.address,
         deliveryMethod: order.deliveryMethod,
-        //TODO: Check why this happens
-        paymentMethod: order.paymentMethod as any,
+        paymentMethod: order.paymentMethod,
         selectedStore: order.selectedStore,
         deliveryPrice: order.deliveryPrice,
         items: order.items.map((item) => ({

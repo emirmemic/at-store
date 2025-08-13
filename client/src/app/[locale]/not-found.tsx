@@ -1,10 +1,9 @@
-import { useTranslations } from 'next-intl';
-
-import { IconSadFace } from '@/app/[locale]/(static-pages)/icons';
-import { MonoAppleBlock } from '@/components';
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
+import { IconSadFace } from '@/app/[locale]/(static-pages)/icons';
 import { Link } from '@/i18n/routing';
+import { MonoAppleBlock } from '@/components';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { useTranslations } from 'next-intl';
 
 export default function NotFoundPage() {
   const t = useTranslations('notFound');
@@ -20,7 +19,6 @@ export default function NotFoundPage() {
           <Link href={PAGE_NAMES.HOME}> {t('buttonText')} </Link>
         </Button>
       </div>
-      <MonoAppleBlock />
     </div>
   );
 }
