@@ -59,7 +59,7 @@ export async function notifyAdminAboutOrderCreation(order) {
     .send({
       to: ordersEmail,
       from: defaultFrom,
-      subject: 'Nova narudžba je napravljena',
+      subject: 'Nova narudžba je kreirana',
       text: adminOrderSuccessText(order),
       html: renderAdminOrderSuccessEmail(order),
     });
@@ -140,7 +140,7 @@ function renderAdminOrderSuccessEmail(order) {
   return renderWrapper(`
     <div style="padding: 32px;">
         ${renderLogo()}
-        <h1 style="font-size: 24px; color: #1d1d1f;">Nova narudžba!</h1>
+        <h1 style="font-size: 24px; color: #1d1d1f;">Nova narudžba.</h1>
         <p style="margin:0 0 18px 0; color:#222;">
             Primljena je nova narudžba od ${order.address.name} ${order.address.surname}.<br>
             Broj narudžbe: <strong>${order.orderNumber}</strong>
@@ -159,6 +159,7 @@ const adminOrderSuccessText = (
 ) => `Nova narudžba #${order.orderNumber} je napravljena.
 
 Kupac: ${order.address.name} ${order.address.surname}
+Adresa: ${order.address.address}
 Email: ${order.address.email}
 Telefon: ${order.address.phoneNumber}
 Način dostave: ${order.deliveryMethod === 'pickup' ? 'Preuzimanje' : 'Dostava'}
@@ -188,6 +189,7 @@ const adminOrderFailureText = (
 ) => `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} nije uspjelo.
 
 Kupac: ${order.address.name} ${order.address.surname}
+Adresa: ${order.address.address}
 Email: ${order.address.email}
 Telefon: ${order.address.phoneNumber}
 Način dostave: ${order.deliveryMethod === 'pickup' ? 'Preuzimanje' : 'Dostava'}
@@ -273,7 +275,13 @@ function renderBillingAndPaymentSection(order: OrderPopulated) {
                 </tr>
                  <tr>
                     <td colspan="2" style="padding: 10px 0; font-size: 15px; color: #515154;">
-                        Način plaćanja: ${order.paymentMethod === 'cash' ? 'Pouzećem' : 'Kartica'}
+                        Način plaćanja: ${
+                          order.paymentMethod === 'cash'
+                            ? 'Pouzećem'
+                            : order.paymentMethod === 'virman'
+                              ? 'Virman'
+                              : 'Kartica'
+                        }
                     </td>
                 </tr>
             </tbody>
@@ -367,8 +375,10 @@ function renderDeliveryAddress(order: OrderPopulated) {
     <hr style="border: none; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
     <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
         ${addr.name || ''} ${addr.surname || ''}<br>
+        ${addr.address || ''}
         ${addr.city || ''} ${addr.postalCode || ''}<br>
-        ${addr.phoneNumber || ''}
+        ${addr.phoneNumber || ''}<br>
+        ${order.deliveryMethod === 'pickup' && (order as any).storeName ? `<br>${(order as any).storeName}` : ''}
     </p>
   `;
 }

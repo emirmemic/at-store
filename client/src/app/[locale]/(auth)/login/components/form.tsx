@@ -106,14 +106,6 @@ export default function Form() {
           </Button>
         )}
       </div>
-      <div className="self-center md:hidden">
-        <p className="mt-8 text-center text-black">{t('loginThrough')}</p>
-        <div className="mt-4 flex gap-14">
-          <OAuthButton provider="facebook" variant="icon" />
-          <OAuthButton provider="apple" variant="icon" />
-          <OAuthButton provider="google" variant="icon" />
-        </div>
-      </div>
     </form>
   );
 }

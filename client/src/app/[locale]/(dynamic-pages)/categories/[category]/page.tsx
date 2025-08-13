@@ -98,7 +98,7 @@ export default async function Page({
   return (
     <main className="pb-28 pt-11 container-max-width">
       <ProductListTitle title={categoryData.displayName} />
-      <div className="flex flex-col gap-4 py-16 lg:grid lg:grid-cols-2">
+      <div className="flex flex-col gap-4 py-16 lg:grid lg:grid-cols-1">
         {categoryData.subCategories.map((subCategory) => (
           <SubProductCard
             key={subCategory.id}

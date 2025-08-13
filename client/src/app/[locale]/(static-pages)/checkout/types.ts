@@ -16,4 +16,4 @@ export interface OrderSuccessData {
   isGift: boolean;
 }
 
-export type PaymentMethod = 'card' | 'cash';
+export type PaymentMethod = 'card' | 'cash' | 'virman';

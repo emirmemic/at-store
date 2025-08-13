@@ -43,7 +43,7 @@ export default function CartSection() {
         />
       </CollapsibleTrigger>
 
-      <div className="space-y-4 bg-white p-6 shadow-sm">
+      <div className="space-y-4 bg-gray-100 p-6">
         {cartItemsPrice > 0 && (
           <>
             <h2 className="mb-4 hidden text-xl font-semibold text-gray-900 md:block">
@@ -80,7 +80,7 @@ export function TitleWithValue({
   value: number;
 }) {
   return (
-    <div className="flex items-center justify-between bg-white px-4 py-3">
+    <div className="flex items-center justify-between bg-gray-100 px-4 py-3">
       <p className="text-sm text-gray-600">{title}</p>
       <Price className="text-base font-medium text-gray-900" value={value} />
     </div>

@@ -21,7 +21,7 @@ export default function Container({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-[842px] flex-col items-center justify-center gap-3 rounded-2xl bg-black bg-white p-9 text-black text-white md:p-12',
+        'relative flex w-full max-w-[742px] flex-col items-center justify-center gap-3 rounded-2xl bg-black bg-white p-9 text-black text-white md:p-12',
         className
       )}
     >

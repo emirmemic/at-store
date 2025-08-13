@@ -77,7 +77,7 @@ export const AT_STORE_INFO = {
   registry: '065-0-Reg13-002173',
   website: 'www.atstore.ba',
   email: 'at@atstore.ba',
-  phone: '+387 33 956 618',
+  phone: '+387 33 956 188',
   businessEmail: 'business@atstore.ba',
   bankAccounts: [
     { bank: 'Raiffeisen Bank', account: '1610000103890018' },

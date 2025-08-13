@@ -106,7 +106,7 @@ export default async function Page({
     <main className="pb-28 pt-11">
       <div className="container-max-width">
         <ProductListTitle title={title} />
-        <div className="flex flex-col gap-6 py-16 lg:grid lg:grid-cols-2">
+        <div className="flex flex-col gap-6 py-16 lg:grid lg:grid-cols-1">
           {subCategories.map((subCategory) => (
             <SubProductCard
               key={subCategory.id}
@@ -131,16 +131,6 @@ export default async function Page({
           />
         </section>
       )}
-      <section className="py-8 container-max-width">
-        <InfoBlock
-          actionLink={{
-            id: 1,
-            linkUrl: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
-          }}
-          description={t('categoryPage.edDescription')}
-          title={t('categoryPage.edTitle')}
-        />
-      </section>
     </main>
   );
 }

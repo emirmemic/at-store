@@ -22,9 +22,9 @@ export default function SubProductCard({
   onClick,
 }: SubProductCardProps) {
   return (
-    <div className="mb-3 flex justify-center">
-      <div className="flex w-full max-w-[1100px] flex-col items-center justify-between gap-3 rounded-3xl border border-gray-200 bg-[#f5f5f7] px-4 pb-6 pt-4 shadow-md transition-all hover:shadow-lg md:flex-row-reverse md:items-center md:gap-4 md:px-4 md:py-6 lg:px-6">
-        <div className="h-36 w-40 md:mr-[5px]">
+    <div className="mb-6 flex justify-center">
+      <div className="flex w-full max-w-[1100px] flex-col gap-3 rounded-2xl border border-[#d2d2d7] bg-white px-4 pb-6 pt-4 shadow-sm ring-1 ring-inset ring-[#f5f5f7] transition-all hover:shadow-md md:flex-row md:items-center md:px-6 md:py-6">
+        <div className="h-36 w-40 md:ml-[5px]">
           {image ? (
             <StrapiImage
               alt={image.alternativeText ?? title}
@@ -38,27 +38,33 @@ export default function SubProductCard({
             <div className="h-full w-full" />
           )}
         </div>
-        <div className="flex flex-col items-center gap-3 md:items-start md:justify-between md:pt-3">
+        <div className="flex flex-1 flex-col justify-center gap-3">
           {specifications && specifications.length > 0 ? (
             <>
-              <p className="text-lg font-semibold tracking-tight text-neutral-900">
+              <p className="text-center text-[17px] font-medium tracking-tight text-neutral-900 md:text-left">
                 {title}
               </p>
-              <ul className="mb-7 flex flex-col gap-0.5 text-sm font-medium text-neutral-700">
+              <ul className="mb-6 flex w-full flex-col text-[13px] font-normal text-neutral-700">
                 {specifications.map((spec, index) => (
-                  <li key={index}>{spec}</li>
+                  <li
+                    key={index}
+                    className="border-b border-[#e5e5ea] px-1.5 py-1.5 text-center last:border-b-0 md:text-left"
+                  >
+                    {spec}
+                  </li>
                 ))}
               </ul>
             </>
           ) : (
-            <p className="mb-7 text-lg font-semibold tracking-tight text-neutral-900">
+            <p className="mb-7 text-center text-lg font-semibold tracking-tight text-neutral-900 md:text-left">
               {title}
             </p>
           )}
-
+        </div>
+        <div className="flex items-center justify-center md:justify-end">
           {onClick ? (
             <Button
-              className="w-fit rounded-3xl bg-blue px-4 py-2 text-sm text-white transition-colors hover:bg-blue-900"
+              className="w-fit rounded-full bg-[#0071e3] px-6 py-2 text-[14px] font-medium text-white transition-colors hover:bg-[#005bb5]"
               size={'md'}
               variant={'filled'}
               onClick={onClick}
@@ -68,7 +74,7 @@ export default function SubProductCard({
           ) : (
             <Button
               asChild
-              className="w-fit rounded-3xl bg-blue px-4 py-2 text-sm text-white transition-colors hover:bg-blue-900"
+              className="w-fit rounded-full bg-[#0071e3] px-6 py-2 text-[14px] font-medium text-white transition-colors hover:bg-[#005bb5]"
               size={'md'}
               variant={'filled'}
             >

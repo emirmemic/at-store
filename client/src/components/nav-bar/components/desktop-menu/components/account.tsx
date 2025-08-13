@@ -55,7 +55,7 @@ interface LoggedInAccountProps {
 
 const LoggedInAccount = ({ closePopup, t }: LoggedInAccountProps) => (
   <>
-    <div className="item flex items-start justify-between gap-2 bg-white p-4 text-black">
+    <div className="item flex items-center justify-between gap-2 bg-white p-4 text-black">
       <UserAvatar closeMenu={closePopup} />
       <Button
         aria-label={t('navbar.closeMenu')}

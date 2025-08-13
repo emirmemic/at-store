@@ -14,7 +14,7 @@ import { OrderSuccessData } from '../../types';
 import { generateOrderNumber } from '../../utils';
 import { createOrder, getProductsStatus, OrderPayload } from '../actions';
 
-export default function PaymentOnDelivery() {
+export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
   const t = useTranslations('checkoutPage');
   // PROVIDERS
   const { getTotalPrice, cart, clearCart } = useCartProvider();
@@ -106,11 +106,13 @@ export default function PaymentOnDelivery() {
   }
   return (
     <>
-      <div className="w-full rounded-2xl border border-black bg-grey-silver px-4 py-10">
-        <p className="paragraph-2">
-          {t('paymentPage.payOnDeliveryDescription')}
-        </p>
-      </div>
+      {!virman && (
+        <div className="w-full rounded-2xl border border-black bg-grey-silver px-4 py-10">
+          <p className="paragraph-2">
+            {t('paymentPage.payOnDeliveryDescription')}
+          </p>
+        </div>
+      )}
       <div className="ml-auto mt-3">
         {isLoading ? (
           <IconLoader size={32} />

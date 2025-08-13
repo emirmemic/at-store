@@ -238,7 +238,7 @@ export default function Page() {
               {
                 question: 'Da li vršite popravku uređaja?',
                 answer:
-                  'Vršimo samo softversku popravku uređaja. Za hardversku popravku potrebno je da se obratite ovlaštenom servisnom centru ASBIS.',
+                  'Vršimo samo softversku popravku uređaja. Za hardversku popravku potrebno je da se obratite ovlaštenom servisnom centru.',
               },
               {
                 question: 'Kako mogu putem vas popraviti uređaj?',
@@ -248,7 +248,7 @@ export default function Page() {
               {
                 question: 'Koji su rokovi za popravku uređaja?',
                 answer:
-                  'Rokovi za popravku zavise od vrste kvara i dostupnosti dijelova. Obično softverske popravke obavljamo u roku od nekoliko sati, dok hardverske popravke zavise od servisa ASBIS.',
+                  'Rokovi za popravku zavise od vrste kvara i dostupnosti dijelova. Obično softverske popravke obavljamo u roku od nekoliko sati, dok hardverske popravke zavise od servisa.',
               },
             ].map(({ question, answer }, idx) => (
               <details

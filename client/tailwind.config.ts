@@ -133,8 +133,8 @@ export default {
         },
       },
       animation: {
-        slideDown: 'slideDown 0.3s ease-out',
-        slideUp: 'slideUp 0.3s ease-out',
+        slideDown: 'slideDown 0.5s ease-out',
+        slideUp: 'slideUp 0.5s ease-out',
       },
     },
   },

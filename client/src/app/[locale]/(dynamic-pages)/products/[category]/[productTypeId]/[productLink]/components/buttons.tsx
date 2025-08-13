@@ -67,7 +67,11 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(adjustedProduct),
     onSuccess: () => {
-      toast({ title: t('common.successful') });
+      toast({
+        title: isFavorited
+          ? t('productPage.removedFromFavorites')
+          : t('productPage.addedToFavorites'),
+      });
     },
     onError: (error) =>
       toast({
@@ -107,7 +111,7 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
   };
 
   return (
-    <div className="flex w-full flex-col items-center gap-6 md:flex-row md:items-start">
+    <div className="flex w-full flex-col items-start gap-4">
       {productAlreadyInCart ? (
         <Button
           className="h-12 w-72"

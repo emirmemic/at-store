@@ -44,12 +44,13 @@ export default function CheckoutPaymentPage() {
   const paymentMethods: { method: PaymentMethod; title: string }[] = [
     { method: 'cash', title: t('paymentPage.payOnDelivery') },
     { method: 'card', title: t('paymentPage.payWithCard') },
+    { method: 'virman', title: 'Virman' },
   ];
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_480px]">
-        <div className="rounded-xl border border-gray-300 bg-white p-6 shadow-sm md:sticky md:top-20">
+        <div className="rounded-xl border border-gray-300 bg-gray-100 p-6 shadow-sm md:sticky md:top-20">
           {finalPrice > 0 && (
             <Collapsible open>
               <h2 className="mb-4 hidden text-xl font-semibold text-gray-900 md:block">
@@ -139,9 +140,32 @@ export default function CheckoutPaymentPage() {
                   399 KM.
                 </p>
               )}
+              {method.method === 'virman' && paymentMethod === 'virman' && (
+                <div className="mt-3 rounded-lg bg-gray-100 p-4 text-sm text-gray-800">
+                  <p className="mb-4">
+                    Uplate koje su vidljive u našem sustavu do 15:00 i obrađuju
+                    se još istog dana. Nakon evidencije uplate možete očekivati
+                    potvrdu.
+                  </p>
+
+                  <div className="space-y-1">
+                    <p>AT Store d.o.o.</p>
+                    <p>Franca Lehara 2</p>
+                    <p>71000 Sarajevo</p>
+                    <p>Bosna i Hercegovina</p>
+                  </div>
+
+                  <div className="mt-4 space-y-1">
+                    <p>ID Broj: 4201813620006</p>
+                    <p>PDV Broj: 201813620006</p>
+                    <p>Tran. račun: 1941410317500185</p>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
           {paymentMethod === 'cash' && <PaymentOnDelivery />}
+          {paymentMethod === 'virman' && <PaymentOnDelivery virman={true} />}
           {paymentMethod === 'card' && (
             <div className="w-full rounded-2xl border border-black px-4 py-10">
               <PaymentWithCard />

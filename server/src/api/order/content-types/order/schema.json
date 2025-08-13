@@ -35,7 +35,7 @@
     },
     "paymentMethod": {
       "type": "enumeration",
-      "enum": ["card", "cash"],
+      "enum": ["card", "cash", "virman"],
       "required": true
     },
     "items": {

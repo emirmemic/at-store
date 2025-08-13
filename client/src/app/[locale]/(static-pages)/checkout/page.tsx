@@ -20,7 +20,7 @@ export default function CheckoutPage() {
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_480px]">
-        <div className="rounded-3xl border border-gray-300 bg-white p-6 shadow-sm md:sticky md:top-20">
+        <div className="rounded-3xl border border-gray-300 bg-gray-100 p-6 shadow-sm md:sticky md:top-20">
           <CartSection />
           <div className="mt-6 flex justify-center gap-4 opacity-70">
             <Image

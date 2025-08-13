@@ -45,6 +45,12 @@ export default function Options({ className, options }: SpecsProps) {
       availableOnes: availableOptions.colors,
     },
     {
+      key: 'wifiModel',
+      title: t('productPage.model'),
+      options: wifiModels,
+      availableOnes: availableOptions.wifiModels,
+    },
+    {
       key: 'memory',
       title: t('productPage.memory'),
       options: memories,
@@ -79,12 +85,6 @@ export default function Options({ className, options }: SpecsProps) {
       title: t('productPage.model'),
       options: ancModels,
       availableOnes: availableOptions.ancModels,
-    },
-    {
-      key: 'wifiModel',
-      title: t('productPage.model'),
-      options: wifiModels,
-      availableOnes: availableOptions.wifiModels,
     },
   ];
   return (

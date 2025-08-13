@@ -30,20 +30,24 @@ export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
   }, []);
 
   return (
-    <div className="flex">
-      <p className="paragraph-4">{t('common.hi')}, </p>
+    <div className="flex cursor-pointer items-center gap-2 rounded-md border border-gray-300 px-3 py-1 transition-colors hover:bg-gray-100">
       <Link
         href={isMobile ? PAGE_NAMES.ACCOUNT : PAGE_NAMES.ACCOUNT_DASHBOARD}
         onClick={closeMenu}
+        className="flex items-center gap-2"
       >
-        <span className="sr-only">{t('navbar.account')}</span>
-        {!isMobile ? (
-          <Avatar>
-            <AvatarFallback>{initials}</AvatarFallback>
-          </Avatar>
-        ) : (
-          <p className="paragraph-5">{initials}</p>
-        )}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+        </svg>
+        <span className={isMobile ? 'paragraph-5' : 'paragraph-4'}>
+          {initials}
+        </span>
       </Link>
     </div>
   );

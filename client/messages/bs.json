@@ -141,7 +141,7 @@
     "buttonText": "Početna"
   },
   "localeSwitcher": {
-    "label": "Promijeni jezik",
+    "label": "Promijenite jezik",
     "locale": "{locale, select, bs {Bosanski} en {Engleski} other {Nepoznat}}"
   },
   "navigation": {
@@ -158,8 +158,8 @@
   },
   "login": {
     "errorWrongInfo": "Unijeli ste pogrešne podatke",
-    "login": "Prijavi se",
-    "logout": "Odjavi se",
+    "login": "Prijavite se",
+    "logout": "Odjavite se",
     "loggingOut": "Odjavljujem se..."
   },
   "input": {
@@ -181,7 +181,7 @@
     "noItems": "Korpa je prazna",
     "seeCart": "Vidi čitavu korpu",
     "payment": "Plaćanje",
-    "visitHomePage": "Posjetite početnu stranicu At Store",
+    "visitHomePage": "Posjetite početnu stranicu AT Store",
     "noResults": "Nema rezultata pretrage",
     "seeCartAndRequestInvoice": "Pregledaj korpu i zatraži predračun",
     "infoCards": {
@@ -563,7 +563,7 @@
       "companyName": "Naziv firme",
       "companyIdNumber": "ID broj firme",
       "address": "Adresa",
-      "phoneNumber": "Broj"
+      "phoneNumber": "Broj telefona"
     },
     "favorites": {
       "title": "Omiljeni",
@@ -674,7 +674,7 @@
     "unexpectedError": "Ups... izgleda da je došlo do neočekivane greške."
   },
   "registrationPage": {
-    "title": "Registruj se",
+    "title": "Registrujte se",
     "subtitle": "Imate račun?",
     "loginPrompt": "Prijavite se",
     "areYouALegalEntity": "Da li ste pravno lice?",
@@ -690,7 +690,7 @@
     "companyName": "Naziv firme",
     "companyIdNumber": "ID broj firme",
     "address": "Adresa",
-    "phoneNumber": "Broj",
+    "phoneNumber": "Broj telefona",
     "successfulRegistration": "Uspješno ste se registrovali"
   },
   "productPage": {
@@ -712,7 +712,9 @@
     "deliveryTitle": "Dostava",
     "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}.",
     "relatedProducts": "Povezani dodaci",
-    "productId": "Šifra artikla"
+    "productId": "Šifra artikla",
+    "addedToFavorites": "Uspješno ste dodali proizvod u omiljene.",
+"removedFromFavorites": "Uspješno ste izbacili proizvod iz omiljenih."
   },
   "categoryPage": {
     "edTitle": "Obrazovni popust",
@@ -720,9 +722,9 @@
   },
   "newsletterPage": {
     "title": "Newsletter",
-    "subtitle": "Prijavi se na Newsletter",
+    "subtitle": "Prijavite se na Newsletter",
     "description": "Putem Newslettera dobijate redovne informacije o promocijama i aktivnostima koje AT Store ima.",
-    "signUp": "Prijavi se",
+    "signUp": "Prijavite se",
     "successfulSignUp": "Uspješno ste se prijavili na Newsletter",
     "successfulUnsubscribe": "Uspješno ste se odjavili sa Newsletter liste",
     "accountSubscribe": "Prijavite se da dobijate newsletter.",
@@ -735,20 +737,20 @@
   "loginPage": {
     "title": "Prijavite se",
     "subtitle": "Nemate račun?",
-    "registerPrompt": "Registruj se",
+    "registerPrompt": "Registrujte se",
     "email": "Email",
     "password": "Password",
-    "forgotPassword": "Zaboravio šifru",
+    "forgotPassword": "Zaboravljena šifra",
     "rememberMe": "Zapamti me",
-    "loginButton": "Prijavi se",
-    "loginThrough": "Prijavi se putem",
+    "loginButton": "Prijavite se",
+    "loginThrough": "Prijavite se putem",
     "facebook": "Facebook",
     "google": "Google",
     "apple": "Apple",
     "loginSuccess": "Uspješno ste se prijavili"
   },
   "forgotPasswordPage": {
-    "title": "Zaboravio šifru",
+    "title": "Zaboravili ste šifru",
     "description": "Unesite email adresu koju ste koristili prilikom registracije. Poslaćemo vam email sa linkom za resetovanje šifre.",
     "email": "Email",
     "sendPasswordResetEmail": "Pošalji email za resetovanje šifre",
@@ -756,7 +758,7 @@
   },
   "resetPasswordPage": {
     "description": "Unesite novu šifru",
-    "confirmPassword": "Potvrdi šifru",
+    "confirmPassword": "Potvrdite šifru",
     "newPassword": "Nova šifra",
     "resetPassword": "Resetuj šifru",
     "passwordChanged": "Šifra je uspješno promijenjena"
@@ -774,7 +776,7 @@
     "nameZA": "Naziv: Z-A",
     "color": "Boja",
     "brand": "Brend",
-    "material": "Materijal",
+    "material": "Kompatibilnost",
     "noItemsAvailable": "Nema dostupnih stavki",
     "resetFilters": "Resetuj filtere"
   },
@@ -824,7 +826,7 @@
     "formTitle": "Ispunite formu i pošaljite zahtjev za reklamaciju.",
     "formName": "Ime",
     "formSurName": "Prezime",
-    "formNumber": "Broj",
+    "formNumber": "Broj telefona",
     "formEmail": "Email",
     "formMessage": "Detaljno objašnjenje",
     "deviceImage": "Slika uređaja",
@@ -872,7 +874,7 @@
     "browseMore": "Pogledajte sve načine plaćanja.",
     "microCredit": "Mikrokreditna organizacija",
     "formEmail": "Email",
-    "formNumber": "Broj",
+    "formNumber": "Broj telefona",
     "productId": "Šifra artikla",
     "formNote": "Napomena",
     "placeholder": {
@@ -902,7 +904,7 @@
     "formName": "Ime",
     "formSurName": "Prezime",
     "formEmail": "Email",
-    "formNumber": "Broj",
+    "formNumber": "Broj telefona",
     "formTitle": "Ispunite formu za obrazovni popust",
     "howToDiscount": "Kako mogu da iskoristim obrazovni popust?",
     "addPhoto": "Dodajte fotografiju svog indeksa i ovjere tekućeg semestra.",

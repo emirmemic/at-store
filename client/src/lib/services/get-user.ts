@@ -27,8 +27,7 @@ export async function getUser(): Promise<UserInformation | null> {
     ]);
     if (!userInfo.data) return null;
     const { name, email } = userInfo.data;
-    const initials =
-      name?.charAt(0)?.toUpperCase() ?? email.charAt(0).toUpperCase();
+    const initials = name ? name.charAt(0).toUpperCase() + name.slice(1) : '';
     const formattedUser: UserInformation = {
       ...userInfo.data,
       accountDetails: {

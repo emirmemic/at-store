@@ -687,16 +687,19 @@ export default function ProductDetails() {
                           </p>
                         )}
 
-                        {/* Stock status and quantity, only if in stock */}
-                        {quantity > 0 && (
-                          <>
-                            <p className="text-sm font-medium text-blue-400">
-                              Na stanju
-                            </p>
-                            <p className="text-sm text-red-400">
-                              Dostupno: {quantity}
-                            </p>
-                          </>
+                        {/* Stock status */}
+                        {quantity === 1 ? (
+                          <span className="font-medium text-red-500">
+                            Posljednji komad
+                          </span>
+                        ) : quantity > 1 ? (
+                          <span className="font-medium text-blue-500">
+                            Na stanju
+                          </span>
+                        ) : (
+                          <span className="font-medium text-gray-500">
+                            Nema na stanju
+                          </span>
                         )}
 
                         {/* Clickable button to show/hide map */}

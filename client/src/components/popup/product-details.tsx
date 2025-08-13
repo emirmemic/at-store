@@ -46,7 +46,7 @@ export default function ProductDetailsPopup({
           </Button>
         </DialogTrigger>
 
-        <DialogContent className="w-[90%] max-w-[1000px]">
+        <DialogContent className="my-auto flex w-[90%] max-w-[1000px] items-center justify-center">
           <DialogTitle className="sr-only">
             {t('common.viewDetailsWithName', { productName: name })}
           </DialogTitle>
@@ -59,7 +59,7 @@ export default function ProductDetailsPopup({
               className
             )}
           >
-            <div className="flex max-h-screen-h-cutoff w-full flex-col items-center gap-8 overflow-y-auto p-6 custom-scrollbar">
+            <div className="mt-8 flex max-h-[70vh] w-full flex-col items-center gap-8 overflow-y-auto p-6 custom-scrollbar">
               <div className="flex w-full items-center gap-9 pr-16">
                 <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-grey-almost-white">
                   {image && (

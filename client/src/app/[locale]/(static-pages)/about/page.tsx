@@ -148,7 +148,7 @@ export default async function AboutPage() {
               href="/find-store"
               className="inline-block rounded-full bg-white px-6 py-3 font-semibold text-black transition hover:bg-gray-100"
             >
-              Pogledaj lokacije
+              Pogledajte lokacije
             </Link>
           </div>
         </div>

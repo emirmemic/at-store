@@ -26,7 +26,8 @@ export default factories.createCoreController(
         orderNumber: order.orderNumber,
         address: order.address,
         deliveryMethod: order.deliveryMethod,
-        paymentMethod: order.paymentMethod,
+        //TODO: Check why this happens
+        paymentMethod: order.paymentMethod as any,
         selectedStore: order.selectedStore,
         deliveryPrice: order.deliveryPrice,
         items: order.items.map((item) => ({

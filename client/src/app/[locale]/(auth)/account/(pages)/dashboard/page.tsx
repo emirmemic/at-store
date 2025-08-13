@@ -53,26 +53,11 @@ export default async function Page() {
   )[0];
 
   const cardStyling =
-    'h-[174px] w-[174px] md:w-[210px] md:h-[170px] lg:h-[206px] lg:w-[244px]';
+    'h-[174px] w-[380px] md:w-[560px] md:h-[170px] lg:h-[206px] lg:w-[1000px]';
 
   return (
     <div className="flex flex-col gap-9">
-      <div className="flex justify-center gap-4 md:justify-start md:gap-11 lg:gap-12">
-        <Link href="/racun/narudzbe">
-          <Card
-            className={cardStyling}
-            count={ordersCount}
-            subtitle={t('orders')}
-            title={t('youHad')}
-          />
-        </Link>
-        <Card
-          className={cardStyling}
-          count={totalSpent}
-          subtitle={CURRENCY}
-          title={t('totalSpent')}
-        />
-      </div>
+      <div className="flex justify-center gap-4 md:justify-start md:gap-11 lg:gap-12"></div>
       {lastOrder && (
         <div>
           <p className="pb-3 heading-5 md:bullet-heading-2 lg:heading-4">
@@ -106,7 +91,7 @@ export default async function Page() {
           href="/find-store"
           className="inline-block rounded-full bg-black px-6 py-3 font-semibold text-white transition hover:bg-gray-800"
         >
-          Pogledaj lokacije
+          Pogledajte lokacije
         </Link>
       </div>
     </div>

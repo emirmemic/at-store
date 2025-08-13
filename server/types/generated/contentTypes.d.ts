@@ -1131,7 +1131,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       ['pending', 'canceled', 'completed']
     > &
       Schema.Attribute.DefaultTo<'pending'>;
-    paymentMethod: Schema.Attribute.Enumeration<['card', 'cash']> &
+    paymentMethod: Schema.Attribute.Enumeration<['card', 'cash', 'virman']> &
       Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;

@@ -451,7 +451,7 @@ export default function Page() {
                 1
               </div>
               <h3 className="mb-3 text-xl font-semibold text-blue-700">
-                Registruj se
+                Registrujte se
               </h3>
               <p className="max-w-xs text-gray-800">
                 Napravi svoj korisnički nalog na našem sajtu.

@@ -74,16 +74,37 @@ export default function Form() {
                 {`${t(`checkoutPage.deliveryForm.${field.name}`)} *`}
               </span>
             </label>
-            <Input
-              defaultValue={formState?.data[field.name as keyof DeliveryForm]}
-              errorMessage={
-                formState?.errors?.[field.name as keyof DeliveryForm]
-              }
-              id={field.id}
-              name={field.name}
-              placeholder={t(`checkoutPage.deliveryForm.${field.name}`)}
-              type={field.type}
-            />
+            {field.name === 'country' ? (
+              <select
+                id={field.id}
+                name={field.name}
+                defaultValue={formState?.data[field.name as keyof DeliveryForm]}
+                className="rounded-full border border-transparent bg-grey-extra-light px-4 py-3 text-black"
+              >
+                <option value="">
+                  {t('checkoutPage.deliveryForm.country')}
+                </option>
+                <option value="Bosnia and Herzegovina">
+                  Bosna i Hercegovina
+                </option>
+                <option value="Croatia">Hrvatska</option>
+                <option value="Serbia">Srbija</option>
+                <option value="Montenegro">Crna Gora</option>
+                <option value="Slovenia">Slovenija</option>
+                <option value="Other">Ostalo</option>
+              </select>
+            ) : (
+              <Input
+                defaultValue={formState?.data[field.name as keyof DeliveryForm]}
+                errorMessage={
+                  formState?.errors?.[field.name as keyof DeliveryForm]
+                }
+                id={field.id}
+                name={field.name}
+                placeholder={t(`checkoutPage.deliveryForm.${field.name}`)}
+                type={field.type}
+              />
+            )}
           </div>
         );
       })}
