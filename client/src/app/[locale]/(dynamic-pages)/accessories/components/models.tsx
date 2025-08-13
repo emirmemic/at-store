@@ -41,7 +41,6 @@ export default function Models({
 
   return subCategoryLink === undefined ? (
     <>
-      {/* TODO: dodati kategorije */}
       {(() => {
         const fixedModels = [
           {
@@ -96,19 +95,18 @@ export default function Models({
               <button
                 key={model.name}
                 onClick={() => router.push(`/dodaci/${model.name}`)}
-                className="w-30 flex flex-shrink-0 flex-col items-center justify-center text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-500"
+                className="flex w-24 flex-shrink-0 flex-col items-center justify-center text-gray-800 transition-all duration-300 ease-in-out hover:text-blue-500"
               >
-                <div
-                  className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-100 shadow-sm hover:bg-gray-200`}
-                >
+                <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-gray-100 shadow-sm hover:bg-gray-200">
                   <Image
                     src={model.icon}
                     alt={model.displayName}
-                    width={50}
-                    height={50}
+                    width={60}
+                    height={60}
+                    className="object-contain"
                   />
                 </div>
-                <span className="mt-2 text-center text-sm font-medium">
+                <span className="mt-2 truncate text-center text-sm font-medium">
                   {model.displayName}
                 </span>
               </button>
@@ -118,17 +116,17 @@ export default function Models({
       })()}
     </>
   ) : (
-    <div className="no-scrollbar flex space-x-6 overflow-x-auto px-4 py-4">
+    <div className="no-scrollbar flex space-x-6 overflow-x-auto px-4 py-4 md:justify-center md:space-x-12">
       {models.map((model) => (
         <button
           key={model.id}
           onClick={() => onSelectModel(model)}
-          className={`flex w-20 flex-shrink-0 flex-col items-center justify-center transition-all duration-300 ease-in-out ${
+          className={`flex w-24 flex-shrink-0 flex-col items-center justify-center transition-all duration-300 ease-in-out ${
             selectedModel?.id === model.id ? 'text-blue-600' : 'text-gray-800'
           } hover:text-blue-500`}
         >
           <div
-            className={`flex h-16 w-16 items-center justify-center rounded-2xl shadow-sm ${
+            className={`flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl shadow-sm ${
               selectedModel?.id === model.id
                 ? 'bg-blue-100'
                 : 'bg-gray-100 hover:bg-gray-200'
@@ -139,9 +137,10 @@ export default function Models({
               alt={model.name}
               width={50}
               height={50}
+              className="object-contain"
             />
           </div>
-          <span className="mt-2 text-center text-sm font-medium">
+          <span className="mt-2 truncate text-center text-sm font-medium">
             {model.displayName || model.name}
           </span>
         </button>
