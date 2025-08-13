@@ -8,9 +8,9 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { StrapiImage } from '@/components/strapi/components';
 import { cn } from '@/lib/utils/utils';
+import { motion } from 'framer-motion';
 import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
 
 interface DesktopListProps {
   menuItem: NavMenuItem;
@@ -78,13 +78,13 @@ export default function ListItem({
           </Link>
         )}
       </li>
-      <DesktopPopup className="px-12" isActive={isActive}>
+      <DesktopPopup className="px-24" isActive={isActive}>
         <div
           ref={outsideRef}
           className="border-white- mx-auto flex w-fit flex-col gap-1 rounded-3xl border-2 bg-white/90 px-6 py-3"
         >
           <motion.ul
-            className="grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-12"
+            className="grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
             initial="hidden"
             animate="visible"
             variants={{
@@ -132,7 +132,7 @@ export default function ListItem({
             ))}
           </motion.ul>
           <div className="mt-8 w-fit rounded-xl bg-white p-2">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <Link href="nacini-placanja" onClick={handleOutsideClick}>
                 <DesktopInfoCard
                   description={t('infoCards.payInInstallmentsDescription')}

@@ -36,64 +36,50 @@ export default function PaymentMethods() {
           <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
             <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
               <h2 className="mb-2 text-xl font-semibold">
-                {t('Jednokratna plaćanja')}
+                Jednokratna plaćanja
               </h2>
               <p className="text-sm text-neutral-700">
-                {t(
-                  'Možete plaćati debitnim i kreditnim karticama, uključujući Maestro, Visa, Mastercard, Diners, American Express.'
-                )}
+                Možete plaćati debitnim i kreditnim karticama, uključujući
+                Maestro, Visa, Mastercard, Diners, American Express.
+              </p>
+            </div>
+            <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
+              <h2 className="mb-2 text-xl font-semibold">Plaćanje na rate</h2>
+              <p className="text-sm text-neutral-700">
+                Omogućeno do 36 rata putem banaka kao što su UniCredit, NLB,
+                Raiffeisen i ProCredit Bank.
+              </p>
+            </div>
+            <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
+              <h2 className="mb-2 text-xl font-semibold">Plaćanje pouzećem</h2>
+              <p className="text-sm text-neutral-700">
+                Dostupno samo u online trgovini. Plaćanje gotovinom prilikom
+                preuzimanja.
               </p>
             </div>
             <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
               <h2 className="mb-2 text-xl font-semibold">
-                {t('Plaćanje na rate')}
+                Plaćanje na rate online
               </h2>
               <p className="text-sm text-neutral-700">
-                {t(
-                  'Omogućeno do 36 rata putem banaka kao što su UniCredit, NLB, Raiffeisen i ProCredit Bank.'
-                )}
-              </p>
-            </div>
-            <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
-              <h2 className="mb-2 text-xl font-semibold">
-                {t('Plaćanje pouzećem')}
-              </h2>
-              <p className="text-sm text-neutral-700">
-                {t(
-                  'Dostupno samo u online trgovini. Plaćanje gotovinom prilikom preuzimanja.'
-                )}
-              </p>
-            </div>
-            <div className="rounded-md bg-neutral-50 p-6 shadow-sm">
-              <h2 className="mb-2 text-xl font-semibold">
-                {t('Plaćanje na rate online')}
-              </h2>
-              <p className="text-sm text-neutral-700">
-                {t(
-                  'Plaćanje na rate online moguće je samo ukoliko koristite UniCredit Shopping Card i da je narudžba veća od 399 KM.'
-                )}
+                Plaćanje na rate online moguće je samo ukoliko koristite
+                UniCredit Shopping Card i da je narudžba veća od 399 KM.
               </p>
             </div>
           </div>
 
           <div className="mb-12 rounded-md bg-neutral-100 p-6 md:p-10">
-            <h2 className="mb-4 text-2xl font-semibold">
-              {t('Dodatne opcije')}
-            </h2>
+            <h2 className="mb-4 text-2xl font-semibold">Dodatne opcije</h2>
             <ul className="list-disc space-y-2 pl-6 text-sm text-neutral-700">
               <li>
-                {t(
-                  'Plaćanje virmanom ili internet bankarstvom uz automatski e-mail s podacima za uplatu.'
-                )}
+                Plaćanje virmanom ili internet bankarstvom uz automatski e-mail
+                s podacima za uplatu.
               </li>
               <li>
-                {t(
-                  'Online plaćanje kreditnim i debitnim karticama (MasterCard, Visa, Maestro).'
-                )}
+                Online plaćanje kreditnim i debitnim karticama (MasterCard,
+                Visa, Maestro).
               </li>
-              <li>
-                {t('Kreditiranje putem Mikrofina bez dolaska u poslovnicu.')}
-              </li>
+              <li>Kreditiranje putem Mikrofina bez dolaska u poslovnicu.</li>
             </ul>
           </div>
 
@@ -116,38 +102,36 @@ export default function PaymentMethods() {
         <aside className="space-y-8">
           <div className="flex flex-col items-center rounded-lg bg-neutral-100 px-6 py-8 text-center shadow-sm">
             <h2 className="mb-2 text-xl font-semibold text-neutral-900">
-              {t('Potrebna vam je pomoć?')}
+              Potrebna vam je pomoć?
             </h2>
             <p className="mb-4 text-sm text-neutral-700">
-              {t(
-                'Naša korisnička podrška stoji vam na raspolaganju za sva pitanja.'
-              )}
+              Naša korisnička podrška stoji vam na raspolaganju za sva pitanja.
             </p>
             <Link
               className="inline-block rounded-full bg-black px-6 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               href="/support"
             >
-              {t('Kontaktirajte nas')}
+              Kontaktirajte nas
             </Link>
           </div>
           <div className="flex flex-col rounded-lg bg-neutral-100 px-6 py-8 shadow-sm">
             <h3 className="mb-4 text-center text-base font-semibold text-neutral-900">
-              {t('Brzi linkovi za pomoć')}
+              Brzi linkovi za pomoć
             </h3>
             <ul className="space-y-3 text-center text-sm text-blue-600">
               <li>
                 <Link className="hover:underline" href="/delivery">
-                  {t('Informacije o isporuci')}
+                  Informacije o isporuci
                 </Link>
               </li>
               <li>
                 <Link className="hover:underline" href="/complaints">
-                  {t('Povrati i reklamacije')}
+                  Povrati i reklamacije
                 </Link>
               </li>
               <li>
                 <Link className="hover:underline" href="/payment-methods">
-                  {t('Načini plaćanja')}
+                  Načini plaćanja
                 </Link>
               </li>
             </ul>
@@ -173,16 +157,16 @@ export default function PaymentMethods() {
               />
             </svg>
             <h3 className="mb-2 text-base font-semibold text-neutral-900">
-              {t('Pronađite poslovnicu')}
+              Pronađite poslovnicu
             </h3>
             <p className="mb-4 text-sm text-neutral-700">
-              {t('Posjetite najbližu AT Store lokaciju za podršku i kupovinu.')}
+              Posjetite najbližu AT Store lokaciju za podršku i kupovinu.
             </p>
             <Link
               className="inline-block rounded-full bg-black px-6 py-2 text-sm font-medium text-white transition hover:bg-neutral-800"
               href="/find-store"
             >
-              {t('Pronađi poslovnicu')}
+              Pronađi poslovnicu
             </Link>
           </div>
         </aside>
