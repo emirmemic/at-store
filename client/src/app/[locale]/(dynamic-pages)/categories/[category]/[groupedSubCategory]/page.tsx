@@ -5,8 +5,6 @@ import {
 } from '@/components/product-cards';
 import { GroupedSubCategoryItem, SubCategoryItem } from '@/lib/types';
 
-import { InfoBlock } from '@/components';
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import Slider from './slider';
 import { fetchAPI } from '@/lib/fetch-api';

@@ -1,17 +1,4 @@
 'use client';
-import {
-  notFound,
-  useParams,
-  useRouter,
-  useSearchParams,
-} from 'next/navigation';
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
 
 import {
   AvailableOption,
@@ -21,6 +8,20 @@ import {
   SelectedOptionKey,
   SelectedOptions,
 } from '@/app/[locale]/(dynamic-pages)/products/[category]/[productTypeId]/[productLink]/types';
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import {
+  notFound,
+  useParams,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
+
 import { ProductResponse } from '@/lib/types';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 
