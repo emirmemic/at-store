@@ -75,7 +75,7 @@ export default function FilterItem({
                   <span className="capitalize">{item.name}</span>
                 </div>
               ) : (
-                <span className="capitalize">{item.name}</span>
+                <span>{item.name}</span>
               )}
             </Checkbox>
           ))}
