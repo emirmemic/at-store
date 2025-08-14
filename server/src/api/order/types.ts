@@ -10,8 +10,8 @@ export interface Order {
   address: {
     name: string;
     surname: string;
-    address: string;
     email: string;
+    address: string;
     city: string;
     postalCode: string;
     phoneNumber: string;
@@ -22,7 +22,7 @@ export interface Order {
   isGift: boolean;
   deliveryMethod: 'pickup' | 'delivery';
   deliveryPrice: number;
-  paymentMethod: 'card' | 'cash' | 'virman';
+  paymentMethod: 'card' | 'cash';
   selectedStore: StoreCode | null;
   items: {
     productVariantId: string;

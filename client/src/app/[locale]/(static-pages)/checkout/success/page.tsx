@@ -23,7 +23,15 @@ export default function Page() {
     redirect(PAGE_NAMES.CHECKOUT);
   }
 
-  const deliveryPrice = getDeliveryPrice();
+  // Calculate delivery price based on order total and free delivery threshold
+  const baseDeliveryPrice = getDeliveryPrice();
+  const deliveryPrice = orderSuccessData.totalPrice >= 400 ? 0 : baseDeliveryPrice;
+  
+  // Calculate subtotal by removing delivery from total price
+  const subtotal = orderSuccessData.deliveryMethod === 'delivery' 
+    ? orderSuccessData.totalPrice - deliveryPrice 
+    : orderSuccessData.totalPrice;
+  
   const finalPrice = orderSuccessData.totalPrice;
 
   return (
@@ -48,7 +56,7 @@ export default function Page() {
         <div className="w-full border-t border-grey" />
         <TitleWithValue
           title={t('toPay')}
-          value={orderSuccessData.totalPrice}
+          value={subtotal}
         />
 
         {orderSuccessData.deliveryMethod === 'delivery' && (
