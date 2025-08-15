@@ -957,7 +957,7 @@ export interface ApiModelModel extends Struct.CollectionTypeSchema {
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     subCategory: Schema.Attribute.Relation<
-      'manyToOne',
+      'manyToMany',
       'api::sub-category.sub-category'
     >;
     updatedAt: Schema.Attribute.DateTime;
@@ -1402,7 +1402,7 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
-    models: Schema.Attribute.Relation<'oneToMany', 'api::model.model'>;
+    models: Schema.Attribute.Relation<'manyToMany', 'api::model.model'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;

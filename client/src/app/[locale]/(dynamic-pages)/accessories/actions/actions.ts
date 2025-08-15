@@ -1,14 +1,12 @@
 'use server';
 
-import qs from 'qs';
-
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { ModelResponse } from '@/lib/types';
 
 import { AccessoriesResponse } from '../types';
-
+import { ModelResponse } from '@/lib/types';
 import { buildFilters } from './build-filters';
+import { fetchAPI } from '@/lib/fetch-api';
+import qs from 'qs';
 
 interface FetchProductsOptions {
   sortOption?: string;
@@ -110,6 +108,7 @@ export async function fetchModels({
   const path = subCategoryLink
     ? `/api/models/by-sub-category/${categoryLink}/${subCategoryLink}`
     : `/api/models/by-category/${categoryLink}`;
+
   const url = new URL(path, STRAPI_BASE_URL);
   const res = await fetchAPI<ModelResponse[]>(url.href, {
     method: 'GET',
