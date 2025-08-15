@@ -1,19 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
-import { redirect } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
-import { useCartProvider } from '@/app/providers';
-import { ProductCartTableItem } from '@/components/product-cards';
 import { Collapsible, CollapsibleContent } from '@radix-ui/react-collapsible';
+import { PaymentOnDelivery, PaymentWithCard } from './components';
+
 import { Checkbox } from '@/components/ui/checkbox';
 import { PAGE_NAMES } from '@/i18n/page-names';
-
-import { TitleWithValue } from '../components/cart-section';
-import { useCheckoutProvider } from '../providers/checkout-provider';
 import { PaymentMethod } from '../types';
-
-import { PaymentOnDelivery, PaymentWithCard } from './components';
+import { ProductCartTableItem } from '@/components/product-cards';
+import { TitleWithValue } from '../components/cart-section';
+import { redirect } from 'next/navigation';
+import { useCartProvider } from '@/app/providers';
+import { useCheckoutProvider } from '../providers/checkout-provider';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function CheckoutPaymentPage() {
   const t = useTranslations('checkoutPage');
@@ -93,11 +93,20 @@ export default function CheckoutPaymentPage() {
           <div className="flex w-full flex-col gap-4 border-b border-black pb-4">
             {deliveryFormItems &&
               deliveryFormItems.length > 0 &&
-              deliveryFormItems.map((value, index) => (
-                <p key={index} className="text-grey-darker paragraph-2">
-                  {value}
-                </p>
-              ))}
+              deliveryFormItems
+                .filter(
+                  (value) =>
+                    value &&
+                    value.trim() !== '' &&
+                    value.trim().toLowerCase() !== 'n/a 00000' &&
+                    value.trim().toLowerCase() !== 'noemail@pickup.com' &&
+                    value.trim().toLowerCase() !== 'preuzimanje u poslovnici'
+                )
+                .map((value, index) => (
+                  <p key={index} className="text-grey-darker paragraph-2">
+                    {value}
+                  </p>
+                ))}
           </div>
           <div className="w-full py-6">
             <Checkbox

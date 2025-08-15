@@ -147,6 +147,9 @@ export const routing = defineRouting({
     [DYNAMIC_PAGES.PRODUCTS]: {
       bs: '/proizvodi',
     },
+    [DYNAMIC_PAGES.JOBS]: {
+      bs: '/jobs',
+    },
     [DYNAMIC_PAGES.PRODUCT_DETAILS]: {
       bs: '/proizvodi/[category]/[productTypeId]/[productLink]',
     },

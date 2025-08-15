@@ -90,6 +90,11 @@ export default function Footer({ categoryItems }: FooterProps) {
           path: PAGE_NAMES.FIND_STORE,
         },
         {
+          id: 'jobs',
+          name: 'Karijera',
+          path: PAGE_NAMES.JOBS,
+        },
+        {
           id: 'atSoft',
           name: t('companies.atSoft'),
           path: PAGE_NAMES.AT_SOFT,

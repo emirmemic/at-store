@@ -21,6 +21,7 @@ export const PAGE_NAMES = {
   DELIVERY: '/delivery',
   EDUCATIONAL_DISCOUNT: '/educational-discount',
   FIND_STORE: '/find-store',
+  JOBS: '/jobs',
   LOGIN: '/login',
   MIKROFIN_INVOICE: '/mikrofin-invoice',
   NEWSLETTER: '/newsletter',
@@ -50,6 +51,7 @@ export const DYNAMIC_PAGES = {
   GROUPED_SUBCATEGORY: '/categories/[category]/[groupedSubCategory]',
   PRODUCT_DETAILS: '/products/[category]/[productTypeId]/[productLink]',
   PRODUCTS: '/products',
+  JOBS: '/jobs',
 } as const;
 export type PageNameKey = keyof typeof PAGE_NAMES;
 export type DynamicPageKey = keyof typeof DYNAMIC_PAGES;

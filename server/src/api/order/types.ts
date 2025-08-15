@@ -22,7 +22,7 @@ export interface Order {
   isGift: boolean;
   deliveryMethod: 'pickup' | 'delivery';
   deliveryPrice: number;
-  paymentMethod: 'card' | 'cash';
+  paymentMethod: 'card' | 'cash' | 'virman';
   selectedStore: StoreCode | null;
   items: {
     productVariantId: string;
