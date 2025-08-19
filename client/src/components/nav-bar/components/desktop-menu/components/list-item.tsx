@@ -84,7 +84,7 @@ export default function ListItem({
           className="border-white- mx-auto flex w-fit flex-col gap-1 rounded-3xl border-2 bg-white/90 px-6 py-3"
         >
           <motion.ul
-            className="grid grid-cols-2 gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+            className="grid gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-10"
             initial="hidden"
             animate="visible"
             variants={{
