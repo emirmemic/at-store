@@ -24,7 +24,7 @@ export default function SubProductCard({
   return (
     <div className="mb-6 flex justify-center">
       <div className="flex w-full max-w-[1100px] flex-col gap-3 rounded-2xl border border-[#d2d2d7] bg-white px-4 pb-6 pt-4 shadow-sm ring-1 ring-inset ring-[#f5f5f7] transition-all hover:shadow-md md:flex-row md:items-center md:px-6 md:py-6">
-        <div className="h-36 w-40 md:ml-[5px]">
+        <div className="h-36 w-full md:ml-[5px] md:w-40">
           {image ? (
             <StrapiImage
               alt={image.alternativeText ?? title}
