@@ -1,23 +1,22 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+
 import { useActionState, useEffect } from 'react';
 
-import { useCartProvider } from '@/app/providers';
-import { useUserProvider } from '@/app/providers/user-provider';
-import { IconLoader } from '@/components/icons';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { IconLoader } from '@/components/icons';
 import { Input } from '@/components/ui/input';
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { toast } from '@/lib/hooks/use-toast';
-
+import OAuthButton from './oauth-button';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { Title } from '../../components';
 import { handleSubmit } from '../actions';
-
-import OAuthButton from './oauth-button';
+import { toast } from '@/lib/hooks/use-toast';
+import { useCartProvider } from '@/app/providers';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useUserProvider } from '@/app/providers/user-provider';
 
 export default function Form() {
   const t = useTranslations('loginPage');
@@ -105,6 +104,14 @@ export default function Form() {
             {t('loginButton')}
           </Button>
         )}
+      </div>
+      <div className="self-center">
+        <p className="mt-8 text-center text-black">{t('loginThrough')}</p>
+        <div className="mt-4 flex gap-14">
+          <OAuthButton provider="facebook" variant="icon" />
+          <OAuthButton provider="apple" variant="icon" />
+          <OAuthButton provider="google" variant="icon" />
+        </div>
       </div>
     </form>
   );

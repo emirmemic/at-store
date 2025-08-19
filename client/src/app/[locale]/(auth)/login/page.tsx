@@ -1,12 +1,10 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-import { IconAtStoreLogo } from '@/components/icons';
-import { PAGE_NAMES } from '@/i18n/page-names';
-
 import { Container, Title } from '../components';
 
-import { Form, OAuthButton } from './components';
+import { Form } from './components';
+import { IconAtStoreLogo } from '@/components/icons';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -29,7 +27,7 @@ export default function Page() {
   return (
     <main className="flex min-h-screen-h-cutoff w-full flex-col items-center justify-center px-4 py-9 md:px-9 md:py-16">
       <div className="absolute inset-0 bg-[#f5f5f7]" />
-      <Container className="!bg-white !pt-16 md:flex-row md:justify-between md:!pt-32">
+      <Container className="!bg-white !pt-16 md:flex-col md:justify-between md:!pt-32">
         <div className="mb-10 flex flex-col items-center gap-5">
           <IconAtStoreLogo className="h-12 w-56 text-black" />
           <Title
