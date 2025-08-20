@@ -42,14 +42,14 @@ export default function Page() {
         '/proizvodi/mac/mbpm4-14/apple-mbp-14-silver-m4-10c-m4-10c-gpu-16gb-512gb-zee-97647011?key=memory',
     },
     {
-      title: 'MacBook Air M3',
+      title: 'MacBook Air M3 15"',
       subtitle: 'Tanji. Brži. Efikasniji.',
       description:
-        'Od 2.429 KM ili 111 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 2.759 KM ili 126 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/mba.M3.png',
       icon: '🎓',
       route:
-        '/proizvodi/macbook-air/mbam3-13/apple-mba-136-silver-m3-8c-gpu-16gb-256gb-cro-95024404?key=color',
+        '/proizvodi/macbook-air/mbam3-15/laptop-apple-mba-153-silver-m3-10c-gpu-8gb-256gb-zee-79449?key=memory',
     },
     {
       title: 'MacBook Pro M3',
@@ -78,6 +78,8 @@ export default function Page() {
         'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/macstudio.png',
       icon: '🎓',
+      route:
+        '/proizvodi/mac/MS/apple-mac-studio-m4-max-14c-cpu-32c-gpu-36g-512gb-zee-97647263nom',
     },
     {
       title: 'Mac mini',
