@@ -91,7 +91,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           {t('common.viewDetailsWithName', { productName: name })}
         </span>
       </Link>
-      <div className="w-full bg-grey-almost-white">
+      <div className="w-full border border-grey-almost-white bg-white">
         {image ? (
           <StrapiImage
             alt={image?.alternativeText || name}
