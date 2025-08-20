@@ -59,7 +59,7 @@ export default function ImagesSlider({
   return (
     <div className={`flex h-full flex-col ${className}`}>
       {/* Main Image Display */}
-      <div className="relative flex-1 bg-grey-almost-white">
+      <div className="relative flex-1 border border-black bg-white">
         <div className="flex h-full w-full items-center justify-center p-8">
           <AnimatePresence mode="wait">
             <motion.div
@@ -113,7 +113,7 @@ export default function ImagesSlider({
                   onMouseEnter={() => setActiveIndex(index)}
                 >
                   <div
-                    className={`h-16 w-16 overflow-hidden rounded-lg border-2 bg-grey-almost-white p-1 transition-all hover:border-grey-dark ${
+                    className={`h-16 w-16 overflow-hidden rounded-lg border bg-white p-1 transition-all hover:border-grey-dark ${
                       activeIndex === index
                         ? 'border-black'
                         : 'border-grey-light'
