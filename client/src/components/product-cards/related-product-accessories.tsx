@@ -56,7 +56,7 @@ export default function RelatedProductAccessories({
           />
         )}
       </div>
-      <div className="flex w-full flex-col gap-1 border-b border-gray-200 pb-2">
+      <div className="flex w-full flex-col gap-1 pb-2">
         <p className="text-s text-center text-gray-800">{finalName}</p>
         <Price
           className="text-s mt-2 border-t border-gray-200 pt-2 text-center text-gray-600"

@@ -59,7 +59,7 @@ export default function ImagesSlider({
   return (
     <div className={`flex h-full flex-col ${className}`}>
       {/* Main Image Display */}
-      <div className="relative flex-1 border border-black bg-white">
+      <div className="border-grey-300 relative flex-1 rounded-md border bg-white">
         <div className="flex h-full w-full items-center justify-center p-8">
           <AnimatePresence mode="wait">
             <motion.div
@@ -90,7 +90,7 @@ export default function ImagesSlider({
 
       {/* Thumbnail Navigation */}
       {hasMoreImages && (
-        <div className="flex-shrink-0 border-t border-grey-light bg-white p-4">
+        <div className="flex-shrink-0 bg-white p-4">
           <Carousel
             className="w-full"
             opts={{ align: 'start', loop: false }}
