@@ -1,9 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
-
-import { IconClose } from '@/components/icons';
 import {
   MobileActions,
   MobileList,
@@ -12,17 +8,21 @@ import {
   SearchInput,
   SiteLogo,
 } from '@/components/nav-bar/components';
-import { IconMenu } from '@/components/nav-bar/icons';
 import {
   MobileMenuType,
   NavMenuItem,
   NavSubMenuItem,
 } from '@/components/nav-bar/types';
+import { useEffect, useRef, useState } from 'react';
+
 import { AnimateSlots } from '@/components/transitions';
 import { Button } from '@/components/ui/button';
+import { IconClose } from '@/components/icons';
+import { IconMenu } from '@/components/nav-bar/icons';
 import NavigationArrow from '@/components/ui/navigation-arrow';
-import useClickOutside from '@/lib/hooks/use-onclick-outside';
 import { cn } from '@/lib/utils/utils';
+import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { useTranslations } from 'next-intl';
 
 interface MobileMenuProps {
   menuItems: NavMenuItem[];
@@ -121,7 +121,7 @@ export default function MobileMenu({ menuItems, className }: MobileMenuProps) {
                 <div className="mb-6 flex items-center gap-2">
                   <NavigationArrow
                     aria-label={t('common.back')}
-                    className="text-white"
+                    className="hidden text-white md:block"
                     direction={'left'}
                     size={'lg'}
                     title={t('common.back')}
