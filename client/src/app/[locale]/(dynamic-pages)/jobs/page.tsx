@@ -28,13 +28,14 @@ export default function Page() {
     },
     {
       id: 3,
-      title: '',
-      department: '',
+      title: 'Voditelj poslovnice (m/ž)',
+      department: 'Sarajevo',
       category: 'Store Manager',
-      type: '',
-      description: '',
-      noOpenPositions: true,
-      applyLink: '',
+      type: 'Stalno zaposlenje',
+      description:
+        'Organizacija i vođenje poslovnice, upravljanje timom i odgovornost za prodajne rezultate.',
+      noOpenPositions: false,
+      applyLink: '/jobs/voditelj-poslovnice-sa',
     },
     {
       id: 4,
@@ -48,23 +49,25 @@ export default function Page() {
     },
     {
       id: 5,
-      title: 'Web Developer',
-      department: 'Remote',
-      category: 'Business Developer Manager',
+      title: 'B2B Specijalist',
+      department: 'Sarajevo',
+      category: 'B2B',
       type: 'Puno radno vrijeme',
-      description: 'Razvoj i održavanje web aplikacija.',
-      noOpenPositions: true,
-      applyLink: '',
+      description:
+        'Razvoj i održavanje poslovnih odnosa sa kompanijama, priprema ponuda i realizacija B2B prodaje.',
+      noOpenPositions: false,
+      applyLink: 'jobs/b2b',
     },
     {
       id: 6,
-      title: 'Web Developer',
-      department: 'Remote',
+      title: 'Savjetnik prodaje',
+      department: 'Sarajevo',
       category: 'Retail Manager',
       type: 'Puno radno vrijeme',
-      description: 'Razvoj i održavanje web aplikacija.',
-      noOpenPositions: true,
-      applyLink: '',
+      description:
+        'Savjetovanje kupaca, prezentacija proizvoda i pružanje podrške pri izboru i kupovini.',
+      noOpenPositions: false,
+      applyLink: 'jobs/voditelj-poslovnice-sa',
     },
   ];
 
