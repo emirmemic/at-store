@@ -102,7 +102,7 @@ export default function NamePrice({
           </div>
           {finalPrice > 399 && (
             <span className="mt-2 text-[1rem] font-thin">
-              ili samo {Math.round((finalPrice * 1.1) / 24)} KM na 24 rate.
+              ili samo {Math.round((finalPrice * 1.081) / 24)} KM na 24 rate.
             </span>
           )}
         </div>
