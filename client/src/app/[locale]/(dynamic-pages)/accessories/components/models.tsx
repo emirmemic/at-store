@@ -39,6 +39,23 @@ export default function Models({
     return null;
   }
 
+  function normalizeAfricates(input: string): string {
+    return input
+      .replace(/dž/g, 'dz')
+      .replace(/Dž/g, 'Dz')
+      .replace(/DŽ/g, 'DZ')
+      .replace(/đ/g, 'dj')
+      .replace(/Đ/g, 'Dj')
+      .replace(/č/g, 'c')
+      .replace(/Č/g, 'C')
+      .replace(/ć/g, 'c')
+      .replace(/Ć/g, 'C')
+      .replace(/š/g, 's')
+      .replace(/Š/g, 'S')
+      .replace(/ž/g, 'z')
+      .replace(/Ž/g, 'Z');
+  }
+
   return subCategoryLink === undefined ? (
     <>
       {(() => {
@@ -133,7 +150,7 @@ export default function Models({
             }`}
           >
             <Image
-              src={`/assets/images/accessories/${model.name}.png`}
+              src={`/assets/images/accessories/${normalizeAfricates(model.name)}.png`}
               alt={model.name}
               width={50}
               height={50}
