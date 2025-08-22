@@ -1,14 +1,7 @@
 /* eslint-disable no-console */
 'use client';
 
-import {
-  ChevronDown,
-  Heart,
-  MapPin,
-  Share2,
-  Shield,
-  Truck,
-} from 'lucide-react';
+import { ChevronDown, MapPin, Share2, Shield, Truck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import Buttons from './buttons';

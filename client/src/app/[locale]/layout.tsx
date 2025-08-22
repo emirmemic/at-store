@@ -5,6 +5,7 @@ import {
   getTranslations,
   setRequestLocale,
 } from 'next-intl/server';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import '@/app/globals.css';
 
@@ -104,6 +105,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
           </UserProvider>
         </NextIntlClientProvider>
       </body>
+      <GoogleAnalytics gaId={'G-G8SML83N7F'} />
     </html>
   );
 }
