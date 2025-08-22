@@ -1,18 +1,18 @@
 'use client';
-import { redirect } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
-import { useCartProvider } from '@/app/providers';
-import { IconLoader } from '@/components/icons';
-import { OutOfStockPopup } from '@/components/popup';
+import { OrderPayload, createOrder, getProductsStatus } from '../actions';
+
 import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-
-import { useCheckoutProvider } from '../../providers/checkout-provider';
+import { IconLoader } from '@/components/icons';
 import { OrderSuccessData } from '../../types';
+import { OutOfStockPopup } from '@/components/popup';
+import { PAGE_NAMES } from '@/i18n/page-names';
 import { generateOrderNumber } from '../../utils';
-import { createOrder, getProductsStatus, OrderPayload } from '../actions';
+import { redirect } from 'next/navigation';
+import { useCartProvider } from '@/app/providers';
+import { useCheckoutProvider } from '../../providers/checkout-provider';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
   const t = useTranslations('checkoutPage');
@@ -76,7 +76,7 @@ export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
           totalPrice: totalPrice,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
           orderNumber: orderNumber,
-          paymentMethod: 'cash',
+          paymentMethod: virman ? 'virman' : 'cash',
         };
         try {
           await createOrder(orderPayload);
@@ -96,7 +96,7 @@ export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
           deliveryMethod: deliveryMethod,
           orderNumber: orderNumber,
           totalPrice: totalPrice,
-          paymentMethod: 'cash',
+          paymentMethod: virman ? 'virman' : 'cash',
         };
         setOrderSuccessData(orderSuccessData);
         setIsLoading(false);

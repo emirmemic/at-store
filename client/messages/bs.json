@@ -943,6 +943,8 @@
     "appleStreak": "Najvrijedna kompanija u svijetu je Apple, već treću godinu zaredom."
   },
   "checkoutPage": {
+    "fees": "Naknada za plaćanje na rate",
+    "installmentFeesApplied": "U ukupnu cijenu je uračunata naknada za plaćanje na rate.",
     "deliveryForm": {
       "name": "Ime",
       "surname": "Prezime",
@@ -972,6 +974,7 @@
       "payWithCard": "Plaćanje karticom",
       "payOnDeliveryDescription": "Platit ćete račun prilikom preuzimanja.",
       "enterCard": "Unesite karticu",
+      "updatingPayment": "Procesiranje naknade",
       "outOfStock": "Nema na skladištu, molimo kontaktirajte nas za dodatnu potvrdu",
       "outOfStockProducts": "Količina sljedećih proizvoda u vašoj korpi je veća od dostupne količine na našem skladištu, molimo kontaktirajte nas za dodatnu potvrdu",
       "success": "Uspješno"

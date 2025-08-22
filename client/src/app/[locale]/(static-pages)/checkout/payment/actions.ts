@@ -1,11 +1,11 @@
 'use server';
 
-import { StoreCode, STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI, StrapiError } from '@/lib/fetch-api';
-import { DeliveryForm } from '@/lib/schemas/checkout';
-import { ProductStockResponse } from '@/lib/types';
+import { STRAPI_BASE_URL, StoreCode } from '@/lib/constants';
+import { StrapiError, fetchAPI } from '@/lib/fetch-api';
 
+import { DeliveryForm } from '@/lib/schemas/checkout';
 import { DeliveryMethod } from '../page';
+import { ProductStockResponse } from '@/lib/types';
 
 export interface OrderPayload {
   items: {
@@ -21,7 +21,7 @@ export interface OrderPayload {
   totalPrice: number;
   orderNumber: string;
   deliveryPrice: number;
-  paymentMethod: 'card' | 'cash';
+  paymentMethod: 'card' | 'cash' | 'virman';
 }
 
 export async function createOrder(payload: OrderPayload) {

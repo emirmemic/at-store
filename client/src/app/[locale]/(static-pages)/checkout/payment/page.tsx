@@ -27,10 +27,13 @@ export default function CheckoutPaymentPage() {
     redirect(PAGE_NAMES.CHECKOUT);
   }
 
-  const { getTotalPrice, cart, updateCart } = useCartProvider();
+  const { getFinalPrice, cart, updateCart, installmentPrice, getTotalPrice } =
+    useCartProvider();
 
   const deliveryPrice = getDeliveryPrice();
-  const finalPrice = getTotalPrice() + deliveryPrice;
+  const cartTotal = getFinalPrice(); // This now includes installment fees if applicable
+  const totalPrice = getTotalPrice();
+  const finalPrice = cartTotal + deliveryPrice;
 
   const { name, surname, city, postalCode, ...deliveryFormValues } =
     deliveryForm || {};
@@ -57,9 +60,24 @@ export default function CheckoutPaymentPage() {
                 {t('inTheCart')}
               </h2>
               <div className="divide-y divide-grey-light overflow-hidden rounded-lg border border-grey-light">
-                <TitleWithValue title={t('toPay')} value={getTotalPrice()} />
+                <TitleWithValue title={t('toPay')} value={totalPrice} />
+                {installmentPrice !== null ? (
+                  <>
+                    <TitleWithValue
+                      title={'Naknada za plaćanje na rate'}
+                      value={cartTotal - totalPrice}
+                    />
+                  </>
+                ) : (
+                  <></>
+                )}
                 <TitleWithValue title={t('delivery')} value={deliveryPrice} />
                 <TitleWithValue title={t('total')} value={finalPrice} />
+                {installmentPrice !== null && (
+                  <div className="bg-blue-50 p-3 text-sm text-gray-600">
+                    U ukupnu cijenu je uračunata naknada za plaćanje na rate.
+                  </div>
+                )}
               </div>
               <CollapsibleContent className="overflow-hidden transition-all duration-500 data-[state=closed]:animate-slideUp data-[state=open]:animate-slideDown">
                 {cart.map((item) => (

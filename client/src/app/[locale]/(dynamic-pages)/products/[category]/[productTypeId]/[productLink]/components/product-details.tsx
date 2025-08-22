@@ -12,10 +12,9 @@ import {
 import { useEffect, useState } from 'react';
 
 import Buttons from './buttons';
-
-import Link from 'next/link';
 import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
 import ImagesSlider from './images-slider';
+import Link from 'next/link';
 import NamePrice from './name-price';
 import Options from './options';
 import { ProductDetailsPopup } from '@/components/popup';
@@ -88,6 +87,7 @@ export default function ProductDetails() {
     details,
     name,
     originalPrice,
+    displayName,
     discountedPrice,
     stores,
     tag,
@@ -137,7 +137,7 @@ export default function ProductDetails() {
             <div className="mb-8">
               <NamePrice
                 discountedPrice={discountedPrice}
-                name={name}
+                name={displayName}
                 originalPrice={originalPrice}
                 productVariantId={productVariantId}
               />
@@ -329,7 +329,7 @@ export default function ProductDetails() {
         <div className="flex flex-col gap-5">
           <NamePrice
             discountedPrice={discountedPrice}
-            name={name}
+            name={displayName}
             originalPrice={originalPrice}
             productVariantId={productVariantId}
           />

@@ -1,20 +1,20 @@
 'use client';
-import debounce from 'lodash.debounce';
+
 import {
-  createContext,
   ReactNode,
+  createContext,
   useContext,
   useEffect,
   useState,
 } from 'react';
+import {
+  clearCart as clearBackendCart,
+  updateCart as updateBackendCart,
+} from './actions';
 
 import { CART_KEY } from '@/lib/constants';
 import { ShoppingCartItem } from '@/lib/types';
-
-import {
-  updateCart as updateBackendCart,
-  clearCart as clearBackendCart,
-} from './actions';
+import debounce from 'lodash.debounce';
 import { useUserProvider } from './user-provider';
 
 export type CartContextType = {
@@ -22,6 +22,9 @@ export type CartContextType = {
   updateCart: (cartItem: ShoppingCartItem) => Promise<void>;
   setCart: (cart: ShoppingCartItem[]) => void;
   getTotalPrice: () => number;
+  getFinalPrice: () => number; // New method for final price with installments
+  setInstallmentPrice: (price: number | null) => void; // New method to set installment price
+  installmentPrice: number | null; // New state for installment price
   clearCart: () => void;
 };
 
@@ -32,6 +35,11 @@ export const CartContext = createContext<CartContextType>({
   getTotalPrice: () => {
     return 0;
   },
+  getFinalPrice: () => {
+    return 0;
+  },
+  setInstallmentPrice: () => {},
+  installmentPrice: null,
   clearCart: () => {},
 });
 
@@ -46,6 +54,7 @@ export default function CartProvider({
   initialValue: ShoppingCartItem[];
 }) {
   const [cart, setCart] = useState<ShoppingCartItem[]>(initialValue);
+  const [installmentPrice, setInstallmentPrice] = useState<number | null>(null);
   const { user } = useUserProvider();
 
   // Initialize the cart in local storage when the component mounts and the user is a guest user
@@ -96,6 +105,9 @@ export default function CartProvider({
     // Update the cart items in the state
     setCart(updatedCart);
 
+    // Reset installment price when cart changes
+    setInstallmentPrice(null);
+
     if (user) {
       // Debounced backend update: only the last call in a burst will be sent
       getDebouncedUpdate(cartItem.product.documentId)(cartItem.quantity);
@@ -113,8 +125,14 @@ export default function CartProvider({
     );
   }
 
+  // New method to get final price (with installments if available)
+  function getFinalPrice() {
+    return installmentPrice !== null ? installmentPrice : getTotalPrice();
+  }
+
   function clearCart() {
     setCart([]);
+    setInstallmentPrice(null); // Reset installment price when clearing cart
     if (user) {
       // Clear the cart in the server
       clearBackendCart();
@@ -126,7 +144,16 @@ export default function CartProvider({
 
   return (
     <CartContext.Provider
-      value={{ cart, updateCart, setCart, getTotalPrice, clearCart }}
+      value={{
+        cart,
+        updateCart,
+        setCart,
+        getTotalPrice,
+        getFinalPrice,
+        setInstallmentPrice,
+        installmentPrice,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>

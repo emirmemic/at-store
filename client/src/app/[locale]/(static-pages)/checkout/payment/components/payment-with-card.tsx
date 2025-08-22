@@ -1,35 +1,38 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
-// This tells TS “trust me, Monri exists at runtime”
+// This tells TS "trust me, Monri exists at runtime"
 declare const Monri: any;
 
-import { redirect } from 'next/navigation';
-import Script from 'next/script';
-import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
-
-import { useCartProvider } from '@/app/providers';
-import { IconLoader } from '@/components/icons';
-import { OutOfStockPopup } from '@/components/popup';
-import { Button } from '@/components/ui/button';
-import { PAGE_NAMES } from '@/i18n/page-names';
-import { CURRENCY_ISO } from '@/lib/constants';
-import { toast } from '@/lib/hooks';
-import { getMonriUrl } from '@/lib/utils/utils';
-
-import { useCheckoutProvider } from '../../providers/checkout-provider';
-import { OrderSuccessData } from '../../types';
-import { generateOrderNumber } from '../../utils';
-import { createOrder, getProductsStatus, OrderPayload } from '../actions';
+import { OrderPayload, createOrder, getProductsStatus } from '../actions';
 import { PaymentResult, Result } from '../types';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { CURRENCY_ISO } from '@/lib/constants';
+import { IconLoader } from '@/components/icons';
+import { OrderSuccessData } from '../../types';
+import { OutOfStockPopup } from '@/components/popup';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import Script from 'next/script';
+import { generateOrderNumber } from '../../utils';
+import { getMonriUrl } from '@/lib/utils/utils';
+import { redirect } from 'next/navigation';
+import { toast } from '@/lib/hooks';
+import { useCartProvider } from '@/app/providers';
+import { useCheckoutProvider } from '../../providers/checkout-provider';
+import { useTranslations } from 'next-intl';
 
 const orderInfo = 'Purchase products';
 
 export default function PaymentWithCard() {
   const t = useTranslations();
+
   // PROVIDERS
-  const { getTotalPrice, cart, clearCart } = useCartProvider();
+  const { getTotalPrice, cart, clearCart, setInstallmentPrice } =
+    useCartProvider();
   const {
     deliveryForm,
     deliveryMethod,
@@ -38,131 +41,337 @@ export default function PaymentWithCard() {
     setOrderSuccessData,
     getDeliveryPrice,
   } = useCheckoutProvider();
-  // STATES
-  const [clientSecret, setClientSecret] = useState(null);
+
+  // STATE
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [outOfStockDialog, setOutOfStockDialog] = useState(false);
   const [outOfStockProducts, setOutOfStockProducts] = useState<string[]>([]);
-  const [installmentOptions, setInstallmentOptions] = useState<any[]>([]);
   const [selectedInstallment, setSelectedInstallment] = useState<string | null>(
     null
   );
+  const [isUpdatingPayment, setIsUpdatingPayment] = useState(false);
+
   // REFS
   const cardRef = useRef<any>(null);
   const monriRef = useRef<any>(null);
+  const orderNumberRef = useRef<string | null>(null);
+  const isCardMountedRef = useRef(false);
+  const lastProcessedInstallmentRef = useRef<string | null>(null);
+  const installmentUpdateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // CONSTANTS
   const deliveryPrice = getDeliveryPrice();
   const totalPrice = getTotalPrice() + deliveryPrice;
 
+  // ---------- HELPERS ----------
+  const toMinor = (amountMajor: number) => Math.round(amountMajor * 100); // BAM minor units
+
+  const additionalFeesCalculated = (
+    numberOfInstallments: number,
+    amount: number
+  ) => {
+    if (!numberOfInstallments || numberOfInstallments === 0) return amount;
+    switch (numberOfInstallments) {
+      case 2:
+      case 3:
+        return amount + amount * 0.023;
+      case 4:
+      case 5:
+      case 6:
+        return amount + amount * 0.04;
+      case 7:
+      case 8:
+      case 9:
+        return amount + amount * 0.052;
+      case 10:
+      case 11:
+      case 12:
+        return amount + amount * 0.063;
+      case 13:
+      case 14:
+      case 15:
+      case 16:
+      case 17:
+      case 18:
+        return amount + amount * 0.072;
+      case 19:
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+      case 24:
+        return amount + amount * 0.081;
+      default:
+        return amount;
+    }
+  };
+
+  const currentFinalMajor = (installmentsStr: string | null) => {
+    const installments = installmentsStr ? Number(installmentsStr) : 0;
+    return additionalFeesCalculated(installments, totalPrice);
+  };
+
+  // Update installment price in cart provider whenever installments change
   useEffect(() => {
-    const orderNumber = generateOrderNumber();
+    const finalPrice = currentFinalMajor(selectedInstallment);
+    const basePrice = getTotalPrice();
 
-    // Check if products are in stock
-    async function checkProductsStatus() {
-      const productsIds = cart.map((item) => item.product.productVariantId);
-      const res = await getProductsStatus(productsIds);
-      if (res.error) {
-        setOutOfStockDialog(true);
-      } else if (res.data) {
-        const stockProducts = res.data;
-        const isOutOfStock = cart.some((cartItem) => {
-          const stockItem = stockProducts.find(
-            (item) =>
-              item.productVariantId === cartItem.product.productVariantId
-          );
-          const isOut =
-            stockItem && cartItem.quantity > stockItem.amountInStock;
-
-          if (isOut) {
-            setOutOfStockProducts((prev) => [...prev, cartItem.product.name]);
-          }
-          return isOut;
-        });
-        if (isOutOfStock) {
-          setOutOfStockDialog(true);
-        } else {
-          createPayment();
-        }
-      }
+    // Only set installment price if it's different from base price
+    if (selectedInstallment && finalPrice !== basePrice + deliveryPrice) {
+      setInstallmentPrice(finalPrice - deliveryPrice); // Store only the cart total with installment fees
+    } else {
+      setInstallmentPrice(null); // Reset to base price
     }
-    if (cart && cart.length > 0) {
-      checkProductsStatus();
-    }
+  }, [selectedInstallment, getTotalPrice, deliveryPrice, setInstallmentPrice]);
 
-    // Fetch clientSecret from our backend
-    async function createPayment() {
+  const createPayment = useCallback(
+    async (installmentsStr: string | null) => {
+      const number = orderNumberRef.current ?? generateOrderNumber();
+      orderNumberRef.current = number;
+
+      const amountMajor = currentFinalMajor(installmentsStr);
+
       const res = await fetch('/api/create-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: totalPrice,
+          amount: toMinor(amountMajor), // MINOR UNITS
           currency: CURRENCY_ISO,
           order_info: orderInfo,
           transaction_type: 'purchase',
-          order_number: orderNumber,
+          order_number: number,
         }),
       });
+
+      if (!res.ok) throw new Error('Failed to create payment');
       const data = await res.json();
-      setClientSecret(data.clientSecret);
+      if (!data?.clientSecret) throw new Error('No clientSecret in response');
+      return data.clientSecret as string;
+    },
+    [totalPrice]
+  );
+
+  const mountCard = useCallback((secret: string) => {
+    // Initialize monri only once
+    if (!monriRef.current) {
+      monriRef.current = Monri(process.env.NEXT_PUBLIC_MONRI_AUTH_TOKEN, {
+        locale: 'hr',
+      });
     }
-  }, [totalPrice, t, cart]);
 
-  useEffect(() => {
-    if (!clientSecret) return;
-    setIsLoading(false);
+    const components = monriRef.current.components({ clientSecret: secret });
 
-    // Load Monri and mount card
-    monriRef.current = Monri(process.env.NEXT_PUBLIC_MONRI_AUTH_TOKEN, {
-      locale: 'hr',
-    });
+    // Clean up existing card completely if it exists
+    if (cardRef.current && isCardMountedRef.current) {
+      try {
+        cardRef.current.removeAllListeners?.();
+        cardRef.current.unmount?.();
+      } catch {
+        /* noop */
+      }
+      isCardMountedRef.current = false;
+    }
 
-    const components = monriRef.current.components({
-      clientSecret,
-    });
+    // Clear and prepare the element
+    const el = document.getElementById('card-element');
+    if (el) {
+      el.innerHTML = '';
+    }
+
+    // Create new card instance
     cardRef.current = components.create('card', {
       showInstallmentsSelection: true,
     });
 
-    const cardElement = document.getElementById('card-element');
-    if (cardElement) {
-      cardElement.innerHTML = ''; // Clear previous Monri component if exists
-    }
-
     cardRef.current.mount('card-element');
+    isCardMountedRef.current = true;
 
-    cardRef.current.onChange((e: { error: { message: string | null } }) => {
+    // Error handling
+    cardRef.current.onChange((e: any) => {
       const displayError = document.getElementById('card-errors');
-      if (e.error && displayError) {
-        displayError.textContent = e.error.message;
-      } else {
-        if (displayError) {
-          displayError.textContent = '';
-        }
+      if (displayError) {
+        displayError.textContent = e?.error ? e.error.message : '';
       }
     });
-  }, [clientSecret]);
 
-  useEffect(() => {
-    function handleInstallmentsEvent(event: any) {
-      const options = event.detail.installments;
-      setInstallmentOptions(options);
+    // Handle installments changes
+    if (typeof cardRef.current.addChangeListener === 'function') {
+      cardRef.current.addChangeListener('installments', (event: any) => {
+        const newInstallment =
+          event?.data?.selectedInstallment !== null
+            ? String(event.data.selectedInstallment)
+            : null;
+
+        // Clear any pending timeout
+        if (installmentUpdateTimeoutRef.current) {
+          clearTimeout(installmentUpdateTimeoutRef.current);
+        }
+
+        // Debounce the installment update
+        installmentUpdateTimeoutRef.current = setTimeout(() => {
+          setSelectedInstallment((prev) => {
+            // Only update if actually different
+            if (prev !== newInstallment) {
+              return newInstallment;
+            }
+            return prev;
+          });
+        }, 200); // Increased debounce time
+      });
     }
-
-    window.addEventListener('installments-event', handleInstallmentsEvent);
-    return () => {
-      window.removeEventListener('installments-event', handleInstallmentsEvent);
-    };
   }, []);
 
-  useEffect(() => {
-    if (!clientSecret) return;
-  }, [clientSecret]);
+  const updatePaymentInBackground = useCallback(
+    async (installmentsStr: string | null) => {
+      // Skip if already processed this installment
+      if (lastProcessedInstallmentRef.current === installmentsStr) {
+        return;
+      }
 
+      if (!orderNumberRef.current || !cart?.length) return;
+
+      try {
+        setIsUpdatingPayment(true);
+
+        // Create new payment with updated installments
+        const newSecret = await createPayment(installmentsStr);
+
+        // Update the client secret for the existing card without remounting
+        if (monriRef.current && cardRef.current) {
+          // Update the components with new client secret
+          const newComponents = monriRef.current.components({
+            clientSecret: newSecret,
+          });
+
+          // Update the card's client secret internally (this preserves the form data)
+          if (cardRef.current.updateClientSecret) {
+            cardRef.current.updateClientSecret(newSecret);
+          } else {
+            // Fallback: update the secret reference without full remount
+            setClientSecret(newSecret);
+          }
+        }
+
+        lastProcessedInstallmentRef.current = installmentsStr;
+      } catch (e) {
+        const displayError = document.getElementById('card-errors');
+        if (displayError) {
+          displayError.textContent = (e as Error).message;
+        }
+      } finally {
+        setIsUpdatingPayment(false);
+      }
+    },
+    [createPayment, cart]
+  );
+
+  // ---------- LIFECYCLE ----------
+  // 1) Stock check and initial payment creation
+  useEffect(() => {
+    let cancelled = false;
+
+    async function bootstrap() {
+      if (!cart || cart.length === 0) return;
+
+      try {
+        // Check stock
+        const productsIds = cart.map((item) => item.product.productVariantId);
+        const res = await getProductsStatus(productsIds);
+        if (res.error) {
+          if (!cancelled) setOutOfStockDialog(true);
+          return;
+        }
+
+        const stockProducts = res.data;
+        const isOutOfStock = cart.some((cartItem) => {
+          const stockItem = stockProducts?.find(
+            (item: any) =>
+              item.productVariantId === cartItem.product.productVariantId
+          );
+          const out = stockItem && cartItem.quantity > stockItem.amountInStock;
+          if (out && !cancelled) {
+            setOutOfStockProducts((prev) => [...prev, cartItem.product.name]);
+          }
+          return out;
+        });
+
+        if (isOutOfStock) {
+          if (!cancelled) setOutOfStockDialog(true);
+          return;
+        }
+
+        // Create initial payment (no installments)
+        setIsLoading(true);
+        const secret = await createPayment(null);
+        if (!cancelled) {
+          setClientSecret(secret);
+          lastProcessedInstallmentRef.current = null;
+        }
+      } catch (e) {
+        if (!cancelled) {
+          const displayError = document.getElementById('card-errors');
+          if (displayError) {
+            displayError.textContent = (e as Error).message;
+          }
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    bootstrap();
+    return () => {
+      cancelled = true;
+    };
+  }, [cart, deliveryPrice, createPayment]);
+
+  // 2) Mount card only on initial clientSecret
+  useEffect(() => {
+    if (!clientSecret || isCardMountedRef.current) return;
+
+    mountCard(clientSecret);
+  }, [clientSecret, mountCard]);
+
+  // 3) Handle installment changes by updating payment in background
+  useEffect(() => {
+    if (!isCardMountedRef.current || !clientSecret) return;
+
+    // Skip if we already processed this installment
+    if (lastProcessedInstallmentRef.current === selectedInstallment) return;
+
+    updatePaymentInBackground(selectedInstallment);
+  }, [selectedInstallment, clientSecret, updatePaymentInBackground]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (installmentUpdateTimeoutRef.current) {
+        clearTimeout(installmentUpdateTimeoutRef.current);
+      }
+      if (cardRef.current && isCardMountedRef.current) {
+        try {
+          cardRef.current.removeAllListeners?.();
+          cardRef.current.unmount?.();
+        } catch {
+          /* noop */
+        }
+      }
+      // Reset installment price when component unmounts
+      setInstallmentPrice(null);
+    };
+  }, [setInstallmentPrice]);
+
+  // ---------- SUBMIT ----------
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!monriRef.current || !cardRef.current) return;
+
     setIsLoading(true);
-    const transactionParams = {
+
+    const transactionParams: Record<string, any> = {
       address: deliveryForm?.address,
       fullName: `${deliveryForm?.name} ${deliveryForm?.surname}`,
       city: deliveryForm?.city,
@@ -170,31 +379,56 @@ export default function PaymentWithCard() {
       phone: deliveryForm?.phoneNumber,
       country: deliveryForm?.country,
       email: deliveryForm?.email,
-      orderInfo: orderInfo,
-      ...(selectedInstallment ? { installments: selectedInstallment } : {}),
+      orderInfo,
     };
+
+    if (selectedInstallment) {
+      transactionParams.installments = selectedInstallment;
+    }
 
     monriRef.current
       .confirmPayment(cardRef.current, transactionParams)
       .then(function (result: Result<PaymentResult>) {
         setIsLoading(false);
         if (result.error) {
-          // Inform the customer that there was an error.
           const errorElement = document.getElementById('card-errors');
-          if (errorElement) {
-            errorElement.textContent = result.error.message;
-          }
-        } else {
-          handlePaymentResult(result.result);
+          if (errorElement) errorElement.textContent = result.error.message;
+          return;
         }
+        handlePaymentResult(result.result);
       });
 
-    async function handlePaymentResult(paymentResult: PaymentResult | null) {
-      // Handle PaymentResult
-      if (paymentResult?.response_code === '5000') {
-        // Payment is pending
-      } else if (paymentResult?.status === 'approved') {
-        // Create order
+    const handlePaymentResult = async (
+      paymentResult: PaymentResult | null | any
+    ) => {
+      if (!paymentResult) {
+        toast({
+          title: t('common.somethingWentWrong'),
+          variant: 'destructive',
+        });
+        redirect(PAGE_NAMES.CHECKOUT);
+        return;
+      }
+
+      if (paymentResult.response_code === '5000') {
+        // pending — let Monri finish the flow, usually redirects/3DS
+        return;
+      }
+
+      if (paymentResult.status === 'approved') {
+        // prefer backend-confirmed number_of_installments; fallback to user selection
+        const installments = paymentResult?.number_of_installments
+          ? Number(paymentResult.number_of_installments)
+          : selectedInstallment
+            ? Number(selectedInstallment)
+            : 0;
+
+        const finalPriceMajor = additionalFeesCalculated(
+          installments,
+          totalPrice
+        );
+
+        // Create order in your system
         const orderPayload: OrderPayload = {
           items: cart.map((item) => ({
             productVariantId: item.product.productVariantId,
@@ -207,8 +441,9 @@ export default function PaymentWithCard() {
           deliveryMethod,
           deliveryPrice,
           selectedStore: deliveryMethod === 'pickup' ? selectedStore : null,
-          totalPrice: totalPrice,
-          orderNumber: paymentResult?.order_number,
+          totalPrice: finalPriceMajor,
+          orderNumber:
+            paymentResult?.order_number ?? orderNumberRef.current ?? undefined,
           paymentMethod: 'card',
         };
 
@@ -218,7 +453,8 @@ export default function PaymentWithCard() {
           setIsLoading(false);
           return;
         }
-        clearCart();
+
+        // Clear cart and redirect with summary
         const orderSuccessData: OrderSuccessData = {
           items: cart.map((item) => ({
             name: item.product.name,
@@ -227,14 +463,20 @@ export default function PaymentWithCard() {
             quantity: item.quantity,
           })),
           isGift,
-          deliveryMethod: deliveryMethod,
+          deliveryMethod,
           paymentMethod: 'card',
-          orderNumber: paymentResult?.order_number,
-          totalPrice: totalPrice,
+          orderNumber:
+            paymentResult?.order_number ?? orderNumberRef.current ?? '',
+          totalPrice: finalPriceMajor,
         };
+
+        clearCart();
         setOrderSuccessData(orderSuccessData);
         redirect(PAGE_NAMES.CHECKOUT_SUCCESS);
-      } else if (paymentResult?.status === 'declined') {
+        return;
+      }
+
+      if (paymentResult.status === 'declined') {
         toast({
           title: t('checkoutPage.paymentDeclined'),
           variant: 'destructive',
@@ -244,10 +486,13 @@ export default function PaymentWithCard() {
           title: t('common.somethingWentWrong'),
           variant: 'destructive',
         });
-        redirect(PAGE_NAMES.CHECKOUT);
       }
-    }
+      redirect(PAGE_NAMES.CHECKOUT);
+    };
   }
+
+  // ---------- RENDER ----------
+  const isProcessing = isLoading;
 
   return (
     <>
@@ -260,60 +505,44 @@ export default function PaymentWithCard() {
         method="post"
         onSubmit={handleSubmit}
       >
-        {isLoading && (
+        {isProcessing && (
           <div className="absolute right-0 top-0 z-10 flex h-full w-full items-center justify-center rounded-md bg-white">
             <IconLoader size={32} />
           </div>
         )}
+
         <label htmlFor="card-element">
           {t('checkoutPage.paymentPage.enterCard')}
         </label>
-        <div id="card-element">
-          {/* <!-- A Monri Component will be inserted here. --> */}
-        </div>
+        <div id="card-element">{/* Monri Component mounts here */}</div>
 
-        {/* <!-- Used to display Component errors. --> */}
-        <div id="card-errors" role="alert" style={{ color: 'red' }}></div>
+        <div id="card-errors" role="alert" style={{ color: 'red' }} />
 
-        {installmentOptions.length > 0 && (
-          <div>
-            <label htmlFor="installments">Plaćanje na rate:</label>
-            <select
-              className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              id="installments"
-              value={selectedInstallment ?? ''}
-              onChange={(e) => setSelectedInstallment(e.target.value)}
-            >
-              <option value="">Odaberi broj rata</option>
-              {installmentOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+        {isUpdatingPayment && (
+          <div className="text-sm text-gray-600">
+            {t('checkoutPage.paymentPage.updatingPayment')}
           </div>
         )}
 
         <Button
           className="mt-3 self-end"
-          disabled={!clientSecret}
-          size={'lg'}
+          disabled={!clientSecret || isProcessing || isUpdatingPayment}
+          size="lg"
           type="submit"
-          typography={'button1'}
-          variant={'filled'}
+          typography="button1"
+          variant="filled"
         >
           {t('common.continue')}
         </Button>
       </form>
+
       {outOfStockDialog && (
         <OutOfStockPopup
           isOpen={outOfStockDialog}
           outOfStockProducts={outOfStockProducts}
           onOpenChange={(open) => {
             setOutOfStockDialog(open);
-            if (!open) {
-              redirect(PAGE_NAMES.ABOUT);
-            }
+            if (!open) redirect(PAGE_NAMES.ABOUT);
           }}
         />
       )}
