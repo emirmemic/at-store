@@ -8,7 +8,7 @@ export default function Page() {
   const jobs = [
     {
       id: 1,
-      title: 'Prodavač (m/ž)',
+      title: '',
       department: 'Sarajevo',
       category: 'Sale Support',
       type: 'Stalno zaposlenje',
@@ -18,7 +18,7 @@ export default function Page() {
     },
     {
       id: 2,
-      title: 'Prodavač (m/ž)',
+      title: '',
       department: 'Banja Luka',
       category: 'Sale Support',
       type: 'Stalno zaposlenje',
@@ -28,9 +28,9 @@ export default function Page() {
     },
     {
       id: 3,
-      title: 'Voditelj poslovnice (m/ž)',
+      title: '',
       department: 'Sarajevo',
-      category: 'Store Manager',
+      category: 'Voditelj poslovnice (m/ž)',
       type: 'Stalno zaposlenje',
       description:
         'Organizacija i vođenje poslovnice, upravljanje timom i odgovornost za prodajne rezultate.',
@@ -49,9 +49,9 @@ export default function Page() {
     },
     {
       id: 5,
-      title: 'B2B Specijalist',
+      title: '',
       department: 'Sarajevo',
-      category: 'B2B',
+      category: 'B2B Specijalist',
       type: 'Puno radno vrijeme',
       description:
         'Razvoj i održavanje poslovnih odnosa sa kompanijama, priprema ponuda i realizacija B2B prodaje.',
@@ -60,14 +60,14 @@ export default function Page() {
     },
     {
       id: 6,
-      title: 'Savjetnik prodaje',
+      title: '',
       department: 'Sarajevo',
-      category: 'Retail Manager',
+      category: 'Savjetnik prodaje',
       type: 'Puno radno vrijeme',
       description:
         'Savjetovanje kupaca, prezentacija proizvoda i pružanje podrške pri izboru i kupovini.',
       noOpenPositions: false,
-      applyLink: 'jobs/voditelj-poslovnice-sa',
+      applyLink: 'jobs/savjetnik-prodaja-sa',
     },
   ];
 
