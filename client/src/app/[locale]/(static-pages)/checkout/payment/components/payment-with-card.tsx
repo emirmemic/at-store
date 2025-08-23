@@ -65,7 +65,7 @@ export default function PaymentWithCard() {
   const totalPrice = getTotalPrice() + deliveryPrice;
 
   // ---------- HELPERS ----------
-  const toMinor = (amountMajor: number) => Math.round(amountMajor * 100); // BAM minor units
+  const toMinor = (amountMajor: number) => Math.round(amountMajor); // BAM minor units
 
   const additionalFeesCalculated = (
     numberOfInstallments: number,
