@@ -181,7 +181,8 @@ export default function PaymentWithCard() {
 
     // Create new card instance
     cardRef.current = components.create('card', {
-      showInstallmentsSelection: totalPrice >= 399 ? true : false,
+      // showInstallmentsSelection: totalPrice >= 399 ? true : false,
+      showInstallmentsSelection: false,
     });
 
     cardRef.current.mount('card-element');
