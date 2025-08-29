@@ -86,13 +86,25 @@ export default factories.createCoreController(
       } catch (error) {
         // If the stock update fails, we should not create the order
         // and we should return an error
-        await strapi.documents('api::order.order').delete({
-          documentId: newOrder.documentId,
-        });
+        try {
+          const orderExists = await strapi
+            .documents('api::order.order')
+            .findOne({ documentId: newOrder.documentId });
+
+          if (orderExists) {
+            await strapi.documents('api::order.order').delete({
+              documentId: newOrder.documentId,
+            });
+          }
+        } catch (err) {
+          strapi.log.error('Failed to delete order safely:', err);
+        }
         // Notify admin about the failed order creation
         notifyAdminAboutOrderFailure(newOrder);
         // Notify customer about the failed order creation
-        notifyCustomerAboutOrderFailure(newOrder);
+        if (newOrder.address?.email) {
+          notifyCustomerAboutOrderFailure(newOrder);
+        }
         return ctx.badRequest('Failed to update product stock', error);
       }
 
