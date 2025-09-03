@@ -33,6 +33,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     favoritedBy,
     productLink,
   } = product;
+
+  console.log(product);
   const t = useTranslations('');
   const router = useRouter();
   const { toast } = useToast();
@@ -90,7 +92,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       <Link className="z-1 absolute inset-0" href={finalLink}>
         <span className="sr-only">
           {t('common.viewDetailsWithName', {
-            productName: displayName ? displayName : name,
+            productName: name,
           })}
         </span>
       </Link>
@@ -112,7 +114,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       </div>
       <div className="mt-4 space-y-1 px-2 pb-4 text-left">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-md font-semibold">{name}</p>
+          <p className="text-md font-semibold">{displayName ?? name}</p>
           <FavoritesHeart
             className="z-3 relative"
             disabled={isLoading}
