@@ -25,6 +25,7 @@ interface ProductCardProps {
 export default function ProductCard({ product, className }: ProductCardProps) {
   const {
     name,
+    displayName,
     discountedPrice,
     originalPrice,
     tag,
@@ -88,7 +89,9 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     <div className={cn('relative flex w-full flex-col bg-white', className)}>
       <Link className="z-1 absolute inset-0" href={finalLink}>
         <span className="sr-only">
-          {t('common.viewDetailsWithName', { productName: name })}
+          {t('common.viewDetailsWithName', {
+            productName: displayName ? displayName : name,
+          })}
         </span>
       </Link>
       <div className="w-full border border-grey-almost-white bg-white">
