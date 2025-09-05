@@ -130,13 +130,10 @@ Ova poruka je automatski generisana.`
 
       // Send to Formsubmit with timeout
 
-      const response = await fetch(
-        'https://formsubmit.co/haris.hanjalic@stu.ibu.edu.ba',
-        {
-          method: 'POST',
-          body: formDataToSend,
-        }
-      );
+      const response = await fetch('https://formsubmit.co/posao@atstore.ba', {
+        method: 'POST',
+        body: formDataToSend,
+      });
 
       // Clear form
       setFormData({

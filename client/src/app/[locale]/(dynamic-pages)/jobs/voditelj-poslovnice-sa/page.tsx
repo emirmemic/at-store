@@ -138,7 +138,7 @@ Ova poruka je automatski generisana.`
 
       // Send to Formsubmit with timeout
 
-      await fetch('https://formsubmit.co/haris.hanjalic@stu.ibu.edu.ba', {
+      await fetch('https://formsubmit.co/posao@atstore.ba', {
         method: 'POST',
         body: formDataToSend,
       });
