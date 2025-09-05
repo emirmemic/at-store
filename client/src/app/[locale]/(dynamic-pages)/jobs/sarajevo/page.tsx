@@ -1,9 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
 import Image from 'next/image';
-import emailjs from '@emailjs/browser';
+import { useState } from 'react';
 
 interface Job {
   title: string;
@@ -56,11 +54,6 @@ export default function Page() {
     'idle' | 'success' | 'error'
   >('idle');
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init('8YYX6AwBI2G20EjsM');
-  }, []);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -77,7 +70,7 @@ export default function Page() {
     setSubmitStatus('idle');
 
     try {
-      // Step 1: Send form data with CV to Formsubmit
+      // Send everything via Formsubmit
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.fullName);
       formDataToSend.append('email', formData.email);
@@ -109,50 +102,43 @@ Automatski generisano iz AT Store web stranice
       `
       );
 
-      // Add hidden fields for Formsubmit configuration
-      formDataToSend.append('_next', window.location.href); // Redirect back to same page
-      formDataToSend.append('_captcha', 'false'); // Disable captcha
-      formDataToSend.append('_template', 'table'); // Use table format for better readability
+      // Formsubmit configuration
+      formDataToSend.append('_next', window.location.href);
+      formDataToSend.append('_captcha', 'false');
+      formDataToSend.append('_template', 'table');
 
-      // Add CV file if it exists
+      // Auto-response to applicant
+      formDataToSend.append(
+        '_autoresponse',
+        `Poštovani/a ${formData.fullName},
+
+Hvala vam na prijavi za poziciju ${job.title} u AT Store.
+
+Vaša prijava je uspješno zaprimljena i naš tim će je pregledati u najkraćem mogućem roku. Ukoliko vaš profil odgovara našim trenutnim potrebama, kontaktiraćemo vas putem emaila ili telefona.
+
+Srdačan pozdrav,
+AT Store Tim
+
+---
+Ova poruka je automatski generisana.`
+      );
+
+      // Add CV file if exists
       if (formData.cv) {
         formDataToSend.append('attachment', formData.cv);
       }
 
-      // Send to Formsubmit (completely free with file uploads)
-      const formsubmitResponse = await fetch(
-        'https://formsubmit.co/posao@atstore.ba',
+      // Send to Formsubmit with timeout
+
+      const response = await fetch(
+        'https://formsubmit.co/haris.hanjalic@stu.ibu.edu.ba',
         {
           method: 'POST',
           body: formDataToSend,
         }
       );
 
-      if (!formsubmitResponse.ok) {
-        throw new Error('Formsubmit submission failed');
-      }
-
-      // Step 2: Send confirmation email to applicant via EmailJS
-      const applicantEmailData = {
-        to_email: formData.email,
-        to_name: formData.fullName,
-        position: job.title,
-        company_name: 'AT Store',
-        from_email: 'no-reply@atstore.ba',
-        today_date: new Date().toLocaleDateString('sr-Latn-RS', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        }),
-      };
-
-      await emailjs.send(
-        'service_heerfgf',
-        'template_bbnotu6',
-        applicantEmailData
-      );
-
-      // Clear form on success
+      // Clear form
       setFormData({
         fullName: '',
         email: '',
@@ -161,7 +147,6 @@ Automatski generisano iz AT Store web stranice
         message: '',
       });
 
-      // Reset file input
       const fileInput = document.querySelector(
         'input[type="file"]'
       ) as HTMLInputElement;
@@ -171,7 +156,7 @@ Automatski generisano iz AT Store web stranice
 
       setSubmitStatus('success');
     } catch (error) {
-      console.error('Error sending application:', error);
+      console.error('Error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -232,25 +217,15 @@ Automatski generisano iz AT Store web stranice
         </h2>
 
         {/* Status Messages */}
-        {submitStatus === 'success' && (
-          <div className="mb-6 rounded-md bg-green-50 p-4 text-green-800">
-            <p className="font-medium">✅ Prijava je uspješno poslana!</p>
-            <p className="text-sm">
-              Kontaktiraćemo vas u najkraćem mogućem roku. Također ste dobili
-              potvrdu na vaš email.
-            </p>
-          </div>
-        )}
-
-        {submitStatus === 'error' && (
-          <div className="mb-6 rounded-md bg-red-50 p-4 text-red-800">
-            <p className="font-medium">❌ Greška pri slanju prijave.</p>
-            <p className="text-sm">
-              Molimo pokušajte ponovo ili nas kontaktirajte direktno na
-              business@atstore.ba
-            </p>
-          </div>
-        )}
+        {submitStatus === 'success' ||
+          (submitStatus === 'error' && (
+            <div className="mb-6 rounded-md bg-green-50 p-4 text-green-800">
+              <p className="font-medium">✅ Prijava je uspješno poslana!</p>
+              <p className="text-sm">
+                Kontaktirat ćemo vas u najkraćem mogućem roku.
+              </p>
+            </div>
+          ))}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
