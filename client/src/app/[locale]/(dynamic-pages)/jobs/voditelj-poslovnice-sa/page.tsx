@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
-import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface Job {
   title: string;
@@ -57,6 +59,16 @@ export default function Page() {
     message: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'success' | 'error'
+  >('idle');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('8YYX6AwBI2G20EjsM');
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -67,9 +79,111 @@ export default function Page() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Step 1: Send form data with CV to Formsubmit
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.fullName);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append(
+        '_subject',
+        `Nova prijava za posao: ${job.title} - ${formData.fullName}`
+      );
+      formDataToSend.append(
+        'message',
+        `
+🔔 NOVA PRIJAVA ZA POSAO
+========================
+
+📋 OSNOVNE INFORMACIJE:
+- Pozicija: ${job.title}
+- Ime i prezime: ${formData.fullName}
+- Email: ${formData.email}
+- Telefon: ${formData.phone}
+- Lokacija: ${job.location}
+
+💬 PORUKA OD KANDIDATA:
+${formData.message || 'Nije ostavljena poruka.'}
+
+📄 CV: ${formData.cv ? 'Priložen u fajlu' : 'Nije priložen'}
+
+========================
+Automatski generisano iz AT Store web stranice
+      `
+      );
+
+      // Add hidden fields for Formsubmit configuration
+      formDataToSend.append('_next', window.location.href); // Redirect back to same page
+      formDataToSend.append('_captcha', 'false'); // Disable captcha
+      formDataToSend.append('_template', 'table'); // Use table format for better readability
+
+      // Add CV file if it exists
+      if (formData.cv) {
+        formDataToSend.append('attachment', formData.cv);
+      }
+
+      // Send to Formsubmit (completely free with file uploads)
+      const formsubmitResponse = await fetch(
+        'https://formsubmit.co/posao@atstore.ba',
+        {
+          method: 'POST',
+          body: formDataToSend,
+        }
+      );
+
+      if (!formsubmitResponse.ok) {
+        throw new Error('Formsubmit submission failed');
+      }
+
+      // Step 2: Send confirmation email to applicant via EmailJS
+      const applicantEmailData = {
+        to_email: formData.email,
+        to_name: formData.fullName,
+        position: job.title,
+        company_name: 'AT Store',
+        from_email: 'no-reply@atstore.ba',
+        today_date: new Date().toLocaleDateString('sr-Latn-RS', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }),
+      };
+
+      await emailjs.send(
+        'service_heerfgf',
+        'template_bbnotu6',
+        applicantEmailData
+      );
+
+      // Clear form on success
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        cv: null,
+        message: '',
+      });
+
+      // Reset file input
+      const fileInput = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = '';
+      }
+
+      setSubmitStatus('success');
+    } catch (error) {
+      console.error('Error sending application:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -138,9 +252,7 @@ export default function Page() {
       <div className="mb-10 mt-10 grid gap-12 md:grid-cols-1">
         {/* Requirements */}
         <section>
-          <h3 className="text-xl font-medium text-gray-800">
-            Šta očekujemo od tebe
-          </h3>
+          <h3 className="text-xl font-medium text-gray-800">Šta nudimo</h3>
           <ul className="mt-4 list-inside list-disc space-y-2 text-gray-700">
             {job.nudimo.map((req, idx) => (
               <li key={idx}>{req}</li>
@@ -154,10 +266,32 @@ export default function Page() {
         <h2 className="mb-4 text-2xl font-medium text-gray-800">
           Prijavi se sada
         </h2>
+
+        {/* Status Messages */}
+        {submitStatus === 'success' && (
+          <div className="mb-6 rounded-md bg-green-50 p-4 text-green-800">
+            <p className="font-medium">✅ Prijava je uspješno poslana!</p>
+            <p className="text-sm">
+              Kontaktiraćemo vas u najkraćem mogućem roku. Također ste dobili
+              potvrdu na vaš email.
+            </p>
+          </div>
+        )}
+
+        {submitStatus === 'error' && (
+          <div className="mb-6 rounded-md bg-red-50 p-4 text-red-800">
+            <p className="font-medium">❌ Greška pri slanju prijave.</p>
+            <p className="text-sm">
+              Molimo pokušajte ponovo ili nas kontaktirajte direktno na
+              business@atstore.ba
+            </p>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Ime i Prezime
+              Ime i Prezime *
             </label>
             <input
               type="text"
@@ -165,12 +299,14 @@ export default function Page() {
               value={formData.fullName}
               onChange={handleChange}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black"
+              disabled={isSubmitting}
+              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black disabled:opacity-50"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email
+              Email *
             </label>
             <input
               type="email"
@@ -178,21 +314,25 @@ export default function Page() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black"
+              disabled={isSubmitting}
+              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black disabled:opacity-50"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Broj telefona{' '}
+              Broj telefona
             </label>
             <input
               type="tel"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black"
+              disabled={isSubmitting}
+              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black disabled:opacity-50"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Dodaj CV
@@ -201,9 +341,15 @@ export default function Page() {
               type="file"
               name="cv"
               onChange={handleChange}
-              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-gray-800"
+              disabled={isSubmitting}
+              accept=".pdf,.doc,.docx"
+              className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-black file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-gray-800 disabled:opacity-50"
             />
+            <p className="mt-1 text-xs text-gray-500">
+              Podržani formati: PDF, DOC, DOCX (max 10MB)
+            </p>
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Poruka
@@ -213,15 +359,19 @@ export default function Page() {
               value={formData.message}
               onChange={handleChange}
               rows={4}
-              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black"
+              disabled={isSubmitting}
+              placeholder="Napišite zašto ste zainteresovani za ovu poziciju..."
+              className="mt-1 block w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-black focus:ring-black disabled:opacity-50"
             />
           </div>
+
           <div className="text-center">
             <button
               type="submit"
-              className="rounded-full bg-black px-8 py-3 font-medium text-white shadow-md hover:bg-gray-800"
+              disabled={isSubmitting}
+              className="rounded-full bg-black px-8 py-3 font-medium text-white shadow-md hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Pošalji prijavu
+              {isSubmitting ? 'Šalje se...' : 'Pošalji prijavu'}
             </button>
           </div>
         </form>
