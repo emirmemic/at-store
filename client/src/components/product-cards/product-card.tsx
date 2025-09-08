@@ -34,7 +34,6 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     productLink,
   } = product;
 
-  console.log(product);
   const t = useTranslations('');
   const router = useRouter();
   const { toast } = useToast();
