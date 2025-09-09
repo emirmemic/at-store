@@ -1,10 +1,5 @@
 'use client';
 
-import Autoplay from 'embla-carousel-autoplay';
-import React, { useEffect, useState } from 'react';
-
-import { StrapiImage, StrapiVideo } from '@/components';
-import { ActionLink } from '@/components/strapi/components';
 import {
   Carousel,
   CarouselApi,
@@ -13,11 +8,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { HeroSectionResponse, HeroSliderItem } from '../types';
+import React, { useEffect, useState } from 'react';
+import { StrapiImage, StrapiVideo } from '@/components';
+
+import { ActionLink } from '@/components/strapi/components';
+import Autoplay from 'embla-carousel-autoplay';
 import PlayPause from '@/components/ui/play-pause';
 import ProgressBar from '@/components/ui/progress-bar';
 import { cn } from '@/lib/utils/utils';
-
-import { HeroSliderItem, HeroSectionResponse } from '../types';
 
 const SliderItem: React.FC<HeroSliderItem> = ({
   id,
@@ -30,8 +29,15 @@ const SliderItem: React.FC<HeroSliderItem> = ({
   const imageUrl = media?.url;
   const altText = media?.alternativeText || placeholderImage?.alternativeText;
 
+  console.log(isVideo, imageUrl);
   return (
-    <div key={id} className="relative h-full w-full">
+    <div
+      key={id}
+      className={cn(
+        'relative',
+        isVideo ? 'h-full w-full' : 'h-full w-full md:h-fit'
+      )}
+    >
       {isVideo ? (
         <StrapiVideo
           autoPlay
