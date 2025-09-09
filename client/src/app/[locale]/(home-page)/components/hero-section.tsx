@@ -29,7 +29,6 @@ const SliderItem: React.FC<HeroSliderItem> = ({
   const imageUrl = media?.url;
   const altText = media?.alternativeText || placeholderImage?.alternativeText;
 
-  console.log(isVideo, imageUrl);
   return (
     <div
       key={id}

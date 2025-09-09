@@ -14,7 +14,11 @@ export default function DesktopInfoCard({
   link = '/',
 }: InfoCardProps) {
   return (
-    <Link className="no-underline" href={link} replace={false}>
+    <Link
+      className="no-underline"
+      href={'https://atstore.ba/' + link}
+      replace={true}
+    >
       <div
         className="flex h-16 w-full cursor-pointer items-center gap-4 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left shadow-sm transition duration-300 ease-in-out hover:shadow-md"
         style={{
