@@ -1,13 +1,3 @@
-import { getTranslations } from 'next-intl/server';
-import qs from 'qs';
-
-// import { IconsBlock, MonoAppleBlock } from '@/components';
-
-import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
-import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
-import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-
 import {
   CategoriesSection,
   HeroSection,
@@ -15,7 +5,15 @@ import {
   PromoCards,
   SubCategorySection,
 } from './components';
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+
+import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import { HomepageResponse } from './types';
+import ModalOnLoad from '@/components/ui/modal-on-load';
+import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
+import { fetchAPI } from '@/lib/fetch-api';
+import { getTranslations } from 'next-intl/server';
+import qs from 'qs';
 
 const homePageQuery = qs.stringify(
   {
@@ -99,13 +97,29 @@ export default async function Page({
   const { title, promoCards, heroSection } = data;
   return (
     <main>
+      <ModalOnLoad
+        backgroundImageUrl="/assets/images/event/event.png"
+        backgroundOpacity={0.9}
+        imageHeight={280}
+        imageHeightMd={380}
+        imageFit="contain" // ili "cover"
+      />
+
       {(error || success) && (
         <OAuthRedirectMessage error={error} success={success} />
       )}
       <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
       {heroSection && (
-        <HeroSection {...heroSection} className="container-max-width-xl" />
+        <div className="container-max-width-xl">
+          <div className="relative aspect-[43/25] w-full overflow-hidden md:aspect-[3/1]">
+            <HeroSection
+              {...heroSection}
+              className="absolute inset-0 [&_img]:h-full [&_img]:w-full [&_img]:object-cover [&_video]:h-full [&_video]:w-full [&_video]:object-cover"
+            />
+          </div>
+        </div>
       )}
+
       <div className="py-16">
         <div className="px-3 container-max-width-lg md:px-4">
           <CategoriesSection />
