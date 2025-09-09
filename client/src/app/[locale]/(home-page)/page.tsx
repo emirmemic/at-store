@@ -9,7 +9,7 @@ import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import { HomepageResponse } from './types';
-import ModalOnLoad from '@/components/ui/modal-on-load';
+// import ModalOnLoad from '@/components/ui/modal-on-load';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { fetchAPI } from '@/lib/fetch-api';
 import { getTranslations } from 'next-intl/server';
@@ -97,13 +97,13 @@ export default async function Page({
   const { title, promoCards, heroSection } = data;
   return (
     <main>
-      <ModalOnLoad
+      {/* <ModalOnLoad
         backgroundImageUrl="/assets/images/event/event.png"
         backgroundOpacity={0.9}
         imageHeight={280}
         imageHeightMd={380}
         imageFit="contain" // ili "cover"
-      />
+      /> */}
 
       {(error || success) && (
         <OAuthRedirectMessage error={error} success={success} />
