@@ -132,10 +132,10 @@ export const sendEmailToUser = async (
           Proizvod:      ${makeTextForProduct(product)}
 
 
-         Ako ste slučajno unijeli pogrešne podatke ili imate dodatna pitanja, pošaljite nam e-mail na mikrofin@atstore.ba ili nas pozovite.
+         Ako ste slučajno unijeli pogrešne podatke ili imate dodatna pitanja, pošaljite nam e-mail na prodaja@atstore.ba ili nas pozovite.
 
           Srdačan pozdrav,
-          AT Store tim
+          AT Store
         `,
         html: `
           <h2 style="margin-bottom:0.5rem">Vaš zahtjev za Mikrofin predračun</h2>
@@ -154,12 +154,12 @@ export const sendEmailToUser = async (
           </ul>
 
           <p style="margin-top:1rem">
-          Ako ste slučajno unijeli pogrešne podatke ili imate dodatna pitanja, pošaljite nam e-mail na mikrofin@atstore.ba ili nas pozovite.
+          Ako ste slučajno unijeli pogrešne podatke ili imate dodatna pitanja, pošaljite nam e-mail na prodaja@atstore.ba ili nas pozovite.
           </p>
 
           <p style="margin-top:1.5rem">
           Srdačan pozdrav,<br/>
-          <strong>AT Store tim</strong>
+          <strong>AT Store</strong>
           </p>
         `,
       });

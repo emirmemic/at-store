@@ -144,7 +144,7 @@ export const sendEmailToUser = async (result: Result) => {
           Ako imate dodatna pitanja ili želite izmijeniti informacije, kontaktirajte nas putem e-maila na reklamacije@atstore.ba ili pozivom na +387 33 956 188.
 
           Srdačan pozdrav,
-          AT Store tim
+          AT Store
                   `.trim(),
         html: `
           <h2 style="margin-bottom:0.5rem">Vaš zahtjev za reklamaciju</h2>
@@ -168,7 +168,7 @@ export const sendEmailToUser = async (result: Result) => {
 
           <p style="margin-top:1.5rem">
           Srdačan pozdrav,<br/>
-          <strong>AT Store tim</strong>
+          <strong>AT Store</strong>
           </p>
         `.trim(),
       });

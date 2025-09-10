@@ -113,7 +113,7 @@ export const sendEmailToUser = async (result: Result) => {
       Ukoliko imate dodatna pitanja, kontaktirajte nas na ${educationalDiscountEmail}.
 
       Srdačan pozdrav,
-      AT Store tim
+      AT Store
         `.trim(),
 
         html: `
@@ -137,7 +137,7 @@ export const sendEmailToUser = async (result: Result) => {
 
         <p style="margin-top:1.5rem">
         Srdačan pozdrav,<br/>
-        <strong>AT Store tim</strong>
+        <strong>AT Store</strong>
         </p>
         `.trim(),
       });

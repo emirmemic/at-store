@@ -1,7 +1,7 @@
 import { StrapiUser } from '../../../../types/user';
 import { contactInfoBlock } from '../../../utils/contact-email-template';
 
-const adminEmail = process.env.ADMIN_EMAIL || 'business@atstore.ba';
+const adminEmail = process.env.ADMIN_EMAIL || 'prodaja@atstore.ba';
 const defaultFrom = process.env.DEFAULT_FROM || 'no-reply@atstore.ba';
 const strapiUrl = process.env.PUBLIC_URL || 'http://localhost:1337';
 
@@ -24,33 +24,33 @@ export const sendEmailToUser = async ({
         subject: 'Vaš predračun je kreiran – AT Store',
 
         text: `
-          Poštovani/Poštovana ${user.username},
+          Poštovani, ${user.companyName},
 
-          Hvala Vam na korištenju naše usluge.
+          Hvala Vam na korištenju B2B usluge.
 
           Vaš predračun broj ${invoiceNumber} je uspješno kreiran i nalazi se u prilogu ovog e-maila.
 
           Kako biste nastavili sa kupovinom, molimo Vas da izvršite uplatu prema podacima iz predračuna. 
-          Nakon što izvršite uplatu, pošaljite potvrdu o uplati na našu e-mail adresu: ${adminEmail}
+          Nakon što izvršite uplatu, pošaljite potvrdu o uplati na našu e-mail adresu: prodaja@atstore.ba.
 
           Ukoliko imate bilo kakvih pitanja ili Vam je potrebna pomoć, slobodno nas kontaktirajte.
 
           Srdačan pozdrav,  
-          AT Store tim
+          AT Store
         `.trim(),
 
         html: `
         <h2>Vaš predračun je kreiran</h2>
-        <p>Poštovani/Poštovana <strong>${user.username}</strong>,</p>
+        <p>Poštovani, <strong>${user.companyName}</strong>,</p>
 
-        <p>Hvala Vam na korištenju naše usluge. Vaš predračun broj <strong>${invoiceNumber}</strong> je uspješno kreiran i nalazi se u prilogu ovog e-maila.</p>
+        <p>Hvala Vam na korištenju B2B usluge. Vaš predračun broj <strong>${invoiceNumber}</strong> je uspješno kreiran i nalazi se u prilogu ovog e-maila.</p>
 
         <p>Molimo Vas da izvršite uplatu prema podacima iz predračuna. Nakon uplate, <strong>pošaljite potvrdu o uplati</strong> na:</p>
-        <p><a href="mailto:${adminEmail}">${adminEmail}</a></p>
+        <p><a href="mailto:prodaja@atstore.ba">prodaja@atstore.ba</a></p>
 
         ${contactInfoBlock()}
 
-        <p>Srdačan pozdrav,<br/><strong>AT Store tim</strong></p>
+        <p>Srdačan pozdrav,<br/><strong>AT Store</strong></p>
       `,
         attachments: [
           {
