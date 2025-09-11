@@ -93,7 +93,11 @@ export default function NamePrice({
         <h1 className="mb-2 heading-4">{name}</h1>
         <div className="flex flex-col">
           <div className="flex items-center gap-5">
-            <Price className="heading-4" value={finalPrice} />
+            {shouldDisplayPreOrder ? (
+              <></>
+            ) : (
+              <Price className="heading-4" value={finalPrice} />
+            )}
             {hasDiscount && (
               <>
                 <Price
