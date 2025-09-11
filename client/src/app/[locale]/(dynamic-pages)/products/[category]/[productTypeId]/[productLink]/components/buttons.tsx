@@ -17,9 +17,14 @@ import { useTranslations } from 'next-intl';
 interface ButtonsProps {
   product: ProductVariant;
   isModal?: boolean;
+  shouldDisplayPreOrder?: boolean;
 }
 
-export default function Buttons({ product, isModal = false }: ButtonsProps) {
+export default function Buttons({
+  product,
+  isModal = false,
+  shouldDisplayPreOrder = false,
+}: ButtonsProps) {
   const t = useTranslations();
   const router = useRouter();
   const { toast } = useToast();
@@ -130,7 +135,7 @@ export default function Buttons({ product, isModal = false }: ButtonsProps) {
           onClick={handleCartClick}
           disabled={product.amountInStock === 0} // disable if amountInStock is 0
         >
-          {t('common.buyNow')}
+          {shouldDisplayPreOrder ? 'Prednaruči' : t('common.buyNow')}
         </Button>
       )}
 

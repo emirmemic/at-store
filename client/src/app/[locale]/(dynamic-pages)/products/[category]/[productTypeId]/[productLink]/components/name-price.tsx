@@ -12,6 +12,7 @@ interface NamePriceProps {
   discountedPrice: number | null;
   originalPrice: number;
   productVariantId: string;
+  shouldDisplayPreOrder?: boolean;
 }
 
 export default function NamePrice({
@@ -19,6 +20,7 @@ export default function NamePrice({
   discountedPrice,
   originalPrice,
   productVariantId,
+  shouldDisplayPreOrder = false,
 }: NamePriceProps) {
   const t = useTranslations('productPage');
   const hasDiscount =
@@ -33,6 +35,13 @@ export default function NamePrice({
       ((originalPrice - discountedPrice) / originalPrice) * 100
     );
   }
+
+  const isIphone =
+    shouldDisplayPreOrder &&
+    (location.pathname.includes('iphone-17') ||
+      location.pathname.includes('iphone-air'));
+
+  const awIAp = !isIphone && shouldDisplayPreOrder;
 
   const [copied, setCopied] = useState(false);
 
@@ -81,7 +90,6 @@ export default function NamePrice({
             )}
           </button>
         </div>
-
         <h1 className="mb-2 heading-4">{name}</h1>
         <div className="flex flex-col">
           <div className="flex items-center gap-5">
@@ -106,6 +114,22 @@ export default function NamePrice({
             </span>
           )}
         </div>
+        {shouldDisplayPreOrder && (
+          <div className="mt-4 flex flex-col gap-1">
+            {isIphone ? (
+              <span>Prednarudžbe od 19.09. Dostupan od 26.09.</span>
+            ) : (
+              <></>
+            )}
+            {awIAp ? (
+              <span>Prednarudžbe uskoro. Dostupno od 19.09.</span>
+            ) : (
+              <></>
+            )}
+
+            <span></span>
+          </div>
+        )}
       </div>
     </>
   );

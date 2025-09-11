@@ -20,6 +20,23 @@ export default function ProductDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [visibleMaps, setVisibleMaps] = useState(new Set());
   const [isAnimating, setIsAnimating] = useState(false);
+  const [shouldDisplayPreOrder, setShouldDisplayPreOrder] = useState(false);
+
+  const preOrderNames = [
+    'iphone-17',
+    'iphone-air',
+    'airpods-pro-3',
+    'apple-watch-s11',
+    'apple-watch-se3',
+    'apple-watch-ultra-3',
+  ];
+
+  useEffect(() => {
+    const isPreOrder = preOrderNames.some((name) =>
+      location.pathname.includes(name)
+    );
+    setShouldDisplayPreOrder(isPreOrder);
+  }, []);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -131,6 +148,7 @@ export default function ProductDetails() {
               <NamePrice
                 discountedPrice={discountedPrice}
                 name={displayName}
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
                 originalPrice={originalPrice}
                 productVariantId={productVariantId}
               />
@@ -143,7 +161,10 @@ export default function ProductDetails() {
 
             {/* Buy Now Button */}
             <div className="mb-8">
-              <Buttons product={selectedVariant} />
+              <Buttons
+                product={selectedVariant}
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
+              />
             </div>
 
             {/* Find More Stores */}
@@ -323,6 +344,7 @@ export default function ProductDetails() {
           <NamePrice
             discountedPrice={discountedPrice}
             name={displayName}
+            shouldDisplayPreOrder={shouldDisplayPreOrder}
             originalPrice={originalPrice}
             productVariantId={productVariantId}
           />
@@ -347,7 +369,10 @@ export default function ProductDetails() {
           {/* Options and Buy Now */}
           <div className="flex w-full flex-col gap-14">
             <Options finalPrice={finalPrice} options={productOptions} />
-            <Buttons product={selectedVariant} />
+            <Buttons
+              product={selectedVariant}
+              shouldDisplayPreOrder={shouldDisplayPreOrder}
+            />
           </div>
 
           {/* Find More Stores */}
