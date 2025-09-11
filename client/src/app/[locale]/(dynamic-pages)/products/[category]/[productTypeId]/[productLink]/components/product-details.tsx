@@ -789,14 +789,18 @@ export default function ProductDetails() {
             </div>
             <div>
               <h3 className="text-lg font-semibold">{name}</h3>
-              <p className="text-lg font-semibold">
-                {finalPrice.toFixed(2)} KM
-                {discountedPrice && originalPrice && (
-                  <span className="ml-2 text-sm text-grey-dark line-through">
-                    {originalPrice.toFixed(2)} KM
-                  </span>
-                )}
-              </p>
+              {shouldDisplayPreOrder ? (
+                <></>
+              ) : (
+                <p className="text-lg font-semibold">
+                  {finalPrice.toFixed(2)} KM
+                  {discountedPrice && originalPrice && (
+                    <span className="ml-2 text-sm text-grey-dark line-through">
+                      {originalPrice.toFixed(2)} KM
+                    </span>
+                  )}
+                </p>
+              )}
             </div>
           </div>
           <div className="">
