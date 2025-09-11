@@ -818,7 +818,11 @@ export default function ProductDetails() {
             </button>
           </div>
           <div className="flex items-center gap-4">
-            <Buttons isModal={true} product={selectedVariant} />
+            <Buttons
+              isModal={true}
+              product={selectedVariant}
+              shouldDisplayPreOrder={shouldDisplayPreOrder}
+            />
           </div>
         </div>
       </div>
