@@ -173,15 +173,19 @@ export default function ProductDetails() {
               <span className="text-sm font-medium text-black">
                 Besplatno preuzimanje u poslovnici
               </span>
-              <button
-                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
-                onClick={openSidebar}
-              >
-                <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-                <span className="text-sm font-medium text-blue">
-                  Pogledajte dostupnost
-                </span>
-              </button>
+              {!shouldDisplayPreOrder ? (
+                <button
+                  className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                  onClick={openSidebar}
+                >
+                  <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
+                  <span className="text-sm font-medium text-blue">
+                    Pogledajte dostupnost
+                  </span>
+                </button>
+              ) : (
+                <></>
+              )}
             </div>
 
             {/* Delivery and Payment Info - Always visible, grey background */}
@@ -381,15 +385,19 @@ export default function ProductDetails() {
             <span className="text-sm font-medium text-black">
               Besplatno preuzimanje u poslovnici
             </span>
-            <button
-              className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
-              onClick={openSidebar}
-            >
-              <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-              <span className="text-sm font-medium text-blue">
-                Pogledajte dostupnost
-              </span>
-            </button>
+            {shouldDisplayPreOrder ? (
+              <></>
+            ) : (
+              <button
+                className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                onClick={openSidebar}
+              >
+                <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
+                <span className="text-sm font-medium text-blue">
+                  Pogledajte dostupnost
+                </span>
+              </button>
+            )}
           </div>
           {details && (
             <>
@@ -809,15 +817,19 @@ export default function ProductDetails() {
             <span className="text-sm font-medium text-black">
               Besplatno preuzimanje u poslovnici
             </span>
-            <button
-              className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
-              onClick={openSidebar}
-            >
-              <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-              <span className="text-sm font-medium text-blue">
-                Pogledajte dostupnost
-              </span>
-            </button>
+            {shouldDisplayPreOrder ? (
+              <></>
+            ) : (
+              <button
+                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                onClick={openSidebar}
+              >
+                <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
+                <span className="text-sm font-medium text-blue">
+                  Pogledajte dostupnost
+                </span>
+              </button>
+            )}
           </div>
           <div className="flex items-center gap-4">
             <Buttons

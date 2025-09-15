@@ -97,8 +97,10 @@ export default function NamePrice({
         <h1 className="mb-2 heading-4">{name}</h1>
         <div className="flex flex-col">
           <div className="flex items-center gap-5">
-            {shouldDisplayPreOrder ? (
+            {shouldDisplayPreOrder && isIphone ? (
               <></>
+            ) : shouldDisplayPreOrder && !isIphone ? (
+              <Price className="heading-4" value={finalPrice} />
             ) : (
               <Price className="heading-4" value={finalPrice} />
             )}
@@ -130,7 +132,12 @@ export default function NamePrice({
               <></>
             )}
             {awIAp ? (
-              <span>Prednarudžbe uskoro. Dostupno od 19.09.</span>
+              <span>
+                Otvorili smo prednarudžbe za {name}. Zbog ograničenih količina
+                savjetujemo da svoju narudžbu osigurate na vrijeme. Prva
+                isporuka planirana je za 19. 9., ali prednarudžba ne garantira
+                isporuku iz prve pošiljke.
+              </span>
             ) : (
               <></>
             )}
