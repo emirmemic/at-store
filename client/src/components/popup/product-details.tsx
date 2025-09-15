@@ -1,9 +1,5 @@
 'use client';
-import { BlocksContent } from '@strapi/blocks-react-renderer';
-import { useTranslations } from 'next-intl';
 
-import { IconChevron } from '@/components/icons';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,11 +7,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import Price from '@/components/ui/price';
-import { ImageProps } from '@/lib/types';
-import { cn } from '@/lib/utils/utils';
-
 import { StrapiBlocks, StrapiImage } from '../strapi/components';
+
+import { BlocksContent } from '@strapi/blocks-react-renderer';
+import { Button } from '@/components/ui/button';
+import { IconChevron } from '@/components/icons';
+import { ImageProps } from '@/lib/types';
+import Price from '@/components/ui/price';
+import { cn } from '@/lib/utils/utils';
+import { useTranslations } from 'next-intl';
 
 interface ProductDetailsPopupProps {
   name: string;
@@ -23,6 +23,7 @@ interface ProductDetailsPopupProps {
   finalPrice: number;
   image?: ImageProps | null;
   className?: string;
+  shouldDisplayPreOrder?: boolean;
 }
 
 export default function ProductDetailsPopup({
@@ -31,6 +32,7 @@ export default function ProductDetailsPopup({
   finalPrice,
   name,
   image,
+  shouldDisplayPreOrder = false,
 }: ProductDetailsPopupProps) {
   const t = useTranslations('');
   return (
@@ -74,7 +76,11 @@ export default function ProductDetailsPopup({
                 </div>
                 <div className="flex flex-col gap-2">
                   <p className="text-grey-darker paragraph-1">{name}</p>
-                  <Price className="heading-4" value={finalPrice} />
+                  {shouldDisplayPreOrder === false ? (
+                    <Price className="heading-4" value={finalPrice} />
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
               {details && <StrapiBlocks content={details} />}

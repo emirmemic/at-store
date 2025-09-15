@@ -122,6 +122,7 @@ export default function ProductDetails() {
               <div className="mb-6 h-fit w-full bg-grey-light"></div>
               <ProductDetailsPopup
                 className=""
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
                 details={details}
                 finalPrice={finalPrice}
                 image={image}
@@ -396,6 +397,7 @@ export default function ProductDetails() {
               <ProductDetailsPopup
                 className=""
                 details={details}
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
                 finalPrice={finalPrice}
                 image={image}
                 name={name}
