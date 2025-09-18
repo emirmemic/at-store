@@ -7,15 +7,15 @@ import {
   iPadMiniAtBusiness,
   macBookAirEducationalDiscount,
 } from '@/assets/images';
+import { useEffect, useRef } from 'react';
 
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import EducationalDiscountForm from './components/form';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
 
 export default function Page() {
   const t = useTranslations();
@@ -25,7 +25,7 @@ export default function Page() {
       title: 'MacBook Air',
       subtitle: 'M4 čip',
       description:
-        'Od 2.569 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 2.564,05 KM ili 118 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/mbam4.png',
       icon: '🎓',
       route:
@@ -35,7 +35,7 @@ export default function Page() {
       title: 'MacBook Pro',
       subtitle: 'M4 čip',
       description:
-        'Od 4.169 KM ili 191 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 4.169,55 KM ili 192 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/mbpm4.png',
       icon: '🎓',
       route:
@@ -45,7 +45,7 @@ export default function Page() {
       title: 'MacBook Air M3 15"',
       subtitle: 'Tanji. Brži. Efikasniji.',
       description:
-        'Od 2.759 KM ili 126 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 2.754,05 KM ili 127 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/mba.M3.png',
       icon: '🎓',
       route:
@@ -55,7 +55,7 @@ export default function Page() {
       title: 'MacBook Pro M3',
       subtitle: 'Snaga za kreativce',
       description:
-        'Od 3.829 KM ili 176 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 4.293,05 KM ili 198 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/mbpm3.png',
       icon: '🎓',
       route:
@@ -65,7 +65,7 @@ export default function Page() {
       title: 'iMac 24"',
       subtitle: 'Savršen za rad od kuće ili učionicu.',
       description:
-        'Od 3.329 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 3.324,05 KM ili 153 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/imac.png',
       icon: '🎓',
       route:
@@ -75,17 +75,17 @@ export default function Page() {
       title: 'Mac Studio',
       subtitle: 'Napredna snaga. M4 Max.',
       description:
-        'Od 5.199 KM ili 238 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 5.195,55 KM ili 239 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/macstudio.png',
       icon: '🎓',
       route:
-        '/proizvodi/mac/MS/apple-mac-studio-m4-max-14c-cpu-32c-gpu-36g-512gb-zee-97647263nom',
+        'proizvodi/mac/MS/apple-mac-studio-m4-max-14c-cpu-32c-gpu-36g-512gb-zee-97647263',
     },
     {
       title: 'Mac mini',
       subtitle: 'Kompaktan i moćan',
       description:
-        'Od 1.619 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 1.614,05 KM ili 74 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/macmini.png',
       icon: '🎓',
       route:
@@ -95,7 +95,7 @@ export default function Page() {
       title: 'Studio Display',
       subtitle: 'Novo iskustvo',
       description:
-        'Od 3.709 KM ili 170 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
+        'Od 3.894,05 KM ili 179 KM/mjesec. na 24 mjeseca sa obrazovnim popustom.',
       image: '/assets/images/studiodisplay.png',
       icon: '🎓',
       route:
@@ -143,7 +143,7 @@ export default function Page() {
     {
       title: 'iPad',
       subtitle: '(A16)',
-      description: 'Od 949 KM ili 71 KM/mjesec. na 24 mjeseca.',
+      description: 'Od 949 KM ili 44 KM/mjesec. na 24 mjeseca.',
       image: '/assets/images/ipad_a16.png',
       icon: '',
       route:
@@ -295,15 +295,15 @@ export default function Page() {
 
   return (
     <main className="w-full py-12 md:py-16 lg:py-16">
-      <div className="w-full py-10">
-        <div className="flex flex-col gap-6 px-4 container-max-width md:flex-row md:items-center md:justify-between md:px-0">
+      <div className="w-full px-[160px] py-10">
+        <div className="flex flex-col gap-6 container-max-width lg:flex-row lg:items-center lg:justify-between lg:px-0">
           <div className="text-left">
-            <h1 className="text-3xl font-bold md:text-5xl">
+            <h1 className="text-3xl font-bold md:text-4xl lg:text-5xl">
               <span className="text-teal-700">Obrazovni popust.</span> <br></br>
               <span className="text-gray-900">Učenje bez granica.</span>{' '}
             </h1>
           </div>
-          <div className="mt-2 flex flex-col gap-2 md:mt-0 md:flex-col">
+          <div className="mt-2 flex flex-col gap-2 lg:mt-0">
             {/* Pomoć pri kupovini */}
             <div className="flex items-start gap-3">
               <div>

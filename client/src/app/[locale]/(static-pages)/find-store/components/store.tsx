@@ -1,15 +1,14 @@
 'use client';
-import { useLocale, useTranslations } from 'next-intl';
+
+import { OpeningHours, StoreType } from '../types';
 import { useEffect, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
-import { cn } from '@/lib/utils/utils';
-
-import { getPlaceDetails } from '../actions';
-import { StoreType, OpeningHours } from '../types';
-
+import { PAGE_NAMES } from '@/i18n/page-names';
 import StoreStatus from './store-status';
+import { cn } from '@/lib/utils/utils';
+import { getPlaceDetails } from '../actions';
 
 interface StoreProps {
   store: StoreType;

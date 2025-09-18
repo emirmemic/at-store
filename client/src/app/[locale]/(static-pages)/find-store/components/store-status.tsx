@@ -1,7 +1,7 @@
 'use client';
-import { useTranslations } from 'next-intl';
 
 import { cn } from '@/lib/utils/utils';
+import { useTranslations } from 'next-intl';
 
 interface StoreStatusProps {
   openNow: boolean;
@@ -41,10 +41,11 @@ export default function StoreStatus({
 
     if (nextOpening) {
       const day = nextOpening.open.day;
+      const weekdayTextIndex = (day + 6) % 7; // Google returns Sunday=0, weekdayText starts with Monday
       const time = nextOpening.open.time;
       const hour = time.slice(0, 2);
       const minute = time.slice(2);
-      const dayName = weekdayText[day]?.split(':')[0];
+      const dayName = weekdayText[weekdayTextIndex]?.split(':')[0];
 
       statusText = `${t('opensAt')} ${dayName}, ${hour}:${minute}`;
     }

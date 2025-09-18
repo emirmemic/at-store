@@ -1,13 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-
-import { StoreType } from '../types';
 
 import Store from './store';
 import StoreMap from './store-map';
+import { StoreType } from '../types';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function Content({ stores }: { stores: StoreType[] }) {
   const t = useTranslations('findStorePage');

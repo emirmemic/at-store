@@ -1,7 +1,4 @@
 import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
-import IconInterest from '@/components/icons/interest';
-import IconRepayments from '@/components/icons/repayments';
-import IconRequest from '@/components/icons/request';
 import MikrofinForm from './components/form';
 import { getFaqSection } from '@/app/[locale]/(static-pages)/payment-methods/data';
 import { getTranslations } from 'next-intl/server';
@@ -26,23 +23,7 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 export default function Page() {
   const t = useTranslations();
   const faqSection = getFaqSection(t);
-  const cards = [
-    {
-      id: 1,
-      title: t('mikrofinInvoicePage.IconRepayments'),
-      Icon: IconRepayments,
-    },
-    {
-      id: 2,
-      title: t('mikrofinInvoicePage.IconRequest'),
-      Icon: IconRequest,
-    },
-    {
-      id: 3,
-      title: t('mikrofinInvoicePage.IconInterest'),
-      Icon: IconInterest,
-    },
-  ];
+
   return (
     <main className="bg-white">
       {/* Hero Section */}
@@ -207,7 +188,7 @@ export default function Page() {
             </button>
           </div>
         </div>
-        <div className="w-full py-12 md:max-w-2xl md:px-3 md:py-[60px]">
+        <div className="w-full py-12 md:px-3 md:py-[60px]">
           <p className="mb-6 heading-4 md:mb-9 md:heading-2">
             {t('paymentMethodsPage.faqTitle')}
           </p>
