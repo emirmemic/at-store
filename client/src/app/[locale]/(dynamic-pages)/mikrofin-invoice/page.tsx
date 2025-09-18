@@ -2,6 +2,7 @@ import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
 import MikrofinForm from './components/form';
 import { getFaqSection } from '@/app/[locale]/(static-pages)/payment-methods/data';
 import { getTranslations } from 'next-intl/server';
+import mikrofinLogo from '../../../../../public/assets/images/Mikrofin-logo_1.jpg';
 import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
@@ -20,6 +21,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
     },
   };
 }
+
+console.log(mikrofinLogo);
 export default function Page() {
   const t = useTranslations();
   const faqSection = getFaqSection(t);
@@ -32,7 +35,7 @@ export default function Page() {
           <img
             alt="Mikrofin"
             className="mx-auto mb-6 h-20 w-auto md:h-24"
-            src="assets/images/Mikrofin-logo_1.jpg"
+            src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}assets/images/Mikrofin-logo_1.jpg`}
           />
           <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
             Finansiranje uz Mikrofin
@@ -55,7 +58,7 @@ export default function Page() {
             <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
                 className="mx-auto mb-4 h-14"
-                src="assets/images/rok-otplate.svg"
+                src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}assets/images/rok-otplate.svg`}
                 alt="Rok otplate"
               />
               <h3 className="mb-2 text-xl font-semibold text-gray-900">
@@ -68,7 +71,7 @@ export default function Page() {
             <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
                 className="mx-auto mb-4 h-14"
-                src="assets/images/iznos.svg"
+                src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}assets/images/iznos.svg`}
                 alt="Brzo odobrenje"
               />
               <h3 className="mb-2 text-xl font-semibold text-gray-900">
@@ -81,7 +84,7 @@ export default function Page() {
             <div className="flex flex-col items-center rounded-3xl border border-gray-200 bg-white/20 p-8 shadow-md backdrop-blur-xl transition-all duration-500 hover:shadow-xl">
               <img
                 className="mx-auto mb-4 h-14"
-                src="assets/images/online.svg"
+                src={`${process.env.NEXT_PUBLIC_FRONTEND_URL}assets/images/online.svg`}
                 alt="Bez papira"
               />
               <h3 className="mb-2 text-xl font-semibold text-gray-900">
