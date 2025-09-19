@@ -145,10 +145,10 @@ export default function ChatBotWidget() {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end md:bottom-8 md:right-8">
+    <div className="pointer-events-none fixed bottom-5 right-5 z-50 flex flex-col items-end md:bottom-8 md:right-8">
       <div
         className={cn(
-          'relative w-full max-w-sm overflow-hidden rounded-[1.9rem] border border-white/40 bg-white/55 shadow-[0_24px_52px_rgba(15,23,42,0.2)] backdrop-blur-2xl transition-all',
+          'pointer-events-auto relative w-full max-w-sm overflow-hidden rounded-[1.9rem] border border-white/40 bg-white/55 shadow-[0_24px_52px_rgba(15,23,42,0.2)] backdrop-blur-2xl transition-all',
           'duration-300 ease-out',
           isOpen
             ? 'visible translate-y-0 opacity-100'
@@ -272,7 +272,7 @@ export default function ChatBotWidget() {
         type="button"
         onClick={toggleOpen}
         className={cn(
-          'mt-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-gradient-to-r from-black via-black/85 to-grey-darkest px-6 py-3.5 text-sm font-medium text-white shadow-[0_22px_44px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-all duration-200',
+          'pointer-events-auto mt-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-gradient-to-r from-black via-black/85 to-grey-darkest px-6 py-3.5 text-sm font-medium text-white shadow-[0_22px_44px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-all duration-200',
           'hover:-translate-y-0.5 hover:border-black/60 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white'
         )}
         aria-expanded={isOpen}
