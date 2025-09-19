@@ -158,7 +158,7 @@ export default function ChatBotWidget() {
         className={cn(
           'pointer-events-auto relative flex flex-col overflow-hidden rounded-[1.65rem] border border-white/40 bg-white/55 backdrop-blur-2xl transition-all sm:rounded-[1.9rem]',
           'duration-300 ease-out',
-          'h-[min(32rem,calc(100vh-8rem))] w-[calc(100vw-2rem)] max-w-[20rem] sm:h-auto sm:max-h-96 sm:w-[min(20rem,calc(100vw-2.5rem))]',
+          'h-[min(32rem,calc(100vh-8rem))] w-[calc(100vw-2rem)] max-w-[20rem] sm:w-[min(20rem,calc(100vw-2.5rem))] md:h-[min(34rem,calc(100vh-10rem))] md:max-w-[22rem] lg:h-[min(36rem,calc(100vh-12rem))] lg:max-w-[24rem]',
           isOpen
             ? 'visible translate-y-0 opacity-100'
             : 'invisible translate-y-4 opacity-0'
@@ -200,7 +200,7 @@ export default function ChatBotWidget() {
 
         {/* Messages */}
         <div
-          className="flex flex-col gap-3 overflow-y-auto bg-white/40 px-4 py-4 text-xs text-grey-almost-black sm:gap-4 sm:px-5 sm:text-sm"
+          className="flex flex-1 flex-col gap-3 overflow-y-auto bg-white/40 px-4 py-4 text-xs text-grey-almost-black sm:gap-4 sm:px-5 sm:text-sm"
           role="log"
           aria-live="polite"
           aria-relevant="additions"
