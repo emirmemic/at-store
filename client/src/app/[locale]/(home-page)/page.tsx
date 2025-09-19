@@ -7,6 +7,7 @@ import {
 } from './components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
+import ChatBotWidget from '@/components/chat-bot/chat-bot-widget';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
 import { HomepageResponse } from './types';
 // import ModalOnLoad from '@/components/ui/modal-on-load';
@@ -139,6 +140,7 @@ export default async function Page({
           <MonoAppleBlock />
         </section> */}
       </div>
+      <ChatBotWidget />
     </main>
   );
 }
