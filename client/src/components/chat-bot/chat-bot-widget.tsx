@@ -88,6 +88,7 @@ export default function ChatBotWidget() {
     return () => window.clearTimeout(timeout);
   }, [messages, isOpen]);
 
+  // Improved mobile body scroll prevention
   useEffect(() => {
     if (!isOpen) return;
     if (typeof document === 'undefined') return;
@@ -96,19 +97,26 @@ export default function ChatBotWidget() {
     if (!isMobile) return;
 
     const body = document.body;
-    const html = document.documentElement;
-    const originalBodyOverflow = body.style.overflow;
-    const originalHtmlOverflow = html.style.overflow;
-    const originalBodyTouchAction = body.style.touchAction;
+    const originalStyle = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      height: body.style.height,
+    };
 
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // Prevent body scroll while keeping chat scrollable
     body.style.overflow = 'hidden';
-    html.style.overflow = 'hidden';
-    body.style.touchAction = 'none';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    body.style.height = '100%';
 
     return () => {
-      body.style.overflow = originalBodyOverflow;
-      html.style.overflow = originalHtmlOverflow;
-      body.style.touchAction = originalBodyTouchAction;
+      Object.assign(body.style, originalStyle);
+      window.scrollTo(0, scrollY);
     };
   }, [isOpen]);
 
@@ -145,28 +153,37 @@ export default function ChatBotWidget() {
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-50 flex flex-col items-end md:bottom-8 md:right-8">
+    <div className="pointer-events-none fixed bottom-4 right-4 z-50 flex flex-col items-end sm:bottom-6 sm:right-6">
       <div
         className={cn(
-          'pointer-events-auto relative w-full max-w-sm overflow-hidden rounded-[1.9rem] border border-white/40 bg-white/55 shadow-[0_24px_52px_rgba(15,23,42,0.2)] backdrop-blur-2xl transition-all',
+          'pointer-events-auto relative flex flex-col overflow-hidden rounded-[1.65rem] border border-white/40 bg-white/55 backdrop-blur-2xl transition-all sm:rounded-[1.9rem]',
           'duration-300 ease-out',
+          'h-[min(32rem,calc(100vh-8rem))] w-[calc(100vw-2rem)] max-w-[20rem] sm:h-auto sm:max-h-96 sm:w-[min(20rem,calc(100vw-2.5rem))]',
           isOpen
             ? 'visible translate-y-0 opacity-100'
             : 'invisible translate-y-4 opacity-0'
         )}
+        style={{
+          boxShadow:
+            '0 18px 32px rgba(15,23,42,0.15), 0 0 0 1px rgba(255,255,255,0.1)',
+        }}
       >
-        <div className="pointer-events-none absolute -top-24 right-[-36%] size-52 rounded-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.92)_0%,_rgba(255,255,255,0)_70%)] blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-16 left-[-40%] size-60 rounded-full bg-[radial-gradient(circle_at_center,_rgba(53,119,229,0.28)_0%,_rgba(53,119,229,0)_75%)] blur-3xl" />
+        <div className="pointer-events-none absolute -top-20 right-[-40%] size-40 rounded-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.92)_0%,_rgba(255,255,255,0)_70%)] blur-3xl sm:-top-24 sm:size-52" />
+        <div className="pointer-events-none absolute -bottom-14 left-[-45%] size-44 rounded-full bg-[radial-gradient(circle_at_center,_rgba(53,119,229,0.28)_0%,_rgba(53,119,229,0)_75%)] blur-3xl sm:-bottom-16 sm:size-60" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.4),_transparent_55%)]" />
-        <div className="relative flex items-center justify-between gap-3 border-b border-white/60 bg-white/85 px-5 py-4 text-grey-almost-black backdrop-blur-xl">
-          <div className="flex items-center gap-3">
-            <div className="relative flex size-10 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-black via-black to-grey-darkest text-white shadow-[0_10px_24px_rgba(15,23,42,0.25)]">
-              <span className="text-sm font-semibold">AT</span>
-              <span className="absolute -bottom-1 right-0 size-3 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.75)]" />
+
+        {/* Header */}
+        <div className="relative flex flex-shrink-0 items-center justify-between gap-3 border-b border-white/60 bg-white/85 px-4 py-3 text-grey-almost-black backdrop-blur-xl sm:px-5 sm:py-4">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="relative flex size-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-black via-black to-grey-darkest text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] sm:size-10">
+              <span className="text-xs font-semibold sm:text-sm">AT</span>
+              <span className="absolute -bottom-1 right-0 size-2.5 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.75)] sm:size-3" />
             </div>
             <div className="space-y-0.5">
-              <p className="text-sm font-semibold tracking-[-0.01em]">AT Bot</p>
-              <p className="text-[11px] font-medium text-grey-dark">
+              <p className="text-xs font-semibold tracking-[-0.01em] sm:text-sm">
+                AT Bot
+              </p>
+              <p className="text-[10px] font-medium text-grey-dark sm:text-[11px]">
                 Online · Tu smo da pomognemo
               </p>
             </div>
@@ -181,11 +198,18 @@ export default function ChatBotWidget() {
           </button>
         </div>
 
+        {/* Messages */}
         <div
-          className="flex max-h-96 flex-col gap-4 overflow-y-auto bg-white/40 px-5 py-4 text-sm text-grey-almost-black"
+          className="flex flex-col gap-3 overflow-y-auto bg-white/40 px-4 py-4 text-xs text-grey-almost-black sm:gap-4 sm:px-5 sm:text-sm"
           role="log"
           aria-live="polite"
           aria-relevant="additions"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            minHeight: '200px',
+            maxHeight: 'calc(100vh - 400px)',
+          }}
         >
           {messages.map((message) => (
             <div
@@ -197,13 +221,13 @@ export default function ChatBotWidget() {
             >
               <div
                 className={cn(
-                  'relative flex size-9 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-transform duration-150',
+                  'relative flex size-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-transform duration-150',
                   message.sender === 'user'
                     ? 'bg-gradient-to-br from-black via-black/85 to-grey-darkest text-white'
                     : 'bg-gradient-to-br from-white/90 via-white/70 to-white/90 text-grey-almost-black'
                 )}
               >
-                <span className="text-xs font-semibold uppercase tracking-[0.12em]">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] sm:text-xs">
                   {message.sender === 'user' ? 'VI' : 'AT'}
                 </span>
                 {message.sender === 'bot' && (
@@ -212,7 +236,7 @@ export default function ChatBotWidget() {
               </div>
               <span
                 className={cn(
-                  'inline-block max-w-[75%] rounded-3xl px-4 py-2 leading-relaxed',
+                  'inline-block max-w-[calc(100%-3.5rem)] rounded-3xl px-3 py-2 leading-relaxed sm:max-w-[78%] sm:px-4',
                   message.sender === 'user'
                     ? 'bg-gradient-to-br from-black via-black/90 to-black text-white shadow-[0_14px_28px_rgba(15,23,42,0.35)]'
                     : 'border border-white/60 bg-gradient-to-br from-white/90 via-white/65 to-white/70 text-grey-almost-black shadow-[0_10px_26px_rgba(15,23,42,0.14)] backdrop-blur-xl'
@@ -225,17 +249,18 @@ export default function ChatBotWidget() {
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Quick Options */}
         {remainingOptions.length > 0 && (
-          <div className="border-t border-white/50 bg-white/60 px-5 py-4 backdrop-blur-xl">
-            <p className="flex items-center gap-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-grey-darker">
+          <div className="flex-shrink-0 border-t border-white/50 bg-white/60 px-4 py-3 backdrop-blur-xl sm:px-5 sm:py-4">
+            <p className="flex items-center gap-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-grey-darker sm:text-[11px]">
               <Sparkles className="size-3.5 text-blue" /> Brzi odgovori
             </p>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap gap-2">
               {remainingOptions.map((option) => (
                 <button
                   key={option.id}
                   type="button"
-                  className="rounded-full border border-white/70 bg-gradient-to-r from-white/85 via-white/70 to-white/85 px-3.5 py-1.5 text-[11px] font-medium text-grey-almost-black shadow-[0_8px_24px_rgba(15,23,42,0.12)] transition hover:border-black/30 hover:bg-black/90 hover:text-white hover:shadow-[0_12px_28px_rgba(15,23,42,0.2)]"
+                  className="rounded-full border border-white/70 bg-gradient-to-r from-white/85 via-white/70 to-white/85 px-3 py-1.5 text-[10px] font-medium text-grey-almost-black shadow-[0_6px_18px_rgba(15,23,42,0.12)] transition hover:border-black/30 hover:bg-black/90 hover:text-white hover:shadow-[0_10px_24px_rgba(15,23,42,0.18)] sm:px-3.5 sm:text-[11px]"
                   onClick={() => handleSelectOption(option)}
                 >
                   {option.question}
@@ -245,22 +270,24 @@ export default function ChatBotWidget() {
           </div>
         )}
 
-        <div className="border-t border-white/40 bg-white/55 px-5 py-3 text-[11px] text-grey-darker backdrop-blur-xl">
+        {/* Email Contact */}
+        <div className="flex-shrink-0 border-t border-white/40 bg-white/55 px-4 py-2.5 text-[10px] text-grey-darker backdrop-blur-xl sm:px-5 sm:py-3 sm:text-[11px]">
           Imate poseban zahtjev?{' '}
           <a
-            href="mailto:support@at-store.com"
+            href="mailto:prodaja@atstore.ba"
             className="font-semibold text-grey-almost-black underline-offset-2 transition hover:text-black hover:underline"
           >
             Pošaljite e-mail na prodaja@atstore.ba
           </a>
         </div>
 
-        <div className="flex items-center justify-between border-t border-white/60 bg-white/70 px-5 py-3 text-[11px] text-grey-darker backdrop-blur-xl">
+        {/* Reset Button */}
+        <div className="flex flex-shrink-0 items-center justify-between border-t border-white/60 bg-white/70 px-4 py-2.5 text-[10px] text-grey-darker backdrop-blur-xl sm:px-5 sm:py-3 sm:text-[11px]">
           <span>Želite početi iznova?</span>
           <button
             type="button"
             onClick={handleResetConversation}
-            className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-black/80 px-3 py-1.5 font-semibold text-white shadow-[0_10px_30px_rgba(15,23,42,0.25)] transition hover:bg-black"
+            className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-black/80 px-3 py-1.5 font-semibold text-white shadow-[0_8px_24px_rgba(15,23,42,0.2)] transition hover:bg-black"
           >
             <RefreshCcw className="size-3.5" />
             Resetuj
@@ -268,13 +295,18 @@ export default function ChatBotWidget() {
         </div>
       </div>
 
+      {/* Toggle Button */}
       <button
         type="button"
         onClick={toggleOpen}
         className={cn(
-          'pointer-events-auto mt-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-gradient-to-r from-black via-black/85 to-grey-darkest px-6 py-3.5 text-sm font-medium text-white shadow-[0_22px_44px_rgba(15,23,42,0.35)] backdrop-blur-xl transition-all duration-200',
+          'pointer-events-auto mt-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-gradient-to-r from-black via-black/85 to-grey-darkest px-6 py-3.5 text-sm font-medium text-white backdrop-blur-xl transition-all duration-200',
           'hover:-translate-y-0.5 hover:border-black/60 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white'
         )}
+        style={{
+          boxShadow:
+            '0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1)',
+        }}
         aria-expanded={isOpen}
         aria-label={
           isOpen ? 'Zatvori podršku za chat' : 'Otvori podršku za chat'
