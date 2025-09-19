@@ -22,14 +22,7 @@ export default function ProductDetails() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldDisplayPreOrder, setShouldDisplayPreOrder] = useState(false);
 
-  const preOrderNames = [
-    'iphone-17',
-    'iphone-air',
-    'airpods-pro-3',
-    'apple-watch-s11',
-    'apple-watch-se3',
-    'apple-watch-ultra-3',
-  ];
+  const preOrderNames = ['iphone-17', 'iphone-air'];
 
   useEffect(() => {
     const isPreOrder = preOrderNames.some((name) =>

@@ -41,8 +41,6 @@ export default function NamePrice({
     (location.pathname.includes('iphone-17') ||
       location.pathname.includes('iphone-air'));
 
-  const awIAp = !isIphone && shouldDisplayPreOrder;
-
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -97,13 +95,7 @@ export default function NamePrice({
         <h1 className="mb-2 heading-4">{name}</h1>
         <div className="flex flex-col">
           <div className="flex items-center gap-5">
-            {shouldDisplayPreOrder && isIphone ? (
-              <></>
-            ) : shouldDisplayPreOrder && !isIphone ? (
-              <Price className="heading-4" value={finalPrice} />
-            ) : (
-              <Price className="heading-4" value={finalPrice} />
-            )}
+            <Price className="heading-4" value={finalPrice} />
             {hasDiscount && (
               <>
                 <Price
@@ -127,21 +119,15 @@ export default function NamePrice({
         {shouldDisplayPreOrder && (
           <div className="mt-4 flex flex-col gap-1">
             {isIphone ? (
-              <span>Prednarudžbe od 19.09. Dostupan od 26.09.</span>
-            ) : (
-              <></>
-            )}
-            {awIAp ? (
               <span>
                 Otvorili smo prednarudžbe za {name}. Zbog ograničenih količina
                 savjetujemo da svoju narudžbu osigurate na vrijeme. Prva
-                isporuka planirana je za 19. 9., ali prednarudžba ne garantira
+                isporuka planirana je za 26.09., ali prednarudžba ne garantira
                 isporuku iz prve pošiljke.
               </span>
             ) : (
               <></>
             )}
-
             <span></span>
           </div>
         )}
