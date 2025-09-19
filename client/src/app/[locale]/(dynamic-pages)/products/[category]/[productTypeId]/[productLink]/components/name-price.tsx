@@ -41,6 +41,8 @@ export default function NamePrice({
     (location.pathname.includes('iphone-17') ||
       location.pathname.includes('iphone-air'));
 
+  const isAirpodsPro3 = location.pathname.includes('airpods-pro-3');
+
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -65,7 +67,7 @@ export default function NamePrice({
       document.body.removeChild(textArea);
     }
   };
-
+  console.log(shouldDisplayPreOrder, isAirpodsPro3);
   return (
     <>
       <div>
@@ -116,6 +118,15 @@ export default function NamePrice({
             </span>
           )}
         </div>
+        {!shouldDisplayPreOrder && isAirpodsPro3 && (
+          <div className="mt-4">
+            <span>
+              Zbog ograničenih količina savjetujemo da svoju narudžbu osigurate
+              na vrijeme. Očekivani rok isporuke je 7 do 15 dana, uz mogućnost
+              izmjene roka isporuke.
+            </span>
+          </div>
+        )}
         {shouldDisplayPreOrder && (
           <div className="mt-4 flex flex-col gap-1">
             {isIphone ? (
