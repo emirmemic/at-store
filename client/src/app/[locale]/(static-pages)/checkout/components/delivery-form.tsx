@@ -53,11 +53,10 @@ export default function Form() {
     <form noValidate action={action} className="flex flex-wrap gap-4">
       <input type="hidden" name="deliveryMethod" value={deliveryMethod} />
       {inputFields.map((field) => {
+        const isPickup = deliveryMethod === 'pickup';
         const isHidden =
-          deliveryMethod === 'pickup' &&
-          ['address', 'email', 'city', 'postalCode', 'country'].includes(
-            field.name
-          );
+          isPickup &&
+          ['address', 'city', 'postalCode', 'country'].includes(field.name);
 
         if (isHidden) return null;
 

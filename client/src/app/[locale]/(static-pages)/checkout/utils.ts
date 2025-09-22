@@ -13,30 +13,29 @@ export async function handleSubmit(
   errors?: DeliveryForm;
   success?: boolean;
 }> {
-  const rawData = Object.fromEntries(formData) as DeliveryForm & {
-    deliveryMethod?: string;
+  const getValue = (key: string) => {
+    const value = formData.get(key);
+    return typeof value === 'string' ? value.trim() : '';
   };
 
+  const deliveryMethod = getValue('deliveryMethod');
+  const isPickup = deliveryMethod === 'pickup';
+
   const data: DeliveryForm & { deliveryMethod?: string } = {
-    ...rawData,
-    email: rawData.email || 'noemail@pickup.com',
-    address: rawData.address || 'Preuzimanje u poslovnici',
-    city: rawData.city || 'n/a',
-    postalCode: rawData.postalCode || '00000',
-    country: rawData.country || 'BA',
+    name: getValue('name'),
+    surname: getValue('surname'),
+    address: isPickup ? 'Preuzimanje u poslovnici' : getValue('address'),
+    email: getValue('email'),
+    city: isPickup ? 'n/a' : getValue('city'),
+    postalCode: isPickup ? '00000' : getValue('postalCode'),
+    country: isPickup ? 'BA' : getValue('country'),
+    note: getValue('note'),
+    phoneNumber: getValue('phoneNumber'),
+    deliveryMethod: deliveryMethod || undefined,
   };
 
   try {
-    const validationSchema =
-      data.deliveryMethod === 'pickup'
-        ? deliverySchema(t).partial({
-            address: true,
-            email: true,
-            city: true,
-            postalCode: true,
-            country: true,
-          }) // samo ime, prezime, phoneNumber i note ostaju required
-        : deliverySchema(t);
+    const validationSchema = deliverySchema(t);
 
     validationSchema.parse(data);
     // go to the payment page

@@ -12,6 +12,11 @@ const defaultFrom = process.env.DEFAULT_FROM || 'noreply@atstore.ba';
 const strapiUrl = process.env.PUBLIC_URL || 'https://admin.atstore.ba';
 const logoUrl = `${strapiUrl}/logo-black.jpg`;
 
+const formatNoteText = (note?: string) => {
+  const value = note?.trim();
+  return value ? `Napomena: ${value}` : '';
+};
+
 export async function getProductStockStatus(
   token: string,
   productId: string
@@ -120,13 +125,17 @@ ${contactInfoBlock()}
 </div>`);
 }
 
-const userOrderSuccessText = (order) => `Poštovani ${order.address.name},
+const userOrderSuccessText = (order) => {
+  const noteText = formatNoteText(order.address?.note);
+  return `Poštovani ${order.address.name},
 
 Vaša narudžba #${order.orderNumber} je uspješno zaprimljena!
+${noteText ? `\n${noteText}` : ''}
 
 ${contactInfoText()}
 
 Hvala što kupujete kod nas!`;
+};
 
 function renderAdminOrderSuccessEmail(order) {
   return renderWrapper(`<div style="padding: 32px;">
@@ -144,16 +153,18 @@ Pogledajte i obradite narudžbu u administraciji.
 </div>
 </div>`);
 }
-const adminOrderSuccessText = (
-  order
-) => `Nova narudžba #${order.orderNumber} je napravljena.
+const adminOrderSuccessText = (order) => {
+  const noteText = formatNoteText(order.address?.note);
+  return `Nova narudžba #${order.orderNumber} je napravljena.
 
 Kupac: ${order.address.name} ${order.address.surname} 
 Email: ${order.address.email}
 Telefon: ${order.address.phoneNumber}
 Način dostave: ${order.deliveryMethod === 'pickup' ? 'Preuzimanje' : 'Dostava'}
 Način plaćanja: ${order.paymentMethod === 'card' ? 'Kartica' : order.paymentMethod === 'virman' ? 'Virman' : 'Gotovina'}
+${noteText ? `\n${noteText}` : ''}
 `;
+};
 function renderAdminOrderFailureEmail(order: OrderPopulated) {
   return renderWrapper(`<div style="padding: 20px 24px 0 24px;">
 <h2 style="color: #d32f2f; margin:0 0 8px 0; font-size: 20px;">⚠️ GREŠKA: Problem s narudžbom</h2>
@@ -173,18 +184,28 @@ Kontaktirajte kupca što prije!
 
 const adminOrderFailureText = (order: {
   orderNumber: any;
-  address: { name: any; surname: any; email: any; phoneNumber: any };
+  address: {
+    name: any;
+    surname: any;
+    email: any;
+    phoneNumber: any;
+    note?: string;
+  };
   deliveryMethod: string;
   paymentMethod: string;
-}) => `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} nije uspjelo.
+}) => {
+  const noteText = formatNoteText(order.address?.note);
+  return `HITNO: Plaćanje je uspjelo, ali kreiranje narudžbe #${order.orderNumber} nije uspjelo.
 
 Kupac: ${order.address.name} ${order.address.surname}
 Email: ${order.address.email}
 Telefon: ${order.address.phoneNumber}
 Način dostave: ${order.deliveryMethod === 'pickup' ? 'Preuzimanje' : 'Dostava'}
 Način plaćanja: ${order.paymentMethod === 'card' ? 'Kartica' : order.paymentMethod === 'virman' ? 'Virman' : 'Gotovina'}
+${noteText ? `\n${noteText}` : ''}
 
 Potrebna je hitna intervencija! Plaćanje je primljeno, ali narudžba nije pravilno zabilježena u sustavu.`;
+};
 function renderUserOrderFailureEmail(order: {
   address: { name: any };
   orderNumber: any;
@@ -203,15 +224,19 @@ ${contactInfoBlock()}
 </div>
 </div>`);
 }
-const userOrderFailureText = (order) => `Poštovani ${order.address.name},
+const userOrderFailureText = (order) => {
+  const noteText = formatNoteText(order.address?.note);
+  return `Poštovani ${order.address.name},
 
 Vaša uplata za narudžbu #${order.orderNumber} je uspješno zaprimljena, no došlo je do tehničkog problema pri obradi narudžbe.
 
 Naš tim je već obaviješten i rješava problem što je brže moguće. 
+${noteText ? `\n\n${noteText}` : ''}
 
 ${contactInfoText()}
 
 Hvala na razumijevanju!`;
+};
 
 function renderWrapper(content) {
   return `<div style="background-color: #f5f5f7; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
@@ -332,13 +357,16 @@ ${itemsHtml}
 
 function renderDeliveryAddress(order: OrderPopulated) {
   const addr = order.address;
+  const noteHtml = addr.note
+    ? `<br><br><strong>Napomena:</strong> ${addr.note}`
+    : '';
   return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Adresa za dostavu</h2>
 <hr style="border: none; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
 <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
 ${addr.name || ''} ${addr.surname || ''}<br>
 ${order.selectedStore ? `Preuzimanje u poslovnici ${order.selectedStore}` : addr.address || ''}<br>
 ${addr.city || ''} ${addr.postalCode || ''}<br>
-${addr.phoneNumber || ''}
+${addr.phoneNumber || ''}${noteHtml}
 </p>`;
 }
 
