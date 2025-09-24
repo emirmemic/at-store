@@ -19,7 +19,7 @@ export interface OrderPayload {
   selectedStore: StoreCode | null;
   isGift: boolean;
   totalPrice: number;
-  orderNumber: string;
+  orderNumber: string | undefined;
   deliveryPrice: number;
   paymentMethod: 'card' | 'cash' | 'virman';
 }

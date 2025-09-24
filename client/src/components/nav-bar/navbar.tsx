@@ -1,8 +1,8 @@
 import { DesktopMenu, MobileMenu } from '@/components/nav-bar/components';
 import { NavMenuItem, NavSubMenuItem } from './types';
 
+import { ImageProps } from '@/lib/types';
 import { PAGE_NAMES } from '@/i18n/page-names';
-import { Pathname } from '@/i18n/routing';
 import { matchesCategory } from '@/lib/utils/link-helpers';
 import { useTranslations } from 'next-intl';
 
@@ -11,20 +11,27 @@ interface NavbarProps {
 }
 export default function Navbar({ navbarData }: NavbarProps) {
   const t = useTranslations();
+  const whyMacIcon = getLocalIcon('why_mac', t('whyMacPage.title'));
   const whyMacSubCategory: NavSubMenuItem = {
     id: 'zasto-mac',
     displayName: t('whyMacPage.title'),
     link: PAGE_NAMES.WHY_MAC,
-    icon: null,
+    icon: whyMacIcon,
   };
 
   // Helper functions
-  function seeAllSubCategory(categoryPath: Pathname): NavSubMenuItem {
+  function seeAllSubCategory(
+    categoryPath: string,
+    categoryDisplayName: string
+  ): NavSubMenuItem {
+    const slug = extractCategorySlug(categoryPath);
+    const seeAllAlt = `${t('common.seeAll')} ${categoryDisplayName}`.trim();
+    const icon = slug ? getLocalIcon(`shop_${slug}`, seeAllAlt || null) : null;
     return {
-      id: 'see-all',
+      id: `see-all-${slug ?? 'category'}`,
       displayName: t('common.seeAll'),
       link: categoryPath,
-      icon: null,
+      icon,
     };
   }
 
@@ -34,7 +41,10 @@ export default function Navbar({ navbarData }: NavbarProps) {
   const buildNavItem = (item: NavMenuItem): NavMenuItem => {
     const baseSubItems =
       item.subItems && item.subItems.length > 0
-        ? [...(item.subItems ?? []), seeAllSubCategory(item.link as Pathname)]
+        ? [
+            ...(item.subItems ?? []),
+            seeAllSubCategory(item.link, item.displayName || item.name),
+          ]
         : [];
 
     if (
@@ -74,4 +84,39 @@ export default function Navbar({ navbarData }: NavbarProps) {
       <DesktopMenu className="hidden md:flex" menuItems={finalNavbarData} />
     </nav>
   );
+}
+
+// Local SVG icons served from /public; extend map as new assets are added.
+const LOCAL_ICON_METADATA: Record<string, number> = {
+  why_mac: -1,
+  shop_ipad: -2,
+};
+
+const LOCAL_ICON_BASE_PATH = '/assets/images';
+
+function getLocalIcon(
+  name: string,
+  alternativeText: string | null = null
+): ImageProps | null {
+  const iconId = LOCAL_ICON_METADATA[name];
+  if (iconId === undefined) {
+    return null;
+  }
+
+  return {
+    id: iconId,
+    documentId: `local-${name}`,
+    url: `${LOCAL_ICON_BASE_PATH}/shop_${name}.svg`,
+    alternativeText,
+    name,
+  };
+}
+
+function extractCategorySlug(categoryPath: string): string | null {
+  if (!categoryPath) return null;
+  const segments = categoryPath.split('/').filter(Boolean);
+  if (segments.length === 0) return null;
+  const lastSegment = segments[segments.length - 1];
+  if (!lastSegment) return null;
+  return lastSegment.split('?')[0].split('#')[0];
 }

@@ -6,42 +6,20 @@ const MONRI_PROD = 'https://ipg.monri.com';
 
 export async function POST(req: NextRequest) {
   try {
-    const {
-      amount, // MAJOR units (e.g. 399 or 399.00)
-      currency, // e.g. "BAM"
-      order_number, // unique string per order/session
-      order_info, // short description
-      transaction_type, // "purchase" | "authorize"
-    } = await req.json();
+    const { paymentId, amount } = (await req.json()) as {
+      paymentId: string; // from /v2/payment/new response
+      amount: number; // MAJOR units
+    };
 
-    if (
-      typeof amount !== 'number' ||
-      !currency ||
-      !order_number ||
-      !order_info ||
-      !transaction_type
-    ) {
+    if (!paymentId || typeof amount !== 'number') {
       return new Response(JSON.stringify({ error: 'Invalid body' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // Convert to MINOR units (fenings for BAM)
-    const amountMinor = Math.round(amount * 100);
-
-    const payload = {
-      amount: amountMinor,
-      currency,
-      order_number,
-      order_info,
-      transaction_type,
-      scenario: 'charge',
-      supported_payment_methods: ['card'],
-    };
-
-    // IMPORTANT: stringify ONCE and reuse the same string for digest + request
-    const body = JSON.stringify(payload);
+    // Monri requires MINOR units
+    const body = JSON.stringify({ amount: Math.round(amount * 100) });
 
     const merchantKey = process.env.MONRI_MERCHANT_KEY!;
     const authenticityToken =
@@ -55,9 +33,9 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // WP3-v2.1 header, timestamp IN SECONDS, digest includes fullpath + body
-    // https://ipgtest.monri.com/en/documentation/payment_api
-    const fullpath = '/v2/payment/new';
+    // Update endpoint per Payment API docs
+    // path: /v2/payment/<payment-id>/update  (POST)
+    const fullpath = `/v2/payment/${paymentId}/update`;
     const timestamp = Math.floor(Date.now() / 1000).toString();
 
     const digest = crypto
@@ -73,7 +51,7 @@ export async function POST(req: NextRequest) {
     const base =
       process.env.NODE_ENV === 'production' ? MONRI_PROD : MONRI_TEST;
 
-    const monriRes = await fetch(`${base}${fullpath}`, {
+    const res = await fetch(`${base}${fullpath}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,25 +61,20 @@ export async function POST(req: NextRequest) {
       body,
     });
 
-    const monriData = await monriRes.json();
-
-    if (!monriRes.ok) {
-      return new Response(JSON.stringify({ error: monriData }), {
-        status: monriRes.status,
+    const data = await res.json();
+    if (!res.ok) {
+      return new Response(JSON.stringify({ error: data }), {
+        status: res.status,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    // Return BOTH client_secret and id (needed for subsequent /update)
-    return new Response(
-      JSON.stringify({
-        clientSecret: monriData.client_secret,
-        paymentId: monriData.id,
-        status: monriData.status, // "created" | "approved"
-      }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-  } catch (err) {
+    // Response includes status + (same) client_secret + amount/currency/id
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (e) {
     return new Response(JSON.stringify({ error: 'Server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

@@ -3,7 +3,7 @@
 import Autoplay from 'embla-carousel-autoplay';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import {
@@ -24,10 +24,24 @@ interface PromoSliderProps {
 
 export default function PromoSlider({ className, slides }: PromoSliderProps) {
   const t = useTranslations('common');
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoplayActive, setIsAutoplayActive] = useState(true);
   const totalSlides = slides.length;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoplayActive, setIsAutoplayActive] = useState(totalSlides > 1);
   const [api, setApi] = useState<CarouselApi | null>(null);
+
+  const autoplayPlugin = useMemo(() => {
+    if (totalSlides <= 1) return null;
+    return Autoplay({
+      delay: (scrollSnaps) =>
+        scrollSnaps.length ? scrollSnaps.map(() => 3000) : [3000],
+      playOnInit: false,
+    });
+  }, [totalSlides]);
+
+  const carouselPlugins = useMemo(
+    () => (autoplayPlugin ? [autoplayPlugin] : undefined),
+    [autoplayPlugin]
+  );
 
   const handleDotClick = (index: number) => {
     const validIndex = Math.max(0, Math.min(index - 1, totalSlides - 1));
@@ -38,13 +52,34 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
   };
 
   useEffect(() => {
-    if (!api || !slides || slides.length <= 1) return;
-    if (isAutoplayActive && api.plugins().autoplay) {
-      api.plugins().autoplay?.play();
-    } else {
-      api.plugins().autoplay?.stop();
+    if (!api) {
+      return;
     }
-  }, [api, isAutoplayActive, slides]);
+
+    const snapCount = api.scrollSnapList().length;
+
+    if (snapCount <= 1) {
+      if (isAutoplayActive) {
+        setIsAutoplayActive(false);
+      }
+      return;
+    }
+
+    const autoplayApi = api.plugins().autoplay;
+    if (!autoplayApi) return;
+
+    if (isAutoplayActive) {
+      autoplayApi.play();
+    } else {
+      autoplayApi.stop();
+    }
+  }, [api, isAutoplayActive, totalSlides]);
+
+  useEffect(() => {
+    if (totalSlides > 1 && !isAutoplayActive) {
+      setIsAutoplayActive(true);
+    }
+  }, [totalSlides, isAutoplayActive]);
 
   return (
     <section
@@ -59,11 +94,7 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
           loop: true,
           align: 'start',
         }}
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
+        plugins={carouselPlugins}
         setApi={setApi}
         onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
       >
