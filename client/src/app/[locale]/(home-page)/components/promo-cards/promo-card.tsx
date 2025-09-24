@@ -1,9 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-
-import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { Button, TransparentVariant } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,11 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ProductResponse } from '@/lib/types';
-import { makeProductLink } from '@/lib/utils/link-helpers';
-import { cn } from '@/lib/utils/utils';
 
+import Link from 'next/link';
+import { ProductResponse } from '@/lib/types';
 import { PromoCardItem } from './types';
+import { StrapiImage } from '@/components/strapi/components/strapi-image';
+import { cn } from '@/lib/utils/utils';
+import { makeProductLink } from '@/lib/utils/link-helpers';
+import { useTranslations } from 'next-intl';
 
 export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
   const t = useTranslations('common');
@@ -51,7 +50,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
           textColor === 'black' ? 'text-black' : 'text-white'
         )}
       >
-        <h3 className="heading-5 lg:heading-4">{title}</h3>
+        <h3 className="!font-bold heading-5 lg:heading-4">{title}</h3>
         <p className="heading-6 lg:heading-6">{caption}</p>
         <div className="flex flex-row flex-wrap items-center justify-center gap-2 pb-6 pt-2 sm:gap-14 sm:pt-4">
           <LearnMoreDialog
