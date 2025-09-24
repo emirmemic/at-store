@@ -90,9 +90,40 @@ export default function Navbar({ navbarData }: NavbarProps) {
 const LOCAL_ICON_METADATA: Record<string, number> = {
   why_mac: -1,
   shop_ipad: -2,
+  shop_music: -3,
+  shop_mac: -4,
+  shop_dodaci: -5,
 };
 
 const LOCAL_ICON_BASE_PATH = '/uploads';
+const LOCAL_ICON_SUFFIXES: Record<string, string> = {
+  ipad: '_e6fa3b9082',
+  music: '_ec098ee8ee',
+  mac: '_b6c39267ee',
+  dodaci: '_2e81ee748d',
+};
+
+function resolveLocalIconFileName(name: string): string {
+  if (/_([a-f0-9]{10})$/.test(name)) {
+    return name;
+  }
+
+  const hasShopPrefix = name.startsWith('shop_');
+  const slug = hasShopPrefix ? name.slice(5) : name;
+  const directSuffix = LOCAL_ICON_SUFFIXES[slug];
+  const inferredSuffix = directSuffix
+    ? directSuffix
+    : Object.entries(LOCAL_ICON_SUFFIXES).find(([keyword]) =>
+        slug.includes(keyword)
+      )?.[1];
+
+  const base = `${hasShopPrefix ? 'shop_' : ''}${slug}`;
+  if (!inferredSuffix || base.endsWith(inferredSuffix)) {
+    return base;
+  }
+
+  return `${base}${inferredSuffix}`;
+}
 
 function getLocalIcon(
   name: string,
@@ -103,10 +134,12 @@ function getLocalIcon(
     return null;
   }
 
+  const fileName = resolveLocalIconFileName(name);
+
   return {
     id: iconId,
     documentId: `local-${name}`,
-    url: `${LOCAL_ICON_BASE_PATH}/shop_${name}.svg`,
+    url: `${LOCAL_ICON_BASE_PATH}/${fileName}.svg`,
     alternativeText,
     name,
   };
