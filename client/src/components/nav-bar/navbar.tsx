@@ -11,10 +11,7 @@ interface NavbarProps {
 }
 export default function Navbar({ navbarData }: NavbarProps) {
   const t = useTranslations();
-  const whyMacIcon = getLocalIcon(
-    'shop_why_mac_0c5a1ff96b',
-    t('whyMacPage.title')
-  );
+  const whyMacIcon = getLocalIcon('why_mac', t('whyMacPage.title'));
   const whyMacSubCategory: NavSubMenuItem = {
     id: 'zasto-mac',
     displayName: t('whyMacPage.title'),
@@ -29,7 +26,7 @@ export default function Navbar({ navbarData }: NavbarProps) {
   ): NavSubMenuItem {
     const slug = extractCategorySlug(categoryPath);
     const seeAllAlt = `${t('common.seeAll')} ${categoryDisplayName}`.trim();
-    const icon = slug ? getLocalIcon(`shop_${slug}`, seeAllAlt || null) : null;
+    const icon = slug ? getLocalIcon(slug, seeAllAlt || null) : null;
     return {
       id: `see-all-${slug ?? 'category'}`,
       displayName: t('common.seeAll'),
@@ -89,63 +86,39 @@ export default function Navbar({ navbarData }: NavbarProps) {
   );
 }
 
-// Local SVG icons served from /public; extend map as new assets are added.
-const LOCAL_ICON_METADATA: Record<string, number> = {
-  why_mac: -1,
-  shop_ipad: -2,
-  shop_music: -3,
-  shop_mac: -4,
-  shop_dodaci: -5,
-};
-
-const LOCAL_ICON_BASE_PATH = '/uploads';
-const LOCAL_ICON_SUFFIXES: Record<string, string> = {
-  ipad: '_e6fa3b9082',
-  music: '_ec098ee8ee',
-  mac: '_b6c39267ee',
-  accessories: '_2e81ee748d',
-};
-
-function resolveLocalIconFileName(name: string): string {
-  if (/_([a-f0-9]{10})$/.test(name)) {
-    return name;
+// Local SVG icons served from the public assets directory of the frontend.
+const FRONTEND_IMAGE_BASE = (() => {
+  const root = process.env.NEXT_PUBLIC_FRONTEND_URL ?? '';
+  const normalizedRoot = root.endsWith('/') ? root.slice(0, -1) : root;
+  if (!normalizedRoot) {
+    return '/assets/images';
   }
+  return `${normalizedRoot}/assets/images`;
+})();
 
-  const hasShopPrefix = name.startsWith('shop_');
-  const slug = hasShopPrefix ? name.slice(5) : name;
-  const directSuffix = LOCAL_ICON_SUFFIXES[slug];
-  const inferredSuffix = directSuffix
-    ? directSuffix
-    : Object.entries(LOCAL_ICON_SUFFIXES).find(([keyword]) =>
-        slug.includes(keyword)
-      )?.[1];
-
-  const base = `${hasShopPrefix ? 'shop_' : ''}${slug}`;
-  if (!inferredSuffix || base.endsWith(inferredSuffix)) {
-    return base;
+function createIconId(name: string): number {
+  let hash = 0;
+  for (let index = 0; index < name.length; index += 1) {
+    hash = (hash << 5) - hash + name.charCodeAt(index);
+    hash |= 0;
   }
-
-  console.log(base, inferredSuffix);
-  return `${base}${inferredSuffix}`;
+  return hash || -1;
 }
 
 function getLocalIcon(
   name: string,
   alternativeText: string | null = null
 ): ImageProps | null {
-  const iconId = LOCAL_ICON_METADATA[name];
-  if (iconId === undefined) {
-    return null;
-  }
-
-  const fileName = resolveLocalIconFileName(name);
+  if (!name) return null;
+  const sanitizedName = name.replace(/\.svg$/i, '');
+  const iconId = createIconId(sanitizedName);
 
   return {
     id: iconId,
-    documentId: `local-${name}`,
-    url: `${LOCAL_ICON_BASE_PATH}/${fileName}.svg`,
+    documentId: `local-${sanitizedName}`,
+    url: `${FRONTEND_IMAGE_BASE}/${sanitizedName}.svg`,
     alternativeText,
-    name,
+    name: sanitizedName,
   };
 }
 
