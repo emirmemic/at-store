@@ -11,7 +11,10 @@ interface NavbarProps {
 }
 export default function Navbar({ navbarData }: NavbarProps) {
   const t = useTranslations();
-  const whyMacIcon = getLocalIcon('why_mac', t('whyMacPage.title'));
+  const whyMacIcon = getLocalIcon(
+    'shop_why_mac_0c5a1ff96b',
+    t('whyMacPage.title')
+  );
   const whyMacSubCategory: NavSubMenuItem = {
     id: 'zasto-mac',
     displayName: t('whyMacPage.title'),
@@ -100,7 +103,7 @@ const LOCAL_ICON_SUFFIXES: Record<string, string> = {
   ipad: '_e6fa3b9082',
   music: '_ec098ee8ee',
   mac: '_b6c39267ee',
-  dodaci: '_2e81ee748d',
+  accessories: '_2e81ee748d',
 };
 
 function resolveLocalIconFileName(name: string): string {
@@ -122,6 +125,7 @@ function resolveLocalIconFileName(name: string): string {
     return base;
   }
 
+  console.log(base, inferredSuffix);
   return `${base}${inferredSuffix}`;
 }
 
