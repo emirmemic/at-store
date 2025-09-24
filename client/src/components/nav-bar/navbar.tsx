@@ -92,7 +92,7 @@ const LOCAL_ICON_METADATA: Record<string, number> = {
   shop_ipad: -2,
 };
 
-const LOCAL_ICON_BASE_PATH = '/assets/images';
+const LOCAL_ICON_BASE_PATH = '/uploads';
 
 function getLocalIcon(
   name: string,
