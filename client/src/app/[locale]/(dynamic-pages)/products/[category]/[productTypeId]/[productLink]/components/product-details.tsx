@@ -22,15 +22,6 @@ export default function ProductDetails() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldDisplayPreOrder, setShouldDisplayPreOrder] = useState(false);
 
-  const preOrderNames = ['iphone-17', 'iphone-air'];
-
-  useEffect(() => {
-    const isPreOrder = preOrderNames.some((name) =>
-      location.pathname.includes(name)
-    );
-    setShouldDisplayPreOrder(isPreOrder);
-  }, []);
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
