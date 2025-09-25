@@ -3,6 +3,7 @@
 import {
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -17,10 +18,18 @@ import { ShoppingCartItem } from '@/lib/types';
 import debounce from 'lodash.debounce';
 import { useUserProvider } from './user-provider';
 
+type MergeOptions = {
+  syncBackend?: boolean;
+};
+
 export type CartContextType = {
   cart: ShoppingCartItem[];
   updateCart: (cartItem: ShoppingCartItem) => Promise<void>;
   setCart: (cart: ShoppingCartItem[]) => void;
+  mergeWithGuestCart: (
+    userCart: ShoppingCartItem[],
+    options?: MergeOptions
+  ) => Promise<void>;
   getTotalPrice: () => number;
   getFinalPrice: () => number; // New method for final price with installments
   setInstallmentPrice: (price: number | null) => void; // New method to set installment price
@@ -32,6 +41,7 @@ export const CartContext = createContext<CartContextType>({
   cart: [],
   updateCart: async () => {},
   setCart: () => {},
+  mergeWithGuestCart: async () => {},
   getTotalPrice: () => {
     return 0;
   },
@@ -130,6 +140,75 @@ export default function CartProvider({
     return installmentPrice !== null ? installmentPrice : getTotalPrice();
   }
 
+  // Merge guest cart with user cart after login
+  const syncCartWithBackend = useCallback(
+    async (cartItems: ShoppingCartItem[]) => {
+      if (!cartItems.length) {
+        return;
+      }
+      try {
+        for (const item of cartItems) {
+          await updateBackendCart(item.product.documentId, item.quantity);
+        }
+      } catch (error) {
+        console.error('Failed syncing merged cart with backend', error);
+      }
+    },
+    []
+  );
+
+  const mergeWithGuestCart = useCallback(
+    async (userCart: ShoppingCartItem[], options?: MergeOptions) => {
+      const guestCart = getCartFromLocalStorage();
+      const shouldSyncBackend =
+        options?.syncBackend ?? (guestCart.length > 0 && Boolean(user));
+
+      if (guestCart.length === 0) {
+        if (userCart.length === 0) {
+          return;
+        }
+        setCart(userCart);
+        setInstallmentPrice(null);
+        updateCartInLocalStorage(user ? [] : userCart);
+        if (shouldSyncBackend) {
+          await syncCartWithBackend(userCart);
+        }
+        return;
+      }
+
+      const mergedMap = new Map<string, ShoppingCartItem>();
+
+      const addOrUpdate = (item: ShoppingCartItem) => {
+        const key = item.product.documentId;
+        const existing = mergedMap.get(key);
+        if (existing) {
+          mergedMap.set(key, {
+            ...existing,
+            quantity: existing.quantity + item.quantity,
+          });
+        } else {
+          mergedMap.set(key, { ...item });
+        }
+      };
+
+      userCart.forEach(addOrUpdate);
+      guestCart.forEach(addOrUpdate);
+
+      const mergedCart = Array.from(mergedMap.values());
+
+      setCart(mergedCart);
+      setInstallmentPrice(null);
+
+      if (shouldSyncBackend) {
+        await syncCartWithBackend(mergedCart);
+        updateCartInLocalStorage([]);
+      } else {
+        updateCartInLocalStorage(mergedCart);
+      }
+    },
+    [syncCartWithBackend, user]
+  );
+
   function clearCart() {
     setCart([]);
     setInstallmentPrice(null); // Reset installment price when clearing cart
@@ -148,6 +227,7 @@ export default function CartProvider({
         cart,
         updateCart,
         setCart,
+        mergeWithGuestCart,
         getTotalPrice,
         getFinalPrice,
         setInstallmentPrice,

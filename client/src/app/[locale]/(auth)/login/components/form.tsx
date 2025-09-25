@@ -13,7 +13,6 @@ import { PAGE_NAMES } from '@/i18n/page-names';
 import { Title } from '../../components';
 import { handleSubmit } from '../actions';
 import { toast } from '@/lib/hooks/use-toast';
-import { useCartProvider } from '@/app/providers';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useUserProvider } from '@/app/providers/user-provider';
@@ -24,7 +23,6 @@ export default function Form() {
   const router = useRouter();
 
   const { setUser } = useUserProvider();
-  const { setCart } = useCartProvider();
 
   const [formState, action, isPending] = useActionState(
     (_: unknown, formData: FormData) => handleSubmit(_, formData, validation),
@@ -35,14 +33,12 @@ export default function Form() {
     if (formState?.loginResponse) {
       router.replace(PAGE_NAMES.HOME);
       setUser(formState.loginResponse.user);
-
-      setCart(formState.loginResponse.cart);
       toast({
         title: t('loginSuccess'),
         variant: 'success',
       });
     }
-  }, [formState, setUser, setCart, router, t]);
+  }, [formState, setUser, router, t]);
 
   return (
     <form

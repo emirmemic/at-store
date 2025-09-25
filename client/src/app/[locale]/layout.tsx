@@ -20,6 +20,7 @@ import { getCart } from '@/lib/services/get-cart';
 
 import { SF_Pro_Display } from '../fonts/fonts';
 import CartProvider from '../providers/cart-provider';
+import CartSynchronizer from '../providers/cart-synchronizer';
 import UserProvider from '../providers/user-provider';
 
 interface GenerateMetadataParams {
@@ -95,6 +96,7 @@ export default async function LocaleLayout({ children, params }: PropsType) {
         <NextIntlClientProvider messages={messages}>
           <UserProvider initialValue={user}>
             <CartProvider initialValue={cart}>
+              <CartSynchronizer />
               <Navbar navbarData={processedNavbarData} />
               <div className="min-h-screen-h-cutoff pt-nav-height">
                 {children}
