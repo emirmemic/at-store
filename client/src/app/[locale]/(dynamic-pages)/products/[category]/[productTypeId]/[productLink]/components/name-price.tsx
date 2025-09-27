@@ -36,11 +36,20 @@ export default function NamePrice({
     );
   }
 
-  const isIphone =
-    location.pathname.includes('iphone-17') ||
-    location.pathname.includes('iphone-air');
+  const pathNamesIphone = [
+    '/proizvodi/iphone/IPH17PR/iphone-17-pro',
+    '/proizvodi/iphone/IPH17PM/iphone-17-pro-max',
+    '/proizvodi/iphone/IPHAIR/iphone-air',
+    '/proizvodi/iphone/IPH17/iphone-17',
+  ];
 
-  const isAirpodsPro3 = location.pathname.includes('airpods-pro-3');
+  const isIphone = pathNamesIphone.some((path) =>
+    location.pathname.includes(path.toLowerCase())
+  );
+
+  const isAirpodsPro3 = location.pathname.includes(
+    '/proizvodi/airpods/APP3/airpods-pro-3'
+  );
 
   const [copied, setCopied] = useState(false);
 
@@ -66,7 +75,6 @@ export default function NamePrice({
       document.body.removeChild(textArea);
     }
   };
-  console.log(shouldDisplayPreOrder, isAirpodsPro3);
   return (
     <>
       <div>
