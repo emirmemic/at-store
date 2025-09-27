@@ -5,6 +5,7 @@ import { CheckIcon, ClipboardIcon } from 'lucide-react';
 import React, { useState } from 'react';
 
 import Price from '@/components/ui/price';
+import { isIP } from 'net';
 import { useTranslations } from 'next-intl';
 
 interface NamePriceProps {
@@ -44,7 +45,7 @@ export default function NamePrice({
   ];
 
   const isIphone = pathNamesIphone.some((path) =>
-    location.pathname.includes(path.toLowerCase())
+    location.pathname.toLowerCase().includes(path.toLowerCase())
   );
 
   const isAirpodsPro3 = location.pathname.includes(
