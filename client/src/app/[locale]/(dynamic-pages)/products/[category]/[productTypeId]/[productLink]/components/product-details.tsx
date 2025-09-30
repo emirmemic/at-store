@@ -274,7 +274,7 @@ export default function ProductDetails() {
               </details>
             </div>
             {/* STARO ZA NOVO */}
-            {/* <div className="border-t border-gray-200 pb-8 pt-8">
+            <div className="border-t border-gray-200 pb-8 pt-8">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Trade-in u poslovnici</span>
@@ -289,7 +289,7 @@ export default function ProductDetails() {
                   </p>
                 </div>
               </details>
-            </div> */}
+            </div>
             {/* MIKROFIN FINANSIRANJE */}
             <div className="border-t border-gray-200 pb-8 pt-8">
               <details className="group">
@@ -497,7 +497,7 @@ export default function ProductDetails() {
               </details>
             </div>
             {/* Trade-in u poslovnici */}
-            {/* <div className="rounded-lg bg-grey-almost-white p-6">
+            <div className="rounded-lg bg-grey-almost-white p-6">
               <details className="group" open>
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Trade-in u poslovnici</span>
@@ -512,7 +512,7 @@ export default function ProductDetails() {
                   </p>
                 </div>
               </details>
-            </div> */}
+            </div>
             {/* Mikrofin finansiranje */}
             <div className="rounded-lg bg-grey-almost-white p-6">
               <details className="group" open>
