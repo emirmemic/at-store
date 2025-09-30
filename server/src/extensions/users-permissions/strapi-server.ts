@@ -287,22 +287,35 @@ export default (plugin) => {
           const isOrganization = user.role?.type === 'organization';
 
           if (isOrganization) {
-            // Send email to admin for approval
-            await strapi
-              .plugin('email')
-              .service('email')
-              .send({
-                to: process.env.ADMIN_EMAIL,
-                from: process.env.DEFAULT_FROM,
-                subject: 'Nova Registracija Organizacije Zahtijeva Odobrenje',
-                text: 'Nova organizacija se registrirana i zahtijeva vaše odobrenje.',
-                html: `
-                <p>Nova organizacija se registrirana i zahtijeva odobrenje:</p>
-                <p>Firma: ${user.companyName}</p>
-                <p>Email: ${user.email}</p>
-                <p>Molimo pregledajte i odobrite ovu organizaciju u administratorskom panelu.</p>
-                `,
-              });
+            await strapi.db.query('plugin::users-permissions.user').update({
+              where: { id: user.id },
+              data: { confirmedByAdmin: true },
+            });
+
+            const messageText = `Poštovani,
+Vaša registracija je uspješno završena.
+Sada možete započeti kupovinu, dodati u korpu artikle koje želite i automatski ćete dobiti predračun na osnovu kojeg izvršavate uplatu.
+Kada uplata bude evidentirana na našem računu, dobit ćete obavijest putem e-maila i potvrdu od strane B2B odjela da je narudžba spremna za preuzimanje ili slanje na Vašu adresu.
+Kompanija AT Store zadržava pravo da produži ili skrati rok isporuke naručenih uređaja u skladu sa trenutačnim stanjem.
+Srdačan pozdrav,
+AT Store – B2B tim`;
+            const messageHtml = `
+              <p>Poštovani,</p>
+              <p>Vaša registracija je uspješno završena.</p>
+              <p>Sada možete započeti kupovinu, dodati u korpu artikle koje želite i automatski ćete dobiti predračun na osnovu kojeg izvršavate uplatu.</p>
+              <p>Kada uplata bude evidentirana na našem računu, dobit ćete obavijest putem e-maila i potvrdu od strane B2B odjela da je narudžba spremna za preuzimanje ili slanje na Vašu adresu.</p>
+              <p>Kompanija AT Store zadržava pravo da produži ili skrati rok isporuke naručenih uređaja u skladu sa trenutačnim stanjem.</p>
+              <p>Srdačan pozdrav,</p>
+              <p>AT Store – B2B tim</p>
+            `;
+
+            await strapi.plugin('email').service('email').send({
+              to: user.email,
+              from: process.env.DEFAULT_FROM,
+              subject: 'Registracija uspješno završena',
+              text: messageText,
+              html: messageHtml,
+            });
           }
         } catch (error) {
           ctx.throw(400, error);
