@@ -1,15 +1,15 @@
 'use client';
-import Autoplay from 'embla-carousel-autoplay';
 
-import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { CategoryItem } from '@/lib/types';
 
+import Autoplay from 'embla-carousel-autoplay';
 import Category from './category';
+import { CategoryItem } from '@/lib/types';
+import { extendItemsToMinLength } from '@/app/[locale]/(home-page)/utils/helpers';
 
 export default function CategoriesCarousel({
   categories,
@@ -21,7 +21,7 @@ export default function CategoriesCarousel({
   }
   const extendedCategories = extendItemsToMinLength(categories);
   return (
-    <div className="border-b border-grey-darker pb-3">
+    <div className="pb-3">
       <Carousel
         opts={{
           loop: true,

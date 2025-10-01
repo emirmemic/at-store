@@ -28,13 +28,19 @@ const CHAT_OPTIONS: ChatOption[] = [
     id: 'hours',
     question: 'Koje je radno vrijeme?',
     answer:
-      'Naš Web Shop je otvoren 24/7. Ako vam treba podrška uživo, tim je dostupan od ponedjeljka do petka, 09:00–17:00h, te subotom u periodu od 09:00-14:00h',
+      'Naš Web Shop je otvoren 24/7. Ako vam treba podrška uživo, tim je dostupan od ponedjeljka do petka, 09:00–17:00h, te subotom u periodu od 09:00-14:00h.',
+  },
+  {
+    id: 'pre-invoice',
+    question: 'Kako mogu dobiti predračun?',
+    answer:
+      'Predračun možete dobiti nakon što napravite korisnički profil kao pravno lice. Nakon uspješne registracije, pri finaliziranju kupnje, dobijate opciju kreiranja predračuna koji stiže na vaš e-mail.',
   },
   {
     id: 'human',
     question: 'Mogu li razgovarati s agentom?',
     answer:
-      'Naravno. Ukoliko imate upit koji se ne nalazi na ovoj listi, molimo Vas da nas kontaktirate na broj telefona +387 33 956 188 ili putem e-maila prodaja@atstore.ba',
+      'Naravno. Ukoliko imate upit koji se ne nalazi na ovoj listi, molimo Vas da nas kontaktirate na broj telefona +387 33 956 188 ili putem e-maila prodaja@atstore.ba.',
   },
   {
     id: 'payments',

@@ -48,6 +48,11 @@ export default function Footer({ categoryItems }: FooterProps) {
       id: 'services',
       title: t('services.title'),
       items: [
+        // {
+        //   id: 'gift-card',
+        //   name: t('services.giftCard'),
+        //   path: PAGE_NAMES.GIFT_CARDS,
+        // },
         {
           id: 'support',
           name: t('services.support'),

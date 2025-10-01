@@ -124,10 +124,10 @@ export default async function Page({
       <div className="py-16">
         <div className="px-3 container-max-width-lg md:px-4">
           <CategoriesSection />
-          <CurrentPromotions />
           {promoCards && promoCards.length > 0 && (
-            <PromoCards promoCards={promoCards} />
+            <PromoCards promoCards={promoCards} className="pt-8" />
           )}
+          <CurrentPromotions />
           {/* <section className="py-8 pr-6 md:pr-12">
             <IconsBlock />
           </section> */}

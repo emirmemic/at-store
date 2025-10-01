@@ -80,6 +80,10 @@
       "title": "Promo | AT Store",
       "description": "Aktuelne promocije i popusti na Apple proizvode."
     },
+    "giftCards": {
+      "title": "Poklon kartice | AT Store",
+      "description": "Poklonite AT Store iskustvo uz elegantne poklon kartice dostupne u digitalnom i fizičkom izdanju."
+    },
     "privacyPolicy": {
       "title": "Politika privatnosti | AT Store",
       "description": "Pročitajte našu politiku privatnosti i saznajte kako štitimo vaše podatke."
@@ -219,6 +223,7 @@
     "services": {
       "title": "Usluge",
       "support": "Podrška",
+      "giftCard": "Gift Card",
       "b2b": "B2B",
       "mikrofinEstimate": "Mikrofin predračun",
       "complaints": "Reklamacije",
@@ -282,6 +287,77 @@
       "title": "Kontakt",
       "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na",
       "link": "at@atstore.ba"
+    }
+  },
+  "giftCardsPage": {
+    "hero": {
+      "eyebrow": "AT Store Gift Card",
+      "title": "Za sve i svakoga.",
+      "description": "iPhone, iPad, AirPods, dodaci i još mnogo toga. Ova gift kartica radi sve. I još više.",
+      "ctaPrimary": "Dostupno u poslovnicama",
+      "ctaSecondary": "Zatražite ponudu"
+    },
+    "heroImageAlt": "AT Store poklon kartica na staklenoj površini",
+    "features": {
+      "title": "Zašto gift card?",
+      "subtitle": "Elegantno rješenje za timske nagrade, korporativne poklone i posebne prilike.",
+      "items": [
+        {
+          "title": "Prestižna prezentacija",
+          "description": "Matirani finiš, prozirni akril i magnetna kutija stvaraju premium dojam koji se pamti."
+        },
+        {
+          "title": "Potpuna fleksibilnost",
+          "description": "Birajte iznose od 50, 100, 200 i 500 KM, i kombinujte više kartica u okviru jedne kupovine."
+        },
+        {
+          "title": "Spremno za darivanje",
+          "description": "Svaka kartica dolazi zapakovana, uz mogućnost personalizovane poruke ili brendirane čestitke."
+        }
+      ]
+    },
+    "steps": {
+      "title": "Tri jednostavna koraka",
+      "subtitle": "Proces naručivanja dizajniran je da bude brz, jednostavan i bez iznenađenja.",
+      "items": [
+        {
+          "title": "Odaberite vrijednost",
+          "description": "Predložimo tipične iznose ili kreiramo potpunu custom vrijednost za vaš budžet."
+        },
+        {
+          "title": "Personalizacija",
+          "description": "Dodajte poruku, potpis ili brendirani element – naš tim dizajnera priprema finalni prijedlog."
+        },
+        {
+          "title": "Preuzimanje ili dostava",
+          "description": "Kartice stižu digitalno isti dan ili fizički, dostavljene na adresu po izboru."
+        }
+      ]
+    },
+    "options": {
+      "title": "Digitalno ili fizičko izdanje",
+      "items": [
+        {
+          "title": "Digitalna kartica",
+          "description": "Idealna za iznenađenja u posljednjem trenutku – stiže u vaš inbox spremna za prosljeđivanje.",
+          "accent": "Instant e-mail isporuka"
+        },
+        {
+          "title": "Fizička kartica",
+          "description": "Premium print sa metalik akcentima dostupan pri custom vrijednostima.",
+          "accent": "Printano izdanje sa soft-touch završnicom."
+        }
+      ]
+    },
+    "callout": {
+      "title": "Uljepšaj nekome dan. Sada.",
+      "description": "Naš tim pokriva sve detalje – od količina i logistike do personalizovane poruke i ambalaže."
+    },
+    "contact": {
+      "emailLabel": "Kontakt",
+      "emailValue": "prodaja@atstore.ba",
+      "phoneLabel": "Telefon",
+      "phoneValue": "+387 33 956 188"
     }
   },
   "cookiePolicyPage": {

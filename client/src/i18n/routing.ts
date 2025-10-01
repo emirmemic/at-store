@@ -54,6 +54,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.B2B]: {
       bs: '/b2b',
     },
+    // [PAGE_NAMES.GIFT_CARDS]: {
+    //   bs: '/gift-cards',
+    // },
     [PAGE_NAMES.CART]: {
       bs: '/korpa',
     },

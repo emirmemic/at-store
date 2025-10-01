@@ -20,7 +20,7 @@ export default function ProductDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [visibleMaps, setVisibleMaps] = useState(new Set());
   const [isAnimating, setIsAnimating] = useState(false);
-  const [shouldDisplayPreOrder, setShouldDisplayPreOrder] = useState(false);
+  const shouldDisplayPreOrder = false;
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -154,7 +154,7 @@ export default function ProductDetails() {
 
             {/* Find More Stores */}
             <div className="mb-8">
-              <span className="text-sm font-medium text-black">
+              <span className="text-sm font-bold text-black">
                 Besplatno preuzimanje u poslovnici
               </span>
               {!shouldDisplayPreOrder ? (
@@ -173,7 +173,7 @@ export default function ProductDetails() {
             </div>
 
             {/* Delivery and Payment Info - Always visible, grey background */}
-            <div className="mb-8 space-y-6 rounded-xl bg-grey-almost-white p-6">
+            <div className="mb-8 space-y-6 rounded-xl bg-grey-almost-white p-4">
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Dostava i garancija</h3>
                 <div className="flex items-start gap-3">
@@ -199,7 +199,25 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
-            <div className="border-t border-gray-200 pb-8 pt-8">
+            {/* Nacini placanja */}
+            <div className="border-t border-gray-200 py-4">
+              <details className="group">
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span>Preuzimanje</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
+                  </span>
+                </summary>
+                <div className="mt-4 space-y-2 text-gray-600">
+                  <p>
+                    Pri checkoutu odaberite besplatnu dostavu na kućnu adresu za
+                    sve porudžbe preko 400 KM ili odaberite besplatno
+                    preuzimanje u željenoj poslovnici.
+                  </p>
+                </div>
+              </details>
+            </div>
+            <div className="border-t border-gray-200 py-4">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Načini plaćanja</span>
@@ -244,8 +262,7 @@ export default function ProductDetails() {
                 </div>
               </details>
             </div>
-
-            <div className="border-t border-gray-200 pb-8 pt-8">
+            <div className="border-t border-gray-200 py-4">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Povrat i reklamacija</span>
@@ -274,7 +291,7 @@ export default function ProductDetails() {
               </details>
             </div>
             {/* STARO ZA NOVO */}
-            <div className="border-t border-gray-200 pb-8 pt-8">
+            <div className="border-t border-gray-200 py-4">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Trade-in u poslovnici</span>
@@ -291,7 +308,7 @@ export default function ProductDetails() {
               </details>
             </div>
             {/* MIKROFIN FINANSIRANJE */}
-            <div className="border-t border-gray-200 pb-8 pt-8">
+            <div className="border-t border-gray-200 py-4">
               <details className="group">
                 <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
                   <span>Mikrofin finansiranje</span>
@@ -426,6 +443,24 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
+            {/* Dostava */}
+            <div className="rounded-lg bg-grey-almost-white p-6">
+              <details className="group" open>
+                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
+                  <span className="break-normal pr-2">Preuzimanje</span>
+                  <span className="transition-transform duration-300 group-open:rotate-180">
+                    ⌃
+                  </span>
+                </summary>
+                <div className="mt-4 space-y-2 text-gray-600">
+                  <p>
+                    Pri checkoutu odaberite besplatnu dostavu na kućnu adresu za
+                    sve porudžbe <strong>preko 400 KM</strong> ili odaberite
+                    besplatno preuzimanje u željenoj poslovnici.
+                  </p>
+                </div>
+              </details>
+            </div>
             {/* Načini plaćanja */}
             <div className="rounded-lg bg-grey-almost-white p-6">
               <details className="group" open>
@@ -478,20 +513,20 @@ export default function ProductDetails() {
                 </summary>
                 <div className="mt-4 space-y-2 text-gray-600">
                   <p>
-                    -Ukoliko niste zadovoljni proizvodom, imate pravo na povrat
+                    - Ukoliko niste zadovoljni proizvodom, imate pravo na povrat
                     ili zamjenu u roku od 7 dana od dana prijema.
                   </p>
                   <p>
-                    -Proizvod mora biti nekorišten, neoštećen i u originalnom
+                    - Proizvod mora biti nekorišten, neoštećen i u originalnom
                     pakovanju.
                   </p>
                   <p>
-                    -Za pokretanje postupka povrata kontaktirajte nas putem
+                    - Za pokretanje postupka povrata kontaktirajte nas putem
                     emaila ili telefona navedenog na stranici za kontakt.
                   </p>
                   <p>
-                    -Reklamacije se rješavaju u najkraćem mogućem roku, najčešće
-                    unutar 7 radnih dana.
+                    - Reklamacije se rješavaju u najkraćem mogućem roku,
+                    najčešće unutar 7 radnih dana.
                   </p>
                 </div>
               </details>

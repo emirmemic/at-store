@@ -1,16 +1,13 @@
-import { getTranslations } from 'next-intl/server';
-import qs from 'qs';
-import Link from 'next/link';
-
-import { InfoBlock } from '@/components';
-import { ProductsList } from '@/components/product-cards';
 import CurrentPromotions from '@/components/strapi/single-types/current-promotions/current-promotions';
+import Link from 'next/link';
+import { ProductsList } from '@/components/product-cards';
+import { PromoPageResponseData } from './types';
 import PromoSliderWrapper from '@/components/strapi/single-types/promo-slider/promo-slider-wrapper';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
+import { getTranslations } from 'next-intl/server';
 import { productsQuery } from '@/lib/utils/productsQuery';
-
-import { PromoPageResponseData } from './types';
+import qs from 'qs';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -63,7 +60,6 @@ async function fetchPageData() {
 export default async function Page() {
   const t = await getTranslations('promoPage');
   const response = await fetchPageData();
-  const info = response?.data?.data.infoBlock || null;
   const featuredProducts = response?.data?.data.featuredProducts;
   const products = featuredProducts?.products || [];
 

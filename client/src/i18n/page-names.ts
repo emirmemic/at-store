@@ -11,6 +11,7 @@ export const PAGE_NAMES = {
   AIRPODS: '/airpods',
   AT_SOFT: 'https://www.atsofts.com',
   B2B: '/at-business',
+  // GIFT_CARDS: '/gift-cards',
   CART: '/cart',
   CHECKOUT: '/checkout',
   CHECKOUT_PAYMENT: '/checkout/payment',

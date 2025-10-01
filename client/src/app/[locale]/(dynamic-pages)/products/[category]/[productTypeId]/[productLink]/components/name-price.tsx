@@ -2,10 +2,9 @@
 'use client';
 
 import { CheckIcon, ClipboardIcon } from 'lucide-react';
-import React, { useState } from 'react';
 
 import Price from '@/components/ui/price';
-import { isIP } from 'net';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 interface NamePriceProps {
