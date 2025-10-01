@@ -1,13 +1,14 @@
 'use strict';
-import { ZodError } from 'zod';
-import jwt from 'jsonwebtoken';
 
 import {
   accountDetailsSchema,
   authenticatedUserSchema,
   organizationUserSchema,
 } from '../../../types/schemas/auth';
+
+import { ZodError } from 'zod';
 import { generateClientSecret } from './utils';
+import jwt from 'jsonwebtoken';
 
 const FRONTEND_REDIRECT_URI = `${process.env.FRONTEND_URL}/connect/apple/redirect`;
 const APPLE_REDIRECT_URI =
@@ -300,13 +301,64 @@ Kompanija AT Store zadržava pravo da produži ili skrati rok isporuke naručeni
 Srdačan pozdrav,
 AT Store – B2B tim`;
             const messageHtml = `
-              <p>Poštovani,</p>
-              <p>Vaša registracija je uspješno završena.</p>
-              <p>Sada možete započeti kupovinu, dodati u korpu artikle koje želite i automatski ćete dobiti predračun na osnovu kojeg izvršavate uplatu.</p>
-              <p>Kada uplata bude evidentirana na našem računu, dobit ćete obavijest putem e-maila i potvrdu od strane B2B odjela da je narudžba spremna za preuzimanje ili slanje na Vašu adresu.</p>
-              <p>Kompanija AT Store zadržava pravo da produži ili skrati rok isporuke naručenih uređaja u skladu sa trenutačnim stanjem.</p>
-              <p>Srdačan pozdrav,</p>
-              <p>AT Store – B2B tim</p>
+<!DOCTYPE html>
+<html lang="bs">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AT Store – Registracija</title>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .footer-legal {
+          color: #ffffff !important;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        .footer-legal {
+          color: #111111 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin:0;padding:0;background-color:#1a1a23;font-family:Arial,sans-serif;color:#ffffff;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#1a1a23">
+      <tr>
+        <td align="center">
+          <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color:#333333;color:#ffffff;">
+            <tr>
+              <td style="padding:20px;text-align:right;font-size:14px;color:#b3b3b3;">AT Store</td>
+            </tr>
+            <tr>
+              <td style="border-top:1px solid #555555;border-bottom:1px solid #555555;padding:20px;text-align:left;font-size:15px;line-height:1.6;">
+                <p style="margin:0 0 16px 0;">Poštovani,</p>
+                <p style="margin:0 0 16px 0;">
+                  Vaša registracija je uspješno završena.<br />
+                  Sada možete započeti kupovinu, dodati u korpu artikle koje želite i automatski ćete dobiti predračun na osnovu kojeg izvršavate uplatu.<br />
+                  Kada uplata bude evidentirana na našem računu, dobit ćete obavijest putem e-maila i potvrdu od strane B2B odjela da je narudžba spremna za preuzimanje ili slanje na Vašu adresu.<br />
+                  Kompanija AT Store zadržava pravo da produži ili skrati rok isporuke naručenih uređaja u skladu sa trenutačnim stanjem.
+                </p>
+                <p style="margin:0;">Srdačan pozdrav,<br />AT Store – B2B tim</p>
+              </td>
+            </tr>
+          </table>
+          <table width="600" border="0" cellspacing="0" cellpadding="0" style="margin-top:20px;color:#ffffff;">
+            <tr>
+              <td style="padding:20px;text-align:center;font-size:14px;line-height:1.6;">
+                <p style="margin:0;font-size:13px;color:#b3b3b3;">AT Store B2B Sales Department</p>
+                <p style="margin:0;font-size:13px;color:#b3b3b3;">AT Store - Mono Apple Authorised Reseller</p>
+                <p class="footer-legal" style="margin:0;font-size:12px;color:#111111;">TM and © 2025 AT Store Inc.</p>
+                <p style="margin:10px 0 0 0;font-size:10px;color:#b3b3b3;">
+                  Sarajevo, 71000, Fra Anđela Zvizdovića 1, Franca Lehara 2, Vrbanja 1 - Banja Luka, 78000, Bulevar srpske vojske 8, Bosna i Hercegovina.
+                  <a href="https://atstore.ba" style="color:#4da6ff;text-decoration:none;">www.atstore.ba</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
             `;
 
             await strapi.plugin('email').service('email').send({
