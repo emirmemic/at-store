@@ -46,13 +46,13 @@ const CHAT_OPTIONS: ChatOption[] = [
     id: 'payments',
     question: 'Koje načine plaćanja prihvatate?',
     answer:
-      'Prihvatamo većinu kreditnih i debitnih kartica, te uskoro i podršku za Apple Pay. Također, uz UniCredit Shopping Card, dostupno je i plaćanje do 24 rate.',
+      'Kupovinu na web stranici možete obaviti svim kreditnim i debitnim karticama. Online plaćanje na rate moguće je isključivo UniCredit karticama. U našim prodavnicama plaćanje na rate dostupno je putem kartica: UniCredit, Raiffeisen, NLB, Intesa i American Express. Apple Pay prihvaćamo u svim poslovnicama.',
   },
   {
     id: 'warranty',
     question: 'Da li proizvodi dolaze s garancijom?',
     answer:
-      'Svi uređaji dolaze sa dvogodišnjom garancijom, koja uključuje jednu godinu Apple globalne garancije, te drugu godinu možete iskoristiti u bilo kojoj od naših poslovnica. Produžena garancija i zaštita Apple uređaja će biti dostupna uskoro.',
+      'iPhone dolazi s dvogodišnjom garancijom. Prva godina garancije vrijedi globalno i priznaje se u svim ovlaštenim Apple trgovinama širom svijeta. Druga godina garancije vrijedi u našim poslovnicama. Ostali Apple uređaji, uključujući iPad, Mac i Apple Watch, obuhvaćeni su jednogodišnjom globalnom garancijom',
   },
   {
     id: 'meeting',
