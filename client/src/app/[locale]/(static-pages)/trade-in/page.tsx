@@ -1,12 +1,10 @@
 import {
   ArrowRight,
   BadgeCheck,
-  CheckCircle2,
   ClipboardList,
   Clock3,
   Layers3,
   Mail,
-  MapPin,
   Phone,
   ShieldCheck,
   Sparkles,
@@ -106,9 +104,7 @@ export default function TradeInPage() {
   const stats = (t.raw('heroStats') as StatItem[]) ?? [];
   const benefits = (t.raw('benefits.items') as BenefitItem[]) ?? [];
   const steps = (t.raw('steps.items') as StepItem[]) ?? [];
-  const checklist = (t.raw('preparation.items') as ChecklistItem[]) ?? [];
   const evaluation = (t.raw('evaluation.items') as EvaluationItem[]) ?? [];
-  const storeHighlight = t.raw('storeHighlight') as StoreHighlight;
   const faqs = (t.raw('faqs.items') as FaqItem[]) ?? [];
   const contact = t.raw('contact') as ContactContent;
 
@@ -116,7 +112,6 @@ export default function TradeInPage() {
   const benefitsSubtitle = t('benefits.subtitle');
   const stepsTitle = t('steps.title');
   const stepsSubtitle = t('steps.subtitle');
-  const preparationTitle = t('preparation.title');
   const evaluationTitle = t('evaluation.title');
   const evaluationSubtitle = t('evaluation.subtitle');
   const faqTitle = t('faqs.title');
