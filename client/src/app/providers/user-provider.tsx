@@ -10,7 +10,7 @@ import {
 
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { APIResponse, fetchAPI } from '@/lib/fetch-api';
-import { ProductResponse, UserInformation } from '@/lib/types';
+import { ProductResponse, UserAddress, UserInformation } from '@/lib/types';
 
 import { deleteCookie } from '../actions';
 
@@ -21,6 +21,7 @@ export type UserContextType = {
     product: ProductResponse
   ) => Promise<APIResponse<{ isFavorited: boolean }>>;
   updateUserNewsletter: (subscribed: boolean) => void;
+  setAddresses: (addresses: UserAddress[]) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
@@ -33,6 +34,7 @@ export const UserContext = createContext<UserContextType>({
     type: 'default',
   }),
   updateUserNewsletter: () => {},
+  setAddresses: () => {},
 });
 
 export default function UserProvider({
@@ -70,6 +72,22 @@ export default function UserProvider({
     }
   };
 
+  const setAddresses = (addresses: UserAddress[]) => {
+    if (!user) return;
+
+    const defaultAddress =
+      addresses.find((address) => address.isDefault) ?? addresses[0] ?? null;
+
+    setUser({
+      ...user,
+      addresses,
+      accountDetails: {
+        ...user.accountDetails,
+        address: defaultAddress?.address ?? user.accountDetails.address ?? '',
+      },
+    });
+  };
+
   const toggleFavorite = async (
     product: ProductResponse
   ): Promise<APIResponse<{ isFavorited: boolean }>> => {
@@ -94,7 +112,13 @@ export default function UserProvider({
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, toggleFavorite, updateUserNewsletter }}
+      value={{
+        user,
+        setUser,
+        toggleFavorite,
+        updateUserNewsletter,
+        setAddresses,
+      }}
     >
       {children}
     </UserContext.Provider>

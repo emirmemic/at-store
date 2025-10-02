@@ -39,11 +39,6 @@ export const getInputFields = (
       disabled: provider !== 'local',
     },
     {
-      name: 'address',
-      type: 'text',
-      id: 'address',
-    },
-    {
       name: 'phoneNumber',
       type: 'text',
       id: 'phoneNumber',

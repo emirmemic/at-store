@@ -90,8 +90,14 @@
     },
     "address": {
       "type": "string",
-      "maxLength": 50,
+      "maxLength": 255,
       "required": false
+    },
+    "addresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-address.user-address",
+      "mappedBy": "user"
     },
     "companyName": {
       "type": "string"

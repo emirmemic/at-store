@@ -1,4 +1,5 @@
 import {
+  IconDelivery,
   IconHeart,
   IconHome,
   IconNews,
@@ -31,12 +32,18 @@ const getMenuItems = (t: LocalizationKey): AccountMenu[] => [
   },
   {
     id: 4,
+    label: t('accountPage.addresses.title'),
+    href: PAGE_NAMES.ACCOUNT_ADDRESSES,
+    Icon: IconDelivery,
+  },
+  {
+    id: 5,
     label: t('accountPage.favorites.title'),
     href: PAGE_NAMES.ACCOUNT_FAVORITES,
     Icon: IconHeart,
   },
   {
-    id: 5,
+    id: 6,
     label: t('accountPage.newsletter.title'),
     href: PAGE_NAMES.ACCOUNT_NEWSLETTER,
     Icon: IconNews,

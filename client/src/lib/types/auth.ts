@@ -19,16 +19,29 @@ interface AccountDetails {
   provider: OAuthProvider;
 }
 
+interface UserAddress {
+  id: number;
+  documentId: string;
+  label: string;
+  address: string;
+  city?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  isDefault: boolean;
+}
+
 interface UserInformation {
   id: number;
   documentId: string;
   accountDetails: AccountDetails;
+  addresses: UserAddress[];
   favoriteProducts: ProductResponse[];
 }
 
 interface UserInformationResponse extends AccountDetails {
   id: number;
   documentId: string;
+  addresses?: UserAddress[];
 }
 
 interface AuthResponse {
@@ -58,6 +71,7 @@ export type {
   AuthError,
   AuthResponse,
   OAuthProvider,
+  UserAddress,
   UserInformation,
   UserInformationResponse,
   UserType,
