@@ -140,15 +140,15 @@ export default function TradeInPage() {
       <div className="pointer-events-none absolute left-1/2 top-[72%] -z-10 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-[#d4fff2] opacity-70 blur-[140px]" />
 
       <section className="relative w-full">
-        <div className="relative mx-auto w-full max-w-[1300px] overflow-hidden bg-black">
-          <div className="relative aspect-[16/9] min-h-[240px] w-full sm:min-h-[360px]">
+        <div className="relative mx-auto w-full overflow-hidden bg-gradient-to-b from-[#f5f5f7] via-white to-[#f5f5f7]">
+          <div className="relative aspect-[16/9] h-[550px] min-h-[240px] w-full sm:min-h-[360px]">
             <Image
               alt={heroImageAlt}
               className="object-cover"
               fill
               priority
               sizes="100vw"
-              src="/assets/images/tradein.webp"
+              src="/assets/images/newtradein.webp"
             />
           </div>
         </div>
