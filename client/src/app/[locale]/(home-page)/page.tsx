@@ -4,6 +4,7 @@ import {
   OAuthRedirectMessage,
   PromoCards,
   SubCategorySection,
+  TradeInBanner,
 } from './components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
@@ -110,6 +111,8 @@ export default async function Page({
         <OAuthRedirectMessage error={error} success={success} />
       )}
       <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
+
+      <TradeInBanner />
       {heroSection && (
         <div className="container-max-width-xl">
           <div className="relative aspect-[43/25] w-full overflow-hidden md:aspect-[3/1]">

@@ -30,6 +30,7 @@ export const PAGE_NAMES = {
   NEWS: '/news',
   ORDER_CANCELLATION: '/order-cancellation',
   PAYMENT_METHODS: '/payment-methods',
+  TRADE_IN: '/trade-in',
   PRIVACY_POLICY: '/privacy-policy',
   PROMO: '/promo',
   REGISTER: '/register',

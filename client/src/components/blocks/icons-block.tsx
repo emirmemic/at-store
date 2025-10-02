@@ -43,7 +43,7 @@ type IconConfig = {
 };
 
 const icons: IconConfig[] = [
-  { key: 'tradeIn', Icon: IconTradeIn },
+  { key: 'tradeIn', Icon: IconTradeIn, link: PAGE_NAMES.TRADE_IN },
   {
     key: 'educationDiscount',
     Icon: IconEducation,

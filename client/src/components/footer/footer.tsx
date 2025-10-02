@@ -78,6 +78,11 @@ export default function Footer({ categoryItems }: FooterProps) {
           name: t('services.educationalDiscount'),
           path: PAGE_NAMES.EDUCATIONAL_DISCOUNT,
         },
+        {
+          id: 'tradeIn',
+          name: t('services.tradeIn'),
+          path: PAGE_NAMES.TRADE_IN,
+        },
       ],
     },
     {

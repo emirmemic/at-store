@@ -96,6 +96,10 @@
       "title": "Newsletter | AT Store",
       "description": "Prijavite se na naš newsletter i budite u toku sa novostima i ponudama."
     },
+    "tradeIn": {
+      "title": "Trade-in | AT Store",
+      "description": "Zamijenite svoj Apple uređaj u AT Store poslovnici i ostvarite popust na novu kupovinu."
+    },
     "paymentMethods": {
       "title": "Načini plaćanja | AT Store",
       "description": "Informacije o načinima plaćanja u AT Store."
@@ -227,7 +231,8 @@
       "b2b": "B2B",
       "mikrofinEstimate": "Mikrofin predračun",
       "complaints": "Reklamacije",
-      "educationalDiscount": "Obrazovni popust"
+      "educationalDiscount": "Obrazovni popust",
+      "tradeIn": "Program zamjene"
     },
     "companies": {
       "title": "Info",
@@ -606,6 +611,10 @@
     "seeAllCategories": "Pogledajte sve kategorije:",
     "promoCard": {
       "dialogContentDescription": "Detaljan prikaz proizvoda sa slikom i opisom. Kliknite da saznate više o proizvodu."
+    },
+    "tradeInBanner": {
+      "description": "Zamijenite stari uređaj za novi.",
+      "primaryCta": "Saznaj više"
     }
   },
   "accountPage": {
@@ -657,6 +666,139 @@
     "closed": "Zatvoreno",
     "closesAt": "Zatvara se u",
     "errorOpeningHours": "Greška prilikom učitavanja radnog vremena"
+  },
+  "tradeInPage": {
+    "hero": {
+      "eyebrow": "AT Store Program zamjene",
+      "title": "Zamijeni. Nadogradi. Uštedi. Ili recikliraj besplatno.",
+      "description": "Zamijeni svoj stari uređaj i preuzmi bilo koji naš proizvod po povoljnijoj cijeni!",
+      "primaryCta": "Pronađi najbližu poslovnicu",
+      "secondaryCta": "Provjeri kako funkcionira",
+      "disclaimer": "Program zamjene trenutno nudimo isključivo u AT Store poslovnicama.",
+      "imageAlt": "AT Store Trade In  vizual sa iPhone uređajima u staklenom postolju"
+    },
+    "heroStats": [
+      {
+        "label": "Procjena uređaja",
+        "value": "15 min"
+      }
+    ],
+    "benefits": {
+      "title": "Zašto uraditi procjenu kod nas?",
+      "subtitle": "Transparentan proces bez skrivenih troškova uz podršku našeg stručnog osoblja.",
+      "items": [
+        {
+          "title": "Brza procjena",
+          "description": "Uređaj pregledamo na licu mjesta i dajemo ponudu u roku od nekoliko minuta."
+        },
+        {
+          "title": "Fleksibilan izbor",
+          "description": "Stari uređaj može biti zamijenjen za bilo koji Apple uređaj u ponudi."
+        },
+        {
+          "title": "Sigurna migracija",
+          "description": "Radimo sigurnu migraciju podataka sa starog uređaja na novi."
+        }
+      ]
+    },
+    "steps": {
+      "title": "Kako funkcionira program zamjene?",
+      "subtitle": "Tri jednostavna koraka.",
+      "items": [
+        {
+          "title": "Pripremi uređaj",
+          "description": "Odjavi se sa iCloud naloga, isključi Find My i napravi sigurnosnu kopiju kako bi uređaj bio spreman za procjenu."
+        },
+        {
+          "title": "Posjeti AT Store",
+          "description": "Na licu mjesta provjeravamo osnovne funkcije, stanje kućišta i originalnu opremu kako bismo utvrdili vrijednost uređaja."
+        },
+        {
+          "title": "Odaberi novu kupovinu",
+          "description": "Procijenjeni iznos odmah koristi kao popust na novi uređaj ili ga preuzmi u vidu naše Gift kartice."
+        }
+      ]
+    },
+    "preparation": {
+      "title": "Prije dolaska provjeri sljedeće",
+      "items": [
+        {
+          "title": "Find My i iCloud",
+          "description": "Isključi Find My i odjavi iCloud račun kako bismo mogli resetovati tvoj uređaj."
+        },
+        {
+          "title": "Backup podataka",
+          "description": "Napravi iCloud ili lokalni backup kako bi sačuvali fotografije, poruke i aplikacije."
+        },
+        {
+          "title": "Punjač i oprema",
+          "description": "Ponesite originalnu ambalažu i dodatke jer povećavaju konačnu vrijednost."
+        },
+        {
+          "title": "Fizičko stanje",
+          "description": "Očisti uređaj i ukloni zaštitnu foliju kako bismo precizno procijenili stanje."
+        }
+      ]
+    },
+    "evaluation": {
+      "title": "Šta utječe na procjenu vrijednosti?",
+      "subtitle": "Svaki uređaj pregledamo individualno. Više bodova znači višu otkupnu cijenu.",
+      "items": [
+        {
+          "title": "Model",
+          "description": "Noviji modeli donose veći popust na sljedeću kupovinu."
+        },
+        {
+          "title": "Funkcionalnost",
+          "description": "Testiramo ekran, bateriju, Face ID ili Touch ID, zvuk i kamere. Puna funkcionalnost donosi maksimalan iznos."
+        },
+        {
+          "title": "Vizuelno stanje",
+          "description": "Ogrebotine, pukotine i tragovi korištenja utiču na ponudu. Sačuvana originalna ambalaža i oprema pozitivno utiču na procjenu."
+        },
+        {
+          "title": "Originalnost i status",
+          "description": "Prihvatamo samo uređaje s originalnim dijelovima koji nisu prijavljeni kao izgubljeni ili zaključani."
+        }
+      ]
+    },
+    "storeHighlight": {
+      "title": "Trade-in je trenutno dostupan samo u našim poslovnicama",
+      "description": "Naš tim u Sarajevu i Banjaluci ima sertifikovane Apple stručnjake koji vode proces od procjene do podešavanja novog uređaja.",
+      "cta": "Pogledaj lokacije",
+      "hours": "Radno vrijeme i kontakt"
+    },
+    "faqs": {
+      "title": "Često postavljena pitanja",
+      "items": [
+        {
+          "question": "Koji uređaji su uključeni u program zamjene?",
+          "answer": "Program uključuje iPhone, iPad, Apple Watch i odabrane Mac modele. Ako imate drugi Apple uređaj, kontaktiraj nas i provjerit ćemo dostupnost."
+        },
+        {
+          "question": "Mogu li donijeti uređaj sa oštećenim ekranom?",
+          "answer": "Da, radimo procjenu i za uređaje sa fizičkim oštećenjima. Vrijednost će zavisiti od obima popravke koju je potrebno izvršiti."
+        },
+        {
+          "question": "Da li mogu dobiti novac umjesto popusta?",
+          "answer": "Program zamjene se realizuje kao popust na novu kupovinu ili kroz AT Store gift kartica koja može biti iskorištena kasnije u jednoj od naših poslovnica."
+        },
+        {
+          "question": "Šta ako nisam uradio/la backup?",
+          "answer": "Naši stručnjaci ti mogu pomoći da brzo napraviš backup prije resetovanja uređaja. U tom slučaju planiraj dodatnih 15-30 minuta svog vremena."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Želiš provjeriti prije dolaska?",
+      "description": "Javi se našem timu i dobit ćeš procjenu šta možeš očekivati u poslovnici.",
+      "phoneLabel": "Pozovi nas",
+      "phoneValue": "+387 33 956 188",
+      "emailLabel": "Piši nam",
+      "emailValue": "prodaja@atstore.ba",
+      "cta": "Pošalji upit",
+      "disclaimer": "Procjena putem e-maila je okvirna. Konačnu vrijednost potvrđujemo nakon pregleda uređaja."
+    }
   },
   "common": {
     "adapters": "Adapteri",
