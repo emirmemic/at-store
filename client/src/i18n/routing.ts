@@ -108,6 +108,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.PAYMENT_METHODS]: {
       bs: '/nacini-placanja',
     },
+    [PAGE_NAMES.TRADE_IN]: {
+      bs: '/trade-in',
+    },
     [PAGE_NAMES.PRIVACY_POLICY]: {
       bs: '/politika-privatnosti',
     },
