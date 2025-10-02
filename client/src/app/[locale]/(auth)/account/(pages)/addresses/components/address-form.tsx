@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Alert } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import InputErrorMessage from '@/components/ui/input-error-message';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { AddressFormData } from '@/lib/schemas/address';
@@ -72,12 +73,24 @@ export function AddressForm({
           name="postalCode"
           placeholder={t('postalCode')}
         />
-        <Input
-          defaultValue={initialValues?.country ?? ''}
-          errorMessage={errors.country}
-          name="country"
-          placeholder={t('country')}
-        />
+        <div className="flex flex-col gap-2">
+          <select
+            defaultValue={initialValues?.country ?? ''}
+            name="country"
+            className="transition-border rounded-2xl border border-transparent bg-grey-extra-light px-4 py-3 text-black duration-300 focus-visible:border-grey-light focus-visible:outline-none"
+          >
+            <option value="">{t('country')}</option>
+            <option value="Bosnia and Herzegovina">Bosna i Hercegovina</option>
+            <option value="Croatia">Hrvatska</option>
+            <option value="Serbia">Srbija</option>
+            <option value="Montenegro">Crna Gora</option>
+            <option value="Slovenia">Slovenija</option>
+            <option value="Other">Ostalo</option>
+          </select>
+          {errors.country && (
+            <InputErrorMessage errorMessage={errors.country} />
+          )}
+        </div>
       </div>
       <Checkbox
         defaultChecked={initialValues?.isDefault}

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect } from 'react';
+import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
 
 import { useUserProvider } from '@/app/providers/user-provider';
 import { Button } from '@/components/ui/button';
@@ -23,6 +23,7 @@ export default function Form() {
     useCheckoutProvider();
   const { user } = useUserProvider();
   const accountDetails = user?.accountDetails;
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [formState, action, isPending] = useActionState(
     (_: unknown, __: FormData) => handleSubmit(_, __, validation),
     (deliveryForm && {
@@ -41,6 +42,30 @@ export default function Form() {
         } as DeliveryForm,
       })
   );
+  const addresses = user?.addresses ?? [];
+  const hasMultipleAddresses = addresses.length > 1;
+  const initialSelectedAddressId = useMemo(() => {
+    if (!hasMultipleAddresses) return null;
+    const defaultAddress = addresses.find((item) => item.isDefault);
+    if (defaultAddress) return defaultAddress.documentId;
+    const currentAddressValue =
+      formState?.data?.address ||
+      deliveryForm?.address ||
+      accountDetails?.address;
+    const matched = currentAddressValue
+      ? addresses.find((item) => item.address === currentAddressValue)
+      : undefined;
+    return matched ? matched.documentId : (addresses[0]?.documentId ?? null);
+  }, [
+    hasMultipleAddresses,
+    addresses,
+    formState?.data?.address,
+    deliveryForm?.address,
+    accountDetails?.address,
+  ]);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
+    initialSelectedAddressId
+  );
 
   useEffect(() => {
     if (formState?.success) {
@@ -49,9 +74,107 @@ export default function Form() {
     }
   }, [formState, setDeliveryForm, router]);
 
+  useEffect(() => {
+    if (initialSelectedAddressId && !selectedAddressId) {
+      setSelectedAddressId(initialSelectedAddressId);
+    }
+  }, [initialSelectedAddressId, selectedAddressId]);
+
+  useEffect(() => {
+    if (selectedAddressId) {
+      applyAddressToForm(selectedAddressId);
+    }
+  }, [selectedAddressId]);
+
+  const applyAddressToForm = (addressId: string) => {
+    if (!formRef.current) return;
+    const address = addresses.find((item) => item.documentId === addressId);
+    if (!address) return;
+
+    const entries: Array<[string, string]> = [
+      ['address', address.address],
+      ['city', address.city ?? ''],
+      ['postalCode', address.postalCode ?? ''],
+      ['country', address.country ?? ''],
+    ];
+
+    entries.forEach(([name, value]) => {
+      const element = formRef.current?.elements.namedItem(name) as
+        | HTMLInputElement
+        | HTMLTextAreaElement
+        | HTMLSelectElement
+        | null;
+      if (!element) return;
+      if ('value' in element) {
+        element.value = value;
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  };
+
+  const handleSelectAddress = (addressId: string) => {
+    setSelectedAddressId(addressId);
+  };
+
   return (
-    <form noValidate action={action} className="flex flex-wrap gap-4">
+    <form
+      ref={formRef}
+      noValidate
+      action={action}
+      className="flex flex-wrap gap-4"
+    >
       <input type="hidden" name="deliveryMethod" value={deliveryMethod} />
+      <input
+        type="hidden"
+        name="selectedAddressId"
+        value={selectedAddressId ?? ''}
+      />
+      {hasMultipleAddresses && deliveryMethod !== 'pickup' && (
+        <div className="w-full">
+          <p className="mb-3 text-sm font-semibold text-grey-dark">
+            {t('checkoutPage.deliveryForm.savedAddressesTitle')}
+          </p>
+          <div className="grid gap-3 md:grid-cols-2">
+            {addresses.map((address) => {
+              const isSelected = selectedAddressId === address.documentId;
+              return (
+                <button
+                  type="button"
+                  key={address.documentId}
+                  onClick={() => handleSelectAddress(address.documentId)}
+                  className={cn(
+                    'flex h-full flex-col items-start rounded-2xl border px-5 py-4 text-left transition-colors duration-200',
+                    isSelected
+                      ? 'border-blue bg-blue/10'
+                      : 'border-grey-silver bg-white hover:border-blue-light'
+                  )}
+                >
+                  <div className="flex w-full items-center justify-between">
+                    <p className="font-semibold text-black">{address.label}</p>
+                    {address.isDefault && (
+                      <span className="rounded-full bg-blue px-3 py-1 text-xs font-semibold text-white">
+                        {t('accountPage.addresses.defaultBadge')}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-2 text-sm text-grey-dark">
+                    {address.address}
+                  </p>
+                  <p className="text-sm text-grey-dark">
+                    {[address.postalCode, address.city]
+                      .filter(Boolean)
+                      .join(' ')}
+                  </p>
+                  {address.country && (
+                    <p className="text-sm text-grey-dark">{address.country}</p>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
       {inputFields.map((field) => {
         const isPickup = deliveryMethod === 'pickup';
         const isHidden =

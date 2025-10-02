@@ -1216,7 +1216,8 @@
       "country": "Država",
       "note": "Napomena",
       "notePlaceholder": "Dostaviti u periodu od 10:00 do 17:00.",
-      "additionalInfo": "Dodatne informacije"
+      "additionalInfo": "Dodatne informacije",
+      "savedAddressesTitle": "Odaberite spremljenu adresu"
     },
     "giftCheckbox": "Kupujem kao poklon",
     "paymentPage": {
