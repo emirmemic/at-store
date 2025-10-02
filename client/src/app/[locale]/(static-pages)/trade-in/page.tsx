@@ -46,21 +46,9 @@ interface StepItem {
   description: string;
 }
 
-interface ChecklistItem {
-  title: string;
-  description: string;
-}
-
 interface EvaluationItem {
   title: string;
   description: string;
-}
-
-interface StoreHighlight {
-  title: string;
-  description: string;
-  cta: string;
-  hours: string;
 }
 
 interface FaqItem {
@@ -337,10 +325,14 @@ export default function TradeInPage() {
         id={preparationSectionId}
       >
 <<<<<<< HEAD
+<<<<<<< HEAD
         {/* <div className="flex-1 rounded-[32px] border border-white/70 bg-white/70 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.07)] backdrop-blur-xl md:p-8">
 =======
         <div className="flex-1 rounded-[32px] border border-white/70 bg-white/70 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.07)] backdrop-blur-xl md:p-8">
 >>>>>>> bdb8c8e (Feature: Address)
+=======
+        {/* <div className="flex-1 rounded-[32px] border border-white/70 bg-white/70 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.07)] backdrop-blur-xl md:p-8">
+>>>>>>> 56644d8 (Feature: Incoming)
           <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
             {preparationTitle}
           </h2>
@@ -360,12 +352,16 @@ export default function TradeInPage() {
             ))}
           </ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
         </div> */}
         <div className="relative flex-1 overflow-hidden rounded-[32px] border border-slate-200 bg-[#fff] p-6 text-slate-900 shadow-[0_24px_60px_rgba(15,23,42,0.08)] md:p-8">
           <div className="relative space-y-3">
             <p className="text-sm font-semibold uppercase tracking-wide text-[#111]">
 =======
         </div>
+=======
+        </div> */}
+>>>>>>> 56644d8 (Feature: Incoming)
         <div className="relative flex-1 overflow-hidden rounded-[32px] border border-white/20 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-6 text-white shadow-[0_30px_90px_rgba(15,23,42,0.45)] md:p-8">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.2),_rgba(15,23,42,0.65))]" />
           <div className="relative space-y-3">
@@ -417,10 +413,14 @@ export default function TradeInPage() {
           </div>
         </div>
       </section>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
       {/* <section className="relative mx-auto mt-20 max-w-5xl px-4">
 =======
+=======
+      {/* 
+>>>>>>> 56644d8 (Feature: Incoming)
       <section className="relative mx-auto mt-20 max-w-5xl px-4">
 >>>>>>> bdb8c8e (Feature: Address)
         <div className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/70 p-6 text-slate-900 shadow-[0_30px_80px_rgba(15,23,42,0.08)] backdrop-blur-2xl md:p-10">
@@ -457,10 +457,14 @@ export default function TradeInPage() {
           </div>
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
       </section> */}
 =======
       </section>
 >>>>>>> bdb8c8e (Feature: Address)
+=======
+      </section> */}
+>>>>>>> 56644d8 (Feature: Incoming)
 
       <section className="relative mx-auto mt-20 max-w-5xl px-4">
         <h2 className="text-center text-3xl font-semibold text-slate-900 md:text-4xl">
