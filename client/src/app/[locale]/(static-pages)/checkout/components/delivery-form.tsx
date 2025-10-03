@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useActionState, useEffect, useMemo, useRef, useState } from 'react';
+import { useActionState, useEffect, useMemo, useState } from 'react';
 
 import { useUserProvider } from '@/app/providers/user-provider';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,6 @@ export default function Form() {
     useCheckoutProvider();
   const { user } = useUserProvider();
   const accountDetails = user?.accountDetails;
-  const formRef = useRef<HTMLFormElement | null>(null);
   const [formState, action, isPending] = useActionState(
     (_: unknown, __: FormData) => handleSubmit(_, __, validation),
     (deliveryForm && {
@@ -43,29 +42,54 @@ export default function Form() {
       })
   );
   const addresses = user?.addresses ?? [];
-  const hasMultipleAddresses = addresses.length > 1;
-  const initialSelectedAddressId = useMemo(() => {
-    if (!hasMultipleAddresses) return null;
-    const defaultAddress = addresses.find((item) => item.isDefault);
-    if (defaultAddress) return defaultAddress.documentId;
+  const hasAddresses = addresses.length > 0;
+  const resolvedSelectedAddressId = useMemo(() => {
+    if (!hasAddresses) return null;
+
     const currentAddressValue =
       formState?.data?.address ||
       deliveryForm?.address ||
       accountDetails?.address;
-    const matched = currentAddressValue
-      ? addresses.find((item) => item.address === currentAddressValue)
-      : undefined;
-    return matched ? matched.documentId : (addresses[0]?.documentId ?? null);
+
+    if (currentAddressValue) {
+      const matched = addresses.find(
+        (item) => item.address === currentAddressValue
+      );
+      if (matched) return matched.documentId;
+    }
+
+    const defaultAddress =
+      addresses.find((item) => item.isDefault) ?? addresses[0] ?? null;
+
+    return defaultAddress?.documentId ?? null;
   }, [
-    hasMultipleAddresses,
+    hasAddresses,
     addresses,
     formState?.data?.address,
     deliveryForm?.address,
     accountDetails?.address,
   ]);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
-    initialSelectedAddressId
+    resolvedSelectedAddressId
   );
+  const [formValues, setFormValues] = useState<DeliveryForm>(() => ({
+    name: formState?.data?.name ?? accountDetails?.name ?? '',
+    surname: formState?.data?.surname ?? accountDetails?.surname ?? '',
+    address: formState?.data?.address ?? accountDetails?.address ?? '',
+    email: formState?.data?.email ?? accountDetails?.email ?? '',
+    city: formState?.data?.city ?? '',
+    postalCode: formState?.data?.postalCode ?? '',
+    country: formState?.data?.country ?? '',
+    note: formState?.data?.note ?? '',
+    phoneNumber:
+      formState?.data?.phoneNumber ?? accountDetails?.phoneNumber ?? '',
+  }));
+  const selectedAddress = useMemo(() => {
+    if (!selectedAddressId) return null;
+    return (
+      addresses.find((item) => item.documentId === selectedAddressId) ?? null
+    );
+  }, [addresses, selectedAddressId]);
 
   useEffect(() => {
     if (formState?.success) {
@@ -75,41 +99,51 @@ export default function Form() {
   }, [formState, setDeliveryForm, router]);
 
   useEffect(() => {
-    if (initialSelectedAddressId && !selectedAddressId) {
-      setSelectedAddressId(initialSelectedAddressId);
+    if (!selectedAddressId && resolvedSelectedAddressId) {
+      setSelectedAddressId(resolvedSelectedAddressId);
     }
-  }, [initialSelectedAddressId, selectedAddressId]);
+  }, [resolvedSelectedAddressId, selectedAddressId]);
 
   useEffect(() => {
-    if (selectedAddressId) {
-      applyAddressToForm(selectedAddressId);
-    }
-  }, [selectedAddressId]);
+    if (!formState?.data) return;
+    setFormValues(formState.data);
+  }, [formState?.data]);
 
-  const applyAddressToForm = (addressId: string) => {
-    if (!formRef.current) return;
-    const address = addresses.find((item) => item.documentId === addressId);
-    if (!address) return;
+  useEffect(() => {
+    if (!selectedAddress || deliveryMethod === 'pickup') return;
 
-    const entries: Array<[string, string]> = [
-      ['address', address.address],
-      ['city', address.city ?? ''],
-      ['postalCode', address.postalCode ?? ''],
-      ['country', address.country ?? ''],
-    ];
+    setFormValues((prev) => {
+      const next = {
+        ...prev,
+        address: selectedAddress.address,
+        city: selectedAddress.city ?? '',
+        postalCode: selectedAddress.postalCode ?? '',
+        country: selectedAddress.country ?? '',
+      };
 
-    entries.forEach(([name, value]) => {
-      const element = formRef.current?.elements.namedItem(name) as
-        | HTMLInputElement
-        | HTMLTextAreaElement
-        | HTMLSelectElement
-        | null;
-      if (!element) return;
-      if ('value' in element) {
-        element.value = value;
-        element.dispatchEvent(new Event('input', { bubbles: true }));
-        element.dispatchEvent(new Event('change', { bubbles: true }));
+      if (
+        prev.address === next.address &&
+        prev.city === next.city &&
+        prev.postalCode === next.postalCode &&
+        prev.country === next.country
+      ) {
+        return prev;
       }
+
+      return next;
+    });
+  }, [selectedAddress, deliveryMethod]);
+
+  const handleFieldChange = (field: keyof DeliveryForm, value: string) => {
+    setFormValues((prev) => {
+      if (prev[field] === value) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [field]: value,
+      };
     });
   };
 
@@ -118,21 +152,16 @@ export default function Form() {
   };
 
   return (
-    <form
-      ref={formRef}
-      noValidate
-      action={action}
-      className="flex flex-wrap gap-4"
-    >
+    <form noValidate action={action} className="flex flex-wrap gap-4">
       <input type="hidden" name="deliveryMethod" value={deliveryMethod} />
       <input
         type="hidden"
         name="selectedAddressId"
         value={selectedAddressId ?? ''}
       />
-      {hasMultipleAddresses && deliveryMethod !== 'pickup' && (
+      {hasAddresses && deliveryMethod !== 'pickup' && (
         <div className="w-full">
-          <p className="mb-3 text-sm font-semibold text-grey-dark">
+          <p className="mb-3 text-sm font-semibold text-gray-900">
             {t('checkoutPage.deliveryForm.savedAddressesTitle')}
           </p>
           <div className="grid gap-3 md:grid-cols-2">
@@ -144,30 +173,33 @@ export default function Form() {
                   key={address.documentId}
                   onClick={() => handleSelectAddress(address.documentId)}
                   className={cn(
-                    'flex h-full flex-col items-start rounded-2xl border px-5 py-4 text-left transition-colors duration-200',
+                    'flex h-full flex-col items-start gap-1.5 rounded-2xl border px-5 py-4 text-left shadow-sm transition-colors duration-200',
                     isSelected
-                      ? 'border-blue bg-blue/10'
-                      : 'border-grey-silver bg-white hover:border-blue-light'
+                      ? 'border-gray-900 bg-gray-50'
+                      : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                   )}
+                  aria-pressed={isSelected}
                 >
                   <div className="flex w-full items-center justify-between">
-                    <p className="font-semibold text-black">{address.label}</p>
+                    <p className="font-semibold text-gray-900">
+                      {address.label}
+                    </p>
                     {address.isDefault && (
-                      <span className="rounded-full bg-blue px-3 py-1 text-xs font-semibold text-white">
+                      <span className="rounded-full border border-gray-300 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-gray-600">
                         {t('accountPage.addresses.defaultBadge')}
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 text-sm text-grey-dark">
+                  <p className="mt-1 text-sm text-gray-600">
                     {address.address}
                   </p>
-                  <p className="text-sm text-grey-dark">
+                  <p className="text-sm text-gray-600">
                     {[address.postalCode, address.city]
                       .filter(Boolean)
                       .join(' ')}
                   </p>
                   {address.country && (
-                    <p className="text-sm text-grey-dark">{address.country}</p>
+                    <p className="text-sm text-gray-600">{address.country}</p>
                   )}
                 </button>
               );
@@ -200,7 +232,13 @@ export default function Form() {
               <select
                 id={field.id}
                 name={field.name}
-                defaultValue={formState?.data[field.name as keyof DeliveryForm]}
+                value={formValues[field.name as keyof DeliveryForm] ?? ''}
+                onChange={(event) =>
+                  handleFieldChange(
+                    field.name as keyof DeliveryForm,
+                    event.target.value
+                  )
+                }
                 className="rounded-full border border-transparent bg-grey-extra-light px-4 py-3 text-black"
               >
                 <option value="">
@@ -217,7 +255,13 @@ export default function Form() {
               </select>
             ) : (
               <Input
-                defaultValue={formState?.data[field.name as keyof DeliveryForm]}
+                value={formValues[field.name as keyof DeliveryForm] ?? ''}
+                onChange={(event) =>
+                  handleFieldChange(
+                    field.name as keyof DeliveryForm,
+                    event.target.value
+                  )
+                }
                 errorMessage={
                   formState?.errors?.[field.name as keyof DeliveryForm]
                 }
@@ -239,7 +283,8 @@ export default function Form() {
         </label>
         <Textarea
           className="mt-5"
-          defaultValue={formState?.data.note}
+          value={formValues.note ?? ''}
+          onChange={(event) => handleFieldChange('note', event.target.value)}
           errorMessage={formState?.errors?.note}
           id="note"
           maxLength={150}

@@ -667,9 +667,9 @@
       "createSuccess": "Adresa je uspješno dodana",
       "updateSuccess": "Adresa je uspješno ažurirana",
       "deleteSuccess": "Adresa je uspješno obrisana",
-      "setDefaultSuccess": "Podrazumijevana adresa je ažurirana",
-      "defaultBadge": "Podrazumijevana",
-      "setDefault": "Postavi kao podrazumijevanu",
+      "setDefaultSuccess": "Primarna adresa je ažurirana",
+      "defaultBadge": "Primarna",
+      "setDefault": "Postavi kao primarnu",
       "edit": "Uredi",
       "delete": "Obriši",
       "emptyState": {
@@ -689,7 +689,7 @@
       "confirmDelete": {
         "title": "Obriši adresu",
         "description": "Da li ste sigurni da želite obrisati ovu adresu?",
-        "confirm": "Da, obriši",
+        "confirm": "Obriši",
         "cancel": "Otkaži"
       }
     }

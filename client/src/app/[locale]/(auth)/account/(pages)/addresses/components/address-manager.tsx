@@ -292,6 +292,7 @@ export function AddressManager() {
             <Button
               variant="transparent"
               transparentVariant="black"
+              className="px-4 py-2"
               onClick={() => deleteDialogOpenChange(false)}
               disabled={deleteState.isDeleting}
             >
@@ -299,7 +300,7 @@ export function AddressManager() {
             </Button>
             <Button
               variant="filled"
-              className={cn('hover:bg-red-dark bg-red-deep')}
+              className={cn('hover:bg-red-dark bg-red-deep px-4 py-2')}
               onClick={handleDelete}
               disabled={deleteState.isDeleting}
             >
