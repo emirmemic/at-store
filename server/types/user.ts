@@ -11,6 +11,7 @@ export interface StrapiUser {
   name: string;
   surname: string;
   address: string;
+  addresses?: UserAddress[];
   companyName: string;
   companyIdNumber: string;
   phoneNumber: string;
@@ -28,4 +29,17 @@ export interface StrapiUser {
     updatedAt: string;
     publishedAt: string;
   };
+}
+
+export interface UserAddress {
+  id: number;
+  documentId: string;
+  label: string;
+  address: string;
+  city?: string | null;
+  postalCode?: string | null;
+  country?: string | null;
+  isDefault: boolean;
+  createdAt: string;
+  updatedAt: string;
 }

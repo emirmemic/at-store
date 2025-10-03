@@ -1422,6 +1422,60 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiUserAddressUserAddress extends Struct.CollectionTypeSchema {
+  collectionName: 'user_addresses';
+  info: {
+    displayName: 'User address';
+    pluralName: 'user-addresses';
+    singularName: 'user-address';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    address: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    city: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isDefault: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-address.user-address'
+    > &
+      Schema.Attribute.Private;
+    postalCode: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiWhyMacPageWhyMacPage extends Struct.SingleTypeSchema {
   collectionName: 'why_mac_pages';
   info: {
@@ -1912,8 +1966,12 @@ export interface PluginUsersPermissionsUser
   attributes: {
     address: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 50;
+        maxLength: 255;
       }>;
+    addresses: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-address.user-address'
+    >;
     appleSub: Schema.Attribute.Text;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     cart: Schema.Attribute.Relation<'oneToOne', 'api::cart.cart'>;
@@ -2033,6 +2091,7 @@ declare module '@strapi/strapi' {
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
       'api::store.store': ApiStoreStore;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
+      'api::user-address.user-address': ApiUserAddressUserAddress;
       'api::why-mac-page.why-mac-page': ApiWhyMacPageWhyMacPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

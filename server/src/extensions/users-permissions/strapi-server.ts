@@ -221,6 +221,27 @@ export default (plugin) => {
 
         // Call the original register function
         const response = await rawAuth.register(ctx);
+
+        if (response?.user?.id && typeof body.address === 'string') {
+          try {
+            await strapi.documents('api::user-address.user-address').create({
+              data: {
+                label: body.addressLabel?.trim() || 'Primarna adresa',
+                address: body.address.trim(),
+                city: body.city?.trim() || '',
+                postalCode: body.postalCode?.trim() || '',
+                country: body.country?.trim() || '',
+                isDefault: true,
+                user: response.user.id,
+              },
+            });
+          } catch (error) {
+            strapi.log.error(
+              'Failed to create default address for user',
+              error
+            );
+          }
+        }
         if (isOrganization) {
           const organizationRole = await strapi.db
             .query('plugin::users-permissions.role')
@@ -384,7 +405,19 @@ AT Store – B2B tim`;
         return ctx.unauthorized('Niste autorizirani za ovu akciju');
       }
 
-      return user;
+      try {
+        const populatedUser = await strapi
+          .documents('plugin::users-permissions.user')
+          .findOne({
+            documentId: user.documentId,
+            populate: ctx.query?.populate,
+          });
+
+        return populatedUser ?? user;
+      } catch (error) {
+        strapi.log.error('Failed to fetch user with relations', error);
+        return ctx.badRequest('Greška pri dohvaćanju korisnika');
+      }
     },
     update: async (ctx) => {
       const { user } = ctx.state;

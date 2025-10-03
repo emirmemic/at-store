@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import React, { useEffect } from 'react';
 
 import {
+  IconDelivery,
   IconHeart,
   IconHome,
   IconNews,
@@ -35,6 +36,11 @@ function getTitleCardContent(
       return {
         Icon: IconSettings,
         title: t('details.title'),
+      };
+    case PAGE_NAMES.ACCOUNT_ADDRESSES:
+      return {
+        Icon: IconDelivery,
+        title: t('addresses.title'),
       };
     case PAGE_NAMES.ACCOUNT_FAVORITES:
       return {

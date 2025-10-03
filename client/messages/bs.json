@@ -656,6 +656,42 @@
     },
     "newsletter": {
       "title": "Newsletter"
+    },
+    "addresses": {
+      "title": "Adrese",
+      "subtitle": "Upravljajte adresama za dostavu",
+      "addNew": "Dodaj novu adresu",
+      "createTitle": "Dodaj novu adresu",
+      "editTitle": "Uredi adresu",
+      "dialogDescription": "Forma za upravljanje adresama korisnika",
+      "createSuccess": "Adresa je uspješno dodana",
+      "updateSuccess": "Adresa je uspješno ažurirana",
+      "deleteSuccess": "Adresa je uspješno obrisana",
+      "setDefaultSuccess": "Podrazumijevana adresa je ažurirana",
+      "defaultBadge": "Podrazumijevana",
+      "setDefault": "Postavi kao podrazumijevanu",
+      "edit": "Uredi",
+      "delete": "Obriši",
+      "emptyState": {
+        "title": "Nemate sačuvane adrese",
+        "description": "Dodajte novu adresu kako biste ubrzali vaše buduće narudžbe."
+      },
+      "form": {
+        "label": "Naziv adrese",
+        "address": "Adresa",
+        "city": "Grad",
+        "postalCode": "Poštanski broj",
+        "country": "Država",
+        "isDefault": "Postavi kao podrazumijevanu adresu",
+        "save": "Sačuvaj adresu",
+        "update": "Sačuvaj promjene"
+      },
+      "confirmDelete": {
+        "title": "Obriši adresu",
+        "description": "Da li ste sigurni da želite obrisati ovu adresu?",
+        "confirm": "Da, obriši",
+        "cancel": "Otkaži"
+      }
     }
   },
   "findStorePage": {
@@ -1037,7 +1073,13 @@
     "postalCodeInvalidFormat": "Neispravan poštanski broj",
     "countryRequired": "Država je obavezna",
     "invalidFileFormat": "Dozvoljene su samo PNG ili JPEG datoteke",
-    "maxFileSize": "Maksimalna veličina je {maxSize}"
+    "maxFileSize": "Maksimalna veličina je {maxSize}",
+    "addressLabelRequired": "Naziv adrese je obavezan",
+    "addressLabelMaxLength": "Naziv adrese ne smije biti duži od {maxLength} karaktera",
+    "addressMaxLength": "Adresa ne smije biti duža od {maxLength} karaktera",
+    "cityMaxLength": "Grad ne smije biti duži od {maxLength} karaktera",
+    "postalCodeMaxLength": "Poštanski broj ne smije biti duži od {maxLength} karaktera",
+    "countryMaxLength": "Država ne smije biti duža od {maxLength} karaktera"
   },
   "complaintsPage": {
     "title": "Reklamacije",
@@ -1174,7 +1216,8 @@
       "country": "Država",
       "note": "Napomena",
       "notePlaceholder": "Dostaviti u periodu od 10:00 do 17:00.",
-      "additionalInfo": "Dodatne informacije"
+      "additionalInfo": "Dodatne informacije",
+      "savedAddressesTitle": "Odaberite spremljenu adresu"
     },
     "giftCheckbox": "Kupujem kao poklon",
     "paymentPage": {

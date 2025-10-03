@@ -39,6 +39,9 @@ export const routing = defineRouting({
     [PAGE_NAMES.ACCOUNT_DETAILS]: {
       bs: '/racun/podaci',
     },
+    [PAGE_NAMES.ACCOUNT_ADDRESSES]: {
+      bs: '/racun/adrese',
+    },
     [PAGE_NAMES.ACCOUNT_FAVORITES]: {
       bs: '/racun/omiljeni',
     },
