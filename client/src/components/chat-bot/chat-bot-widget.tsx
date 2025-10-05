@@ -1,20 +1,22 @@
 'use client';
 
 import { MessageCircle, RefreshCcw, Sparkles, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
-import { cn } from '@/lib/utils/utils';
+const cn = (...classes: (string | boolean | undefined)[]) => {
+  return classes.filter(Boolean).join(' ');
+};
 
 type ChatMessage = {
   id: string;
   sender: 'bot' | 'user';
-  text: string;
+  text: ReactNode;
 };
 
 type ChatOption = {
   id: string;
   question: string;
-  answer: string;
+  answer: ReactNode;
 };
 
 const CHAT_OPTIONS: ChatOption[] = [
@@ -63,8 +65,21 @@ const CHAT_OPTIONS: ChatOption[] = [
   {
     id: 'trade-in',
     question: 'Mogu li zamijeniti svoj stari uređaj za novi?',
-    answer:
-      'Da. Ukoliko želite da izvršite tradein, molimo da posjetite jednu od naših poslovnica gdje će Vas kolege uputiti u naredne korake.',
+    answer: (
+      <>
+        Da, ako želite koristiti Program zamjene, posjetite jednu od naših
+        poslovnica. Prije dolaska, molimo pogledajte više detalja{' '}
+        <a
+          href="https://atstore.ba/trade-in"
+          className="font-semibold text-blue-600 underline-offset-2 transition hover:text-blue-500 hover:underline"
+          target="_blank"
+          rel="noreferrer"
+        >
+          ovdje
+        </a>
+        .
+      </>
+    ),
   },
 ];
 
@@ -82,7 +97,9 @@ export default function ChatBotWidget() {
     ...INITIAL_MESSAGES,
   ]);
   const [answeredOptionIds, setAnsweredOptionIds] = useState<string[]>([]);
+  const [isOptionsExpanded, setIsOptionsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const widgetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -94,7 +111,7 @@ export default function ChatBotWidget() {
     return () => window.clearTimeout(timeout);
   }, [messages, isOpen]);
 
-  // Improved mobile body scroll prevention
+  // Mobile body scroll lock
   useEffect(() => {
     if (!isOpen) return;
     if (typeof document === 'undefined') return;
@@ -103,17 +120,8 @@ export default function ChatBotWidget() {
     if (!isMobile) return;
 
     const body = document.body;
-    const originalStyle = {
-      overflow: body.style.overflow,
-      position: body.style.position,
-      top: body.style.top,
-      width: body.style.width,
-      height: body.style.height,
-    };
-
     const scrollY = window.scrollY || window.pageYOffset;
 
-    // Prevent body scroll while keeping chat scrollable
     body.style.overflow = 'hidden';
     body.style.position = 'fixed';
     body.style.top = `-${scrollY}px`;
@@ -121,7 +129,11 @@ export default function ChatBotWidget() {
     body.style.height = '100%';
 
     return () => {
-      Object.assign(body.style, originalStyle);
+      body.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.width = '';
+      body.style.height = '';
       window.scrollTo(0, scrollY);
     };
   }, [isOpen]);
@@ -131,6 +143,18 @@ export default function ChatBotWidget() {
       CHAT_OPTIONS.filter((option) => !answeredOptionIds.includes(option.id)),
     [answeredOptionIds]
   );
+
+  const displayedOptions = useMemo(
+    () =>
+      isOptionsExpanded || remainingOptions.length <= 4
+        ? remainingOptions
+        : remainingOptions.slice(0, 4),
+    [isOptionsExpanded, remainingOptions]
+  );
+
+  const widgetHeight = isOptionsExpanded
+    ? 'min(34rem, calc(100vh - 4rem))'
+    : 'min(30rem, calc(100vh - 5rem))';
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -156,117 +180,61 @@ export default function ChatBotWidget() {
   const handleResetConversation = () => {
     setMessages([...INITIAL_MESSAGES]);
     setAnsweredOptionIds([]);
+    setIsOptionsExpanded(false);
   };
 
   return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-50 flex flex-col items-end sm:bottom-6 sm:right-6">
+    <div className="pointer-events-none fixed inset-0 z-50 flex flex-col items-end justify-end p-4 sm:bottom-6 sm:left-auto sm:right-6 sm:top-auto sm:p-0">
       <div
+        ref={widgetRef}
         className={cn(
-          'pointer-events-auto relative flex flex-col overflow-hidden rounded-[1.65rem] border border-white/40 bg-white/55 backdrop-blur-2xl transition-all sm:rounded-[1.9rem]',
-          'duration-300 ease-out',
-          'h-[min(32rem,calc(100vh-8rem))] w-[calc(100vw-2rem)] max-w-[20rem] sm:w-[min(20rem,calc(100vw-2.5rem))] md:h-[min(34rem,calc(100vh-10rem))] md:max-w-[22rem] lg:h-[min(36rem,calc(100vh-12rem))] lg:max-w-[24rem]',
+          'pointer-events-auto relative flex flex-col overflow-hidden rounded-3xl border border-gray-200/60 bg-white/95 backdrop-blur-2xl transition-all',
+          'ease-[cubic-bezier(0.34,1.56,0.64,1)] duration-500',
+          'w-full max-w-full sm:w-96 sm:max-w-md',
+          'shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15),0_0_1px_rgba(0,0,0,0.1)]',
           isOpen
-            ? 'visible translate-y-0 opacity-100'
-            : 'invisible translate-y-4 opacity-0'
+            ? 'visible translate-y-0 scale-100 opacity-100'
+            : 'invisible translate-y-8 scale-95 opacity-0'
         )}
         style={{
-          boxShadow:
-            '0 18px 32px rgba(15,23,42,0.15), 0 0 0 1px rgba(255,255,255,0.1)',
+          maxHeight: isOpen ? widgetHeight : '0',
         }}
       >
-        <div className="pointer-events-none absolute -top-20 right-[-40%] size-40 rounded-full bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.92)_0%,_rgba(255,255,255,0)_70%)] blur-3xl sm:-top-24 sm:size-52" />
-        <div className="pointer-events-none absolute -bottom-14 left-[-45%] size-44 rounded-full bg-[radial-gradient(circle_at_center,_rgba(53,119,229,0.28)_0%,_rgba(53,119,229,0)_75%)] blur-3xl sm:-bottom-16 sm:size-60" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.4),_transparent_55%)]" />
-
-        {/* Header */}
-        <div className="relative flex flex-shrink-0 items-center justify-between gap-3 border-b border-white/60 bg-white/85 px-4 py-3 text-grey-almost-black backdrop-blur-xl sm:px-5 sm:py-4">
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="relative flex size-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-black via-black to-grey-darkest text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] sm:size-10">
-              <span className="text-xs font-semibold sm:text-sm">AT</span>
-              <span className="absolute -bottom-1 right-0 size-2.5 animate-pulse rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.75)] sm:size-3" />
-            </div>
-            <div className="space-y-0.5">
-              <p className="text-xs font-semibold tracking-[-0.01em] sm:text-sm">
-                AT Bot
-              </p>
-              <p className="text-[10px] font-medium text-grey-dark sm:text-[11px]">
-                Online · Tu smo da pomognemo
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            aria-label="Zatvori chat"
-            className="rounded-full p-1.5 text-grey-darker transition-colors hover:bg-black/5 hover:text-black"
-            onClick={toggleOpen}
-          >
-            <X className="size-4" />
-          </button>
-        </div>
-
-        {/* Messages */}
-        <div
-          className="flex flex-1 flex-col gap-3 overflow-y-auto bg-white/40 px-4 py-4 text-xs text-grey-almost-black sm:gap-4 sm:px-5 sm:text-sm"
-          role="log"
-          aria-live="polite"
-          aria-relevant="additions"
-          style={{
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
-            minHeight: '200px',
-            maxHeight: 'calc(100vh - 400px)',
-          }}
-        >
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={cn(
-                'flex items-start gap-3',
-                message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'
-              )}
-            >
-              <div
-                className={cn(
-                  'relative flex size-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-transform duration-150',
-                  message.sender === 'user'
-                    ? 'bg-gradient-to-br from-black via-black/85 to-grey-darkest text-white'
-                    : 'bg-gradient-to-br from-white/90 via-white/70 to-white/90 text-grey-almost-black'
-                )}
-              >
-                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] sm:text-xs">
-                  {message.sender === 'user' ? 'VI' : 'AT'}
-                </span>
-                {message.sender === 'bot' && (
-                  <span className="absolute -bottom-0.5 right-0 size-2.5 rounded-full bg-green-500 shadow-[0_0_6px_rgba(34,197,94,0.7)]" />
-                )}
-              </div>
-              <span
-                className={cn(
-                  'inline-block max-w-[calc(100%-3.5rem)] rounded-3xl px-3 py-2 leading-relaxed sm:max-w-[78%] sm:px-4',
-                  message.sender === 'user'
-                    ? 'bg-gradient-to-br from-black via-black/90 to-black text-white shadow-[0_14px_28px_rgba(15,23,42,0.35)]'
-                    : 'border border-white/60 bg-gradient-to-br from-white/90 via-white/65 to-white/70 text-grey-almost-black shadow-[0_10px_26px_rgba(15,23,42,0.14)] backdrop-blur-xl'
-                )}
-              >
-                {message.text}
-              </span>
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
-
+        {/* Gradient overlays */}
+        <div className="bg-gradient-radial pointer-events-none absolute -top-24 right-[-30%] h-48 w-48 rounded-full from-white/80 to-transparent blur-3xl" />
         {/* Quick Options */}
         {remainingOptions.length > 0 && (
-          <div className="flex-shrink-0 border-t border-white/50 bg-white/60 px-4 py-3 backdrop-blur-xl sm:px-5 sm:py-4">
-            <p className="flex items-center gap-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-grey-darker sm:text-[11px]">
-              <Sparkles className="size-3.5 text-blue" /> Brzi odgovori
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {remainingOptions.map((option) => (
+          <div
+            className={cn(
+              'relative z-10 flex flex-shrink-0 flex-col gap-2.5 border-b border-gray-200/60 bg-white/80 px-5 backdrop-blur-xl transition-all duration-500 ease-out',
+              isOptionsExpanded ? 'py-4' : 'py-3'
+            )}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                <Sparkles className="h-3.5 w-3.5 text-blue-500" /> Brzi odgovori
+              </p>
+              {remainingOptions.length > 4 && (
+                <button
+                  type="button"
+                  onClick={() => setIsOptionsExpanded((prev) => !prev)}
+                  className="rounded-full border border-gray-200 bg-white px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gray-700 shadow-sm transition-all hover:border-gray-900 hover:bg-gray-900 hover:text-white active:scale-95"
+                >
+                  {isOptionsExpanded ? 'Sakrij' : 'Prikaži sve'}
+                </button>
+              )}
+            </div>
+            <div
+              className={cn(
+                'grid grid-cols-2 gap-2',
+                isOptionsExpanded ? 'max-h-48 overflow-y-auto pr-1' : ''
+              )}
+            >
+              {displayedOptions.map((option) => (
                 <button
                   key={option.id}
                   type="button"
-                  className="rounded-full border border-white/70 bg-gradient-to-r from-white/85 via-white/70 to-white/85 px-3 py-1.5 text-[10px] font-medium text-grey-almost-black shadow-[0_6px_18px_rgba(15,23,42,0.12)] transition hover:border-black/30 hover:bg-black/90 hover:text-white hover:shadow-[0_10px_24px_rgba(15,23,42,0.18)] sm:px-3.5 sm:text-[11px]"
+                  className="rounded-2xl border border-gray-200/80 bg-white px-3.5 py-2.5 text-left text-[11px] font-semibold leading-snug text-gray-900 shadow-sm transition-all hover:border-gray-900 hover:bg-gray-900 hover:text-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 active:scale-[0.98]"
                   onClick={() => handleSelectOption(option)}
                 >
                   {option.question}
@@ -276,26 +244,75 @@ export default function ChatBotWidget() {
           </div>
         )}
 
+        {/* Messages */}
+        <div
+          className="relative z-10 flex min-h-[14rem] flex-1 flex-col gap-4 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white/50 px-5 py-4 text-sm text-gray-900"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+          style={{
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+          }}
+        >
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={cn(
+                'flex items-start gap-3 duration-300 animate-in fade-in slide-in-from-bottom-2',
+                message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'
+              )}
+            >
+              <div
+                className={cn(
+                  'relative flex h-9 w-9 flex-shrink-0 items-center justify-center overflow-hidden rounded-full shadow-md transition-transform duration-150',
+                  message.sender === 'user'
+                    ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white'
+                    : 'bg-gradient-to-br from-white to-gray-50 text-gray-900 ring-1 ring-gray-200/50'
+                )}
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-wider">
+                  {message.sender === 'user' ? 'VI' : 'AT'}
+                </span>
+                {message.sender === 'bot' && (
+                  <span className="absolute -bottom-0.5 right-0 h-2.5 w-2.5 rounded-full bg-green-500 shadow-md shadow-green-500/50" />
+                )}
+              </div>
+              <span
+                className={cn(
+                  'inline-block max-w-[calc(100%-3rem)] rounded-3xl px-4 py-2.5 text-[13px] leading-relaxed sm:max-w-[75%]',
+                  message.sender === 'user'
+                    ? 'bg-gradient-to-br from-gray-900 to-gray-800 text-white shadow-lg shadow-gray-900/20'
+                    : 'border border-gray-200/60 bg-white text-gray-900 shadow-md backdrop-blur-sm'
+                )}
+              >
+                {message.text}
+              </span>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
         {/* Email Contact */}
-        <div className="flex-shrink-0 border-t border-white/40 bg-white/55 px-4 py-2.5 text-[10px] text-grey-darker backdrop-blur-xl sm:px-5 sm:py-3 sm:text-[11px]">
-          Imate poseban zahtjev?{' '}
+        <div className="relative z-10 flex-shrink-0 border-t border-gray-200/60 bg-white/80 px-5 py-3 text-[11px] text-gray-600 backdrop-blur-xl">
+          Posebni upiti:{' '}
           <a
             href="mailto:prodaja@atstore.ba"
-            className="font-semibold text-grey-almost-black underline-offset-2 transition hover:text-black hover:underline"
+            className="font-semibold text-gray-900 underline-offset-2 transition hover:text-blue-600 hover:underline"
           >
-            Pošaljite e-mail na prodaja@atstore.ba
+            prodaja@atstore.ba
           </a>
         </div>
 
         {/* Reset Button */}
-        <div className="flex flex-shrink-0 items-center justify-between border-t border-white/60 bg-white/70 px-4 py-2.5 text-[10px] text-grey-darker backdrop-blur-xl sm:px-5 sm:py-3 sm:text-[11px]">
+        <div className="relative z-10 flex flex-shrink-0 items-center justify-between border-t border-gray-200/60 bg-white/80 px-5 py-3 text-[11px] text-gray-600 backdrop-blur-xl">
           <span>Želite početi iznova?</span>
           <button
             type="button"
             onClick={handleResetConversation}
-            className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-black/80 px-3 py-1.5 font-semibold text-white shadow-[0_8px_24px_rgba(15,23,42,0.2)] transition hover:bg-black"
+            className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-gray-900 px-4 py-1.5 font-semibold text-white shadow-lg shadow-gray-900/20 transition-all hover:bg-gray-800 active:scale-95"
           >
-            <RefreshCcw className="size-3.5" />
+            <RefreshCcw className="h-3.5 w-3.5" />
             Resetuj
           </button>
         </div>
@@ -306,19 +323,16 @@ export default function ChatBotWidget() {
         type="button"
         onClick={toggleOpen}
         className={cn(
-          'pointer-events-auto mt-3 inline-flex items-center gap-2 rounded-full border border-white/50 bg-gradient-to-r from-black via-black/85 to-grey-darkest px-6 py-3.5 text-sm font-medium text-white backdrop-blur-xl transition-all duration-200',
-          'hover:-translate-y-0.5 hover:border-black/60 hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white'
+          'pointer-events-auto mt-4 inline-flex items-center gap-2.5 rounded-full border border-gray-200/60 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300',
+          'hover:-translate-y-1 hover:shadow-2xl hover:shadow-gray-900/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2 active:scale-95',
+          'shadow-xl shadow-gray-900/20'
         )}
-        style={{
-          boxShadow:
-            '0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1)',
-        }}
         aria-expanded={isOpen}
         aria-label={
           isOpen ? 'Zatvori podršku za chat' : 'Otvori podršku za chat'
         }
       >
-        <MessageCircle className="size-5" />
+        <MessageCircle className="h-5 w-5" />
         <span>{isOpen ? 'Zatvori chat' : 'Imaš pitanje? OK!'}</span>
       </button>
     </div>
