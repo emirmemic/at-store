@@ -153,8 +153,8 @@ export default function ChatBotWidget() {
   );
 
   const widgetHeight = isOptionsExpanded
-    ? 'min(34rem, calc(100vh - 4rem))'
-    : 'min(30rem, calc(100vh - 5rem))';
+    ? 'min(90vh, 36rem)'
+    : 'min(85vh, 30rem)';
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -184,7 +184,7 @@ export default function ChatBotWidget() {
   };
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 flex flex-col items-end justify-end p-4 sm:bottom-6 sm:left-auto sm:right-6 sm:top-auto sm:p-0">
+    <div className="pointer-events-none fixed inset-0 z-50 flex flex-col items-end justify-end p-3 sm:bottom-6 sm:left-auto sm:right-6 sm:top-auto sm:p-0 md:p-4">
       <div
         ref={widgetRef}
         className={cn(
@@ -198,19 +198,21 @@ export default function ChatBotWidget() {
         )}
         style={{
           maxHeight: isOpen ? widgetHeight : '0',
+          height: isOpen ? widgetHeight : '0',
         }}
       >
         {/* Gradient overlays */}
         <div className="bg-gradient-radial pointer-events-none absolute -top-24 right-[-30%] h-48 w-48 rounded-full from-white/80 to-transparent blur-3xl" />
+
         {/* Quick Options */}
         {remainingOptions.length > 0 && (
           <div
             className={cn(
-              'relative z-10 flex flex-shrink-0 flex-col gap-2.5 border-b border-gray-200/60 bg-white/80 px-5 backdrop-blur-xl transition-all duration-500 ease-out',
+              'relative z-10 flex flex-shrink-0 flex-col gap-2.5 border-b border-gray-200/60 bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out',
               isOptionsExpanded ? 'py-4' : 'py-3'
             )}
           >
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 px-5">
               <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500">
                 <Sparkles className="h-3.5 w-3.5 text-blue-500" /> Brzi odgovori
               </p>
@@ -226,9 +228,13 @@ export default function ChatBotWidget() {
             </div>
             <div
               className={cn(
-                'grid grid-cols-2 gap-2',
-                isOptionsExpanded ? 'max-h-48 overflow-y-auto pr-1' : ''
+                'grid grid-cols-2 gap-2 px-5',
+                isOptionsExpanded ? 'max-h-36 overflow-y-auto pr-4' : ''
               )}
+              style={{
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'contain',
+              }}
             >
               {displayedOptions.map((option) => (
                 <button
@@ -246,13 +252,14 @@ export default function ChatBotWidget() {
 
         {/* Messages */}
         <div
-          className="relative z-10 flex min-h-[14rem] flex-1 flex-col gap-4 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white/50 px-5 py-4 text-sm text-gray-900"
+          className="relative z-10 flex flex-1 flex-col gap-4 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white/50 px-5 py-4 text-sm text-gray-900"
           role="log"
           aria-live="polite"
           aria-relevant="additions"
           style={{
             WebkitOverflowScrolling: 'touch',
             overscrollBehavior: 'contain',
+            minHeight: '0',
           }}
         >
           {messages.map((message) => (
