@@ -11,6 +11,7 @@ import { toast } from '@/lib/hooks';
 import { RegisterFormData } from '@/lib/schemas/auth';
 
 import { handleSubmit } from '../actions';
+import { AddressFields } from './address-fields';
 
 export default function Form() {
   const t = useTranslations('registrationPage');
@@ -37,6 +38,22 @@ export default function Form() {
       });
     }
   }, [formState, router, t]);
+
+  const addressValues = {
+    addressLabel: formState?.data?.addressLabel,
+    address: formState?.data?.address,
+    city: formState?.data?.city,
+    postalCode: formState?.data?.postalCode,
+    country: formState?.data?.country,
+  };
+
+  const addressErrors = {
+    addressLabel: formState?.errors?.addressLabel,
+    address: formState?.errors?.address,
+    city: formState?.errors?.city,
+    postalCode: formState?.errors?.postalCode,
+    country: formState?.errors?.country,
+  };
 
   return (
     <form
@@ -81,12 +98,7 @@ export default function Form() {
         placeholder={`${t('confirmPassword')}*`}
         type="password"
       />
-      <Input
-        defaultValue={formState?.data.address}
-        errorMessage={formState?.errors?.address}
-        name="address"
-        placeholder={`${t('address')}*`}
-      />
+      <AddressFields values={addressValues} errors={addressErrors} />
       <Input
         defaultValue={formState?.data.phoneNumber}
         errorMessage={formState?.errors?.phoneNumber}

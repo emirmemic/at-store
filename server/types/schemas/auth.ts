@@ -27,6 +27,38 @@ const personalInfoSchema = z.object({
   surname: z.string().trim().min(1, 'Prezime je obavezno'),
 });
 
+const registerAddressSchema = z.object({
+  addressLabel: z
+    .string()
+    .trim()
+    .max(50, 'Naziv adrese ne smije biti duži od 50 karaktera')
+    .optional()
+    .or(z.literal('')),
+  address: z
+    .string()
+    .trim()
+    .min(1, 'Adresa je obavezna')
+    .max(255, 'Adresa ne smije biti duža od 255 karaktera'),
+  city: z
+    .string()
+    .trim()
+    .max(100, 'Grad ne smije biti duži od 100 karaktera')
+    .optional()
+    .or(z.literal('')),
+  postalCode: z
+    .string()
+    .trim()
+    .max(20, 'Poštanski broj ne smije biti duži od 20 karaktera')
+    .optional()
+    .or(z.literal('')),
+  country: z
+    .string()
+    .trim()
+    .max(100, 'Država ne smije biti duža od 100 karaktera')
+    .optional()
+    .or(z.literal('')),
+});
+
 const contactInfoSchema = z.object({
   address: z.string().trim().optional(),
   phoneNumber: phoneNumberSchema,
@@ -48,7 +80,8 @@ const authenticatedUserSchema = z
     password: passwordSchema,
   })
   .merge(personalInfoSchema)
-  .merge(contactInfoSchema);
+  .merge(contactInfoSchema)
+  .merge(registerAddressSchema);
 
 const organizationUserSchema = z
   .object({
@@ -57,7 +90,8 @@ const organizationUserSchema = z
     role: z.enum(['organization']),
   })
   .merge(companyInfoSchema)
-  .merge(contactInfoSchema);
+  .merge(contactInfoSchema)
+  .merge(registerAddressSchema);
 
 const accountDetailsSchema = (userType: 'organization' | 'authenticated') =>
   z

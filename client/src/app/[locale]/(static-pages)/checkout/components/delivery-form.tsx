@@ -1,7 +1,9 @@
 'use client';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useActionState, useEffect, useMemo, useState } from 'react';
+import { Plus } from 'lucide-react';
 
 import { useUserProvider } from '@/app/providers/user-provider';
 import { Button } from '@/components/ui/button';
@@ -23,6 +25,7 @@ export default function Form() {
     useCheckoutProvider();
   const { user } = useUserProvider();
   const accountDetails = user?.accountDetails;
+  const isLoggedIn = Boolean(user?.id);
   const [formState, action, isPending] = useActionState(
     (_: unknown, __: FormData) => handleSubmit(_, __, validation),
     (deliveryForm && {
@@ -207,6 +210,43 @@ export default function Form() {
           </div>
         </div>
       )}
+      {!hasAddresses &&
+        deliveryMethod !== 'pickup' &&
+        (isLoggedIn ? (
+          <Link
+            href={PAGE_NAMES.ACCOUNT_ADDRESSES}
+            className="group flex w-full flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-gray-300 bg-white p-6 text-center shadow-sm transition-colors duration-200 hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+            aria-label={t('checkoutPage.deliveryForm.addAddressCta')}
+          >
+            <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-900 transition-colors duration-200 group-hover:border-gray-900">
+              <Plus className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <span className="text-base font-semibold text-gray-900">
+              {t('checkoutPage.deliveryForm.addAddressTitle')}
+            </span>
+            <span className="max-w-[240px] text-sm text-gray-600">
+              {t('checkoutPage.deliveryForm.addAddressDescription')}
+            </span>
+            <span className="inline-flex items-center justify-center rounded-full bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition-colors duration-200 group-hover:bg-black">
+              {t('checkoutPage.deliveryForm.addAddressCta')}
+            </span>
+          </Link>
+        ) : (
+          <div className="flex w-full flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-gray-200 bg-white p-6 text-center shadow-sm">
+            <span className="text-base font-semibold text-gray-900">
+              {t('checkoutPage.deliveryForm.saveAddressesInfoTitle')}
+            </span>
+            <span className="max-w-[280px] text-sm text-gray-600">
+              {t('checkoutPage.deliveryForm.saveAddressesInfoDescription')}
+            </span>
+            <Link
+              href={PAGE_NAMES.REGISTER}
+              className="inline-flex items-center justify-center rounded-full bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-black"
+            >
+              {t('checkoutPage.deliveryForm.saveAddressesInfoCta')}
+            </Link>
+          </div>
+        ))}
       {inputFields.map((field) => {
         const isPickup = deliveryMethod === 'pickup';
         const isHidden =
@@ -214,6 +254,27 @@ export default function Form() {
           ['address', 'city', 'postalCode', 'country'].includes(field.name);
 
         if (isHidden) return null;
+
+        const shouldHideForLoggedInUser =
+          isLoggedIn &&
+          ['address', 'city', 'postalCode', 'country'].includes(field.name) &&
+          Boolean(
+            (formValues[field.name as keyof DeliveryForm] ?? '')
+              .toString()
+              .trim()
+          );
+
+        if (shouldHideForLoggedInUser) {
+          return (
+            <input
+              key={field.id}
+              type="hidden"
+              id={field.id}
+              name={field.name}
+              value={formValues[field.name as keyof DeliveryForm] ?? ''}
+            />
+          );
+        }
 
         return (
           <div
