@@ -1,7 +1,6 @@
+import { ShoppingCartItem, UserInformation } from '../types';
 /* eslint-disable no-console */
 import puppeteer, { Browser, Page } from 'puppeteer';
-
-import { ShoppingCartItem, UserInformation } from '../types';
 
 import { generateInvoiceHTML } from './invoiceHtml';
 
@@ -35,7 +34,7 @@ export async function generatePreInvoicePdf(
 
     // Set a timeout for setContent, in case of hanging resources
     await Promise.race([
-      page.setContent(html, { waitUntil: 'networkidle0' }),
+      await page.setContent(html, { waitUntil: 'load' }),
       new Promise((_, reject) =>
         setTimeout(() => reject(new Error('setContent timeout')), timeoutMs)
       ),
