@@ -257,7 +257,8 @@ export default function ProductDetails() {
                     brzi kredit bez odlaska u poslovnicu.
                   </p>
                   <p className="text-sm text-grey-dark">
-                    <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
+                    <strong>Kontakt:</strong> prodaja@atstore.ba / +387 33 956
+                    188
                   </p>
                 </div>
               </details>
@@ -497,7 +498,8 @@ export default function ProductDetails() {
                     brzi kredit bez odlaska u poslovnicu.
                   </p>
                   <p className="text-sm text-grey-dark">
-                    <strong>Kontakt:</strong> at@atstore.ba / +387 33 956 188
+                    <strong>Kontakt:</strong> prodaja@atstore.ba / +387 33 956
+                    188
                   </p>
                 </div>
               </details>
