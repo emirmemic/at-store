@@ -1,9 +1,10 @@
-import Link from 'next/link';
 import { AboutPageResponse, InfoItem } from './types';
 import { CardSection, ImgSection, TeamCard } from '../components';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 import { getCardBlocks, getInfo } from './data';
+
 import { IconAtStoreLogo } from '@/components/icons';
+import Link from 'next/link';
 import { MonoAppleBlock } from '@/components';
 import { OpeningHours } from '../find-store/types';
 import { fetchAPI } from '@/lib/fetch-api';
@@ -299,7 +300,7 @@ export default async function AboutPage() {
             {
               title: 'AT Store Workshop Unitic',
               content:
-                'Fra Anđela Zvizdovića 1, Sarajevo\nTel: +387 33 956 188\nat@atstore.ba\nPon – Pet: 09:00 - 17:00',
+                'Fra Anđela Zvizdovića 1, Sarajevo\nTel: +387 33 956 188\nprodaja@atstore.ba\nPon – Pet: 09:00 - 17:00',
             },
             {
               title: 'AT Store B2B',
@@ -309,12 +310,12 @@ export default async function AboutPage() {
             {
               title: 'AT Store Alta',
               content:
-                'Franca Lehara 2, Sarajevo\nTel: +387 33 956 199\nat@atstore.ba\nPon – Sub: 09:00 - 22:00',
+                'Franca Lehara 2, Sarajevo\nTel: +387 33 956 199\nprodaja@atstore.ba\nPon – Sub: 09:00 - 22:00',
             },
             {
               title: 'AT Store SCC',
               content:
-                'Vrbanja 1, Sarajevo\nTel: +387 33 878 880\nat@atstore.ba\nPon – Sub: 10:00 - 22:00',
+                'Vrbanja 1, Sarajevo\nTel: +387 33 878 880\nprodaja@atstore.ba\nPon – Sub: 10:00 - 22:00',
             },
             {
               title: 'AT Store Delta',

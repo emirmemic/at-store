@@ -291,7 +291,7 @@
     "item7": {
       "title": "Kontakt",
       "listItem1": "Za sva dodatna pitanja vezana uz dostavu, kontaktirajte nas na",
-      "link": "at@atstore.ba"
+      "link": "prodaja@atstore.ba"
     }
   },
   "giftCardsPage": {
@@ -469,8 +469,8 @@
     }
   },
   "contact": {
-    "atStoreEmail": "at@atstore.ba",
-    "atStoreEmailLink": "mailto:at@atstore.ba",
+    "atStoreEmail": "prodaja@atstore.ba",
+    "atStoreEmailLink": "mailto:prodaja@atstore.ba",
     "atStoreComplaints": "www.atstore.ba/reklamacije",
     "atStoreComplaintsLink": "https://www.atstore.ba/reklamacije",
     "telephoneNumber": "+387 33 956 188",
@@ -1139,7 +1139,7 @@
     "formNote": "Napomena",
     "placeholder": {
       "name": "Unesite vaše ime i prezime",
-      "email": "at@atstore.ba",
+      "email": "prodaja@atstore.ba",
       "number": "061 123 456",
       "productId": "Unesite šifru artikla",
       "note": "Unesite napomenu"

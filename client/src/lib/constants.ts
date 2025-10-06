@@ -76,7 +76,7 @@ export const AT_STORE_INFO = {
   pdv: '201813620006',
   registry: '065-0-Reg13-002173',
   website: 'www.atstore.ba',
-  email: 'at@atstore.ba',
+  email: 'prodaja@atstore.ba',
   phone: '+387 33 956 188',
   businessEmail: 'prodaja@atstore.ba',
   bankAccounts: [

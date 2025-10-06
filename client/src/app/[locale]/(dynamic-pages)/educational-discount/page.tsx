@@ -317,7 +317,7 @@ export default function Page() {
                 </h3>
                 <a
                   className="text-sm text-blue-600 underline hover:text-blue-800"
-                  href="mailto:at@atstore.ba"
+                  href="mailto:prodaja@atstore.ba"
                 >
                   Kontaktirajte nas
                 </a>

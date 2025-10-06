@@ -1,15 +1,15 @@
 'use client';
-import { useTranslations } from 'next-intl';
+
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useActionState, useContext, useEffect, useState } from 'react';
 
-import { UserContext } from '@/app/providers';
-import { IconLoader } from '@/components/icons';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
+import { IconLoader } from '@/components/icons';
 import { Input } from '@/components/ui/input';
-import { toast } from '@/lib/hooks';
-
+import { UserContext } from '@/app/providers';
 import { handleSubmit } from '../actions';
+import { toast } from '@/lib/hooks';
+import { useTranslations } from 'next-intl';
 
 export default function Form() {
   const t = useTranslations('');
@@ -66,7 +66,7 @@ export default function Form() {
           errorMessage={state?.errors?.email}
           id="email"
           name="email"
-          placeholder={'at@atstore.ba'}
+          placeholder={'prodaja@atstore.ba'}
           type="email"
           value={formValues.email}
           onChange={(e) =>
