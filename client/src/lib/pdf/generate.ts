@@ -10,12 +10,31 @@ export async function generatePreInvoicePdf(
   invoiceNumber: string,
   totalPrice: number
 ) {
+  const timeoutMs = Number(process.env.PDF_GENERATION_TIMEOUT ?? 45000);
   let browser: Browser | null = null;
   let page: Page | null = null;
 
-  // Set a reasonable timeout for the entire PDF generation process
-  const timeoutMs = 30000;
   const stepPrefix = `PuppeteerPDF [Invoice: ${invoiceNumber}]`;
+
+  const withTimeout = async <T>(promise: Promise<T>, label: string) => {
+    return new Promise<T>((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(
+          new Error(`${label} timed out after ${timeoutMs} ms (PuppeteerPDF)`)
+        );
+      }, timeoutMs);
+
+      promise
+        .then((result) => {
+          clearTimeout(timer);
+          resolve(result);
+        })
+        .catch((error) => {
+          clearTimeout(timer);
+          reject(error);
+        });
+    });
+  };
 
   try {
     browser = await puppeteer.launch({
@@ -24,6 +43,8 @@ export async function generatePreInvoicePdf(
     });
 
     page = await browser.newPage();
+    page.setDefaultNavigationTimeout(timeoutMs);
+    page.setDefaultTimeout(timeoutMs);
 
     const html = generateInvoiceHTML({
       organization,
@@ -32,23 +53,22 @@ export async function generatePreInvoicePdf(
       totalPrice,
     });
 
-    // Set a timeout for setContent, in case of hanging resources
-    await Promise.race([
-      await page.setContent(html, { waitUntil: 'load' }),
-      new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('setContent timeout')), timeoutMs)
-      ),
-    ]);
+    // Avoid waiting for external resources that may be blocked in production
+    await withTimeout(
+      page.setContent(html, {
+        waitUntil: 'domcontentloaded',
+        timeout: timeoutMs,
+      }),
+      'page.setContent'
+    );
 
-    const pdfBuffer: Buffer | Uint8Array = await Promise.race([
+    const pdfBuffer = await withTimeout(
       page.pdf({
         format: 'A4',
         printBackground: true,
       }),
-      new Promise<Buffer | Uint8Array>((_, reject) =>
-        setTimeout(() => reject(new Error('pdf() timeout')), timeoutMs)
-      ),
-    ]);
+      'page.pdf'
+    );
 
     return pdfBuffer;
   } catch (err) {
