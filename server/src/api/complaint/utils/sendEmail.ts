@@ -1,5 +1,5 @@
 const strapiUrl = process.env.PUBLIC_URL || 'http://localhost:1337';
-const complaintsEmail = process.env.COMPLAINTS_EMAIL || '';
+const complaintsEmail = process.env.COMPLAINTS_EMAIL || 'prodaja@atstore.ba';
 const defaultFrom = process.env.DEFAULT_FROM || 'no-reply@atstore.ba';
 const complaintsPhone = '+387 33 956 188';
 
@@ -103,11 +103,11 @@ export const sendEmailToAdmin = async (result: Result) => {
 
         <p style="margin-top:1rem;">
         <a href="${strapiUrl}/admin/content-manager/collection-types/api::complaint.complaint/${documentId}" target="_blank">
-        ➡️ Otvori zahtjev u admin konzoli
+        Otvori zahtjev u admin konzoli
         </a>
         </p>
 
-      <p>Hvala!<br/><strong>AT Store sistem</strong></p>
+      <p>Hvala!<br/><strong>AT Store Web - powered by AT Soft</strong></p>
       `.trim(),
       });
   } catch (error) {

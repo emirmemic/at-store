@@ -110,7 +110,7 @@ export const sendEmailToAdmin = async ({
         <p><strong>Da li je korisniku poslan e-mail:</strong> ${userEmailSent ? '✅ Da' : '❌ Ne'}</p>
         <p>
           <a href="${strapiUrl}/admin/content-manager/collection-types/api::organization-pre-invoice.organization-pre-invoice/${invoiceDocumentId}" target="_blank">
-            ➡️ Otvori predračun u admin konzoli
+            Otvori predračun u admin konzoli
           </a>
         </p>
 

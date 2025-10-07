@@ -1214,10 +1214,17 @@
       "postalCode": "Poštanski broj",
       "city": "Grad",
       "country": "Država",
+      "contactInfoSummaryTitle": "Kontakt podaci",
       "note": "Napomena",
       "notePlaceholder": "Dostaviti u periodu od 10:00 do 17:00.",
       "additionalInfo": "Dodatne informacije",
-      "savedAddressesTitle": "Odaberite spremljenu adresu"
+      "savedAddressesTitle": "Odaberite spremljenu adresu",
+      "addAddressTitle": "Dodajte adresu",
+      "addAddressDescription": "Sačuvajte adresu za dostavu kako biste ubrzali plaćanje.",
+      "addAddressCta": "Dodaj adresu",
+      "saveAddressesInfoTitle": "Sačuvaj adrese uz korisnički račun",
+      "saveAddressesInfoDescription": "Kreiranjem korisničkog računa možeš spremiti adrese i brže završiti kupovinu.",
+      "saveAddressesInfoCta": "Kreiraj nalog"
     },
     "giftCheckbox": "Kupujem kao poklon",
     "paymentPage": {

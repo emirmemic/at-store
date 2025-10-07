@@ -68,6 +68,7 @@ const register = async <T extends Record<string, unknown>>(data: T) => {
       ...data,
       username: data.email,
     },
+    isAuth: false,
   });
 
   if (res.error) {
@@ -81,4 +82,6 @@ const register = async <T extends Record<string, unknown>>(data: T) => {
       ? new Error(res.error.message)
       : new Object({ errors: fieldErrors });
   }
+
+  return res.data;
 };

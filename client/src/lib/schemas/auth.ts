@@ -30,6 +30,39 @@ const createCompanyInfoSchema = (t: LocalizationKey) =>
       .length(13, t('companyIdNumberLength', { length: 13 })),
   });
 
+const createRegisterAddressSchema = (t: LocalizationKey) =>
+  z.object({
+    addressLabel: z
+      .string()
+      .trim()
+      .max(50, t('addressLabelMaxLength', { maxLength: '50' }))
+      .optional()
+      .or(z.literal('')),
+    address: z
+      .string()
+      .trim()
+      .min(1, t('addressRequired'))
+      .max(255, t('addressMaxLength', { maxLength: '255' })),
+    city: z
+      .string()
+      .trim()
+      .max(100, t('cityMaxLength', { maxLength: '100' }))
+      .optional()
+      .or(z.literal('')),
+    postalCode: z
+      .string()
+      .trim()
+      .max(20, t('postalCodeMaxLength', { maxLength: '20' }))
+      .optional()
+      .or(z.literal('')),
+    country: z
+      .string()
+      .trim()
+      .max(100, t('countryMaxLength', { maxLength: '100' }))
+      .optional()
+      .or(z.literal('')),
+  });
+
 // Main schemas using composition
 const createLoginSchema = (t: LocalizationKey) =>
   z.object({
@@ -57,6 +90,7 @@ const createRegisterSchema = (t: LocalizationKey) =>
   createLoginSchema(t)
     .merge(createPersonalInfoSchema(t))
     .merge(createContactInfoSchema(t))
+    .merge(createRegisterAddressSchema(t))
     .extend({
       confirmPassword: z.string().min(1, t('confirmPasswordRequired')),
     })
@@ -69,6 +103,7 @@ const createRegisterOrgSchema = (t: LocalizationKey) =>
   createLoginSchema(t)
     .merge(createCompanyInfoSchema(t))
     .merge(createContactInfoSchema(t))
+    .merge(createRegisterAddressSchema(t))
     .extend({
       nameAndSurname: nameAndSurnameSchema(t),
       role: z.enum(['organization']),

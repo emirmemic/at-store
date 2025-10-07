@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_applications",
+  "info": {
+    "singularName": "job-application",
+    "pluralName": "job-applications",
+    "displayName": "Job Application",
+    "description": "Job applications submitted from the careers pages"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 30
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "jobTitle": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "jobDepartment": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "jobLocation": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "applyPage": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "cv": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files"]
+    }
+  }
+}

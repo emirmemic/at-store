@@ -7,8 +7,9 @@ import {
 } from '../../../types/schemas/auth';
 
 import { ZodError } from 'zod';
-import { generateClientSecret } from './utils';
+import { errors } from '@strapi/utils';
 import jwt from 'jsonwebtoken';
+import { generateClientSecret } from './utils';
 
 const FRONTEND_REDIRECT_URI = `${process.env.FRONTEND_URL}/connect/apple/redirect`;
 const APPLE_REDIRECT_URI =
@@ -34,6 +35,16 @@ export default (plugin) => {
 
   const rawAuth = plugin.controllers.auth({ strapi });
   const rawUser = plugin.controllers.user;
+
+  const sanitizeUser = async (user, ctx) => {
+    const userSchema = strapi.getModel('plugin::users-permissions.user');
+    const authState = ctx.state?.auth;
+    return strapi.contentAPI.sanitize.output(user, userSchema, {
+      auth: authState,
+    });
+  };
+
+  const { ApplicationError, ValidationError } = errors;
 
   const extendedAuth = ({ strapi }) => ({
     ...rawAuth,
@@ -206,11 +217,11 @@ export default (plugin) => {
           return ctx.badRequest('Tijelo zahtjeva je obavezno');
         }
 
-        // Determine user type and validate accordingly
         const isOrganization = body.role === 'organization';
 
+        let validatedPayload;
         try {
-          isOrganization
+          validatedPayload = isOrganization
             ? organizationUserSchema.parse(body)
             : authenticatedUserSchema.parse(body);
         } catch (validationError) {
@@ -219,46 +230,156 @@ export default (plugin) => {
           });
         }
 
-        // Call the original register function
-        const response = await rawAuth.register(ctx);
+        const {
+          confirmPassword,
+          addressLabel,
+          city,
+          postalCode,
+          country,
+          ...userData
+        } = validatedPayload;
 
-        if (response?.user?.id && typeof body.address === 'string') {
+        const pluginStore = await strapi.store({
+          type: 'plugin',
+          name: 'users-permissions',
+        });
+        const advancedSettings = await pluginStore.get({ key: 'advanced' });
+
+        if (!advancedSettings.allow_register) {
+          throw new ApplicationError('Register action is currently disabled');
+        }
+
+        const defaultRole = await strapi.db
+          .query('plugin::users-permissions.role')
+          .findOne({ where: { type: advancedSettings.default_role } });
+
+        if (!defaultRole) {
+          throw new ApplicationError('Impossible to find the default role');
+        }
+
+        const organizationRole = isOrganization
+          ? await strapi.db
+              .query('plugin::users-permissions.role')
+              .findOne({ where: { type: 'organization' } })
+          : null;
+
+        const roleId = organizationRole?.id ?? defaultRole.id;
+
+        const email = userData.email.trim().toLowerCase();
+        const username = email;
+
+        const existingUser = await strapi.db
+          .query('plugin::users-permissions.user')
+          .findOne({
+            where: {
+              $or: [{ email }, { username }],
+            },
+          });
+
+        if (existingUser) {
+          throw new ApplicationError('Email or Username are already taken');
+        }
+
+        const userPayload = {
+          email,
+          username,
+          password: userData.password,
+          name: userData.name,
+          surname: userData.surname,
+          phoneNumber: userData.phoneNumber,
+          address: userData.address.trim(),
+          provider: 'local',
+          role: roleId,
+          confirmed: !advancedSettings.email_confirmation,
+          blocked: false,
+          ...(isOrganization && {
+            companyName: userData.companyName,
+            companyIdNumber: userData.companyIdNumber,
+          }),
+        };
+
+        const userService = strapi.plugin('users-permissions').service('user');
+        let createdUser;
+
+        try {
+          createdUser = await userService.add(userPayload);
+        } catch (error) {
+          strapi.log.error('Failed to create user during registration', error);
+          throw new ApplicationError('Greška pri kreiranju korisnika');
+        }
+
+        const labelValue = addressLabel?.trim() || 'Primarna adresa';
+        const addressValue = userData.address.trim();
+        const cityValue = city?.trim() || '';
+        const postalCodeValue = postalCode?.trim() || '';
+        const countryValue = country?.trim() || '';
+
+        try {
+          await strapi.documents('api::user-address.user-address').create({
+            data: {
+              label: labelValue,
+              address: addressValue,
+              city: cityValue,
+              postalCode: postalCodeValue,
+              country: countryValue,
+              isDefault: true,
+              user: createdUser.id,
+            },
+          });
+
+          await strapi.db.query('plugin::users-permissions.user').update({
+            where: { id: createdUser.id },
+            data: { address: addressValue },
+          });
+        } catch (error) {
+          strapi.log.error('Failed to create default address for user', error);
+          await strapi.db
+            .query('plugin::users-permissions.user')
+            .delete({ where: { id: createdUser.id } });
+          throw new ApplicationError('Greška pri kreiranju adrese korisnika');
+        }
+
+        const populatedUser = await strapi.db
+          .query('plugin::users-permissions.user')
+          .findOne({
+            where: { id: createdUser.id },
+            populate: ['addresses'],
+          });
+
+        const sanitizedUser = await sanitizeUser(populatedUser, ctx);
+
+        if (advancedSettings.email_confirmation) {
           try {
-            await strapi.documents('api::user-address.user-address').create({
-              data: {
-                label: body.addressLabel?.trim() || 'Primarna adresa',
-                address: body.address.trim(),
-                city: body.city?.trim() || '',
-                postalCode: body.postalCode?.trim() || '',
-                country: body.country?.trim() || '',
-                isDefault: true,
-                user: response.user.id,
-              },
-            });
+            await userService.sendConfirmationEmail(sanitizedUser);
           } catch (error) {
-            strapi.log.error(
-              'Failed to create default address for user',
-              error
-            );
+            strapi.log.error('Failed to send confirmation email', error);
+            throw error;
           }
-        }
-        if (isOrganization) {
-          const organizationRole = await strapi.db
-            .query('plugin::users-permissions.role')
-            .findOne({ where: { type: 'organization' } });
-          const { email } = ctx.request.body;
 
-          if (organizationRole) {
-            // Update the user's role to the organization role
-            await strapi.db.query('plugin::users-permissions.user').update({
-              where: { email },
-              data: { role: organizationRole.id },
-            });
-          }
+          return ctx.send({ user: sanitizedUser });
         }
 
-        return response;
+        const jwtService = strapi.plugin('users-permissions').service('jwt');
+        const jwtToken = jwtService.issue({ id: createdUser.id });
+
+        return ctx.send({
+          jwt: jwtToken,
+          user: sanitizedUser,
+        });
       } catch (error) {
+        if (error instanceof ZodError) {
+          return ctx.badRequest('Greška pri validaciji', {
+            errors: error.errors,
+          });
+        }
+
+        if (
+          error instanceof ApplicationError ||
+          error instanceof ValidationError
+        ) {
+          return ctx.badRequest(error.message);
+        }
+
         ctx.throw(400, error);
       }
     },

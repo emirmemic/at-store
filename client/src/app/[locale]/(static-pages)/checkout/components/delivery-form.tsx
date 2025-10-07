@@ -1,28 +1,58 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+
+import { AddressFormData, createAddressSchema } from '@/lib/schemas/address';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { useActionState, useEffect, useMemo, useState } from 'react';
 
-import { useUserProvider } from '@/app/providers/user-provider';
+import { AddressForm } from '@/app/[locale]/(auth)/account/(pages)/addresses/components/address-form';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { DeliveryForm } from '@/lib/schemas/checkout';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { Plus } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { ZodError } from 'zod';
 import { cn } from '@/lib/utils/utils';
-
-import { inputFields } from '../data';
-import { useCheckoutProvider } from '../providers/checkout-provider';
+import { createUserAddress } from '@/lib/services';
 import { handleSubmit } from '../utils';
+import { inputFields } from '../data';
+import { toast } from '@/lib/hooks';
+import { useCheckoutProvider } from '../providers/checkout-provider';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useUserProvider } from '@/app/providers/user-provider';
 
 export default function Form() {
   const t = useTranslations();
   const router = useRouter();
   const validation = useTranslations('validation');
+  const accountAddressesT = useTranslations('accountPage.addresses');
+  const common = useTranslations('common');
   const { setDeliveryForm, deliveryForm, deliveryMethod, selectedStore } =
     useCheckoutProvider();
-  const { user } = useUserProvider();
+  const { user, setAddresses } = useUserProvider();
   const accountDetails = user?.accountDetails;
+  const isLoggedIn = Boolean(user?.id);
+  const summaryFieldNames: Array<keyof DeliveryForm> = [
+    'name',
+    'surname',
+    'email',
+    'phoneNumber',
+  ];
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [addressFormErrors, setAddressFormErrors] = useState<
+    Partial<Record<keyof AddressFormData, string>>
+  >({});
+  const [addressFormApiError, setAddressFormApiError] = useState<string | null>(
+    null
+  );
+  const [isCreatingAddress, setIsCreatingAddress] = useState(false);
   const [formState, action, isPending] = useActionState(
     (_: unknown, __: FormData) => handleSubmit(_, __, validation),
     (deliveryForm && {
@@ -43,6 +73,8 @@ export default function Form() {
   );
   const addresses = user?.addresses ?? [];
   const hasAddresses = addresses.length > 0;
+  const shouldEnableAddressScroll =
+    addresses.length + (isLoggedIn ? 1 : 0) >= 1;
   const resolvedSelectedAddressId = useMemo(() => {
     if (!hasAddresses) return null;
 
@@ -151,6 +183,83 @@ export default function Form() {
     setSelectedAddressId(addressId);
   };
 
+  const resetAddressModalState = () => {
+    setAddressFormErrors({});
+    setAddressFormApiError(null);
+    setIsCreatingAddress(false);
+  };
+
+  const handleAddressModalChange = (open: boolean) => {
+    setIsAddressModalOpen(open);
+    if (!open) {
+      resetAddressModalState();
+    }
+  };
+
+  const handleOpenAddressModal = () => {
+    resetAddressModalState();
+    setIsAddressModalOpen(true);
+  };
+
+  const handleCreateAddressSubmit = async (formData: FormData) => {
+    setIsCreatingAddress(true);
+    setAddressFormErrors({});
+    setAddressFormApiError(null);
+
+    const existingIds = new Set(addresses.map((address) => address.documentId));
+
+    try {
+      const schema = createAddressSchema(validation);
+      const dataObject = Object.fromEntries(formData.entries());
+      const parsed = schema.parse(dataObject) as AddressFormData;
+
+      const payload: AddressFormData = {
+        ...parsed,
+        city: parsed.city?.trim() || '',
+        postalCode: parsed.postalCode?.trim() || '',
+        country: parsed.country?.trim() || '',
+        isDefault: Boolean(parsed.isDefault),
+      };
+
+      const updatedAddresses = await createUserAddress(payload);
+      setAddresses(updatedAddresses);
+
+      const newlyCreatedAddress =
+        updatedAddresses.find((item) => !existingIds.has(item.documentId)) ??
+        (payload.isDefault
+          ? updatedAddresses.find((item) => item.isDefault)
+          : null);
+
+      if (newlyCreatedAddress) {
+        setSelectedAddressId(newlyCreatedAddress.documentId);
+      }
+
+      toast({ title: accountAddressesT('createSuccess'), variant: 'success' });
+      handleAddressModalChange(false);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const fieldErrors = Object.fromEntries(
+          error.errors.map(({ path, message }) => [path[0], message])
+        ) as Partial<Record<keyof AddressFormData, string>>;
+        setAddressFormErrors(fieldErrors);
+      } else if (
+        error &&
+        typeof error === 'object' &&
+        'errors' in (error as { errors?: Record<string, string> })
+      ) {
+        setAddressFormErrors(
+          (error as { errors?: Record<string, string> }).errors ?? {}
+        );
+      } else if (error instanceof Error) {
+        setAddressFormApiError(error.message);
+      } else {
+        setAddressFormApiError(common('somethingWentWrong'));
+      }
+    } finally {
+      setIsCreatingAddress(false);
+    }
+  };
+
   return (
     <form noValidate action={action} className="flex flex-wrap gap-4">
       <input type="hidden" name="deliveryMethod" value={deliveryMethod} />
@@ -164,7 +273,12 @@ export default function Form() {
           <p className="mb-3 text-sm font-semibold text-gray-900">
             {t('checkoutPage.deliveryForm.savedAddressesTitle')}
           </p>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div
+            className={cn(
+              'grid gap-3 md:grid-cols-2',
+              shouldEnableAddressScroll && 'max-h-80 overflow-x-auto pr-1'
+            )}
+          >
             {addresses.map((address) => {
               const isSelected = selectedAddressId === address.documentId;
               return (
@@ -204,16 +318,125 @@ export default function Form() {
                 </button>
               );
             })}
+            {isLoggedIn && (
+              <button
+                type="button"
+                onClick={handleOpenAddressModal}
+                className="flex h-full min-h-[168px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-gray-300 bg-white px-5 py-4 text-center text-gray-900 shadow-sm transition-colors duration-200 hover:border-gray-400 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+                aria-label={t('checkoutPage.deliveryForm.addAddressCta')}
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-900">
+                  <Plus className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-semibold">
+                  {t('checkoutPage.deliveryForm.addAddressCta')}
+                </span>
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+      {!hasAddresses &&
+        deliveryMethod !== 'pickup' &&
+        (isLoggedIn ? (
+          <button
+            type="button"
+            onClick={handleOpenAddressModal}
+            className="group flex w-full flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-gray-300 bg-white p-6 text-center shadow-sm transition-colors duration-200 hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2"
+            aria-label={t('checkoutPage.deliveryForm.addAddressCta')}
+          >
+            <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-900 transition-colors duration-200 group-hover:border-gray-900">
+              <Plus className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <span className="text-base font-semibold text-gray-900">
+              {t('checkoutPage.deliveryForm.addAddressTitle')}
+            </span>
+            <span className="max-w-[240px] text-sm text-gray-600">
+              {t('checkoutPage.deliveryForm.addAddressDescription')}
+            </span>
+            <span className="inline-flex items-center justify-center rounded-full bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition-colors duration-200 group-hover:bg-black">
+              {t('checkoutPage.deliveryForm.addAddressCta')}
+            </span>
+          </button>
+        ) : (
+          <div className="flex w-full flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-gray-200 bg-white p-6 text-center shadow-sm">
+            <span className="text-base font-semibold text-gray-900">
+              {t('checkoutPage.deliveryForm.saveAddressesInfoTitle')}
+            </span>
+            <span className="max-w-[280px] text-sm text-gray-600">
+              {t('checkoutPage.deliveryForm.saveAddressesInfoDescription')}
+            </span>
+            <Link
+              href={PAGE_NAMES.REGISTER}
+              className="inline-flex items-center justify-center rounded-full bg-gray-900 px-5 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-black"
+            >
+              {t('checkoutPage.deliveryForm.saveAddressesInfoCta')}
+            </Link>
+          </div>
+        ))}
+      {isLoggedIn && (
+        <div className="w-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+          <div className="border-b border-gray-100 px-6 py-5">
+            <h3 className="text-xl font-semibold tracking-tight text-gray-900">
+              {t('checkoutPage.deliveryForm.contactInfoSummaryTitle')}
+            </h3>
+          </div>
+
+          <div className="p-6">
+            <div className="grid gap-6 sm:grid-cols-2">
+              {summaryFieldNames.map((fieldName) => (
+                <div key={fieldName} className="space-y-1.5">
+                  <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
+                    {t(`checkoutPage.deliveryForm.${fieldName}`)}
+                  </p>
+                  <p className="text-base font-normal text-gray-900">
+                    {formValues[fieldName] || '—'}
+                  </p>
+                  <input
+                    type="hidden"
+                    name={fieldName}
+                    value={formValues[fieldName] ?? ''}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
       {inputFields.map((field) => {
+        if (
+          isLoggedIn &&
+          summaryFieldNames.includes(field.name as keyof DeliveryForm)
+        ) {
+          return null;
+        }
         const isPickup = deliveryMethod === 'pickup';
         const isHidden =
           isPickup &&
           ['address', 'city', 'postalCode', 'country'].includes(field.name);
 
         if (isHidden) return null;
+
+        const shouldHideForLoggedInUser =
+          isLoggedIn &&
+          ['address', 'city', 'postalCode', 'country'].includes(field.name) &&
+          Boolean(
+            (formValues[field.name as keyof DeliveryForm] ?? '')
+              .toString()
+              .trim()
+          );
+
+        if (shouldHideForLoggedInUser) {
+          return (
+            <input
+              key={field.id}
+              type="hidden"
+              id={field.id}
+              name={field.name}
+              value={formValues[field.name as keyof DeliveryForm] ?? ''}
+            />
+          );
+        }
 
         return (
           <div
@@ -302,6 +525,25 @@ export default function Form() {
       >
         {t('common.continue')}
       </Button>
+      <Dialog open={isAddressModalOpen} onOpenChange={handleAddressModalChange}>
+        <DialogContent className="w-full max-w-xl rounded-3xl bg-white p-6">
+          <DialogTitle className="text-black heading-4">
+            {accountAddressesT('createTitle')}
+          </DialogTitle>
+          <DialogDescription className="sr-only">
+            {accountAddressesT('dialogDescription')}
+          </DialogDescription>
+          <AddressForm
+            key={isAddressModalOpen ? 'open' : 'closed'}
+            mode="create"
+            errors={addressFormErrors}
+            apiError={addressFormApiError}
+            isSubmitting={isCreatingAddress}
+            initialValues={{ isDefault: addresses.length === 0 }}
+            onSubmit={handleCreateAddressSubmit}
+          />
+        </DialogContent>
+      </Dialog>
     </form>
   );
 }
