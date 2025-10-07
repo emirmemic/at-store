@@ -90,6 +90,7 @@ const organizationUserSchema = z
     role: z.enum(['organization']),
   })
   .merge(companyInfoSchema)
+  .merge(personalInfoSchema)
   .merge(contactInfoSchema)
   .merge(registerAddressSchema);
 
