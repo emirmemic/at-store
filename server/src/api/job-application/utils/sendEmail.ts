@@ -1,10 +1,10 @@
+import { CONTACT_PHONE } from '../../../utils/constants';
 import { contactInfoBlock } from '../../../utils/contact-email-template';
-import { CONTACT_EMAIL, CONTACT_PHONE } from '../../../utils/constants';
 
 const strapiUrl = process.env.PUBLIC_URL || 'http://localhost:1337';
 const careersEmail = process.env.CAREERS_EMAIL || 'posao@atstore.ba';
 const defaultFrom = process.env.DEFAULT_FROM || 'no-reply@atstore.ba';
-const companyWebsite = 'https://www.atstore.ba';
+const companyWebsite = 'https://atstore.ba';
 
 interface MediaFile {
   url: string;
@@ -110,10 +110,10 @@ ${adminEntryUrl}
           </p>
 
           <p style="margin-top: 1rem;">
-            <a href="${adminEntryUrl}" target="_blank" rel="noopener noreferrer">➡️ Otvorite prijavu u Strapi administraciji</a>
+            <a href="${adminEntryUrl}" target="_blank" rel="noopener noreferrer">Otvorite prijavu u Strapi administraciji</a>
           </p>
 
-          <p style="margin-top: 1.5rem;">Lijep pozdrav,<br/><strong>AT Store sistem</strong></p>
+          <p style="margin-top: 1.5rem;">Lijep pozdrav,<br/><strong>AT Store Web - powered by AT Soft</strong></p>
         `.trim(),
       });
   } catch (error) {
@@ -142,7 +142,7 @@ export const sendEmailToApplicant = async (application: JobApplication) => {
       .send({
         to: email,
         from: defaultFrom,
-        subject: 'Vaša prijava je zaprimljena – AT Store',
+        subject: 'Prijava za posao je zaprimljena – AT Store',
         text: `
 Poštovani/a ${fullName},
 
@@ -150,10 +150,10 @@ Hvala vam na prijavi za poziciju ${jobTitle} u AT Store.
 
 Vaša prijava je uspješno zaprimljena. Naš tim će pregledati dostavljene informacije i kontaktirati vas ukoliko vaš profil odgovara poziciji.
 
- Ukoliko imate dodatna pitanja, pišite nam na ${CONTACT_EMAIL} ili nas pozovite na ${CONTACT_PHONE}.
+ Ukoliko imate dodatna pitanja, pišite nam na posao@atstore.ba ili nas pozovite na ${CONTACT_PHONE}.
 
 Srdačan pozdrav,
-AT Store Tim
+AT Store
 Mono Apple Authorised Reseller
 ${companyWebsite}
         `.trim(),

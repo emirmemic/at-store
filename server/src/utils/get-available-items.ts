@@ -80,6 +80,5 @@ export const getItemsBySubCategoryLink = async (
  */
 export const publishedAndInStockFilter: object = {
   publishedAt: { $notNull: true },
-  //TODO: Check later
   // amountInStock: { $gt: 0 },
 };

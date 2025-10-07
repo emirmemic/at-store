@@ -92,7 +92,7 @@ export const sendEmailToAdmin = async (
 
           <p style="margin-top:1rem;">
             <a href="${strapiUrl}/admin/content-manager/collection-types/api::mikrofin-pre-invoice.mikrofin-pre-invoice/${documentId}" target="_blank">
-              ➡️ Otvori zahtjev u admin konzoli
+              Otvori zahtjev u admin konzoli
             </a>
           </p>
 

@@ -72,11 +72,11 @@ export const sendEmailToAdmin = async (result: Result) => {
 
         <p style="margin-top:1rem;">
         <a href="${strapiUrl}/admin/content-manager/collection-types/api::educational-discount.educational-discount/${documentId}" target="_blank">
-        ➡️ Otvori zahtjev u admin konzoli
+        Otvori zahtjev u admin konzoli
         </a>
         </p>
 
-        <p>Hvala!<br/><strong>AT Store sistem</strong></p>
+        <p>Hvala!<br/><strong>AT Store Web - powered by AT Soft</strong></p>
         `.trim(),
       });
   } catch (error) {
