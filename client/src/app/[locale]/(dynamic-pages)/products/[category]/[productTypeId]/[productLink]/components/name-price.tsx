@@ -39,16 +39,10 @@ export default function NamePrice({
   const pathNamesIphone = [
     '/proizvodi/iphone/IPH17PR/iphone-17-pro',
     '/proizvodi/iphone/IPH17PM/iphone-17-pro-max',
-    '/proizvodi/iphone/IPHAIR/iphone-air',
-    '/proizvodi/iphone/IPH17/iphone-17',
   ];
 
   const isIphone = pathNamesIphone.some((path) =>
     location.pathname.toLowerCase().includes(path.toLowerCase())
-  );
-
-  const isAirpodsPro3 = location.pathname.includes(
-    '/proizvodi/airpods/APP3/airpods-pro-3'
   );
 
   const [copied, setCopied] = useState(false);
@@ -125,15 +119,6 @@ export default function NamePrice({
             </span>
           )}
         </div>
-        {!shouldDisplayPreOrder && isAirpodsPro3 && (
-          <div className="mt-4">
-            <span className="text-[#3577E5]">
-              Zbog ograničenih količina savjetujemo da svoju kupovinu osigurate
-              na vrijeme. Očekivani rok isporuke je 7 do 15 dana, uz mogućnost
-              izmjene roka isporuke.
-            </span>
-          </div>
-        )}
         {!shouldDisplayPreOrder && isIphone && (
           <div className="mt-4 flex flex-col gap-1">
             <span className="text-[#3577E5]">
