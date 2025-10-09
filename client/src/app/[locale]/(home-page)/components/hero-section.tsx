@@ -118,7 +118,7 @@ export default function HeroSection({
         setApi={setApi}
         onSlideChange={handleSlideChange}
       >
-        <CarouselContent className="m-0 h-[250px] w-full md:h-[600px]">
+        <CarouselContent className="m-0 h-[250px] w-full md:h-[800px]">
           {sliderItems.map((slide) => (
             <CarouselItem key={slide.id} className="h-full w-full p-0">
               <SliderItem {...slide} />
