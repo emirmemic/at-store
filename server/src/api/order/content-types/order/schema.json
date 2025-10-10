@@ -48,8 +48,7 @@
       "type": "string"
     },
     "address": {
-      "type": "json",
-      "private": true
+      "type": "json"
     },
     "products": {
       "type": "relation",
