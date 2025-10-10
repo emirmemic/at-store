@@ -1,7 +1,10 @@
 export default () => {
   return async (ctx, next) => {
     const { user } = ctx.state;
-    const isApiToken = ctx.state.auth?.strategy === 'api-token';
+
+    const token = process.env.APITOKEN;
+
+    const isApiToken = ctx.request.header.authorization.includes(token);
 
     if (!user && !isApiToken) {
       return ctx.unauthorized('You are not authorized to access this resource');
