@@ -317,7 +317,7 @@ function renderOrderDetails(order: OrderPopulated) {
 
   const itemsHtml = order.items
     .map(
-      (item) => `<tr style="border-bottom: 1px solid #e5e5e5;">
+      (item: any) => `<tr style="border-bottom: 1px solid #e5e5e5;">
 <td style="padding: 20px 0;">
 <table style="width: 100%; border-collapse: collapse;">
 <tr>
@@ -338,7 +338,7 @@ style="display: block; width: 60px; max-width: 60px; height: auto; border-radius
 <p style="margin: 5px 0 0 0; font-size: 14px; color: #515154;">Količina: ${item.quantity}</p>
 </td>
 <td style="vertical-align: top; text-align: right; font-size: 16px; color: #1d1d1f; font-weight: 500;">
-${formatPriceWithCurrency(item.product.originalPrice * item.quantity)}
+${formatPriceWithCurrency((item.product.discountedPrice ? item.product.discountedPrice : item.product.originalPrice) * item.quantity)}
 </td>
 </tr>
 </table>
