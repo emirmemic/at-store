@@ -5,3 +5,5 @@ dokku_private_key
 private_keys
 
 .DS_Store
+
+.copilot-instructions.md

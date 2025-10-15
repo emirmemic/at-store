@@ -71,6 +71,44 @@ export async function notifyAdminAboutOrderCreation(order) {
     });
 }
 
+export async function notifyCustomerAboutOrderCompletion(
+  order: OrderPopulated
+) {
+  if (!order?.address?.email) {
+    return;
+  }
+
+  await strapi
+    .plugin('email')
+    .service('email')
+    .send({
+      to: order.address.email,
+      from: defaultFrom,
+      subject: `Narudžba #${order.orderNumber} je kompletirana`,
+      text: orderCompletionText(order),
+      html: renderOrderCompletionEmail(order),
+    });
+}
+
+export async function notifyCustomerAboutOrderCancellation(
+  order: OrderPopulated
+) {
+  if (!order?.address?.email) {
+    return;
+  }
+
+  await strapi
+    .plugin('email')
+    .service('email')
+    .send({
+      to: order.address.email,
+      from: defaultFrom,
+      subject: `Narudžba #${order.orderNumber} je otkazana`,
+      text: orderCancellationText(order),
+      html: renderOrderCancellationEmail(order),
+    });
+}
+
 /* Failure Scenario */
 export async function notifyCustomerAboutOrderFailure(order) {
   await strapi
@@ -120,7 +158,6 @@ ${renderDeliveryAddress(order)}
 ${renderBillingAndPaymentSection(order)}
 <div style="margin-top: 40px; border-top: 1px solid #e5e5e5; padding-top: 20px; color:#888; font-size:12px;">
 ${contactInfoBlock()}
-<p style="margin-top: 16px;">Hvala što kupujete kod nas!</p>
 </div>
 </div>`);
 }
@@ -132,10 +169,68 @@ const userOrderSuccessText = (order) => {
 Vaša narudžba #${order.orderNumber} je uspješno zaprimljena!
 ${noteText ? `\n${noteText}` : ''}
 
+${contactInfoText()}`;
+};
+
+const orderCompletionText = (order: OrderPopulated) => {
+  return `Poštovani ${order.address.name},
+
+Vaša narudžba #${order.orderNumber} je završena.
+
+${contactInfoText()}
+`;
+};
+
+function renderOrderCompletionEmail(order: OrderPopulated) {
+  return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
+${renderLogo()}
+<h1 style="font-size: 28px; font-weight: 600; color: #1d1d1f; margin: 0 0 16px 0;">Vaša narudžba je kompletirana</h1>
+<p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">
+  ${
+    order.deliveryMethod === 'delivery'
+      ? 'Poštovani, <br/> <br/> Hvala što se odabrali AT Store. <br/> Vaša kupovina je procesuirana i predana dostavi. <br/> Isporuka se očekuje u roku od 2–3 radna dana. <br/> <br/>Ako imate pitanja, odgovorite na ovaj e-mail ili kontaktirajte podršku na 033 872 000. <br/> <br/> Ako želite otkazati kupovinu, to možete učiniti u roku od 15 minuta slanjem e-pošte na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store'
+      : `Poštovani, <br/> <br/> Hvala Vam što ste odabrali AT Store. <br/> Vaša kupovina je proicesuirana i spremna za preuzimanje u ${order.selectedStore}. Molimo pokažite broj narudžbe ili potvrdu prilikom preuzimanja. <br /> <br/> Ako imate pitanja, nazovite podršku na 033 872 000 ili kontaktirajte nas na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store`
+  }
+</p>
+${renderOrderDetails(order)}
+${renderDeliveryAddress(order)}
+<div style="margin-top: 40px; border-top: 1px solid #e5e5e5; padding-top: 20px; color:#888; font-size:12px;">
+${contactInfoBlock()}
+</div>
+</div>`);
+}
+
+const orderCancellationText = (order: OrderPopulated) => {
+  return `Poštovani ${order.address.name},
+
+Vaša narudžba #${order.orderNumber} je otkazana.
+
 ${contactInfoText()}
 
-Hvala što kupujete kod nas!`;
+Ako imate dodatna pitanja, slobodno nas kontaktirajte.`;
 };
+
+function renderOrderCancellationEmail(order: OrderPopulated) {
+  return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
+${renderLogo()}
+<h1 style="font-size: 28px; font-weight: 600; color: #d32f2f; margin: 0 0 16px 0;">Vaša narudžba je otkazana</h1>
+<p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">
+Poštovani, <br/>
+Vaša narudžba je otkazana. <br/> <br/>
+Ako je uplata već izvršena, povrat ćemo pokrenuti na izvorni način plaćanja.<br/>
+Očekivano knjiženje: 5–7 radnih dana od potvrde povrata (za kartična plaćanja vremenski rok može biti 5–15 radnih dana ovisno o banci). <br/>
+<br/>
+<br/>Želite ponovno naručiti? Posjetite <a href="https://atstore.ba">AT Store</a>.
+<br/>Ako imate pitanja, pišite na orders@atstore.ba ili nazovite 033 872 000. <br/>
+<br/>Srdačan pozdrav,<br/>
+AT Store
+</p>
+${renderOrderDetails(order)}
+${contactInfoBlock()}
+<p style="margin-top: 16px;">Ako imate dodatnih pitanja, javite nam se.</p>
+</div>
+</div>`);
+}
 
 function renderAdminOrderSuccessEmail(order) {
   return renderWrapper(`<div style="padding: 32px;">
@@ -254,6 +349,13 @@ const formatPrice = (price: number) => {
 };
 
 function renderBillingAndPaymentSection(order: OrderPopulated) {
+  const totalPrice = order.items.reduce((acc, item: any) => {
+    const price = item.product.discountedPrice
+      ? item.product.discountedPrice * item.quantity
+      : item.product.originalPrice * item.quantity;
+    return acc + price;
+  }, 0);
+
   const addr = order.address;
   const priceWithoutDelivery = order.totalPrice - (order.deliveryPrice || 0);
   const formatPriceWithCurrency = (price: number) =>
@@ -267,8 +369,16 @@ function renderBillingAndPaymentSection(order: OrderPopulated) {
 <tbody>
 <tr>
 <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f;">Cijena artikala</td>
-<td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${formatPriceWithCurrency(priceWithoutDelivery)}</td>
+<td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${formatPriceWithCurrency(totalPrice)}</td>
 </tr>
+${
+  totalPrice != priceWithoutDelivery
+    ? `<tr>
+<td style="padding: 8px 0; font-size: 15px; color: #1d1d1f;">Naknada za plaćanje na rate</td>
+<td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${formatPriceWithCurrency(priceWithoutDelivery - totalPrice)}</td>
+</tr>`
+    : ``
+}
 <tr>
 <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f;">Dostava</td>
 <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: right;">${order.deliveryPrice > 0 ? formatPriceWithCurrency(order.deliveryPrice) : 'Besplatna'}</td>
@@ -347,7 +457,7 @@ ${formatPriceWithCurrency((item.product.discountedPrice ? item.product.discounte
     )
     .join('');
 
-  return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Artikli za slanje</h2>
+  return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">${order.deliveryMethod === 'delivery' ? 'Artikli za slanje' : 'Artikli'}</h2>
 <table style="width: 100%; border-collapse: collapse;">
 <tbody>
 ${itemsHtml}
@@ -360,7 +470,7 @@ function renderDeliveryAddress(order: OrderPopulated) {
   const noteHtml = addr.note
     ? `<br><br><strong>Napomena:</strong> ${addr.note}`
     : '';
-  return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">Adresa za dostavu</h2>
+  return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">${order.deliveryMethod === 'delivery' ? 'Adresa za dostavu' : 'Detalji narudžbe'}</h2>
 <hr style="border: none; border-top: 1px solid #e5e5e5; margin-bottom: 20px;" />
 <p style="font-size: 16px; color: #515154; line-height: 1.5; margin: 0;">
 ${addr.name || ''} ${addr.surname || ''}<br>

@@ -12,12 +12,7 @@ export default function TradeInBanner({ className }: TradeInBannerProps) {
   const t = useTranslations('homepage.tradeInBanner');
 
   return (
-    <section
-      className={cn(
-        'w-full bg-[#3577E5] text-slate-900 shadow-[0_12px_36px_rgba(255,138,70,0.28)]',
-        className
-      )}
-    >
+    <section className={cn('w-full bg-[#3577E5] text-slate-900', className)}>
       <div className="px-3 py-2.5 container-max-width-xl md:px-6 md:py-3">
         <div className="flex flex-row items-center justify-center gap-3 text-center text-xs md:flex-row md:text-sm">
           <div className="flex items-center gap-3">
