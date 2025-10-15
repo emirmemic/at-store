@@ -215,7 +215,7 @@ function renderOrderCancellationEmail(order: OrderPopulated) {
 ${renderLogo()}
 <h1 style="font-size: 28px; font-weight: 600; color: #d32f2f; margin: 0 0 16px 0;">Vaša narudžba je otkazana</h1>
 <p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">
-Poštovani, <br/>
+Poštovani, <br/> <br/>
 Vaša narudžba je otkazana. <br/> <br/>
 Ako je uplata već izvršena, povrat ćemo pokrenuti na izvorni način plaćanja.<br/>
 Očekivano knjiženje: 5–7 radnih dana od potvrde povrata (za kartična plaćanja vremenski rok može biti 5–15 radnih dana ovisno o banci). <br/>
