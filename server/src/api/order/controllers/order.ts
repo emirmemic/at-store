@@ -5,6 +5,7 @@ import {
   notifyCustomerAboutOrderFailure,
 } from '../utils';
 
+import { ORDER_POPULATE_CONFIG } from '../constants';
 import { Order } from '../types';
 import { ProductStockResponse } from '../../product/types';
 import { factories } from '@strapi/strapi';
@@ -46,19 +47,7 @@ export default factories.createCoreController(
           .documents('api::order.order')
           .findOne({
             documentId: newOrder.documentId,
-            populate: {
-              items: {
-                populate: {
-                  product: {
-                    populate: {
-                      images: {
-                        fields: ['url', 'name', 'alternativeText'],
-                      },
-                    },
-                  },
-                },
-              },
-            },
+            populate: ORDER_POPULATE_CONFIG as any,
           });
         newOrder = populatedOrder || newOrder;
       } catch (error) {
@@ -115,6 +104,58 @@ export default factories.createCoreController(
         message: 'Order created successfully',
         order: newOrder,
       });
+    },
+    /**
+     * Retrieves a single order by order ID with all related data.
+     * This endpoint is designed for public access via email confirmation links.
+     *
+     * @param {string} ctx.params.orderId - The order ID (orderNumber) to retrieve
+     * @returns {Promise<object>} Returns order details with populated relations
+     * @returns {object} ctx.ok - Success response with order data
+     * @returns {object} ctx.notFound - Error response if order not found
+     * @returns {object} ctx.badRequest - Error response for invalid requests
+     */
+    async findByOrderId(ctx) {
+      const { orderId } = ctx.params;
+
+      if (!orderId) {
+        return ctx.badRequest('Order ID is required');
+      }
+
+      try {
+        const normalizedId = orderId.trim();
+
+        let order = await strapi.documents('api::order.order').findOne({
+          documentId: normalizedId,
+          populate: ORDER_POPULATE_CONFIG as any,
+        });
+
+        if (!order) {
+          const orders = await strapi.documents('api::order.order').findMany({
+            filters: {
+              orderNumber: normalizedId,
+            },
+            populate: ORDER_POPULATE_CONFIG as any,
+          });
+
+          if (orders && orders.length > 0) {
+            [order] = orders;
+          }
+        }
+
+        if (!order) {
+          return ctx.notFound('Order not found');
+        }
+
+        return ctx.send({
+          status: 'success',
+          message: 'Order retrieved successfully',
+          data: order,
+        });
+      } catch (error) {
+        strapi.log.error('Failed to retrieve order:', error);
+        return ctx.badRequest('Failed to retrieve order', { error });
+      }
     },
     /**
      * Checks and returns the stock status of products by combining information from web account and local database.

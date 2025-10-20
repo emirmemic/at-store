@@ -1,17 +1,9 @@
 'use client';
 
+import { IconAtStoreLogo } from '@/components/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import { IconAtStoreLogo } from '@/components/icons';
 import { TypeAnimation } from 'react-type-animation';
-import dynamic from 'next/dynamic';
-const CurrentPromotions = dynamic(
-  () =>
-    import(
-      '@/components/strapi/single-types/current-promotions/current-promotions'
-    ),
-  { ssr: true }
-);
 
 export default function AtStoreSundays() {
   return (

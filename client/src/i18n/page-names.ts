@@ -44,6 +44,7 @@ export const PAGE_NAMES = {
   BODYART: '/bodyart',
   ATSTORESUNDAYS: '/at-store-sundays',
   DEMO: '/demo',
+  ORDER_DETAILS: '/narudzba',
 } as const;
 
 // SITEMAP LOGIC IS BASED ON THESE CONFIGURATIONS, IF YOU CHANGE THEM, MAKE SURE TO UPDATE THE SITEMAP LOGIC AS WELL
@@ -55,6 +56,7 @@ export const DYNAMIC_PAGES = {
   PRODUCT_DETAILS: '/products/[category]/[productTypeId]/[productLink]',
   PRODUCTS: '/products',
   JOBS: '/jobs',
+  ORDER_DETAILS_ID: '/narudzba/[orderId]',
 } as const;
 export type PageNameKey = keyof typeof PAGE_NAMES;
 export type DynamicPageKey = keyof typeof DYNAMIC_PAGES;

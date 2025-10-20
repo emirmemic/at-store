@@ -81,6 +81,7 @@ export interface StrapiProduct {
   webAccountArticleName: string;
   productLink: string;
   originalPrice: number;
+  discountedPrice?: number | null;
   brand?: {
     id: number;
     name: string;
@@ -92,6 +93,7 @@ export interface StrapiProduct {
   category?: {
     id: number;
     name: string;
+    link?: string;
   };
   subCategory?: {
     id: number;

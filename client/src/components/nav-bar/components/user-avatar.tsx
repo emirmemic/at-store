@@ -1,12 +1,11 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import { UserContext } from '@/app/providers';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { PAGE_NAMES } from '@/i18n/page-names';
 import { Link } from '@/i18n/routing';
+import { PAGE_NAMES } from '@/i18n/page-names';
+import { UserContext } from '@/app/providers';
+import { useTranslations } from 'next-intl';
 
 export default function UserAvatar({ closeMenu }: { closeMenu: () => void }) {
   const t = useTranslations();

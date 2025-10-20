@@ -11,6 +11,40 @@ const ordersEmail = process.env.ORDERS_EMAIL || 'orders@atstore.ba';
 const defaultFrom = process.env.DEFAULT_FROM || 'noreply@atstore.ba';
 const strapiUrl = process.env.PUBLIC_URL || 'https://admin.atstore.ba';
 const logoUrl = `${strapiUrl}/logo-black.jpg`;
+const storefrontBaseUrl = (
+  process.env.STOREFRONT_URL ||
+  process.env.FRONTEND_URL ||
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  'https://atstore.ba'
+).replace(/\/+$/, '');
+
+const buildStorefrontUrl = (path: string) => {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${storefrontBaseUrl}${normalizedPath}`;
+};
+
+const getProductPath = (product: {
+  category?: { link?: string } | null;
+  productTypeId?: string;
+  productLink?: string;
+}) => {
+  const categoryLink = product?.category?.link;
+  const productTypeId = product?.productTypeId;
+  const productLink = product?.productLink;
+
+  if (!categoryLink || !productTypeId || !productLink) {
+    return '/proizvodi';
+  }
+
+  const encodedCategory = encodeURIComponent(categoryLink);
+  const encodedType = encodeURIComponent(productTypeId.toLowerCase());
+  const encodedProduct = encodeURIComponent(productLink);
+
+  return `/proizvodi/${encodedCategory}/${encodedType}/${encodedProduct}`;
+};
+
+const getOrderSummaryPath = (orderId: string) =>
+  `/narudzba/${encodeURIComponent(orderId)}`;
 
 const formatNoteText = (note?: string) => {
   const value = note?.trim();
@@ -173,15 +207,25 @@ ${contactInfoText()}`;
 };
 
 const orderCompletionText = (order: OrderPopulated) => {
+  const orderSummaryUrl = buildStorefrontUrl(
+    getOrderSummaryPath(order.orderNumber)
+  );
   return `Poštovani ${order.address.name},
 
 Vaša narudžba #${order.orderNumber} je završena.
+
+Pregled narudžbe: ${orderSummaryUrl}
 
 ${contactInfoText()}
 `;
 };
 
 function renderOrderCompletionEmail(order: OrderPopulated) {
+  const orderSummaryUrl = buildStorefrontUrl(
+    getOrderSummaryPath(order.orderNumber)
+  );
+  const orderSummaryButton = `<div style="margin:40px 0;text-align:center;"><div style="background-color:#f2f2f2;padding:48px 0;border-radius:6px;"><a href="https://atstore.ba/narudzba/${order.orderNumber}" style="display:inline-block;padding:16px 52px;background-color:#000000;color:#ffffff;text-decoration:none;letter-spacing:1px;font-weight:500;font-size:13px;border:1px solid #000000;text-transform:uppercase;transition:all 0.3s ease;">Pogledajte detalje narudžbe</a></div></div>`;
+
   return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
 ${renderLogo()}
 <h1 style="font-size: 28px; font-weight: 600; color: #1d1d1f; margin: 0 0 16px 0;">Vaša narudžba je kompletirana</h1>
@@ -192,6 +236,7 @@ ${renderLogo()}
       : `Poštovani, <br/> <br/> Hvala Vam što ste odabrali AT Store. <br/> Vaša kupovina je proicesuirana i spremna za preuzimanje u ${order.selectedStore}. Molimo pokažite broj narudžbe ili potvrdu prilikom preuzimanja. <br /> <br/> Ako imate pitanja, nazovite podršku na 033 872 000 ili kontaktirajte nas na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store`
   }
 </p>
+${orderSummaryButton}
 ${renderOrderDetails(order)}
 ${renderDeliveryAddress(order)}
 <div style="margin-top: 40px; border-top: 1px solid #e5e5e5; padding-top: 20px; color:#888; font-size:12px;">
@@ -426,35 +471,41 @@ function renderOrderDetails(order: OrderPopulated) {
     `${formatPrice(price)} ${CURRENCY}`;
 
   const itemsHtml = order.items
-    .map(
-      (item: any) => `<tr style="border-bottom: 1px solid #e5e5e5;">
+    .map((item: any) => {
+      const product = item.product || {};
+      const productPath = getProductPath(product);
+      const productUrl = buildStorefrontUrl(productPath);
+      const hasImage =
+        product.images && product.images.length && product.images[0].url;
+      const imageHtml = hasImage
+        ? `<a href="${productUrl}" style="display:block;"><img src="${strapiUrl}${product.images[0].url}"
+alt="${product.name}"
+width="60"
+style="display: block; width: 60px; max-width: 60px; height: auto; border-radius: 8px; border: 1px solid #e5e5e5;"></a>`
+        : `<a href="${productUrl}" style="display:block; width: 60px; height: 60px; border-radius: 8px; background: #f5f5f5;"></a>`;
+      const basePrice = product.discountedPrice ?? product.originalPrice ?? 0;
+      const numericBasePrice = Number(basePrice);
+      const itemPrice = numericBasePrice * item.quantity;
+
+      return `<tr style="border-bottom: 1px solid #e5e5e5;">
 <td style="padding: 20px 0;">
 <table style="width: 100%; border-collapse: collapse;">
 <tr>
 <td style="width: 80px; padding-right: 20px; vertical-align: top;">
-${
-  item.product.images &&
-  item.product.images.length &&
-  item.product.images[0].url
-    ? `<img src="${strapiUrl}${item.product.images[0].url}"
-alt="${item.product.name}"
-width="60"
-style="display: block; width: 60px; max-width: 60px; height: auto; border-radius: 8px; border: 1px solid #e5e5e5;">`
-    : `<div style="width: 60px; height: 60px; background: #f5f5f5; border-radius: 8px;"></div>`
-}
+${imageHtml}
 </td>
 <td style="vertical-align: top;">
-<p style="margin: 0; font-size: 16px; font-weight: 600; color: #1d1d1f;">${item.product.name}</p>
+<p style="margin: 0; font-size: 16px; font-weight: 600; color: #1d1d1f;"><a href="${productUrl}" style="color: #0066cc; text-decoration: none;">${product.name}</a></p>
 <p style="margin: 5px 0 0 0; font-size: 14px; color: #515154;">Količina: ${item.quantity}</p>
 </td>
 <td style="vertical-align: top; text-align: right; font-size: 16px; color: #1d1d1f; font-weight: 500;">
-${formatPriceWithCurrency((item.product.discountedPrice ? item.product.discountedPrice : item.product.originalPrice) * item.quantity)}
+${formatPriceWithCurrency(itemPrice)}
 </td>
 </tr>
 </table>
 </td>
-</tr>`
-    )
+</tr>`;
+    })
     .join('');
 
   return `<h2 style="font-size: 20px; color: #1d1d1f; margin: 40px 0 10px 0;">${order.deliveryMethod === 'delivery' ? 'Artikli za slanje' : 'Artikli'}</h2>

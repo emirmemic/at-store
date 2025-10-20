@@ -1,14 +1,13 @@
-/* eslint-disable no-console */
-import type { MetadataRoute } from 'next';
-import qs from 'qs';
-
-import { getNavbarData } from '@/components/nav-bar/actions';
-import { formatNavbarData } from '@/components/nav-bar/utils/formatData';
-import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
-import { routing, Pathname } from '@/i18n/routing';
 import { ACCESSORY_CATEGORY_NAME, STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
+import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
+import { Pathname, routing } from '@/i18n/routing';
 import { ProductResponse, SubCategoryItem } from '@/lib/types';
+
+import type { MetadataRoute } from 'next';
+import { fetchAPI } from '@/lib/fetch-api';
+import { formatNavbarData } from '@/components/nav-bar/utils/formatData';
+import { getNavbarData } from '@/components/nav-bar/actions';
+import qs from 'qs';
 
 interface ProductsRequestResponse {
   data: ProductResponse[];
@@ -29,12 +28,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static Pages
   const staticPages: MetadataRoute.Sitemap = Object.values(PAGE_NAMES).flatMap(
     (path) => {
+      if (path.startsWith('http')) {
+        return [
+          {
+            url: path,
+            priority: 0.5,
+          },
+        ];
+      }
+
       return locales.map((locale) => {
-        const localizedPath =
-          routing.pathnames[path as Pathname][locale] || path;
+        const pathnameConfig = routing.pathnames[path as Pathname] as
+          | Record<string, string>
+          | undefined;
+        const localizedPath = pathnameConfig?.[locale] || path || '/';
+        const normalizedPath = localizedPath.startsWith('http')
+          ? localizedPath
+          : `${siteUrl}${localizedPath.startsWith('/') ? '' : '/'}${localizedPath}`;
 
         return {
-          url: `${siteUrl}${localizedPath}`,
+          url: normalizedPath,
           priority: path === '/' ? 1 : 0.8,
         };
       });

@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageCircle, RefreshCcw, Sparkles, X } from 'lucide-react';
+import { MessageCircle, RefreshCcw, Sparkles } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 
 const cn = (...classes: (string | boolean | undefined)[]) => {

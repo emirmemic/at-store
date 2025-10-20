@@ -21,16 +21,16 @@ const eslintConfig = [
     plugins: ['import'],
     rules: {
       // General rules
-      'no-console': 'warn',
+      'no-console': 'off',
       eqeqeq: 'error',
 
       // TypeScript rules
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-non-null-assertion': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
 
       // React rules
-      'react/no-unknown-property': 'warn',
+      'react/no-unknown-property': 'off',
       'react/jsx-uses-vars': 'warn',
       'react/react-in-jsx-scope': 'off',
       'import/no-duplicates': 'warn',

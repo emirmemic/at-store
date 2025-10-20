@@ -2,6 +2,8 @@ import {
   notifyCustomerAboutOrderCancellation,
   notifyCustomerAboutOrderCompletion,
 } from '../../utils';
+
+import { ORDER_POPULATE_CONFIG } from '../../constants';
 import type { OrderPopulated } from '../../types';
 
 module.exports = {
@@ -54,19 +56,7 @@ module.exports = {
     try {
       const order = await strapi.documents('api::order.order').findOne({
         documentId,
-        populate: {
-          items: {
-            populate: {
-              product: {
-                populate: {
-                  images: {
-                    fields: ['url', 'name', 'alternativeText'],
-                  },
-                },
-              },
-            },
-          },
-        },
+        populate: ORDER_POPULATE_CONFIG as any,
       });
 
       const typedOrder = order as unknown as OrderPopulated;

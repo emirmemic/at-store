@@ -23,7 +23,10 @@ export default function ImgSection({
   errorMessage,
 }: Readonly<ImgSectionProps>) {
   return (
-    <div className="flex flex-col items-center gap-9 md:gap-11">
+    <div
+      className="flex flex-col items-center gap-9 md:gap-11"
+      id={`div-${index}`}
+    >
       <div
         className={cn(
           'w-full max-w-[300px] transition-transform duration-300 hover:scale-[1.02] md:max-w-[520px]',
