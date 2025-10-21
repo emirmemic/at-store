@@ -5,6 +5,7 @@ import { StrapiError, fetchAPI } from '@/lib/fetch-api';
 
 import { DeliveryForm } from '@/lib/schemas/checkout';
 import { DeliveryMethod } from '../page';
+import { OrderDetail } from '@/lib/types/order';
 import { ProductStockResponse } from '@/lib/types';
 
 export interface OrderPayload {
@@ -25,19 +26,21 @@ export interface OrderPayload {
 }
 
 export async function createOrder(payload: OrderPayload) {
-  const res = await fetchAPI(`${STRAPI_BASE_URL}/api/orders`, {
-    method: 'POST',
-    body: {
-      data: payload,
-    },
-  });
+  const res = await fetchAPI<{ message: string; order: OrderDetail }>(
+    `${STRAPI_BASE_URL}/api/orders`,
+    {
+      method: 'POST',
+      body: {
+        data: payload,
+      },
+    }
+  );
 
-  if (res.status === 200 || res.status === 201) {
-    // Order created successfully
-    return;
-  } else {
-    throw new Error('Error creating order');
+  if (res.error || !res.data?.order) {
+    throw new Error(res.error?.message ?? 'Error creating order');
   }
+
+  return res.data.order;
 }
 
 export async function getProductsStatus(

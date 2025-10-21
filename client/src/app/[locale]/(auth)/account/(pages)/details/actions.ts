@@ -28,7 +28,7 @@ export async function handleSubmit(
 
   try {
     const validationSchema = createAccountDetailsSchema(t, userType);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const { confirmPassword, ...accountDetails } = validationSchema.parse(data);
     await updateAccountDetails(accountDetails, userId);
   } catch (err) {

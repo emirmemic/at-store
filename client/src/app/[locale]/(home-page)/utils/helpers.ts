@@ -32,7 +32,6 @@ export const extendItemsToMinLength = <T extends { id: string }>(
   // Loop until we hit at least minLength and give each clone a unique id
   while (result.length < minLength) {
     if (cloneRound > maxIterations) {
-      // eslint-disable-next-line no-console
       console.warn(`Max iterations (${maxIterations}) reached.`);
       break; // Exit to avoid infinite loop
     }

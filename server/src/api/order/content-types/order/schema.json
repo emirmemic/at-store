@@ -56,6 +56,10 @@
       "target": "api::product.product",
       "inversedBy": "orders"
     },
+    "publicToken": {
+      "type": "string",
+      "unique": true
+    },
     "isGift": {
       "type": "boolean"
     },

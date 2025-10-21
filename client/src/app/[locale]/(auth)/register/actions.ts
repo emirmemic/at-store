@@ -19,14 +19,14 @@ export async function handleSubmit<T>(
   try {
     if (isOrg) {
       const registerOrgSchema = createRegisterOrgSchema(t);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const { confirmPassword, nameAndSurname, ...registerData } =
         registerOrgSchema.parse(data);
       const [name, surname] = nameAndSurname.split(' ');
       await register({ ...registerData, name, surname });
     } else {
       const registerSchema = createRegisterSchema(t);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const { confirmPassword, ...registerData } = registerSchema.parse(data);
 
       await register(registerData);

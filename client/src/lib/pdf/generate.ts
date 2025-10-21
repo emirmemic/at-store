@@ -1,5 +1,5 @@
 import { ShoppingCartItem, UserInformation } from '../types';
-/* eslint-disable no-console */
+
 import puppeteer, { Browser, Page } from 'puppeteer';
 
 import { generateInvoiceHTML } from './invoiceHtml';

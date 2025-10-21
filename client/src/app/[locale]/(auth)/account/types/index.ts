@@ -1,5 +1,6 @@
-import { Pathname } from '@/i18n/routing';
 import { Icon, ProductResponse } from '@/lib/types';
+
+import { Pathname } from '@/i18n/routing';
 
 interface AccountMenu {
   id: number;
@@ -16,6 +17,7 @@ interface OrderResponse {
   orderStatus: OrderStatusEnum;
   orderNumber: string;
   createdAt: string;
+  publicToken?: string | null;
 }
 
 export type { AccountMenu, OrderResponse };

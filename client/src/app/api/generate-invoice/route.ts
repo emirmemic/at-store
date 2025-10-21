@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 

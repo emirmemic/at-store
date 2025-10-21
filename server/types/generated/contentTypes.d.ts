@@ -1197,6 +1197,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
     paymentMethod: Schema.Attribute.Enumeration<['card', 'cash', 'virman']> &
       Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publicToken: Schema.Attribute.String & Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     selectedStore: Schema.Attribute.String;
     totalPrice: Schema.Attribute.Decimal;

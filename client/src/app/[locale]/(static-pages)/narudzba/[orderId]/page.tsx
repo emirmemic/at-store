@@ -1,3 +1,5 @@
+import { cookies, headers } from 'next/headers';
+
 import { OrderDetailAPIResponse } from '@/lib/types/order';
 import { OrderDetailView } from './components/OrderDetailView';
 import { getStrapiURL } from '@/lib/utils/utils';
@@ -13,8 +15,23 @@ async function getOrderDetails(
 ): Promise<OrderDetailAPIResponse | null> {
   try {
     const baseUrl = getStrapiURL();
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore
+      .getAll()
+      .map((cookie) => `${cookie.name}=${cookie.value}`)
+      .join('; ');
+    const headersList = await headers();
+    const authHeader = headersList.get('authorization');
+    const requestHeaders: HeadersInit = {};
+    if (cookieHeader) {
+      requestHeaders.Cookie = cookieHeader;
+    }
+    if (authHeader) {
+      requestHeaders.Authorization = authHeader;
+    }
     const response = await fetch(`${baseUrl}/api/narudzba/${orderId}`, {
       cache: 'no-store', // Always fetch fresh data for order confirmations
+      headers: requestHeaders,
     });
 
     if (!response.ok) {
@@ -37,8 +54,12 @@ async function getOrderDetails(
  * Displays order details when accessed via email confirmation link
  * Public page - no authentication required
  */
-export default async function OrderPage({ params }: any) {
-  const { orderId, locale } = params;
+export default async function OrderPage({
+  params,
+}: {
+  params: Promise<{ orderId: string; locale: string }>;
+}) {
+  const { orderId, locale } = await params;
   const t = await getTranslations('orderDetailsPage');
 
   // Fetch order data
@@ -75,8 +96,12 @@ export default async function OrderPage({ params }: any) {
 /**
  * Generate metadata for the order page
  */
-export async function generateMetadata({ params }: any) {
-  const { orderId } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ orderId: string }>;
+}) {
+  const { orderId } = await params;
 
   return {
     title: `Order ${orderId} - AT Store`,

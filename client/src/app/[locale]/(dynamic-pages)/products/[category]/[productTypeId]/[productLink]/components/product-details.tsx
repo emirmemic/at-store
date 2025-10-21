@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 'use client';
 
 import { ChevronDown, MapPin, Share2, Shield, Truck } from 'lucide-react';

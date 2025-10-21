@@ -1,18 +1,16 @@
 'use client';
 
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { OrderDetails, SingleOrderItem } from './components';
 
-import IconCheckoutCheck from '@/components/icons/checkout-check';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import IconCheckoutCheck from '@/components/icons/checkout-check';
+import Link from 'next/link';
 import { PAGE_NAMES } from '@/i18n/page-names';
-
 import { TitleWithValue } from '../components/cart-section';
+import { redirect } from 'next/navigation';
 import { useCheckoutProvider } from '../providers/checkout-provider';
-
-import { OrderDetails, SingleOrderItem } from './components';
+import { useTranslations } from 'next-intl';
 
 export default function Page() {
   const t = useTranslations('checkoutPage');
@@ -75,9 +73,34 @@ export default function Page() {
           </div>
         )}
       </div>
-      <Button asChild size={'xlg'} typography={'button1'} variant={'filled'}>
-        <Link href={PAGE_NAMES.HOME}>{t('paymentPage.finish')}</Link>
-      </Button>
+      <div className="flex w-full flex-col gap-3 sm:flex-row">
+        {orderSuccessData.orderToken && (
+          <Button
+            asChild
+            className="w-full border border-grey text-black hover:bg-gray-50 sm:flex-1"
+            size={'xlg'}
+            typography={'button1'}
+            variant={'transparent'}
+          >
+            <Link
+              href={`/narudzba/${encodeURIComponent(
+                orderSuccessData.orderToken
+              )}`}
+            >
+              {t('paymentPage.viewOrder')}
+            </Link>
+          </Button>
+        )}
+        <Button
+          asChild
+          className="sm:flex-1"
+          size={'xlg'}
+          typography={'button1'}
+          variant={'filled'}
+        >
+          <Link href={PAGE_NAMES.HOME}>{t('paymentPage.finish')}</Link>
+        </Button>
+      </div>
     </div>
   );
 }

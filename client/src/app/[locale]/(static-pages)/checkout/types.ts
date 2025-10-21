@@ -1,6 +1,5 @@
-import { ImageProps } from '@/lib/types';
-
 import { DeliveryMethod } from './page';
+import { ImageProps } from '@/lib/types';
 
 export interface OrderSuccessData {
   items: {
@@ -12,6 +11,7 @@ export interface OrderSuccessData {
   deliveryMethod: DeliveryMethod;
   paymentMethod: PaymentMethod;
   orderNumber: string;
+  orderToken: string;
   totalPrice: number;
   isGift: boolean;
 }

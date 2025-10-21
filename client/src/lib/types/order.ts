@@ -146,6 +146,7 @@ export interface OrderDetail {
   selectedStore: StoreCode | null;
   createdAt: string;
   updatedAt: string;
+  publicToken?: string | null;
   user?: OrderUser | null;
   items: OrderItem[];
 }

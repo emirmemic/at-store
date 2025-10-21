@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client';
 
 // Monri JS is global (script loaded separately)
@@ -426,8 +426,9 @@ export default function PaymentWithCard() {
             paymentMethod: 'card',
           };
 
+          let createdOrder;
           try {
-            await createOrder(payload);
+            createdOrder = await createOrder(payload);
           } catch {
             setIsSubmitting(false);
             toast({
@@ -448,7 +449,13 @@ export default function PaymentWithCard() {
             isGift,
             deliveryMethod,
             paymentMethod: 'card',
-            orderNumber: pr.order_number ?? orderNumberRef.current ?? '',
+            orderNumber:
+              createdOrder?.orderNumber ??
+              pr.order_number ??
+              orderNumberRef.current ??
+              '',
+            orderToken:
+              createdOrder?.publicToken ?? createdOrder?.documentId ?? '',
             totalPrice: finalMajor,
           };
           clearCart();

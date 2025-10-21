@@ -1236,6 +1236,7 @@
       "orderNumber": "Broj narudžbe",
       "orderStatus": "Status narudžbe",
       "order": "Narudžba",
+      "viewOrder": "Pregled narudžbe",
       "finish": "Završi",
       "orderCreated": "Narudžba je kreirana",
       "payOnDelivery": "Plaćanje prilikom preuzimanja",

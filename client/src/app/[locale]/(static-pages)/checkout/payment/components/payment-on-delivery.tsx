@@ -78,8 +78,9 @@ export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
           orderNumber: orderNumber,
           paymentMethod: virman ? 'virman' : 'cash',
         };
+        let createdOrder;
         try {
-          await createOrder(orderPayload);
+          createdOrder = await createOrder(orderPayload);
         } catch {
           setIsLoading(false);
           return;
@@ -94,7 +95,9 @@ export default function PaymentOnDelivery({ virman }: { virman?: boolean }) {
           })),
           isGift,
           deliveryMethod: deliveryMethod,
-          orderNumber: orderNumber,
+          orderNumber: createdOrder?.orderNumber ?? orderNumber,
+          orderToken:
+            createdOrder?.publicToken ?? createdOrder?.documentId ?? '',
           totalPrice: totalPrice,
           paymentMethod: virman ? 'virman' : 'cash',
         };

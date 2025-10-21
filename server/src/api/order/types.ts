@@ -24,6 +24,7 @@ export interface Order {
   deliveryPrice: number;
   paymentMethod: 'card' | 'cash' | 'virman';
   selectedStore: StoreCode | null;
+  publicToken?: string | null;
   items: {
     productVariantId: string;
     productDocumentId: string;
@@ -33,6 +34,7 @@ export interface Order {
 }
 export interface OrderPopulated extends Omit<Order, 'items'> {
   createdAt: string;
+  publicToken?: string | null;
   items: {
     product: StrapiProduct;
     quantity: number;
@@ -67,6 +69,7 @@ export interface OrderDetailResponse {
   selectedStore: StoreCode | null;
   createdAt: string;
   updatedAt: string;
+  publicToken?: string | null;
   user?: {
     id: number;
     documentId: string;

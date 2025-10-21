@@ -43,8 +43,20 @@ const getProductPath = (product: {
   return `/proizvodi/${encodedCategory}/${encodedType}/${encodedProduct}`;
 };
 
-const getOrderSummaryPath = (orderId: string) =>
-  `/narudzba/${encodeURIComponent(orderId)}`;
+const getOrderSummaryPath = (orderToken: string) =>
+  `/narudzba/${encodeURIComponent(orderToken)}`;
+
+const resolveOrderAccessToken = (order: {
+  publicToken?: string | null;
+  documentId?: string;
+  orderNumber: string;
+}) => order.publicToken ?? order.documentId ?? order.orderNumber;
+
+const getOrderSummaryUrl = (order: {
+  publicToken?: string | null;
+  documentId?: string;
+  orderNumber: string;
+}) => buildStorefrontUrl(getOrderSummaryPath(resolveOrderAccessToken(order)));
 
 const formatNoteText = (note?: string) => {
   const value = note?.trim();
@@ -178,6 +190,8 @@ function renderUserOrderSuccessEmail(order: OrderPopulated) {
     day: 'numeric',
     year: 'numeric',
   });
+  const orderSummaryUrl = getOrderSummaryUrl(order);
+  const orderSummaryButton = `<div style="margin:40px 0;text-align:center;"><div style="background-color:#f2f2f2;padding:48px 0;border-radius:6px;"><a href="${orderSummaryUrl}" style="display:inline-block;padding:16px 52px;background-color:#000000;color:#ffffff;text-decoration:none;letter-spacing:1px;font-weight:600;font-size:13px;border:1px solid #000000;text-transform:uppercase;transition:all 0.3s ease;">POGLEDAJ DETALJE NARUDŽBE</a></div></div>`;
 
   return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
 ${renderLogo()}
@@ -187,6 +201,7 @@ ${renderLogo()}
 <span style="padding-right: 24px;">Broj narudžbe: <span style="color: #0066cc; text-decoration: none;">${order.orderNumber}</span></span>
 <span>Naručeno: ${orderDate}</span>
 </div>
+${orderSummaryButton}
 ${renderOrderDetails(order)}
 ${renderDeliveryAddress(order)}
 ${renderBillingAndPaymentSection(order)}
@@ -198,18 +213,19 @@ ${contactInfoBlock()}
 
 const userOrderSuccessText = (order) => {
   const noteText = formatNoteText(order.address?.note);
+  const orderSummaryUrl = getOrderSummaryUrl(order);
   return `Poštovani ${order.address.name},
 
 Vaša narudžba #${order.orderNumber} je uspješno zaprimljena!
 ${noteText ? `\n${noteText}` : ''}
 
+Pregled narudžbe: ${orderSummaryUrl}
+
 ${contactInfoText()}`;
 };
 
 const orderCompletionText = (order: OrderPopulated) => {
-  const orderSummaryUrl = buildStorefrontUrl(
-    getOrderSummaryPath(order.orderNumber)
-  );
+  const orderSummaryUrl = getOrderSummaryUrl(order);
   return `Poštovani ${order.address.name},
 
 Vaša narudžba #${order.orderNumber} je završena.
@@ -221,10 +237,8 @@ ${contactInfoText()}
 };
 
 function renderOrderCompletionEmail(order: OrderPopulated) {
-  const orderSummaryUrl = buildStorefrontUrl(
-    getOrderSummaryPath(order.orderNumber)
-  );
-  const orderSummaryButton = `<div style="margin:40px 0;text-align:center;"><div style="background-color:#f2f2f2;padding:48px 0;border-radius:6px;"><a href="https://atstore.ba/narudzba/${order.orderNumber}" style="display:inline-block;padding:16px 52px;background-color:#000000;color:#ffffff;text-decoration:none;letter-spacing:1px;font-weight:500;font-size:13px;border:1px solid #000000;text-transform:uppercase;transition:all 0.3s ease;">Pogledajte detalje narudžbe</a></div></div>`;
+  const orderSummaryUrl = getOrderSummaryUrl(order);
+  const orderSummaryButton = `<div style="margin:40px 0;text-align:center;"><div style="background-color:#f2f2f2;padding:48px 0;border-radius:6px;"><a href="${orderSummaryUrl}" style="display:inline-block;padding:16px 52px;background-color:#000000;color:#ffffff;text-decoration:none;letter-spacing:1px;font-weight:600;font-size:13px;border:1px solid #000000;text-transform:uppercase;transition:all 0.3s ease;">POGLEDAJ DETALJE NARUDŽBE</a></div></div>`;
 
   return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
 ${renderLogo()}
@@ -246,9 +260,12 @@ ${contactInfoBlock()}
 }
 
 const orderCancellationText = (order: OrderPopulated) => {
+  const orderSummaryUrl = getOrderSummaryUrl(order);
   return `Poštovani ${order.address.name},
 
 Vaša narudžba #${order.orderNumber} je otkazana.
+
+Pregled narudžbe: ${orderSummaryUrl}
 
 ${contactInfoText()}
 
@@ -256,6 +273,8 @@ Ako imate dodatna pitanja, slobodno nas kontaktirajte.`;
 };
 
 function renderOrderCancellationEmail(order: OrderPopulated) {
+  const orderSummaryUrl = getOrderSummaryUrl(order);
+  const orderSummaryButton = `<div style="margin:40px 0;text-align:center;"><div style="background-color:#fef4f4;padding:32px 0;border-radius:6px;"><a href="${orderSummaryUrl}" style="display:inline-block;padding:16px 52px;background-color:#d32f2f;color:#ffffff;text-decoration:none;letter-spacing:1px;font-weight:600;font-size:13px;border:1px solid #d32f2f;text-transform:uppercase;transition:all 0.3s ease;">POGLEDAJ DETALJE NARUDŽBE</a></div></div>`;
   return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
 ${renderLogo()}
 <h1 style="font-size: 28px; font-weight: 600; color: #d32f2f; margin: 0 0 16px 0;">Vaša narudžba je otkazana</h1>
@@ -270,6 +289,7 @@ Očekivano knjiženje: 5–7 radnih dana od potvrde povrata (za kartična plaća
 <br/>Srdačan pozdrav,<br/>
 AT Store
 </p>
+${orderSummaryButton}
 ${renderOrderDetails(order)}
 ${contactInfoBlock()}
 <p style="margin-top: 16px;">Ako imate dodatnih pitanja, javite nam se.</p>
