@@ -3,6 +3,38 @@ import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 
 import { SubCategoryItem } from '../types';
 
+const getBasePrice = (product?: {
+  discountedPrice?: number | null;
+  originalPrice: number;
+}): number => {
+  if (!product) return Number.POSITIVE_INFINITY;
+  const price = product.discountedPrice ?? product.originalPrice;
+  if (price === null || price === undefined) {
+    return Number.POSITIVE_INFINITY;
+  }
+  const numericPrice = Number(price);
+  return Number.isNaN(numericPrice) ? Number.POSITIVE_INFINITY : numericPrice;
+};
+
+const getCheapestProduct = <
+  T extends { discountedPrice?: number | null; originalPrice: number },
+>(
+  products: T[] | undefined | null
+): T | null => {
+  if (!products || products.length === 0) {
+    return null;
+  }
+
+  return products.reduce<T | null>((cheapest, product) => {
+    if (!cheapest) {
+      return product;
+    }
+    const productPrice = getBasePrice(product);
+    const cheapestPrice = getBasePrice(cheapest);
+    return productPrice < cheapestPrice ? product : cheapest;
+  }, null);
+};
+
 const matchesCategory = ({
   name,
   categoryName,
@@ -37,9 +69,12 @@ const makeSubCategoryLink = (
 ): string => {
   const name = subCategory.name || subCategory.displayName;
   const subCategoryLink = subCategory?.link || '';
-  const firstProduct = subCategory.products?.[0];
-  const productTypeId = firstProduct?.productTypeId || '';
-  const productLink = firstProduct?.productLink || '';
+  const cheapestProduct = getCheapestProduct(subCategory.products || []);
+  const fallbackProduct = subCategory.products?.[0];
+  const productTypeId =
+    cheapestProduct?.productTypeId || fallbackProduct?.productTypeId || '';
+  const productLink =
+    cheapestProduct?.productLink || fallbackProduct?.productLink || '';
   if (isAccessory(name)) {
     return `${PAGE_NAMES.ACCESSORIES}/${subCategoryLink}`;
   }
