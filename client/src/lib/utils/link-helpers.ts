@@ -1,6 +1,6 @@
 import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
-import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 
+import { ACCESSORY_CATEGORY_NAME } from '@/lib/constants';
 import { SubCategoryItem } from '../types';
 
 const getBasePrice = (product?: {
@@ -25,14 +25,17 @@ const getCheapestProduct = <
     return null;
   }
 
-  return products.reduce<T | null>((cheapest, product) => {
+  const cheapest = products.reduce<T | null>((cheapest, product) => {
     if (!cheapest) {
       return product;
     }
     const productPrice = getBasePrice(product);
     const cheapestPrice = getBasePrice(cheapest);
+
     return productPrice < cheapestPrice ? product : cheapest;
   }, null);
+
+  return cheapest;
 };
 
 const matchesCategory = ({
@@ -75,6 +78,7 @@ const makeSubCategoryLink = (
     cheapestProduct?.productTypeId || fallbackProduct?.productTypeId || '';
   const productLink =
     cheapestProduct?.productLink || fallbackProduct?.productLink || '';
+
   if (isAccessory(name)) {
     return `${PAGE_NAMES.ACCESSORIES}/${subCategoryLink}`;
   }

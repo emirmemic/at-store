@@ -13,6 +13,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import {
@@ -39,6 +40,29 @@ export const ProductContext = createContext<ProductVariantContextType>(
   {} as ProductVariantContextType
 );
 
+const getVariantBasePrice = (variant: ProductVariant): number => {
+  const price = variant.discountedPrice ?? variant.originalPrice;
+  if (price === null || price === undefined) {
+    return Number.POSITIVE_INFINITY;
+  }
+  const numericPrice = Number(price);
+  return Number.isNaN(numericPrice) ? Number.POSITIVE_INFINITY : numericPrice;
+};
+
+const findCheapestVariant = (
+  variants: ProductVariant[]
+): ProductVariant | null => {
+  if (!variants.length) return null;
+  return variants.reduce<ProductVariant | null>((cheapest, variant) => {
+    if (!cheapest) {
+      return variant;
+    }
+    return getVariantBasePrice(variant) < getVariantBasePrice(cheapest)
+      ? variant
+      : cheapest;
+  }, null);
+};
+
 export default function ProductVariantsProvider({
   children,
   variants,
@@ -52,13 +76,30 @@ export default function ProductVariantsProvider({
 }) {
   // Initialize router and params
   const router = useRouter();
-  const { productLink } = useParams();
-  if (!productLink) {
-    notFound();
-  }
+  const params = useParams();
+  const rawProductLink = params?.productLink;
+  const productLink =
+    typeof rawProductLink === 'string'
+      ? rawProductLink
+      : Array.isArray(rawProductLink)
+        ? rawProductLink[0]
+        : undefined;
+
   const searchParams = useSearchParams();
   const searchKey = searchParams.get('key') as SelectedOptionKey | 'color';
-  const initialVariant = variants.find((v) => v.productLink === productLink);
+  const cheapestVariant = useMemo(
+    () => findCheapestVariant(variants),
+    [variants]
+  );
+  const initialVariant = useMemo(() => {
+    if (productLink) {
+      const match = variants.find((v) => v.productLink === productLink);
+      if (match) {
+        return match;
+      }
+    }
+    return cheapestVariant || variants[0];
+  }, [cheapestVariant, productLink, variants]);
   if (!initialVariant) {
     notFound();
   }
@@ -70,18 +111,19 @@ export default function ProductVariantsProvider({
     () => initializeSelectedOptions(initialVariant) as SelectedOptions
   );
 
-  // Find the first available key from the variant dynamically
-  const defaultKey: SelectedOptionKey =
-    (searchKey && initialVariant[searchKey]?.value
-      ? searchKey
-      : (OPTION_FAMILIES.find(
-          (key) => initialVariant[key]?.value
-        ) as SelectedOptionKey)) ?? '';
+  const computeDefaultKey = (variant: ProductVariant): SelectedOptionKey => {
+    if (searchKey && variant[searchKey]?.value) {
+      return searchKey;
+    }
+    const fallbackKey = OPTION_FAMILIES.find((key) => !!variant[key]?.value) as
+      | SelectedOptionKey
+      | undefined;
+    return fallbackKey ?? 'color';
+  };
 
-  // Get the corresponding value
-  const defaultValue = defaultKey
-    ? initialVariant[defaultKey]?.value || ''
-    : '';
+  // Find the first available key from the variant dynamically
+  const defaultKey: SelectedOptionKey = computeDefaultKey(initialVariant);
+  const defaultValue = initialVariant[defaultKey]?.value || '';
 
   const [latestClicked, setLatestClicked] = useState<{
     key: SelectedOptionKey;
@@ -97,23 +139,37 @@ export default function ProductVariantsProvider({
     );
 
   // Methods
-  const selectVariantFromUrl = (slug: string) => {
-    const variant = variants.find((v) => v.productLink === slug);
-    if (!variant) return notFound();
+  const selectVariantFromUrl = (slug?: string) => {
+    const slugVariant = slug
+      ? variants.find((v) => v.productLink === slug)
+      : null;
 
-    const key: SelectedOptionKey =
-      searchKey && variant[searchKey]?.value
-        ? searchKey
-        : (OPTION_FAMILIES.find(
-            (key) => !!variant[key]?.value
-          ) as SelectedOptionKey) || 'color';
+    let targetVariant = slugVariant || cheapestVariant;
 
-    const value = variant[key]?.value || '';
+    if (
+      slugVariant &&
+      cheapestVariant &&
+      slugVariant.productVariantId !== cheapestVariant.productVariantId &&
+      !searchKey
+    ) {
+      targetVariant = cheapestVariant;
+    }
 
-    setSelectedVariant(variant);
-    setSelectedOptions(initializeSelectedOptions(variant));
+    if (!targetVariant) {
+      notFound();
+    }
+
+    const key = computeDefaultKey(targetVariant);
+    const value = targetVariant[key]?.value || '';
+
+    setSelectedVariant(targetVariant);
+    setSelectedOptions(initializeSelectedOptions(targetVariant));
     setLatestClicked({ key, value });
     setAvailableOptions(deriveAvailableOptions(variants, { key, value }));
+
+    if (!slug || targetVariant.productLink !== slug) {
+      router.replace(makeRouteLink(targetVariant, key), { scroll: false });
+    }
   };
 
   const selectOption = (type: SelectedOptionKey, value: string) => {
@@ -176,18 +232,7 @@ export default function ProductVariantsProvider({
   // Lifecycle methods
   // Check if url changed
   useEffect(() => {
-    if (!productLink) return;
-
-    const variant = variants.find((v) => v.productLink === productLink);
-    if (!variant) {
-      notFound();
-    }
-
-    if (productLink) {
-      if (typeof productLink === 'string') {
-        selectVariantFromUrl(productLink);
-      }
-    }
+    selectVariantFromUrl(productLink);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productLink, variants]);
 
