@@ -4,7 +4,11 @@ export default () => {
 
     const token = process.env.APITOKEN;
 
-    const isApiToken = ctx.request.header.authorization.includes(token);
+    const authorizationHeader = ctx.request?.header?.authorization;
+    const isApiToken =
+      token && typeof authorizationHeader === 'string'
+        ? authorizationHeader.includes(token)
+        : false;
 
     if (!user && !isApiToken) {
       return ctx.unauthorized('You are not authorized to access this resource');

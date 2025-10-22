@@ -9,5 +9,8 @@ export default factories.createCoreRouter('api::order.order', {
     find: {
       middlewares: ['global::is-owner'],
     },
+    update: {
+      middlewares: ['global::is-owner'],
+    },
   },
 });
