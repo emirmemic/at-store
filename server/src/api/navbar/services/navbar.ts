@@ -5,6 +5,33 @@
 import { factories } from '@strapi/strapi';
 import { publishedAndInStockFilter } from '../../../utils/get-available-items';
 
+const getBasePrice = (product: Record<string, any>): number => {
+  const price = product?.discountedPrice ?? product?.originalPrice;
+  if (price === null || price === undefined) {
+    return Number.POSITIVE_INFINITY;
+  }
+  const numericPrice = Number(price);
+  return Number.isNaN(numericPrice) ? Number.POSITIVE_INFINITY : numericPrice;
+};
+
+const getCheapestProduct = (
+  products: Array<Record<string, any>> = []
+): Record<string, any> | null => {
+  return products.reduce<Record<string, any> | null>((cheapest, product) => {
+    const productPrice = getBasePrice(product);
+    if (!Number.isFinite(productPrice)) {
+      return cheapest;
+    }
+
+    if (!cheapest) {
+      return product;
+    }
+
+    const cheapestPrice = getBasePrice(cheapest);
+    return productPrice < cheapestPrice ? product : cheapest;
+  }, null);
+};
+
 export default factories.createCoreService('api::navbar.navbar', () => ({
   async filterNavbar() {
     const navbar = await strapi.service('api::navbar.navbar').find({
@@ -39,10 +66,11 @@ export default factories.createCoreService('api::navbar.navbar', () => ({
                   fields: [
                     'id',
                     'productLink',
-                    'publishedAt',
                     'productTypeId',
                     'publishedAt',
                     'amountInStock',
+                    'originalPrice',
+                    'discountedPrice',
                   ],
                 },
               },
@@ -92,12 +120,12 @@ export default factories.createCoreService('api::navbar.navbar', () => ({
         // ✅ Subcategories: only keep the first product (if any)
         const filteredSubCategories = (item.subCategories || [])
           .map((subCategory) => {
-            const firstProduct = subCategory.products?.[0];
-            if (!firstProduct) return null;
+            const cheapestProduct = getCheapestProduct(subCategory.products);
+            if (!cheapestProduct) return null;
 
             return {
               ...subCategory,
-              products: [firstProduct],
+              products: [cheapestProduct],
             };
           })
           .filter(Boolean);
