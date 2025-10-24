@@ -613,8 +613,20 @@
       "dialogContentDescription": "Detaljan prikaz proizvoda sa slikom i opisom. Kliknite da saznate više o proizvodu."
     },
     "tradeInBanner": {
-      "description": "Zamijenite stari uređaj za novi.",
-      "primaryCta": "Saznaj više"
+      "items": {
+        "tradeIn": {
+          "text": "Zamijenite stari uređaj za novi.",
+          "cta": "Saznaj više"
+        },
+        "education": {
+          "text": "Za studente i profesore. Posebna cijena.",
+          "cta": "Saznaj više"
+        },
+        "business": {
+          "text": "Pravno ste lice? Želite predračun?",
+          "cta": "Saznaj više"
+        }
+      }
     }
   },
   "accountPage": {
