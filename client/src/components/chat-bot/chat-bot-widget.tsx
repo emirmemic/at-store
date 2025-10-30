@@ -189,7 +189,7 @@ export default function ChatBotWidget() {
         ref={widgetRef}
         className={cn(
           'pointer-events-auto relative flex flex-col overflow-hidden rounded-3xl border border-gray-200/60 bg-white/95 backdrop-blur-2xl transition-all',
-          'ease-[cubic-bezier(0.34,1.56,0.64,1)] duration-500',
+          'ease-&lsqb;cubic-bezier(0.34,1.56,0.64,1)&rsqb; duration-500',
           'w-full max-w-full sm:w-96 sm:max-w-md',
           'shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15),0_0_1px_rgba(0,0,0,0.1)]',
           isOpen

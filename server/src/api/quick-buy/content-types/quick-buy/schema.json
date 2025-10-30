@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "quick_buys",
+  "info": {
+    "singularName": "quick-buy",
+    "pluralName": "quick-buys",
+    "displayName": "Quick Buy",
+    "description": "Quick buy section for homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": false
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.quick-buy-item",
+      "required": true
+    }
+  }
+}

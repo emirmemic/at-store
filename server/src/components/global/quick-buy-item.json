@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_global_quick_buy_items",
+  "info": {
+    "displayName": "Quick Buy Item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "subtitle": {
+      "type": "string"
+    }
+  }
+}

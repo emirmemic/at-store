@@ -8,8 +8,8 @@ import {
 
 import { ZodError } from 'zod';
 import { errors } from '@strapi/utils';
-import jwt from 'jsonwebtoken';
 import { generateClientSecret } from './utils';
+import jwt from 'jsonwebtoken';
 
 const FRONTEND_REDIRECT_URI = `${process.env.FRONTEND_URL}/connect/apple/redirect`;
 const APPLE_REDIRECT_URI =
@@ -117,8 +117,6 @@ export default (plugin) => {
             error?: string;
           };
 
-          console.log('tokenJson', tokenJson);
-
           if (tokenJson.error) {
             strapi.log.error('Apple token exchange failed:', tokenJson.error);
 
@@ -164,7 +162,6 @@ export default (plugin) => {
             const role = await strapi
               .documents('plugin::users-permissions.role')
               .findFirst({ filters: { type: 'authenticated' } });
-            console.log(role);
 
             user = await strapi
               .documents('plugin::users-permissions.user')

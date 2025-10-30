@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { AddressFormData, createAddressSchema } from '@/lib/schemas/address';

@@ -5,6 +5,7 @@ interface StoreType {
   cityPostcode: string;
   embedLink: string;
   placeId: string;
+  phone: string;
 }
 interface OpeningHours {
   open_now: boolean;

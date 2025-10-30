@@ -1,18 +1,13 @@
 'use client';
 
+import { motion, useScroll, useTransform } from 'framer-motion';
+
 import { Button } from '@/components/ui/button';
 import { IconAtBusiness } from '../icons';
 import Link from 'next/link';
 import { getImgSectionInfo } from './data';
-import { getTranslations } from 'next-intl/server';
-import { useTranslations } from 'next-intl';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-} from 'framer-motion';
 import { useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 // interface GenerateMetadataParams {
 //   params: Promise<{ locale: string }>;

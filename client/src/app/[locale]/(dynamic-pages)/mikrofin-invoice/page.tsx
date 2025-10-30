@@ -2,7 +2,7 @@ import FaqSection from '@/app/[locale]/(static-pages)/components/faq-section';
 import MikrofinForm from './components/form';
 import { getFaqSection } from '@/app/[locale]/(static-pages)/payment-methods/data';
 import { getTranslations } from 'next-intl/server';
-import mikrofinLogo from '../../../../../public/assets/images/Mikrofin-logo_1.jpg';
+// import mikrofinLogo from '../../../../../public/assets/images/Mikrofin-logo_1.jpg';
 import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
@@ -22,7 +22,6 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
   };
 }
 
-console.log(mikrofinLogo);
 export default function Page() {
   const t = useTranslations();
   const faqSection = getFaqSection(t);

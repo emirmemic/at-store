@@ -45,13 +45,10 @@ export default function TradeInBanner({ className }: TradeInBannerProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFlipping(true);
-
-      // Wait for fade out before changing content
       setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % items.length);
       }, 300);
 
-      // Fade back in
       setTimeout(() => {
         setIsFlipping(false);
       }, 600);

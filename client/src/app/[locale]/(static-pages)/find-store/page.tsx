@@ -1,9 +1,7 @@
-import { getTranslations } from 'next-intl/server';
-
-import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
-
 import { Content } from './components';
+import { GOOGLE_MAPS_LOCATIONS } from '@/lib/constants';
 import { StoreType } from './types';
+import { getTranslations } from 'next-intl/server';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
@@ -30,12 +28,13 @@ const stores: StoreType[] = Object.entries(GOOGLE_MAPS_LOCATIONS).map(
     cityPostcode: store.storePostCode,
     placeId: store.placeId,
     embedLink: store.embedUrl,
+    phone: store.storePhone,
   })
 );
 
 export default async function Page() {
   return (
-    <div className="py-20 container-max-width md:py-28 lg:py-32">
+    <div className="min-h-screen bg-white">
       <Content stores={stores} />
     </div>
   );

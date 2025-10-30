@@ -154,6 +154,18 @@ export interface GlobalPromotionalFlipCard extends Struct.ComponentSchema {
   };
 }
 
+export interface GlobalQuickBuyItem extends Struct.ComponentSchema {
+  collectionName: 'components_global_quick_buy_items';
+  info: {
+    description: '';
+    displayName: 'Quick Buy Item';
+  };
+  attributes: {
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    subtitle: Schema.Attribute.String;
+  };
+}
+
 export interface GlobalRam extends Struct.ComponentSchema {
   collectionName: 'components_global_rams';
   info: {
@@ -276,6 +288,7 @@ declare module '@strapi/strapi' {
       'global.product-store-item': GlobalProductStoreItem;
       'global.promo-slider-item': GlobalPromoSliderItem;
       'global.promotional-flip-card': GlobalPromotionalFlipCard;
+      'global.quick-buy-item': GlobalQuickBuyItem;
       'global.ram': GlobalRam;
       'homepage.hero-section': HomepageHeroSection;
       'homepage.hero-slider': HomepageHeroSlider;

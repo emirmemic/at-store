@@ -1403,6 +1403,37 @@ export interface ApiPromoSliderPromoSlider extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiQuickBuyQuickBuy extends Struct.SingleTypeSchema {
+  collectionName: 'quick_buys';
+  info: {
+    description: 'Quick buy section for homepage';
+    displayName: 'Quick Buy';
+    pluralName: 'quick-buys';
+    singularName: 'quick-buy';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headline: Schema.Attribute.String;
+    items: Schema.Attribute.Component<'global.quick-buy-item', true> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::quick-buy.quick-buy'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStoreStore extends Struct.CollectionTypeSchema {
   collectionName: 'stores';
   info: {
@@ -2154,6 +2185,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
+      'api::quick-buy.quick-buy': ApiQuickBuyQuickBuy;
       'api::store.store': ApiStoreStore;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
       'api::user-address.user-address': ApiUserAddressUserAddress;

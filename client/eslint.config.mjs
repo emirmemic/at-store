@@ -23,7 +23,7 @@ const eslintConfig = [
       // General rules
       'no-console': 'off',
       eqeqeq: 'error',
-
+      '@next/next/no-img-element': 'off',
       // TypeScript rules
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',

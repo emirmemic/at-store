@@ -52,13 +52,24 @@ export default function StoreStatus({
   }
 
   return statusText ? (
-    <div className="flex items-center gap-16">
-      <p
-        className={cn('paragraph-2', openNow ? 'text-green' : 'text-red-deep')}
-      >
-        {status}
-      </p>
-      <p className="text-grey-darker paragraph-2">{statusText}</p>
+    <div className="flex flex-col gap-1.5 border-t border-neutral-200 pt-3">
+      <div className="flex items-center gap-2">
+        <div
+          className={cn(
+            'h-2 w-2 rounded-full',
+            openNow ? 'bg-green-500' : 'bg-red-500'
+          )}
+        />
+        <p
+          className={cn(
+            'text-sm font-medium',
+            openNow ? 'text-green-700' : 'text-red-700'
+          )}
+        >
+          {status}
+        </p>
+      </div>
+      <p className="text-sm text-neutral-600">{statusText}</p>
     </div>
   ) : null;
 }
