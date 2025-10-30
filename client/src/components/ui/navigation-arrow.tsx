@@ -19,6 +19,7 @@ const svgVariants = cva('shrink-0 transition-all [&_path]:transition-colors', {
     variant: {
       white: 'text-white',
       black: 'text-black',
+      blue: 'text-[#417DE7]',
     },
   },
   defaultVariants: {
