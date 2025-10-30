@@ -72,6 +72,7 @@ export default function QuickBuySection({
             align: 'center',
             loop: false,
             slidesToScroll: 1,
+            containScroll: 'trimSnaps',
           }}
           setApi={setApi}
           className="mx-auto w-full max-w-4xl"
