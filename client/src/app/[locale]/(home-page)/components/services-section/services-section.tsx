@@ -28,7 +28,7 @@ const services = [
     id: 'visit-us',
     title: 'Posjeti nas',
     description:
-      'Posjeti naše poslovnice i isprobaj najnovije Apple proizvode uz stručnu pomoć i ekskluzivne ponude.',
+      'Posjeti naše poslovnice i testiraj najnovije Apple proizvode uz stručnu pomoć i ekskluzivne ponude.',
     details: 'Doživi Apple iskustvo uživo u najbližem AT Storeu.',
     image: '/assets/images/services/1image.webp',
     badge: null,
@@ -38,7 +38,7 @@ const services = [
     id: 'apple-experts',
     title: 'Stručno osoblje',
     description:
-      'Naš tim stručnjaka stoji ti na raspolaganju za sva pitanja – od prve postavke do rješenja tehničkih izazova.',
+      'Naš tim stručnjaka stoji ti na raspolaganju za sva pitanja – od postavljanja uređaja do migracije podataka.',
     details: 'Uvijek spremni da ti pomognemo, brzo i profesionalno.',
     image: '/assets/images/services/4image.webp',
     badge: null,
@@ -48,8 +48,8 @@ const services = [
     id: 'service',
     title: 'Podrška',
     description:
-      'Ako naiđeš na problem s uređajem, plaćanjem ili Apple ID-jem, naš tim podrške pomoći će ti da ga riješiš bez stresa.',
-    details: 'Pouzdana pomoć za sve tvoje Apple potrebe.',
+      'Ako imaš softverski problem na uređaju, plaćanjem na App Store-u ili blokiranim Apple ID-jem, naš tim podrške će ga riješiti.',
+    details: 'Pouzdana podrška za sve Apple proizvode.',
     image: '/assets/images/services/3image.webp',
     badge: null,
     href: '/support',
