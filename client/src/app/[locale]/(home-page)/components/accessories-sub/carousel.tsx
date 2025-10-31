@@ -1,14 +1,14 @@
 'use client';
-import Autoscroll from 'embla-carousel-auto-scroll';
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { SubCategoryItem } from '@/lib/types';
 
+import Autoscroll from 'embla-carousel-auto-scroll';
 import SubCategoryCard from './subcategory-card';
+import { SubCategoryItem } from '@/lib/types';
 
 export default function SubCategoriesCarousel({
   items,
@@ -33,7 +33,10 @@ export default function SubCategoriesCarousel({
     >
       <CarouselContent className="py-4">
         {items.map((item) => (
-          <CarouselItem key={item.id} className="flex basis-52">
+          <CarouselItem
+            key={item.id}
+            className="flex basis-52 sm:basis-64 md:basis-80"
+          >
             <SubCategoryCard {...item} />
           </CarouselItem>
         ))}

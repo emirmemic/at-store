@@ -12,11 +12,13 @@ import qs from 'qs';
 
 const query = qs.stringify(
   {
+    fields: ['id', 'displayName', 'name', 'shortDescription', 'link', 'tag'],
     populate: {
       image: {
         fields: STRAPI_IMAGE_FIELDS,
       },
       products: {
+        fields: ['id'],
         filters: {
           publishedAt: { $notNull: true },
           amountInStock: { $gt: 0 },
@@ -50,6 +52,9 @@ async function fetchSubCategories() {
   const res = await fetchAPI<SubCategoriesResponse>(url.href, {
     method: 'GET',
     isAuth: false,
+    next: {
+      revalidate: 600,
+    },
   });
   return res;
 }

@@ -17,19 +17,20 @@ const services = [
   {
     id: 'personal-pickup',
     title: 'Lično preuzimanje.',
-    description: 'Preuzmi svoju narudžbu u prodavnici.',
-    details:
-      'Besplatna dostava za sve narudžbe za preuzimanje u jednoj od naših poslovnica.',
-    image: '/assets/images/services/1image.webp',
+    description:
+      'Svoju narudžbu možeš jednostavno preuzeti u najbližoj AT Store poslovnici – brzo, sigurno i bez dodatnih troškova.',
+    details: 'Preuzmi gdje ti najviše odgovara i uštedi vrijeme.',
+    image: '/assets/images/services/2image.webp',
     badge: null,
     href: '/find-store',
   },
   {
     id: 'visit-us',
     title: 'Posjeti nas',
-    description: 'Pronađi najbližu poslovnicu.',
-    details: 'Kupi ili iskusi najnovije Apple proizvode.',
-    image: '/assets/images/services/2image.webp',
+    description:
+      'Posjeti naše poslovnice i isprobaj najnovije Apple proizvode uz stručnu pomoć i ekskluzivne ponude.',
+    details: 'Doživi Apple iskustvo uživo u najbližem AT Storeu.',
+    image: '/assets/images/services/1image.webp',
     badge: null,
     href: '/find-store',
   },
@@ -37,9 +38,9 @@ const services = [
     id: 'apple-experts',
     title: 'Stručno osoblje',
     description:
-      'Bilo putem telefona, chatom ili e-poštom, spremni smo da ti pomognemo sa svim pitanjima i problemima o Apple proizvodima. Nudimo ti podršku za postavku uređaja i sve do oporavka tvog Apple ID-ja.',
-    details: 'Naše stručno osoblje je tu da odgovori na sva tvoja pitanja.',
-    image: '/assets/images/services/3image.webp',
+      'Naš tim stručnjaka stoji ti na raspolaganju za sva pitanja – od prve postavke do rješenja tehničkih izazova.',
+    details: 'Uvijek spremni da ti pomognemo, brzo i profesionalno.',
+    image: '/assets/images/services/4image.webp',
     badge: null,
     href: '/support',
   },
@@ -47,10 +48,9 @@ const services = [
     id: 'service',
     title: 'Podrška',
     description:
-      'Imaš problem sa plaćanjem na App Storeu? Obrisao si fotke slučajno? Imaš problem i trebaš pomoć? Sve 5!',
-    details:
-      'Nudimo ti podršku za postavku uređaja i sve do oporavka tvog Apple ID-ja.',
-    image: '/assets/images/services/4image.webp',
+      'Ako naiđeš na problem s uređajem, plaćanjem ili Apple ID-jem, naš tim podrške pomoći će ti da ga riješiš bez stresa.',
+    details: 'Pouzdana pomoć za sve tvoje Apple potrebe.',
+    image: '/assets/images/services/3image.webp',
     badge: null,
     href: '/support',
   },
@@ -60,7 +60,7 @@ const services = [
     description: 'Zamijeni. Nadogradi. Uštedi. Ili recikliraj besplatno.',
     details:
       'Zamijeni svoj stari uređaj i preuzmi bilo koji naš proizvod po povoljnijoj cijeni!',
-    image: '/assets/images/tradein.webp',
+    image: '/assets/images/services/5image.webp',
     badge: null,
     href: '/trade-in',
   },
@@ -149,7 +149,7 @@ function ServiceCard({
   return (
     <Link
       href={service.href}
-      className="group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all duration-300 hover:border-neutral-300 hover:shadow-md md:min-h-[460px]"
+      className="group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all duration-300 hover:border-neutral-300 hover:shadow-md md:min-h-[430px]"
     >
       {/* Image Container */}
       <div className="relative h-48 w-full flex-shrink-0 overflow-hidden bg-neutral-50 md:h-52">
@@ -169,7 +169,7 @@ function ServiceCard({
 
       {/* Content Container */}
       <div className="flex flex-1 flex-col justify-between p-5 md:p-6">
-        <div className="flex-1 space-y-2.5">
+        <div className="flex-1 space-y-2">
           <h3 className="text-lg font-semibold leading-snug text-neutral-900 md:text-xl">
             {service.title}
           </h3>
@@ -177,7 +177,7 @@ function ServiceCard({
             {service.description}
           </p>
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-neutral-500 md:text-sm">
+        <p className="text-xs leading-relaxed text-neutral-500 md:text-sm">
           {service.details}
         </p>
       </div>

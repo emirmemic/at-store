@@ -68,6 +68,9 @@ async function loader() {
   const res = await fetchAPI<HomepageResponse>(url.href, {
     method: 'GET',
     isAuth: false,
+    next: {
+      revalidate: 300,
+    },
   });
 
   if (!res.data)
@@ -126,9 +129,9 @@ export default async function Page({
         </div>
         <PromoSliderWrapper className="pb-4 pt-4 container-max-width-xl" />
         {/* TODO: Import here again */}
-        {/* <ServicesSection /> */}
+        <ServicesSection />
         <QuickBuyWrapper />
-        <section className="pb-5 pt-0 container-max-width-xl">
+        <section className="pb-5 pt-10 container-max-width-xl">
           <SubCategorySection />
         </section>
       </div>

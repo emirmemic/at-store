@@ -1,6 +1,7 @@
+import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
+
 import { ProductResponse } from '@/lib/types';
 import QuickBuySection from './quick-buy-section';
-import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
 import qs from 'qs';
 
@@ -8,9 +9,27 @@ const query = qs.stringify(
   {
     populate: {
       items: {
+        fields: ['id', 'subtitle'],
         populate: {
           product: {
-            populate: ['images', 'category'],
+            fields: [
+              'id',
+              'name',
+              'displayName',
+              'originalPrice',
+              'discountedPrice',
+              'productLink',
+              'productTypeId',
+              'amountInStock',
+            ],
+            populate: {
+              images: {
+                fields: STRAPI_IMAGE_FIELDS,
+              },
+              category: {
+                fields: ['link'],
+              },
+            },
           },
         },
       },
@@ -94,6 +113,9 @@ async function fetchQuickBuyData() {
     const res = await fetchAPI<StrapiQuickBuyResponse>(url.href, {
       method: 'GET',
       isAuth: false,
+      next: {
+        revalidate: 300,
+      },
     });
 
     if (!res.data) {

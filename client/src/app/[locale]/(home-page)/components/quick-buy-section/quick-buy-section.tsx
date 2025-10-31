@@ -61,7 +61,7 @@ export default function QuickBuySection({
   const disableArrows = items.length <= 3;
 
   return (
-    <section className="w-full py-12 md:py-16">
+    <section className="w-full py-12 md:py-8">
       <div className="px-4 container-max-width-xl md:px-6">
         <h2 className="mb-8 text-center text-3xl font-semibold tracking-tight text-neutral-900 md:mb-12 md:text-4xl lg:text-5xl">
           {headline}
