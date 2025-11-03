@@ -45,6 +45,9 @@ const homePageQuery = qs.stringify(
               media: {
                 fields: [...STRAPI_IMAGE_FIELDS, 'mime'],
               },
+              mobileMedia: {
+                fields: [...STRAPI_IMAGE_FIELDS, 'mime'],
+              },
               placeholderImage: {
                 fields: STRAPI_IMAGE_FIELDS,
               },

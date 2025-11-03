@@ -26,8 +26,6 @@ interface InfoBlockResponse {
 interface PromoSliderItemResponse {
   id: number;
   image: ImageProps;
-  mobileImage?: ImageProps | null;
-  video?: ImageProps | null;
   actionLink: ActionLinkResponse | null;
 }
 

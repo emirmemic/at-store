@@ -187,6 +187,7 @@ export interface HomepageHeroSection extends Struct.ComponentSchema {
     actionLink: Schema.Attribute.Component<'global.action-link', false>;
     media: Schema.Attribute.Media<'images' | 'videos'> &
       Schema.Attribute.Required;
+    mobileMedia: Schema.Attribute.Media<'images'>;
     placeholderImage: Schema.Attribute.Media<'images'>;
   };
 }

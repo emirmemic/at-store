@@ -9,6 +9,12 @@ interface HeroSliderItem {
     alternativeText?: string;
     mime: string;
   };
+  mobileMedia?: {
+    id: number;
+    url: string;
+    alternativeText?: string;
+    mime: string;
+  } | null;
   placeholderImage?: {
     id: number;
     url: string;

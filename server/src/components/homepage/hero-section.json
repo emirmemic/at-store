@@ -12,6 +12,12 @@
       "required": true,
       "allowedTypes": ["images", "videos"]
     },
+    "mobileMedia": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
     "placeholderImage": {
       "type": "media",
       "multiple": false,

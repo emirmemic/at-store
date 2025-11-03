@@ -21,12 +21,14 @@ import { cn } from '@/lib/utils/utils';
 const SliderItem: React.FC<HeroSliderItem> = ({
   id,
   media,
+  mobileMedia,
   placeholderImage,
   actionLink,
 }) => {
   const isVideo = media?.mime?.startsWith('video');
   const videoUrl = media?.url;
-  const imageUrl = media?.url;
+  const desktopImageUrl = media?.url;
+  const mobileImageUrl = mobileMedia?.url || desktopImageUrl;
   const altText = media?.alternativeText || placeholderImage?.alternativeText;
 
   return (
@@ -47,14 +49,24 @@ const SliderItem: React.FC<HeroSliderItem> = ({
           src={videoUrl}
         />
       ) : (
-        <StrapiImage
-          alt={altText ?? 'No alternative text provided'}
-          className="h-full w-full object-cover"
-          height={303}
-          sizes="100vw"
-          src={imageUrl}
-          width={834}
-        />
+        <>
+          <StrapiImage
+            alt={altText ?? 'No alternative text provided'}
+            className="h-full w-full object-cover md:hidden"
+            height={303}
+            sizes="100vw"
+            src={mobileImageUrl}
+            width={834}
+          />
+          <StrapiImage
+            alt={altText ?? 'No alternative text provided'}
+            className="hidden h-full w-full object-cover md:block"
+            height={303}
+            sizes="100vw"
+            src={desktopImageUrl}
+            width={834}
+          />
+        </>
       )}
       {actionLink && (
         <ActionLink
