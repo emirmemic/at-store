@@ -9,7 +9,9 @@ interface GenerateMetadataParams {
   params: Promise<{ locale: string; productLink: string }>;
 }
 async function fetchMetadata(productLink: string) {
-  const path = `/api/products/${productLink}/metadata`;
+  // Decode the productLink to handle encoded special characters
+  const decodedProductLink = decodeURIComponent(productLink);
+  const path = `/api/products/${decodedProductLink}/metadata`;
   const url = new URL(path, STRAPI_BASE_URL);
 
   const res = await fetchAPI<MetadataResponse>(url.href, {

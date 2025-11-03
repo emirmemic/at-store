@@ -16,6 +16,12 @@ const query = qs.stringify(
           image: {
             fields: STRAPI_IMAGE_FIELDS,
           },
+          mobileImage: {
+            fields: STRAPI_IMAGE_FIELDS,
+          },
+          video: {
+            fields: STRAPI_IMAGE_FIELDS,
+          },
           actionLink: true,
         },
       },

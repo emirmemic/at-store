@@ -82,7 +82,16 @@ const makeSubCategoryLink = (
   if (isAccessory(name)) {
     return `${PAGE_NAMES.ACCESSORIES}/${subCategoryLink}`;
   }
-  return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${productTypeId}/${productLink}`;
+  // Triple encode dots - Next.js decodes multiple times during routing
+  const encodedProductTypeId = encodeURIComponent(productTypeId).replace(
+    /\./g,
+    '%25252E'
+  );
+  const encodedProductLink = encodeURIComponent(productLink).replace(
+    /\./g,
+    '%25252E'
+  );
+  return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${encodedProductTypeId}/${encodedProductLink}`;
 };
 const makeGroupedSubCategoryLink = (
   categoryLink: string,
@@ -96,8 +105,27 @@ const makeProductLink = (
   productTypeId: string,
   productLink: string
 ): string => {
+  console.warn('⚠️ makeProductLink called with:', {
+    categoryLink,
+    productTypeId,
+    productLink,
+  });
+
   const lowerCased = productTypeId.toLowerCase();
-  return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${lowerCased}/${productLink}`;
+  // Triple encode dots - Next.js decodes multiple times during routing
+  const encodedProductTypeId = encodeURIComponent(lowerCased).replace(
+    /\./g,
+    '%25252E'
+  );
+  const encodedProductLink = encodeURIComponent(productLink).replace(
+    /\./g,
+    '%25252E'
+  );
+  const result = `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${encodedProductTypeId}/${encodedProductLink}`;
+
+  console.warn('⚠️ makeProductLink result:', result);
+
+  return result;
 };
 
 export {

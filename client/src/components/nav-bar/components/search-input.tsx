@@ -1,19 +1,18 @@
 'use client';
 
-import { ArrowRightCircle } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
 import { useEffect, useRef, useState } from 'react';
 
 import { AnimateHeight } from '@/components/transitions';
-import { DYNAMIC_PAGES, PAGE_NAMES } from '@/i18n/page-names';
-import { useDebounceValue } from '@/lib/hooks';
+import { ArrowRightCircle } from 'lucide-react';
+import { IconSearch } from '../icons';
+import Link from 'next/link';
 import { ProductResponse } from '@/lib/types';
 import { cn } from '@/lib/utils/utils';
-
 import { getSearchResults } from '../actions';
-import { IconSearch } from '../icons';
+import { useDebounceValue } from '@/lib/hooks';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function SearchInput({ onClick }: { onClick?: () => void }) {
   const t = useTranslations('navbar');
@@ -90,7 +89,16 @@ export default function SearchInput({ onClick }: { onClick?: () => void }) {
     const categoryLink = product.category?.link;
     const subCategoryLink = product.productTypeId;
     const productLink = product.productLink;
-    return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${subCategoryLink}/${productLink}`;
+    // Triple encode dots - Next.js decodes multiple times during routing
+    const encodedProductTypeId = encodeURIComponent(subCategoryLink).replace(
+      /\./g,
+      '%25252E'
+    );
+    const encodedProductLink = encodeURIComponent(productLink).replace(
+      /\./g,
+      '%25252E'
+    );
+    return `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${encodedProductTypeId}/${encodedProductLink}`;
   };
   useEffect(() => {
     if (inputRef.current) {

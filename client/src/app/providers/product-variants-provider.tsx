@@ -80,9 +80,9 @@ export default function ProductVariantsProvider({
   const rawProductLink = params?.productLink;
   const productLink =
     typeof rawProductLink === 'string'
-      ? rawProductLink
+      ? decodeURIComponent(rawProductLink)
       : Array.isArray(rawProductLink)
-        ? rawProductLink[0]
+        ? decodeURIComponent(rawProductLink[0])
         : undefined;
 
   const searchParams = useSearchParams();

@@ -1,11 +1,10 @@
-import { notFound } from 'next/navigation';
+import { ProductTypeResponse, ProductVariant } from './[productLink]/types';
 
+import { ProductResponse } from '@/lib/types';
 import ProductVariantsProvider from '@/app/providers/product-variants-provider';
 import { STRAPI_BASE_URL } from '@/lib/constants';
 import { fetchAPI } from '@/lib/fetch-api';
-import { ProductResponse } from '@/lib/types';
-
-import { ProductTypeResponse, ProductVariant } from './[productLink]/types';
+import { notFound } from 'next/navigation';
 
 const getVariantBasePrice = (variant: ProductVariant): number => {
   const price = variant.discountedPrice ?? variant.originalPrice;
@@ -19,7 +18,9 @@ const getVariantBasePrice = (variant: ProductVariant): number => {
 const getProductOptions = async (
   subCategoryLink: string
 ): Promise<ProductTypeResponse> => {
-  const path = `/api/products/${subCategoryLink}/options`;
+  // Decode the subCategoryLink to handle encoded special characters
+  const decodedSubCategoryLink = decodeURIComponent(subCategoryLink);
+  const path = `/api/products/${decodedSubCategoryLink}/options`;
   const url = new URL(path, STRAPI_BASE_URL);
 
   const response = await fetchAPI<ProductTypeResponse>(url.href, {
@@ -34,7 +35,9 @@ const getProductOptions = async (
 const getRelatedProducts = async (
   subCategoryLink: string
 ): Promise<ProductResponse[]> => {
-  const path = `/api/products/${subCategoryLink}/related-products`;
+  // Decode the subCategoryLink to handle encoded special characters
+  const decodedSubCategoryLink = decodeURIComponent(subCategoryLink);
+  const path = `/api/products/${decodedSubCategoryLink}/related-products`;
   const url = new URL(path, STRAPI_BASE_URL);
 
   const response = await fetchAPI<ProductResponse[]>(url.href, {

@@ -99,44 +99,95 @@ export default function PromoSlider({ className, slides }: PromoSliderProps) {
         onSlideChange={(currentIndex) => setCurrentSlide(currentIndex)}
       >
         <CarouselContent>
-          {slides.map((slide) => (
-            <CarouselItem
-              key={slide.id}
-              className="aspect-video basis-[416px] md:basis-[716px]"
-            >
-              {slide.actionLink ? (
-                <Link
-                  className="h-full w-full overflow-hidden"
-                  href={slide.actionLink.linkUrl}
-                  title={slide.actionLink.linkText || t('viewDetails')}
-                >
-                  <span className="sr-only">{t('viewDetails')}</span>
-                  <StrapiImage
-                    priority
-                    alt={slide.image?.alternativeText ?? 'Image'}
-                    className="h-full w-full object-cover"
-                    height={240}
-                    sizes="100vw"
-                    src={slide.image.url}
-                    width={400}
-                  />
-                </Link>
-              ) : (
-                <div className="h-full w-full overflow-hidden">
-                  <span className="sr-only">{t('viewDetails')}</span>
-                  <StrapiImage
-                    priority
-                    alt={slide.image?.alternativeText ?? 'Image'}
-                    className="h-full w-full object-cover"
-                    height={240}
-                    sizes="100vw"
-                    src={slide.image.url}
-                    width={400}
-                  />
-                </div>
-              )}
-            </CarouselItem>
-          ))}
+          {slides.map((slide) => {
+            const mobileImg = slide.mobileImage || slide.image;
+            const desktopImg = slide.image;
+
+            return (
+              <CarouselItem
+                key={slide.id}
+                className="aspect-video basis-[416px] md:basis-[716px]"
+              >
+                {slide.actionLink ? (
+                  <Link
+                    className="h-full w-full overflow-hidden"
+                    href={slide.actionLink.linkUrl}
+                    title={slide.actionLink.linkText || t('viewDetails')}
+                  >
+                    <span className="sr-only">{t('viewDetails')}</span>
+                    {slide.video ? (
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-full w-full object-cover"
+                      >
+                        <source src={slide.video.url} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <>
+                        <StrapiImage
+                          priority
+                          alt={mobileImg?.alternativeText ?? 'Image'}
+                          className="h-full w-full object-cover md:hidden"
+                          height={240}
+                          sizes="100vw"
+                          src={mobileImg.url}
+                          width={400}
+                        />
+                        <StrapiImage
+                          priority
+                          alt={desktopImg?.alternativeText ?? 'Image'}
+                          className="hidden h-full w-full object-cover md:block"
+                          height={240}
+                          sizes="100vw"
+                          src={desktopImg.url}
+                          width={400}
+                        />
+                      </>
+                    )}
+                  </Link>
+                ) : (
+                  <div className="h-full w-full overflow-hidden">
+                    <span className="sr-only">{t('viewDetails')}</span>
+                    {slide.video ? (
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-full w-full object-cover"
+                      >
+                        <source src={slide.video.url} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <>
+                        <StrapiImage
+                          priority
+                          alt={mobileImg?.alternativeText ?? 'Image'}
+                          className="h-full w-full object-cover md:hidden"
+                          height={240}
+                          sizes="100vw"
+                          src={mobileImg.url}
+                          width={400}
+                        />
+                        <StrapiImage
+                          priority
+                          alt={desktopImg?.alternativeText ?? 'Image'}
+                          className="hidden h-full w-full object-cover md:block"
+                          height={240}
+                          sizes="100vw"
+                          src={desktopImg.url}
+                          width={400}
+                        />
+                      </>
+                    )}
+                  </div>
+                )}
+              </CarouselItem>
+            );
+          })}
         </CarouselContent>
       </Carousel>
       <div className="flex items-center justify-center gap-1 md:gap-3">
