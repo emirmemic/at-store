@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { getTranslations } from 'next-intl/server';
-import multi from '@/assets/images/multi.png';
+import multi from '@/assets/images/multi2.webp';
 import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
@@ -51,7 +51,7 @@ export default function Page() {
   ];
   const calendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || '';
   return (
-    <div className="bg-gray-50">
+    <div className="bg-white">
       <div className="max-w-8xl mx-auto px-4 py-4 lg:py-6">
         <div className="mb-4 flex flex-col items-center gap-4 rounded-3xl px-6 py-6 text-center md:mb-12">
           <h1 className="text-gray-900 heading-4 md:heading-1">
