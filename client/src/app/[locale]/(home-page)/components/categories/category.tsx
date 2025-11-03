@@ -11,6 +11,7 @@ interface CategoryProps {
 export default function Category({ category, className }: CategoryProps) {
   const t = useTranslations('common');
   const { name, link, image, startingPrice, displayName } = category;
+
   return (
     <Link
       className={`flex flex-col items-center gap-2 rounded-2xl p-2 transition-all hover:bg-grey-extra-light/50 ${className}`}
@@ -34,7 +35,7 @@ export default function Category({ category, className }: CategoryProps) {
       </span>
       <span className="md:text-s text-center text-xs text-grey-darkest">
         {t('startsFrom')}{' '}
-        <span className="font-bold text-black">{`${startingPrice} ${CURRENCY}`}</span>
+        <span className="font-bold text-black">{`${startingPrice <= 10 ? 79 : startingPrice} ${CURRENCY}`}</span>
       </span>
     </Link>
   );

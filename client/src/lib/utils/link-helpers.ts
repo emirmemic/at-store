@@ -105,12 +105,6 @@ const makeProductLink = (
   productTypeId: string,
   productLink: string
 ): string => {
-  console.warn('⚠️ makeProductLink called with:', {
-    categoryLink,
-    productTypeId,
-    productLink,
-  });
-
   const lowerCased = productTypeId.toLowerCase();
   // Triple encode dots - Next.js decodes multiple times during routing
   const encodedProductTypeId = encodeURIComponent(lowerCased).replace(
@@ -122,8 +116,6 @@ const makeProductLink = (
     '%25252E'
   );
   const result = `${DYNAMIC_PAGES.PRODUCTS}/${categoryLink}/${encodedProductTypeId}/${encodedProductLink}`;
-
-  console.warn('⚠️ makeProductLink result:', result);
 
   return result;
 };
