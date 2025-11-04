@@ -10,6 +10,7 @@ import {
 import { FooterSectionType, LinkHref } from '@/components/footer/types';
 
 import { NavMenuItem } from '@/components/nav-bar/types';
+import { NewsletterSection } from '@/app/[locale]/(home-page)/components/newsletter-section';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -131,11 +132,6 @@ export default function Footer({ categoryItems }: FooterProps) {
           name: t('information.delivery'),
           path: PAGE_NAMES.DELIVERY,
         },
-        {
-          id: 'newsletter',
-          name: t('information.newsletter'),
-          path: PAGE_NAMES.NEWSLETTER,
-        },
       ],
     },
     {
@@ -180,32 +176,38 @@ export default function Footer({ categoryItems }: FooterProps) {
   );
 
   return (
-    <footer className="bg-[#F5F5F7] py-5 md:py-9">
-      <div className="mx-auto flex max-w-[1000px] flex-col gap-3 md:gap-6">
-        <Description className="hidden md:block" items={descriptionItems} />
-        <div className="w-full justify-between gap-7 text-gray-500 md:flex lg:gap-28">
-          <div className="mb-4 md:hidden">
-            {updatedFooterSections.map((section) => (
-              <SectionMobile
-                key={section.id}
-                isActive={activeSectionId === section.id}
-                section={section}
-                onToggle={() => handleSectionToggle(section.id)}
-              />
-            ))}
+    <footer className="bg-[#F5F5F7]">
+      {/* Newsletter Section */}
+      {/* Footer Content */}
+      <div className="py-5 md:py-0">
+        <NewsletterSection />
+
+        <div className="mx-auto flex max-w-[1000px] flex-col gap-3 md:gap-6">
+          <Description className="hidden md:block" items={descriptionItems} />
+          <div className="w-full justify-between gap-7 text-gray-500 md:flex lg:gap-28">
+            <div className="mb-4 md:hidden">
+              {updatedFooterSections.map((section) => (
+                <SectionMobile
+                  key={section.id}
+                  isActive={activeSectionId === section.id}
+                  section={section}
+                  onToggle={() => handleSectionToggle(section.id)}
+                />
+              ))}
+            </div>
+            <div className="hidden justify-between gap-6 md:flex md:grow">
+              {updatedFooterSections.map((section) => (
+                <SectionDesktop key={section.id} {...section} />
+              ))}
+            </div>
+            <FooterSocial />
           </div>
-          <div className="hidden justify-between gap-6 md:flex md:grow">
-            {updatedFooterSections.map((section) => (
-              <SectionDesktop key={section.id} {...section} />
-            ))}
+          <FooterPayment />
+          <div className="ml-4 md:ml-0">
+            <p className="text-left text-xs text-gray-500">
+              Developed by AT Soft, Sarajevo
+            </p>
           </div>
-          <FooterSocial />
-        </div>
-        <FooterPayment />
-        <div className="ml-4 md:ml-0">
-          <p className="text-left text-xs text-gray-500">
-            Developed by AT Soft, Sarajevo
-          </p>
         </div>
       </div>
     </footer>

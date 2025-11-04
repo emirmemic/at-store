@@ -1,5 +1,6 @@
 import CategoriesSection from './categories/section';
 import HeroSection from './hero-section';
+import { NewsletterSection } from './newsletter-section';
 import OAuthRedirectMessage from './oauth-redirect-message';
 import PromoCards from './promo-cards/promo-cards';
 import QuickBuyWrapper from './quick-buy-section/quick-buy-wrapper';
@@ -16,4 +17,5 @@ export {
   TradeInBanner,
   ServicesSection,
   QuickBuyWrapper,
+  NewsletterSection,
 };
