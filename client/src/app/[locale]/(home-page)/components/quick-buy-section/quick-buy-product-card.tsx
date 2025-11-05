@@ -94,13 +94,13 @@ export default function QuickBuyProductCard({
       <Link href={finalLink} className="block flex-1">
         <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-300 hover:border-neutral-300 hover:shadow-lg">
           {/* Product Image */}
-          <div className="relative aspect-square w-full overflow-hidden p-12">
+          <div className="relative mx-auto mt-6 aspect-square w-full max-w-[256px] overflow-hidden p-12">
             <Image
               src={imageUrl}
               alt={displayName || name || 'Product'}
               fill
               className="object-contain"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              sizes="(max-width: 512px) 50vw, 25vw"
             />
           </div>
 
