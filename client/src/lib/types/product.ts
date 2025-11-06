@@ -1,10 +1,7 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
-
-import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { ImageProps } from '@/lib/types';
-
+import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { StoreCode } from '../constants';
-
 import { UserInformation } from './auth';
 
 interface ProductResponse {
@@ -43,6 +40,7 @@ interface ProductResponse {
   chip?: IdentificationResponse | null;
   numberOfCores?: number | null;
   updatedAt?: string | null;
+  related_group?: RelatedProductGroup | null;
 }
 
 interface StoreResponse {
@@ -76,6 +74,12 @@ interface MemoryResponse {
   id: number;
   value: number;
   unit: string;
+}
+
+interface RelatedProductGroup {
+  id: number;
+  title: string;
+  products: ProductResponse[];
 }
 
 export interface CartResponse {
@@ -147,6 +151,7 @@ export type {
   InstallmentOption,
   MemoryResponse,
   ProductResponse,
+  RelatedProductGroup,
   ShoppingCartItem,
   SubCategoryItem,
   GroupedSubCategoryItem,

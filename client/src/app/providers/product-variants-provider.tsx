@@ -66,13 +66,13 @@ const findCheapestVariant = (
 export default function ProductVariantsProvider({
   children,
   variants,
-  relatedProducts,
   productOptions,
+  legacyRelatedProducts,
 }: {
   children: ReactNode;
   variants: ProductVariant[];
-  relatedProducts: ProductResponse[];
   productOptions: ProductTypeAttributes;
+  legacyRelatedProducts?: ProductResponse[];
 }) {
   // Initialize router and params
   const router = useRouter();
@@ -137,6 +137,21 @@ export default function ProductVariantsProvider({
     useState<ProductTypeAttributes>(
       deriveAvailableOptions(variants, latestClicked)
     );
+
+  const relatedProducts = useMemo(() => {
+    // Prefer curated bundles; fall back to compatibility matches while the admin data catches up.
+    const curated = selectedVariant.related_group?.products ?? [];
+    const curatedWithoutSelf = curated.filter(
+      (item) => item.productVariantId !== selectedVariant.productVariantId
+    );
+    if (curatedWithoutSelf.length) {
+      return curatedWithoutSelf;
+    }
+    const fallback = legacyRelatedProducts ?? [];
+    return fallback.filter(
+      (item) => item.productVariantId !== selectedVariant.productVariantId
+    );
+  }, [legacyRelatedProducts, selectedVariant]);
 
   // Methods
   const selectVariantFromUrl = (slug?: string) => {

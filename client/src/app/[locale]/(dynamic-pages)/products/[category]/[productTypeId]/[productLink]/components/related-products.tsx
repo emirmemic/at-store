@@ -1,23 +1,28 @@
 'use client';
-import Autoplay from 'embla-carousel-autoplay';
-import { useTranslations } from 'next-intl';
 
-import { useProductVariants } from '@/app/providers/product-variants-provider';
-import { RelatedProductAccessories } from '@/components/product-cards';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
+
+import Autoplay from 'embla-carousel-autoplay';
+import { RelatedProductAccessories } from '@/components/product-cards';
+import { useProductVariants } from '@/app/providers/product-variants-provider';
+import { useTranslations } from 'next-intl';
+
 export default function RelatedProducts() {
-  const { relatedProducts } = useProductVariants();
+  const { relatedProducts, selectedVariant } = useProductVariants();
   const t = useTranslations('productPage');
   if (!relatedProducts || relatedProducts.length === 0) {
     return null;
   }
+  const groupTitle = selectedVariant.related_group?.title;
   return (
     <section className="py-2">
-      <p className="pb-4 pl-4 heading-3">{t('relatedProducts')}</p>
+      <p className="pb-4 pl-4 heading-3">
+        {groupTitle ?? t('relatedProducts')}
+      </p>
       <Carousel
         className="w-full"
         opts={{
