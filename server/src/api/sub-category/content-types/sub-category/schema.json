@@ -24,6 +24,10 @@
       "type": "string",
       "required": false
     },
+    "modalText": {
+      "type": "blocks",
+      "required": false
+    },
     "tag": {
       "type": "string",
       "required": false

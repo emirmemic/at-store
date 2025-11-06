@@ -95,6 +95,8 @@ export default async function Page({
 
   const t = await getTranslations();
 
+  console.log(categoryData.subCategories);
+
   return (
     <main className="pb-28 pt-11 container-max-width">
       <ProductListTitle title={categoryData.displayName} />
@@ -106,6 +108,8 @@ export default async function Page({
             image={subCategory.image}
             link={makeSubCategoryLink(categoryData.link, subCategory)}
             title={subCategory.displayName || subCategory.name}
+            shortDescription={subCategory.shortDescription}
+            modalText={subCategory.modalText}
           />
         ))}
       </div>

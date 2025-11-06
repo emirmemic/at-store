@@ -117,6 +117,7 @@ interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
   tag: string | null;
   navbarIcon: ImageProps | null;
+  modalText?: BlocksContent | null;
 }
 interface GroupedSubCategoryItem {
   id: string;

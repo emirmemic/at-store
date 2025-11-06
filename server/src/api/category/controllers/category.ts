@@ -28,6 +28,7 @@ export default factories.createCoreController(
                   'link',
                   'displayName',
                   'shortDescription',
+                  'modalText',
                 ],
                 populate: {
                   products: {

@@ -1532,6 +1532,7 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
+    modalText: Schema.Attribute.Blocks;
     models: Schema.Attribute.Relation<'manyToMany', 'api::model.model'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &

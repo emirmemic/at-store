@@ -1,9 +1,18 @@
 'use client';
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { StrapiBlocks, StrapiImage } from '@/components/strapi/components';
+
+import type { BlocksContent } from '@strapi/blocks-react-renderer';
 import { Button } from '../ui/button';
 import { ImageProps } from '@/lib/types';
 import Link from 'next/link';
-import { StrapiImage } from '@/components/strapi/components';
 
 interface SubProductCardProps {
   title: string;
@@ -12,6 +21,8 @@ interface SubProductCardProps {
   link: string;
   buttonText: string;
   onClick?: () => void;
+  shortDescription?: string | null;
+  modalText?: BlocksContent | null;
 }
 export default function SubProductCard({
   title,
@@ -20,51 +31,58 @@ export default function SubProductCard({
   link,
   buttonText,
   onClick,
+  shortDescription,
+  modalText,
 }: SubProductCardProps) {
+  const hasModalContent = Array.isArray(modalText) && modalText.length > 0;
   return (
-    <div className="mb-6 flex justify-center">
-      <div className="flex w-full max-w-[1100px] flex-col gap-3 rounded-2xl border border-[#d2d2d7] bg-white px-4 pb-6 pt-4 shadow-sm ring-1 ring-inset ring-[#f5f5f7] transition-all hover:shadow-md md:flex-row md:items-center md:px-6 md:py-6">
-        <div className="h-36 w-full md:ml-[5px] md:w-40">
-          {image ? (
-            <StrapiImage
-              alt={image.alternativeText ?? title}
-              className="h-full w-full object-contain"
-              height={230}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              src={image?.url ?? ''}
-              width={260}
-            />
-          ) : (
-            <div className="h-full w-full" />
-          )}
+    <div className="mb-12 flex justify-center">
+      <div className="group relative flex w-full max-w-[1100px] flex-col overflow-hidden rounded-[32px] bg-[rgba(255,255,255,0.55)] px-6 py-8 shadow-[0_24px_60px_rgba(15,15,15,0.12)] backdrop-blur-2xl md:flex-row md:items-center md:gap-16 md:px-12 md:py-12">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/70 via-white/25 to-transparent opacity-100"
+        />
+        <div className="relative z-10 flex w-full justify-center md:w-56">
+          <div className="flex h-40 w-full max-w-[220px] items-center justify-center overflow-hidden rounded-[28px] bg-white/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-blur-xl md:h-48 md:max-w-[240px]">
+            {image ? (
+              <StrapiImage
+                alt={image.alternativeText ?? title}
+                className="h-full w-full object-contain drop-shadow-[0_18px_35px_rgba(15,15,15,0.18)]"
+                height={240}
+                sizes="(max-width: 768px) 70vw, (max-width: 1200px) 40vw, 26vw"
+                src={image?.url ?? ''}
+                width={260}
+              />
+            ) : (
+              <div className="h-full w-full" />
+            )}
+          </div>
         </div>
-        <div className="flex flex-1 flex-col justify-center gap-3">
+        <div className="relative z-10 mt-6 flex flex-1 flex-col gap-4 text-center text-neutral-900 md:mt-0 md:text-left">
+          <p className="text-2xl font-semibold tracking-tight md:text-[28px]">
+            {title}
+          </p>
           {specifications && specifications.length > 0 ? (
-            <>
-              <p className="text-center text-[17px] font-medium tracking-tight text-neutral-900 md:text-left">
-                {title}
-              </p>
-              <ul className="mb-6 flex w-full flex-col text-[13px] font-normal text-neutral-700">
-                {specifications.map((spec, index) => (
-                  <li
-                    key={index}
-                    className="border-b border-[#e5e5ea] px-1.5 py-1.5 text-center last:border-b-0 md:text-left"
-                  >
-                    {spec}
-                  </li>
-                ))}
-              </ul>
-            </>
+            <ul className="flex flex-col gap-2 text-sm text-neutral-600 md:text-[15px]">
+              {specifications.map((spec, index) => (
+                <li
+                  key={index}
+                  className="rounded-[22px] bg-white/45 px-5 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] backdrop-blur-md"
+                >
+                  {spec}
+                </li>
+              ))}
+            </ul>
           ) : (
-            <p className="mb-7 text-center text-lg font-semibold tracking-tight text-neutral-900 md:text-left">
-              {title}
+            <p className="text-[15px] font-medium leading-relaxed text-neutral-700">
+              {shortDescription ?? ''}
             </p>
           )}
         </div>
-        <div className="flex items-center justify-center md:justify-end">
+        <div className="relative z-10 mt-8 flex items-center justify-center md:mt-0 md:justify-end">
           {onClick ? (
             <Button
-              className="w-fit rounded-full bg-[#0071e3] px-6 py-2 text-[14px] font-medium text-white transition-colors hover:bg-[#005bb5]"
+              className="w-fit rounded-full bg-[#0a84ff] px-7 py-2.5 text-sm font-semibold text-white shadow-[0_20px_45px_rgba(10,132,255,0.35)] transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               size={'md'}
               variant={'filled'}
               onClick={onClick}
@@ -72,14 +90,57 @@ export default function SubProductCard({
               {buttonText}
             </Button>
           ) : (
-            <Button
-              asChild
-              className="w-fit rounded-full bg-[#0071e3] px-6 py-2 text-[14px] font-medium text-white transition-colors hover:bg-[#005bb5]"
-              size={'md'}
-              variant={'filled'}
-            >
-              <Link href={link}>{buttonText}</Link>
-            </Button>
+            <div className="flex w-full flex-col gap-3">
+              <Button
+                asChild
+                className="w-full rounded-2xl bg-[#0a84ff] px-7 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                size={'md'}
+                variant={'filled'}
+              >
+                <Link href={link}>{buttonText}</Link>
+              </Button>
+              {hasModalContent ? (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      className="w-full rounded-2xl border-none bg-[#111] px-7 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                      size={'md'}
+                      variant={'filled'}
+                    >
+                      Saznaj više
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-[min(90vw,640px)] max-w-[640px] overflow-hidden rounded-[28px] border-none bg-white p-0 shadow-[0_24px_60px_rgba(15,15,15,0.12)]">
+                    <DialogTitle className="sr-only">
+                      {`Saznaj više o ${title}`}
+                    </DialogTitle>
+                    <DialogDescription className="sr-only">
+                      {title}
+                    </DialogDescription>
+                    <div className="max-h-[70vh] overflow-y-auto px-6 py-6 custom-scrollbar">
+                      <h3 className="text-lg font-semibold text-neutral-900">
+                        {title}
+                      </h3>
+                      {modalText && (
+                        <StrapiBlocks
+                          className="mt-4 text-neutral-700"
+                          content={modalText}
+                        />
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Button
+                  asChild
+                  className="w-full rounded-2xl border-none bg-[#111] px-7 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                  size={'md'}
+                  variant={'filled'}
+                >
+                  <Link href={link}>Saznaj više</Link>
+                </Button>
+              )}
+            </div>
           )}
         </div>
       </div>

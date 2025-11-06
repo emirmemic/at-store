@@ -112,6 +112,8 @@ export default async function Page({
               image={subCategory.image}
               link={makeSubCategoryLink(categoryLink, subCategory)}
               title={subCategory.displayName || subCategory.name}
+              shortDescription={subCategory.shortDescription}
+              modalText={subCategory.modalText}
             />
           ))}
         </div>
