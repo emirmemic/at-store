@@ -177,6 +177,11 @@
       "repeatable": true,
       "component": "global.product-store-item"
     },
+    "related_group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::related-product.related-product"
+    },
     "orders": {
       "type": "relation",
       "relation": "manyToMany",

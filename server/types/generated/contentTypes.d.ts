@@ -1325,6 +1325,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     ram: Schema.Attribute.Component<'global.ram', false>;
+    related_group: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::related-product.related-product'
+    >;
     releaseDate: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Component<'global.product-store-item', true>;
@@ -1428,6 +1432,37 @@ export interface ApiQuickBuyQuickBuy extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRelatedProductRelatedProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'related_products';
+  info: {
+    description: 'Reusable product bundles for cross-selling';
+    displayName: 'Related Products';
+    pluralName: 'related-products';
+    singularName: 'related-product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::related-product.related-product'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2186,6 +2221,7 @@ declare module '@strapi/strapi' {
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
       'api::quick-buy.quick-buy': ApiQuickBuyQuickBuy;
+      'api::related-product.related-product': ApiRelatedProductRelatedProduct;
       'api::store.store': ApiStoreStore;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
       'api::user-address.user-address': ApiUserAddressUserAddress;

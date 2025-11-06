@@ -1,6 +1,7 @@
-import { factories } from '@strapi/strapi';
 import { LoginResponse, ProductsResponse, StrapiProduct } from '../types';
 import { findEntity, getStores, isSameProduct, makeLink } from '../utils';
+
+import { factories } from '@strapi/strapi';
 
 // Helper function to introduce a delay between API requests to prevent rate-limiting.
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -50,7 +51,7 @@ export default factories.createCoreService('api::product.product', () => ({
         // This is the main try/catch block for fetching and processing each page.
         try {
           strapi.log.info(
-            `Fetching page ${index} of products from Web Account API...`
+            `Fetching page ${index} of ${totalPages} of products from Web Account API...`
           );
 
           const response = await fetch(
