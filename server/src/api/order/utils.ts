@@ -196,7 +196,7 @@ function renderUserOrderSuccessEmail(order: OrderPopulated) {
   return renderWrapper(`<div style="padding: 0 32px 32px 32px;">
 ${renderLogo()}
 <h1 style="font-size: 28px; font-weight: 600; color: #1d1d1f; margin: 0 0 16px 0;">Hvala na Vašoj narudžbi.</h1>
-<p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">Obavijestit ćemo Vas kada Vaši artikli budu na putu.</p>
+<p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">Vaša narudžba je u obradi. <br/> Obavijestit ćemo Vas kada narudžba bude predana kurirskoj službi.<br/><br/> Ukoliko ste poručili artikal koji trenutačno nije dostupan na stanju, naknadno ćemo Vas obavijestiti o egzaktnom roku isporuke.</p>
 <div style="font-size: 14px; color: #515154; padding: 16px 0; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5;">
 <span style="padding-right: 24px;">Broj narudžbe: <span style="color: #0066cc; text-decoration: none;">${order.orderNumber}</span></span>
 <span>Naručeno: ${orderDate}</span>
@@ -246,8 +246,8 @@ ${renderLogo()}
 <p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">
   ${
     order.deliveryMethod === 'delivery'
-      ? 'Poštovani, <br/> <br/> Hvala što se odabrali AT Store. <br/> Vaša kupovina je procesuirana i predana dostavi. <br/> Isporuka se očekuje u roku od 2–3 radna dana. <br/> <br/>Ako imate pitanja, odgovorite na ovaj e-mail ili kontaktirajte podršku na 033 872 000. <br/> <br/> Ako želite otkazati kupovinu, to možete učiniti u roku od 15 minuta slanjem e-pošte na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store'
-      : `Poštovani, <br/> <br/> Hvala Vam što ste odabrali AT Store. <br/> Vaša kupovina je proicesuirana i spremna za preuzimanje u ${order.selectedStore}. Molimo pokažite broj narudžbe ili potvrdu prilikom preuzimanja. <br /> <br/> Ako imate pitanja, nazovite podršku na 033 872 000 ili kontaktirajte nas na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store`
+      ? 'Poštovani, <br/> <br/> Hvala što se odabrali AT Store. <br/> Vaša narudžba je procesuirana i predana kurirskoj službi. <br/> Isporuka se očekuje u roku od 2–3 radna dana. <br/> <br/>Ukoliko imate pitanja, pošaljite upit na orders@atstore.com ili kontaktirajte podršku na 033 872 000. <br/> <br/> Ako želite otkazati kupovinu, to možete učiniti u roku od 15 minuta slanjem e-maila na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store'
+      : `Poštovani, <br/> <br/> Hvala Vam što ste odabrali AT Store. <br/> Vaša narudžba je procesuirana i spremna za preuzimanje u ${order.selectedStore}. Molimo pokažite broj narudžbe ili potvrdu prilikom preuzimanja. <br /> <br/> Ako imate pitanja, nazovite podršku na 033 872 000 ili nas kontaktirajte na orders@atstore.ba. <br/> <br/> Srdačno, <br/> AT Store`
   }
 </p>
 ${orderSummaryButton}
@@ -281,7 +281,7 @@ ${renderLogo()}
 <p style="font-size: 16px; color: #515154; margin: 0 0 24px 0;">
 Poštovani, <br/> <br/>
 Vaša narudžba je otkazana. <br/> <br/>
-Ako je uplata već izvršena, povrat ćemo pokrenuti na izvorni način plaćanja.<br/>
+Ukoliko ste platili kartično, povrat sredstava će biti pokrenut odmah.<br/>
 Očekivano knjiženje: 5–7 radnih dana od potvrde povrata (za kartična plaćanja vremenski rok može biti 5–15 radnih dana ovisno o banci). <br/>
 <br/>
 <br/>Želite ponovno naručiti? Posjetite <a href="https://atstore.ba">AT Store</a>.
