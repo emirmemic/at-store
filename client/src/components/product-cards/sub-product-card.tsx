@@ -48,10 +48,7 @@ export default function SubProductCard({
                 className="h-full w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-transform duration-500 group-hover:scale-105"
                 height={200}
                 sizes="(max-width: 768px) 60vw, 30vw"
-                // src={image?.url ?? ''}
-                src={
-                  'https://admin.atstore.ba/uploads/iphone16eblack_14866bf6f4.png'
-                }
+                src={image?.url ?? ''}
                 width={200}
               />
             ) : (
