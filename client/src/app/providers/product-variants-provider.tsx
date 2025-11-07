@@ -67,7 +67,7 @@ export default function ProductVariantsProvider({
   children,
   variants,
   productOptions,
-  legacyRelatedProducts,
+  legacyRelatedProducts: _legacyRelatedProducts,
 }: {
   children: ReactNode;
   variants: ProductVariant[];
@@ -139,19 +139,14 @@ export default function ProductVariantsProvider({
     );
 
   const relatedProducts = useMemo(() => {
-    // Prefer curated bundles; fall back to compatibility matches while the admin data catches up.
-    const curated = selectedVariant.related_group?.products ?? [];
-    const curatedWithoutSelf = curated.filter(
-      (item) => item.productVariantId !== selectedVariant.productVariantId
-    );
-    if (curatedWithoutSelf.length) {
-      return curatedWithoutSelf;
+    const curatedGroup = selectedVariant.related_group;
+    if (!curatedGroup || !curatedGroup.products?.length) {
+      return [];
     }
-    const fallback = legacyRelatedProducts ?? [];
-    return fallback.filter(
+    return curatedGroup.products.filter(
       (item) => item.productVariantId !== selectedVariant.productVariantId
     );
-  }, [legacyRelatedProducts, selectedVariant]);
+  }, [selectedVariant]);
 
   // Methods
   const selectVariantFromUrl = (slug?: string) => {
