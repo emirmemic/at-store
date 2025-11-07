@@ -36,19 +36,22 @@ export default function SubProductCard({
 }: SubProductCardProps) {
   const hasModalContent = Array.isArray(modalText) && modalText.length > 0;
   return (
-    <div className="group relative overflow-hidden rounded-2xl bg-white transition-all duration-500 hover:shadow-[0_15px_35px_rgba(0,0,0,0.08)]">
+    <div className="group relative mx-auto w-full max-w-[1000px] overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-500">
       <div className="flex flex-col md:grid md:grid-cols-2 md:gap-8">
         {/* Image Section */}
-        <div className="relative flex items-center justify-center bg-gradient-to-br from-gray-50 to-white p-8 md:p-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.04),transparent_50%)]" />
+        <div className="relative flex items-center justify-center p-8 md:p-10">
+          <div className="absolute inset-0" />
           <div className="relative w-full max-w-[200px]">
             {image ? (
               <StrapiImage
                 alt={image.alternativeText ?? title}
-                className="h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-transform duration-500 group-hover:scale-105"
                 height={200}
                 sizes="(max-width: 768px) 60vw, 30vw"
-                src={image?.url ?? ''}
+                // src={image?.url ?? ''}
+                src={
+                  'https://admin.atstore.ba/uploads/iphone16eblack_14866bf6f4.png'
+                }
                 width={200}
               />
             ) : (
@@ -94,7 +97,7 @@ export default function SubProductCard({
                 {hasModalContent && (
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button className="w-full justify-center rounded-full border-2 border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                      <Button className="w-full justify-center rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Saznaj više
                       </Button>
                     </DialogTrigger>

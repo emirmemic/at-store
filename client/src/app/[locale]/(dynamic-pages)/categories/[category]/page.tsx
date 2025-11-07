@@ -104,7 +104,7 @@ export default async function Page({
           {categoryData.displayName}
         </h1>
       </div>
-      <div className="grid grid-cols-1 gap-8 md:gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 gap-8 md:gap-6 lg:gap-8">
         {categoryData.subCategories.map((subCategory) => (
           <SubProductCard
             key={subCategory.id}
