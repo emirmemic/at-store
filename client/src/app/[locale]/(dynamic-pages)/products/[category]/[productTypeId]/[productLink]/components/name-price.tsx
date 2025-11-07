@@ -36,8 +36,8 @@ export default function NamePrice({
   }
 
   const pathNamesIphone = [
-    '/proizvodi/iphone/IPH17PR/iphone-17-pro',
-    '/proizvodi/iphone/IPH17PM/iphone-17-pro-max',
+    '/proizvodi/iphone/iP17P/apple-iphone-17-pro',
+    '/proizvodi/iphone/iP17PM/apple-iphone-17-pro-max',
   ];
 
   const isIphone = pathNamesIphone.some((path) =>
