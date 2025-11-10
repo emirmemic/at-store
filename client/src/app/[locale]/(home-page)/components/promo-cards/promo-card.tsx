@@ -65,7 +65,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
             <p className="pb-2">
               Već od{' '}
               <strong>{(product.originalPrice / 24).toFixed(0)} KM </strong>{' '}
-              mjesečno na 24 rate
+              mjesečno na 24 rate.
             </p>
           </div>
         ) : (
@@ -76,7 +76,7 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
             <p className="pb-2">
               Već od{' '}
               <strong>{(product.originalPrice / 24).toFixed(0)} KM </strong>{' '}
-              mjesečno na 24 rate
+              mjesečno na 24 rate.
             </p>
           </>
         )}
