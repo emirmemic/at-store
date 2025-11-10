@@ -17,7 +17,7 @@ export default function RelatedProducts() {
   if (!relatedProducts || relatedProducts.length === 0) {
     return null;
   }
-  const groupTitle = selectedVariant.related_group?.title;
+  const groupTitle = selectedVariant.subCategory?.related_group?.title;
   return (
     <section className="py-2">
       <p className="pb-4 pl-4 heading-3">

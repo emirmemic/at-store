@@ -85,6 +85,11 @@
       "relation": "manyToMany",
       "target": "api::model.model",
       "mappedBy": "subCategory"
+    },
+    "related_group": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::related-product.related-product"
     }
   }
 }

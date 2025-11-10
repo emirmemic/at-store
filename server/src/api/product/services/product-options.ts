@@ -1,4 +1,4 @@
-import { RELATED_GROUP_POPULATE } from '../utils/related-group';
+import { createSubCategoryRelatedGroupPopulate } from '../utils/related-group';
 
 export default ({ strapi }) => ({
   /**
@@ -37,7 +37,7 @@ export default ({ strapi }) => ({
         images: {
           fields: ['url', 'alternativeText'],
         },
-        related_group: RELATED_GROUP_POPULATE.related_group,
+        subCategory: createSubCategoryRelatedGroupPopulate(),
       },
     });
 

@@ -40,7 +40,6 @@ interface ProductResponse {
   chip?: IdentificationResponse | null;
   numberOfCores?: number | null;
   updatedAt?: string | null;
-  related_group?: RelatedProductGroup | null;
 }
 
 interface StoreResponse {
@@ -118,6 +117,7 @@ interface SubCategoryItem extends CategoryItem {
   tag: string | null;
   navbarIcon: ImageProps | null;
   modalText?: BlocksContent | null;
+  related_group?: RelatedProductGroup | null;
 }
 interface GroupedSubCategoryItem {
   id: string;

@@ -1325,10 +1325,6 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
     ram: Schema.Attribute.Component<'global.ram', false>;
-    related_group: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::related-product.related-product'
-    >;
     releaseDate: Schema.Attribute.String;
     screenSize: Schema.Attribute.String;
     stores: Schema.Attribute.Component<'global.product-store-item', true>;
@@ -1544,6 +1540,10 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
     >;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    related_group: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::related-product.related-product'
+    >;
     shortDescription: Schema.Attribute.String;
     startingPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     tag: Schema.Attribute.String;

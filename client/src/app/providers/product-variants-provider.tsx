@@ -138,15 +138,27 @@ export default function ProductVariantsProvider({
       deriveAvailableOptions(variants, latestClicked)
     );
 
+  const fallbackRelatedProducts = useMemo(
+    () => _legacyRelatedProducts ?? [],
+    [_legacyRelatedProducts]
+  );
+
   const relatedProducts = useMemo(() => {
-    const curatedGroup = selectedVariant.related_group;
-    if (!curatedGroup || !curatedGroup.products?.length) {
-      return [];
+    const curatedGroup = selectedVariant.subCategory?.related_group;
+    const curatedProducts = curatedGroup?.products?.length
+      ? curatedGroup.products.filter(
+          (item) => item.productVariantId !== selectedVariant.productVariantId
+        )
+      : [];
+
+    if (curatedProducts.length) {
+      return curatedProducts;
     }
-    return curatedGroup.products.filter(
+
+    return fallbackRelatedProducts.filter(
       (item) => item.productVariantId !== selectedVariant.productVariantId
     );
-  }, [selectedVariant]);
+  }, [fallbackRelatedProducts, selectedVariant]);
 
   // Methods
   const selectVariantFromUrl = (slug?: string) => {

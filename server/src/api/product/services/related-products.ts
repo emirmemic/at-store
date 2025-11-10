@@ -1,7 +1,8 @@
 import {
-  RELATED_GROUP_POPULATE,
   RELATED_PRODUCT_FIELDS,
   RELATED_PRODUCT_POPULATE,
+  createSubCategoryRelatedGroupPopulate,
+  getRelatedGroupFromProduct,
 } from '../utils/related-group';
 
 export default ({ strapi }) => ({
@@ -19,11 +20,15 @@ export default ({ strapi }) => ({
           },
         },
         status: 'published',
-        populate: RELATED_GROUP_POPULATE,
+        populate: {
+          subCategory: createSubCategoryRelatedGroupPopulate(),
+        },
       });
 
-    if (relatedFromBundle?.related_group?.products?.length) {
-      return relatedFromBundle.related_group.products;
+    const curatedGroup = getRelatedGroupFromProduct(relatedFromBundle);
+
+    if (curatedGroup?.products?.length) {
+      return curatedGroup.products;
     }
 
     const fallback = await strapi.documents('api::product.product').findMany({

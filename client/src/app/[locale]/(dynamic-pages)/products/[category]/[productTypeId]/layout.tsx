@@ -73,7 +73,7 @@ export default async function Layout({
   );
   const attributes = options.attributes ?? {};
   const hasCuratedRelated = variants.some(
-    (variant) => variant.related_group?.products?.length
+    (variant) => variant.subCategory?.related_group?.products?.length
   );
 
   let legacyRelatedProducts: ProductResponse[] = [];
