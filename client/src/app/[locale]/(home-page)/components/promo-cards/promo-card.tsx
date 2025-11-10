@@ -52,6 +52,34 @@ export default function PromoCard(promoCard: Readonly<PromoCardItem>) {
       >
         <h3 className="!font-bold heading-5 lg:heading-4">{title}</h3>
         <p className="heading-6 lg:heading-6">{caption}</p>
+        {product.discountedPrice ? (
+          <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-row items-center justify-center gap-3 pb-2 pt-4">
+              <p className="line-through opacity-70 heading-4 lg:heading-4">
+                {product.originalPrice} KM
+              </p>
+              <p className="!font-bold heading-4 lg:heading-4">
+                {product.discountedPrice} KM
+              </p>
+            </div>
+            <p className="pb-2">
+              Već od{' '}
+              <strong>{(product.originalPrice / 24).toFixed(0)} KM </strong>{' '}
+              mjesečno na 24 rate
+            </p>
+          </div>
+        ) : (
+          <>
+            <p className="pb-2 pt-4 !font-bold heading-4 lg:heading-4">
+              {product.originalPrice} KM
+            </p>
+            <p className="pb-2">
+              Već od{' '}
+              <strong>{(product.originalPrice / 24).toFixed(0)} KM </strong>{' '}
+              mjesečno na 24 rate
+            </p>
+          </>
+        )}
         <div className="flex flex-row flex-wrap items-center justify-center gap-2 pb-6 pt-2 sm:gap-14 sm:pt-4">
           <LearnMoreDialog
             learnMoreVariant={learnMoreVariant}
