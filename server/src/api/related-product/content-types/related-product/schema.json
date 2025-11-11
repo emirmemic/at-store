@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "related_products",
+  "info": {
+    "singularName": "related-product",
+    "pluralName": "related-products",
+    "displayName": "Related Products",
+    "description": "Reusable product bundles for cross-selling"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
+    }
+  }
+}

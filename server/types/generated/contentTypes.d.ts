@@ -1434,6 +1434,37 @@ export interface ApiQuickBuyQuickBuy extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiRelatedProductRelatedProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'related_products';
+  info: {
+    description: 'Reusable product bundles for cross-selling';
+    displayName: 'Related Products';
+    pluralName: 'related-products';
+    singularName: 'related-product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::related-product.related-product'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStoreStore extends Struct.CollectionTypeSchema {
   collectionName: 'stores';
   info: {
@@ -1497,6 +1528,7 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 255;
       }>;
+    modalText: Schema.Attribute.Blocks;
     models: Schema.Attribute.Relation<'manyToMany', 'api::model.model'>;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1508,6 +1540,10 @@ export interface ApiSubCategorySubCategory extends Struct.CollectionTypeSchema {
     >;
     products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
+    related_group: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::related-product.related-product'
+    >;
     shortDescription: Schema.Attribute.String;
     startingPrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
     tag: Schema.Attribute.String;
@@ -2186,6 +2222,7 @@ declare module '@strapi/strapi' {
       'api::promo-page.promo-page': ApiPromoPagePromoPage;
       'api::promo-slider.promo-slider': ApiPromoSliderPromoSlider;
       'api::quick-buy.quick-buy': ApiQuickBuyQuickBuy;
+      'api::related-product.related-product': ApiRelatedProductRelatedProduct;
       'api::store.store': ApiStoreStore;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
       'api::user-address.user-address': ApiUserAddressUserAddress;

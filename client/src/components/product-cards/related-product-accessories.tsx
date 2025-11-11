@@ -1,12 +1,11 @@
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-
-import { StrapiImage } from '@/components/strapi/components';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import Price from '@/components/ui/price';
 import { ProductResponse } from '@/lib/types';
-import { makeProductLink } from '@/lib/utils/link-helpers';
+import { StrapiImage } from '@/components/strapi/components';
 import { cn } from '@/lib/utils/utils';
+import { makeProductLink } from '@/lib/utils/link-helpers';
+import { useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   product: ProductResponse;
@@ -45,7 +44,7 @@ export default function RelatedProductAccessories({
           {t('viewDetailsWithName', { productName: finalName })}
         </span>
       </Link>
-      <div className="relative z-20 mb-3 aspect-square w-full overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+      <div className="relative z-20 mb-3 aspect-square w-full overflow-hidden rounded-xl">
         {image && (
           <StrapiImage
             alt={image?.alternativeText || finalName}
@@ -59,11 +58,16 @@ export default function RelatedProductAccessories({
       <div className="flex w-full flex-col gap-1 pb-2">
         <p className="text-s text-center text-gray-800">{finalName}</p>
         <Price
-          className="text-s mt-2 border-t border-gray-200 pt-2 text-center text-gray-600"
+          className="text-s mt-2 pt-2 text-center text-gray-800"
           value={finalPrice}
         />
       </div>
-      <Button asChild size={'md'} variant={'filled'} className="w-full text-sm">
+      <Button
+        asChild
+        size={'md'}
+        variant={'filled'}
+        className="mt-4 w-full text-sm"
+      >
         <span>{t('buyNow')}</span>
       </Button>
     </div>

@@ -1,10 +1,7 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
-
-import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { ImageProps } from '@/lib/types';
-
+import { OrderResponse } from '@/app/[locale]/(auth)/account/types';
 import { StoreCode } from '../constants';
-
 import { UserInformation } from './auth';
 
 interface ProductResponse {
@@ -78,6 +75,12 @@ interface MemoryResponse {
   unit: string;
 }
 
+interface RelatedProductGroup {
+  id: number;
+  title: string;
+  products: ProductResponse[];
+}
+
 export interface CartResponse {
   items: ShoppingCartItem[];
 }
@@ -113,6 +116,8 @@ interface SubCategoryItem extends CategoryItem {
   shortDescription: string | null;
   tag: string | null;
   navbarIcon: ImageProps | null;
+  modalText?: BlocksContent | null;
+  related_group?: RelatedProductGroup | null;
 }
 interface GroupedSubCategoryItem {
   id: string;
@@ -147,6 +152,7 @@ export type {
   InstallmentOption,
   MemoryResponse,
   ProductResponse,
+  RelatedProductGroup,
   ShoppingCartItem,
   SubCategoryItem,
   GroupedSubCategoryItem,

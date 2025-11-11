@@ -72,12 +72,21 @@ export default async function Layout({
     (a, b) => getVariantBasePrice(a) - getVariantBasePrice(b)
   );
   const attributes = options.attributes ?? {};
-  const relatedProducts = (await getRelatedProducts(productTypeId)) ?? [];
+  const hasCuratedRelated = variants.some(
+    (variant) => variant.subCategory?.related_group?.products?.length
+  );
+
+  let legacyRelatedProducts: ProductResponse[] = [];
+
+  if (!hasCuratedRelated) {
+    // Fallback to the legacy compatibility endpoint until all products have curated bundles.
+    legacyRelatedProducts = (await getRelatedProducts(productTypeId)) ?? [];
+  }
 
   return (
     <ProductVariantsProvider
       productOptions={attributes}
-      relatedProducts={relatedProducts}
+      legacyRelatedProducts={legacyRelatedProducts}
       variants={variants}
     >
       {children}

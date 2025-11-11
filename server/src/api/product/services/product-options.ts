@@ -1,3 +1,5 @@
+import { createSubCategoryRelatedGroupPopulate } from '../utils/related-group';
+
 export default ({ strapi }) => ({
   /**
    * Fetches product variants by slug, gets all the products of the same type and
@@ -35,6 +37,7 @@ export default ({ strapi }) => ({
         images: {
           fields: ['url', 'alternativeText'],
         },
+        subCategory: createSubCategoryRelatedGroupPopulate(),
       },
     });
 

@@ -95,10 +95,16 @@ export default async function Page({
 
   const t = await getTranslations();
 
+  console.log(categoryData.subCategories);
+
   return (
-    <main className="pb-28 pt-11 container-max-width">
-      <ProductListTitle title={categoryData.displayName} />
-      <div className="flex flex-col gap-4 py-16 lg:grid lg:grid-cols-1">
+    <main className="mx-auto max-w-[1200px] px-4 pb-32 pt-16 md:px-6 lg:px-8">
+      <div className="mb-16 text-center">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+          {categoryData.displayName}
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 gap-8 md:gap-6 lg:gap-8">
         {categoryData.subCategories.map((subCategory) => (
           <SubProductCard
             key={subCategory.id}
@@ -106,6 +112,8 @@ export default async function Page({
             image={subCategory.image}
             link={makeSubCategoryLink(categoryData.link, subCategory)}
             title={subCategory.displayName || subCategory.name}
+            shortDescription={subCategory.shortDescription}
+            modalText={subCategory.modalText}
           />
         ))}
       </div>

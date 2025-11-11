@@ -1,3 +1,4 @@
+import { applyRelatedGroupPopulate } from '../utils/related-group';
 import { factories } from '@strapi/strapi';
 export default factories.createCoreController(
   'api::product.product',
@@ -18,6 +19,9 @@ export default factories.createCoreController(
         ...((ctx.query.filters as Record<string, any>).originalPrice || {}),
         $gt: 0,
       };
+
+      // Ensure all product queries expose related bundles for the frontend.
+      applyRelatedGroupPopulate(ctx.query);
       // Call the default core controller logic
       const { data, meta } = await super.find(ctx);
       return { data, meta };
@@ -38,6 +42,9 @@ export default factories.createCoreController(
         ...((ctx.query.filters as Record<string, any>).originalPrice || {}),
         $gt: 0,
       };
+
+      // Ensure the single product response carries related bundle data.
+      applyRelatedGroupPopulate(ctx.query);
       // Call the default core controller logic
       const { data, meta } = await super.findOne(ctx);
       return { data, meta };
