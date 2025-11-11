@@ -94,7 +94,7 @@ export default function SubProductCard({
                 {hasModalContent && (
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button className="w-full justify-center rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                      <Button className="w-full justify-center rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         Saznaj više
                       </Button>
                     </DialogTrigger>
