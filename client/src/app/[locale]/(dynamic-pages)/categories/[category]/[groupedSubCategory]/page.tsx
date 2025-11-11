@@ -108,7 +108,7 @@ export default async function Page({
           {subCategories.map((subCategory) => (
             <SubProductCard
               key={subCategory.id}
-              buttonText={t('common.see')}
+              buttonText={'Kupi'}
               image={subCategory.image}
               link={makeSubCategoryLink(categoryLink, subCategory)}
               title={subCategory.displayName || subCategory.name}
