@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_lineup_color_options",
+  "info": {
+    "displayName": "Color Option",
+    "description": "Available color for a lineup"
+  },
+  "options": {},
+  "attributes": {
+    "colorName": {
+      "type": "string",
+      "required": true
+    },
+    "hexCode": {
+      "type": "string",
+      "required": true,
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    }
+  }
+}

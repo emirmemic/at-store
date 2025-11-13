@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: process.env.NEXT_PUBLIC_STRAPI_HOSTNAME ?? 'admin.atstore.ba',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.apple.com',
+      },
     ],
   },
 };

@@ -20,7 +20,7 @@ export default function RelatedProducts() {
   const groupTitle = selectedVariant.subCategory?.related_group?.title;
   return (
     <section className="py-2">
-      <p className="pb-4 pl-4 heading-3">
+      <p className="pb-4 pl-4 !font-semibold heading-3">
         {groupTitle ?? t('relatedProducts')}
       </p>
       <Carousel

@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lineups",
+  "info": {
+    "singularName": "lineup",
+    "pluralName": "lineups",
+    "displayName": "Lineup",
+    "description": "Product lineup with multiple products"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "lineupName": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "lineup.lineup-product",
+      "required": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "lineups"
+    }
+  }
+}

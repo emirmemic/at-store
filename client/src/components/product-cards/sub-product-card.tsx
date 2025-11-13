@@ -36,7 +36,7 @@ export default function SubProductCard({
 }: SubProductCardProps) {
   const hasModalContent = Array.isArray(modalText) && modalText.length > 0;
   return (
-    <div className="group relative mx-auto w-full max-w-[1000px] overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-500">
+    <div className="group relative mx-auto w-full max-w-full overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-500">
       <div className="flex flex-col md:grid md:grid-cols-2 md:gap-8">
         {/* Image Section */}
         <div className="relative flex items-center justify-center p-8 md:p-10">

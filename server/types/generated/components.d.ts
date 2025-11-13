@@ -230,6 +230,37 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
   };
 }
 
+export interface LineupColorOption extends Struct.ComponentSchema {
+  collectionName: 'components_lineup_color_options';
+  info: {
+    description: 'Available color for a lineup';
+    displayName: 'Color Option';
+  };
+  attributes: {
+    colorName: Schema.Attribute.String & Schema.Attribute.Required;
+    hexCode: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface LineupLineupProduct extends Struct.ComponentSchema {
+  collectionName: 'components_lineup_products';
+  info: {
+    description: 'Product within a lineup';
+    displayName: 'Lineup Product';
+  };
+  attributes: {
+    availableColors: Schema.Attribute.Component<'lineup.color-option', true>;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'>;
+    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
+    productName: Schema.Attribute.String & Schema.Attribute.Required;
+    subCategory: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::sub-category.sub-category'
+    >;
+  };
+}
+
 export interface NavbarItem extends Struct.ComponentSchema {
   collectionName: 'components_navbar_items';
   info: {
@@ -294,6 +325,8 @@ declare module '@strapi/strapi' {
       'homepage.hero-section': HomepageHeroSection;
       'homepage.hero-slider': HomepageHeroSlider;
       'homepage.promo-card': HomepagePromoCard;
+      'lineup.color-option': LineupColorOption;
+      'lineup.lineup-product': LineupLineupProduct;
       'navbar.item': NavbarItem;
       'newspage.hot-item': NewspageHotItem;
       'newspage.latest-products': NewspageLatestProducts;

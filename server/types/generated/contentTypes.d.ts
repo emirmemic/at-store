@@ -485,6 +485,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       'api::grouped-sub-category.grouped-sub-category'
     >;
     image: Schema.Attribute.Media<'images'>;
+    lineups: Schema.Attribute.Relation<'oneToMany', 'api::lineup.lineup'>;
     link: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
@@ -876,6 +877,39 @@ export interface ApiJobApplicationJobApplication
         maxLength: 30;
         minLength: 6;
       }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLineupLineup extends Struct.CollectionTypeSchema {
+  collectionName: 'lineups';
+  info: {
+    description: 'Product lineup with multiple products';
+    displayName: 'Lineup';
+    pluralName: 'lineups';
+    singularName: 'lineup';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    image: Schema.Attribute.Media<'images'>;
+    lineupName: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lineup.lineup'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Component<'lineup.lineup-product', true>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -2208,6 +2242,7 @@ declare module '@strapi/strapi' {
       'api::grouped-sub-category.grouped-sub-category': ApiGroupedSubCategoryGroupedSubCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::job-application.job-application': ApiJobApplicationJobApplication;
+      'api::lineup.lineup': ApiLineupLineup;
       'api::material.material': ApiMaterialMaterial;
       'api::memory.memory': ApiMemoryMemory;
       'api::mikrofin-pre-invoice.mikrofin-pre-invoice': ApiMikrofinPreInvoiceMikrofinPreInvoice;

@@ -1,0 +1,44 @@
+export default {
+  routes: [
+    {
+      method: 'GET',
+      path: '/lineups',
+      handler: 'lineup.find',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'GET',
+      path: '/lineups/:id',
+      handler: 'lineup.findOne',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'POST',
+      path: '/lineups',
+      handler: 'lineup.create',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'PUT',
+      path: '/lineups/:id',
+      handler: 'lineup.update',
+      config: {
+        policies: [],
+      },
+    },
+    {
+      method: 'DELETE',
+      path: '/lineups/:id',
+      handler: 'lineup.delete',
+      config: {
+        policies: [],
+      },
+    },
+  ],
+};

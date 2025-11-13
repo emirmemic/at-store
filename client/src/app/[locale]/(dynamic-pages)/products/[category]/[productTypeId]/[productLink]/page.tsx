@@ -58,9 +58,15 @@ export async function generateMetadata({ params }: GenerateMetadataParams) {
 }
 export default function Page() {
   return (
-    <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
-      <ProductDetails />
-      <RelatedProducts />
-    </main>
+    <>
+      <main className="flex flex-col gap-24 py-8 container-max-width md:py-20">
+        <ProductDetails />
+      </main>
+      <div className="bg-[#F5F5F7]/50">
+        <div className="py-10 container-max-width">
+          <RelatedProducts />
+        </div>
+      </div>
+    </>
   );
 }

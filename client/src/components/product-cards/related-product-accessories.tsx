@@ -25,7 +25,6 @@ export default function RelatedProductAccessories({
     displayName,
   } = product;
   const image = images?.[0] ?? null;
-  const finalPrice = discountedPrice ?? originalPrice;
   const finalName = displayName || name;
   const finalLink = makeProductLink(
     product.category?.link ?? '',
@@ -35,7 +34,7 @@ export default function RelatedProductAccessories({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-72 flex-col items-start justify-between rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md',
+        'relative flex w-full max-w-72 flex-col items-start justify-between rounded-2xl bg-white p-4 shadow-lg transition-shadow hover:shadow-md',
         className
       )}
     >
@@ -57,10 +56,25 @@ export default function RelatedProductAccessories({
       </div>
       <div className="flex w-full flex-col gap-1 pb-2">
         <p className="text-s text-center text-gray-800">{finalName}</p>
-        <Price
-          className="text-s mt-2 pt-2 text-center text-gray-800"
-          value={finalPrice}
-        />
+        <div className="flex w-full items-center justify-center">
+          {discountedPrice ? (
+            <div className="flex flex-row gap-3">
+              <Price
+                className="mt-2 pt-2 text-center text-lg text-gray-800/70 line-through"
+                value={originalPrice}
+              />
+              <Price
+                className="mt-2 pt-2 text-center text-lg text-gray-800"
+                value={discountedPrice}
+              />
+            </div>
+          ) : (
+            <Price
+              className="mt-2 pt-2 text-center text-lg text-gray-800"
+              value={originalPrice}
+            />
+          )}
+        </div>
       </div>
       <Button
         asChild

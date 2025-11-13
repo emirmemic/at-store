@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_lineup_products",
+  "info": {
+    "displayName": "Lineup Product",
+    "description": "Product within a lineup"
+  },
+  "options": {},
+  "attributes": {
+    "productName": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "availableColors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "lineup.color-option",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "subCategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::sub-category.sub-category"
+    }
+  }
+}

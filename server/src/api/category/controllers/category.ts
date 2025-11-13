@@ -40,6 +40,41 @@ export default factories.createCoreController(
                   },
                 },
               },
+              lineups: {
+                fields: ['id', 'lineupName', 'description'],
+                populate: {
+                  image: {
+                    fields: ['url', 'alternativeText'],
+                  },
+                  products: {
+                    populate: {
+                      image: {
+                        fields: ['url', 'alternativeText'],
+                      },
+                      availableColors: {
+                        fields: ['colorName', 'hexCode'],
+                      },
+                      subCategory: {
+                        fields: ['id', 'displayName', 'name', 'modalText'],
+                      },
+                      product: {
+                        fields: [
+                          'id',
+                          'discountedPrice',
+                          'originalPrice',
+                          'productLink',
+                          'productTypeId',
+                        ],
+                        populate: {
+                          category: {
+                            fields: ['link'],
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           });
 

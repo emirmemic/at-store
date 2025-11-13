@@ -110,6 +110,7 @@ interface CategoryItem {
   subCategories?: SubCategoryItem[] | null;
   models?: ModelResponse[] | null;
   groupedSubCategories?: GroupedSubCategoryItem[] | null;
+  lineups?: LineupItem[] | null;
   updatedAt?: string | null;
 }
 interface SubCategoryItem extends CategoryItem {
@@ -130,6 +131,45 @@ interface GroupedSubCategoryItem {
   category?: CategoryItem;
   subCategories?: SubCategoryItem[] | null;
   updatedAt?: string | null;
+}
+
+interface LineupColorOption {
+  id: number;
+  colorName: string;
+  hexCode: string;
+}
+
+interface LineupProduct {
+  id: number;
+  productName: string;
+  description?: string | null;
+  image: ImageProps | null;
+  availableColors?: LineupColorOption[] | null;
+  subCategory?: {
+    id: number;
+    displayName?: string;
+    name: string;
+    modalText?: BlocksContent | null;
+  } | null;
+  product?: {
+    id: string | number;
+    discountedPrice: number | null;
+    originalPrice: number;
+    productLink: string;
+    productTypeId: string;
+    category?: {
+      link: string;
+    };
+  } | null;
+}
+
+interface LineupItem {
+  id: string | number;
+  documentId?: string;
+  lineupName: string;
+  description?: string | null;
+  image: ImageProps | null;
+  products?: LineupProduct[] | null;
 }
 
 interface BestSellerItem {
@@ -158,4 +198,7 @@ export type {
   GroupedSubCategoryItem,
   StoreResponse,
   ProductStockResponse,
+  LineupItem,
+  LineupProduct,
+  LineupColorOption,
 };

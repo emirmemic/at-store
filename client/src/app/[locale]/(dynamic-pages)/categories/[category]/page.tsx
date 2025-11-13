@@ -2,6 +2,7 @@ import { CategoryItem, SubCategoryItem } from '@/lib/types';
 import { ProductListTitle, SubProductCard } from '@/components/product-cards';
 import { STRAPI_BASE_URL, STRAPI_IMAGE_FIELDS } from '@/lib/constants';
 
+import { Lineups } from '@/components/lineups';
 import { PAGE_NAMES } from '@/i18n/page-names';
 import { fetchAPI } from '@/lib/fetch-api';
 import { getTranslations } from 'next-intl/server';
@@ -98,24 +99,37 @@ export default async function Page({
   console.log(categoryData.subCategories);
 
   return (
-    <main className="mx-auto max-w-[1200px] px-4 pb-32 pt-16 md:px-6 lg:px-8">
-      <div className="mb-16 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-          {categoryData.displayName}
-        </h1>
+    <main className="pb-32 pt-16">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
+        <div className="mb-16 text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+            {categoryData.displayName}
+          </h1>
+        </div>
       </div>
-      <div className="grid grid-cols-1 gap-8 md:gap-6 lg:gap-8">
-        {categoryData.subCategories.map((subCategory) => (
-          <SubProductCard
-            key={subCategory.id}
-            buttonText={'Kupi'}
-            image={subCategory.image}
-            link={makeSubCategoryLink(categoryData.link, subCategory)}
-            title={subCategory.displayName || subCategory.name}
-            shortDescription={subCategory.shortDescription}
-            modalText={subCategory.modalText}
-          />
-        ))}
+
+      {/* Lineups Section - Full width on desktop */}
+      {categoryData.lineups && categoryData.lineups.length > 0 && (
+        <div className="md:ml-[max(1.5rem,calc((100vw-1200px)/2+1.5rem))] lg:ml-[max(2rem,calc((100vw-1200px)/2+2rem))]">
+          <Lineups lineups={categoryData.lineups} categorySlug={category} />
+        </div>
+      )}
+
+      {/* SubCategories Section */}
+      <div className="mx-auto max-w-[1200px] px-4 md:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:gap-6 lg:gap-8">
+          {categoryData.subCategories.map((subCategory) => (
+            <SubProductCard
+              key={subCategory.id}
+              buttonText={'Kupi'}
+              image={subCategory.image}
+              link={makeSubCategoryLink(categoryData.link, subCategory)}
+              title={subCategory.displayName || subCategory.name}
+              shortDescription={subCategory.shortDescription}
+              modalText={subCategory.modalText}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );
