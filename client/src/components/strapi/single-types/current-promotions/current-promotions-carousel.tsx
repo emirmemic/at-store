@@ -1,15 +1,16 @@
 'use client';
-import { useEffect, useState } from 'react';
 
-import { PromotionalFlipCard } from '@/components/slider-cards';
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselApi,
 } from '@/components/ui/carousel';
+import { useEffect, useState } from 'react';
+
+import { PromotionalFlipCard } from '@/components/slider-cards';
 import { PromotionalFlipCardResponse } from '@/lib/types';
 
 interface PropType {
@@ -47,9 +48,12 @@ export default function CurrentPromotionsCarousel({ cards }: PropType) {
       }}
       setApi={setApi}
     >
-      <CarouselContent className="-ml-4">
+      <CarouselContent className="items-center justify-center">
         {cards.map((card) => (
-          <CarouselItem key={card.id} className="w-fit basis-64 pl-4">
+          <CarouselItem
+            key={card.id}
+            className="basis-[360px] first:pl-4 sm:basis-[360px]"
+          >
             <PromotionalFlipCard {...card} />
           </CarouselItem>
         ))}

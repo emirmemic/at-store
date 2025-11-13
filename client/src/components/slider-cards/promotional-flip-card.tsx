@@ -1,13 +1,14 @@
 'use client';
-import { useTranslations } from 'next-intl';
+
 import { useRef, useState } from 'react';
 
-import { IconFlip } from '@/components/icons';
 import { ActionLink } from '@/components/strapi/components';
-import { StrapiImage } from '@/components/strapi/components/strapi-image';
-import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { IconFlip } from '@/components/icons';
 import { PromotionalFlipCardResponse } from '@/lib/types';
+import { StrapiImage } from '@/components/strapi/components/strapi-image';
 import { cn } from '@/lib/utils/utils';
+import useClickOutside from '@/lib/hooks/use-onclick-outside';
+import { useTranslations } from 'next-intl';
 
 export default function PromotionalFlipCard(
   promotion: PromotionalFlipCardResponse
@@ -42,7 +43,7 @@ export default function PromotionalFlipCard(
     <div
       ref={cardRef}
       aria-label={flipped ? t('back') : t('viewMore')}
-      className="perspective-distant h-[460px] cursor-pointer"
+      className="perspective-distant relative mx-3 my-4 ml-0 h-[550px] min-w-[350px] shrink-0 cursor-pointer"
       role="button"
       tabIndex={0}
       title={flipped ? t('back') : t('viewMore')}
@@ -55,15 +56,15 @@ export default function PromotionalFlipCard(
           flipped && '[transform:rotateY(180deg)]'
         )}
       >
-        <div className="absolute inset-0 flex [backface-visibility:hidden]">
+        <div className="absolute inset-0 [backface-visibility:hidden]">
           <div
-            className="relative flex grow flex-col justify-between overflow-hidden rounded-2xl border px-4 py-3"
+            className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border px-4 py-5"
             style={{ color: frontTextColor ? frontTextColor : 'inherit' }}
           >
             <div>
-              <p className="mb-2 paragraph-4">{tagline}</p>
-              <h3 className="heading-6 mb-2 line-clamp-2">{title}</h3>
-              <p className="mb-6 paragraph-2">{priceLabel}</p>
+              {/* <p className="mb-2 !font-light paragraph-3">{tagline}</p>
+              <h3 className="mb-2 line-clamp-2 heading-4">{title}</h3> */}
+              {/* <p className="mb-6 heading-4">{priceLabel}</p> */}
             </div>
             {image && (
               <StrapiImage
@@ -76,12 +77,12 @@ export default function PromotionalFlipCard(
                 width={400}
               />
             )}
-            <IconFlip className="ml-auto shrink-0" />
+            <IconFlip className="ml-auto shrink-0 rounded-md bg-white/30 p-1" />
           </div>
         </div>
 
         <div
-          className="absolute inset-0 flex flex-col justify-between gap-6 rounded-2xl px-5 pb-3 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          className="absolute inset-0 flex h-full w-full flex-col justify-between gap-6 rounded-2xl px-5 pb-5 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
           style={{
             backgroundColor: backBackgroundColor ? backBackgroundColor : '#000',
             color: backTextColor ? backTextColor : '#fff',
@@ -102,7 +103,7 @@ export default function PromotionalFlipCard(
                 {actionLink.linkText || t('buyNow')}
               </ActionLink>
             )}
-            <IconFlip className="ml-auto shrink-0" />
+            <IconFlip className="ml-auto shrink-0 rounded-md bg-white/30 p-1" />
           </div>
         </div>
       </div>
