@@ -68,6 +68,8 @@ export async function getProductStockStatus(
   productId: string
 ): Promise<ProductStockResponse | null> {
   try {
+    console.log(token);
+    console.log('KRENUO UZETI RESPONSE');
     const response = await fetch(
       `${process.env.WEB_ACCOUNT_API_URL}/products/${productId}/stock`,
       {
@@ -78,6 +80,7 @@ export async function getProductStockStatus(
         },
       }
     );
+
     const productStockResponse =
       (await response.json()) as ProductStockResponse;
     return productStockResponse;

@@ -386,19 +386,6 @@ export default factories.createCoreController(
       }
 
       try {
-        const webAccountProductsResponse: WebAccountProductsResponse =
-          await strapi
-            .service('api::order.order')
-            .getProductsStatus(productsIds);
-
-        if (webAccountProductsResponse.error) {
-          strapi.log.error(
-            'Web account product status error:',
-            webAccountProductsResponse.error
-          );
-          return ctx.badRequest(webAccountProductsResponse.error);
-        }
-
         const products = await strapi
           .documents('api::product.product')
           .findMany({
@@ -419,22 +406,49 @@ export default factories.createCoreController(
           amountInStock: product.amountInStock,
         }));
 
-        const productsStatus = webAccountProductsResponse.data.map(
-          (product) => {
-            const matchingProductFromStrapi = productsStatusFromStrapi.find(
-              (p) => p.productVariantId === product.product_variant_id
+        const skipStockStatusCheck =
+          process.env.SKIP_STOCK_STATUS_CHECK?.toLowerCase() === 'true';
+
+        let webAccountProductsData: ProductStockResponse[];
+
+        if (skipStockStatusCheck) {
+          strapi.log.info('Skipping Web Account stock status check');
+          webAccountProductsData = productsStatusFromStrapi.map((product) => ({
+            product_variant_id: product.productVariantId,
+            amount_in_stock: product.amountInStock,
+            availability_by_store: {},
+          }));
+        } else {
+          const webAccountProductsResponse: WebAccountProductsResponse =
+            await strapi
+              .service('api::order.order')
+              .getProductsStatus(productsIds);
+
+          if (webAccountProductsResponse.error) {
+            strapi.log.error(
+              'Web account product status error:',
+              webAccountProductsResponse.error
             );
-            return {
-              productVariantId: product.product_variant_id,
-              amountInStock: matchingProductFromStrapi
-                ? Math.min(
-                    product.amount_in_stock,
-                    matchingProductFromStrapi.amountInStock
-                  )
-                : product.amount_in_stock,
-            };
+            return ctx.badRequest(webAccountProductsResponse.error);
           }
-        );
+
+          webAccountProductsData = webAccountProductsResponse.data;
+        }
+
+        const productsStatus = webAccountProductsData.map((product) => {
+          const matchingProductFromStrapi = productsStatusFromStrapi.find(
+            (p) => p.productVariantId === product.product_variant_id
+          );
+          return {
+            productVariantId: product.product_variant_id,
+            amountInStock: matchingProductFromStrapi
+              ? Math.min(
+                  product.amount_in_stock,
+                  matchingProductFromStrapi.amountInStock
+                )
+              : product.amount_in_stock,
+          };
+        });
 
         return ctx.send({ productsStatus });
       } catch (error) {
