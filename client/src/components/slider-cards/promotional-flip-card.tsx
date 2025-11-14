@@ -43,7 +43,7 @@ export default function PromotionalFlipCard(
     <div
       ref={cardRef}
       aria-label={flipped ? t('back') : t('viewMore')}
-      className="perspective-distant relative mx-3 my-4 ml-0 h-[550px] min-w-[350px] shrink-0 cursor-pointer"
+      className="perspective-distant relative my-4 h-[650px] w-full cursor-pointer md:min-w-[350px] lg:h-[750px]"
       role="button"
       tabIndex={0}
       title={flipped ? t('back') : t('viewMore')}

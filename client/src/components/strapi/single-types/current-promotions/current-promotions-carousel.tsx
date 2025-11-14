@@ -47,12 +47,13 @@ export default function CurrentPromotionsCarousel({ cards }: PropType) {
         align: 'start',
       }}
       setApi={setApi}
+      className="w-full"
     >
-      <CarouselContent className="items-center justify-center">
+      <CarouselContent className="-ml-2 md:-ml-4">
         {cards.map((card) => (
           <CarouselItem
             key={card.id}
-            className="basis-[360px] first:pl-4 sm:basis-[360px]"
+            className="basis-full pl-2 md:basis-1/2 md:pl-4 lg:basis-[360px] xl:basis-[400px]"
           >
             <PromotionalFlipCard {...card} />
           </CarouselItem>

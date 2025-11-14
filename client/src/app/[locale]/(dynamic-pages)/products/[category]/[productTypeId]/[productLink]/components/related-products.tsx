@@ -20,7 +20,7 @@ export default function RelatedProducts() {
   const groupTitle = selectedVariant.subCategory?.related_group?.title;
   return (
     <section className="py-2">
-      <p className="pb-4 pl-4 heading-3">
+      <p className="mt-4 pb-4 pl-4 heading-3">
         {groupTitle ?? t('relatedProducts')}
       </p>
       <Carousel
@@ -35,7 +35,7 @@ export default function RelatedProducts() {
           }),
         ]}
       >
-        <CarouselContent className="-ml-4 py-4">
+        <CarouselContent className="-ml-4 py-12">
           {relatedProducts.map((item) => (
             <CarouselItem key={item.id} className="w-fit basis-80 pl-8">
               <RelatedProductAccessories
