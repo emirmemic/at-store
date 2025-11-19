@@ -100,11 +100,12 @@ export default function Content() {
     },
   });
 
-  const totalCartPrice = cart.reduce(
-    (total, { product: { discountedPrice, originalPrice }, quantity }) =>
-      total + (discountedPrice || originalPrice) * quantity,
-    0
-  );
+  const totalCartPrice =
+    cart.reduce(
+      (total, { product: { discountedPrice, originalPrice }, quantity }) =>
+        total + (discountedPrice || originalPrice) * quantity,
+      0
+    ) / 1000;
 
   return (
     <>

@@ -11,7 +11,7 @@ export default function CartPage() {
           <Content />
         </section>
 
-        <div className="mx-auto mt-10 flex flex-col items-start justify-start gap-4 rounded-lg bg-blue p-4 text-white md:flex-row md:items-center md:justify-evenly">
+        <div className="mx-auto mt-10 flex flex-col items-start justify-start gap-4 rounded-lg border border-gray-400 p-4 text-black md:flex-row md:items-center md:justify-evenly">
           <Link
             href="/dostava"
             className="rounded-lg transition hover:opacity-80"
@@ -20,7 +20,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Besplatna dostava</p>
-                <p className="text-sm text-gray-200">
+                <p className="text-sm text-gray-500">
                   za narudžbe iznad 400 KM
                 </p>
               </div>
@@ -34,7 +34,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Plaćanje na rate</p>
-                <p className="text-sm text-gray-200">do 24 rate</p>
+                <p className="text-sm text-gray-500">do 24 rate</p>
               </div>
             </div>
           </Link>
@@ -46,7 +46,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Sigurno plaćanje</p>
-                <p className="text-sm text-gray-200">kartice, rate, pouzeće</p>
+                <p className="text-sm text-gray-500">kartice, rate, pouzeće</p>
               </div>
             </div>
           </Link>
@@ -58,7 +58,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Obrazovni popust</p>
-                <p className="text-sm text-gray-200">za učenje bez granica</p>
+                <p className="text-sm text-gray-500">za učenje bez granica</p>
               </div>
             </div>
           </Link>
