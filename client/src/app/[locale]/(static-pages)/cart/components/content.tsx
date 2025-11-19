@@ -100,12 +100,11 @@ export default function Content() {
     },
   });
 
-  const totalCartPrice =
-    cart.reduce(
-      (total, { product: { discountedPrice, originalPrice }, quantity }) =>
-        total + (discountedPrice || originalPrice) * quantity,
-      0
-    ) / 1000;
+  const totalCartPrice = cart.reduce(
+    (total, { product: { discountedPrice, originalPrice }, quantity }) =>
+      total + (discountedPrice || originalPrice) * quantity,
+    0
+  );
 
   return (
     <>
@@ -116,7 +115,7 @@ export default function Content() {
               Ukupna cijena korpe iznosi
             </h1>
             <h1 className="mb-4 flex flex-col items-center text-center text-xl font-semibold tracking-normal md:text-5xl">
-              {totalCartPrice} KM
+              {totalCartPrice > 999 ? totalCartPrice / 1000 : totalCartPrice} KM
             </h1>
           </section>
           <CartItemsList />
