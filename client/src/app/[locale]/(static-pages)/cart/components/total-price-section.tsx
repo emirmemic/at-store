@@ -40,9 +40,9 @@ export default function TotalPriceSection({
           {t('cartPage.invoiceDescription')}
         </p>
       )}
-      <div className="ml-auto flex flex-col items-start gap-1 md:items-end md:text-right">
-        <p className="text-base font-medium uppercase">{`${t('cartPage.totalPrice')}:`}</p>
-        <Price className="text-2xl font-bold" value={totalPrice} />
+      <div className="mx-auto flex flex-row items-center gap-2 md:mx-0 md:ml-auto md:flex-col md:items-end md:gap-1 md:text-right">
+        <p className="text-xl font-thin uppercase md:text-base md:font-medium">{`${t('cartPage.totalPrice')}:`}</p>
+        <Price className="text-xl font-bold md:text-2xl" value={totalPrice} />
       </div>
       {!isLoggedIn ? (
         // Not logged in -> login/guest

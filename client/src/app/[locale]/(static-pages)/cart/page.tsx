@@ -1,36 +1,17 @@
-import { useTranslations } from 'next-intl';
-
-import { MostSoldSection } from '../components';
-
 import { Content } from './components';
-
 import Link from 'next/link';
+import { MostSoldSection } from '../components';
 import { PAGE_NAMES } from '@/i18n/page-names';
 
 export default function CartPage() {
-  const t = useTranslations();
-  // const infoBlocks = getInfoBlocksData(t); // unused
-
   return (
     <main className="w-full bg-white px-4 py-10 text-grey-almost-black md:px-8">
       <div className="mx-auto w-full max-w-screen-xl">
-        <div className="mb-8 rounded-md bg-black px-4 py-3 text-sm font-medium text-white md:text-base">
-          Besplatna dostava za narudžbe iznad 400 KM · Plaćanje na rate ·
-          Sigurno plaćanje
-        </div>
         <section className="mb-12">
-          <h1 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-            {t('cartPage.title')}
-          </h1>
-          <div className="mb-6 h-[2px] w-20 bg-black" />
           <Content />
         </section>
 
-        <section className="pt-12">
-          <MostSoldSection />
-        </section>
-
-        <div className="mt-10 grid grid-cols-1 gap-4 rounded-lg border border-gray-200 p-4 md:grid-cols-3">
+        <div className="mx-auto mt-10 flex flex-col items-start justify-start gap-4 rounded-lg bg-blue p-4 text-white md:flex-row md:items-center md:justify-evenly">
           <Link
             href="/dostava"
             className="rounded-lg transition hover:opacity-80"
@@ -39,7 +20,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Besplatna dostava</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-200">
                   za narudžbe iznad 400 KM
                 </p>
               </div>
@@ -53,7 +34,7 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Plaćanje na rate</p>
-                <p className="text-sm text-gray-500">do 24 rate</p>
+                <p className="text-sm text-gray-200">do 24 rate</p>
               </div>
             </div>
           </Link>
@@ -65,11 +46,28 @@ export default function CartPage() {
               <span className="text-lg">✓</span>
               <div>
                 <p className="font-medium">Sigurno plaćanje</p>
-                <p className="text-sm text-gray-500">kartice, rate, pouzeće</p>
+                <p className="text-sm text-gray-200">kartice, rate, pouzeće</p>
+              </div>
+            </div>
+          </Link>
+          <Link
+            href="/obrazovni-popust"
+            className="rounded-lg transition hover:opacity-80"
+          >
+            <div className="flex items-start gap-2">
+              <span className="text-lg">✓</span>
+              <div>
+                <p className="font-medium">Obrazovni popust</p>
+                <p className="text-sm text-gray-200">za učenje bez granica</p>
               </div>
             </div>
           </Link>
         </div>
+
+        <section className="pt-12">
+          <MostSoldSection />
+        </section>
+
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-gray-200 pt-8 md:flex-row md:items-center">
           <Link
             href={PAGE_NAMES.HOME}
@@ -83,7 +81,7 @@ export default function CartPage() {
             <span>Mastercard</span>
             <span>Monri</span>
             <span>Kartično plaćanje na rate</span>
-            <span>Pouzeće</span>
+            <span>Preuzimanje pouzećem</span>
           </div>
         </div>
         <section className="pt-16">

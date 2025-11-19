@@ -19,7 +19,24 @@ export default function ProductDetails() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [visibleMaps, setVisibleMaps] = useState(new Set());
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showStickyBanner, setShowStickyBanner] = useState(false);
+  const [renderStickyBanner, setRenderStickyBanner] = useState(false);
+  const [openAccordions, setOpenAccordions] = useState<Set<string>>(
+    new Set(['preuzimanje'])
+  );
   const shouldDisplayPreOrder = false;
+
+  const toggleAccordion = (id: string) => {
+    setOpenAccordions((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -54,6 +71,26 @@ export default function ProductDetails() {
       document.body.style.overflow = '';
     };
   }, [sidebarOpen, isAnimating]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowStickyBanner(window.scrollY > 300);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (showStickyBanner) {
+      setRenderStickyBanner(true);
+      return;
+    }
+
+    const timeout = setTimeout(() => setRenderStickyBanner(false), 300);
+    return () => clearTimeout(timeout);
+  }, [showStickyBanner]);
 
   const toggleMap = (storeId: number) => {
     const newVisibleMaps = new Set(visibleMaps);
@@ -102,7 +139,7 @@ export default function ProductDetails() {
           </div>
           {details && (
             <div className="mb-8 h-full md:mt-10">
-              <div className="mb-6 h-fit w-full bg-grey-light"></div>
+              <div className="mb-6 h-fit w-full"></div>
               <ProductDetailsPopup
                 className=""
                 shouldDisplayPreOrder={shouldDisplayPreOrder}
@@ -151,18 +188,18 @@ export default function ProductDetails() {
               />
             </div>
 
-            {/* Find More Stores */}
+            {/* Find More Stores  - DESKTOP */}
             <div className="mb-8">
-              <span className="text-sm font-bold text-black">
+              <span className="text-md font-bold text-black">
                 Besplatno preuzimanje u poslovnici
               </span>
               {!shouldDisplayPreOrder ? (
                 <button
-                  className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                  className="mt-3 flex items-center gap-2 pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
                   onClick={openSidebar}
                 >
                   <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-                  <span className="text-sm font-medium text-blue">
+                  <span className="text-md border-b border-grey-light font-medium text-blue">
                     Pogledajte dostupnost
                   </span>
                 </button>
@@ -199,32 +236,62 @@ export default function ProductDetails() {
               </div>
             </div>
             {/* Nacini placanja */}
-            <div className="border-t border-gray-200 py-4">
-              <details className="group">
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Preuzimanje</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+            <div className="border-t border-gray-200/60 py-2">
+              <button
+                onClick={() => toggleAccordion('preuzimanje')}
+                className="group flex w-full cursor-pointer items-center justify-between py-4 text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Preuzimanje
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('preuzimanje')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('preuzimanje')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pb-4 pr-8 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Pri checkoutu odaberite besplatnu dostavu na kućnu adresu za
                     sve porudžbe preko 400 KM ili odaberite besplatno
                     preuzimanje u željenoj poslovnici.
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
-            <div className="border-t border-gray-200 py-4">
-              <details className="group">
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Načini plaćanja</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+            <div className="border-t border-gray-200/60 py-2">
+              <button
+                onClick={() => toggleAccordion('nacini-placanja')}
+                className="group flex w-full cursor-pointer items-center justify-between py-4 text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Načini plaćanja
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('nacini-placanja')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('nacini-placanja')
+                    ? 'max-h-[800px] opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pb-4 pr-8 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Nudimo raznovrsne metode za jednostavnu i prilagođenu
                     kupovinu.
@@ -260,17 +327,32 @@ export default function ProductDetails() {
                     188
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
-            <div className="border-t border-gray-200 py-4">
-              <details className="group">
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Povrat i reklamacija</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+            <div className="border-t border-gray-200/60 py-2">
+              <button
+                onClick={() => toggleAccordion('povrat-reklamacija')}
+                className="group flex w-full cursor-pointer items-center justify-between py-4 text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Povrat i reklamacija
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('povrat-reklamacija')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('povrat-reklamacija')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pb-4 pr-8 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     -Ukoliko niste zadovoljni proizvodom, imate pravo na povrat
                     ili zamjenu u roku od 7 dana od dana prijema.
@@ -288,35 +370,65 @@ export default function ProductDetails() {
                     unutar 7 radnih dana.
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* STARO ZA NOVO */}
-            <div className="border-t border-gray-200 py-4">
-              <details className="group">
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Trade-in u poslovnici</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+            <div className="border-t border-gray-200/60 py-2">
+              <button
+                onClick={() => toggleAccordion('trade-in')}
+                className="group flex w-full cursor-pointer items-center justify-between py-4 text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Trade-in u poslovnici
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('trade-in')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('trade-in')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pb-4 pr-8 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Zamijeni svoj stari uređaj i preuzmi bilo koji naš proizvod
                     po povoljnijoj cijeni!
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* MIKROFIN FINANSIRANJE */}
-            <div className="border-t border-gray-200 py-4">
-              <details className="group">
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Mikrofin finansiranje</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+            <div className="border-t border-gray-200/60 py-2">
+              <button
+                onClick={() => toggleAccordion('mikrofin')}
+                className="group flex w-full cursor-pointer items-center justify-between py-4 text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Mikrofin finansiranje
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('mikrofin')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('mikrofin')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pb-4 pr-8 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     -Koristite kredit kompanije Mikrofin. Nema potrebe da više
                     gubite vrijeme na dolazak u poslovnice.
@@ -334,14 +446,14 @@ export default function ProductDetails() {
                     </span>
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Mobile & Tablet Layout: Info Block Always Visible */}
-      <div className="block flex flex-col gap-8 lg:hidden">
+      <div className="flex flex-col gap-8 lg:hidden">
         {/* 1. ImagesSlider at the top */}
         <ImagesSlider images={images} tag={tag} />
 
@@ -354,12 +466,26 @@ export default function ProductDetails() {
             originalPrice={originalPrice}
             productVariantId={productVariantId}
           />
+          {details && (
+            <>
+              <div className="h-0.5 w-full bg-grey-light"></div>
+              <ProductDetailsPopup
+                className=""
+                details={details}
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
+                finalPrice={finalPrice}
+                image={image}
+                name={name}
+              />
+            </>
+          )}
           {/* Action buttons */}
           <div className="flex items-center gap-4">
             {/* <button className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black">
               <Heart className="h-5 w-5" />
               <span className="text-sm">Omiljeno</span>
             </button> */}
+
             <button
               className="flex items-center gap-2 text-grey-dark transition-colors hover:text-black"
               onClick={handleShare}
@@ -381,38 +507,25 @@ export default function ProductDetails() {
             />
           </div>
 
-          {/* Find More Stores */}
+          {/* Find More Stores  - MOBILE*/}
           <div className="w-full">
-            <span className="text-sm font-medium text-black">
+            <span className="text-md px-2 font-medium text-black">
               Besplatno preuzimanje u poslovnici
             </span>
             {shouldDisplayPreOrder ? (
               <></>
             ) : (
               <button
-                className="mt-2 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
+                className="mt-2 flex items-center gap-2 px-2 pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
                 onClick={openSidebar}
               >
                 <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-                <span className="text-sm font-medium text-blue">
+                <span className="text-md border-b border-grey-light font-medium text-blue">
                   Pogledajte dostupnost
                 </span>
               </button>
             )}
           </div>
-          {details && (
-            <>
-              <div className="h-0.5 w-full bg-grey-light"></div>
-              <ProductDetailsPopup
-                className=""
-                details={details}
-                shouldDisplayPreOrder={shouldDisplayPreOrder}
-                finalPrice={finalPrice}
-                image={image}
-                name={name}
-              />
-            </>
-          )}
           {/* Delivery and Payment Information Block: always visible, responsive */}
           <div className="flex w-full flex-col gap-6">
             <div className="rounded-lg bg-grey-almost-white p-6">
@@ -445,32 +558,62 @@ export default function ProductDetails() {
             </div>
             {/* Dostava */}
             <div className="rounded-lg bg-grey-almost-white p-6">
-              <details className="group" open>
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span className="break-normal pr-2">Preuzimanje</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+              <button
+                onClick={() => toggleAccordion('preuzimanje-mobile')}
+                className="group flex w-full cursor-pointer items-center justify-between text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Preuzimanje
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('preuzimanje-mobile')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('preuzimanje-mobile')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Pri checkoutu odaberite besplatnu dostavu na kućnu adresu za
                     sve porudžbe <strong>preko 400 KM</strong> ili odaberite
                     besplatno preuzimanje u željenoj poslovnici.
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* Načini plaćanja */}
             <div className="rounded-lg bg-grey-almost-white p-6">
-              <details className="group" open>
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Načini plaćanja</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+              <button
+                onClick={() => toggleAccordion('nacini-placanja-mobile')}
+                className="group flex w-full cursor-pointer items-center justify-between text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Načini plaćanja
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('nacini-placanja-mobile')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('nacini-placanja-mobile')
+                    ? 'max-h-[800px] opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Nudimo raznovrsne metode za jednostavnu i prilagođenu
                     kupovinu.
@@ -501,18 +644,33 @@ export default function ProductDetails() {
                     188
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* Povrat i reklamacija */}
             <div className="rounded-lg bg-grey-almost-white p-6">
-              <details className="group" open>
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Povrat i reklamacija</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+              <button
+                onClick={() => toggleAccordion('povrat-reklamacija-mobile')}
+                className="group flex w-full cursor-pointer items-center justify-between text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Povrat i reklamacija
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('povrat-reklamacija-mobile')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('povrat-reklamacija-mobile')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     - Ukoliko niste zadovoljni proizvodom, imate pravo na povrat
                     ili zamjenu u roku od 7 dana od dana prijema.
@@ -530,35 +688,65 @@ export default function ProductDetails() {
                     najčešće unutar 7 radnih dana.
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* Trade-in u poslovnici */}
             <div className="rounded-lg bg-grey-almost-white p-6">
-              <details className="group" open>
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Trade-in u poslovnici</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+              <button
+                onClick={() => toggleAccordion('trade-in-mobile')}
+                className="group flex w-full cursor-pointer items-center justify-between text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Trade-in u poslovnici
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('trade-in-mobile')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('trade-in-mobile')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     Zamijeni svoj stari uređaj i preuzmi bilo koji naš proizvod
                     po povoljnijoj cijeni!
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
             {/* Mikrofin finansiranje */}
             <div className="rounded-lg bg-grey-almost-white p-6">
-              <details className="group" open>
-                <summary className="group flex cursor-pointer list-none items-center justify-between text-lg font-medium">
-                  <span>Mikrofin finansiranje</span>
-                  <span className="transition-transform duration-300 group-open:rotate-180">
-                    ⌃
-                  </span>
-                </summary>
-                <div className="mt-4 space-y-2 text-gray-600">
+              <button
+                onClick={() => toggleAccordion('mikrofin-mobile')}
+                className="group flex w-full cursor-pointer items-center justify-between text-left transition-all duration-300 hover:opacity-80"
+              >
+                <span className="text-[17px] font-semibold text-gray-900">
+                  Mikrofin finansiranje
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 text-gray-500 transition-all duration-500 ease-out ${
+                    openAccordions.has('mikrofin-mobile')
+                      ? 'rotate-180 text-blue'
+                      : 'rotate-0'
+                  }`}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-out ${
+                  openAccordions.has('mikrofin-mobile')
+                    ? 'max-h-96 opacity-100'
+                    : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="space-y-3 pt-4 text-[15px] leading-relaxed text-gray-600">
                   <p>
                     -Koristite kredit kompanije Mikrofin. Nema potrebe da više
                     gubite vrijeme na dolazak u poslovnice.
@@ -576,7 +764,7 @@ export default function ProductDetails() {
                     </span>
                   </p>
                 </div>
-              </details>
+              </div>
             </div>
           </div>
         </div>
@@ -799,13 +987,19 @@ export default function ProductDetails() {
         </div>
       )}
 
-      {/* Sticky Bottom Banner - Always visible on desktop */}
-      <div className="fixed bottom-0 left-0 right-0 z-[999] hidden border-t border-grey-light bg-white shadow-lg lg:block">
-        <div className="flex items-center justify-between px-8 py-4">
-          <div className="flex items-center gap-4">
-            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-grey-almost-white">
-              {image && (
-                <div className="h-full w-full">
+      {/* Sticky Bottom Banner - appears after scrolling */}
+      {renderStickyBanner && (
+        <div className="pointer-events-none fixed inset-x-0 bottom-8 z-[999] hidden justify-center px-6 lg:flex">
+          <div
+            className={`pointer-events-auto flex w-full max-w-6xl items-center justify-between gap-6 rounded-[32px] border border-white/20 bg-gradient-to-r from-white/60 via-white/35 to-white/60 px-8 py-5 shadow-[0_25px_80px_rgba(15,23,42,0.18)] ring-1 ring-white/30 backdrop-blur-3xl ${
+              showStickyBanner
+                ? 'duration-500 ease-out animate-in fade-in slide-in-from-bottom-5'
+                : 'duration-300 ease-in animate-out fade-out slide-out-to-bottom-5'
+            }`}
+          >
+            <div className="flex flex-1 items-center gap-5">
+              <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-2xl shadow-[0_5px_15px_rgba(15,23,42,0.12)] backdrop-blur-3xl">
+                {image && (
                   <StrapiImage
                     alt={image.alternativeText || name}
                     className="h-full w-full object-contain"
@@ -814,52 +1008,53 @@ export default function ProductDetails() {
                     src={image.url}
                     width={64}
                   />
-                </div>
-              )}
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <h3 className="line-clamp-2 break-words text-lg font-semibold text-black">
+                  {name}
+                </h3>
+                {!shouldDisplayPreOrder && (
+                  <p className="text-xl font-semibold text-black">
+                    {finalPrice.toFixed(2)} KM
+                    {discountedPrice && originalPrice && (
+                      <span className="ml-2 text-sm text-grey-dark line-through">
+                        {originalPrice.toFixed(2)} KM
+                      </span>
+                    )}
+                  </p>
+                )}
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold">{name}</h3>
-              {shouldDisplayPreOrder ? (
-                <></>
-              ) : (
-                <p className="text-lg font-semibold">
-                  {finalPrice.toFixed(2)} KM
-                  {discountedPrice && originalPrice && (
-                    <span className="ml-2 text-sm text-grey-dark line-through">
-                      {originalPrice.toFixed(2)} KM
-                    </span>
-                  )}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="">
-            <span className="text-sm font-medium text-black">
-              Besplatno preuzimanje u poslovnici
-            </span>
-            {shouldDisplayPreOrder ? (
-              <></>
-            ) : (
-              <button
-                className="mt-3 flex items-center gap-2 border-b border-grey-light pb-1 text-blue transition-all duration-200 hover:border-grey-dark hover:text-grey-dark"
-                onClick={openSidebar}
-              >
-                <MapPin className="h-4 w-4 transition-transform duration-200 hover:scale-110" />
-                <span className="text-sm font-medium text-blue">
-                  Pogledajte dostupnost
+            <div className="flex flex-1 items-center justify-center">
+              <div className="text-center">
+                <span className="text-xs font-semibold uppercase tracking-[0.05em] text-grey-dark">
+                  Preuzimanje
                 </span>
-              </button>
-            )}
-          </div>
-          <div className="flex items-center gap-4">
-            <Buttons
-              isModal={true}
-              product={selectedVariant}
-              shouldDisplayPreOrder={shouldDisplayPreOrder}
-            />
+                <p className="text-sm font-medium text-black">
+                  Besplatno preuzimanje u poslovnici
+                </p>
+                {!shouldDisplayPreOrder && (
+                  <button
+                    className="mt-2 inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm font-semibold text-blue transition-all duration-200"
+                    onClick={openSidebar}
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Pogledajte dostupnost
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-1 justify-end">
+              <Buttons
+                isModal={true}
+                product={selectedVariant}
+                shouldDisplayPreOrder={shouldDisplayPreOrder}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

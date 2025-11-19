@@ -35,7 +35,7 @@ export default function RelatedProductAccessories({
   return (
     <div
       className={cn(
-        'relative flex w-full max-w-72 flex-col items-start justify-between rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md',
+        'relative flex w-full max-w-72 flex-col items-start justify-between rounded-2xl bg-white p-4 shadow-md',
         className
       )}
     >

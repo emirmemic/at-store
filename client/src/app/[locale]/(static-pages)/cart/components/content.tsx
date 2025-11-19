@@ -1,24 +1,24 @@
 'use client';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 
-import { useCartProvider } from '@/app/providers';
-import { useUserProvider } from '@/app/providers/user-provider';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { STRAPI_BASE_URL } from '@/lib/constants';
-import { fetchAPI } from '@/lib/fetch-api';
-import { useLoader } from '@/lib/hooks';
 import {
   CreateInvoiceResponse,
   InvoiceData,
   InvoiceGenerateResponse,
 } from '@/lib/types';
-import { generateIdFromDate } from '@/lib/utils/utils';
 
 import CartItemsList from './cart-items-list';
 import EmptyCart from './empty-cart';
+import Link from 'next/link';
+import { STRAPI_BASE_URL } from '@/lib/constants';
 import TotalPriceSection from './total-price-section';
+import { fetchAPI } from '@/lib/fetch-api';
+import { generateIdFromDate } from '@/lib/utils/utils';
+import { useCartProvider } from '@/app/providers';
+import { useLoader } from '@/lib/hooks';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useUserProvider } from '@/app/providers/user-provider';
 
 const generatePdf = async (
   invoiceData: InvoiceData
@@ -99,52 +99,69 @@ export default function Content() {
       setErrorMessage(error.message);
     },
   });
+
+  const totalCartPrice = cart.reduce(
+    (total, { product: { discountedPrice, originalPrice }, quantity }) =>
+      total + (discountedPrice || originalPrice) * quantity,
+    0
+  );
+
   return (
     <>
       {cart && cart.length > 0 ? (
         <>
+          <section className="mb-12 flex w-full flex-row items-center justify-center gap-2 md:gap-3">
+            <h1 className="mb-4 flex flex-col items-center text-center text-xl font-thin tracking-normal md:text-5xl">
+              Ukupna cijena korpe iznosi
+            </h1>
+            <h1 className="mb-4 flex flex-col items-center text-center text-xl font-semibold tracking-normal md:text-5xl">
+              {totalCartPrice} KM
+            </h1>
+          </section>
           <CartItemsList />
           <TotalPriceSection handleInvoice={execute} isLoading={isLoading} />
         </>
       ) : (
         <EmptyCart />
       )}
-      <div className="flex flex-col items-center justify-center gap-3 py-4">
-        {errorMessage && (
-          <Alert
-            dismissible
-            variant="destructive"
-            onClose={() => {
-              setErrorMessage('');
-            }}
-          >
-            <AlertDescription>{errorMessage}</AlertDescription>
-          </Alert>
-        )}
-        {successMessage && (
-          <Alert
-            dismissible
-            variant="success"
-            onClose={() => {
-              setSuccessMessage('');
-            }}
-          >
-            <AlertDescription className="flex flex-col gap-2">
-              {successMessage}
-              {pdfUrl && (
-                <Link
-                  className="text-blue underline transition-colors paragraph-2 hover:text-blue-dark"
-                  href={pdfUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {t('cartPage.clickToDownloadInvoice')}
-                </Link>
-              )}
-            </AlertDescription>
-          </Alert>
-        )}
-      </div>
+      {errorMessage && (
+        <div className="flex flex-col items-center justify-center gap-3 py-4">
+          {errorMessage && (
+            <Alert
+              dismissible
+              variant="destructive"
+              onClose={() => {
+                setErrorMessage('');
+              }}
+            >
+              <AlertDescription>{errorMessage}</AlertDescription>
+            </Alert>
+          )}
+          {successMessage && (
+            <Alert
+              dismissible
+              variant="success"
+              onClose={() => {
+                setSuccessMessage('');
+              }}
+            >
+              <AlertDescription className="flex flex-col gap-2">
+                {successMessage}
+                {pdfUrl && (
+                  <Link
+                    className="text-blue underline transition-colors paragraph-2 hover:text-blue-dark"
+                    href={pdfUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {t('cartPage.clickToDownloadInvoice')}
+                  </Link>
+                )}
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
+      )}
     </>
   );
 }

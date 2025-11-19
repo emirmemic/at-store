@@ -59,7 +59,7 @@ export default function ImagesSlider({
   return (
     <div className={`flex h-full flex-col ${className}`}>
       {/* Main Image Display */}
-      <div className="border-grey-300 relative flex-1 rounded-md border bg-white">
+      <div className="relative flex-1 rounded-md border border-gray-200 bg-white">
         <div className="flex h-full w-full items-center justify-center p-8">
           <AnimatePresence mode="wait">
             <motion.div

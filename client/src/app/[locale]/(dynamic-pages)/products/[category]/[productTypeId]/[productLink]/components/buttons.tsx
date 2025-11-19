@@ -116,10 +116,10 @@ export default function Buttons({
   };
 
   return (
-    <div className="flex w-full flex-col items-start gap-4">
+    <div className="flex w-full flex-col items-start gap-4 md:flex-row">
       {productAlreadyInCart ? (
         <Button
-          className="h-12 w-72"
+          className="h-12 w-full md:w-72"
           size="md"
           variant="filled"
           onClick={() => router.push('/cart')}
@@ -129,7 +129,7 @@ export default function Buttons({
         </Button>
       ) : (
         <Button
-          className="h-12 w-72"
+          className="h-12 w-full md:w-72"
           size="md"
           variant="filled"
           onClick={handleCartClick}
@@ -141,7 +141,7 @@ export default function Buttons({
 
       {!isModal && (
         <Button
-          className="h-12 w-72"
+          className="h-12 w-72 w-full md:w-72"
           disabled={isLoading || product.amountInStock === 0} // also disable here
           size="md"
           variant="addToFavorites"

@@ -1,14 +1,14 @@
 'use client';
 
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-
-import { IconTrash } from '@/components/icons';
-import { StrapiImage } from '@/components/strapi/components';
-import { CounterInput } from '@/components/ui/counter-input';
-import Price from '@/components/ui/price';
 import { ImageProps, ProductResponse, ShoppingCartItem } from '@/lib/types';
+
+import { CounterInput } from '@/components/ui/counter-input';
+import { IconTrash } from '@/components/icons';
+import Link from 'next/link';
+import Price from '@/components/ui/price';
+import { StrapiImage } from '@/components/strapi/components';
 import { makeProductLink } from '@/lib/utils/link-helpers';
+import { useTranslations } from 'next-intl';
 
 interface ProductCartTableItemProps {
   cartItem: ShoppingCartItem;
@@ -37,18 +37,18 @@ const ImageContainer = ({
 }) => {
   const t = useTranslations('productPage');
   return (
-    <div className="h-32 w-32 shrink-0">
+    <div className="h-64 w-64 shrink-0 overflow-hidden rounded-xl bg-white">
       {image ? (
         <StrapiImage
           alt={image?.alternativeText || product.displayName}
-          className="h-full w-full object-contain"
-          height={128}
-          sizes="(max-width: 1024px) 8rem, 10rem"
+          className="h-full w-full object-contain p-3"
+          height={144}
+          sizes="(max-width: 1024px) 9rem, 9rem"
           src={image?.url ?? ''}
-          width={128}
+          width={144}
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-4">
+        <div className="flex h-full w-full items-center justify-center p-4 text-xs text-grey-medium">
           {t('noImagesAvailable')}
         </div>
       )}
@@ -56,17 +56,25 @@ const ImageContainer = ({
   );
 };
 
-const CloseButton = ({ onClick }: { onClick: () => void }) => {
+const CloseButton = ({
+  onClick,
+  className,
+}: {
+  onClick: () => void;
+  className?: string;
+}) => {
   const t = useTranslations('common');
   return (
     <button
       aria-label={t('removeItem')}
-      className="-mr-2 p-2 text-black transition-colors duration-300 hover:text-grey-darker"
+      className={`${className} group rounded-full p-2 transition-all duration-200 hover:bg-grey-almost-white`}
       title={t('removeItem')}
       type="button"
       onClick={onClick}
     >
-      <IconTrash className="h-5 w-5" />
+      <IconTrash
+        className={`${className} h-5 w-5 text-grey-medium transition-colors duration-200 group-hover:text-grey-darker`}
+      />
     </button>
   );
 };
@@ -82,28 +90,23 @@ const MobileCartItem = ({
   onQuantityChange,
 }: CartItemProps) => {
   return (
-    <div className="flex flex-col gap-2 border-b border-grey-light py-4 heading-5">
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex w-full flex-col items-center gap-3 sm:flex-row">
-          <ImageContainer image={image} product={product} />
-          <div className="flex flex-col gap-3">
-            <Link className="hover:underline" href={finalLink}>
-              {product.displayName}
-            </Link>
-            <Price value={finalPrice} />
-          </div>
-        </div>
-        <CloseButton onClick={onRemove} />
-      </div>
-      <div className="flex w-full flex-col items-start gap-4 text-left sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col items-center gap-3 py-4 first:pt-0">
+      <ImageContainer image={image} product={product} />
+      <Link
+        className="text-center text-lg font-medium text-grey-almost-black transition-colors hover:text-blue"
+        href={finalLink}
+      >
+        {product.displayName}
+      </Link>
+      <div className="flex w-full items-center justify-evenly">
         <CounterInput
           max={product.amountInStock}
           min={1}
           value={quantity}
           onChange={onQuantityChange}
         />
-
-        <Price value={totalPrice} />
+        <Price className="text-lg font-semibold" value={totalPrice} />
+        <CloseButton onClick={onRemove} className="text-red-500" />
       </div>
     </div>
   );
@@ -119,34 +122,38 @@ const DesktopCartItem = ({
   onQuantityChange,
 }: CartItemProps) => {
   return (
-    <tr className="border-b border-grey-light paragraph-2">
-      <td className="px-4 py-4">
-        <div className="flex items-center gap-4">
-          <ImageContainer image={image} product={product} />
-          <Link className="hover:underline" href={finalLink}>
-            {product.displayName}
-          </Link>
-        </div>
-      </td>
-      <td className="whitespace-nowrap px-4 py-4">
-        <Price value={finalPrice} />
-      </td>
+    <div className="flex items-center gap-4">
+      {/* Product Info */}
+      <div className="flex flex-1 items-center gap-3">
+        <ImageContainer image={image} product={product} />
+        <Link
+          className="line-clamp-2 text-2xl font-medium text-grey-almost-black transition-colors hover:text-gray-500"
+          href={finalLink}
+        >
+          {product.displayName}
+        </Link>
+      </div>
 
-      <td className="px-4 py-4">
-        <CounterInput
-          max={product.amountInStock}
-          min={1}
-          value={quantity}
-          onChange={onQuantityChange}
-        />
-      </td>
-      <td className="whitespace-nowrap px-4 py-4">
-        <Price value={totalPrice} />
-      </td>
-      <td className="px-4 py-4">
-        <CloseButton onClick={onRemove} />
-      </td>
-    </tr>
+      {/* Quantity, Total & Remove */}
+      <div className="flex items-center gap-12">
+        <div className="flex w-28 justify-center">
+          <CounterInput
+            max={product.amountInStock}
+            min={1}
+            value={quantity}
+            onChange={onQuantityChange}
+          />
+        </div>
+
+        <div className="w-24 text-right">
+          <Price className="text-base font-semibold" value={totalPrice} />
+        </div>
+
+        <div className="flex w-8 justify-end">
+          <CloseButton onClick={onRemove} className="text-red-500" />
+        </div>
+      </div>
+    </div>
   );
 };
 

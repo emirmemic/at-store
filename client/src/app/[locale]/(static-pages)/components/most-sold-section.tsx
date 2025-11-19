@@ -1,19 +1,19 @@
 'use client';
-import AutoScroll from 'embla-carousel-auto-scroll';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
-import { IconLoader } from '@/components/icons';
-import { BestSellerCard } from '@/components/slider-cards';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { useLoader } from '@/lib/hooks';
-import { BestSellerItem } from '@/lib/types';
+import { useEffect, useState } from 'react';
 
+import AutoScroll from 'embla-carousel-auto-scroll';
+import { BestSellerCard } from '@/components/slider-cards';
+import { BestSellerItem } from '@/lib/types';
+import { IconLoader } from '@/components/icons';
 import { fetchMostSold } from '../actions';
+import { useLoader } from '@/lib/hooks';
+import { useTranslations } from 'next-intl';
 
 export default function MostSoldSection() {
   const t = useTranslations();
