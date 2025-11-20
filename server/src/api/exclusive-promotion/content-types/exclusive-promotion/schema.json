@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "exclusive_promotion",
+  "info": {
+    "singularName": "exclusive-promotion",
+    "pluralName": "exclusive-promotions",
+    "displayName": "Exclusive Promotion",
+    "description": "Single promotion section for the /promocije page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 150
+    },
+    "subtitle": {
+      "type": "string",
+      "required": false,
+      "maxLength": 250
+    },
+    "color1": {
+      "type": "string",
+      "required": false,
+      "default": "#2563eb",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "color2": {
+      "type": "string",
+      "required": false,
+      "default": "#22d3ee",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "color3": {
+      "type": "string",
+      "required": false,
+      "default": "#fde68a",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "color4": {
+      "type": "string",
+      "required": false,
+      "default": "#fb923c",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

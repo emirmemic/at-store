@@ -40,6 +40,11 @@ export default function TradeInBanner({ className }: TradeInBannerProps) {
       ctaText: t('items.business.cta'),
       href: PAGE_NAMES.REGISTER,
     },
+    {
+      text: 'Posebne cijene.',
+      ctaText: 'Otkrij ponudu',
+      href: PAGE_NAMES.EXCLUSIVE_PROMOTIONS,
+    },
   ];
 
   useEffect(() => {

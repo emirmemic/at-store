@@ -230,6 +230,44 @@ export interface HomepagePromoCard extends Struct.ComponentSchema {
   };
 }
 
+export interface HomepageSpecialBanner extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_special_banners';
+  info: {
+    description: 'Special promotional banner with image, text, and CTA button';
+    displayName: 'SpecialBanner';
+  };
+  attributes: {
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#f1f5f9'>;
+    buttonText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 50;
+      }>;
+    buttonUrl: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    subSubtitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#1e293b'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+  };
+}
+
 export interface NavbarItem extends Struct.ComponentSchema {
   collectionName: 'components_navbar_items';
   info: {
@@ -294,6 +332,7 @@ declare module '@strapi/strapi' {
       'homepage.hero-section': HomepageHeroSection;
       'homepage.hero-slider': HomepageHeroSlider;
       'homepage.promo-card': HomepagePromoCard;
+      'homepage.special-banner': HomepageSpecialBanner;
       'navbar.item': NavbarItem;
       'newspage.hot-item': NewspageHotItem;
       'newspage.latest-products': NewspageLatestProducts;

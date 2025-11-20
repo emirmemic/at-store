@@ -1316,5 +1316,17 @@
     "orderNotFoundTitle": "Narudžba nije pronađena",
     "orderNotFoundDescription": "Nažalost, nismo mogli pronaći narudžbu sa traženim brojem. Molimo provjerite broj narudžbe i pokušajte ponovo.",
     "backToHome": "Povratak na početnu"
+  },
+  "promocije": {
+    "meta": {
+      "title": "Ekskluzivne Promocije | AT Store",
+      "description": "Otkrijte naše najbolje ponude i ekskluzivne promocije na Apple proizvode."
+    },
+    "hero": {
+      "title": "Ekskluzivne Promocije",
+      "subtitle": "Istražite naše posebne ponude i pronađite savršen proizvod po odličnoj cijeni."
+    },
+    "noPromotions": "Trenutno nema aktivnih promocija.",
+    "noProducts": "Nema proizvoda u ovoj promociji."
   }
 }

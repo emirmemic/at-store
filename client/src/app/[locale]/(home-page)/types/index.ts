@@ -1,5 +1,5 @@
-import { PromoCardItem } from '@/app/[locale]/(home-page)/components/promo-cards/types';
 import { ActionLinkResponse } from '@/lib/types';
+import { PromoCardItem } from '@/app/[locale]/(home-page)/components/promo-cards/types';
 
 interface HeroSliderItem {
   id: number;
@@ -29,12 +29,31 @@ interface HeroSectionResponse {
   sliderItems: HeroSliderItem[];
 }
 
+interface SpecialBannerResponse {
+  id: number;
+  image: {
+    id: number;
+    url: string;
+    alternativeText: string | null;
+  };
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonUrl: string;
+}
+
 interface HomepageResponse {
   data: {
     title: string;
     description?: string;
+    specialBanner: SpecialBannerResponse | null;
     promoCards: Array<PromoCardItem> | null;
     heroSection: HeroSectionResponse | null;
   };
 }
-export type { HomepageResponse, HeroSectionResponse, HeroSliderItem };
+export type {
+  HomepageResponse,
+  HeroSectionResponse,
+  HeroSliderItem,
+  SpecialBannerResponse,
+};

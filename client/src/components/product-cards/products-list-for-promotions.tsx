@@ -10,7 +10,6 @@ import { ProductResponse } from '@/lib/types';
 import ProductTag from './product-tag';
 import { StrapiImage } from '@/components/strapi/components';
 import { UserContext } from '@/app/providers';
-import { cn } from '@/lib/utils/utils';
 import { makeProductLink } from '@/lib/utils/link-helpers';
 import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
@@ -18,11 +17,31 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/lib/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 
-interface ProductCardProps {
-  product: ProductResponse;
+interface ProductsListForPromotionsProps {
+  products: ProductResponse[];
   className?: string;
 }
-export default function ProductCard({ product, className }: ProductCardProps) {
+
+export default function ProductsListForPromotions({
+  products,
+  className = '',
+}: ProductsListForPromotionsProps) {
+  return (
+    <div
+      className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 ${className}`}
+    >
+      {products.map((product) => (
+        <PromotionProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+
+interface PromotionProductCardProps {
+  product: ProductResponse;
+}
+
+function PromotionProductCard({ product }: PromotionProductCardProps) {
   const {
     name,
     displayName,
@@ -63,6 +82,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       });
     },
   });
+
   const handleFavoriteClick = () => {
     if (user) {
       execute();
@@ -74,11 +94,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       router.push(PAGE_NAMES.LOGIN);
     }
   };
-  const specs = makeSpecsArray(product);
 
+  const specs = makeSpecsArray(product);
   const finalSpecs = specs
     .filter((spec) => spec !== 'nullnull' && spec !== null)
-    .slice(0, 4);
+    .slice(0, 3);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
   const discountPercentage = discountedPrice
@@ -90,8 +110,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     productLink ?? ''
   );
 
+  // Calculate installment price (12 months)
+  const installmentPrice = (finalPrice / 24).toFixed(0) as unknown as number;
+
   return (
-    <div className={cn('relative flex w-full flex-col bg-white', className)}>
+    <div className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-[#f5f5f7] transition-all duration-300">
       <Link className="z-1 absolute inset-0" href={finalLink}>
         <span className="sr-only">
           {t('common.viewDetailsWithName', {
@@ -99,25 +122,26 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           })}
         </span>
       </Link>
-      <div className="w-full border border-grey-almost-white bg-white">
+
+      {/* Image Section */}
+      <div className="relative overflow-hidden bg-white p-8">
         {image ? (
           <StrapiImage
             alt={image?.alternativeText || name}
-            className="aspect-[4/3] w-full object-contain"
-            height={200}
-            sizes="(max-width: 1024px) 16rem, 32rem"
+            className="aspect-square w-full object-contain p-12 transition-transform duration-500"
+            height={400}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             src={image?.url ?? ''}
-            width={200}
+            width={400}
           />
         ) : (
-          <div className="flex aspect-[4/3] h-full w-full items-center justify-center rounded-2xl bg-grey-almost-white p-4 text-grey-medium paragraph-1">
+          <div className="flex aspect-square w-full items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
             {t('productPage.noImagesAvailable')}
           </div>
         )}
-      </div>
-      <div className="mt-4 space-y-1 px-2 pb-4 text-left">
-        <div className="flex flex-row items-center justify-between">
-          <p className="text-md font-semibold">{displayName ?? name} </p>
+
+        {/* Favorite Button */}
+        <div className="absolute right-4 top-4">
           <FavoritesHeart
             className="z-3 relative"
             disabled={isLoading}
@@ -126,32 +150,66 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             onClick={handleFavoriteClick}
           />
         </div>
+
+        {/* Tag */}
+        {tag && <ProductTag className="absolute left-4 top-4" tag={tag} />}
+      </div>
+
+      {/* Content Section */}
+      <div className="flex flex-1 flex-col space-y-3 p-6">
+        {/* Product Name */}
+        <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+          {displayName ?? name}
+        </h3>
+
+        {/* Specs */}
         {finalSpecs.length > 0 && (
-          <div className="mb-2 flex flex-col">
+          <div className="flex flex-col space-y-1">
             {finalSpecs.map((spec, i) => (
-              <p key={`${spec}-${i}`} className="text-grey-darker paragraph-4">
+              <p key={`${spec}-${i}`} className="text-sm text-slate-600">
                 {spec}
               </p>
             ))}
           </div>
         )}
-        {discountedPrice && (
-          <div className="flex items-center gap-2 text-sm">
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Pricing Section */}
+        <div className="space-y-2 border-t border-slate-100 pt-4">
+          {/* Discount Info */}
+          {discountedPrice && (
+            <div className="flex items-center gap-2">
+              <Price
+                className="text-md text-slate-500 line-through"
+                value={originalPrice}
+              />
+              <span className="rounded-full px-3 py-1 text-xs font-semibold uppercase text-green-600">
+                {discountPercentage}% jeftinije
+              </span>
+            </div>
+          )}
+
+          {/* Main Price */}
+          <div className="flex items-baseline justify-between">
             <Price
-              className="text-muted-foreground line-through"
-              value={originalPrice}
+              className="text-2xl font-bold text-slate-900"
+              value={finalPrice}
             />
-            <p className="text-green-600">{`${discountPercentage}% jeftinije`}</p>
           </div>
-        )}
-        <Price className="text-sm font-semibold" value={finalPrice} />
+
+          {/* Installments */}
+          <div className="flex items-center gap-1 text-sm text-slate-600">
+            <span>ili</span>
+            <Price
+              className="font-semibold text-slate-900"
+              value={installmentPrice}
+            />
+            <span>mjesečno na 24 rate.</span>
+          </div>
+        </div>
       </div>
-      {tag && (
-        <ProductTag
-          className="absolute right-0 top-0 -translate-y-1/2"
-          tag={tag}
-        />
-      )}
     </div>
   );
 }

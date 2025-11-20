@@ -749,6 +749,49 @@ export interface ApiEducationalDiscountEducationalDiscount
   };
 }
 
+export interface ApiExclusivePromotionExclusivePromotion
+  extends Struct.SingleTypeSchema {
+  collectionName: 'exclusive_promotion';
+  info: {
+    description: 'Single promotion section for the /promocije page';
+    displayName: 'Exclusive Promotion';
+    pluralName: 'exclusive-promotions';
+    singularName: 'exclusive-promotion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    color1: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#2563eb'>;
+    color2: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#22d3ee'>;
+    color3: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#fde68a'>;
+    color4: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#fb923c'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::exclusive-promotion.exclusive-promotion'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 250;
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGroupedSubCategoryGroupedSubCategory
   extends Struct.CollectionTypeSchema {
   collectionName: 'grouped_sub_categories';
@@ -813,6 +856,7 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     promoCards: Schema.Attribute.Component<'homepage.promo-card', true>;
     publishedAt: Schema.Attribute.DateTime;
+    specialBanner: Schema.Attribute.Component<'homepage.special-banner', false>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -2205,6 +2249,7 @@ declare module '@strapi/strapi' {
       'api::current-promotion.current-promotion': ApiCurrentPromotionCurrentPromotion;
       'api::educational-discount-page.educational-discount-page': ApiEducationalDiscountPageEducationalDiscountPage;
       'api::educational-discount.educational-discount': ApiEducationalDiscountEducationalDiscount;
+      'api::exclusive-promotion.exclusive-promotion': ApiExclusivePromotionExclusivePromotion;
       'api::grouped-sub-category.grouped-sub-category': ApiGroupedSubCategoryGroupedSubCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::job-application.job-application': ApiJobApplicationJobApplication;

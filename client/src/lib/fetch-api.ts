@@ -1,6 +1,5 @@
-import { redirect } from '@/i18n/routing';
-
 import { getAuthToken } from './services';
+import { redirect } from '@/i18n/routing';
 
 /**
  * Next.js specific fetch request configuration

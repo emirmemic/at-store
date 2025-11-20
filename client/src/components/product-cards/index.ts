@@ -7,3 +7,4 @@ export { default as RelatedProductAccessories } from './related-product-accessor
 export { default as SubProductCard } from './sub-product-card';
 export { default as ProductListTitle } from './product-list-title';
 export { default as ProductsList } from './product-list';
+export { default as ProductsListForPromotions } from './products-list-for-promotions';

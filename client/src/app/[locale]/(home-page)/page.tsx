@@ -5,6 +5,7 @@ import {
   PromoCards,
   QuickBuyWrapper,
   ServicesSection,
+  SpecialBanner,
   SubCategorySection,
   TradeInBanner,
 } from './components';
@@ -21,6 +22,13 @@ import qs from 'qs';
 const homePageQuery = qs.stringify(
   {
     populate: {
+      specialBanner: {
+        populate: {
+          image: {
+            fields: STRAPI_IMAGE_FIELDS,
+          },
+        },
+      },
       promoCards: {
         populate: {
           product: {
@@ -79,6 +87,7 @@ async function loader() {
   if (!res.data)
     return {
       title: 'There is no data for this page',
+      specialBanner: null,
       promoCards: null,
       heroSection: null,
     };
@@ -102,17 +111,18 @@ export default async function Page({
   if (!data)
     return <div>Fetch is successful, but there is no data for this page</div>;
 
-  const { title, promoCards, heroSection } = data;
+  const { title, specialBanner, promoCards, heroSection } = data;
+
   return (
     <main>
       {(error || success) && (
         <OAuthRedirectMessage error={error} success={success} />
       )}
       <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
-
       <TradeInBanner />
+      {specialBanner && <SpecialBanner {...specialBanner} />}
       {heroSection && (
-        <div className="container-max-width-xl">
+        <div className="!mt-8 container-max-width-xl">
           <div className="relative aspect-[43/25] w-full overflow-hidden md:aspect-[3/1]">
             <HeroSection
               {...heroSection}
@@ -131,7 +141,6 @@ export default async function Page({
           <CurrentPromotions />
         </div>
         <PromoSliderWrapper className="pb-4 pt-4 container-max-width-xl" />
-        {/* TODO: Import here again */}
         <ServicesSection />
         <QuickBuyWrapper />
         <section className="pb-5 pt-10 container-max-width-xl">

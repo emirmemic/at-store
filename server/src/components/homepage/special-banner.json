@@ -1,0 +1,53 @@
+{
+  "collectionName": "components_homepage_special_banners",
+  "info": {
+    "displayName": "SpecialBanner",
+    "description": "Special promotional banner with image, text, and CTA button"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "maxLength": 150
+    },
+    "subSubtitle": {
+      "type": "string",
+      "required": false,
+      "maxLength": 200
+    },
+    "buttonText": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "buttonUrl": {
+      "type": "string",
+      "required": true,
+      "maxLength": 500
+    },
+    "backgroundColor": {
+      "type": "string",
+      "required": false,
+      "default": "#f1f5f9",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    },
+    "textColor": {
+      "type": "string",
+      "required": false,
+      "default": "#1e293b",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+    }
+  }
+}
