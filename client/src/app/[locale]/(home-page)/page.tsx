@@ -122,7 +122,7 @@ export default async function Page({
       <TradeInBanner />
       {specialBanner && <SpecialBanner {...specialBanner} />}
       {heroSection && (
-        <div className="!mt-8 container-max-width-xl">
+        <div className="!mt-[1rem] container-max-width-xl">
           <div className="relative aspect-[43/25] w-full overflow-hidden md:aspect-[3/1]">
             <HeroSection
               {...heroSection}
