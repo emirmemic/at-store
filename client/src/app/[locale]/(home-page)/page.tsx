@@ -120,9 +120,13 @@ export default async function Page({
       )}
       <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
       <TradeInBanner />
-      {specialBanner && <SpecialBanner {...specialBanner} />}
+      {specialBanner && (
+        <div className="!mb-[1rem] container-max-width-xl">
+          <SpecialBanner {...specialBanner} />
+        </div>
+      )}
       {heroSection && (
-        <div className="!mt-[1rem] container-max-width-xl">
+        <div className="container-max-width-xl">
           <div className="relative aspect-[43/25] w-full overflow-hidden md:aspect-[3/1]">
             <HeroSection
               {...heroSection}
