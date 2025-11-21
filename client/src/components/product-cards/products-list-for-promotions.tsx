@@ -169,7 +169,7 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
                 value={originalPrice}
               />
               <span className="rounded-full px-3 py-1 text-xs font-semibold uppercase text-green-600">
-                {discountPercentage}% jeftinije
+                {discountPercentage}% povoljnije
               </span>
             </div>
           )}
