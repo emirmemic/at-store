@@ -118,7 +118,7 @@ export default function NamePrice({
                 />
                 {discountPercentage !== null && (
                   <span className="font-regular text-xs uppercase tracking-[0.02em] text-green-600">
-                    {discountPercentage}% jeftinije
+                    {discountPercentage}% povoljnije
                   </span>
                 )}
               </div>

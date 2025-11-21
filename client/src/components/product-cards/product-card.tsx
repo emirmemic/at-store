@@ -141,7 +141,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               className="text-muted-foreground line-through"
               value={originalPrice}
             />
-            <p className="text-green-600">{`${discountPercentage}% jeftinije`}</p>
+            <p className="text-green-600">{`${discountPercentage}% povoljnije`}</p>
           </div>
         )}
         <Price className="text-sm font-semibold" value={finalPrice} />
