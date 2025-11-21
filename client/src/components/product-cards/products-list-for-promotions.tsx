@@ -2,6 +2,7 @@
 
 import { useContext, useState } from 'react';
 
+import { Button } from '@/components/ui/button';
 import FavoritesHeart from '@/components/ui/favorites-heart';
 import Link from 'next/link';
 import { PAGE_NAMES } from '@/i18n/page-names';
@@ -11,7 +12,6 @@ import ProductTag from './product-tag';
 import { StrapiImage } from '@/components/strapi/components';
 import { UserContext } from '@/app/providers';
 import { makeProductLink } from '@/lib/utils/link-helpers';
-import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -95,10 +95,6 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
     }
   };
 
-  const specs = makeSpecsArray(product);
-  const finalSpecs = specs
-    .filter((spec) => spec !== 'nullnull' && spec !== null)
-    .slice(0, 3);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
   const discountPercentage = discountedPrice
@@ -114,7 +110,7 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
   const installmentPrice = (finalPrice / 24).toFixed(0) as unknown as number;
 
   return (
-    <div className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-[#f5f5f7] transition-all duration-300">
+    <div className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-2 border-[#f5f5f7] bg-[#f5f5f7] transition-all duration-300">
       <Link className="z-1 absolute inset-0" href={finalLink}>
         <span className="sr-only">
           {t('common.viewDetailsWithName', {
@@ -156,31 +152,18 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-1 flex-col space-y-3 p-6">
+      <div className="flex flex-1 flex-col p-6">
         {/* Product Name */}
-        <h3 className="text-xl font-semibold tracking-tight text-slate-900">
+        <h3 className="text-center text-xl font-semibold tracking-tight text-slate-900">
           {displayName ?? name}
         </h3>
-
-        {/* Specs */}
-        {finalSpecs.length > 0 && (
-          <div className="flex flex-col space-y-1">
-            {finalSpecs.map((spec, i) => (
-              <p key={`${spec}-${i}`} className="text-sm text-slate-600">
-                {spec}
-              </p>
-            ))}
-          </div>
-        )}
-
-        {/* Spacer */}
         <div className="flex-1" />
 
         {/* Pricing Section */}
-        <div className="space-y-2 border-t border-slate-100 pt-4">
+        <div className="space-y-3 border-t border-slate-100 pt-4 text-center">
           {/* Discount Info */}
           {discountedPrice && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
               <Price
                 className="text-md text-slate-500 line-through"
                 value={originalPrice}
@@ -192,21 +175,28 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
           )}
 
           {/* Main Price */}
-          <div className="flex items-baseline justify-between">
+          <div className="flex flex-col items-center justify-center md:flex-row md:gap-2">
             <Price
               className="text-2xl font-bold text-slate-900"
               value={finalPrice}
             />
+            <div className="flex items-center gap-1 text-sm text-slate-600">
+              <span>ili samo</span>
+              <Price
+                className="font-semibold text-slate-900"
+                value={installmentPrice}
+              />
+              <span>mjesečno na 24 rate.</span>
+            </div>
           </div>
-
-          {/* Installments */}
-          <div className="flex items-center gap-1 text-sm text-slate-600">
-            <span>ili</span>
-            <Price
-              className="font-semibold text-slate-900"
-              value={installmentPrice}
-            />
-            <span>mjesečno na 24 rate.</span>
+          <div className="flex w-full items-center justify-center">
+            <Button
+              className="!mt-8 flex h-12 w-1/2"
+              size="md"
+              variant="filled"
+            >
+              <Link href={finalLink}>Kupi sada</Link>
+            </Button>
           </div>
         </div>
       </div>

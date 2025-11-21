@@ -123,7 +123,7 @@ export default async function PromocijePage() {
   const color4 = promotion?.color4 || '#fb923c';
   const gradientStyle = `linear-gradient(90deg,${color1},${color2},${color3},${color4})`;
 
-  // Split subtitle by full stops for line breaks
+  // Split subtitle by full stops for line break
   const subtitle = promotion?.subtitle || t('hero.subtitle');
   const subtitleLines = subtitle
     .split('.')

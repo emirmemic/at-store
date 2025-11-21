@@ -35,14 +35,14 @@ export default function SpecialBanner({
 
   return (
     <section
-      className={cn('relative w-full overflow-hidden', className)}
+      className={cn('relative max-h-min w-full overflow-hidden', className)}
       style={{ backgroundColor }}
     >
-      <div className="px-3 py-12 container-max-width-xl md:px-6 md:py-16">
-        <div className="flex flex-col items-center gap-8 lg:gap-12">
+      <div className="px-3 py-6 container-max-width-xl md:px-6 md:py-8">
+        <div className="flex flex-col items-center gap-4 lg:gap-6">
           {/* Text Content */}
-          <div className="flex flex-col justify-center space-y-6 text-center md:text-center">
-            <div className="relative aspect-[16/9] overflow-hidden">
+          <div className="flex flex-col justify-center space-y-3 text-center md:text-center">
+            <div className="relative mx-auto aspect-[16/9] w-5/6 overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={image.alternativeText || title}
@@ -51,31 +51,31 @@ export default function SpecialBanner({
                 priority
               />
             </div>
-            <div className="!mt-16">
+            <div className="!mt-8">
               <h2
-                className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl"
+                className="text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl"
                 style={{ color: textColor }}
               >
                 {title}
               </h2>
               <p
-                className="mt-5 text-lg md:text-xl"
+                className="mt-3 text-base md:text-lg"
                 style={{ color: textColor, opacity: 0.8 }}
               >
                 {subtitle}
               </p>
             </div>
-            <div className="flex justify-center md:justify-center">
+            <div className="flex justify-center py-4 md:justify-center">
               <Link
                 href={buttonUrl}
-                className="inline-flex items-center justify-center rounded-full bg-[#3577E5] px-8 py-3 text-base font-semibold text-white transition-all duration-200 hover:bg-[#2a5db8] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#3577E5] focus:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-full bg-[#3577E5] px-6 py-2 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#2a5db8] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#3577E5] focus:ring-offset-2"
               >
                 {buttonText}
               </Link>
             </div>
             {subSubtitle && (
               <p
-                className="md:text-md mt-3 text-base"
+                className="md:text-md mt-3 text-xs"
                 style={{ color: textColor, opacity: 0.6 }}
               >
                 {subSubtitle}

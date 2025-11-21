@@ -1,14 +1,10 @@
-//TODO ADD CONSTANTS FOR ALL PAGES THAT USE CONSTANTS
-//TODO ADD sr-only for  form inputs
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
-
-import { CardBlock, InfoBlock } from '@/components';
-import { IconCondition, IconDamage, IconPurchased } from '@/components/icons';
 import { CONTACT_EMAILS, CONTACT_NUMBERS } from '@/lib/constants';
+import { IconCondition, IconDamage, IconPurchased } from '@/components/icons';
 
 import ComplaintsForm from './components/form';
+import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
 interface GenerateMetadataParams {
   params: Promise<{ locale: string }>;
