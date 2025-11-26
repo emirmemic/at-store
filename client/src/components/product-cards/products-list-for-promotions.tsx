@@ -107,7 +107,9 @@ function PromotionProductCard({ product }: PromotionProductCardProps) {
   );
 
   // Calculate installment price (12 months)
-  const installmentPrice = (finalPrice / 24).toFixed(0) as unknown as number;
+  const installmentPrice = ((finalPrice + finalPrice * 0.1) / 24).toFixed(
+    0
+  ) as unknown as number;
 
   return (
     <div className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-2 border-[#f5f5f7] bg-[#f5f5f7] transition-all duration-300">
