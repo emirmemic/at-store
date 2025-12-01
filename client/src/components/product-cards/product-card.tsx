@@ -12,7 +12,6 @@ import { StrapiImage } from '@/components/strapi/components';
 import { UserContext } from '@/app/providers';
 import { cn } from '@/lib/utils/utils';
 import { makeProductLink } from '@/lib/utils/link-helpers';
-import { makeSpecsArray } from '@/lib/formatters';
 import { useLoader } from '@/lib/hooks';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/lib/hooks/use-toast';
@@ -41,11 +40,14 @@ export default function ProductCard({ product, className }: ProductCardProps) {
   const [favorites, setFavorites] = useState<number[]>(
     favoritedBy?.map((f) => f.id) ?? []
   );
+
   const { execute, isLoading } = useLoader({
     apiCall: () => toggleFavorite(product),
     onSuccess: () => {
       toast({
-        title: t('common.successful'),
+        title: isFavorite
+          ? t('productPage.removedFromFavorites')
+          : t('productPage.addedToFavorites'),
       });
       if (user) {
         setFavorites((prev) =>
@@ -74,11 +76,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       router.push(PAGE_NAMES.LOGIN);
     }
   };
-  const specs = makeSpecsArray(product);
 
-  const finalSpecs = specs
-    .filter((spec) => spec !== 'nullnull' && spec !== null)
-    .slice(0, 4);
   const finalPrice = discountedPrice ?? originalPrice;
   const image = images?.[0] || null;
   const discountPercentage = discountedPrice
@@ -89,6 +87,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     product.productTypeId,
     productLink ?? ''
   );
+  const isFavorite = user ? favorites.includes(user.id) : false;
 
   return (
     <div
