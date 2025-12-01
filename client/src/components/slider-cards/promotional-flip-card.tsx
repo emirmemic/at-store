@@ -93,7 +93,7 @@ export default function PromotionalFlipCard(
             <p className="heading-4">{backTitle}</p>
           </div>
           <div>
-            <p className="mb-3 line-clamp-5 whitespace-pre-line paragraph-2">
+            <p className="line-clamp-10 mb-3 whitespace-pre-line paragraph-2">
               {backDescription}
             </p>
           </div>
