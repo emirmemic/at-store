@@ -1,8 +1,8 @@
-import { MoreHorizontal } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
+import { MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils/utils';
+import { useTranslations } from 'next-intl';
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -46,7 +46,7 @@ const PaginationButton = ({
   <button
     aria-current={isActive ? 'page' : undefined}
     className={cn(
-      'flex h-10 w-10 items-center justify-center rounded-full border border-transparent transition-all paragraph-1 hover:text-grey-medium',
+      'flex h-8 w-8 items-center justify-center rounded-full border border-transparent p-2 text-sm transition-all paragraph-1 hover:text-grey-medium',
       { 'border-black transition-all': isActive },
       className
     )}
@@ -64,10 +64,10 @@ const PaginationEllipsis = ({
   return (
     <span
       aria-hidden
-      className={cn('flex h-9 w-9 items-center justify-center', className)}
+      className={cn('flex h-6 w-6 items-center justify-center', className)}
       {...props}
     >
-      <MoreHorizontal className="h-4 w-4" />
+      <MoreHorizontal className="h-2 w-2" />
       <span className="sr-only">{t('morePages')} </span>
     </span>
   );

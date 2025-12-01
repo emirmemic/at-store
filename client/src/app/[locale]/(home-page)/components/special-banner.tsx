@@ -42,7 +42,7 @@ export default function SpecialBanner({
         <div className="flex flex-col items-center gap-4 lg:gap-6">
           {/* Text Content */}
           <div className="flex flex-col justify-center space-y-3 text-center md:text-center">
-            <div className="relative mx-auto aspect-[16/9] w-5/6 overflow-hidden">
+            <div className="relative mx-auto aspect-[16/9] w-4/6 overflow-hidden">
               <Image
                 src={imageUrl}
                 alt={image.alternativeText || title}

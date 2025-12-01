@@ -430,7 +430,7 @@ function renderBillingAndPaymentSection(order: OrderPopulated) {
     `${formatPrice(price)} ${CURRENCY}`;
 
   const giftHtml = order.isGift
-    ? `<div style="margin: 20px 0 0 0; padding: 12px; background: #fff3cd; border-radius: 8px; color: #856404; font-size: 14px; border:1px solid #ffe08c;">🎁 Ova narudžba je označena kao poklon!</div>`
+    ? `<div style="margin: 20px 0 0 0; padding: 12px; background: #fff3cd; border-radius: 8px; color: #856404; font-size: 14px; border:1px solid #ffe08c;">🎁 Ova narudžba zahtijeva poklon-pakiranje.</div>`
     : '';
 
   const totals = `<table style="width: 100%; border-collapse: collapse; margin-top: 20px; border-top: 1px solid #e5e5e5; padding-top: 20px;">

@@ -63,7 +63,7 @@ export default function PaymentMethods() {
               </h2>
               <p className="text-sm text-neutral-700">
                 Plaćanje na rate online moguće je samo ukoliko koristite
-                UniCredit Shopping Card i da je narudžba veća od 399 KM.
+                UniCredit kreditnom karticom i da je narudžba veća od 399 KM.
               </p>
             </div>
           </div>

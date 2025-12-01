@@ -48,7 +48,6 @@ export const makeLink = (raw: string): string =>
     .replace(/-+$/, '');
 
 /**
- * TODO: Not comparing the following fields:
  * Compare two products and log their differences
  * @param webAccountProduct - The product from Web Account
  * @param existingProduct - The product from Strapi

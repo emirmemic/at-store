@@ -162,7 +162,7 @@ export default function CheckoutPaymentPage() {
               {method.method === 'card' && (
                 <p className="mt-2 text-sm text-gray-500">
                   Ukoliko želite platiti na rate, moguće je jedino ukoliko
-                  koristite UniCredit Shopping karticu i da je narudžba preko
+                  koristite UniCredit kreditnu karticu i da je narudžba preko
                   399 KM.
                 </p>
               )}

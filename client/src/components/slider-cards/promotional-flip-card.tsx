@@ -43,7 +43,7 @@ export default function PromotionalFlipCard(
     <div
       ref={cardRef}
       aria-label={flipped ? t('back') : t('viewMore')}
-      className="perspective-distant relative my-4 h-[650px] w-full cursor-pointer md:min-w-[350px] lg:h-[750px]"
+      className="perspective-distant relative my-2 h-[650px] w-full cursor-pointer md:min-w-[350px] lg:h-[750px]"
       role="button"
       tabIndex={0}
       title={flipped ? t('back') : t('viewMore')}
@@ -58,7 +58,7 @@ export default function PromotionalFlipCard(
       >
         <div className="absolute inset-0 [backface-visibility:hidden]">
           <div
-            className="relative flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border px-4 py-5"
+            className="relative flex h-full w-full flex-col justify-between overflow-hidden border px-4 py-5"
             style={{ color: frontTextColor ? frontTextColor : 'inherit' }}
           >
             <div>
@@ -70,7 +70,7 @@ export default function PromotionalFlipCard(
               <StrapiImage
                 priority
                 alt={image?.alternativeText ?? 'Image'}
-                className="absolute inset-0 -z-[1] h-full w-full rounded-2xl object-cover"
+                className="absolute inset-0 -z-[1] h-full w-full object-cover"
                 height={240}
                 sizes="100vw"
                 src={image.url}
@@ -82,7 +82,7 @@ export default function PromotionalFlipCard(
         </div>
 
         <div
-          className="absolute inset-0 flex h-full w-full flex-col justify-between gap-6 rounded-2xl px-5 pb-5 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          className="absolute inset-0 flex h-full w-full flex-col justify-between gap-6 px-5 pb-5 pt-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
           style={{
             backgroundColor: backBackgroundColor ? backBackgroundColor : '#000',
             color: backTextColor ? backTextColor : '#fff',

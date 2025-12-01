@@ -315,8 +315,8 @@ export default function ProductDetails() {
                   </p>
                   <p className="text-sm text-grey-dark">
                     <strong>Online plaćanje na rate:</strong> Online plaćanje na
-                    rate moguće je samo ukoliko koristite UniCredit Shopping
-                    Card i da je narudžba veća od 399 KM.
+                    rate moguće je samo ukoliko koristite UniCredit kreditnu
+                    karticu i da je narudžba veća od 399 KM.
                   </p>
                   <p className="text-sm text-grey-dark">
                     <strong>Kreditiranje Mikrofina:</strong> Online zahtjev za

@@ -92,7 +92,7 @@ export default function QuickBuyProductCard({
   return (
     <div className="group relative flex h-full flex-col">
       <Link href={finalLink} className="block flex-1">
-        <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-300 hover:border-neutral-300 hover:shadow-lg">
+        <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-[#F5F5F7] transition-all duration-300">
           {/* Product Image */}
           <div className="relative mx-auto mt-6 aspect-square w-full max-w-[256px] overflow-hidden p-12">
             <Image
@@ -122,7 +122,7 @@ export default function QuickBuyProductCard({
               </div>
 
               {/* Product Name */}
-              <h3 className="line-clamp-2 min-h-[3rem] text-lg font-semibold text-neutral-900">
+              <h3 className="line-clamp-2 min-h-[3rem] text-lg font-thin text-neutral-900">
                 {displayName || name}
               </h3>
 
@@ -130,16 +130,18 @@ export default function QuickBuyProductCard({
               <div className="space-y-0.5 pt-2">
                 {discountPercentage > 0 && (
                   <p className="text-xs text-neutral-500 line-through">
-                    {originalPrice.toFixed(2)} KM
+                    {originalPrice.toFixed(0)} KM
                   </p>
                 )}
                 <p className="text-xl font-semibold text-neutral-900">
-                  {finalPrice.toFixed(2)} KM
+                  {finalPrice.toFixed(0)} KM
                 </p>
-                <p className="text-md font-thin text-neutral-900">
-                  ili {((finalPrice + finalPrice * 0.1) / 24).toFixed(2)} KM na
-                  24 mjeseca
-                </p>
+                {finalPrice > 399 && (
+                  <p className="text-md font-thin text-neutral-900">
+                    ili {((finalPrice + finalPrice * 0.1) / 24).toFixed(2)} KM
+                    na 24 mjeseca
+                  </p>
+                )}
               </div>
             </div>
             <div className="mt-10 w-fit">

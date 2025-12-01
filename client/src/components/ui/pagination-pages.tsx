@@ -1,16 +1,17 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslations } from 'next-intl';
 import * as React from 'react';
 
-import NavigationArrow from '@/components/ui/navigation-arrow';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Pagination,
+  PaginationButton,
   PaginationContent,
   PaginationEllipsis,
-  PaginationButton,
   PaginationItem,
 } from '@/components/ui/pagination';
+
+import NavigationArrow from '@/components/ui/navigation-arrow';
 import { cn } from '@/lib/utils/utils';
+import { useTranslations } from 'next-intl';
 
 export interface PaginationPagesProps {
   total: number;
@@ -53,7 +54,7 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
   return (
     <Pagination className={cn('mx-auto', className)}>
       <PaginationContent>
-        <PaginationItem className="mr-6 md:mr-12">
+        <PaginationItem className="mr-3 md:mr-6">
           <NavigationArrow
             aria-label={t('previous')}
             className="flex items-center justify-center"
@@ -95,7 +96,7 @@ const PaginationPages: React.FC<PaginationPagesProps> = ({
             </motion.div>
           ))}
         </AnimatePresence>
-        <PaginationItem className="ml-6 md:ml-12">
+        <PaginationItem className="ml-3 md:ml-6">
           <NavigationArrow
             aria-label={t('next')}
             className="flex items-center justify-center"

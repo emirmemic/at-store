@@ -46,12 +46,12 @@ export default async function CurrentPromotions({
     return null;
   }
   return (
-    <section className={cn('flex w-full flex-col gap-6 py-8 pt-8', className)}>
-      {title && (
+    <section className={cn('flex w-full flex-col gap-6 py-8 pt-1', className)}>
+      {/* {title && (
         <h2 className="py-2 text-center !font-bold heading-4 md:heading-3">
           {title}
         </h2>
-      )}
+      )} */}
       <CurrentPromotionsCarousel cards={cards} />
     </section>
   );

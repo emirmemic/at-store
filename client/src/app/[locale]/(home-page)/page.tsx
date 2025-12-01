@@ -1,5 +1,4 @@
 import {
-  CategoriesSection,
   HeroSection,
   OAuthRedirectMessage,
   PromoCards,
@@ -121,7 +120,7 @@ export default async function Page({
       <h1 className="sr-only">{title ?? t('homepage.title')}</h1>
       <TradeInBanner />
       {specialBanner && (
-        <div className="!mb-[1rem] container-max-width-xl">
+        <div className="!mb-[0.5rem] container-max-width-xl">
           <SpecialBanner {...specialBanner} />
         </div>
       )}
@@ -136,11 +135,12 @@ export default async function Page({
         </div>
       )}
 
-      <div className="py-16">
+      <div className="pb-16 pt-0">
         <div className="px-3 container-max-width-lg md:px-4">
-          <CategoriesSection />
+          {/* TODO: Sklonjeno, neka stoji ovdje u slucaju povratka, samo ponovo import napraviti  */}
+          {/* <CategoriesSection /> */}
           {promoCards && promoCards.length > 0 && (
-            <PromoCards promoCards={promoCards} className="pt-8" />
+            <PromoCards promoCards={promoCards} className="pt-4" />
           )}
           <CurrentPromotions />
         </div>

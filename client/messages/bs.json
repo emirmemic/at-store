@@ -197,7 +197,7 @@
       "eduDiscountTitle": "Obrazovni popust",
       "mikrofinTitle": "Mikrofin kreditiranje",
       "deliveryTitle": "Dostava",
-      "payInInstallmentsDescription": "U AT Storeu možete kupovati uz mogućnost plaćanja kreditnom ili shopping karticom do 36 rata.",
+      "payInInstallmentsDescription": "U AT Storeu možete kupovati uz mogućnost plaćanja kreditnom ili UniCredit kreditnom karticom do 36 rata.",
       "eduDiscountDescription": "Izaberi popust za studente i profesore kako bi mogao da učiš bilo kad, bilo gdje.",
       "mikrofinDescription": "AT Store i Mikrofin kreditna organizacija Vam nude mogućnost kupovine omiljenog Apple proizvoda na rate.",
       "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}  {currency}."
@@ -974,7 +974,7 @@
     "favoritesTitle": "Omiljeni",
     "favoritesDescription": "Pogledajte omiljene i dodajte nešto u korpu.",
     "paymentTitle": "Načini plaćanja",
-    "paymentDescription": "Prilikom kupovine putem Web stranice možete platiti samo Unicredit Shopping karticom na rate.",
+    "paymentDescription": "Prilikom kupovine putem Web stranice možete platiti samo Unicredit kreditnom karticom na rate.",
     "deliveryTitle": "Dostava",
     "deliveryDescription": "Dostava je besplatna za narudžbe preko {price}.",
     "relatedProducts": "Povezani dodaci",

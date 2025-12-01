@@ -1,18 +1,17 @@
 'use client';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-
-import { IconLoader } from '@/components/icons';
-import { ProductsList } from '@/components/product-cards';
-import PaginationPages from '@/components/ui/pagination-pages';
-import { useDebounceValue } from '@/lib/hooks';
-import { ModelResponse, ProductResponse } from '@/lib/types';
-
-import { fetchProducts } from '../actions/actions';
-import { parseFiltersFromSearchParams } from '../actions/parse-filters';
 
 import { Filters, Models, Sort } from '.';
+import { ModelResponse, ProductResponse } from '@/lib/types';
+import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { IconLoader } from '@/components/icons';
+import PaginationPages from '@/components/ui/pagination-pages';
+import { ProductsList } from '@/components/product-cards';
+import { fetchProducts } from '../actions/actions';
+import { parseFiltersFromSearchParams } from '../actions/parse-filters';
+import { useDebounceValue } from '@/lib/hooks';
+import { useTranslations } from 'next-intl';
 
 export default function Content({
   pageTitle,
@@ -116,8 +115,8 @@ export default function Content({
   }, [debouncedSearchParams, categoryLink, subCategoryLink]);
 
   return (
-    <div className="relative flex flex-col gap-8 py-6 container-max-width md:py-12">
-      <div className="border-b border-grey-dark pb-4">
+    <div className="relative flex flex-col gap-12 py-6 md:py-12">
+      <div className="border-b border-grey-dark pb-4 container-max-width">
         <h1 className="heading-3">{pageTitle}</h1>
       </div>
       <Models
@@ -126,40 +125,43 @@ export default function Content({
         subCategoryLink={subCategoryLink}
         onSelectModel={handleModelChange}
       />
-      <div className="relative flex min-h-[400px] flex-col gap-4">
-        {isLoading && (
-          <div
-            aria-busy="true"
-            className="backdrop-blur-xs absolute inset-0 z-10 flex justify-center bg-white bg-opacity-50 py-24"
-          >
-            <IconLoader className="h-16 w-16" />
-          </div>
-        )}
-        <Sort sortOption={sortOption} onSortChange={handleSortChange} />
-        <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-[200px_1fr] md:gap-8">
-          <Filters
-            categoryLink={categoryLink}
-            className="w-full"
-            isLoading={isLoading}
-            subCategoryLink={subCategoryLink}
-          />
-          {products.length === 0 && !isLoading ? (
-            <p className="text-grey paragraph-2">
-              {t('common.noProductsAvailable')}
-            </p>
-          ) : (
-            <ProductsList
-              productCardVariant="accessories"
-              products={products}
-            />
+      <div className="bg-[#F5F5F7]">
+        <div className="relative flex min-h-[400px] flex-col gap-4 py-4 container-max-width">
+          {isLoading && (
+            <div
+              aria-busy="true"
+              className="backdrop-blur-xs absolute inset-0 z-10 flex justify-center bg-white bg-opacity-50 py-24"
+            >
+              <IconLoader className="h-16 w-16" />
+            </div>
           )}
+          <Sort sortOption={sortOption} onSortChange={handleSortChange} />
+          <div className="flex flex-col items-start gap-4 md:grid md:grid-cols-[200px_1fr] md:gap-8">
+            <Filters
+              categoryLink={categoryLink}
+              className="w-full"
+              isLoading={isLoading}
+              subCategoryLink={subCategoryLink}
+            />
+            {products.length === 0 && !isLoading ? (
+              <p className="text-grey paragraph-2">
+                {t('common.noProductsAvailable')}
+              </p>
+            ) : (
+              <ProductsList
+                productCardVariant="accessories"
+                products={products}
+              />
+            )}
+          </div>
         </div>
+        <PaginationPages
+          currentPage={page}
+          total={total}
+          onPageChange={handlePageChange}
+          className="py-10"
+        />
       </div>
-      <PaginationPages
-        currentPage={page}
-        total={total}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 }
